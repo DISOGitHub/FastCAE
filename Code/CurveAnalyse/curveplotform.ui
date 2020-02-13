@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CurvePlotForm</class>
+ <widget class="QWidget" name="CurvePlotForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>572</width>
+    <height>492</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Curve Plot</string>
+  </property>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

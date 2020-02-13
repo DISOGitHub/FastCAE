@@ -1,0 +1,1454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1678</width>
+    <height>921</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>FastCAE</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="FileToolBar">
+   <property name="windowTitle">
+    <string>FileToolBar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonFollowStyle</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionImportMesh"/>
+   <addaction name="actionImportGeometry"/>
+  </widget>
+  <widget class="QToolBar" name="SolveToolBar">
+   <property name="windowTitle">
+    <string>SolveToolBar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonFollowStyle</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSolve"/>
+  </widget>
+  <widget class="QToolBar" name="ViewToolBar">
+   <property name="windowTitle">
+    <string>ViewToolBar</string>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonFollowStyle</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFitView"/>
+   <addaction name="actionViewXPlus"/>
+   <addaction name="actionViewXMinus"/>
+   <addaction name="actionViewYPlus"/>
+   <addaction name="actionViewYMinus"/>
+   <addaction name="actionViewZPlus"/>
+   <addaction name="actionViewZMinus"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="SelectToolBar">
+   <property name="windowTitle">
+    <string>SelectToolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSelectOff"/>
+   <addaction name="actionSelectMeshNode"/>
+   <addaction name="actionSelectMeshCell"/>
+   <addaction name="actionBoxMeshNode"/>
+   <addaction name="actionBoxMeshCell"/>
+   <addaction name="separator"/>
+   <addaction name="actionSelectPoint"/>
+   <addaction name="actionSelectCurve"/>
+   <addaction name="actionSelectFace"/>
+   <addaction name="actionSelectGeometryBody"/>
+  </widget>
+  <widget class="QToolBar" name="MeshToolBar">
+   <property name="windowTitle">
+    <string>MesherToolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSurfaceMesh"/>
+   <addaction name="actionSolidMesh"/>
+   <addaction name="actionGenMesh"/>
+  </widget>
+  <widget class="QToolBar" name="DisplayToolBar">
+   <property name="windowTitle">
+    <string>DisplayToolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDisplayNode"/>
+   <addaction name="actionDisplayWireFrame"/>
+   <addaction name="actionDisplaySurface"/>
+   <addaction name="actionDisplaySurfaceEdge"/>
+   <addaction name="separator"/>
+   <addaction name="actionDisplayPoint"/>
+   <addaction name="actionDisplayCurve"/>
+   <addaction name="actionDisplayFace"/>
+  </widget>
+  <widget class="QToolBar" name="SetToolBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>SetToolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionChecking"/>
+   <addaction name="actionCreate_Set"/>
+  </widget>
+  <widget class="QToolBar" name="RedoToolBar">
+   <property name="windowTitle">
+    <string>toolBar_4</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+  </widget>
+  <widget class="QToolBar" name="StartSketchToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionCreate_Sketch"/>
+  </widget>
+  <widget class="QToolBar" name="GeomertryFeatureToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCreateBox"/>
+   <addaction name="actionCreateCylinder"/>
+   <addaction name="actionCreaterCone"/>
+   <addaction name="actionCreaterSphere"/>
+   <addaction name="actionCreate_Face"/>
+   <addaction name="actionCreate_Line"/>
+   <addaction name="actionCreate_Point"/>
+   <addaction name="actionCreateDatumPlane"/>
+  </widget>
+  <widget class="QToolBar" name="ChamferToolBar">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionChamfer"/>
+   <addaction name="actionFillet"/>
+   <addaction name="actionVariable_Fillet"/>
+  </widget>
+  <widget class="QToolBar" name="BoolToolBar">
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionBoolCut"/>
+   <addaction name="actionBoolFause"/>
+   <addaction name="actionBoolCommon"/>
+  </widget>
+  <widget class="QToolBar" name="FeatureOpertionToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionMirrorFeature"/>
+   <addaction name="actionMoveFeature"/>
+   <addaction name="actionRotateFeature"/>
+   <addaction name="actionMakeMatrix"/>
+   <addaction name="actionExtrude"/>
+   <addaction name="actionRevol"/>
+   <addaction name="actionLoft"/>
+   <addaction name="actionSweep"/>
+  </widget>
+  <widget class="QToolBar" name="SketchToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDrawLine"/>
+   <addaction name="actionDrawRectangle"/>
+   <addaction name="actionDrawCircle"/>
+   <addaction name="actionDrawArc"/>
+   <addaction name="actionDrawPolyline"/>
+   <addaction name="actionDrawSpline"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1678</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionClose"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportMesh"/>
+    <addaction name="actionExportMesh"/>
+    <addaction name="actionImportGeometry"/>
+    <addaction name="actionExportGeometry"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Script"/>
+    <addaction name="actionExecute_Script"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Picture"/>
+    <addaction name="actionWorkingDir"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionFitView"/>
+    <addaction name="actionViewXPlus"/>
+    <addaction name="actionViewXMinus"/>
+    <addaction name="actionViewYPlus"/>
+    <addaction name="actionViewYMinus"/>
+    <addaction name="actionViewZPlus"/>
+    <addaction name="actionViewZMinus"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionUser_Manual"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuSolve">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>&amp;Solve</string>
+    </property>
+    <addaction name="actionSolve"/>
+    <addaction name="separator"/>
+    <addaction name="actionSolver_Manager"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <widget class="QMenu" name="menuLanguage">
+     <property name="title">
+      <string>Language</string>
+     </property>
+     <addaction name="actionChinese"/>
+     <addaction name="actionEnglish"/>
+    </widget>
+    <addaction name="actionGraph_Options"/>
+    <addaction name="separator"/>
+    <addaction name="menuLanguage"/>
+   </widget>
+   <widget class="QMenu" name="menuMesher">
+    <property name="title">
+     <string>&amp;Mesh</string>
+    </property>
+    <widget class="QMenu" name="menuView_2">
+     <property name="title">
+      <string>View</string>
+     </property>
+     <addaction name="actionDisplayNode"/>
+     <addaction name="actionDisplayWireFrame"/>
+     <addaction name="actionDisplaySurface"/>
+     <addaction name="actionDisplaySurfaceEdge"/>
+    </widget>
+    <widget class="QMenu" name="menuSelect">
+     <property name="title">
+      <string>Select</string>
+     </property>
+     <addaction name="actionSelectOff"/>
+     <addaction name="actionSelectMeshNode"/>
+     <addaction name="actionSelectMeshCell"/>
+     <addaction name="actionBoxMeshNode"/>
+     <addaction name="actionBoxMeshCell"/>
+    </widget>
+    <addaction name="actionSurfaceMesh"/>
+    <addaction name="actionSolidMesh"/>
+    <addaction name="actionGenMesh"/>
+    <addaction name="separator"/>
+    <addaction name="actionChecking"/>
+    <addaction name="actionCreate_Set"/>
+    <addaction name="menuView_2"/>
+    <addaction name="menuSelect"/>
+   </widget>
+   <widget class="QMenu" name="menuPost">
+    <property name="title">
+     <string>Post</string>
+    </property>
+    <addaction name="action2DPlot"/>
+    <addaction name="action3DGraph"/>
+   </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>Windows</string>
+    </property>
+    <addaction name="actionStart_Page"/>
+    <addaction name="actionPre_Window"/>
+   </widget>
+   <widget class="QMenu" name="menuGeometry">
+    <property name="title">
+     <string>&amp;Geometry</string>
+    </property>
+    <widget class="QMenu" name="menuFeature_Modeling">
+     <property name="title">
+      <string>Feature Modeling</string>
+     </property>
+     <addaction name="actionCreateBox"/>
+     <addaction name="actionCreateCylinder"/>
+     <addaction name="actionCreaterCone"/>
+     <addaction name="actionCreaterSphere"/>
+     <addaction name="actionCreate_Point"/>
+     <addaction name="actionCreate_Line"/>
+     <addaction name="actionCreate_Face"/>
+     <addaction name="separator"/>
+     <addaction name="actionCreateDatumPlane"/>
+    </widget>
+    <widget class="QMenu" name="menuView_3">
+     <property name="title">
+      <string>View</string>
+     </property>
+     <addaction name="actionDisplayPoint"/>
+     <addaction name="actionDisplayCurve"/>
+     <addaction name="actionDisplayFace"/>
+    </widget>
+    <widget class="QMenu" name="menuFeature_Operation">
+     <property name="title">
+      <string>Feature Operation</string>
+     </property>
+     <addaction name="actionChamfer"/>
+     <addaction name="actionFillet"/>
+     <addaction name="actionVariable_Fillet"/>
+     <addaction name="separator"/>
+     <addaction name="actionBoolCut"/>
+     <addaction name="actionBoolFause"/>
+     <addaction name="actionBoolCommon"/>
+     <addaction name="separator"/>
+     <addaction name="actionMirrorFeature"/>
+     <addaction name="actionMoveFeature"/>
+     <addaction name="actionRotateFeature"/>
+     <addaction name="actionMakeMatrix"/>
+     <addaction name="separator"/>
+     <addaction name="actionExtrude"/>
+     <addaction name="actionRevol"/>
+     <addaction name="actionLoft"/>
+     <addaction name="actionSweep"/>
+    </widget>
+    <widget class="QMenu" name="menuSelect_2">
+     <property name="title">
+      <string>Select</string>
+     </property>
+     <addaction name="actionSelectOff"/>
+     <addaction name="separator"/>
+     <addaction name="actionSelectPoint"/>
+     <addaction name="actionSelectCurve"/>
+     <addaction name="actionSelectFace"/>
+     <addaction name="actionSelectGeometryBody"/>
+    </widget>
+    <widget class="QMenu" name="menuSketch">
+     <property name="title">
+      <string>Sketch</string>
+     </property>
+     <addaction name="actionCreate_Sketch"/>
+     <addaction name="separator"/>
+     <addaction name="actionDrawLine"/>
+     <addaction name="actionDrawRectangle"/>
+     <addaction name="actionDrawCircle"/>
+     <addaction name="actionDrawArc"/>
+     <addaction name="actionDrawPolyline"/>
+     <addaction name="actionDrawSpline"/>
+    </widget>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="menuFeature_Modeling"/>
+    <addaction name="menuFeature_Operation"/>
+    <addaction name="menuSketch"/>
+    <addaction name="separator"/>
+    <addaction name="menuView_3"/>
+    <addaction name="menuSelect_2"/>
+   </widget>
+   <widget class="QMenu" name="menuPlugins">
+    <property name="title">
+     <string>Plugins</string>
+    </property>
+    <addaction name="actionPluginManager"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuGeometry"/>
+   <addaction name="menuMesher"/>
+   <addaction name="menuSolve"/>
+   <addaction name="menuPost"/>
+   <addaction name="menuWindows"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuPlugins"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/createNew.png</normaloff>:/QUI/icon/createNew.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="toolTip">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/open.png</normaloff>:/QUI/icon/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/save.png</normaloff>:/QUI/icon/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/stop.png</normaloff>:/QUI/icon/stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="toolTip">
+    <string>Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/saveAs.png</normaloff>:/QUI/icon/saveAs.png</iconset>
+   </property>
+   <property name="text">
+    <string>SaveAs</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionChinese">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/chinese_language.png</normaloff>:/QUI/icon/chinese_language.png</iconset>
+   </property>
+   <property name="text">
+    <string>Chinese</string>
+   </property>
+   <property name="toolTip">
+    <string>Chinese</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/english_language.png</normaloff>:/QUI/icon/english_language.png</iconset>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+   <property name="toolTip">
+    <string>English</string>
+   </property>
+  </action>
+  <action name="actionImportMesh">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/importMesh.png</normaloff>:/QUI/icon/importMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Mesh</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionImportGeometry">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/importGeometry.png</normaloff>:/QUI/icon/importGeometry.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Geometry</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionWorkingDir">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/open.png</normaloff>:/QUI/icon/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>WorkingDir</string>
+   </property>
+  </action>
+  <action name="actionSolve">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/solve.png</normaloff>:/QUI/icon/solve.png</iconset>
+   </property>
+   <property name="text">
+    <string>Solve</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionSolver_Manager">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/setting.png</normaloff>:/QUI/icon/setting.png</iconset>
+   </property>
+   <property name="text">
+    <string>Solver Manager</string>
+   </property>
+  </action>
+  <action name="actionViewXPlus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/xPlus.png</normaloff>:/QUI/icon/xPlus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewXPlus</string>
+   </property>
+  </action>
+  <action name="actionViewXMinus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/xMinus.png</normaloff>:/QUI/icon/xMinus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewXMinus</string>
+   </property>
+  </action>
+  <action name="actionViewYPlus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/yPlus.png</normaloff>:/QUI/icon/yPlus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewYPlus</string>
+   </property>
+  </action>
+  <action name="actionViewYMinus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/yMinus.png</normaloff>:/QUI/icon/yMinus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewYMinus</string>
+   </property>
+  </action>
+  <action name="actionViewZPlus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/zPlus.png</normaloff>:/QUI/icon/zPlus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewZPlus</string>
+   </property>
+  </action>
+  <action name="actionViewZMinus">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/zMinus.png</normaloff>:/QUI/icon/zMinus.png</iconset>
+   </property>
+   <property name="text">
+    <string>ViewZMinus</string>
+   </property>
+  </action>
+  <action name="actionFitView">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/fit.png</normaloff>:/QUI/icon/fit.png</iconset>
+   </property>
+   <property name="text">
+    <string>FitView</string>
+   </property>
+  </action>
+  <action name="actionSelectOff">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/selectOff.png</normaloff>:/QUI/icon/selectOff.png</iconset>
+   </property>
+   <property name="text">
+    <string>selectOff</string>
+   </property>
+  </action>
+  <action name="actionSelectMeshNode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/selectNode.png</normaloff>:/QUI/icon/selectNode.png</iconset>
+   </property>
+   <property name="text">
+    <string>selectMeshNode</string>
+   </property>
+  </action>
+  <action name="actionSelectMeshCell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/selectElement.png</normaloff>:/QUI/icon/selectElement.png</iconset>
+   </property>
+   <property name="text">
+    <string>selectMeshCell</string>
+   </property>
+  </action>
+  <action name="actionSolve_Options">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/solve.png</normaloff>:/QUI/icon/solve.png</iconset>
+   </property>
+   <property name="text">
+    <string>Solve Options</string>
+   </property>
+  </action>
+  <action name="actionGraph_Options">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/graphOption.png</normaloff>:/QUI/icon/graphOption.png</iconset>
+   </property>
+   <property name="text">
+    <string>Graph Options</string>
+   </property>
+  </action>
+  <action name="actionSurfaceMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/surfaceMesh.png</normaloff>:/QUI/icon/surfaceMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>SurfaceMesh</string>
+   </property>
+  </action>
+  <action name="actionSolidMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/solidMesh.png</normaloff>:/QUI/icon/solidMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>SolidMesh</string>
+   </property>
+  </action>
+  <action name="actionExportMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/exportMesh.png</normaloff>:/QUI/icon/exportMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Mesh</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionUser_Manual">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/help.png</normaloff>:/QUI/icon/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>User Manual</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/about_us.png</normaloff>:/QUI/icon/about_us.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionDisplayNode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/node.png</normaloff>:/QUI/icon/node.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplayNode</string>
+   </property>
+  </action>
+  <action name="actionDisplayWireFrame">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/wireFrame.png</normaloff>:/QUI/icon/wireFrame.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplayWireFrame</string>
+   </property>
+  </action>
+  <action name="actionDisplaySurface">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/face.png</normaloff>:/QUI/icon/face.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplaySurface</string>
+   </property>
+  </action>
+  <action name="actionDisplaySurfaceEdge">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/faceWithEdge.png</normaloff>:/QUI/icon/faceWithEdge.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplaySurfaceEdge</string>
+   </property>
+   <property name="toolTip">
+    <string>DisplaySurfaceEdge</string>
+   </property>
+  </action>
+  <action name="actionCreate_Set">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/createSet.png</normaloff>:/QUI/icon/createSet.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Set</string>
+   </property>
+  </action>
+  <action name="action2DPlot">
+   <property name="text">
+    <string>2D Plot</string>
+   </property>
+  </action>
+  <action name="action3DGraph">
+   <property name="text">
+    <string>3D Graph</string>
+   </property>
+  </action>
+  <action name="actionSave_Script">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/saveScript.png</normaloff>:/QUI/icon/saveScript.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Script</string>
+   </property>
+  </action>
+  <action name="actionExecute_Script">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/execScript.png</normaloff>:/QUI/icon/execScript.png</iconset>
+   </property>
+   <property name="text">
+    <string>Execute Script</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionGenMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/solumationsetting.png</normaloff>:/QUI/icon/solumationsetting.png</iconset>
+   </property>
+   <property name="text">
+    <string>GenMesh</string>
+   </property>
+  </action>
+  <action name="actionSave_Picture">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/saveImage.png</normaloff>:/QUI/icon/saveImage.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Picture</string>
+   </property>
+  </action>
+  <action name="actionBoxMeshNode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/boxNode.png</normaloff>:/QUI/icon/boxNode.png</iconset>
+   </property>
+   <property name="text">
+    <string>BoxMeshNode</string>
+   </property>
+  </action>
+  <action name="actionBoxMeshCell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/boxCell.png</normaloff>:/QUI/icon/boxCell.png</iconset>
+   </property>
+   <property name="text">
+    <string>BoxMeshCell</string>
+   </property>
+  </action>
+  <action name="actionStart_Page">
+   <property name="text">
+    <string>Start Page</string>
+   </property>
+  </action>
+  <action name="actionPre_Window">
+   <property name="text">
+    <string>Pre Window</string>
+   </property>
+  </action>
+  <action name="actionChecking">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <activeon>:/QUI/icon/meshChecking.png</activeon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Checking</string>
+   </property>
+  </action>
+  <action name="actionCreateBox">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/box.png</normaloff>:/QUI/geometry/box.png</iconset>
+   </property>
+   <property name="text">
+    <string>CreateBox</string>
+   </property>
+  </action>
+  <action name="actionCreateCylinder">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/cylinder.png</normaloff>:/QUI/geometry/cylinder.png</iconset>
+   </property>
+   <property name="text">
+    <string>CreateCylinder</string>
+   </property>
+  </action>
+  <action name="actionCreaterSphere">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/sphere.png</normaloff>:/QUI/geometry/sphere.png</iconset>
+   </property>
+   <property name="text">
+    <string>CreaterSphere</string>
+   </property>
+  </action>
+  <action name="actionChamfer">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/chamfer.png</normaloff>:/QUI/geometry/chamfer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Chamfer</string>
+   </property>
+  </action>
+  <action name="actionFillet">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/fillet.png</normaloff>:/QUI/geometry/fillet.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fillet</string>
+   </property>
+  </action>
+  <action name="actionBoolCut">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/cut.png</normaloff>:/QUI/geometry/cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>BoolCut</string>
+   </property>
+  </action>
+  <action name="actionBoolFause">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/fuse.png</normaloff>:/QUI/geometry/fuse.png</iconset>
+   </property>
+   <property name="text">
+    <string>BoolFause</string>
+   </property>
+  </action>
+  <action name="actionBoolCommon">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/common.png</normaloff>:/QUI/geometry/common.png</iconset>
+   </property>
+   <property name="text">
+    <string>BoolCommon</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/undo.png</normaloff>:/QUI/geometry/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/redo.png</normaloff>:/QUI/geometry/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionExportGeometry">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/exportGeometry.png</normaloff>:/QUI/icon/exportGeometry.png</iconset>
+   </property>
+   <property name="text">
+    <string>ExportGeometry</string>
+   </property>
+  </action>
+  <action name="actionCreaterCone">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/cone.png</normaloff>:/QUI/geometry/cone.png</iconset>
+   </property>
+   <property name="text">
+    <string>CreaterCone</string>
+   </property>
+  </action>
+  <action name="actionMirrorFeature">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/mirror.png</normaloff>:/QUI/geometry/mirror.png</iconset>
+   </property>
+   <property name="text">
+    <string>MirrorFeature</string>
+   </property>
+  </action>
+  <action name="actionVariable_Fillet">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/variableFillet.png</normaloff>:/QUI/geometry/variableFillet.png</iconset>
+   </property>
+   <property name="text">
+    <string>Variable Fillet</string>
+   </property>
+  </action>
+  <action name="actionExtrude">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/extrude.png</normaloff>:/QUI/geometry/extrude.png</iconset>
+   </property>
+   <property name="text">
+    <string>Extrude</string>
+   </property>
+  </action>
+  <action name="actionCreate_Point">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/point.png</normaloff>:/QUI/geometry/point.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Point</string>
+   </property>
+  </action>
+  <action name="actionCreate_Line">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/line.png</normaloff>:/QUI/geometry/line.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Line</string>
+   </property>
+  </action>
+  <action name="actionCreate_Face">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/face.png</normaloff>:/QUI/geometry/face.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create_Surface</string>
+   </property>
+  </action>
+  <action name="actionMoveFeature">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/move.png</normaloff>:/QUI/geometry/move.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move</string>
+   </property>
+  </action>
+  <action name="actionRotateFeature">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/Rotate.png</normaloff>:/QUI/geometry/Rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+  </action>
+  <action name="actionRevol">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/revolve.png</normaloff>:/QUI/geometry/revolve.png</iconset>
+   </property>
+   <property name="text">
+    <string>Revol</string>
+   </property>
+  </action>
+  <action name="actionLoft">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/loft.png</normaloff>:/QUI/geometry/loft.png</iconset>
+   </property>
+   <property name="text">
+    <string>loft</string>
+   </property>
+  </action>
+  <action name="actionCreateDatumPlane">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/datumPlane.png</normaloff>:/QUI/icon/datumPlane.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Datum Plane</string>
+   </property>
+  </action>
+  <action name="actionDrawLine">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchLine.png</normaloff>:/QUI/icon/sketchLine.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawLine</string>
+   </property>
+  </action>
+  <action name="actionDrawRectangle">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchRectangle.png</normaloff>:/QUI/icon/sketchRectangle.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawRectangle</string>
+   </property>
+  </action>
+  <action name="actionDrawCircle">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchCircle.png</normaloff>:/QUI/icon/sketchCircle.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawCircle</string>
+   </property>
+  </action>
+  <action name="actionCreate_Sketch">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/createSketch.png</normaloff>:/QUI/icon/createSketch.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create Sketch</string>
+   </property>
+  </action>
+  <action name="actionDrawArc">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchArc.png</normaloff>:/QUI/icon/sketchArc.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawArc</string>
+   </property>
+  </action>
+  <action name="actionDrawPolyline">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchPolyLine.png</normaloff>:/QUI/icon/sketchPolyLine.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawPolyline</string>
+   </property>
+  </action>
+  <action name="actionMakeMatrix">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/matrix.png</normaloff>:/QUI/geometry/matrix.png</iconset>
+   </property>
+   <property name="text">
+    <string>MakeMatrix</string>
+   </property>
+   <property name="toolTip">
+    <string>MakeMatrix</string>
+   </property>
+  </action>
+  <action name="actionSweep">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/sweep.png</normaloff>:/QUI/geometry/sweep.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sweep</string>
+   </property>
+  </action>
+  <action name="actionDrawSpline">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/sketchSpline.png</normaloff>:/QUI/icon/sketchSpline.png</iconset>
+   </property>
+   <property name="text">
+    <string>DrawSpline</string>
+   </property>
+  </action>
+  <action name="actionDisplayPoint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/pointDisplay.png</normaloff>:/QUI/geometry/pointDisplay.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplayPoint</string>
+   </property>
+  </action>
+  <action name="actionDisplayCurve">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/edgeDisplay.png</normaloff>:/QUI/geometry/edgeDisplay.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplayCurve</string>
+   </property>
+  </action>
+  <action name="actionDisplayFace">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/facedisplay.png</normaloff>:/QUI/geometry/facedisplay.png</iconset>
+   </property>
+   <property name="text">
+    <string>DisplayFace</string>
+   </property>
+  </action>
+  <action name="actionSelectPoint">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/selectpoint.png</normaloff>:/QUI/geometry/selectpoint.png</iconset>
+   </property>
+   <property name="text">
+    <string>SelectPoint</string>
+   </property>
+  </action>
+  <action name="actionSelectCurve">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/selectwire.png</normaloff>:/QUI/geometry/selectwire.png</iconset>
+   </property>
+   <property name="text">
+    <string>SelectCurve</string>
+   </property>
+  </action>
+  <action name="actionSelectFace">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/selectface.png</normaloff>:/QUI/geometry/selectface.png</iconset>
+   </property>
+   <property name="text">
+    <string>SelectFace</string>
+   </property>
+  </action>
+  <action name="actionSelectGeometryBody">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/selectbody.png</normaloff>:/QUI/geometry/selectbody.png</iconset>
+   </property>
+   <property name="text">
+    <string>SelectGeometryBody</string>
+   </property>
+  </action>
+  <action name="actionPluginManager">
+   <property name="text">
+    <string>Plugin Manager</string>
+   </property>
+   <property name="toolTip">
+    <string>Plugin Manager</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../qrc/qianfan.qrc"/>
+ </resources>
+ <connections/>
+</ui>

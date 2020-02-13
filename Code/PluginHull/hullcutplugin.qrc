@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qrc/anchor.png</file>
+        <file>qrc/current_profile.png</file>
+        <file>qrc/last.png</file>
+        <file>qrc/main.ico</file>
+        <file>qrc/module.png</file>
+        <file>qrc/next.png</file>
+        <file>qrc/revline.png</file>
+        <file>qrc/saveAnimation.png</file>
+        <file>qrc/spring1.png</file>
+        <file>qrc/water_drop.gif</file>
+        <file>qrc/waveangle.png</file>
+        <file>qrc/waveangle1.png</file>
+        <file>qrc/waveangle2.png</file>
+        <file>qrc/waveangle20181020.png</file>
+    </qresource>
+</RCC>
