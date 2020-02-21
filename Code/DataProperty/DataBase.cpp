@@ -262,6 +262,15 @@ namespace DataProperty
 		return p;
 	}
 
+	void DataBase::removeParameter(ParameterBase* p)
+	{
+		for (auto g : _paraGroupList)
+		{
+			g->removeParameter(p);
+		}
+		ParameterList::removeParameter(p);
+	}
+
 	void DataBase::generateParaInfo()
 	{
 		if (_moduleType == Module_None) return;

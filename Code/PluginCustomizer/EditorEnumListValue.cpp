@@ -98,7 +98,7 @@ namespace FastCAEDesigner
 
 		int index = ui->listWidget->currentRow();
 		
-		if (index > 0)
+		if (index >= 0)
 		{
 			QListWidgetItem *item = ui->listWidget->takeItem(index);
 			if (item != nullptr)

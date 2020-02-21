@@ -473,10 +473,39 @@ namespace ModelData
 
     DataProperty::ParameterBase* ModelDataBase::getParameterByName(QString name)
     {
-        return nullptr;
+		DataProperty::ParameterBase* P = nullptr;
+		P = _simlutationSetting->getParameterByName(name);
+		if (P != nullptr) return P;
+		P = _solverSetting->getParameterByName(name);
+		if (P != nullptr) return P;
+        return DataBase::getParameterByName(name);
     }
 
-    QList<int> ModelDataBase::getGeometryList()
+	void ModelDataBase::removeParameter(DataProperty::ParameterBase* p)
+	{
+		_simlutationSetting->removeParameter(p);
+		_solverSetting->removeParameter(p);
+		DataBase::removeParameter(p);
+	}
+
+	DataProperty::ParameterGroup* ModelDataBase::getParameterGroupByName(QString name)
+	{
+		DataProperty::ParameterGroup* g = nullptr;
+		g = _simlutationSetting->getParameterGroupByName(name);
+		if (g != nullptr) return  g;
+		g = _solverSetting->getParameterGroupByName(name);
+		if (g != nullptr) return g;
+		return DataBase::getParameterGroupByName(name);
+	}
+
+	void ModelDataBase::removeParameterGroup(DataProperty::ParameterGroup* g)
+	{
+		_simlutationSetting->removeParameterGroup(g);
+		_solverSetting->removeParameterGroup(g);
+		DataBase::removeParameterGroup(g);
+	}
+
+	QList<int> ModelDataBase::getGeometryList()
     {
         return _geometryList;
     }

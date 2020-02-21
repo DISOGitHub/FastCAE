@@ -340,6 +340,9 @@ namespace FastCAEDesigner{
 	{
 		ui->comboBox->insertItem(0, tr(".vtk"));
 		ui->comboBox->insertItem(1, tr(".sol"));
+		ui->comboBox->insertItem(2, tr(".cgns"));
+		ui->comboBox->insertItem(3, tr(".dat"));
+
 		ui->tableWidget->setColumnCount(5);
 		ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 		ui->tableWidget->setWindowFlags(Qt::FramelessWindowHint);
@@ -370,9 +373,15 @@ namespace FastCAEDesigner{
 
 		if (filenamelist.last() == "vtk")
 			ui->comboBox->setCurrentIndex(0);
-		else
+		else if (filenamelist.last() == "sol")
 			ui->comboBox->setCurrentIndex(1);
-		
+		else if (filenamelist.last() == "cgns")
+			ui->comboBox->setCurrentIndex(2);
+		else if (filenamelist.last() == "dat")
+			ui->comboBox->setCurrentIndex(3);
+		else
+			ui->comboBox->setCurrentIndex(0);
+
 		filenamelist.removeLast();
 		QString name = filenamelist.join(".");
 
@@ -399,12 +408,19 @@ namespace FastCAEDesigner{
 		headers << QString(tr("ID")) << QString(tr("Name")) << QString(tr("Type")) << QString(tr("DataType")) << QString(tr("Operation"));
 		ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-		insertNodeScalar();
-		insertCellScalar();
-		insertNodeVector();
-		insertCellVector();
-			
+		//note：xvdongming
+		//insertNodeScalar();
+		//insertCellScalar();
+		//insertNodeVector();
+		//insertCellVector();
+		//note：xvdongming	
 
+		//Added xvdongming 2020-02012
+		insertCurve(_nodeScalarList, EDataType::ScalarNode);
+		insertCurve(_cellScalarList, EDataType::ScalarCell);
+		insertCurve(_nodeVectorList, EDataType::VectorNode);
+		insertCurve(_cellVectorList, EDataType::VectorCell);
+		//Added xvdongming 2020-02012
 	}
 	//插入数据到tablewidget
 	void EditorCurveModel::insertRowtoTableWidget_3D(int rowIndex, QString name,QString type,QString dataType)
@@ -494,7 +510,7 @@ namespace FastCAEDesigner{
 		editMapper->setMapping(editPBtn, rowIndex);
 		connect(editMapper, SIGNAL(mapped(int)), this, SLOT(editRowInfo_3D(int)));
 
-		h_box_layout->addWidget(editPBtn);
+		//h_box_layout->addWidget(editPBtn);//Noted:xvdongming 2020-02-12 三维后处理文件--曲线不允许编辑，只允许删除和添加。
 		h_box_layout->addWidget(deletePBtn);
 		h_box_layout->setContentsMargins(0, 0, 0, 0);
 		h_box_layout->setSpacing(1);
@@ -621,6 +637,60 @@ namespace FastCAEDesigner{
 	{
 		return _nodeVectorList;
 	}
+
+	//Added xvdongming 2020-02-12
+	//根据给定的曲线类型，初始化表单中应用的字符串标识
+	void EditorCurveModel::InitCurveTypeStringName(EDataType type,QString& sDataType, QString& sType)
+	{
+		if (EDataType::ScalarNode == type)
+		{
+			sType = QString("scalar");
+			sDataType = QString("node");
+		}
+		else if (EDataType::VectorNode == type)
+		{
+			sType = QString("vector");
+			sDataType = QString("node");
+		}
+		else if (EDataType::ScalarCell == type)
+		{
+			sType = QString("scalar");
+			sDataType = QString("cell");
+		}
+		else if (EDataType::VectorCell == type)
+		{
+			sType = QString("vector");
+			sDataType = QString("cell");
+		}
+
+		return;
+	}
+
+	//Added xvdongming 2020-02-12
+	//插入曲线记录
+	void  EditorCurveModel::insertCurve(QStringList curveList, EDataType type)
+	{
+		if (curveList.isEmpty())
+			return;
+
+		QString sDataType = "";
+		QString sType = "";
+		InitCurveTypeStringName(type, sDataType, sType);
+
+		for (int i = 0; i < curveList.count(); i++)
+		{
+			QString name = curveList.at(i);
+
+			if (0 == name.length())
+				continue;
+			
+			int rowIndex = ui->tableWidget->rowCount();
+			ui->tableWidget->insertRow(rowIndex);
+			insertRowtoTableWidget_3D(rowIndex, name, sType, sDataType);
+			_nameUsedList.append(name);
+		}
+	}
+
 	//插入node,scalar类型数据
 	void EditorCurveModel::insertNodeScalar()
 	{
@@ -634,6 +704,13 @@ namespace FastCAEDesigner{
 				ui->tableWidget->insertRow(rowIndex);
 
 				QString name = _nodeScalarList.at(i);
+
+				//Added xvdongming 2020-02-12
+				//当曲线名称为空时，不填充曲线
+				if (name.isEmpty())
+					continue;
+				//Added xvdongming 2020-02-12
+
 				QString type = QString("scalar");
 				QString dataType = QString("node");
 
@@ -655,6 +732,13 @@ namespace FastCAEDesigner{
 				ui->tableWidget->insertRow(rowIndex);
 
 				QString name = _nodeVectorList.at(i);
+				
+				//Added xvdongming 2020-02-12
+				//当曲线名称为空时，不填充曲线
+				if (name.isEmpty())
+					continue;
+				//Added xvdongming 2020-02-12
+
 				QString type = QString("vector");
 				QString dataType = QString("node");
 
@@ -676,6 +760,13 @@ namespace FastCAEDesigner{
 				ui->tableWidget->insertRow(rowIndex);
 
 				QString name = _cellScalarList.at(i);
+				
+				//Added xvdongming 2020-02-12
+				//当曲线名称为空时，不填充曲线
+				if (name.isEmpty())
+					continue;
+				//Added xvdongming 2020-02-12
+
 				QString type = QString("scalar");
 				QString dataType = QString("cell");
 
@@ -697,6 +788,13 @@ namespace FastCAEDesigner{
 				ui->tableWidget->insertRow(rowIndex);
 
 				QString name = _cellVectorList.at(i);
+
+				//Added xvdongming 2020-02-12
+				//当曲线名称为空时，不填充曲线
+				if (name.isEmpty())
+					continue;
+				//Added xvdongming 2020-02-12
+				
 				QString type = QString("vector");
 				QString dataType = QString("cell");
 

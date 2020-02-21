@@ -236,9 +236,10 @@ namespace FastCAEDesigner
 		QString title = ui->txtNameEn->text();
 		const QString lang = Setting::BusAPI::instance()->getLanguage();
 		if (lang.toLower() == "chinese") title = ui->txtNameCn->text();
-		_mainWindow->setWindowTitle(title);
-
+		//_mainWindow->setWindowTitle(title);
+		_mainWindow->setWindowTitle(title + " ---- " + tr("Customizing"));
 		QFileInfo logoFileInfo(_logoFileName);
+		
 		if (logoFileInfo.exists())
 		{
 			_mainWindow->setWindowIcon(QIcon(_logoFileName));

@@ -47,6 +47,7 @@ namespace FastCAEDesigner{
 		ui->label_3->setVisible(l);
 		ui->FIleSuffixLE->setVisible(l);
 		ui->label_4->setVisible(l);
+		ui->ValueLE->setText("");//Added xvdongming 2020-02-13 在切换路径类型时，清除原来的数据，避免数据错误。
 	}
 	void EditorPathValue::InitErrorList()
 	{
@@ -106,12 +107,12 @@ namespace FastCAEDesigner{
 			//_model->setSuffix(ui->FIleSuffixLE->text());
 			_model->setPath(ui->ValueLE->text());
 		}
-		else if (type = 1)
+		else if (type == 1)
 		{
 			_model->setSuffix(ui->FIleSuffixLE->text());
 			_model->setFile(ui->ValueLE->text());
 		}
-		else if (type = 2)
+		else if (type == 2)
 		{
 			_model->setSuffix(ui->FIleSuffixLE->text());
 			_model->setFileList(ui->ValueLE->text().split(";"));

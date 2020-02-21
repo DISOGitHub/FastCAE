@@ -62,9 +62,23 @@ namespace FastCAEDesigner{
 		QList<QString> getNameUsedList();
 
 	private:
+		//Added xvdongming 2020-02-12
+		//定义曲线类型的枚举变量
+		enum EDataType 
+		{
+			ScalarNode = 1,
+			VectorNode = 2,
+			ScalarCell = 3,
+			VectorCell = 4
+		};
+		//Added xvdongming 2020-02-12
+
 		QToolButton* CreateButton(QString text, QString iconName);
 		QPushButton* createDeleteButton();
 		QPushButton* createEditButton();
+		
+		void InitCurveTypeStringName(EDataType type, QString& sDataType, QString& sType);//Added xvdongming 2020-02-12
+		void  insertCurve(QStringList curveList, EDataType type); //Added xvdongming 2020-02-12
 
 	private slots:
 		//curve operation

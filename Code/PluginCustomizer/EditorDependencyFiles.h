@@ -27,6 +27,7 @@ namespace FastCAEDesigner{
 
 	private:
 		void init();
+		void UpdateFileNames();//Added xvdongming 2020-02-14 刷新选择的依赖文件列表
 
 	private:
 		Ui::EditorDependencyFiles *ui;

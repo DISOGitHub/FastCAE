@@ -235,11 +235,6 @@ namespace IO
 			_file.close();
 //			return false;
 		}
-		readGeoData(&geoNodeList,true);
-//		readMeshData(&meshNodeList);
-		readMaterialData(&materialList);
-		readModelData(&modelNodeList);
-		file.close();
 
 		QFile mhFile(tempPath + "mesh.mh");
 		if (mhFile.open(QIODevice::ReadOnly))
@@ -249,6 +244,14 @@ namespace IO
 			_meshData->generateDisplayDataSet();
 			mhFile.close();
 		}
+
+		readGeoData(&geoNodeList,true);
+//		readMeshData(&meshNodeList);
+		readMaterialData(&materialList);
+		readModelData(&modelNodeList);
+		file.close();
+
+		
 		
 
 		return true;

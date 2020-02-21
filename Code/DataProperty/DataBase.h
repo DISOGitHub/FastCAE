@@ -61,12 +61,14 @@ namespace DataProperty
 		//获取参数组个数
 		int getParameterGroupCount();
 		//移除参数组
-		void removeParameterGroup(ParameterGroup* g);
+		virtual void removeParameterGroup(ParameterGroup* g);
 		//移除第i个参数组
 		void removeParameterGroupAt(int i);
 
 		void appendParameter(ParameterBase* p) override;
 		ParameterBase* appendParameter(ParaType type) override;
+
+		virtual void removeParameter(ParameterBase* p) override;
 
 		/*用于产生MD5 */
 		virtual void dataToStream(QDataStream* datas) override;

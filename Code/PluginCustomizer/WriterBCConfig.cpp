@@ -73,10 +73,26 @@ namespace FastCAEDesigner
 	
 	bool WriteBCConfig::WriteTreeChildPara(QDomDocument &doc, QDomElement &root, ModelBase* model)
 	{
-		QString name = model->GetChnName();
+		QString nameEng = model->GetEngName();
+		QString nameChn = model->GetChnName();
 		//QString iconName = model->GetIconName();
 		QString iconName = SaveIconToSystem(model->GetIconName());
-		QDomElement bcDataRoot = IoXml::getInstance()->CreateElementAttribute(doc, QString("BC"), QString("Name"), name, QString("Icon"), iconName);
+		//QDomElement bcDataRoot = IoXml::getInstance()->CreateElementAttribute(doc, QString("BC"), QString("Name"), nameChn, QString("Icon"), iconName);
+		
+		QStringList sl1, sl2;
+		
+		sl1.append("Name");
+		sl1.append("Chinese");
+		sl1.append("Icon");
+		
+		sl2.append(nameEng);
+		sl2.append(nameChn);
+		sl2.append(iconName);
+		
+		QMap<QString, QString> treeMap = insertQString(sl1, sl2);
+		QDomElement bcDataRoot = IoXml::getInstance()->CreateElement(doc, "BC", treeMap);
+
+		
 		DataProperty::DataBase *dataBase = model->GetDataBase();
 		
 		if (nullptr != dataBase)

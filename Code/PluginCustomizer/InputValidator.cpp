@@ -119,7 +119,8 @@ namespace FastCAEDesigner
 			return false;
 
 		bool isOk = true;
-		QString pattern = "[\\\\/:*?\"<>., ;'{|`~!@#$%&*()=+\\^}\\[\\]]";
+		//QString pattern = "[\\\\/:*?\"<>., ;'{|`~!@#$%&*()=+\\^}\\[\\]]";
+		QString pattern = "[\\\\/:?\"<>., ;'{|`~!@#$%&=+\\^}\\[\\]]";
 
 		QRegExp rx(pattern);
 		int match = fileName.indexOf(rx);

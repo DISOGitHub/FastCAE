@@ -297,7 +297,8 @@ namespace FastCAEDesigner
 		for (int i = 0; i < count; i++)
 		{
 			BCBase::BCUserDef* bcData = bcConfig->getBCAt(i, type);
-			QString name = bcData->getName();
+			QString nameEng = bcData->getName();
+			QString nameChh = bcData->getChinese();
 			QString icon = bcData->getIcon();
 			DataProperty::DataBase *dataBase = bcData;
 			DataProperty::DataBase* modelDataBase = new DataProperty::DataBase();
@@ -307,11 +308,11 @@ namespace FastCAEDesigner
 
 			modelDataBase->copy(dataBase);
 			ModelBase* childModel = CreateModelFactory(TreeItemType::ProjectBoundaryCondationChild);
-			childModel->SetEngName(name);
-			childModel->SetChnName(name);
+			childModel->SetEngName(nameEng);
+			childModel->SetChnName(nameChh);
 
 			//Added xvdongming 将文件名称加上系统icon目录名
-			QString destPath = FileHelper::GetSystemConfigPath() + "icon//";
+			QString destPath = FileHelper::GetSystemConfigPath() + "icon/";
 			icon = destPath + icon;
 			//Added xvdongming 
 
@@ -370,10 +371,17 @@ namespace FastCAEDesigner
 
 			childModel->SetChnName(treeItem->getChinese());
 			childModel->SetEngName(treeItem->getText());
-			QString destPath = FileHelper::GetSystemConfigPath() + "icon//";
-			QString iconName = destPath + treeItem->getIcon();
+			QString destPath = FileHelper::GetSystemConfigPath() + "icon/";
+			
+			//QString iconPath = destPath + treeItem->getIcon();
+			QString iconPath = "";
+			QString iconName = treeItem->getIcon();
+
+			if (!iconName.isEmpty())
+				iconPath = destPath + treeItem->getIcon();
+
 			//childModel->SetIconName(treeItem->getIcon());
-			childModel->SetIconName(iconName);
+			childModel->SetIconName(iconPath);
 			parentModel->AddNode(childModel);
 
 			DataProperty::DataBase* dataBase = GetChildDataBase(projectTreeType, id);
@@ -771,8 +779,19 @@ namespace FastCAEDesigner
 
 		if ((model == nullptr) && ((s == "Materials") || (s == "材料")))
 			return 3;
+		
+		//Added xvdongming 2020-02-11 添加判断父节点类型
+		if (nullptr == model)
+		{
+			return 1;//这个值我不确定，鑫伟仔细看看。
+		}
 
-		if ((s == "Case") || (s == "算例"))
+		if (model->GetType() == TreeItemType::ProjectRoot)
+		{
+			intParent = 2;
+		}
+		//Added xvdongming 2020-02-11 添加判断父节点类型
+		else if ((s == "Case") || (s == "算例"))
 		{
 			intParent = 1;
 		}

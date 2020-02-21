@@ -20,6 +20,8 @@ namespace BCBase
 
 		QString getName();
 		void setName(QString s);
+		QString getChinese();
+		void setChinese(QString s);
 		void setIcon(QString icon);
 		QString getIcon();
 
@@ -28,6 +30,7 @@ namespace BCBase
 
 	private:
 		QString _name{};
+		QString _chinese{};
 		QString _icon{};
 	};
 

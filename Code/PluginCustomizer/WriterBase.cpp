@@ -54,7 +54,7 @@ namespace FastCAEDesigner
 	//保存图标到系统icon目录下，并返回不包含目录的文件名称。
 	QString WriterBase::SaveIconToSystem(QString fileName)
 	{
-		QString destPath = FileHelper::GetSystemConfigPath() + "icon//";
+		QString destPath = FileHelper::GetSystemConfigPath() + "icon/";
 		QFileInfo fileInfo(fileName);
 		QString destFileName = fileInfo.fileName();
 		DataManager::getInstance()->CopyFileToSystem(fileName, destPath);

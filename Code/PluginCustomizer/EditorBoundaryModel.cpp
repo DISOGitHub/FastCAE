@@ -39,6 +39,7 @@ namespace FastCAEDesigner
 		_commonConditionChkboxList.append(ui->chk_acc);
 		_commonConditionChkboxList.append(ui->chk_acc_angle);
 
+		/*
 		ui->chk_vt->setWindowTitle("Velocity");
 		ui->chk_press->setWindowTitle("Pressure");
 		ui->chk_temp->setWindowTitle("Temperature");
@@ -48,16 +49,33 @@ namespace FastCAEDesigner
 		ui->chk_rotation_angle->setWindowTitle("Rotation");
 		ui->chk_acc->setWindowTitle("Acceleration");
 		ui->chk_acc_angle->setWindowTitle("AngleAcceleration");
+		*/
+		_keyDict.clear();
+		_keyDict.insert(ui->chk_vt,"velocity");
+		_keyDict.insert(ui->chk_press,"pressure");
+		_keyDict.insert(ui->chk_temp,"temperature");
+		_keyDict.insert(ui->chk_fix_support,"fixSupport");
+		_keyDict.insert(ui->chk_displacement,"displacement");
+		_keyDict.insert(ui->chk_angle_vt,"angleVelocity");
+		_keyDict.insert(ui->chk_rotation_angle,"rotation");
+		_keyDict.insert(ui->chk_acc,"acceleration");
+		_keyDict.insert(ui->chk_acc_angle,"angleAcceleration");
 
 		_commonBoundaryChkboxList.append(ui->chk_inlet);
 		_commonBoundaryChkboxList.append(ui->chk_outlet);
 		_commonBoundaryChkboxList.append(ui->chk_symmetry);
 		_commonBoundaryChkboxList.append(ui->chk_wall);
 
+		/*
 		ui->chk_inlet->setWindowTitle("Inlet");
 		ui->chk_outlet->setWindowTitle("Outlet");
 		ui->chk_symmetry->setWindowTitle("Symmetry");
 		ui->chk_wall->setWindowTitle("Wall");
+		*/
+		_keyDict.insert(ui->chk_inlet,"inlet");
+		_keyDict.insert(ui->chk_outlet,"outlet");
+		_keyDict.insert(ui->chk_symmetry,"symmetry");
+		_keyDict.insert(ui->chk_wall,"wall");
 
 		if (nullptr != _model)
 		{
@@ -162,14 +180,20 @@ namespace FastCAEDesigner
 	bool EditorBoundaryModel::InitCheckboxState(QStringList list, QList<QCheckBox*> chkList)
 	{
 		bool b = false;
-
-		foreach(QCheckBox* item, chkList)
+		int num = chkList.count();
+		
+		for (int i = 0; i < num; i++)
 		{
+			QCheckBox* item = chkList[i];
+			
 			if (nullptr == item)
 				continue;
+
+			QString name = _keyDict[item].toLower();
 			
-			QString name = item->windowTitle().toLower();
-			
+			if (0 == name.length())
+				continue;
+
 			if (list.contains(name))
 			{
 				item->setChecked(true);
@@ -202,13 +226,22 @@ namespace FastCAEDesigner
 	//建立给定参数组条件选中的字符串列表
 	void EditorBoundaryModel::CreateConditionParameterQStringList(QStringList &pList, QList<QCheckBox*> chkList)
 	{
-		foreach(QCheckBox* item, chkList)
+		for (int i = 0; i < chkList.count(); i++)
 		{
+			QCheckBox* item = chkList[i];
+
 			if (nullptr == item)
 				continue;
-
+			
 			if (item->checkState() == Qt::Checked)
-				pList.append(item->windowTitle());
+			{
+				QString keyValue = _keyDict[item];
+
+				if (0 == keyValue.length())
+					continue;
+
+				pList.append(keyValue.toLower());
+			}
 		}
 	}
 

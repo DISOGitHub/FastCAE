@@ -7,7 +7,7 @@
 #include <QStringList>
 #include <QSignalMapper>
 #include <QList>
-
+#include <QMap>
 
 namespace Ui {
 class EditorBoundaryModel;
@@ -57,6 +57,7 @@ namespace FastCAEDesigner
 		QTreeWidgetItem* _treeItem;
 		QList<QCheckBox*> _commonConditionChkboxList;
 		QList<QCheckBox*> _commonBoundaryChkboxList;
+		QMap<QCheckBox*, QString> _keyDict;
 	};
 
 }

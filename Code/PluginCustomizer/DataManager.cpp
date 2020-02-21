@@ -164,7 +164,7 @@ namespace FastCAEDesigner
 	bool DataManager::WriteInfoToServerPath()
 	{
 		WriterGlobalConfig globalConfigWriter;
-		
+		_globalConfig->enableMaterial((_materialList.count() > 0) ? true : false);//Added xvdongming 2020-02-15 如果当前材料数不为空，则设定材料节点显示，否则设置隐藏
 		globalConfigWriter.Write(_globalConfig,_geoConfig,_meshConfig);
 		CopyLogoAndWelcomImageToSystem();
 		CopyUserManualToSystem();

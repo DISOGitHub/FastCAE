@@ -81,6 +81,7 @@ namespace FastCAEDesigner
 			ui->groupBox->setHidden(true);
 		}
 
+
 		QString title = _model->GetChnName();
 		setWindowTitle(title);
 		UpdateDataToUi();
@@ -125,7 +126,13 @@ namespace FastCAEDesigner
 			//ui->txtIcon->setText(Image_Material);
 			ui->txtIcon->setEnabled(false);
 			ui->btnLoadIcon->setEnabled(false);
+			ui->lbl_chnName->setText(tr("Name"));
+			ui->txtEnglishName->hide();
+			ui->lbl_engName->hide();
+			connect(ui->txtChineseName, SIGNAL(textChanged(QString)), ui->txtEnglishName, SLOT(setText(QString)));
 		}
+
+		ui->tableWidget_GList->setMaximumHeight(160);
 	}
 
 	//填充参数组列表
@@ -1275,18 +1282,27 @@ namespace FastCAEDesigner
 	
 	void EditorDescripttionSetup::OnBtnLoadIconClicked()
 	{
-		QString suffixName = QString("*.*");
+		//QString suffixName = QString("*.*");
+		QString suffixName = QString("JPG file(*.jpg);;PNG file(*.png);;ICO(*.ico);;All file(*.*)");
 		QString file_name = QFileDialog::getOpenFileName(NULL, tr("Open image file"), ".", suffixName);
-		ui->txtIcon->setText(file_name);
+		
+		if (!file_name.isEmpty())
+			ui->txtIcon->setText(file_name);
 	}
 
 	void EditorDescripttionSetup::OnBtnShowGroupClicked()
 	{
 		if (ui->groupBox_3->isVisible())
+		{
 			ui->groupBox_3->hide();
+			ui->btnShowParameterGroup->setText(tr("Show parameter group"));
+		}
 		else
+		{
 			ui->groupBox_3->show();
-		
+			ui->btnShowParameterGroup->setText(tr("Hide parameter group"));
+		}
+
 		resizeEvent(nullptr);
 	}
 }

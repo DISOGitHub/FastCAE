@@ -766,7 +766,7 @@ namespace ProjectTree
 			ConfigOption::PostConfigInfo* info = option->getPostConfigInfo(_treeType);
 			QString filename = info->getPost3DFile();
 			QString file = _data->getPath() + "/Result/" + filename;
-			if (!isFileExist(file)) return;
+//			if (!isFileExist(file)) return;
 			p3d = new Post::Post3DWindowInterface(_mainWindow, _data->getID());
 			_modelDataExtend->setPost3DWindow(p3d);
 			p3d->getWindow()->openFile(file);
@@ -805,7 +805,7 @@ namespace ProjectTree
 			ConfigOption::PostConfigInfo* info = option->getPostConfigInfo(_treeType);
 			QString filename = info->getPost3DFile();
 			QString file = _data->getPath() + "/Result/" + filename;
-			if (!isFileExist(file)) return;
+	//		if (!isFileExist(file)) return;
 			p3d = new Post::Post3DWindowInterface(_mainWindow, _data->getID());
 			_modelDataExtend->setPost3DWindow(p3d);
 			p3d->getWindow()->openFile(file);

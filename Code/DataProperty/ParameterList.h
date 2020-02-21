@@ -39,7 +39,7 @@ namespace DataProperty
 		//获取可见的参数个数
 		int getVisibleParaCount();
 		//移除参数
-		void removeParameter(ParameterBase* p);
+		virtual void removeParameter(ParameterBase* p);
 		//移除第i个参数
 		void removeParameterAt(int i);
 		//获取第i和可见的参数

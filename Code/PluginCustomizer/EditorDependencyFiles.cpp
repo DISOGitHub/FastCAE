@@ -47,13 +47,17 @@ namespace FastCAEDesigner{
 	{
 		if (_fileNames.isEmpty())
 			return;
+
 		QStringList names = _fileNames.split(";");
+		
 		for (int i = 0; i < names.count(); i++)
 		{
 			QListWidgetItem* item = new QListWidgetItem;
 			item->setText(names.at(i));
 			ui->listWidget->addItem(item);
 		}
+
+		UpdateFileNames();//Added xvdongming 2020-02-14
 	}
 
 	void EditorDependencyFiles::OnSelectPBtnClicked()
@@ -74,7 +78,8 @@ namespace FastCAEDesigner{
 
 		for (int i = 0; i < fileNames.count(); i++)
 		{
-			if (_selectedFiles.contains(fileNames.at(i)))
+			//if (_selectedFiles.contains(fileNames.at(i))) //Modified:xvdongming 2020-02-14
+			if (_fileNames.contains(fileNames.at(i)))
 				continue;
 			
 			QListWidgetItem* item = new QListWidgetItem;
@@ -88,6 +93,7 @@ namespace FastCAEDesigner{
 	{
 		//int rowIndex = ui->listWidget->currentRow();
 		ui->listWidget->takeItem(ui->listWidget->currentRow());
+		UpdateFileNames();//Added xvdongming 2020-02-14
 	}
 
 	void EditorDependencyFiles::OnClearAllPBtnClicked()
@@ -110,10 +116,13 @@ namespace FastCAEDesigner{
 		default:
 			break;
 		}
+
+		UpdateFileNames();//Added xvdongming 2020-02-14
 	}
 
 	void EditorDependencyFiles::OnOkPBtnClicked()
 	{
+		/*
 		const int n = ui->listWidget->count();
 		QStringList filenames;
 		for (int i = 0; i < n; i++)
@@ -123,7 +132,8 @@ namespace FastCAEDesigner{
 		}
 
 		_fileNames = filenames.join(";");
-
+		*/
+		UpdateFileNames();//Added xvdongming 2020-02-14
 		this->accept();
 		close();
 	}
@@ -131,6 +141,32 @@ namespace FastCAEDesigner{
 	QString EditorDependencyFiles::getFiles()
 	{
 		return _fileNames;
+	}
+
+	//Added xvdongming 2020-02014 刷新依赖文件列表
+	void EditorDependencyFiles::UpdateFileNames()
+	{
+		int num = ui->listWidget->count();
+		
+		if (0 == num)
+		{
+			_fileNames = "";
+			return;
+		}
+		
+		QStringList filenames;
+
+		for (int i = 0; i < num; i++)
+		{
+			QString name = ui->listWidget->item(i)->text().trimmed();
+			
+			if (0 == name.length())
+				continue;
+
+			filenames.append(name);
+		}
+
+		_fileNames = filenames.join(";");
 	}
 
 }

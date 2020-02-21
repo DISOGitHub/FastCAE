@@ -55,7 +55,7 @@ namespace ModelData
 		bool isMaterialSetted(int setid);
 		//解除材料与组件的绑定
 		void removeMaterial(int setid);
-
+		
 		virtual void removeMeshSetAt(int index) override;
 
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele) override;
@@ -117,6 +117,8 @@ namespace ModelData
 		void clear3DVariable();
 		DataProperty::ParameterBase* getParameterByName(QString name) override;
 		DataProperty::ParameterGroup* getParameterGroupByName(QString name) override;
+		virtual void removeParameter(DataProperty::ParameterBase* p) override;
+		virtual void removeParameterGroup(DataProperty::ParameterGroup* g) override;
 		//设置二维绘图窗口
 		void setPost2DWindow(Post::Post2DWindowInterface* p2d);
 		//获取二维窗口

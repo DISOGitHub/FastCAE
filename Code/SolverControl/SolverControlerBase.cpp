@@ -59,13 +59,17 @@ namespace SolverControl
 		
 		QString startPath = _model->getPath();
 
-		QDir dir(startPath);
-		if (dir.exists() && (!startPath.isEmpty()))
-		{ 
-			oldDir = QDir::currentPath();
-			QDir::setCurrent(startPath);
-		}
+		if (_solver->getType() == ConfigOption::SelfDevelop)
+		{
+			QDir dir(startPath);
+			if (dir.exists() && (!startPath.isEmpty()))
+			{
+				oldDir = QDir::currentPath();
+				QDir::setCurrent(startPath);
+			}
 
+		}
+		
 		_processBar = new ModuleBase::ProcessBar(_mainWindow, _description, false);
 
 		QString args = _solver->getParameter();
@@ -82,16 +86,16 @@ namespace SolverControl
 			qDebug() << args;
 		}
 
-		QString startProcess = solverPath + " " + args;
-		if (solverPath.contains(" "))
-			startProcess = QString("\"%1\"").arg(startProcess);
+// 		QString startProcess = solverPath + " " + args;
+// 		if (solverPath.contains(" "))
+// 			startProcess = QString("\"%1\"").arg(startProcess);
 		
 //		qDebug() << startProcess;
 // 		if (!_args.isEmpty())
 // 			startProcess = startProcess + " " + _args;
-		qDebug() << startProcess;
+//		qDebug() << startProcess;
 
-		_process.start(startProcess);
+		_process.start(solverPath,QStringList(args));
 
 		emit solverStarted(_processBar);
 
@@ -107,8 +111,11 @@ namespace SolverControl
 			}
 			
 		}
-		if (!oldDir.isEmpty())
-			QDir::setCurrent(oldDir);
+		if (_solver->getType() == ConfigOption::SelfDevelop)
+		{
+			if (!oldDir.isEmpty())
+				QDir::setCurrent(oldDir);
+		}
 	
 	}
 	void SolverControlBase::readSolverOutput()

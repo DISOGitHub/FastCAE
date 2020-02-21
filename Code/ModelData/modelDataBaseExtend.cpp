@@ -29,6 +29,7 @@ namespace ModelData
 		ConfigOption::DataConfig* dataconfig = ConfigOption::ConfigOption::getInstance()->getDataConfig();
 
 		QList<ConfigOption::PostCurve*> monitorCurves = dataconfig->getMonitorCurves(_treeType);
+		_monitorFiles = dataconfig->getMonitorFile(_treeType);
 		for (int i = 0; i < monitorCurves.size(); ++i)
 		{
 			ConfigOption::PostCurve* p = new ConfigOption::PostCurve;
@@ -254,6 +255,7 @@ namespace ModelData
 			_setMaterial.remove(setid);
 		}
 	}
+
 	void ModelDataBaseExtend::removeMeshSetAt(int index)
 	{
 		assert(index >= 0 && index < _componentIDList.size());
@@ -466,9 +468,7 @@ namespace ModelData
 	DataProperty::ParameterBase* ModelDataBaseExtend::getParameterByName(QString name)
 	{
 		DataProperty::ParameterBase* P = nullptr;
-		P = _simlutationSetting->getParameterByName(name);
-		if (P != nullptr) return P;
-		P = _solverSetting->getParameterByName(name);
+		P = ModelDataBase::getParameterByName(name);
 		if (P != nullptr) return P;
 		QList<DataProperty::DataBase*> dataList = _configData.values();
 		for (int i = 0; i < dataList.size(); ++i)
@@ -481,12 +481,35 @@ namespace ModelData
 		return P;
 	}
 
+
+	void ModelDataBaseExtend::removeParameter(DataProperty::ParameterBase* p)
+	{
+		QList<DataProperty::DataBase*> dataList = _configData.values();
+		for (int i = 0; i < dataList.size(); ++i)
+		{
+			auto d = dataList.at(i);
+			d->removeParameter(p);
+		}
+		ModelDataBase::removeParameter(p);
+	}
+
+
+	void ModelDataBaseExtend::removeParameterGroup(DataProperty::ParameterGroup* g)
+	{
+
+		QList<DataProperty::DataBase*> dataList = _configData.values();
+		for (int i = 0; i < dataList.size(); ++i)
+		{
+			auto d = dataList.at(i);
+			d->removeParameterGroup(g);
+		}
+		ModelDataBase::removeParameterGroup(g);
+	}
+
 	DataProperty::ParameterGroup* ModelDataBaseExtend::getParameterGroupByName(QString name)
 	{
 		DataProperty::ParameterGroup* g = nullptr;
-		g = _simlutationSetting->getParameterGroupByName(name);
-		if (g != nullptr) return g;
-		g = _solverSetting->getParameterGroupByName(name);
+		g = ModelDataBase::getParameterGroupByName(name);
 		if (g != nullptr) return g;
 		QList<DataProperty::DataBase*> dataList = _configData.values();
 		for (int i = 0; i < dataList.size(); ++i)

@@ -97,7 +97,11 @@ namespace ModelData
 		//组件是否使用
 		bool isComponentUsed(int index);
 
-		DataProperty::ParameterBase* getParameterByName(QString name) override;
+		virtual DataProperty::ParameterBase* getParameterByName(QString name) override;
+		virtual void removeParameter(DataProperty::ParameterBase* p) override;
+		virtual DataProperty::ParameterGroup* getParameterGroupByName(QString name) override;
+		virtual void removeParameterGroup(DataProperty::ParameterGroup* g) override;
+
 
 	private:
 		ProjectTreeType getTreeTypeByString(const QString& type);
