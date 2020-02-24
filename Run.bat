@@ -131,7 +131,7 @@ copy /y "%qmakeDir%\Qt5Gui.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5Core.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5Xml.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5OpenGL.dll" ".\output\bin"
-		 %qmakeDir%
+
 copy /y "%qmakeDir%\Qt5WebKitWidgets.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5Network.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5WebKit.dll" ".\output\bin"
