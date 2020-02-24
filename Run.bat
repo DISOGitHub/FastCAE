@@ -98,6 +98,7 @@ cd %codePath%
 call "%codePath%\Create_X64_Project.bat"
 
 cd %currentPath%
+if not exist "%qmakeDir%\Qt5Widgetsd.dll" (
 copy /y "%qmakeDir%\Qt5Widgetsd.dll" ".\output\bin_d"
 copy /y "%qmakeDir%\Qt5Guid.dll" ".\output\bin_d"
 copy /y "%qmakeDir%\Qt5Cored.dll" ".\output\bin_d"
@@ -124,8 +125,9 @@ copy /y "%qmakeDir%\icudt53.dll" ".\output\bin_d"
 cd .\output\bin_d\
 mkdir .\platforms\
 copy /y "%qmakeDir%\..\plugins\platforms\" ".\platforms\"
-
+)
 cd %currentPath%
+if not exist "%qmakeDir%\Qt5Widgets.dll" (
 copy /y "%qmakeDir%\Qt5Widgets.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5Gui.dll" ".\output\bin"
 copy /y "%qmakeDir%\Qt5Core.dll" ".\output\bin"
@@ -150,6 +152,7 @@ copy /y "%qmakeDir%\icudt53.dll" ".\output\bin"
 cd .\output\bin\
 mkdir .\platforms\
 copy /y "%qmakeDir%\..\plugins\platforms\" ".\platforms\"
+)
 
 echo 下面将启动Visual Studio 2013
 pause
