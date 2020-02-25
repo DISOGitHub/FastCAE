@@ -1,5 +1,3 @@
-rem copy dlls to designer
-copy /y ".\DllsForDesigner\selfdeflineeditplugin.dll" "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\plugins\designer"
 
 cd ../
 mkdir output
@@ -121,6 +119,7 @@ copy /y ".\quazip\libd\*.lib" ".\output\bin_d"
 copy /y ".\quazip\bind\*.dll" ".\output\bin_d"
 
 rem copy Qt dlls
+if exist "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Widgetsd.dll" (
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Widgetsd.dll" ".\output\bin_d"
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Guid.dll" ".\output\bin_d"
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Cored.dll" ".\output\bin_d"
@@ -147,7 +146,7 @@ copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\icudt53.dll" ".\output\bin_d"
 cd .\output\bin_d\
 mkdir .\platforms\
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\plugins\platforms\" ".\platforms\" 
-
+)
 
 rem relaese copy
 cd ../
@@ -267,6 +266,7 @@ copy /y ".\quazip\lib\*.lib" ".\output\bin"
 copy /y ".\quazip\bin\*.dll" ".\output\bin"
 
 rem copy Qt dlls
+if exist "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Widgets.dll" (
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Widgets.dll" ".\output\bin"
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Gui.dll" ".\output\bin"
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\Qt5Core.dll" ".\output\bin"
@@ -291,6 +291,6 @@ copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\icudt53.dll" ".\output\bin"
 cd .\output\bin\
 mkdir .\platforms\
 copy /y "C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\plugins\platforms\" ".\platforms\" 
-
+)
 pause
 
