@@ -22,7 +22,7 @@ cd /d "%~dp0"
 
 set currentPath=%cd%
 
-echo 请输入qmake.exe所在路径，例如：C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\：
+echo 请输入qmake.exe所在路径，例如：C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
 echo.
 set /p qmakeDir=请输入:
 echo.
@@ -30,7 +30,7 @@ set qmakePath=%qmakeDir%\qmake.exe
 echo.
 
 
-echo 请输入Visual Studio 2013安装目录，例如：C:\Program Files (x86)\Microsoft Visual Studio 12.0\：
+echo 请输入Visual Studio 2013安装目录，例如：C:\Program Files (x86)\Microsoft Visual Studio 12.0\
 echo (该目录下存在VC、Common7等文件夹)
 echo.
 set /p VSDir=请输入:
@@ -88,6 +88,7 @@ echo. >> %codePath%\Run_MSVC.bat
 echo 批处理脚本信息更新完毕！
 echo.
 echo 接下来将生成开发环境。。。
+echo.
 pause
 
 cd %codePath%
@@ -154,7 +155,17 @@ mkdir .\platforms\
 copy /y "%qmakeDir%\..\plugins\platforms\" ".\platforms\"
 )
 
+cd %currentPath%
+
+mkdir %currentPath%\output\bin_d\gmsh
+mkdir %currentPath%\output\bin\gmsh
+copy /y "%codePath%\Gmsh\gmsh441\gmsh.exe" "%currentPath%\output\bin_d\gmsh"
+copy /y "%codePath%\Gmsh\gmsh441\gmsh.exe" "%currentPath%\output\bin\gmsh"
+copy /y "%codePath%\Gmsh\gmsh441\gmsh.Geo" "%currentPath%\output\bin_d\gmsh"
+copy /y "%codePath%\Gmsh\gmsh441\gmsh.Geo" "%currentPath%\output\bin\gmsh"
+
 echo 下面将启动Visual Studio 2013
+echo.
 pause
 call "%codePath%\Run_MSVC.bat"
 
