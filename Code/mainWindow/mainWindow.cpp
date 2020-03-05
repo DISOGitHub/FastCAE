@@ -13,6 +13,7 @@
 #include "SubWindowManager.h"
 #include "ui_mainWindow.h"
 #include "settings/busAPI.h"
+#include "settings/GraphOption.h"
 #include "moduleBase/ModuleType.h"
 #include "moduleBase/ModuleBase.h"
 #include "MainWidgets/ControlPanel.h"
@@ -70,8 +71,13 @@ namespace GUI
 		this->ChangeLanguage(lang);
 		QString workingdir = Setting::BusAPI::instance()->getWorkingDir();
 		if (workingdir.isEmpty()) setWorkingDir();
-		Setting::BusAPI::instance()->setMainWindow(this);
 
+		Setting::BusAPI::instance()->setMainWindow(this);
+		Setting::GraphOption* gp = Setting::BusAPI::instance()->getGraphOption();
+		_ui->actionDisplayPoint->setChecked(gp->isShowGeoPoint());
+		_ui->actionDisplayCurve->setChecked(gp->isShowGeoEdge());
+		_ui->actionDisplayFace->setChecked(gp->isShowGeoSurface());
+		this->setGeometryDisplay();
 		updateRecentMenu();
 		setCurrentFile("");
 		
@@ -706,6 +712,10 @@ namespace GUI
 		bool checkcurve = _ui->actionDisplayCurve->isChecked();
 		bool checkface = _ui->actionDisplayFace->isChecked();
 
+		Setting::GraphOption* gp = Setting::BusAPI::instance()->getGraphOption();
+		gp->isShowGeoPoint(checkvertex);
+		gp->isShowGeoEdge(checkcurve);
+		gp->isShowGeoSurface(checkface);
 		
 		emit selectGeometryDisplay(checkvertex, checkcurve, checkface);
 	}
@@ -736,6 +746,20 @@ namespace GUI
 		}
 		connect(_recentFileMapper, SIGNAL(mapped(QString)), this, SLOT(openRencentFile(QString)));
 	}
+
+	void MainWindow::setActionVisible(QString objname, bool enable)
+	{
+		QList<QAction*> acs = this->findChildren<QAction*>();
+		for (QAction* a : acs)
+		{
+			if (a->objectName().toLower() == objname.toLower())
+			{
+				a->setVisible(enable);
+				break;
+			}
+		}
+	}
+
 	void MainWindow::openRencentFile(QString file)
 	{
 		QFileInfo info(file);

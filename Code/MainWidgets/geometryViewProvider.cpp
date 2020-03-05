@@ -45,6 +45,11 @@ namespace MainWidget
 		connect(_mainWindow, SIGNAL(selectGeoActiveSig(bool)), this, SLOT(activeSelectGeo(bool)));
 		
 		connect(_mainWindow, SIGNAL(selectGeoCloseSig(int)), this, SLOT(closeSelectGeo(int)));
+
+		auto gp = Setting::BusAPI::instance()->getGraphOption();
+		_showvertex = gp->isShowGeoPoint();
+		_showedge = gp->isShowGeoEdge();
+		_showface = gp->isShowGeoSurface();
 		//connet(_mainWindow, SIGNAL(RestoreGeoSig(),this,SLOT(RestoreGeo))
 //		init();
 	}
@@ -663,14 +668,16 @@ namespace MainWidget
 		acs->append(ac);
 		QColor c = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
 		ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+		ac->GetProperty()->SetOpacity(1.0);
 		_preWindow->reRender();
 	}
  
 	void GeometryViewProvider::setGeometryDisplay( bool v, bool c, bool f)
 	{
-		_showvertex = v;
-		_showedge = c;
-		_showface = f;
+		auto gp = Setting::BusAPI::instance()->getGraphOption();
+		_showvertex = gp->isShowGeoPoint();
+		_showedge = gp->isShowGeoEdge();
+		_showface = gp->isShowGeoSurface();
 		for (auto var : _vertexActors) var->SetVisibility(v);
 		for (auto var : _edgeActors) var->SetVisibility(c);
 		for (auto var : _faceActors) var->SetVisibility(f);

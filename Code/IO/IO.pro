@@ -26,7 +26,7 @@ win32{
   -L../../output/bin -lModuleBase \
   -L../../output/bin -lGeometry \
   -L../../output/bin -lModelData \
-#  -L../../output/bin -lData \
+  -L../../output/bin -lPluginManager \
   -L../../output/bin -lSettings \
   -L../../output/bin -lMaterial \
   -L../../quazip/lib -lquazip \
@@ -43,7 +43,7 @@ win32{
   -L../../output/bin_d -lModuleBase \
   -L../../output/bin_d -lGeometry \
   -L../../output/bin_d -lModelData \
-#  -L../../output/bin_d -lData \
+  -L../../output/bin_d -lPluginManager \
   -L../../output/bin_d -lSettings \
   -L../../output/bin_d -lMaterial \
   -L../../quazip/libd -lquazip  \

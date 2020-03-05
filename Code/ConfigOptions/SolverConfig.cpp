@@ -32,12 +32,12 @@ namespace ConfigOption
 		}
 		_solverlist.clear();
 
-		for (int i = 0; i < _solverlist.size(); ++i)
+		for (int i = 0; i < _mesherList.size(); ++i)
 		{
-			SolverInfo* d = _solverlist.at(i);
+			MesherInfo* d = _mesherList.at(i);
 			delete d;
 		}
-		_solverlist.clear();
+		_mesherList.clear();
 	}
 	bool SolverOption::read(QString f)
 	{

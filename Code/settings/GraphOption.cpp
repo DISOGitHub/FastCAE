@@ -22,6 +22,9 @@ namespace Setting
 		setting->setValue("/GraphOption/GeometryCurveWidth/", _geoCurveWidth);
 		setting->setValue("/GraphOption/GeometryPointSize/", _geoPointSize);
 		setting->setValue("/GraphOption/Transparency/", _transparency);
+		setting->setValue("/GeometryDisplay/ShowPoint", _showGeoPoint);
+		setting->setValue("/GeometryDisplay/ShowEdge", _showGeoEdge);
+		setting->setValue("/GeometryDisplay/ShowSurface", _showGeoSurface);
 	}
 	void GraphOption::readINI(QSettings* settings)
 	{
@@ -40,6 +43,9 @@ namespace Setting
 		_geoCurveWidth = settings->value("/GraphOption/GeometryCurveWidth/").toFloat();
 		_geoPointSize = settings->value("/GraphOption/GeometryPointSize/").toFloat();
 		_transparency = settings->value("/GraphOption/Transparency/").toInt();
+		_showGeoPoint = settings->value("/GeometryDisplay/ShowPoint").toBool();
+		_showGeoEdge = settings->value("/GeometryDisplay/ShowEdge").toBool();
+		_showGeoSurface = settings->value("/GeometryDisplay/ShowSurface").toBool();
 	}
 	void GraphOption::setBackgroundTopColor(QColor c)
 	{
@@ -171,6 +177,34 @@ namespace Setting
 		return _transparency;
 	}
 
+	void GraphOption::isShowGeoPoint(bool show)
+	{
+		_showGeoPoint = show;
+	}
 
+	bool GraphOption::isShowGeoPoint()
+	{
+		return _showGeoPoint;
+	}
+
+	void GraphOption::isShowGeoEdge(bool show)
+	{
+		_showGeoEdge = show;
+	}
+
+	bool GraphOption::isShowGeoEdge()
+	{
+		return _showGeoEdge;
+	}
+
+	void GraphOption::isShowGeoSurface(bool show)
+	{
+		_showGeoSurface = show;
+	}
+
+	bool GraphOption::isShowGeoSurface()
+	{
+		return _showGeoSurface;
+	}
 
 }

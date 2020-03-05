@@ -21,6 +21,8 @@ namespace Plugins
 	public:
 		static PluginManager* getInstance();
 
+		//获取加载的插件个数
+		int getPluginsCount();
 		//加载插件
 		void loadPlugs(GUI::MainWindow* m);
 		//加载单个插件
@@ -35,6 +37,11 @@ namespace Plugins
 		PluginBase* getPluginByDescribe(QString des);
 		//根据类型获取插件
 		QList<PluginBase*> getPluginsByType(PluginType t);
+		//写出工程文件
+		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
+		//从工程文件读入
+		void readDataFromProjectFile(QDomElement* e) override;
+
 	
 	public slots:
 		void manage();

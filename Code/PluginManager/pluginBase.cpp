@@ -121,6 +121,16 @@ namespace Plugins
 	}
 
 
+	void PluginBase::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
+	{
+
+	}
+
+	void PluginBase::readFromProjectFile(QDomElement* parentEle)
+	{
+
+	}
+
 }
 
 

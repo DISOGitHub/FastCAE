@@ -62,6 +62,17 @@ namespace Setting
 		void setTransparency(int t);
 		int getTransparency();
 
+		//几何点显示
+		void isShowGeoPoint(bool show);
+		bool isShowGeoPoint();
+		//几何边显示
+		void isShowGeoEdge(bool show);
+		bool isShowGeoEdge();
+		//几何面显示
+		void isShowGeoSurface(bool show);
+		bool isShowGeoSurface();
+
+
 	private:
 		QColor _bgTop{};
 		QColor _bgBottom{};
@@ -78,6 +89,10 @@ namespace Setting
 		float _meshEdgeWidth{ 1.0 };
 		float _geoPointSize{ 1.0 };
 		float _geoCurveWidth{ 1.0 };
+
+		bool _showGeoPoint{ false };
+		bool _showGeoEdge{ false };
+		bool _showGeoSurface{ false };
 
 		int _transparency{ 0 };
 

@@ -107,6 +107,10 @@ namespace ModuleBase
 				_ctrlPressed = true;
 				qDebug() << "ctrl press";
 			}
+			else if (e->key() == Qt::Key_Up)
+				OnKeyBoardUp();
+			else if (e->key() == Qt::Key_Down)
+				OnKeyBoardDown();
 		}
 		else if (type == 1) //release
 		{
@@ -161,11 +165,13 @@ namespace ModuleBase
 	}
 	void PropPickerInteractionStyle::clickSelectGeometry()
  	{
+		_tempActorContainer.clear();
+		_currentTempIndex = 0;
+
 		if (_preGeoSeltctActor != nullptr)
 		{
 			emit selectGeometry(_preGeoSeltctActor,_ctrlPressed);
-			_preGeoSeltctActor = nullptr;
-			return;
+			_tempActorContainer.append(_preGeoSeltctActor);
 		}
 
 		int* clickPos = this->GetInteractor()->GetEventPosition();
@@ -176,7 +182,21 @@ namespace ModuleBase
 		if (p == 0) return;
 
 		vtkActor* actor = picker->GetActor();
-		emit selectGeometry(actor,_ctrlPressed);
+		if (_preGeoSeltctActor == nullptr)
+			emit selectGeometry(actor,_ctrlPressed);
+		//选取所有的actor
+		while (p != 0)
+		{
+			_tempActorContainer.append(actor);
+			actor->SetPickable(false);
+
+			p = picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
+			if (p != 0)
+				actor = picker->GetActor();
+		}
+		//还原actor选择状态
+		for (vtkActor* a : _tempActorContainer)
+			a->SetPickable(true);
 		_preGeoSeltctActor = nullptr;
 
 	}
@@ -346,6 +366,11 @@ namespace ModuleBase
 			if (_preGeoSeltctActor != nullptr)
 			{
 				_preGeoSeltctActor->GetProperty()->SetColor(ncolor.redF(), ncolor.greenF(), ncolor.blueF());
+				if (_selectModel == GeometrySurface || _selectModel == GeometryWinSurface)
+				{
+					double op = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
+					_preGeoSeltctActor->GetProperty()->SetOpacity(1.0 - op / 100.0);
+				}
 				_preGeoSeltctActor = nullptr;
 				_renderWindow->Render();
 			}
@@ -362,7 +387,7 @@ namespace ModuleBase
 			_preGeoSeltctActor = ac;
 			QColor highLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
 			_preGeoSeltctActor->GetProperty()->SetColor(highLight.redF(), highLight.greenF(), highLight.blueF());
-
+			ac->GetProperty()->SetOpacity(1.0);
 			_renderWindow->Render();
 		}
 	}
@@ -506,6 +531,7 @@ namespace ModuleBase
 
 	void PropPickerInteractionStyle::OnMouseWheelForward()
 	{
+		
 		vtkInteractorStyleRubberBandPick::OnMouseWheelForward();
 		emit mouseWhellMove();
 	}
@@ -514,6 +540,56 @@ namespace ModuleBase
 	{
 		vtkInteractorStyleRubberBandPick::OnMouseWheelBackward();
 		emit mouseWhellMove();
+	}
+
+	void PropPickerInteractionStyle::OnKeyBoardUp()
+	{
+		switch (_selectModel)
+		{
+		case ModuleBase::GeometryBody:
+		case ModuleBase::GeometryCurve:
+		case ModuleBase::GeometrySurface:
+		case ModuleBase::GeometryPoint:
+		case ModuleBase::GeometryWinPoint:
+		case ModuleBase::GeometryWinCurve:
+		case ModuleBase::GeometryWinSurface:
+		case ModuleBase::GeometryWinBody:
+			const int n = _tempActorContainer.size();
+			_currentTempIndex--;
+			if (_currentTempIndex < 0)
+				_currentTempIndex = n - 1;
+			if (_currentTempIndex >= 0 && _currentTempIndex < n)
+			{
+				vtkActor* ac = _tempActorContainer.at(_currentTempIndex);
+				emit selectGeometry(ac, _ctrlPressed);
+				return;
+			}
+		}
+	}
+
+	void PropPickerInteractionStyle::OnKeyBoardDown()
+	{
+		switch (_selectModel)
+		{
+		case ModuleBase::GeometryBody:
+		case ModuleBase::GeometryCurve:
+		case ModuleBase::GeometrySurface:
+		case ModuleBase::GeometryPoint:
+		case ModuleBase::GeometryWinPoint:
+		case ModuleBase::GeometryWinCurve:
+		case ModuleBase::GeometryWinSurface:
+		case ModuleBase::GeometryWinBody:
+			const int n = _tempActorContainer.size();
+			_currentTempIndex++;
+			if (_currentTempIndex >= n)
+				_currentTempIndex = 0;
+			if (_currentTempIndex >= 0 && _currentTempIndex < n)
+			{
+				vtkActor* ac = _tempActorContainer.at(_currentTempIndex);
+				emit selectGeometry(ac, _ctrlPressed);
+				return;
+			}
+		}
 	}
 
 	void PropPickerInteractionStyle::OnRightButtonUp()

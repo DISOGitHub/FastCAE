@@ -7,6 +7,7 @@
 #include "moduleBase/ModuleType.h"
 #include <vtkIdTypeArray.h>
 #include <QMultiHash>
+#include <QList>
 #include "moduleBaseAPI.h"
 
 class vtkActor;
@@ -72,6 +73,8 @@ namespace ModuleBase
 		virtual void OnMouseMove() override;
 		virtual void OnMouseWheelForward() override;
 		virtual void OnMouseWheelBackward() override;
+		void OnKeyBoardUp();
+		void OnKeyBoardDown();
 		void displayNodeInfo(vtkDataSet* dataset, int id);
 
 		bool isActorHightLighted(vtkActor* ac);
@@ -115,6 +118,9 @@ namespace ModuleBase
 		bool _selected{ false };
 		vtkActor* _preGeoSeltctActor{};
 		vtkCoordinate* _coordinate{};
+
+		QList<vtkActor*> _tempActorContainer{};
+		int _currentTempIndex{ 0 };
 	};
 }
 

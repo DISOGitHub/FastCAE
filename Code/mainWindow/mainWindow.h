@@ -92,6 +92,8 @@ namespace GUI
 		MainWidget::MessageWindow* getMessageWindow();
 		//更新recentMenu
 		void updateRecentMenu();
+		//action状态控制
+		void setActionVisible(QString objname, bool enable);
 
 		
 	signals:

@@ -16,6 +16,15 @@
 #include <vtkSTLReader.h>
 #include <QDebug>
 
+#include <STEPCAFControl_Reader.hxx>
+#include <XSControl_WorkSession.hxx>
+#include <XSControl_TransferReader.hxx>
+#include <StepData_StepModel.hxx>
+#include <StepRepr_RepresentationItem.hxx>
+#include <TCollection_HAsciiString.hxx>
+#include <Transfer_TransientProcess.hxx>
+#include <TransferBRep.hxx>
+
 namespace Geometry
 {
 	GeometryReader::GeometryReader(const QString &filename)
@@ -71,7 +80,43 @@ namespace Geometry
 		Standard_Integer nbr = aReader.NbRootsForTransfer(); 
 		for (Standard_Integer n = 1; n <= nbr; n++)
 			aReader.TransferRoot(n);
+
+		Handle(StepData_StepModel) Model = aReader.StepModel();
+		Handle(XSControl_WorkSession) ws = aReader.WS();
+		Handle(XSControl_TransferReader) tr = ws->TransferReader();
+		Handle(Transfer_TransientProcess) TP = tr->TransientProcess();
 		
+		bool empty = true;
+		Standard_Integer nb = Model->NbEntities();
+
+		for (int i = 1; i <= nb; ++i)
+		{
+			Handle(Standard_Transient) enti = Model->Value(i);
+			if (!enti->DynamicType()->SubType("StepRepr_RepresentationItem")) continue;
+			Handle(StepRepr_RepresentationItem) SRRI = Handle(StepRepr_RepresentationItem)::DownCast(enti);
+			Handle(TCollection_HAsciiString) hName = SRRI->Name();
+
+			const char* cname = hName->ToCString();
+			QString name = QString::fromLatin1(cname);
+			if (name.isEmpty()) continue;
+
+			empty = false;
+			Handle(Transfer_Binder) binder = TP->Find(enti);
+			if (binder.IsNull() || !binder->HasResult()) continue;
+
+			TopoDS_Shape S = TransferBRep::ShapeResult(TP, binder);
+
+			auto geoSet = new Geometry::GeometrySet;
+			TopoDS_Shape* shape = new TopoDS_Shape;
+			*shape = S;
+			geoSet->setShape(shape);
+			geoSet->setName(name);
+			_geoData->appendGeometrySet(geoSet);
+
+			_result.append(geoSet);
+		}
+		if (!empty) return  true;
+
 		// Collecting resulting entities
 		Standard_Integer nbs = aReader.NbShapes();
 		if (nbs == 0) return false;

@@ -11,6 +11,7 @@
 #include "Material/MaterialSingletion.h"
 #include "geometry/geometrySet.h"
 #include "moduleBase/CommonFunctions.h"
+#include "PluginManager/PluginManager.h"
 #include <QDebug>
 #include <QDomNodeList>
 #include <QDomElement>
@@ -23,8 +24,6 @@
 #include <TopoDS_Shape.hxx>
 #include <JlCompress.h>
 
-
-
 namespace IO
 {
 	ProjectFileIO::ProjectFileIO(const QString& filename)
@@ -34,6 +33,7 @@ namespace IO
 		_meshData = MeshData::MeshData::getInstance();
 		_modelData = ModelData::ModelDataSingleton::getinstance();
 		_materialData = Material::MaterialSingleton::getInstance();
+		_plugins = Plugins::PluginManager::getInstance();
 	}
 	ProjectFileIO::ProjectFileIO()
 	{
@@ -98,7 +98,8 @@ namespace IO
 			_modelData->writeToProjectFile(_doc, &root);
 		}
 
-		if (isEmpty) return false;  //数据为空 不写文件
+		_plugins->writeToProjectFile(_doc, &root);
+//		if (isEmpty) return false;  //数据为空 不写文件
 		QFile file(tempPath + "case.xml");
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) return false;
 		_stream = new QTextStream(&file);
@@ -152,8 +153,8 @@ namespace IO
 			isEmpty = false;
 			_modelData->writeToProjectFile(_doc, &root);
 		}
-
-		if (isEmpty) return false;  //数据为空 不写文件
+		_plugins->writeToProjectFile(_doc, &root);
+//		if (isEmpty) return false;  //数据为空 不写文件
 		if (!_file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) return false;
 		_stream = new QTextStream(&_file);
 		_doc->save(*_stream, 4);
@@ -188,15 +189,17 @@ namespace IO
 		QDomNodeList geoNodeList = _doc->elementsByTagName("Geometry");
 		QDomNodeList meshNodeList = _doc->elementsByTagName("Mesh");
 		QDomNodeList materialList = _doc->elementsByTagName("Materials");
-		if (modelNodeList.size() + geoNodeList.size() + meshNodeList.size() <= 0)
-		{
-			_file.close();
-			return false;
-		}
+		QDomNodeList pluginList = _doc->elementsByTagName("Plugins");
+// 		if (modelNodeList.size() + geoNodeList.size() + meshNodeList.size() <= 0)
+// 		{
+// 			_file.close();
+// 			return false;
+// 		}
 		readGeoData(&geoNodeList);
 		readMeshData(&meshNodeList);
 		readMaterialData(&materialList);
 		readModelData(&modelNodeList);
+		readPluginData(&pluginList);
 		_file.close();
 
 		return true;
@@ -230,11 +233,12 @@ namespace IO
 		QDomNodeList geoNodeList = _doc->elementsByTagName("Geometry");
 //		QDomNodeList meshNodeList = _doc->elementsByTagName("Mesh");
 		QDomNodeList materialList = _doc->elementsByTagName("Materials");
-		if (modelNodeList.size() + geoNodeList.size() /*+ meshNodeList.size()*/ <= 0)
-		{
-			_file.close();
-//			return false;
-		}
+		QDomNodeList pluginList = _doc->elementsByTagName("Plugins");
+// 		if (modelNodeList.size() + geoNodeList.size() /*+ meshNodeList.size()*/ <= 0)
+// 		{
+// 			_file.close();
+// //			return false;
+// 		}
 
 		QFile mhFile(tempPath + "mesh.mh");
 		if (mhFile.open(QIODevice::ReadOnly))
@@ -249,6 +253,7 @@ namespace IO
 //		readMeshData(&meshNodeList);
 		readMaterialData(&materialList);
 		readModelData(&modelNodeList);
+		readPluginData(&pluginList);
 		file.close();
 
 		
@@ -277,6 +282,15 @@ namespace IO
 		QDomElement ele = nodelist->at(0).toElement();
 		_materialData->readDataFromProjectFile(&ele);
 	}
+
+	void ProjectFileIO::readPluginData(QDomNodeList* nodeList)
+	{
+		const int nodeCount = nodeList->size();
+		if (nodeCount != 1) return;
+		QDomElement ele = nodeList->at(0).toElement();
+		_plugins->readDataFromProjectFile(&ele);
+	}
+
 	void ProjectFileIO::readModelData(QDomNodeList* nodeList)
 	{
 		const int nodeCount = nodeList->size();

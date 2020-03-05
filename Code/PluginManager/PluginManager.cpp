@@ -5,6 +5,9 @@
 #include <QApplication>
 #include <QFileInfoList>
 #include <QDir>
+#include <QDomDocument>
+#include <QDomNodeList>
+#include <QDomElement>
 #include <QDebug>
 
 #ifdef Q_OS_WIN
@@ -25,6 +28,11 @@ namespace Plugins
 		if (_instance == nullptr)
 			_instance = new PluginManager;
 		return _instance;
+	}
+
+	int PluginManager::getPluginsCount()
+	{
+		return _pluginList.size();
 	}
 
 	void PluginManager::releasePlugs()
@@ -218,7 +226,19 @@ namespace Plugins
 		return ps;
 	}
 
+    QDomElement& PluginManager::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
+	{
+		QDomElement pgsele = doc->createElement("Plugins");
+		for (auto p : _pluginList)
+			p->writeToProjectFile(doc, &pgsele);
+		parent->appendChild(pgsele);
+		return pgsele;
+	}
 
-
+	void PluginManager::readDataFromProjectFile(QDomElement* e)
+	{
+		for (auto p : _pluginList)
+			p->readFromProjectFile(e);
+	}
 
 }

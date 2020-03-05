@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "PluginManagerAPI.h"
+#include "DataProperty/DataBase.h"
 #include <QString>
 
 #ifdef Q_OS_WIN
@@ -16,6 +17,8 @@ namespace GUI
 
 class QTranslator;
 class QSettings;
+class QDomDocument;
+class QDomElement;
 
 namespace Plugins
 {
@@ -46,6 +49,10 @@ namespace Plugins
 		void setType(PluginType t);
 		//获取类型
 		PluginType getType();
+		//写出工程文件
+		virtual void writeToProjectFile(QDomDocument* doc, QDomElement* parent);
+		//从工厂文件读入
+		virtual void readFromProjectFile(QDomElement* parentEle);
 
 		void setFileName(QString f);
 		QString getFileName();
