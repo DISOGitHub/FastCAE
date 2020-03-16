@@ -425,7 +425,7 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::MakeMatrix(QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1,double dis1, int count1, bool showdir2, double*dir2, bool reverse2,double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree,double* vec)
+	void GeometryCommandPy::MakeMatrix(QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1,double dis1, int count1, bool showdir2, double*dir2, bool reverse2,double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
 	{
 		Command::CommandMakeMatrix*c = new Command::CommandMakeMatrix(_mainWindow, _preWindow);
 		c->setBodys(setlist);
@@ -439,7 +439,6 @@ namespace Command
 		c->setReverse2(reverse2);
 		c->setDir2Distance(dis2);
 		c->setDir2Count(count2);
-		//c->setVector(vec);
 		c->setBasicPoint(basept);
 		c->setAxisDir(axis);
 		c->setWireCount(wirecount);
@@ -451,7 +450,7 @@ namespace Command
 	}
 
 
-	void GeometryCommandPy::EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, int count2, double dis2, double* basept, double*axis, bool wirereverse, int wirecount, double degree, double* vec)
+	void GeometryCommandPy::EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
 	{
 		Command::CommandMakeMatrix*c = new Command::CommandMakeMatrix(_mainWindow, _preWindow);
 		c->setEditData(set);
@@ -466,7 +465,6 @@ namespace Command
 		c->setReverse2(reverse2);
 		c->setDir2Distance(dis2);
 		c->setDir2Count(count2);
-		//c->setVector(vec);
 		c->setBasicPoint(basept);
 		c->setAxisDir(axis);
 		c->setWireCount(wirecount);
@@ -813,13 +811,11 @@ void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int bod
 	else if (str == "Cut") sbooltype = BoolCut;
 	else if (str == "Fause") sbooltype = BoolFause;
 	else if (str == "Common") sbooltype = BoolCommon;
-    
-    Geometry::GeometrySet* set1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body1id);
-    Geometry::GeometrySet* set2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body2id);
+  
     Command::GeometryCommandPy::CreateBooLOperation(sbooltype, body1id, body2id);
 }
 
-void GEOMETRYCOMMANDAPI EditBooLOperation(int id, int booltype, int body1id, int body2id)
+void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int body1id, int body2id)
 {
     Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
 	QString str = QString(booltype);
@@ -856,7 +852,6 @@ void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method, int facei
 	else if (planemethodstr == "XOZ") planeindex = 1;
 	else if (planemethodstr == "YOZ")planeindex = 2;
 	QString savestr = QString(saveori);
-	//qDebug() << saveori;
 	bool s;
     if (savestr == "Yes") s = true;
 	else s = false;
@@ -1015,7 +1010,7 @@ void GEOMETRYCOMMANDAPI EditMoveFeature(int id, char * bodys, char* method, doub
 	Command::GeometryCommandPy::EditMoveFeature(set,setidList,  start, end, s, optionindex, r, length, dir);
 }
 
-void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree, double vec0, double vec1, double vec2)
+void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree)
 {
 	QString locstr = QString(bodys);
 	QStringList coorsl = locstr.split(",");
@@ -1037,14 +1032,13 @@ void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, 
 	if (showdir2 == 1) s = true;
 	double basepoint[3]{basept0, basept1, basept2};
 	double axis[3]{axis0, axis1, axis2};
-	double vec[3]{vec0, vec1, vec2};
 	bool wr{ false };
 	if (wirereverse == 1) wr = true;
-	Command::GeometryCommandPy::MakeMatrix(setidList, optionindex,dir1,reverse1,dis1,count1,s,dir2,reverse2,dis2,count2,basepoint,axis,wr,wirecount,degree,vec);
+	Command::GeometryCommandPy::MakeMatrix(setidList, optionindex,dir1,reverse1,dis1,count1,s,dir2,reverse2,dis2,count2,basepoint,axis,wr,wirecount,degree);
 	
 }
 
-void GEOMETRYCOMMANDAPI EidtMatrix(int id, char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree, double vec0, double vec1, double vec2)
+void GEOMETRYCOMMANDAPI EditMatrix(int id, char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree)
 {
 	Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
 	QString locstr = QString(bodys);
@@ -1069,8 +1063,7 @@ void GEOMETRYCOMMANDAPI EidtMatrix(int id, char * bodys, int optionindex, double
 	double axis[3]{axis0, axis1, axis2};
 	bool wr{ false };
 	if (wirereverse == 1) wr = true;
-	double vec[3]{vec0,vec1,vec2};
-	Command::GeometryCommandPy::EditMatrix(set,setidList, optionindex, dir1, reverse1, dis1,count1, s, dir2, reverse2,dis2, count2, basepoint, axis, wr, wirecount, degree,vec);
+	Command::GeometryCommandPy::EditMatrix(set,setidList, optionindex, dir1, reverse1, dis1,count1, s, dir2, reverse2,dis2, count2, basepoint, axis, wr, wirecount, degree);
 }
 
 void GEOMETRYCOMMANDAPI CreateExtrusion(int id, char* name,char *edges, double dis, double pt0, double pt1, double pt2, char* reverse, char* solid)
@@ -1112,7 +1105,6 @@ void GEOMETRYCOMMANDAPI CreateRevol(int id, char* name, char *edges, double base
 	QStringList setInfos = cedge.split(";");
 	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-	Geometry::GeometrySet* axisset = data->getGeometrySetByID(axissetid);
 	for(QString setinfo : setInfos)
 	{
 		QStringList setin = setinfo.split(":");
@@ -1158,7 +1150,6 @@ void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec)
 	else s = false;
 	QList< QMultiHash<Geometry::GeometrySet*, int>> shapelist;
 	QStringList selist = se.simplified().split(" ");
-	int k = selist.size();
 
 	for(QString var : selist)
 	{

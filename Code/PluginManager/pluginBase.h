@@ -53,6 +53,8 @@ namespace Plugins
 		virtual void writeToProjectFile(QDomDocument* doc, QDomElement* parent);
 		//从工厂文件读入
 		virtual void readFromProjectFile(QDomElement* parentEle);
+		//是否有信息需要保存到工程文件
+		virtual bool hasInfoToSave();
 
 		void setFileName(QString f);
 		QString getFileName();

@@ -51,6 +51,18 @@ namespace Geometry
 			return _geometryList.at(index);
 		return nullptr;
 	}
+
+	int GeometryData::getIndexByGeoometrySet(GeometrySet* s)
+	{
+		const int n = _geometryList.size();
+		for (int i = 0; i < n; ++i)
+		{
+			auto c = _geometryList.at(i);
+			if (c == s) return i;
+		}
+		return  -1;
+	}
+
 	void GeometryData::removeGeometrySet(const int index)
 	{
 		assert(index >= 0 && index < _geometryList.size());

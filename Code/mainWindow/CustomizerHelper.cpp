@@ -204,7 +204,8 @@ namespace GUI
 		const QString logoname = globalConfig->getLogo();
 		QString path = qApp->applicationDirPath();
 		const QString logo = path + "/../ConfigFiles/icon/" + logoname;
-		_mainWindow->setWindowIcon(QIcon(logo));
+		qDebug() << logo;
+		_mainWindow->setIcon(logo);
 
 	}
 

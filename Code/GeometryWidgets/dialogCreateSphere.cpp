@@ -59,9 +59,9 @@ namespace GeometryWidget
 			Geometry::GeometryModelParaBase* pb = _editSet->getParameter();
 			Geometry::GeometryParaSphere* p = dynamic_cast<Geometry::GeometryParaSphere*>(pb);
 			if (p == nullptr) return;
-			double loc[3] = { 0.0 }, radius = { 0.0 };
+			double loc[3] = { 0.0 };
 			p->getLocation(loc);
-			p->getRadius(&radius);
+			_ui->doubleSpinBoxR->setValue(p->getRadius());
 			_pw->setCoordinate(loc);
 
 

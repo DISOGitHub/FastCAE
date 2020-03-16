@@ -24,6 +24,8 @@ namespace FastCAEDesigner
 		QString GetText();
 		void SetChechBoxChecked(bool on);
 
+		bool getCheckBoxChecked();
+
 	protected:
 		virtual QWidget *createWidget(QWidget *parent);
 

@@ -167,15 +167,20 @@ namespace GeometryWidget
         bool ok = _baseWidget->getCoordinate(basicPoint);
         if (ok)
             ok = getVector(vec);
+		if (ok)
+			if (_geobodyList.size() < 1) ok = false;
+		if (ok)
+			if (_ui->comboBoxOption->currentIndex() == 0 && _edgeSet == nullptr)
+				ok = false;
         if (ok)
         {
             QString text = _ui->lineEditDegree->text();
             degree = text.toDouble(&ok);
             if (ok)
-                ok = abs(degree) < 0.0000001 ? false: true;
+                ok = fabs(degree) < 0.0000001 ? false: true;
         }
 
-
+		
         if (!ok)
         {
             QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));

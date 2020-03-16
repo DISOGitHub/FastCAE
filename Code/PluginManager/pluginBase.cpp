@@ -131,6 +131,11 @@ namespace Plugins
 
 	}
 
+	bool PluginBase::hasInfoToSave()
+	{
+		return false;
+	}
+
 }
 
 

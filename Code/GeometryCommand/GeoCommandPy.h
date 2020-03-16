@@ -64,9 +64,9 @@ namespace Command
 		static void CreateMoveFeature(QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
 		static void EditMoveFeature(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
 		static void MakeMatrix(QList<Geometry::GeometrySet*>setlist,int optionindex,double* dir1,bool reverse1,double dis1,int count1,bool showdir2,double*dir2,bool reverse2,double dis2,int count2,
-									double* basept,double*axis,bool wirereverse,int wirecount,double degree,double *vec  );
-		static void EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist , int optionindex, double* dir1, bool reverse1, double dis1,int count1, bool showdir2, double*dir2, bool reverse2, int count2,
-								double dis2,double* basept, double*axis, bool wirereverse, int wirecount, double degree,double* vec);
+									double* basept,double*axis,bool wirereverse,int wirecount,double degree );
+		static void EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2,
+									 int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree);
 		static void CreateExtrusion(int editid,QString n, QMultiHash<Geometry::GeometrySet*, int> hash, double dis, double* dir, bool r, bool s);
 		static void CreateRevol(int editid, QString name, QMultiHash<Geometry::GeometrySet*, int> hash, double* basept, double degree, int optionindex, QPair<Geometry::GeometrySet*, int> axisetedge, double* coor, bool reverse, bool solid);
 		static void CreateLoft(int id, QString name, bool solid, QList< QMultiHash<Geometry::GeometrySet*, int>> shapelist);
@@ -127,10 +127,10 @@ extern "C"
 												double length, double dir0, double dir1, double dir2);
 	void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2,
 										double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2,
-										int wirereverse, int wirecount, double degree, double vec0, double vec1, double vec2);
-	void GEOMETRYCOMMANDAPI EidtMatrix(int id, char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2,
+										int wirereverse, int wirecount, double degree);
+	void GEOMETRYCOMMANDAPI EditMatrix(int id, char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2,
 										double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2,
-										int wirereverse, int wirecount, double degree, double vec0, double vec1, double vec2);
+										int wirereverse, int wirecount, double degree);
 	void GEOMETRYCOMMANDAPI CreateExtrusion(int id,char* name,char *edges,double dis,double pt0,double pt1,double pt2,char* reverse,char* solid);
 	void GEOMETRYCOMMANDAPI CreateRevol(int id, char* name, char *edges, double basept0, double basept1, double basept2, double degree, char* optionindex, int axissetid, int edgeindex, double coor0, double coor1, double coor2, char* reverse, char* solid);
 	void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec);

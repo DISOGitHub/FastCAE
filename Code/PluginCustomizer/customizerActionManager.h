@@ -11,6 +11,8 @@ class QAction;
 namespace GUI
 {
 	class MainWindow;
+	//xuxinwei 20200305
+	class SubWindowManager;
 }
 
 namespace FastCAEDesigner
@@ -116,6 +118,10 @@ namespace Plugins
 
 		void copySolverDependencyFiles(QList<QStringList> dependencyfiles,QString path);
 
+		void updateMeshSelectAndView();
+		void updateGeometrySelectAndView();
+		void updateSelectOff();
+
 	private:
 		GUI::MainWindow* _mainWindow{};
 		CustomizerPlugin* _plugin{};
@@ -195,6 +201,35 @@ namespace Plugins
 
 		FastCAEDesigner::EditorSolverManager* _editorSolver{ nullptr };
 
+		//几何网格选择操作
+		QAction* _selectOff{};
+		QAction* _meshSelect1{};
+		QAction* _meshSelect2{};
+		QAction* _meshSelect3{};
+		QAction* _meshSelect4{};
+		QAction* _geoSelect1{};
+		QAction* _geoSelect2{};
+		QAction* _geoSelect3{};
+		QAction* _geoSelect4{};
+		//几何网格视图操作
+		QAction* _meshDisplay1{};
+		QAction* _meshDisplay2{};
+		QAction* _meshDisplay3{};
+		QAction* _meshDisplay4{};
+		QAction* _geoDisplay1{};
+		QAction* _geoDisplay2{};
+		QAction* _geoDisplay3{};
+
+		QAction* _geoUndo{};
+		QAction* _geoRedo{};
+
+		bool _meshSuffixNull{ false };
+		bool _meshOperateNull{ false };
+		bool _geoSuffixNull{ false };
+		bool _geoOperateNull{ false };
+
+		//xuxinwei 20200305
+		GUI::SubWindowManager* _subWindowManager{};
     };
 
 }

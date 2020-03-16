@@ -17,8 +17,8 @@ namespace GeometryWidget
 		this->setWindowFlags(flags);
 
 		connect(this, SIGNAL(updateGraphOptions()), m, SIGNAL(updateGraphOptionsSig()));
-		connect(this, SIGNAL(setSelectMode(int)), m, SIGNAL(selectModelChangedSig(int)));
-		connect(this, SIGNAL(setSelectMode(int)), m, SIGNAL(selectGeoCloseSig(int)));
+ 		connect(this, SIGNAL(setSelectMode(int)), m, SIGNAL(selectModelChangedSig(int)));
+// 		connect(this, SIGNAL(setSelectMode(int)), m, SIGNAL(selectGeoCloseSig(int)));
 		connect(this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), m, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)));
 		connect(this, SIGNAL(highLightGeometryPoint(Geometry::GeometrySet*, int, QList<vtkActor*>*)), m, SIGNAL(highLightGeometryPointSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)));
 		connect(this, SIGNAL(highLightGeometryEdge(Geometry::GeometrySet*, int, QList<vtkActor*>*)), m, SIGNAL(highLightGeometryEdgeSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)));

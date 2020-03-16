@@ -19,7 +19,7 @@ namespace ModelData
 		QList<int> ids;
 		for (int i = 0; i < scomponentIdsList.size();++i)
 		{
-			qDebug()<<scomponentIdsList[i];
+//			qDebug()<<scomponentIdsList[i];
 			ids.append(scomponentIdsList[i].toInt());
 		}
 		ModelDataBase* model = ModelDataSingleton::getinstance()->getModelByID(caseId);

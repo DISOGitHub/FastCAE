@@ -817,10 +817,10 @@ void PipelineObjPlotForm::func_combine_obj_model(PipelineObject* tep_pipelineObj
 						(tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1])*(tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) +
 						(tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0])*(tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0]);
 					ref_radius = sqrtf(ref_radius);
-					//angY = qAcos((tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) / abs(ref_radius));
+					//angY = qAcos((tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) / fabs(ref_radius));
 					angX = 0;
-					angY = qAsin((tep_refPoint1[2] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[2]) / abs(ref_radius));
-					angZ = qAcos((tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0]) / abs(ref_radius*cos(angY)));
+					angY = qAsin((tep_refPoint1[2] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[2]) / fabs(ref_radius));
+					angZ = qAcos((tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0]) / fabs(ref_radius*cos(angY)));
 					if ((tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) < 0)
 						angZ *= (-1.0);
 					//if (tep_pipelineObj->mPipeLineObjProp.pipelineObj_base_propData.file_xh == 0)
@@ -855,9 +855,9 @@ void PipelineObjPlotForm::func_combine_obj_model(PipelineObject* tep_pipelineObj
 					tep_refPoint2[2] = ((NumericSrcObject*)tep_pipelineObj)->refrence_point_for_obj[2] + subZ;
 					double angX, angY, angZ;
 					double ref_radius = ((NumericSrcObject*)tep_pipelineObj)->refrence_point_for_obj[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center0[0];
-					angX = qAcos((tep_refPoint1[2] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[2]) / abs(ref_radius));
-					angY = qAcos((tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) / abs(ref_radius));
-					angZ = qAcos((tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0]) / abs(ref_radius));*/
+					angX = qAcos((tep_refPoint1[2] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[2]) / fabs(ref_radius));
+					angY = qAcos((tep_refPoint1[1] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[1]) / fabs(ref_radius));
+					angZ = qAcos((tep_refPoint1[0] - ((NumericSrcObject*)tep_pipelineObj)->origin_center[0]) / fabs(ref_radius));*/
 					
 					//tep_model->SetPosition(tep_numericObj->objModel_pos);
 					//tep_model->RotateY(90);

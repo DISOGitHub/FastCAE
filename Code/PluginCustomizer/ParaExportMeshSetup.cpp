@@ -22,8 +22,8 @@ namespace FastCAEDesigner{
 		//connect(ui->chk_tecplot, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		connect(ui->chk_vtk, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		//初始化到处网格类型
-		QString exportMeshSuffix = FastCAEDesigner::DataManager::getInstance()->GetExportMeshSuffix();
-		initExportSuffix(exportMeshSuffix);
+		_suffix = FastCAEDesigner::DataManager::getInstance()->GetExportMeshSuffix();
+		initExportSuffix(_suffix);
 	}
 
 	ParaExportMeshSetup::~ParaExportMeshSetup()
@@ -86,7 +86,9 @@ namespace FastCAEDesigner{
 		}
 		str = sl.join(";");*/
 		str = sl.join(";");
+		_suffix = str;
 		FastCAEDesigner::DataManager::getInstance()->SetExportMesh(str);
+		this->accept();
 		close();
 	}
 	void ParaExportMeshSetup::OnBtnCancelClicked()
@@ -141,5 +143,10 @@ namespace FastCAEDesigner{
 		{
 			ui->chk_selectall->setChecked(false);
 		}
+	}
+
+	QString ParaExportMeshSetup::getExportSuffix()
+	{
+		return _suffix;
 	}
 }

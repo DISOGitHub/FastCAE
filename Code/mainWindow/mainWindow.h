@@ -10,6 +10,7 @@ libaojun
 #include <QMainWindow>
 #include <QHash>
 #include <QPair>
+#include <QString>
 #include "moduleBase/messageWindowBase.h"
 
 
@@ -21,6 +22,8 @@ class QMenu;
 class QKeyEvent;
 class QLabel;
 class vtkActor;
+class QAction;
+class QToolBar;
 
 namespace Ui
 {
@@ -94,7 +97,14 @@ namespace GUI
 		void updateRecentMenu();
 		//action状态控制
 		void setActionVisible(QString objname, bool enable);
-
+		//设置图标
+		void setIcon(QString iconPath);
+		//根据object name 获取action
+		QAction* getAction(QString& objName);
+		//根据object name 获取toolbar
+		QToolBar* getToolBar(QString& objName);
+		//根据object name 获取menu
+		QMenu* getMenu(QString& objName);
 		
 	signals:
 		/*更新注册接口*/
@@ -211,10 +221,10 @@ namespace GUI
 		void selectGeometryDisplay(bool, bool, bool);
 		//在几何上选取点、线、面。
 		void selectGeometryModelChangedSig(int);
-		//激活标记。
-		void selectGeoActiveSig(bool a);
-		//关闭标记
-		void selectGeoCloseSig(int);
+// 		//激活标记。
+// 		void selectGeoActiveSig(bool a);
+// 		//关闭标记
+// 		void selectGeoCloseSig(int);
 		//更新工具栏状态
 		void updateActionsStatesSig();
 

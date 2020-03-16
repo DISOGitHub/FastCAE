@@ -56,6 +56,8 @@ namespace FastCAEDesigner
 		ui->comboBox->setVisible(true);
 		ui->comboBox->insertItem(0, tr(".vtk"));
 		ui->comboBox->insertItem(1, tr(".sol"));
+		ui->comboBox->insertItem(2, tr(".cgns"));
+		ui->comboBox->insertItem(3, tr(".dat"));
 
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked_File()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));

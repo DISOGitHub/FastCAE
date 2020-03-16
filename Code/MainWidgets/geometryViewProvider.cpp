@@ -42,9 +42,9 @@ namespace MainWidget
 		connect(_mainWindow, SIGNAL(highLightGeometryEdgeSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)), this, SLOT(highLightGeoEdge(Geometry::GeometrySet*, int, QList<vtkActor*>*)));
 		connect(_mainWindow, SIGNAL(highLightGeometryFaceSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)), this, SLOT(highLightGeoFace(Geometry::GeometrySet*, int, QList<vtkActor*>*)));
 		connect(_mainWindow, SIGNAL(selectGeometryDisplay(bool, bool, bool)), this, SLOT(setGeometryDisplay(bool,bool,bool)));
-		connect(_mainWindow, SIGNAL(selectGeoActiveSig(bool)), this, SLOT(activeSelectGeo(bool)));
-		
-		connect(_mainWindow, SIGNAL(selectGeoCloseSig(int)), this, SLOT(closeSelectGeo(int)));
+// 		connect(_mainWindow, SIGNAL(selectGeoActiveSig(bool)), this, SLOT(activeSelectGeo(bool)));
+// 		
+// 		connect(_mainWindow, SIGNAL(selectGeoCloseSig(int)), this, SLOT(closeSelectGeo(int)));
 
 		auto gp = Setting::BusAPI::instance()->getGraphOption();
 		_showvertex = gp->isShowGeoPoint();
@@ -389,9 +389,6 @@ namespace MainWidget
 
 		switch (_selectType)
 		{
-		case ModuleBase::None:
-			RestoreGeoColor();
-			break;
 		case ModuleBase::GeometryBody:
 		case ModuleBase::GeometryWinBody:
 			this->setPickable(_faceActors, true);
@@ -411,6 +408,8 @@ namespace MainWidget
 		default:
 			break;
 		}
+
+		RestoreGeoColor();
 	}
 
 	void GeometryViewProvider::setPickable(QList<vtkActor*> acs, bool visibility)
@@ -426,99 +425,100 @@ namespace MainWidget
 	{
 	
 		int shape = -1;
+		bool winselect = false;
 		switch (_selectType)
 		{
+		case ModuleBase::GeometryWinPoint: winselect = true;
 		case ModuleBase::GeometryPoint:
-		case ModuleBase::GeometryWinPoint:
 			if (!_vertexActors.contains(ac)) return;
 			shape = _actotShapeHash.value(ac);
 			break;
+		case ModuleBase::GeometryWinCurve:  winselect = true;
 		case ModuleBase::GeometryCurve:
-		case ModuleBase::GeometryWinCurve:
 			if (!_edgeActors.contains(ac)) return;
 			shape = _actotShapeHash.value(ac);
 			break;
+		case ModuleBase::GeometryWinSurface: winselect = true;
 		case ModuleBase::GeometrySurface:
-		case ModuleBase::GeometryWinSurface:
 			if (!_faceActors.contains(ac)) return;
 			shape = _actotShapeHash.value(ac);
+			break;
+		case ModuleBase::GeometryWinBody : winselect = true;
 			break;
 		default:
 			break;
 		}
 		Geometry::GeometrySet* set = _setActors.key(ac);
-
-		if (_activeSeletGeo)
+		if (set != nullptr)
 		{
+			emit _preWindow->selectGeoActorShape(ac, shape, set);
+		//	_preWindow->reRender();
+		}
 
-			for(auto var : _vertexActors)
-			{
-				QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor();
-				var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-			}
-			for (auto var : _edgeActors)
-			{
-				QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-				var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-			}
-			for (auto var : _faceActors)
-			{
-				QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-				var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-			}
+		if (!winselect)  return;
+
+		for(auto var : _vertexActors)
+		{
+			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor();
+			var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+		}
+		for (auto var : _edgeActors)
+		{
+			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
+			var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+		}
+		for (auto var : _faceActors)
+		{
+			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
+			var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+		}
 			
-			if (set == nullptr) return;
+		if (set == nullptr) return;
 
-			if (!ctrlpress)
-			{
-				_selectItems.clear();
-				_addActors.clear();
-				_selectItems.insert(set, shape);
-				_addActors.append(ac);
-			}
-			else
-			{
-				if (_addActors.contains(ac))
-				{
-					_addActors.removeOne(ac);
-					_selectItems.remove(set, shape);
-				}
-				else
-				{
-					_selectItems.insert(set, shape);
-					_addActors.append(ac);
-				}
-			}
-
-			QColor colorhigh = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			if (_selectType == ModuleBase::GeometryBody || _selectType == ModuleBase::GeometryWinBody)
-			{
-				QList<Geometry::GeometrySet*> setList = _selectItems.uniqueKeys();
-				for (auto set : setList)
-				{
-					QList<vtkActor*> setactors = _setActors.values(set);
-					for (auto var : setactors)
-					{
-						var->GetProperty()->SetColor(colorhigh.redF(), colorhigh.greenF(), colorhigh.blueF());
-					}
-				}
-
-			}
-			else
-			{
-				for (auto actor : _addActors)
-				{
-					actor->GetProperty()->SetColor(colorhigh.redF(), colorhigh.greenF(), colorhigh.blueF());
-				}
-				
-			}
-			//_activeSeletGeo = false;
+		if (!ctrlpress)
+		{
+			_selectItems.clear();
+			_addActors.clear();
+			_selectItems.insert(set, shape);
+			_addActors.append(ac);
 		}
 		else
 		{
-			if (shape != -1 && set != nullptr)
-				emit _preWindow->selectGeoActorShape(ac, shape, set);
+			if (_addActors.contains(ac))
+			{
+				_addActors.removeOne(ac);
+				_selectItems.remove(set, shape);
+			}
+			else
+			{
+				_selectItems.insert(set, shape);
+				_addActors.append(ac);
+			}
 		}
+
+		QColor colorhigh = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
+		if (_selectType == ModuleBase::GeometryBody || _selectType == ModuleBase::GeometryWinBody)
+		{
+			QList<Geometry::GeometrySet*> setList = _selectItems.uniqueKeys();
+			for (auto set : setList)
+			{
+				QList<vtkActor*> setactors = _setActors.values(set);
+				for (auto var : setactors)
+				{
+					var->GetProperty()->SetColor(colorhigh.redF(), colorhigh.greenF(), colorhigh.blueF());
+				}
+			}
+
+		}
+		else
+		{
+			for (auto actor : _addActors)
+			{
+				actor->GetProperty()->SetColor(colorhigh.redF(), colorhigh.greenF(), colorhigh.blueF());
+			}
+				
+		}
+			
 		
 		_preWindow->reRender();
 	}
@@ -708,23 +708,26 @@ namespace MainWidget
 		for (auto var : _faceActors)
 		{
 			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
+			int tp = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
 			var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			var->GetProperty()->SetOpacity(1.0 - tp / 100.0);
 		}
 		_preWindow->reRender();
+		_selectItems.clear();
 	}
 
-	void GeometryViewProvider::activeSelectGeo(bool on)
-	{
-		_activeSeletGeo = on;
-	}
-
-	void GeometryViewProvider::closeSelectGeo(int geomodel)
-	{
-		if (geomodel>-1)
-		{
-			_activeSeletGeo = false;
-		}
-	}
+// 	void GeometryViewProvider::activeSelectGeo(bool on)
+// 	{
+// 		_activeSeletGeo = on;
+// 	}
+// 
+// 	void GeometryViewProvider::closeSelectGeo(int geomodel)
+// 	{
+// 		if (geomodel>-1)
+// 		{
+// 			_activeSeletGeo = false;
+// 		}
+// 	}
 
 	QMultiHash<Geometry::GeometrySet*, int> GeometryViewProvider::getGeoSelectItems()
 	{

@@ -57,16 +57,9 @@ namespace MainWidget
 		void showGeoDialog(QDialog*);
 		//高亮几何
 		void highLightGeometrySet(Geometry::GeometrySet*, bool);
-// 		void sig_change_panel_index(int);
-// 		void sig_surface_mesh(QString);
-// 		//计算域网格信息
-// 		void sig_solid_mesh(QString);
-// 		//体网格信号
-// 		void sig_volume_mesh(QString);
+ 
 		//清除高亮
 		void clearHighLight();
-		//void showDatumPlane(Geometry::GeometryDatum*)
-		//void removeDatumActor(Geometry::GeometryDatum*);
 
 	public slots:
 	    //更新树
@@ -86,6 +79,8 @@ namespace MainWidget
 		void hideAll();
 		//显示全部
 		void showAll();
+		//节点状态改变
+		void itemStatesChanged(QTreeWidgetItem*, int);
 
 	private:
 		void contextMenuEvent(QContextMenuEvent *event) override;

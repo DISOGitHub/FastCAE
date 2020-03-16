@@ -77,6 +77,9 @@ namespace MainWidget
 		///<MG load material from lib
 		void slot_load_from_material_lib();
 
+		//从材料库中删除
+		void slot_remove_from_material_lib();
+
 		///<MG create material
 		void slot_create_material();
 

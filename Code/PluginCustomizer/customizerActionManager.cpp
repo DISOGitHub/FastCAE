@@ -173,7 +173,11 @@ namespace Plugins
 	//基本参数设定
 	void CustomActionManager::OnParaBaseSetup()
 	{
-		FastCAEDesigner::ParaBasicSetup dlg(FastCAEDesigner::DataManager::getInstance()->getGlobalConfig(), _mainWindow);
+		//xuxinwei 20200305
+		_subWindowManager = _mainWindow->getSubWindowManager();
+		FastCAEDesigner::ParaBasicSetup dlg(FastCAEDesigner::DataManager::getInstance()->getGlobalConfig(), _mainWindow, _subWindowManager);
+
+		//FastCAEDesigner::ParaBasicSetup dlg(FastCAEDesigner::DataManager::getInstance()->getGlobalConfig(), _mainWindow);
 		dlg.SetLogoFileName(FastCAEDesigner::DataManager::getInstance()->GetLogoFileName());
 		dlg.SetWelcomeFileName(FastCAEDesigner::DataManager::getInstance()->GetWelcomeFileName());
 
@@ -205,14 +209,39 @@ namespace Plugins
 		FastCAEDesigner::ParaImportGeometrySetup dlg(true,_mainWindow);
 		int r = dlg.exec();
 		if (r == QDialog::Accepted)
-			updateImportGeometryAction(dlg.getSuffix());
+		{
+			QString suffix = dlg.getSuffix();
+			QString exportSuffix = FastCAEDesigner::DataManager::getInstance()->GetExportGeometrySuffix();
+
+			if ((suffix.isEmpty()) && (exportSuffix.isEmpty()))
+				_geoSuffixNull = true;
+			else
+				_geoSuffixNull = false;
+
+			updateImportGeometryAction(suffix);
+			updateGeometrySelectAndView();
+		}
+
 	}
 
 	//输出几何参数设定
 	void CustomActionManager::OnParaExportGeometrySetup()
 	{
 		FastCAEDesigner::ParaImportGeometrySetup dlg(false, _mainWindow);
-		dlg.exec();
+		int r = dlg.exec();
+
+		if (r == QDialog::Accepted)
+		{
+			QString suffix = dlg.getSuffix();
+			QString importSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportGeometrySuffix();
+
+			if ((suffix.isEmpty()) && (importSuffix.isEmpty()))
+				_geoSuffixNull = true;
+			else
+				_geoSuffixNull = false;
+
+			updateGeometrySelectAndView();
+		}
 	}
 
 	//输入网格文件类型设定
@@ -220,14 +249,39 @@ namespace Plugins
 	{
 		FastCAEDesigner::ParaImportMeshSetup dlg(_mainWindow);
 		int r = dlg.exec();
+
 		if (r == QDialog::Accepted)
-			updateImportMeshAction(dlg.getSuffix());
+		{
+			QString suffix = dlg.getSuffix();
+			QString exportSuffix = FastCAEDesigner::DataManager::getInstance()->GetExportMeshSuffix();
+
+			if ((suffix.isEmpty()) && (exportSuffix.isEmpty()))
+				_meshSuffixNull = true;
+			else
+				_meshSuffixNull = false;
+
+			updateImportMeshAction(suffix);
+			updateMeshSelectAndView();
+		}
 	}
 	//输出网格文件类型设定
 	void CustomActionManager::OnParaExportMeshSetup()
 	{
 		FastCAEDesigner::ParaExportMeshSetup dlg(_mainWindow);
-		dlg.exec();
+		int r = dlg.exec();
+		if (r == QDialog::Accepted)
+		{
+			QString suffix = dlg.getExportSuffix();
+			QString importSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportMeshSuffix();
+
+			if ((suffix.isEmpty()) && (importSuffix.isEmpty()))
+				_meshSuffixNull = true;
+			else
+				_meshSuffixNull = false;
+
+			updateMeshSelectAndView();
+		}
+
 	}
 
 
@@ -564,16 +618,16 @@ namespace Plugins
 		//_selectToolBar = _mainWindow->addToolBar("Select");
 		//_menuAndtoolbarList.append(_selectToolBar);
 
-		CreateAction(tr("selectOff"), ":/QUI/icon/selectOff.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("selectMeshNode"), ":/QUI/icon/selectNode.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("selectMeshCell"), ":/QUI/icon/selectElement.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("BoxMeshNode"), ":/QUI/icon/boxNode.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("BoxMeshCell"), ":/QUI/icon/boxCell.png", _selectToolBar, _mainWindow);
+		_selectOff = CreateAction(tr("selectOff"), ":/QUI/icon/selectOff.png", _selectToolBar, _mainWindow);
+		_meshSelect1 = CreateAction(tr("selectMeshNode"), ":/QUI/icon/selectNode.png", _selectToolBar, _mainWindow);
+		_meshSelect2 = CreateAction(tr("selectMeshCell"), ":/QUI/icon/selectElement.png", _selectToolBar, _mainWindow);
+		_meshSelect3 = CreateAction(tr("BoxMeshNode"), ":/QUI/icon/boxNode.png", _selectToolBar, _mainWindow);
+		_meshSelect4 = CreateAction(tr("BoxMeshCell"), ":/QUI/icon/boxCell.png", _selectToolBar, _mainWindow);
 		_selectToolBar->addSeparator();
-		CreateAction(tr("SelectPoint"), ":/QUI/geometry/selectpoint.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("SelectCurve"), ":/QUI/geometry/selectwire.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("SelectFace"), ":/QUI/geometry/selectface.png", _selectToolBar, _mainWindow);
-		CreateAction(tr("SelectGeometryBody"), ":/QUI/geometry/selectbody.png", _selectToolBar, _mainWindow);
+		_geoSelect1 = CreateAction(tr("SelectPoint"), ":/QUI/geometry/selectpoint.png", _selectToolBar, _mainWindow);
+		_geoSelect2 = CreateAction(tr("SelectCurve"), ":/QUI/geometry/selectwire.png", _selectToolBar, _mainWindow);
+		_geoSelect3 = CreateAction(tr("SelectFace"), ":/QUI/geometry/selectface.png", _selectToolBar, _mainWindow);
+		_geoSelect4 = CreateAction(tr("SelectGeometryBody"), ":/QUI/geometry/selectbody.png", _selectToolBar, _mainWindow);
 	}
 
 	//建立查看网格几何工具栏
@@ -583,14 +637,14 @@ namespace Plugins
 		//_viewToolBar = _mainWindow->addToolBar("View");
 		//_menuAndtoolbarList.append(_viewToolBar);
 
-		CreateAction(tr("DisplayNode"), ":/QUI/icon/node.png", _viewToolBar, _mainWindow);
-		CreateAction(tr("DisplayWireFrame"), ":/QUI/icon/wireFrame.png", _viewToolBar, _mainWindow);
-		CreateAction(tr("DisplaySurface"), ":/QUI/icon/face.png", _viewToolBar, _mainWindow);
-		CreateAction(tr("DisplaySurfaceEdge"), ":/QUI/icon/faceWithEdge.png", _viewToolBar, _mainWindow);
+		_meshDisplay1 = CreateAction(tr("DisplayNode"), ":/QUI/icon/node.png", _viewToolBar, _mainWindow);
+		_meshDisplay2 = CreateAction(tr("DisplayWireFrame"), ":/QUI/icon/wireFrame.png", _viewToolBar, _mainWindow);
+		_meshDisplay3 = CreateAction(tr("DisplaySurface"), ":/QUI/icon/face.png", _viewToolBar, _mainWindow);
+		_meshDisplay4 = CreateAction(tr("DisplaySurfaceEdge"), ":/QUI/icon/faceWithEdge.png", _viewToolBar, _mainWindow);
 		_viewToolBar->addSeparator();
-		CreateAction(tr("DisplayPoint"), ":/QUI/geometry/pointDisplay.png", _viewToolBar, _mainWindow);
-		CreateAction(tr("DisplayCurve"), ":/QUI/geometry/edgeDisplay.png", _viewToolBar, _mainWindow);
-		CreateAction(tr("DisplayFace"), ":/QUI/geometry/facedisplay.png", _viewToolBar, _mainWindow);
+		_geoDisplay1 = CreateAction(tr("DisplayPoint"), ":/QUI/geometry/pointDisplay.png", _viewToolBar, _mainWindow);
+		_geoDisplay2 = CreateAction(tr("DisplayCurve"), ":/QUI/geometry/edgeDisplay.png", _viewToolBar, _mainWindow);
+		_geoDisplay3 = CreateAction(tr("DisplayFace"), ":/QUI/geometry/facedisplay.png", _viewToolBar, _mainWindow);
 	}
 
 	//建立求解工具栏
@@ -638,8 +692,8 @@ namespace Plugins
 		//_URDoToolBar = _mainWindow->addToolBar("URDo");
 		//_menuAndtoolbarList.append(_URDoToolBar);
 
-		CreateAction(tr("undo"), ":/QUI/geometry/undo.png", _URDoToolBar, _mainWindow);
-		CreateAction(tr("redo"), ":/QUI/geometry/redo.png", _URDoToolBar, _mainWindow);
+		_geoUndo = CreateAction(tr("undo"), ":/QUI/geometry/undo.png", _URDoToolBar, _mainWindow);
+		_geoRedo = CreateAction(tr("redo"), ":/QUI/geometry/redo.png", _URDoToolBar, _mainWindow);
 	}
 
 	//建立草绘工具栏
@@ -724,6 +778,13 @@ namespace Plugins
 		bool b = (status > 0) ? true : false;
 		FastCAEDesigner::DataManager::getInstance()->SetGeometryCreateSketch(b);
 		_createSketchToolBar->setVisible(b);
+
+		if ((b == true) || (_geoFeatureModelingCheckbox->getCheckBoxChecked()) || (_geoFeatureOperationCheckbox->getCheckBoxChecked()))
+			_geoOperateNull = false;
+		else
+			_geoOperateNull = true;
+		
+		updateGeometrySelectAndView();
 	}
 	//更新特征建模工具栏
 	void CustomActionManager::UpdateFeatureModingToolBar(int status)
@@ -731,6 +792,13 @@ namespace Plugins
 		bool b = (status > 0) ? true : false;
 		FastCAEDesigner::DataManager::getInstance()->SetGeometryFeatureModeling(b);
 		_featureModingToolBar->setVisible(b);	
+
+		if ((b == true) || (_geoDraftCheckbox->getCheckBoxChecked()) || (_geoFeatureOperationCheckbox->getCheckBoxChecked()))
+			_geoOperateNull = false;
+		else
+			_geoOperateNull = true;
+
+		updateGeometrySelectAndView();
 	}
 	//更新特征操作工具栏
 	void CustomActionManager::UpdateFeatureOperationsToolBar(int status)
@@ -739,7 +807,14 @@ namespace Plugins
 		FastCAEDesigner::DataManager::getInstance()->SetGeometryFeatureOperatins(b);
 		_featureOperations1ToolBar->setVisible(b);
 		_featureOperations2ToolBar->setVisible(b);
-		_featureOperations3ToolBar->setVisible(b);	
+		_featureOperations3ToolBar->setVisible(b);
+
+		if ((b == true) || (_geoFeatureModelingCheckbox->getCheckBoxChecked()) || (_geoDraftCheckbox->getCheckBoxChecked()))
+			_geoOperateNull = false;
+		else
+			_geoOperateNull = true;
+
+		updateGeometrySelectAndView();
 	}
 	//更新Mesh相关操作对应工具栏
 	void CustomActionManager::UpdateSurfaceAction(int status)
@@ -747,12 +822,26 @@ namespace Plugins
 		bool b = (status > 0) ? true : false;
 		FastCAEDesigner::DataManager::getInstance()->SetSurfaceMesh(b);
 		_surfaceMesh->setVisible(b);
+		
+		if ((b == true) || (_meshSolidCheckbox->getCheckBoxChecked()))
+			_meshOperateNull = false;
+		else
+			_meshOperateNull = true;
+
+		updateMeshSelectAndView();
 	}
 	void CustomActionManager::UpdateSolidAction(int status)
 	{
 		bool b = (status > 0) ? true : false;
 		FastCAEDesigner::DataManager::getInstance()->SetSolidMesh(b);
 		_solidMesh->setVisible(b);
+
+		if ((b == true) || (_meshSurfaceCheckbox->getCheckBoxChecked()))
+			_meshOperateNull = false;
+		else
+			_meshOperateNull = true;
+
+		updateMeshSelectAndView();
 	}
 	void CustomActionManager::UpdateCheckMeshAction(int status)
 	{
@@ -794,16 +883,30 @@ namespace Plugins
 		bool isGeoOperations = FastCAEDesigner::DataManager::getInstance()->GetGeometryFeatureOperatins();
 		bool isCreateSketch = FastCAEDesigner::DataManager::getInstance()->GetGeometryCreateSketch();
 
+		if ((isGeoModeling == false) && (isGeoOperations == false) && (isCreateSketch == false))
+			_geoOperateNull = true;
+
 		bool isSurfaceMesh = FastCAEDesigner::DataManager::getInstance()->GetSurfaceMesh();
 		bool isSolidMesh = FastCAEDesigner::DataManager::getInstance()->GetSolidMesh();
 		bool isCheckMesh = FastCAEDesigner::DataManager::getInstance()->GetCheckMesh();
 		bool isCreateSet = FastCAEDesigner::DataManager::getInstance()->GetMeshCreateSet();
 
-		QString geoSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportGeometrySuffix();
-		QString meshSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportMeshSuffix();
+		if ((isSurfaceMesh == false) && (isSolidMesh == false))
+			_meshOperateNull = true;
 
-		updateImportMeshAction(meshSuffix);
-		updateImportGeometryAction(geoSuffix);
+		QString importGeoSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportGeometrySuffix();
+		QString exportGeoSuffix = FastCAEDesigner::DataManager::getInstance()->GetExportGeometrySuffix();
+		QString importMeshSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportMeshSuffix();
+		QString exportMeshSuffix = FastCAEDesigner::DataManager::getInstance()->GetExportMeshSuffix();
+
+		if ((importMeshSuffix.isEmpty()) && (exportMeshSuffix.isEmpty()))
+			_meshSuffixNull = true;
+		
+		if ((importGeoSuffix.isEmpty()) && (exportGeoSuffix.isEmpty()))
+			_geoSuffixNull = true;
+
+		updateImportMeshAction(importMeshSuffix);
+		updateImportGeometryAction(importGeoSuffix);
 
 		initActionstatus(_geoFeatureModelingCheckbox, isGeoModeling);
 		initActionstatus(_geoFeatureOperationCheckbox, isGeoOperations);
@@ -822,6 +925,9 @@ namespace Plugins
 		_solidMesh->setVisible(isSolidMesh);
 		_meshCheck->setVisible(isCheckMesh);
 		_meshCreateSet->setVisible(isCreateSet);
+
+		updateGeometrySelectAndView();
+		updateMeshSelectAndView();
 
 	}
 
@@ -873,6 +979,72 @@ namespace Plugins
 				FastCAEDesigner::DataManager::getInstance()->CopyFileToSystem(names.at(j), path);
 			}
 		}
+	}
+
+	void CustomActionManager::updateMeshSelectAndView()
+	{
+		if ((_meshSuffixNull == false) || (_meshOperateNull == false))
+		{
+			_meshSelect1->setVisible(true);
+			_meshSelect2->setVisible(true);
+			_meshSelect3->setVisible(true);
+			_meshSelect4->setVisible(true);
+			_meshDisplay1->setVisible(true);
+			_meshDisplay2->setVisible(true);
+			_meshDisplay3->setVisible(true);
+			_meshDisplay4->setVisible(true);
+		}
+		else
+		{
+			_meshSelect1->setVisible(false);
+			_meshSelect2->setVisible(false);
+			_meshSelect3->setVisible(false);
+			_meshSelect4->setVisible(false);
+			_meshDisplay1->setVisible(false);
+			_meshDisplay2->setVisible(false);
+			_meshDisplay3->setVisible(false);
+			_meshDisplay4->setVisible(false);
+		}
+
+		updateSelectOff();
+	}
+
+	void CustomActionManager::updateGeometrySelectAndView()
+	{
+		if ((_geoSuffixNull == false) || (_geoOperateNull == false))
+		{
+			_geoSelect1->setVisible(true);
+			_geoSelect2->setVisible(true);
+			_geoSelect3->setVisible(true);
+			_geoSelect4->setVisible(true);
+			_geoDisplay1->setVisible(true);
+			_geoDisplay2->setVisible(true);
+			_geoDisplay3->setVisible(true);
+			_geoUndo->setVisible(true);
+			_geoRedo->setVisible(true);
+		}
+		else
+		{
+			_geoSelect1->setVisible(false);
+			_geoSelect2->setVisible(false);
+			_geoSelect3->setVisible(false);
+			_geoSelect4->setVisible(false);
+			_geoDisplay1->setVisible(false);
+			_geoDisplay2->setVisible(false);
+			_geoDisplay3->setVisible(false);
+			_geoUndo->setVisible(false);
+			_geoRedo->setVisible(false);
+		}
+
+		updateSelectOff();
+	}
+
+	void CustomActionManager::updateSelectOff()
+	{
+		if ((_meshOperateNull == false) || (_geoOperateNull == false) || (_meshSuffixNull == false) || (_geoSuffixNull == false))
+			_selectOff->setVisible(true);
+		else
+			_selectOff->setVisible(false);
 	}
 
 }

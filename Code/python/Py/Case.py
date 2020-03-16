@@ -22,6 +22,7 @@ def importMeshComponents(caseId,addcomponentsId):
   addcomponentsId = bytes(addcomponentsId,encoding='utf-8')
   md.importMeshComponents(caseId,addcomponentsId)
   ControlPanel.updateMeshSubTree(caseId)
+  ControlPanel.updateBCSubTree(caseId)
   pass
   
 def importGeometry(caseId,addcomponentsId):

@@ -248,8 +248,9 @@ namespace FastCAEDesigner
 	//拷贝用户手册到系统
 	void DataManager::CopyUserManualToSystem()
 	{
-		QString destPath = FileHelper::GetSystemConfigPath() + "doc//";
-		CopyFileToSystem(_userManual, destPath);
+		QString destPath = FileHelper::GetSystemConfigPath() + "..//Doc//";
+		//CopyFileToSystem(_userManual, destPath);
+		CopyUserManualFileToSystem(_userManual, destPath);//20200306
 	}
 
 	//拷贝logo、welcome文件到系统
@@ -589,6 +590,37 @@ namespace FastCAEDesigner
 		_materialList.clear();
 		_materialList = list;
 	}
+	//202.1.18
+	QList<ModelBase*> DataManager::getParameterList(TreeItemType type)
+	{
+		_parameterList = _parameterListDict[type];
+		return _parameterList;
+	}
 
+	void DataManager::setParameterListDict(TreeItemType type, QList<ModelBase*> modelList)
+	{
+		_parameterListDict.insert(type, modelList);
+	}
 
+	//20200306
+	void DataManager::CopyUserManualFileToSystem(QString fileName, QString path)
+	{
+		QDir desDir(path);
+		if (!desDir.exists())
+			desDir.mkpath(path);
+
+		if (!fileName.isEmpty())
+		{
+			QString fileSuffix = fileName.split(".").last();
+			QStringList desFileNameList{};
+
+			desFileNameList.append(QString("UserManual"));
+			desFileNameList.append(fileSuffix);
+
+			QString desFileName = desFileNameList.join(".");
+
+			bool b = FileHelper::CopyFileToPath(fileName, path + desFileName, true);
+			qDebug() << b;
+		}
+	}
 }

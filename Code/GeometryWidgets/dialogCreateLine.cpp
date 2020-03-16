@@ -86,7 +86,7 @@ namespace GeometryWidget
 			double length, dir[3]; bool reverse{false};
 			length = p->getLength();
 			p->getDirection(dir);
-			reverse = p->getReverse();
+			//reverse = p->getReverse();
 			_ui->lineEditLength->setText(QString::number(length));
 			_ui->checkBoxReverse->setChecked(reverse);
 			

@@ -34,6 +34,7 @@ namespace FastCAEDesigner
 
 		QString GetErrorMsg(int errorCode);
 		bool FileNameIsAllow(QString fileName);
+		bool FileEngNameIsAllow(QString fileName);
 
 	private:
 		InputValidator();

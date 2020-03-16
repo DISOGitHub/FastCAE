@@ -198,19 +198,19 @@ namespace Command
 
 	void GeoCommandMakeRevol::getVec(double * vec)
 	{
-		if (_optionmethod==0)
+		if (_optionmethod == 0)
 		{
-			if (_aixsetedge.first == nullptr || _aixsetedge.second < 0) return ;
+			if (_aixsetedge.first == nullptr || _aixsetedge.second < 0) return;
 			TopoDS_Shape* shape = _aixsetedge.first->getShape();
 
 			TopExp_Explorer edgeExp(*shape, TopAbs_EDGE);
 			for (int k = 0; k < _aixsetedge.second; ++k) edgeExp.Next();
 
 			const TopoDS_Edge &edge = TopoDS::Edge(edgeExp.Current());
-			if (edge.IsNull()) return ;
+			if (edge.IsNull()) return;
 
 			BRepAdaptor_Curve adapt(edge);
-			if (adapt.GetType() != GeomAbs_Line) return ;
+			if (adapt.GetType() != GeomAbs_Line) return;
 			gp_Lin line = adapt.Line();
 			gp_Dir direc = line.Direction();
 			vec[0] = direc.X();
@@ -223,13 +223,14 @@ namespace Command
 			{
 				vec[i] = _coor[i];
 			}
-			double mod =vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
-			if (mod > 0.000001) return;
-
+			double mod = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
+			if (mod < 0.000001) return;
 		}
-		if (_reverse)
+		if (_reverse==true)
+		{
 			for (int i = 0; i < 3; ++i)
 				vec[i] *= -1;
+		}
 	}
 
 	void GeoCommandMakeRevol::setCoor(double* coor)

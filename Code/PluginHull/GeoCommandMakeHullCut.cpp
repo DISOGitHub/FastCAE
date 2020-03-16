@@ -458,7 +458,7 @@ namespace Command
 
 				double angle = vec0.Angle(vecEnd);
 				double distance = pnt0.Distance(ptend);
-				double curvature = abs(angle) / abs(distance);
+				double curvature = fabs(angle) / fabs(distance);
 				temp0->setCurvature(curvature);
 			}
 			
@@ -467,7 +467,7 @@ namespace Command
 			gp_Vec vecEnd = temp->getVec();
 			double angle = vec0.Angle(vecEnd);
 			double distance = pnt0.Distance(ptend);
-			double curvature = abs(angle) / abs(distance);
+			double curvature = fabs(angle) / fabs(distance);
 			temp->setCurvature(curvature);
 			pnt0 = ptend;
 			vec0 = vecEnd;
@@ -583,7 +583,7 @@ namespace Command
 
 				double angle = vec0.Angle(vecEnd);
 				double distance = pnt0.Distance(ptend);
-				double curvature = abs(angle) / abs(distance);
+				double curvature = fabs(angle) / fabs(distance);
 				temp0->setCurvature(curvature);
 			}
 
@@ -593,7 +593,7 @@ namespace Command
 
 			double angle = vec0.Angle(vecEnd);
 			double distance = pnt0.Distance(ptend);
-			double curvature = abs(angle) / abs(distance);
+			double curvature = fabs(angle) / fabs(distance);
 			temp->setCurvature(curvature);
 			pnt0 = ptend;
 			vec0 = vecEnd;
@@ -715,7 +715,7 @@ namespace Command
 		std::list<PluginShip::ModelPoint*> temp;
 		for each (PluginShip::ModelPoint* var in result)
 		{
-			if (abs(var->getPoint().Y()) < 1e-7) continue;
+			if (fabs(var->getPoint().Y()) < 1e-7) continue;
 			TopoDS_Vertex vertex = BRepBuilderAPI_MakeVertex(var->getPoint());
 			gp_Trsf aTrsf;
 			aTrsf.SetMirror(plane);
@@ -980,7 +980,7 @@ namespace Command
 
 			double dis = gpmax.Distance(gpmin);
 			double tol = dis*0.001;
-			if (abs(faceBox.CornerMax().Z() - faceBox.CornerMin().Z())<tol)
+			if (fabs(faceBox.CornerMax().Z() - faceBox.CornerMin().Z())<tol)
 			{
 				TopoDS_Face currentVt = TopoDS::Face(anExp.Current());
 				Bnd_Box cutBox;

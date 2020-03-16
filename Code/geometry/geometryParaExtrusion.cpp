@@ -124,6 +124,12 @@ namespace Geometry
 		reverse1Ele.appendChild(reverse1Text);
 		element.appendChild(reverse1Ele);
 
+		QDomElement solidEle = doc->createElement("Solid");
+		QString solidStr = QString("%1").arg(_issolid);
+		QDomText solidText = doc->createTextNode(solidStr);
+		solidEle.appendChild(solidText);
+		element.appendChild(solidEle);
+
 		parent->appendChild(element);
 		return element;
 	}
@@ -179,6 +185,11 @@ namespace Geometry
 		QString r1 = r1List.at(0).toElement().text();
 		if (r1 == "1") _reverse = true;
 		else if (r1 == "0") _reverse = false;
+
+		QDomNodeList solidList = e->elementsByTagName("Solid");
+		QString solidsr = solidList.at(0).toElement().text();
+		if (solidsr == "1") _issolid = true;
+		else if (solidsr == "0") _issolid = false;
 
 
 	}

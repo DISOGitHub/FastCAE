@@ -76,15 +76,16 @@ namespace FastCAEDesigner
 			sl.append("brep");
 		}
 		str = sl.join(";");
+		_suffix = str;
 		if (_isImport)
 		{
 			FastCAEDesigner::DataManager::getInstance()->SetImportGeometry(str);
-			_suffix = str;
 			this->accept();
 		}
 		else
 		{
 			FastCAEDesigner::DataManager::getInstance()->SetExportGeometry(str);
+			this->accept();
 		}
 		//geoconfig->setSuffix(str);
 		close();

@@ -411,7 +411,7 @@ class BooLOperation:
 
     def edit(self):
         typestr = bytes(self.booltype, encoding='utf-8')
-        command.EditBooLOperation(c_int(self.editID),typestr,c_int(self.body1),c_int(self.body2) )
+        command.EditBooLOperation(c_int(self.editID),typestr,c_int(self.body1),c_int(self.body2))
         del self	
 		
 class MirrorFeature:
@@ -648,7 +648,7 @@ class MakeMatrix:
         self.dir11=dir11
         self.dir12=dir12
 		  
-    def setReverseOfDirecrtion1(self,revstr):
+    def setReverseOfDirection1(self,revstr):
         if (revstr=='Yes'):
           self.reverse1=1
         elif (revstr=='No'):
@@ -672,7 +672,7 @@ class MakeMatrix:
         self.dir21=dir21
         self.dir22=dir22
 		  
-    def setReverseOfDirecrtion2(self,revstr):
+    def setReverseOfDirection2(self,revstr):
         if (revstr=='Yes'):
           self.reverse2=1
         elif (revstr=='No'):
@@ -711,7 +711,7 @@ class MakeMatrix:
           command.MakeMatrix(bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
 								c_int(self.showdir2),c_double(self.dir20),c_double(self.dir21),c_double(self.dir22),c_int(self.reverse2),c_double(self.dis2),c_int(self.count2),\
 								c_double(self.basept0),c_double(self.basept1),c_double(self.basept2),c_double(self.axis0),c_double(self.axis1),c_double(self.axis2),\
-								c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree),c_double(self.vec0),c_double(self.vec1),c_double(self.vec2))
+								c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree))
           del self
 
     def edit(self):
@@ -719,7 +719,7 @@ class MakeMatrix:
           command.EditMatrix(c_int(self.editID),bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
 								c_int(self.showdir2),c_double(self.dir20),c_double(self.dir21),c_double(self.dir22),c_int(self.reverse2),c_double(self.dis2),c_int(self.count2),\
 								c_double(self.basept0),c_double(self.basept1),c_double(self.basept2),c_double(self.axis0),c_double(self.axis1),c_double(self.axis2),\
-									c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree),c_double(self.vec0),c_double(self.vec1),c_double(self.vec2))
+								c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree))
           del self
 		  
 class Extrusion:

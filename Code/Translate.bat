@@ -34,7 +34,7 @@ lrelease Setting_zh_CN.ts
 lrelease ModuleBase_zh_CN.ts
 lrelease ProjectTree_zh_CN.ts
 lrelease PostWidgets_zh_CN.ts
-lrelease XMaterial_zh_CN.ts
+lrelease Material_zh_CN.ts
 lrelease IO_zh_CN.ts
 lrelease GeometryWidgets_zh_CN.ts
 lrelease PluginManager_zh_CN.ts

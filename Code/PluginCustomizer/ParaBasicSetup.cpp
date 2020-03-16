@@ -17,6 +17,7 @@
 #include <QFileInfo>
 #include <QMainWindow>
 #include <QTimer>
+#include "mainWindow/SubWindowManager.h"
 
 
 
@@ -24,6 +25,16 @@ namespace FastCAEDesigner
 {
 	ParaBasicSetup::ParaBasicSetup(ConfigOption::GlobalConfig* globalConfig, QMainWindow *parent):
 		_globalConfig(globalConfig), _mainWindow(parent),
+		QDialog(parent),
+		ui(new Ui::ParaBasicSetup)
+	{
+		ui->setupUi(this);
+		InitErrorList();
+		//Init();
+	}
+	//xuxinwei 20200305
+	ParaBasicSetup::ParaBasicSetup(ConfigOption::GlobalConfig* globalConfig, QMainWindow *parent, GUI::SubWindowManager* sub) :
+		_globalConfig(globalConfig), _mainWindow(parent), _subWindow(sub),
 		QDialog(parent),
 		ui(new Ui::ParaBasicSetup)
 	{
@@ -105,7 +116,14 @@ namespace FastCAEDesigner
 	
 	void ParaBasicSetup::Init()
 	{
-		UpdateDataToUi();
+		UpdateDataToUi();																		
+
+		setTabOrder(ui->txtNameCn, ui->txtNameEn);
+		setTabOrder(ui->txtNameEn, ui->txtVer);
+		setTabOrder(ui->txtVer, ui->txtCorporation);
+		setTabOrder(ui->txtCorporation, ui->txtEmail);
+		setTabOrder(ui->txtEmail, ui->txtWedSite);
+		//setTabOrder(ui->txtWedSite, ui->txtNameCn);
 		
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(OnBtnCancelClicked()));
@@ -243,7 +261,13 @@ namespace FastCAEDesigner
 		if (logoFileInfo.exists())
 		{
 			_mainWindow->setWindowIcon(QIcon(_logoFileName));
+			_subWindow->setIcon(_logoFileName);
 		}
+
+		//xuxinwei 20200305
+		QString web = ui->txtWedSite->text().trimmed();
+		qDebug() << web;
+		_subWindow->openUrl(web);
 
 		close();
 	}

@@ -16,6 +16,7 @@ namespace FastCAEDesigner{
 		~ParaExportMeshSetup();
 
 		void initExportSuffix(QString s);
+		QString getExportSuffix();
 
 	private slots:
 		void OnBtnOkClicked();
@@ -25,6 +26,8 @@ namespace FastCAEDesigner{
 
 	private:
 		Ui::ParaExportMeshSetup *ui;
+		
+		QString _suffix{};
 	};
 }
 #endif // PARAEXPORTMESHSETUP_H

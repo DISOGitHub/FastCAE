@@ -11,6 +11,7 @@
 #include <QDebug>
 #include "DialogLoadMaterial.h"
 #include "MaterialFactory.h"
+#include "DialogRemoveMaterial.h"
 
 namespace Material
 {
@@ -203,6 +204,28 @@ namespace Material
 		}
 		mahash.clear();
 
+	}
+
+	void MaterialSingleton::removeFromMAterialLib(GUI::MainWindow* m)
+	{
+		QHash<QString, Material*> mahash = this->loadMaterilLib();
+		const int no = mahash.size();
+		RemoveMaterialDialog d(m, &mahash);
+		d.exec();
+		const int n = mahash.size();
+		if (no != n)
+		{
+			this->writeToMaterialLib(mahash);
+			return;
+		}
+		QList<Material*> ml = mahash.values();
+		int nnn = ml.size();
+		for (int i = 0; i < ml.size(); ++i)
+		{
+			Material* m = ml.at(i);
+			delete m;
+		}
+		mahash.clear();
 	}
 
 }

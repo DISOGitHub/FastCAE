@@ -48,14 +48,12 @@ namespace GeometryWidget
 		_pathEdge = p->getPath();
 		_sectionEdgeHash = p->getShapeHash();
 		
-		QList<Geometry::GeometrySet*> setList = _sectionEdgeHash.keys();
-		int k = setList.size();
+		QList<Geometry::GeometrySet*> setList = _sectionEdgeHash.uniqueKeys();
 		for (int i = 0; i < setList.size(); ++i)
 		{
 			Geometry::GeometrySet* set = setList.at(i);
 			QList<int> edlist = _sectionEdgeHash.values(set);
 			if (set == nullptr) return;
-			int shapes = _sectionEdgeHash.value(set);
 			for(int var : edlist)
 			{
 				emit highLightGeometryEdge(set, var, &_sectionActors);
@@ -85,17 +83,15 @@ namespace GeometryWidget
 	{
 		bool ok = true;
 
-		if (_pathActor == nullptr || _sectionActors.size() < 1)
+		if (_pathActor == nullptr || _sectionActors.size() < 1||_pathEdge.first==nullptr)
 			ok = false;
-
-		bool isSolid = _ui->solidCheckBox->isChecked();
-/*
-
+		
 		if (!ok)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
 		}
+		/*
 		Command::GeoCommandMakeSweep* command = new Command::GeoCommandMakeSweep(_mainWindow, _preWindow);
 		command->setSection(_sectionEdgeHash);
 		command->setPath(_pathEdge);
@@ -108,8 +104,8 @@ namespace GeometryWidget
 			return;
 		}*/
 
-
 		QStringList codes{};
+		bool isSolid = _ui->solidCheckBox->isChecked();
 		codes += QString("sweep = CAD.Sweep()");
 		if (_isEdit)
 			codes += QString("sweep.setEditID(%1)").arg(_editSet->getID());

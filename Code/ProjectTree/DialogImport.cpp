@@ -4,6 +4,7 @@
 #include "ModelData/modelDataBaseExtend.h"
 #include <QMap>
 #include <QDebug>
+#include <QMessageBox>
 #include "python/PyAgent.h"
 #include "ModelData/modelDataSingleton.h"
 #include "ModelData/modelDataBase.h"
@@ -125,10 +126,10 @@ namespace ProjectTree
 		int  id = _data->getID();
 		QString code = QString("Case.importMeshComponents(%1,\"%2\")").arg(id).arg(addIdValues.join(" "));//
 		qDebug() << code;
-		if (ids.size() > 0)
-			Py::PythonAagent::getInstance()->submit(code);
+//		if (ids.size() > 0)
+		Py::PythonAagent::getInstance()->submit(code);
 		ComponentSelectDialogBase::accept();
 	}
 
 
-}
+} 

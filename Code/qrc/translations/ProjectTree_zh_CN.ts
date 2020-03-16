@@ -106,7 +106,7 @@
     </message>
     <message>
         <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="401"/>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="838"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="840"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -126,17 +126,17 @@
         <translation>单元标量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="661"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="663"/>
         <source>Node Vector</source>
         <translation>节点矢量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="662"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="664"/>
         <source>Cell Vector</source>
         <translation>单元矢量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="838"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="840"/>
         <source>File %1 is not exist</source>
         <translation>文件 %1 不存在</translation>
     </message>

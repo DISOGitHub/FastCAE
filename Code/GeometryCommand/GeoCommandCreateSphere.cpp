@@ -47,7 +47,7 @@ namespace Command
 		Geometry::GeometryParaSphere* para = new Geometry::GeometryParaSphere;
 		para->setName(_name);
 		para->setLocation(_location);
-		para->setRadius(&_radius);
+		para->setRadius(_radius);
 		_result->setParameter(para);
 
 		GeoCommandBase::execute();

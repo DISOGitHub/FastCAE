@@ -140,6 +140,13 @@ namespace MainWidget
 			QMessageBox::warning(this, tr("Warning"), info);
 			return;
 		}
+		if (name.toLocal8Bit().length() > 20)
+		{
+			QString info = tr("Name contains too many characters !");
+			QMessageBox::warning(this, tr("Warning"), info);
+			return;
+		}
+
 		QRegExp rx("[//\*:<>?\"\|]");
 //		bool match = rx.exactMatch(name);
 		int pos = rx.indexIn(name);

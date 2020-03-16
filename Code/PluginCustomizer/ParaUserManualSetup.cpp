@@ -28,6 +28,8 @@ namespace FastCAEDesigner
 	{
 		ui->setupUi(this);
 
+		this->setFixedSize(850, 650);
+
 		connect(ui->btnLoadDoc, SIGNAL(clicked()), this, SLOT(OnBtnLoadDocClicked()));
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
@@ -180,8 +182,9 @@ namespace FastCAEDesigner
 		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//²»ÏÔÊ¾´°Ìå
 		_officeContent->setProperty("DisplayAlerts", false);
 		ui->widget->hide();
-		//auto rect =  ui->widget->geometry();
-		//_officeContent->setGeometry(rect);
+		auto rect =  ui->widget->geometry();
+		_officeContent->setGeometry(rect);
+		//_officeContent->resize(800, 440);
 		_officeContent->setControl(fileName);
 		_officeContent->show();
 		ui->widgetLayout->addWidget(_officeContent);

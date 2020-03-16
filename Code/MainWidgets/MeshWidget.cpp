@@ -48,7 +48,7 @@ namespace MainWidget
 		connect(this, SIGNAL(clearHighLight()), _mainWindow, SIGNAL(clearHighLightSig()));
 		connect(this, SIGNAL(startMesherPySig(QString)), this, SLOT(startMesher(QString)));
 
-		
+		connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(itemStatesChanged(QTreeWidgetItem*, int)));
 	}
 	MeshWidget::~MeshWidget()
 	{
@@ -65,6 +65,7 @@ namespace MainWidget
 
 		_meshRoot->setText(0, tr("Mesh"));
 		const int n = _data->getKernalCount();
+		blockSignals(true);
 		for (int i = 0; i < n; ++i)
 		{
 			MeshData::MeshKernal* k = _data->getKernalAt(i);
@@ -79,47 +80,8 @@ namespace MainWidget
 			item->setCheckState(0, state);
 			item->setIcon(0, QIcon(":/QUI/icon/mesh.png"));
 		}
+		blockSignals(false);
 
-// 		for (int iCnt = 0; iCnt < _temp_meshs.size(); ++iCnt)
-// 		{
-// 			QFile file(_temp_meshs.at(iCnt).fromFile);
-// 			if (!file.exists()){
-// 				_temp_meshs.remove(iCnt);
-// 				--iCnt;
-// 				continue;
-// 			}
-// 			QTreeWidgetItem* item = new QTreeWidgetItem(_meshRoot, TreeItemType::MeshChild);
-// 			Qt::CheckState state = Qt::Checked;
-// 			QString name = _temp_meshs.at(iCnt).fromFile;
-// 
-// 			if (_temp_meshs.at(iCnt).type == 0)
-// 			{	///<MG surface mesh
-// 				name = name.split("/").at(name.split("/").size() - 1) + "-Surface";
-// 			}
-// 			//wzy20180528新增体网格
-// 			else if (_temp_meshs.at(iCnt).type==2)
-// 			{	///<MG solid mesh
-// 				name = name.split("/").at(name.split("/").size() - 1) + "-Solid";
-// 			}
-// 			else if (_temp_meshs.at(iCnt).type == 1)
-// 			{
-// 				name = name.split("/").at(name.split("/").size() - 1) + "-Computational domain";
-// 			}
-// 
-// 			item->setData(0, MESH_FROM_ROLE, MESH_FROM_GEOMETRY);
-// 			item->setData(0, MESH_GEOMETRY_FILE_ROLE, _temp_meshs.at(iCnt).fromFile);
-// 			item->setData(0, MESH_TYPE_ROLE, _temp_meshs.at(iCnt).type);
-// 			
-// 			item->setText(0, name);
-// 			item->setCheckState(0, state);
-// 			item->setIcon(0, QIcon(":/QUI/icon/mesh.png"));
-// 
-// 			if (iCnt == _temp_meshs.size() - 1)
-// 			{	///<MG new add geometry to mesh
-// 				setCurrentItem(item);
-// 				singleClicked(item, 0);
-// 			}
-// 		}
 	}
 	void MeshWidget::updateMeshSetTree()
 	{
@@ -145,12 +107,13 @@ namespace MainWidget
 
 	void MeshWidget::singleClicked(QTreeWidgetItem* item, int i)
 	{
-		_currentItem = this->currentItem();
+		_currentItem = item;
 		if (_currentItem == nullptr)
 		{
 			emit higtLightSet(nullptr);
 			return;
 		}
+		emit clearHighLight();
 
 		if (_currentItem->type() == TreeItemType::MeshChild)
 		{
@@ -161,19 +124,15 @@ namespace MainWidget
 				return;
 			}
 
-//			if (_currentItem->data(0, MESH_FROM_ROLE).toInt() != MESH_FROM_GEOMETRY)
-// 			{
-
 			MeshData::MeshKernal* k = _data->getKernalAt(index);
 			if (k == nullptr) return;
+			
 			bool visable = true;
 			Qt::CheckState state = item->checkState(0);
 			if (state != Qt::Checked) visable = false;
-			k->setVisible(visable);
-			emit updateDisplay(index, visable);
-			emit higtLightKernal(k);
+			if (visable)
+				emit higtLightKernal(k);
 			emit disPlayProp(k);
-			if (!visable) emit clearHighLight();
 
 		}
 		else if (_currentItem->type() == TreeItemType::MeshSetChild)
@@ -279,18 +238,21 @@ namespace MainWidget
 
 	void MeshWidget::hideAll()
 	{
+		blockSignals(true);
 		const int nc = _meshRoot->childCount();
 		for (int i = 0; i < nc; ++i)
 		{
 			QTreeWidgetItem* item = _meshRoot->child(i);
 			item->setCheckState(0, Qt::Unchecked);
 		}
+		blockSignals(false);
 
 		int nk =  _data->getKernalCount();
 		for (int index = 0; index < nk; ++index)
 		{
 			MeshData::MeshKernal* k = _data->getKernalAt(index);
 			if (k == nullptr) continue;;
+			k->setVisible(false);
 			emit updateDisplay(index, false);
 //			emit higtLightKernal(k);
 //			emit disPlayProp(k);
@@ -301,18 +263,21 @@ namespace MainWidget
 
 	void MeshWidget::showAll()
 	{
+		blockSignals(true);
 		const int nc = _meshRoot->childCount();
 		for (int i = 0; i < nc; ++i)
 		{
 			QTreeWidgetItem* item = _meshRoot->child(i);
-			item->setCheckState(0, Qt::Unchecked);
+			item->setCheckState(0, Qt::Checked);
 		}
+		blockSignals(false);
 
 		int nk = _data->getKernalCount();
 		for (int index = 0; index < nk; ++index)
 		{
 			MeshData::MeshKernal* k = _data->getKernalAt(index);
-			if (k == nullptr) continue;;
+			if (k == nullptr) continue;
+			k->setVisible(false);
 			emit updateDisplay(index, true);
 // 			emit higtLightKernal(k);
 // 			emit disPlayProp(k);
@@ -331,6 +296,35 @@ namespace MainWidget
 	{
 		MeshRenameDialog dlg(_mainWindow, _currentItem);
 		dlg.exec();
+	}
+
+	void MeshWidget::itemStatesChanged(QTreeWidgetItem* item, int)
+	{
+		_currentItem = item;
+		if (_currentItem == nullptr)
+		{
+			emit higtLightSet(nullptr);
+			return;
+		}
+
+		if (_currentItem->type() != TreeItemType::MeshChild) return;
+		
+		const int index = _meshRoot->indexOfChild(item);
+		if (index < 0)
+		{
+			emit disPlayProp(nullptr);
+			return;
+		}
+
+		MeshData::MeshKernal* k = _data->getKernalAt(index);
+		if (k == nullptr) return;
+		bool visable = true;
+		Qt::CheckState state = item->checkState(0);
+		if (state != Qt::Checked) visable = false;
+		k->setVisible(visable);
+		emit updateDisplay(index, visable);
+
+		
 	}
 
 }

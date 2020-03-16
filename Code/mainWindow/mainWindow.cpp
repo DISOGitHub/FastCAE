@@ -84,7 +84,7 @@ namespace GUI
 		this->startSketch(false);
 
 		QString slogo = ConfigOption::ConfigOption::getInstance()->getGlobalConfig()->getLogo();
-		this->setWindowIcon(QIcon(QApplication::applicationDirPath() + "/../ConfigFiles/icon/" + slogo));
+		this->setIcon(QApplication::applicationDirPath() + "/../ConfigFiles/icon/" + slogo);
 
 		_signalHandler->updateActionsStates();
 		MainWindowPy::init(this,_signalHandler);
@@ -332,6 +332,8 @@ namespace GUI
 
 		Plugins::PluginManager::getInstance()->reTranslate(lang);
 		_ui->retranslateUi(this);
+		if (_recentMenu  != nullptr)
+			_recentMenu->setTitle(tr("Recent"));
 
 		_controlPanel->reTranslate();
 		_messageWindow->reTranslate();
@@ -446,7 +448,7 @@ namespace GUI
 
 
 		QString title = tr("Import Mesh");
-		QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix + ";;All Files(*.*)");
+		QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix /*+ ";;All Files(*.*)"*/);
 		if (filenames.isEmpty()) return;
 		
 		QString files = filenames.join(",");
@@ -471,7 +473,7 @@ namespace GUI
 		QString regSuffix{};
 
 		QString title = tr("Export Geometry");
-		QString filename = QFileDialog::getSaveFileName(this, title, dir, conSuffix + regSuffix + ";;All Files(*.*)");
+		QString filename = QFileDialog::getSaveFileName(this, title, dir, conSuffix + regSuffix/* + ";;All Files(*.*)"*/);
 		if (filename.isEmpty()) return;
 
 		QString pycode = QString("MainWindow.exportGeometry(\"%1\")").arg(filename);
@@ -500,7 +502,7 @@ namespace GUI
 		QString regSuffix{};
 
 		QString title = tr("Export Mesh");
-		QString filename = QFileDialog::getSaveFileName(this, title, dir, conSuffix + regSuffix + ";;All Files(*.*)");
+		QString filename = QFileDialog::getSaveFileName(this, title, dir, conSuffix + regSuffix /*+ ";;All Files(*.*)"*/);
 
 		if (filename.isEmpty()) return;
 		QString pycode = QString("MainWindow.exportMesh(\"%1\")").arg(filename);
@@ -544,7 +546,7 @@ namespace GUI
 		QString regSuffix{};
 
 		QString title = tr("Import Geometry");
-		QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix + regSuffix + ";;All Files(*.*)");
+		QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix + regSuffix /*+ ";;All Files(*.*)"*/);
 		if (filenames.isEmpty()) return;
 
 		QString files = filenames.join(",");
@@ -649,8 +651,10 @@ namespace GUI
 	}
 	void MainWindow::on_userManual()
 	{
-		QString userManulFile = "UserManual.pdf";
-		QFile f(QApplication::applicationDirPath() + "/Doc/" + userManulFile);
+		QString file = ConfigOption::ConfigOption::getInstance()->getGlobalConfig()->GetUserManual();
+		QString userManulFile = QApplication::applicationDirPath() + "/../Doc/" + file;
+
+		QFile f(userManulFile);
 		if (!f.exists())
 		{
 			ModuleBase::Message msg;
@@ -659,7 +663,14 @@ namespace GUI
 			emit printMessageToMessageWindow(msg);
 		}
 		else
-			QDesktopServices::openUrl(QUrl::fromLocalFile(QApplication::applicationDirPath() + "/Doc/" + userManulFile));
+		{
+			if (!QDesktopServices::openUrl(QUrl::fromLocalFile(userManulFile)))
+			{
+				QString mess = QString(tr("%1 not exist !")).arg(file);
+				QMessageBox::warning(this, QString(tr("Warning")), mess);
+			}
+				
+		}
 	}
 	void MainWindow::setDisplay(QString m)
 	{
@@ -702,7 +713,7 @@ namespace GUI
 			break;
 			
 		}
-		emit selectGeoActiveSig(active);
+//		emit selectGeoActiveSig(active);
 	}
 
 	void MainWindow::setGeometryDisplay()
@@ -759,6 +770,7 @@ namespace GUI
 			}
 		}
 	}
+
 
 	void MainWindow::openRencentFile(QString file)
 	{
@@ -906,5 +918,45 @@ namespace GUI
 		return _messageWindow;
 	}
 
+
+	void MainWindow::setIcon(QString iconPath)
+	{
+		this->setWindowIcon(QIcon(iconPath));
+		_subWindowManager->setIcon(iconPath);
+
+	}
+
+	QAction* MainWindow::getAction(QString& objName)
+	{
+		QList<QAction*> acs = this->findChildren<QAction*>();
+		for (QAction* a : acs)
+		{
+			if (a->objectName().toLower() == objName.toLower())
+				return  a;
+		}
+		return nullptr;
+	}
+
+	QToolBar* MainWindow::getToolBar(QString& objName)
+	{
+		QList<QToolBar*> tbs = this->findChildren<QToolBar*>();
+		for (auto a : tbs)
+		{
+			if (a->objectName().toLower() == objName.toLower())
+				return  a;
+		}
+		return nullptr;
+	}
+
+	QMenu* MainWindow::getMenu(QString& objName)
+	{
+		QList<QMenu*> mes = this->findChildren<QMenu*>();
+		for (auto a : mes)
+		{
+			if (a->objectName().toLower() == objName.toLower())
+				return  a;
+		}
+		return nullptr;
+	}
 
 }//end of namespace

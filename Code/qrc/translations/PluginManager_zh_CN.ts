@@ -32,20 +32,20 @@
 <context>
     <name>Plugins::PluginManageDialog</name>
     <message>
-        <location filename="../../PluginManager/PluginManageDialog.cpp" line="160"/>
+        <location filename="../../PluginManager/PluginManageDialog.cpp" line="162"/>
         <source> load failed!</source>
         <translation> 加载失败！</translation>
     </message>
     <message>
-        <location filename="../../PluginManager/PluginManageDialog.cpp" line="161"/>
-        <location filename="../../PluginManager/PluginManageDialog.cpp" line="167"/>
+        <location filename="../../PluginManager/PluginManageDialog.cpp" line="163"/>
+        <location filename="../../PluginManager/PluginManageDialog.cpp" line="169"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../PluginManager/PluginManageDialog.cpp" line="166"/>
+        <location filename="../../PluginManager/PluginManageDialog.cpp" line="168"/>
         <source> uninstall failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>卸载失败！</translation>
     </message>
 </context>
 </TS>

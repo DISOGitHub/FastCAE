@@ -55,10 +55,10 @@ namespace MainWidget
 		void setGeometryDisplay( bool v, bool c, bool f);
 		//还原几何颜色。
 		void RestoreGeoColor();
-		//激活几何选取模式
-		void activeSelectGeo(bool on);
-		//关闭几何选取模式
-		void closeSelectGeo(int geomodel);
+// 		//激活几何选取模式
+// 		void activeSelectGeo(bool on);
+// 		//关闭几何选取模式
+// 		void closeSelectGeo(int geomodel);
 	private:
 		void init();
 		void showVertex(Geometry::GeometrySet* set); 
@@ -81,7 +81,7 @@ namespace MainWidget
 		bool _showvertex{ false };
 		bool _showedge{ false };
 		bool _showface{ true };
-		bool _activeSeletGeo{ false };
+//		bool _activeSeletGeo{ false };
 
 		QMultiHash<Geometry::GeometrySet*, vtkActor*> _setActors{};
 		QMultiHash<Geometry::GeometryDatum*, vtkActor*> _datumActors{};

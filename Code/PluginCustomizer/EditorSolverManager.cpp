@@ -9,6 +9,7 @@
 #include <QDomElement>
 #include <QDomDocument>
 #include <QTextStream>
+#include <QDebug>
 
 namespace FastCAEDesigner
 {
@@ -18,6 +19,7 @@ namespace FastCAEDesigner
 		_ui->setupUi(this);
 		connect(_ui->solverList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listItemClicked(QListWidgetItem*)));
 		_solvers = ConfigOption::ConfigOption::getInstance()->getSolverOption();
+		qDebug() << _solvers->getMesherCount();
 		update();
 	}
 	EditorSolverManager::~EditorSolverManager()

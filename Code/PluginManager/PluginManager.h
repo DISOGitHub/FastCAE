@@ -41,7 +41,11 @@ namespace Plugins
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
 		//从工程文件读入
 		void readDataFromProjectFile(QDomElement* e) override;
+		//是否有数据需要保存到工程文件
+		bool hasInfoToSave();
 
+	signals:
+		void updateActionStates();
 	
 	public slots:
 		void manage();

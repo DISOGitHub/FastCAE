@@ -49,35 +49,57 @@ namespace Geometry
 		QDomAttr typeattr = doc->createAttribute("Type");
 		typeattr.setValue(this->typeToString());
 		element.setAttributeNode(typeattr);
-/*
+		if (_shapeHash.size()>0)
+		{
+			QString secstr{};
+			for (int i = 0; i < _shapeHash.size(); i++)
+			{
+				QList<QString*> strlist{};
+				QList<Geometry::GeometrySet*> sets = _shapeHash[i].uniqueKeys();
+				QString sec{};
 
-		QDomAttr rad1attr = doc->createAttribute("Distance1");
-		rad1attr.setValue(QString::number(_d1));
-		element.setAttributeNode(rad1attr);
-		
-		QDomAttr rad2attr = doc->createAttribute("Distance2");
-		rad2attr.setValue(QString::number(_d2));
-		element.setAttributeNode(rad2attr);
+				for (int j = 0; j < sets.size(); ++j)
+				{
+					QString* temp = new QString();
+					auto s = sets.at(j);
+					int id = s->getID();
+					*temp = QString::number(id) + ":";
+					//(*temp).append(":");
+					QList<int> indexs = _shapeHash[i].values(s);
+					int nmu = indexs.size();
+					for (int k = 0; k< indexs.size(); k++)
+					{
+						(*temp) += QString::number(indexs[k]);
+						if (k < indexs.size() - 1)
+						{
+							(*temp).append(",");
+						}
+						else if (k == (indexs.size() - 1))
+						{
+							(*temp).append(";");
+						}
+					}
 
-		
-		QDomElement idEle = doc->createElement("SubID");
-		QDomText idText = doc->createTextNode(QString::number(_inputSet->getID()));
-		idEle.appendChild(idText);
-		element.appendChild(idEle);
+					strlist << temp;
+				}
+				for (int i = 0; i < strlist.size(); i++)
+				{
+					sec += strlist[i];
+				}
+	
+				secstr=secstr+sec+" ";
+			}
+			QDomElement startpointEle = doc->createElement("SectionList");
+			QDomText startpointText = doc->createTextNode(secstr);
+			startpointEle.appendChild(startpointText);
+			element.appendChild(startpointEle);
 
-		QDomElement _combindex0Ele = doc->createElement("Combindex0");
-		QDomText _combindex0Text = doc->createTextNode(QString::number(_combindex0));
-		_combindex0Ele.appendChild(idText);
-		element.appendChild(_combindex0Ele);
-
-
-		QDomElement edgeEle = doc->createElement("Edges");
-		QStringList edgeIndexs;
-		for (int i = 0; i < _edgeindexlist.size(); ++i)
-			edgeIndexs.append(QString::number(_edgeindexlist.at(i)));
-		QDomText edgeText = doc->createTextNode(edgeIndexs.join(","));
-		edgeEle.appendChild(edgeText);
-		element.appendChild(edgeEle);*/
+		}
+		QDomElement solidEle = doc->createElement("Solid");
+		QString solidStr = QString("%1").arg(_issolid);
+		QDomText solidText = doc->createTextNode(solidStr);
+		solidEle.appendChild(solidText);
+		element.appendChild(solidEle);
 
 		parent->appendChild(element);
 		return element;
@@ -85,35 +107,42 @@ namespace Geometry
 
 	void GeometryParaLoft::readDataFromProjectFile(QDomElement* e)
 	{
-// 		_name = e->attribute("Name");
- 		/*_d1 = e->attribute("Distance1").toDouble();
-		_d2 = e->attribute("Distance2").toDouble();
-		int temp = e->attribute("Combindex0").toInt();
-		if (temp == 0) _combindex0 = true;
-		else _combindex0 = false;
-// 		
-		QDomNodeList nodeidList = e->elementsByTagName("SubID");
-		if (nodeidList.size() < 1) return;
-		QDomElement idele = nodeidList.at(0).toElement();
-		QString sid = idele.text();
-		int id = sid.toInt();
-		_inputSet = _geoData->getGeometrySetByID(id);
+		_name = e->attribute("Name");
+		QDomNodeList setIdList = e->elementsByTagName("SectionList");
+		if (setIdList.size() != 1) return;
+		QDomElement coorele = setIdList.at(0).toElement();
+		QString coorstr = coorele.text();
 
-		QDomNodeList edgeIndexList = e->elementsByTagName("Edges");
-		if (edgeIndexList.size() < 1) return;
-		QDomElement edgeele = edgeIndexList.at(0).toElement();
-		QString sIndex = edgeele.text();
-		QStringList sindexs = sIndex.split(",");
-		for (int i = 0; i < sindexs.size(); ++i)
+		QStringList selist = coorstr.simplified().split(" ");
+		for (QString var : selist)
 		{
-			int inedx = sindexs.at(i).toDouble();
-			_edgeindexlist.append(inedx);
-		}*/
+			QMultiHash<Geometry::GeometrySet*, int> temphash{};
+			var.replace(";", " ");
+			QStringList varlist = var.simplified().split(" ");
+			for (QString var : varlist)
+			{
 
+				var.replace(":", " ");
+				QStringList hash = var.simplified().split(" ");
+				QStringList indexlist = hash[1].simplified().split(",");
+				for (QString var : indexlist)
+				{
+					Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+					Geometry::GeometrySet* geoset = data->getGeometrySetByID(hash[0].toInt());
+					temphash.insert(geoset, var.toInt());
+				}
 
+			}
+			_shapeHash.push_back(temphash);
 
+		}
+			QDomNodeList solidList = e->elementsByTagName("Solid");
+			QString solidsr = solidList.at(0).toElement().text();
+			if (solidsr == "1") _issolid = true;
+			else if (solidsr == "0") _issolid = false;
+
+		
 	}
-
 	
 
 }

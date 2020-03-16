@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include "mainWindowAPI.h"
 
 class QDialog;
 class QTreeWidgetItem;
@@ -16,8 +17,9 @@ namespace Post
 namespace GUI
 {
 	class MainWindow;
+	class SolveProcessManager;
 
-	class SignalHandler : public QObject
+	class MAINWINDOWAPI SignalHandler : public QObject
 	{
 		Q_OBJECT
 	public:
@@ -127,6 +129,7 @@ namespace GUI
 	private:
 		MainWindow* _mainWindow{};
 		int _proID{ -1 };
+		SolveProcessManager* _solveProcessManager{};
 //		QString _currentFilePath{};
 
 	};

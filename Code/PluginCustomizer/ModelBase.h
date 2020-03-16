@@ -51,7 +51,7 @@ namespace FastCAEDesigner
 		virtual int ShowEditor(QTreeWidgetItem* treeItem, QWidget* parent);
 		
 		virtual void AddNode(ModelBase *model);
-		virtual void AddNode(QTreeWidgetItem* parentItem, ModelBase* model);
+		//virtual void AddNode(QTreeWidgetItem* parentItem, ModelBase* model);
 		virtual void DelNode(ModelBase *model);
 		//virtual void DelNode(QTreeWidgetItem* parentItem, ModelBase* model);
 		virtual ModelBase* CreateChildModel(QString nameEng, QString nameChn, QString icon, QObject* parent);

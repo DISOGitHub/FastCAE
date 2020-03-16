@@ -80,6 +80,8 @@ namespace GUI
 		ModuleBase::GraphWindowBase* getWindowByTypeID(QString type, int id);
 		//打开开始页，并加载网页
 		void openUrl(QString web);
+		//设置图标
+		void setIcon(QString icon);
 
 	signals:
 		void setViewSig(int, QString, QString);

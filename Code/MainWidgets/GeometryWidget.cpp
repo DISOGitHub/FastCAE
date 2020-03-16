@@ -11,9 +11,6 @@
 #include <QDebug>
 #include "DataProperty/PropertyBase.h"
 #include "DataProperty/PropertyString.h"
-#include "QApplication"
-#include "QFile"
-//#include "CreateGeometry.h"
 #include "ConfigOptions/ConfigOptions.h"
 #include "ConfigOptions/GeometryConfig.h"
 #include "ConfigOptions/MeshConfig.h"
@@ -61,20 +58,15 @@ namespace MainWidget
 //		connect(this, SIGNAL(updateGraphOptions()), m, SIGNAL(updateGraphOptionsSig()));
 		connect(this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), _mainWindow, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)));
 
-		//connect(this, SIGNAL(removeDatumActor(Geometry::GeometryDatum*)),_preWindow , SIGNAL(removeDatumActor(Geometry::GeometryDatum*)));
+		connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(itemStatesChanged(QTreeWidgetItem*, int)));
 		
 	}
 
 	GeometryTreeWidget::~GeometryTreeWidget()
 	{
 		if (_root != nullptr) delete _root;
-
-// 		if (_geometry)
-// 		{
-// 			delete _geometry;
-// 		}
-// 		_geometry = NULL;
 	}
+
 	void GeometryTreeWidget::updateTree()
 	{
 		_root->takeChildren();
@@ -87,6 +79,7 @@ namespace MainWidget
 		this->addTopLevelItem(_root);
 		_root->setExpanded(true);
 		_data->sort();
+		blockSignals(true);
 		const int n = _data->getGeometrySetCount();
 		for (int i = 0; i < n; ++i)
 		{
@@ -101,7 +94,7 @@ namespace MainWidget
 			item->setText(0, name);
 			item->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
 		}
-
+		blockSignals(false);
 		_datumroot->takeChildren();
 		removeItemWidget(_datumroot, 0);
 		delete _datumroot;
@@ -111,6 +104,7 @@ namespace MainWidget
 		this->addTopLevelItem(_datumroot);
 		_datumroot->setExpanded(true);
 
+		blockSignals(true);
 		QList<Geometry::GeometryDatum *>  datumList = _data->getGeometryDatum();
 		for (int i = 0; i < datumList.size();++i)
 		{ 
@@ -124,9 +118,10 @@ namespace MainWidget
 			item->setText(0, name);
 			item->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
 		}
-
+		blockSignals(false);
 
 	}
+	
 	void GeometryTreeWidget::singleClicked(QTreeWidgetItem* item, int i)
 	{
 		_currentItem = currentItem();
@@ -139,16 +134,14 @@ namespace MainWidget
 		bool visable = true;
 		Qt::CheckState isvisable = item->checkState(0);
 		if (isvisable == Qt::Unchecked) visable = false;
-
 		auto geoset = _data->getGeometrySetAt(index);
 		emit clearHighLight();
+		if (!visable || geoset == nullptr) return;
+		
 		emit highLightGeometrySet(geoset, true);
-
-		_data->setVisable(index, visable);		
-		emit updateDisplay(index, visable);
-		emit disPlayProp(_data->getGeometrySetAt(index));
-		if (!visable) emit clearHighLight();
+		emit disPlayProp(geoset);
 	}
+
 	void GeometryTreeWidget::contextMenuEvent(QContextMenuEvent *event)
 	{
 		_currentItem = currentItem();
@@ -292,12 +285,14 @@ namespace MainWidget
 
 	void GeometryTreeWidget::hideAll()
 	{
+		blockSignals(true);
 		const int nc = _root->childCount();
 		for (int i = 0; i < nc; ++i)
 		{
 			QTreeWidgetItem* item = _root->child(i);
 			item->setCheckState(0, Qt::Unchecked);
 		}
+		blockSignals(false);
 
 		const int nset = _data->getGeometrySetCount();
 		for (int i = 0; i < nset; ++i)
@@ -311,12 +306,14 @@ namespace MainWidget
 
 	void GeometryTreeWidget::showAll()
 	{
+		blockSignals(true);
 		const int nc = _root->childCount();
 		for (int i = 0; i < nc; ++i)
 		{
 			QTreeWidgetItem* item = _root->child(i);
 			item->setCheckState(0, Qt::Checked);
 		}
+		blockSignals(false);
 
 		const int nset = _data->getGeometrySetCount();
 		for (int i = 0; i < nset; ++i)
@@ -328,5 +325,26 @@ namespace MainWidget
 		emit clearHighLight();
 	}
 
+	void GeometryTreeWidget::itemStatesChanged(QTreeWidgetItem* item, int i)
+	{
+		
+		_currentItem = currentItem();
+		if (item->type() != GeometryRoot + 1) return;
 
+		
+		const int index = _root->indexOfChild(item);
+		if (index < 0)
+		{
+			emit disPlayProp(nullptr); //清空属性框
+			return;
+		}
+		bool visable = true;
+		Qt::CheckState isvisable = item->checkState(0);
+		if (isvisable == Qt::Unchecked) visable = false;
+
+		auto geoset = _data->getGeometrySetAt(index);
+		_data->setVisable(index, visable);
+		emit updateDisplay(index, visable);
+	
+	}
 }

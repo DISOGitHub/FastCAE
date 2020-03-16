@@ -228,6 +228,9 @@ namespace MainWidget
 			connect(action, SIGNAL(triggered()), this, SLOT(slot_load_from_material_lib()));
 			action = pop_menu.addAction(tr("Create Material"));
 			connect(action, SIGNAL(triggered()), this, SLOT(slot_create_material()));
+			pop_menu.addSeparator();
+			action = pop_menu.addAction(tr("Remove From Material Lib"));
+			connect(action, SIGNAL(triggered()), this, SLOT(slot_remove_from_material_lib()));
 		}
 		else if (item->type() == TreeItemType::MaterialChild)
 		{
@@ -394,6 +397,11 @@ namespace MainWidget
 		updateMaterialTree();
 	}
 
+	void PhysicsWidget::slot_remove_from_material_lib()
+	{
+		Material::MaterialSingleton::getInstance()->removeFromMAterialLib(_mainWindow);
+	}
+
 	void PhysicsWidget::slot_create_material()
 	{
 //		XMaterial::XMaterial material(_mainWindow,getProjectMaterialNames(), this);
@@ -476,6 +484,13 @@ namespace MainWidget
 				QMessageBox::warning(this, tr("Warning"), info);
 				legal = false;
 			}
+			else if (newname.toLocal8Bit().length()>20)
+			{
+				QString info = tr("Name contains too many characters !");
+				QMessageBox::warning(this, tr("Warning"), info);
+				legal = false;
+			}
+
 			if ((!exist) && legal)
 			{
 				_curretnItem->setText(0, newname);

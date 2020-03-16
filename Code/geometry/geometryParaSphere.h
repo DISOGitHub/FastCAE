@@ -21,8 +21,8 @@ namespace Geometry
 		void setLocation(double* loc);
 		void getLocation(double* loc);
 
-		void setRadius(double* r);
-		void getRadius(double* r);
+		void setRadius(double r);
+		double getRadius();
 
 
 		///数据写入工程文件

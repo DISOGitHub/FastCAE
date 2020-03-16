@@ -81,7 +81,7 @@ void vtkAniThread::initModelData(NumericSrcObject* tep_numericObj)
 	for (vtkIdType i = 0; i < tep_numericObj->mBaseGridBak->GetNumberOfPoints(); i++)
 	{
 		tep_point = tep_numericObj->mBaseGridBak->GetPoint(i);
-		if ((abs(tep_point[1] - tep_numericObj->origin_center[1]) <= 0.0001) && (abs(tep_point[2] - tep_numericObj->origin_center[2]) <= 0.0001) && ((tep_point[0] - tep_numericObj->origin_center[0]) > 0.0001))
+		if ((fabs(tep_point[1] - tep_numericObj->origin_center[1]) <= 0.0001) && (fabs(tep_point[2] - tep_numericObj->origin_center[2]) <= 0.0001) && ((tep_point[0] - tep_numericObj->origin_center[0]) > 0.0001))
 		{
 			tep_numericObj->refrence_point_for_objID = i;
 			tep_numericObj->refrence_point_for_obj[0] = tep_point[0];

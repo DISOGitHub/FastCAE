@@ -168,14 +168,14 @@ namespace FastCAEDesigner
 			this->_childNodes.append(model);
 		}
 	}
-	void ModelBase::AddNode(QTreeWidgetItem* parentItem,ModelBase* model)
-	{
-		if (!_childNodes.contains(model))
-		{
-			this->_childNodes.append(model);
-			//parentItem->addChild
-		}
-	}
+// 	void ModelBase::AddNode(QTreeWidgetItem* parentItem,ModelBase* model)
+// 	{
+// 		if (!_childNodes.contains(model))
+// 		{
+// 			this->_childNodes.append(model);
+// 			//parentItem->addChild
+// 		}
+// 	}
 	void ModelBase::DelNode(ModelBase *model)
 	{
 		if (_childNodes.contains(model) && (model != nullptr))

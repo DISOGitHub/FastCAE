@@ -263,7 +263,7 @@ namespace GeometryWidget
 			QString revstr{};
 			if (reverse1) revstr = "Yes";
 			else revstr = "No";
-			codes += QString("makematrix.setReverseOfDirecrtion1('%1')").arg(revstr);
+			codes += QString("makematrix.setReverseOfDirection1('%1')").arg(revstr);
 			codes += QString("makematrix.setDistance1(%1)").arg(dir1Distance);
 			codes += QString("makematrix.setCount1(%1)").arg(dir1Count);
 
@@ -320,7 +320,7 @@ namespace GeometryWidget
 			QString textDegree = _ui->axisAnglelineEdit->text();
 			deg = textDegree.toDouble(&ok);
 			if (ok)
-				ok = abs(deg) < 0.0000001 ? false : true;
+				ok = fabs(deg) < 0.0000001 ? false : true;
 			if (!ok || _geobodyList.size() < 1)
 			{
 				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
@@ -477,7 +477,7 @@ namespace GeometryWidget
 		deg = textDegree.toDouble(&ok);
 
 		if (ok)
-			ok = abs(deg) < 0.0000001 ? false : true;
+			ok = fabs(deg) < 0.0000001 ? false : true;
 		for (int i=1; i < sum;++i)
 		{
 			double temp = deg*i;
@@ -613,7 +613,7 @@ namespace GeometryWidget
 			QString textDegree = _ui->axisAnglelineEdit->text();
 			deg = textDegree.toDouble(&ok);
 			if (ok)
-				ok = abs(deg) < 0.0000001 ? false : true;
+				ok = fabs(deg) < 0.0000001 ? false : true;
 			if (!ok || _geobodyList.size() < 1)
 			{
 				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));

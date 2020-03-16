@@ -3,6 +3,7 @@
 #include "ui_DialogSavePicture.h"
 #include "mainWindow/mainWindow.h"
 #include <QFileDialog>
+#include <QMessageBox>
 
 namespace MainWidget
 {
@@ -45,6 +46,11 @@ namespace MainWidget
 		const int w = _ui->widthBox->value();
 		const int h = _ui->highBox->value();
 		QString f = _ui->lineEdit->text();
+		if (f.isEmpty())
+		{
+			QMessageBox::warning(this, QString(tr("Warning")), QString(tr("File name is empty !")));
+			return;
+		}
 		emit saveImageSig(w, h, f);
 		QFDialog::accept();
 	}

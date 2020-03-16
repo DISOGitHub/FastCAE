@@ -199,6 +199,7 @@ namespace GeometryWidget
 			if (i != (_geobodyList.size() - 1)) setidStr.append(",");
 		}
 		codes += QString("movefeature.setBodys('%1')").arg(setidStr);
+		_optionindex = _ui->comboBoxOption->currentIndex();
 		QString method{};
 		if (_optionindex == 0) method = "Two Points";
 		else method = "Distance";

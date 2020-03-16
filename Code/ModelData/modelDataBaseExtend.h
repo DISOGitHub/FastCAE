@@ -56,6 +56,8 @@ namespace ModelData
 		//解除材料与组件的绑定
 		void removeMaterial(int setid);
 		
+		virtual void setMeshSetList(QList<int> ids);
+
 		virtual void removeMeshSetAt(int index) override;
 
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele) override;

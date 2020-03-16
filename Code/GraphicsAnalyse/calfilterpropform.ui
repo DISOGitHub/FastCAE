@@ -99,7 +99,7 @@
      <item row="1" column="3">
       <widget class="QPushButton" name="abs_pushButton">
        <property name="text">
-        <string>abs</string>
+        <string>fabs</string>
        </property>
       </widget>
      </item>

@@ -64,10 +64,18 @@ namespace GeometryWidget
 			int k = setList.size();
 			for (int i = 0; i < setList.size(); ++i)
 			{
-				Geometry::GeometrySet* set = setList.at(i);
+				/*Geometry::GeometrySet* set = setList.at(i);
 				if (set == nullptr) return;
 				int shapes = var.value(set);
-				emit highLightGeometryEdge(set, shapes, &temp);
+				emit highLightGeometryEdge(set, shapes, &temp);*/
+				
+				QList<int> edlist = var.values(setList[i]);
+				Geometry::GeometrySet* set = setList.at(i);
+				if (set == nullptr) return;
+				for (int var : edlist)
+				{
+					emit highLightGeometryEdge(set, var, &temp);
+				}
 			}
 			_allActors.push_back(temp);
 
@@ -186,6 +194,13 @@ namespace GeometryWidget
 
 	void CreateLoftDialog::accept()
 	{
+		bool success = true;
+		if (_allShapes.size() < 1) success = false;
+		if (!success)
+		{
+			QMessageBox::warning(this, tr("Warning"), tr("Create failed ! "));
+			return;
+		}
 		bool isSolid = _ui->solidCheckBox->isChecked();
 		int id = Geometry::GeometrySet::getMaxID() + 1;
 		QString name = (QString("Loft_%1").arg(id));
@@ -258,11 +273,7 @@ namespace GeometryWidget
 		command->setName(name);
 
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
-		if (!success)
-		{
-			QMessageBox::warning(this, tr("Warning"), tr("Create failed ! "));
-			return;
-		}
+		
 */
 
 		QDialog::accept();

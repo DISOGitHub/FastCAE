@@ -9,6 +9,7 @@ HEADERS += \
 	$$PWD/DownloadManager.h \
 	$$PWD/MainWindowPy.h \
 	$$PWD/CustomizerHelper.h \
+	$$PWD/solveProcessManager.h \
 
 SOURCES += \
 	$$PWD/mainWindow.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 	$$PWD/MainWindowPy.cpp \
 	$$PWD/DownloadManager.cpp \
 	$$PWD/CustomizerHelper.cpp \
+	$$PWD/solveProcessManager.cpp \
 	
 FORMS +=  \
 	$$PWD/MainWindow.ui \

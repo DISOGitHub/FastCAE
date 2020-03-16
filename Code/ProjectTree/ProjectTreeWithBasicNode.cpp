@@ -620,30 +620,32 @@ namespace ProjectTree
 		cellaction->setMenu(_cellMeun);
 		
 		QStringList scalarVariables = info->getNodeScalarVariable();
-		if (scalarVariables.at(0) != "")
-		{
+// 		if (scalarVariables.at(0) != "")
+// 		{
 
-			for (int i = 0; i < scalarVariables.size(); ++i)
-			{
-				QString text = scalarVariables.at(i);
-				qDebug() << text;
-				QAction* action = _nodeMenu->addAction(text);
-				connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
-				_postMapper->setMapping(action, text);
-			}
+		for (int i = 0; i < scalarVariables.size(); ++i)
+		{
+			QString text = scalarVariables.at(i);
+			if (text.isEmpty()) continue;
+			qDebug() << text;
+			QAction* action = _nodeMenu->addAction(text);
+			connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
+			_postMapper->setMapping(action, text);
 		}
+//		}
 		scalarVariables = info->getCellScalarVariable();
-		if (scalarVariables.at(0) != "")
-		{
+//		if (scalarVariables.at(0) != "")
+//		{
 
-			for (int i = 0; i < scalarVariables.size(); ++i)
-			{
-				QString text = scalarVariables.at(i);
-				QAction* action = _cellMeun->addAction(text);
-				connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
-				_postMapper->setMapping(action, text.append("_cell000"));
-			}
+		for (int i = 0; i < scalarVariables.size(); ++i)
+		{
+			QString text = scalarVariables.at(i);
+			if (text.isEmpty()) continue;
+			QAction* action = _cellMeun->addAction(text);
+			connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
+			_postMapper->setMapping(action, text.append("_cell000"));
 		}
+//		}
 		connect(_postMapper, SIGNAL(mapped(QString)), this, SLOT(viewCounter(QString)));
 	}
 	void ProjectTreeWithBasicNode::vectorContextMenu(QMenu* menu)

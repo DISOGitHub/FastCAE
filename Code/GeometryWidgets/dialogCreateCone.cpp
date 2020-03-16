@@ -118,7 +118,7 @@ namespace GeometryWidget
 			ok = !name.isEmpty();
 		double r = _ui->doubleSpinBoxR->value();
 		double r2 = _ui->doubleSpinBoxR2->value();
-		if (abs(r - r2) < 1e-6) ok = false;
+		if (fabs(r - r2) < 1e-6) ok = false;
 
 		double l = _ui->doubleSpinBoxL->value();
 		if (ok && l < 1e-6)

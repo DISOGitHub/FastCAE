@@ -151,7 +151,7 @@ bool NumericSrcObject::readFile(QString tep_filename)
 				for (vtkIdType i = 0; i < mBaseGridBak->GetNumberOfPoints(); i++)
 				{
 					tep_point = mBaseGridBak->GetPoint(i);
-					if ((abs(tep_point[1] - origin_center[1]) <= 0.0001) && (abs(tep_point[2] - origin_center[2]) <= 0.0001))
+					if ((fabs(tep_point[1] - origin_center[1]) <= 0.0001) && (fabs(tep_point[2] - origin_center[2]) <= 0.0001))
 					{
 						refrence_point_for_objID = i;
 						refrence_point_for_obj[0] = tep_point[0];

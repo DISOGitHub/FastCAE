@@ -112,7 +112,7 @@ namespace DataProperty
 		if (pd != nullptr)
 		{
 			double v = pd->getValue();
-			if (abs(v- _value) <0.00000001)
+			if (fabs(v- _value) <0.00000001)
 				same = true;
 		}
 		return same;

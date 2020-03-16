@@ -104,6 +104,12 @@ namespace FastCAEDesigner
 		void DeleteModelToDict(QTreeWidgetItem*);
 		void DeleteModelToDict(QList<QTreeWidgetItem*> treeItemList);
 		void CopyFileToSystem(QString fileName, QString path);
+		//2020.1.18
+		QList<ModelBase*> getParameterList(TreeItemType type);
+		void setParameterListDict(TreeItemType type, QList<ModelBase*> modelList);
+
+		//20200306
+		void CopyUserManualFileToSystem(QString fileName, QString path);
 
 	private:
 		bool ReadGlobalConfig();                       //读取基础配置信息
@@ -155,6 +161,9 @@ namespace FastCAEDesigner
 
 		QList<ModelBase*> _physicsList;  //算例列表
 		QList<ModelBase*> _materialList; //材料列表
+		//2020.1.18
+		QList<ModelBase*> _parameterList;
+		QMap<TreeItemType, QList<ModelBase*>> _parameterListDict;
 	};
 }
 

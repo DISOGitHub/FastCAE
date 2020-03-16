@@ -1,7 +1,7 @@
 #ifndef ADDSOLVERDIALOG_H
 #define ADDSOLVERDIALOG_H
 
-#include <QDialog>
+#include "SelfDefObject/QFDialog.h"
 #include <QHash>
 #include <QString>
 
@@ -25,7 +25,7 @@ namespace SolverControl
 {
 	class SolverManagerDialog;
 
-	class AddSolverDialog :public QDialog
+	class AddSolverDialog :public QFDialog
 	{
 		Q_OBJECT
 	public:

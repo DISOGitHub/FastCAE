@@ -54,7 +54,7 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="71"/>
-        <source>Width</source>
+        <source>Width:</source>
         <translation>宽度：</translation>
     </message>
     <message>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="132"/>
-        <source>Hight:</source>
+        <source>Height:</source>
         <translation>高度：</translation>
     </message>
 </context>
@@ -849,17 +849,17 @@
     <name>GeometryWidget::CreateExtrusionDialog</name>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="79"/>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="125"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="123"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="227"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="225"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="227"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="225"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -923,10 +923,20 @@
 <context>
     <name>GeometryWidget::CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="105"/>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="129"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="113"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="137"/>
         <source>Selected TopEdge(%1)</source>
         <translation>已选择边(%1)</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="201"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="201"/>
+        <source>Create failed ! </source>
+        <translation>创建失败！</translation>
     </message>
 </context>
 <context>
@@ -945,22 +955,22 @@
 <context>
     <name>GeometryWidget::CreateRevolDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="170"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="166"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="189"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="185"/>
         <source>Selected Axis_edge(1)</source>
         <translation>已选轴线(1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="277"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="275"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="277"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="275"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -1015,24 +1025,24 @@
 <context>
     <name>GeometryWidget::MirorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="167"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="173"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="167"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="173"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="111"/>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="322"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="326"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="119"/>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="340"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="344"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
     </message>
@@ -1051,7 +1061,7 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="96"/>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="272"/>
+        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="273"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
@@ -1059,24 +1069,24 @@
 <context>
     <name>GeometryWidget::RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="181"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="186"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="181"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="186"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="69"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="271"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="276"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="90"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="289"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="294"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
@@ -1097,12 +1107,22 @@
 <context>
     <name>GeometryWidget::SweepDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="69"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="73"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="199"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="225"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="67"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="71"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="195"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="221"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="91"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="91"/>
+        <source>Input Wrong !</source>
+        <translation>输入错误！</translation>
     </message>
 </context>
 <context>

@@ -694,7 +694,7 @@ void CurvePlotForm::func_setAxisRange(QString axisId)
 			if (curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[0].axis_range[0] == 0.0)
 				step = 0.5;
 			else
-				step = abs(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[0].axis_range[1] / 2.0);
+				step = fabs(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[0].axis_range[1] / 2.0);
 		}		
 		pCustomPlot->xAxis->setRange(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[0].axis_range[0]-step, curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[0].axis_range[1]+step);
 	}
@@ -706,7 +706,7 @@ void CurvePlotForm::func_setAxisRange(QString axisId)
 			if (curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[1].axis_range[0] == 0.0)
 				step = 0.5;
 			else
-				step = abs(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[1].axis_range[1] / 2.0);
+				step = fabs(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[1].axis_range[1] / 2.0);
 		}
 		pCustomPlot->xAxis2->setRange(curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[1].axis_range[0] - step, curve_data_ptr->glo_curve_data.glo_xAxis_prop_data[1].axis_range[1] + step);
 	}
@@ -718,7 +718,7 @@ void CurvePlotForm::func_setAxisRange(QString axisId)
 			if (curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[0].axis_range[0] == 0.0)
 				step = 0.5;
 			else
-				step = abs(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[0].axis_range[1] / 2.0);
+				step = fabs(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[0].axis_range[1] / 2.0);
 		}
 		pCustomPlot->yAxis->setRange(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[0].axis_range[0] - step, curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[0].axis_range[1] + step);
 	}
@@ -730,7 +730,7 @@ void CurvePlotForm::func_setAxisRange(QString axisId)
 			if (curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[1].axis_range[0] == 0.0)
 				step = 0.5;
 			else
-				step = abs(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[1].axis_range[1] / 2.0);
+				step = fabs(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[1].axis_range[1] / 2.0);
 		}
 		pCustomPlot->yAxis2->setRange(curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[1].axis_range[0] - step, curve_data_ptr->glo_curve_data.glo_yAxis_prop_data[1].axis_range[1] + step);
 	}

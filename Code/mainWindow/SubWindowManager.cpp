@@ -595,4 +595,17 @@ namespace GUI
 		_startPage.second->load(web);
 	}
 
+	void SubWindowManager::setIcon(QString icon)
+	{
+		if (_startPage.first != nullptr)
+			_startPage.first->setWindowIcon(QIcon(icon));
+		if (_preWindow.first !=  nullptr)
+			_preWindow.first->setWindowIcon(QIcon(icon));
+		QList<QMdiSubWindow*> subw = _postWindow.keys() + _realTimeWindow.keys() + _reportWindow.keys();
+		for (auto w : subw)
+		{
+			w->setWindowIcon(QIcon(icon));
+		}
+	}
+
 }

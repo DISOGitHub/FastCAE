@@ -55,7 +55,7 @@ namespace FastCAEDesigner
 	//槽函数--checkbox控件被点击
 	void QFWidgetAction::OnCheckBoxStateChanged(int state)
 	{
-		qDebug() << "CheckBox clicked!";
+		//qDebug() << "CheckBox clicked!";
 		emit signal_CheckBoxStateChanged(state);
 	}
 
@@ -74,5 +74,10 @@ namespace FastCAEDesigner
 	void QFWidgetAction::SetChechBoxChecked(bool on)
 	{
 		_checkBox->setChecked(on);
+	}
+
+	bool QFWidgetAction::getCheckBoxChecked()
+	{
+		return _checkBox->isChecked();
 	}
 }

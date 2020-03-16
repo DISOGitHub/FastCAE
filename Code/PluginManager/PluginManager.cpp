@@ -2,6 +2,7 @@
 #include "pluginBase.h"
 #include "PluginManageDialog.h"
 #include "settings/busAPI.h"
+#include "mainWindow/mainWindow.h"
 #include <QApplication>
 #include <QFileInfoList>
 #include <QDir>
@@ -68,6 +69,8 @@ namespace Plugins
 	void PluginManager::loadPlugs(GUI::MainWindow *m)
 	{
 		_mainWindow = m;
+		if (m!= nullptr)
+			connect(this, SIGNAL(updateActionStates()), m, SIGNAL(updateActionStatesSig()));
 		QStringList plugins = Setting::BusAPI::instance()->getPlugins();
 		const QString plugdir = QApplication::applicationDirPath() + "/plugins/";
 		QDir dir(plugdir);
@@ -152,6 +155,7 @@ namespace Plugins
 			return false;
 		}
 #endif
+		emit updateActionStates();
 		return true;
 	}
 
@@ -210,6 +214,7 @@ namespace Plugins
 				break;
 			}
 		}
+		emit updateActionStates();
 		return true;
 	}
 
@@ -239,6 +244,15 @@ namespace Plugins
 	{
 		for (auto p : _pluginList)
 			p->readFromProjectFile(e);
+	}
+
+	bool PluginManager::hasInfoToSave()
+	{
+		for (auto p : _pluginList)
+			if (p->hasInfoToSave())
+				return  true;
+
+		return false;
 	}
 
 }

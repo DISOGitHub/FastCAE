@@ -35,6 +35,8 @@ namespace Geometry
 		bool isEmpty();
 		//获取第index个形状
 		GeometrySet* getGeometrySetAt(const int index);
+		//根据形状获取索引
+		int getIndexByGeoometrySet(GeometrySet* s);
 		//移除第index个形状
 		void removeGeometrySet(const int index);
 		//替换形状

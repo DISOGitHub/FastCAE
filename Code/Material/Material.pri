@@ -5,6 +5,7 @@ HEADERS += \
 	$$PWD/DialogLoadMaterial.h \
 	$$PWD/MaterialPy.h \
 	$$PWD/MaterialFactory.h \
+	$$PWD/DialogRemoveMaterial.h \
 
 SOURCES += \
 	$$PWD/Material.cpp \
@@ -12,7 +13,9 @@ SOURCES += \
 	$$PWD/DialogLoadMaterial.cpp \
 	$$PWD/MaterialPy.cpp \
 	$$PWD/MaterialFactory.cpp \
+	$$PWD/DialogRemoveMaterial.cpp \
 	
 FORMS += \
 	$$PWD/DialogLoadMaterial.ui \
+	$$PWD/DialogRemoveMaterial.ui \
 

@@ -125,7 +125,7 @@ namespace SolverControl
 //		qDebug() << process;
 		QRegExp rx(process);
 		int pos = _outputBuffer.indexOf(rx);
-		if (pos > -1)
+		if (pos > -1 && _processBar != nullptr)
 		{
 			QString s = rx.cap(1);
 			_processBar->setProcess(s.toInt());
@@ -143,6 +143,15 @@ namespace SolverControl
 		_processBar = nullptr;
 //		this->deleteLater();
 	}
+
+	void SolverControlBase::stopSolver()
+	{
+		if (!_processFinished)
+		{
+			_process.kill();
+		}
+	}
+
 	void SolverControlBase::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	{
 		Q_UNUSED(exitCode);

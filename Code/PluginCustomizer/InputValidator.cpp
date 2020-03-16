@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QWidget>
 #include <QString>
+#include <QDebug>
+#include <QChar>
 
 namespace FastCAEDesigner
 {
@@ -34,7 +36,7 @@ namespace FastCAEDesigner
 			errorCode = EngNameIsEmpty;
 		else if (!FileNameIsAllow(nameChn))
 			errorCode = ChnNameNotAllow;
-		else if (!FileNameIsAllow(nameEng))
+		else if (!FileEngNameIsAllow(nameEng))
 			errorCode = EngNameNotAllow;
 		if (usedChnNameList.contains(nameChn))
 			errorCode = TheChnNameInUse;
@@ -127,6 +129,36 @@ namespace FastCAEDesigner
 
 		if (match >= 0)
 			isOk = false;
+
+		return isOk;
+	}
+
+	bool InputValidator::FileEngNameIsAllow(QString fileName)
+	{
+		if (fileName.isEmpty())
+			return false;
+
+		bool isOk = true;
+		//QString pattern = "[\\\\/:*?\"<>., ;'{|`~!@#$%&*()=+\\^}\\[\\]]";
+		QString pattern = "[\\\\/:?\"<>., ;'{|`~!@#$%&=+\\^}\\[\\]]";
+
+		QRegExp rx(pattern);
+		int match = fileName.indexOf(rx);
+
+		if (match >= 0)
+			isOk = false;
+
+		for (int i = 0; i < fileName.length(); i++)
+		{
+// 			if ((fileName.at(i) < 65) || ((fileName.at(i) > 90) && (fileName.at(i) < 97)) || (fileName.at(i) > 122))
+// 				isOk = false;
+			qDebug() << fileName;
+			QChar c = fileName.at(i);
+			ushort u = c.unicode();
+			if ((u >= 0x4E00) && (u <= 0x9FA5))
+				return false;
+		}
+
 
 		return isOk;
 	}

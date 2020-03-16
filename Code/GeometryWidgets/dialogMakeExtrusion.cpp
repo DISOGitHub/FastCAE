@@ -107,14 +107,12 @@ namespace GeometryWidget
 		QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 		shapeHash = p->getShapeHash();
 		_shapeHash = shapeHash;
-		QList<Geometry::GeometrySet*> setList = shapeHash.keys();
-		int k = setList.size();
+		QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
 		for (int i = 0; i < setList.size(); ++i)
 		{
 			QList<int> edlist = shapeHash.values(setList[i]);
 			Geometry::GeometrySet* set = setList.at(i);
 			if (set == nullptr) return;
-			int shapes = shapeHash.value(set);
 			for(int var : edlist)
 			{
 				emit highLightGeometryEdge(set, var, &_actors);

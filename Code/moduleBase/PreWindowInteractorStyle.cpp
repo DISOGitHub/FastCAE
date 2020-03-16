@@ -68,6 +68,7 @@ namespace ModuleBase
 		if (_actor != nullptr)
 			_actor->GetProperty()->DeepCopy(_property);
 		_actor = nullptr;
+		_preGeoSeltctActor = nullptr;
 // 		if (_selectModel == None)
 // 		{
 // 			_selectItemIDs->SetNumberOfValues(0);
@@ -105,24 +106,28 @@ namespace ModuleBase
 
 			{
 				_ctrlPressed = true;
-				qDebug() << "ctrl press";
 			}
 			else if (e->key() == Qt::Key_Up)
 				OnKeyBoardUp();
 			else if (e->key() == Qt::Key_Down)
 				OnKeyBoardDown();
+			else if (e->key() == Qt::Key_Alt)
+				_altPressed = true;
 		}
 		else if (type == 1) //release
 		{
 			if (e->key() == Qt::Key_Control)
 			{
 				_ctrlPressed = false;
-				qDebug() << "ctrl release";
 			}
+			else if (e->key() == Qt::Key_Alt)
+				_altPressed = false;
 		}
 	}
 	void PropPickerInteractionStyle::OnLeftButtonDown()
 	{
+		_leftButtonDown = true;
+		_mouseMoved = false;
 		int* startPos = this->GetInteractor()->GetEventPosition();
 		_startPos[0] = startPos[0]; _startPos[1] = startPos[1];
 //		qDebug() << "start  " << _startPos[0] << "   " << _startPos[1];
@@ -179,10 +184,14 @@ namespace ModuleBase
 		vtkSmartPointer<vtkPropPicker> picker = vtkSmartPointer<vtkPropPicker>::New();
 		int p = picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
 
-		if (p == 0) return;
+		if (p == 0 && !_ctrlPressed && !_altPressed)
+		{
+			emit clearAllHighLight();
+			return;
+		}
 
 		vtkActor* actor = picker->GetActor();
-		if (_preGeoSeltctActor == nullptr)
+		if (_preGeoSeltctActor == nullptr  && actor != nullptr)
 			emit selectGeometry(actor,_ctrlPressed);
 		//选取所有的actor
 		while (p != 0)
@@ -297,7 +306,7 @@ namespace ModuleBase
 	void PropPickerInteractionStyle::OnLeftButtonUp()
 	{
 		vtkInteractorStyleRubberBandPick::OnLeftButtonUp();
-		if (_selectModel == None)
+		if (_selectModel == None && !_mouseMoved)
 			emit this->clearAllHighLight();
 
 		if ((_selectModel != BoxMeshCell) && (_selectModel != BoxMeshNode) && (_selectModel != DrawSketch)) return;
@@ -322,11 +331,13 @@ namespace ModuleBase
 			emit mouseReleasePoint(d);
 			break;
 		}
-
+		_mouseMoved = false;
+		_leftButtonDown = false;
 	}
 
 	void PropPickerInteractionStyle::OnMouseMove()
 	{
+		_mouseMoved = true;
 		vtkInteractorStyleRubberBandPick::OnMouseMove();
 		if ((_selectModel == BoxMeshCell) || (_selectModel == BoxMeshNode) || (_selectModel == DrawSketch) )
 		{
@@ -340,55 +351,79 @@ namespace ModuleBase
 				emit mouseMovePoint(d);
 			}
 		}
-		else if (_selectModel == GeometryCurve || _selectModel == GeometrySurface || _selectModel == GeometryPoint || 
-			     _selectModel == GeometryWinCurve || _selectModel == GeometryWinSurface || _selectModel == GeometryWinPoint)
+		else if (_selectModel == GeometryCurve || _selectModel == GeometrySurface || _selectModel == GeometryPoint || _selectModel ==  GeometryBody ||
+			     _selectModel == GeometryWinCurve || _selectModel == GeometryWinSurface || _selectModel == GeometryWinPoint || _selectModel == GeometryWinBody)
 		{
-			
-			QColor ncolor;
-			switch (_selectModel)
-			{
-			case ModuleBase::GeometrySurface:
-			case ModuleBase::GeometryWinSurface:
-				ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor(); break;
-			case ModuleBase::GeometryCurve:
-			case ModuleBase::GeometryWinCurve:
-				ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor(); break;
-			case ModuleBase::GeometryPoint:
-			case ModuleBase::GeometryWinPoint:
-				ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor(); break;
-			default:
-				break;
-			}
-			 
-
 			if (isActorHightLighted(_preGeoSeltctActor)) return;
 
-			if (_preGeoSeltctActor != nullptr)
-			{
-				_preGeoSeltctActor->GetProperty()->SetColor(ncolor.redF(), ncolor.greenF(), ncolor.blueF());
-				if (_selectModel == GeometrySurface || _selectModel == GeometryWinSurface)
-				{
-					double op = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
-					_preGeoSeltctActor->GetProperty()->SetOpacity(1.0 - op / 100.0);
-				}
-				_preGeoSeltctActor = nullptr;
-				_renderWindow->Render();
-			}
-			
 			int* endPos = this->GetInteractor()->GetEventPosition();
 			vtkSmartPointer<vtkPropPicker> picker = vtkSmartPointer<vtkPropPicker>::New();
 			int p = picker->Pick(endPos[0], endPos[1], 0, this->GetDefaultRenderer());
-			if (p == 0) return;
-
+//			if (p == 0) return;
 			vtkActor* ac = picker->GetActor();
 			if (isActorHightLighted(ac)) return;
 
-		
-			_preGeoSeltctActor = ac;
-			QColor highLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
-			_preGeoSeltctActor->GetProperty()->SetColor(highLight.redF(), highLight.greenF(), highLight.blueF());
-			ac->GetProperty()->SetOpacity(1.0);
-			_renderWindow->Render();
+			if (_preGeoSeltctActor == ac && ac != nullptr)
+			{
+				return;
+			}
+			else
+			{
+				QColor ncolor;
+				switch (_selectModel)
+				{
+				case ModuleBase::GeometrySurface:
+				case ModuleBase::GeometryWinSurface:
+				case ModuleBase::GeometryBody:
+				case ModuleBase::GeometryWinBody:
+					ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor(); break;
+				case ModuleBase::GeometryCurve:
+				case ModuleBase::GeometryWinCurve:
+					ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor(); break;
+				case ModuleBase::GeometryPoint:
+				case ModuleBase::GeometryWinPoint:
+					ncolor = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor(); break;
+				default:
+					break;
+				}
+
+				if (_preGeoSeltctActor != nullptr)
+				{
+					_preGeoSeltctActor->GetProperty()->SetColor(ncolor.redF(), ncolor.greenF(), ncolor.blueF());
+					if (_selectModel == GeometrySurface || _selectModel == GeometryWinSurface)
+					{
+						double op = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
+						_preGeoSeltctActor->GetProperty()->SetOpacity(1.0 - op / 100.0);
+					}
+				}
+				if (ac != nullptr)
+				{
+					_preGeoSeltctActor = ac;
+					QColor highLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
+					_preGeoSeltctActor->GetProperty()->SetColor(highLight.redF(), highLight.greenF(), highLight.blueF());
+					ac->GetProperty()->SetOpacity(1.0);
+				}
+				
+				_renderWindow->Render();
+			}
+
+// 			if (_preGeoSeltctActor != nullptr)
+// 			{
+// 				_preGeoSeltctActor->GetProperty()->SetColor(ncolor.redF(), ncolor.greenF(), ncolor.blueF());
+// 				if (_selectModel == GeometrySurface || _selectModel == GeometryWinSurface)
+// 				{
+// 					double op = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
+// 					_preGeoSeltctActor->GetProperty()->SetOpacity(1.0 - op / 100.0);
+// 				}
+// 				_preGeoSeltctActor = nullptr;
+// 				_renderWindow->Render();
+// 			}
+// 	 
+// 			_preGeoSeltctActor = ac;
+// 			QColor highLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
+// 			_preGeoSeltctActor->GetProperty()->SetColor(highLight.redF(), highLight.greenF(), highLight.blueF());
+// 			ac->GetProperty()->SetOpacity(1.0);
+// 			_renderWindow->Render();
 		}
 	}
 
@@ -478,6 +513,8 @@ namespace ModuleBase
 
 	void PropPickerInteractionStyle::OnMiddleButtonDown()
 	{
+		_mouseMoved = false;
+		_leftButtonDown = false;
 		vtkInteractorStyleTrackballCamera::OnMiddleButtonDown();
 		if ((_selectModel != BoxMeshCell) && (_selectModel != BoxMeshNode)) return;
 
@@ -489,6 +526,8 @@ namespace ModuleBase
 
 	void PropPickerInteractionStyle::OnMiddleButtonUp()
 	{
+		_mouseMoved = false;
+		_leftButtonDown = false;
 		vtkInteractorStyleTrackballCamera::OnMiddleButtonUp();
 		if (_selectModel == DrawSketch)
 		{
@@ -515,11 +554,11 @@ namespace ModuleBase
 		double b = hc.blueF();
 
 		bool same = true;
-		double absu = abs(r - c[0]);
+		double absu = fabs(r - c[0]);
 		if (absu > 0.000001) same = false;
-		absu = abs(g - c[1]);
+		absu = fabs(g - c[1]);
 		if (absu > 0.000001) same = false;
-		absu = abs(b - c[2]);
+		absu = fabs(b - c[2]);
 		if (absu > 0.000001) same = false;
 	   return same;
 	}
@@ -594,6 +633,8 @@ namespace ModuleBase
 
 	void PropPickerInteractionStyle::OnRightButtonUp()
 	{
+		_mouseMoved = false;
+		_leftButtonDown = false;
 		vtkInteractorStyleRubberBandPick::OnRightButtonUp();
 		emit mouseRightUp();
 	}

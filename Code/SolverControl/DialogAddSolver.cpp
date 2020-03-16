@@ -14,7 +14,7 @@ namespace SolverControl
 {
 
 	AddSolverDialog::AddSolverDialog(GUI::MainWindow* mainwin, SolverManagerDialog* p, ConfigOption::SolverInfo* solver)
-		:_parent(p), _modifySolver(solver)
+		:_parent(p), _modifySolver(solver), QFDialog(mainwin)
 	{
 		_ui = new Ui::AddSolverDialog;
 		_ui->setupUi(this);

@@ -208,6 +208,13 @@ namespace Geometry
 		reverse1Ele.appendChild(reverse1Text);
 		element.appendChild(reverse1Ele);
 
+		QDomElement solidEle = doc->createElement("Solid");
+		QString solidStr = QString("%1").arg(_solid);
+		QDomText solidText = doc->createTextNode(solidStr);
+		solidEle.appendChild(solidText);
+		element.appendChild(solidEle);
+
+
 		parent->appendChild(element);
 		return element;
 	}

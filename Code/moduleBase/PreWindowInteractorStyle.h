@@ -110,6 +110,9 @@ namespace ModuleBase
 		//		vtkSmartPointer<vtkIdTypeArray> _selectItemIDs{};
 		QMultiHash<vtkDataSet*, int> _selectItems{};
 		bool _ctrlPressed{ false };
+		bool _altPressed{ false };
+		bool _mouseMoved{ false };
+		bool _leftButtonDown{ false };
 		DataProperty::DataBase* _dataProp{};
 		MeshData::MeshData* _meshData{};
 

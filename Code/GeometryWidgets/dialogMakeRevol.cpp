@@ -60,21 +60,18 @@ namespace GeometryWidget
 		QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 		shapeHash = p->getShapeHash();
 		_shapeHash = shapeHash;
-		QList<Geometry::GeometrySet*> setList = shapeHash.keys();
-		int k = setList.size();
+		QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
 		for (int i = 0; i < setList.size(); ++i)
 		{
 			QList<int> edlist = shapeHash.values(setList[i]);
 			Geometry::GeometrySet* set = setList.at(i);
 			if (set == nullptr) return;
-			int shapes = shapeHash.value(set);
 			for (int var : edlist)
 			{
 				emit highLightGeometryEdge(set, var, &_edgeActors);
 			}
 
 		}
-
 		QString edgestr = QString("Select edge(%1)").arg(_shapeHash.size());
 		_ui->edgelabel->setText(edgestr);
 
@@ -84,8 +81,7 @@ namespace GeometryWidget
 		
 		double degree = p->getDegree();
 		_ui->lineEditDegree->setText(QString::number(degree));
-
-
+		_ui->comboBoxOption->setCurrentIndex(p->getMethod());
 		_ui->tabWidget->setCurrentIndex(p->getMethod());
 
 		
@@ -166,7 +162,7 @@ namespace GeometryWidget
 				_edgeActors.append(ac);
 				_shapeHash.insert(set, index);
 			}
-
+			int n = _edgeActors.size();
 			QString label = QString(tr("Selected edge(%1)")).arg(_edgeActors.size());
 			_ui->edgelabel->setText(label); 
 			ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
@@ -270,8 +266,10 @@ namespace GeometryWidget
 			QString text = _ui->lineEditDegree->text();
 			degree = text.toDouble(&ok);
 			if (ok)
-				ok = abs(degree) < 0.0000001 ? false : true;
-		}		
+				ok = fabs(degree) < 0.0000001 ? false : true;
+		}
+		if (_ui->comboBoxOption->currentIndex() == 0() && _axisSet == nullptr)
+			ok = false;
 		if (!ok)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
@@ -342,9 +340,9 @@ namespace GeometryWidget
 		}
 		else
 			codes += QString("revol.selectAxisOnGeo(%1,%2)").arg(_axisSet->getID()).arg(_axisIndex);
-		bool reverse = _ui->reversecheckBox->isCheckable();
+		bool reverse = _ui->reversecheckBox->isChecked();
 		QString revesestr{};
-		if (reverse == 0) revesestr = "Yes";
+		if (reverse) revesestr = "Yes";
 		else revesestr = "No";
 		codes += QString("revol.Reverse('%1')").arg(revesestr);
 		

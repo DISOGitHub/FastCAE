@@ -172,14 +172,20 @@
         <translation>案例“%1”已经存在！</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="148"/>
+        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="145"/>
+        <source>Name contains too many characters !</source>
+        <translation>名称包含过多字符！</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="155"/>
         <source>Name can not contains fellowing char: \/:*?&quot;&lt;&gt;|!</source>
         <translation>名称不能包含下列字符：\/:*?&quot;&lt;&gt;|!</translation>
     </message>
     <message>
         <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="117"/>
         <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="140"/>
-        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="149"/>
+        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="146"/>
+        <location filename="../../MainWidgets/DialogCreatePhysicsModel.cpp" line="156"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -218,46 +224,46 @@
 <context>
     <name>MainWidget::GeometryTreeWidget</name>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="36"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="85"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="33"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="77"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="42"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="109"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="39"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="102"/>
         <source>Datum</source>
         <translation>基准</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="161"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="154"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="165"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="207"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="158"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="200"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="168"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="209"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="161"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="202"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="185"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="178"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="188"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="181"/>
         <source>Hide All</source>
         <translation>隐藏全部</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="191"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="184"/>
         <source>Show All</source>
         <translation>显示全部</translation>
     </message>
@@ -330,38 +336,38 @@
     </message>
     <message>
         <location filename="../../MainWidgets/MeshWidget.cpp" line="32"/>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="127"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="89"/>
         <source>Set</source>
         <translation>组件</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="203"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="162"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="207"/>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="213"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="166"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="172"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="222"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="181"/>
         <source>Import</source>
         <translation>导入网格</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="225"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="184"/>
         <source>Hide All</source>
         <translation>隐藏全部</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="228"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="187"/>
         <source>Show All</source>
         <translation>显示全部</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="234"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="193"/>
         <source>Merge/Cut</source>
         <translation>合并/剪裁</translation>
     </message>
@@ -370,8 +376,8 @@
     <name>MainWidget::PhysicsWidget</name>
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="39"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="271"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="508"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="274"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="523"/>
         <source>Materials</source>
         <translation>材料</translation>
     </message>
@@ -382,8 +388,8 @@
     </message>
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="42"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="290"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="509"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="293"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="524"/>
         <source>Case</source>
         <translation>算例</translation>
     </message>
@@ -393,69 +399,80 @@
         <translation>创建材料</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="234"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="232"/>
+        <source>Remove From Material Lib</source>
+        <translation>从材料库移除</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="237"/>
         <source>Delete Material</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="236"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="239"/>
         <source>Add to Material Lib</source>
         <translation>添加至材料库</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="242"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="245"/>
         <source>Create Case</source>
         <translation>创建算例</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="249"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="252"/>
         <source>Delete Case</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="252"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="255"/>
         <source>Solve Case</source>
         <translation>求解</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="254"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="257"/>
         <source>Rename Case</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="256"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="259"/>
         <source>Import Templete</source>
         <translation>导入模板</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="258"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="261"/>
         <source>Open Dir</source>
         <translation>打开目录</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="336"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="476"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="502"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="339"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="484"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="490"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="517"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="336"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="339"/>
         <source>Confirm to delete?</source>
         <translation>确认删除？</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="386"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="389"/>
         <source>Template import successfully!</source>
         <translation>模板导入成功！</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="475"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="483"/>
         <source>Name can not contains fellowing char: \/:*?&quot;&lt;&gt;|!</source>
         <translation>名称不能包含下列字符：\/:*?&quot;&lt;&gt;|!</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="502"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="489"/>
+        <source>Name contains too many characters !</source>
+        <translation>名称包含过多字符！</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="517"/>
         <source>Case &quot;%1&quot; has already exist!</source>
         <translation>案例“%1”已经存在！</translation>
     </message>
@@ -498,9 +515,19 @@
 <context>
     <name>MainWidget::SavePictureDialog</name>
     <message>
-        <location filename="../../MainWidgets/DialogSavePicture.cpp" line="29"/>
+        <location filename="../../MainWidgets/DialogSavePicture.cpp" line="30"/>
         <source>Save Picture</source>
         <translation>保存图片</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/DialogSavePicture.cpp" line="51"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/DialogSavePicture.cpp" line="51"/>
+        <source>File name is empty !</source>
+        <translation>文件名称不能为空！</translation>
     </message>
 </context>
 <context>

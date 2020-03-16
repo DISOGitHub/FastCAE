@@ -14,6 +14,7 @@
 #include <QTimer>
 #include <QIcon>
 #include <QToolButton>
+#include <QDebug>
 
 #pragma execution_character_set("utf-8")
 
@@ -106,6 +107,10 @@ namespace FastCAEDesigner{
 			int rowIndex = ui->tableWidget->rowCount();
 			ui->tableWidget->insertRow(rowIndex);
 			ConfigOption::PostCurve* postCurve = _curveInfoList.at(i);
+
+			if (postCurve->getDescribe().isEmpty())
+				continue;
+
 			insertRowtoTableWidget(ui->tableWidget, rowIndex, postCurve);
 			//insertRowtoTableWidget(ui->tableWidget, rowIndex, _curveInfoList.at(i).getDescribe(), _curveInfoList.at(i).XAxisName, _curveInfoList.at(i).YAxisName);
 			//insertRowtoTableWidget(ui->tableWidget, i, _curveInfoList.at(i).Name, _curveInfoList.at(i).XAxisName, _curveInfoList.at(i).YAxisName);
@@ -484,13 +489,13 @@ namespace FastCAEDesigner{
 	void EditorCurveModel::createPushbuttonGroup_3D(int rowIndex)
 	{
 		QSignalMapper* deleteMapper = new QSignalMapper(this);
-		QSignalMapper* editMapper = new QSignalMapper(this);
+		//QSignalMapper* editMapper = new QSignalMapper(this);
 		QHBoxLayout *h_box_layout = new QHBoxLayout();
 		QWidget *widget = new QWidget();
 
 
 		QToolButton* deletePBtn = CreateButton("", ":/delete.png");
-		QToolButton* editPBtn = CreateButton("", ":/editor.png");
+	//	QToolButton* editPBtn = CreateButton("", ":/editor.png");
 // #ifdef Q_OS_WIN
 // 		QToolButton* deletePBtn = CreateButton("", ":/delete.png");
 // 		QToolButton* editPBtn = CreateButton("", ":/editor.png");
@@ -506,14 +511,14 @@ namespace FastCAEDesigner{
 		deleteMapper->setMapping(deletePBtn, rowIndex);
 		connect(deleteMapper, SIGNAL(mapped(int)), this, SLOT(deleteRow_3D(int)));
 
-		connect(editPBtn, SIGNAL(clicked()), editMapper, SLOT(map()));
-		editMapper->setMapping(editPBtn, rowIndex);
-		connect(editMapper, SIGNAL(mapped(int)), this, SLOT(editRowInfo_3D(int)));
+// 		connect(editPBtn, SIGNAL(clicked()), editMapper, SLOT(map()));
+// 		editMapper->setMapping(editPBtn, rowIndex);
+// 		connect(editMapper, SIGNAL(mapped(int)), this, SLOT(editRowInfo_3D(int)));
 
 		//h_box_layout->addWidget(editPBtn);//Noted:xvdongming 2020-02-12 三维后处理文件--曲线不允许编辑，只允许删除和添加。
 		h_box_layout->addWidget(deletePBtn);
-		h_box_layout->setContentsMargins(0, 0, 0, 0);
-		h_box_layout->setSpacing(1);
+	//	h_box_layout->setContentsMargins(0, 0, 0, 0);
+	//	h_box_layout->setSpacing(1);
 		widget->setLayout(h_box_layout);
 
 		ui->tableWidget->setCellWidget(rowIndex, 4, widget);

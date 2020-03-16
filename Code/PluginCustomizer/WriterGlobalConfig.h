@@ -42,6 +42,9 @@ namespace FastCAEDesigner
 		bool WriteMeshPara(QDomDocument &doc, QDomElement &root, ConfigOption::MeshConfig* meshConfig);
 		//保存后处理信息
 		bool WritePostPara(QDomDocument &doc, QDomElement &root);
+
+		//更改用户手册名 xuxinwei 20200306 
+		QString getUserManual(QString surName);
 	};
 
 }

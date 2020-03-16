@@ -6,6 +6,10 @@
 #include <QLineEdit>
 
 class QMainWindow;
+//xuxinwei 20200305
+namespace GUI{
+	class SubWindowManager;
+}
 
 
 namespace ConfigOption
@@ -26,6 +30,7 @@ namespace FastCAEDesigner
 
 	public:
 		ParaBasicSetup(ConfigOption::GlobalConfig* globalConfig, QMainWindow* mw);
+		ParaBasicSetup(ConfigOption::GlobalConfig* globalConfig, QMainWindow* mw, GUI::SubWindowManager* sub);
 		~ParaBasicSetup();
 
 	private:
@@ -77,6 +82,8 @@ namespace FastCAEDesigner
 		QString _styleError{};
 
 		QMainWindow* _mainWindow{};
+
+		GUI::SubWindowManager* _subWindow{};
 	};
 }
 #endif // PARABASICSETUP_H

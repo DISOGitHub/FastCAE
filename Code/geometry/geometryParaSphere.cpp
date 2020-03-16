@@ -19,14 +19,14 @@ namespace Geometry
 	{
 		return _name;
 	}
-	void GeometryParaSphere::setRadius(double* r)
+	void GeometryParaSphere::setRadius(double r)
 	{
-		_radius = *r;
+		_radius = r;
 	}
 
-	void GeometryParaSphere::getRadius(double* r)
+	double GeometryParaSphere::getRadius()
 	{
-		*r = _radius;
+		return _radius;
 	}
 
 	void GeometryParaSphere::setLocation(double* loc)

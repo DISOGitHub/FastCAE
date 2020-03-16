@@ -26,6 +26,7 @@ win32{
 	-L../../output/bin -lPostWidgets \
 	-L../../output/bin -lConfigOptions \
 	-L../../output/bin -lPythonModule \
+	-L../../output/bin -lSelfDefObject \
  
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
@@ -42,6 +43,7 @@ win32{
 	-L../../output/bin_d -lPostWidgets \
 	-L../../output/bin_d -lConfigOptions \
     -L../../output/bin_d -lPythonModule \
+	-L../../output/bin_d -lSelfDefObject \
    
     message("Windows solverControl build")
   

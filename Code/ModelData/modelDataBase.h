@@ -79,7 +79,7 @@ namespace ModelData
 		//获取关联的网格组件ID
 		QList<int> getMeshSetList();
 		//设置需要关联的组件ID
-		void setMeshSetList(QList<int> ids);
+		virtual void setMeshSetList(QList<int> ids);
 		//移除第index个组件
 		virtual void removeMeshSetAt(int index);
 		//获取关联的Kernal ID

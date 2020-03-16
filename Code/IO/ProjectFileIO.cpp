@@ -256,9 +256,6 @@ namespace IO
 		readPluginData(&pluginList);
 		file.close();
 
-		
-		
-
 		return true;
 	}
 

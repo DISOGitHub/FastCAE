@@ -1,6 +1,7 @@
 #include "signalHandler.h"
 #include "ui_mainWindow.h"
 #include "mainWindow.h"
+#include "solveProcessManager.h"
 #include <QTreeWidgetItem>
 #include <QFileDialog>
 #include <QDir>
@@ -137,6 +138,8 @@ namespace GUI
 		connect(mainwindow->getUi()->actionMakeMatrix, SIGNAL(triggered()), this, SLOT(MakeMatrix()));
 		connect(mainwindow->getUi()->actionDrawSpline, SIGNAL(triggered()), this, SLOT(DrawGraphSpline()));
 		//connect(mainwindow->getUi()->actionDemo, SIGNAL(triggered()), this, SLOT(showDemo()));
+
+		_solveProcessManager = new SolveProcessManager;
 	}
 	SignalHandler::~SignalHandler()
 	{
@@ -144,6 +147,7 @@ namespace GUI
 //		ModuleBase::ProjectTreeInfo::getInstance()->clearData();
 		ConfigOption::ConfigOption::getInstance()->clearAllConfig();
 //		ConfigOption::ProjectTreeConfig::getInstance()->clearData();
+		delete _solveProcessManager;
 	}
 	void SignalHandler::on_actionNew()
 	{
@@ -404,6 +408,16 @@ namespace GUI
 	}
 	void SignalHandler::solveProjectPy(int projectIndex, int solverIndex)
 	{
+		ModelData::ModelDataSingleton* modelData = ModelData::ModelDataSingleton::getinstance();
+		ModelData::ModelDataBase* model = modelData->getModelAt(projectIndex);
+		const int id = model->getID();
+		if (_solveProcessManager->isSolving(id))
+		{
+			QString name = model->getName();
+			QMessageBox::warning(_mainWindow, QString(tr("Warning")), QString(tr("%1 is Solving , Please wait...")).arg(name));
+			return;
+		}
+
 		QString pycode = QString("MainWindow.solveProject(%1,%2)").arg(projectIndex).arg(solverIndex);
 		qDebug() << pycode;
 		Py::PythonAagent::getInstance()->submit(pycode);
@@ -418,6 +432,8 @@ namespace GUI
 		
 		SolverControl::SolverControlBase* solverControl = new SolverControl::SolverControlBase(_mainWindow, solver, model);
 		solverControl->setSolverDescription(QString(tr("Solving-%1")).arg(model->getName()));
+		int id = model->getID();
+		_solveProcessManager->insertProcess(id, solverControl);
 		solverControl->startSolver();
 		//Py::PythonAagent::getInstance()->unLock();
 	}
@@ -555,13 +571,14 @@ namespace GUI
 		const int nMesh = meshData->getKernalCount();
 		const int ngeo = geoData->getGeometrySetCount();
 		const int nModel = modelData->getModelCount();
+		bool needSave = Plugins::PluginManager::getInstance()->hasInfoToSave();
 
-		if (nMesh + ngeo + nModel > 0)
+		if (nMesh + ngeo + nModel > 0 || needSave)
 		{
 			ui->actionSave->setEnabled(true);
 			ui->actionSaveAs->setEnabled(true);
 		}
-		if (nModel > 0)
+		if (nModel > 0 || needSave)
 		{
 			ui->actionSolve->setEnabled(true);
 		}

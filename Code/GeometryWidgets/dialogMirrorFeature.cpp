@@ -162,14 +162,18 @@ namespace GeometryWidget
 	void MirorFeatureDialog::accept()
 	{
 		bool legal = true;
+		
+		bool s = _ui->checkBoxSaveOrigin->isChecked();
+		int planindex = _ui->comboBoxPlane->currentIndex();
+		if (_faceBody == nullptr) legal = false;
+
+
 		if ((!legal) || _geobodyList.size() < 1)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
 		}
-		bool s = _ui->checkBoxSaveOrigin->isChecked();
-		int planindex = _ui->comboBoxPlane->currentIndex();
-
+		
 
 /*		
 

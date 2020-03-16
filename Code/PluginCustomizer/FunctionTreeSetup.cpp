@@ -926,19 +926,43 @@ namespace FastCAEDesigner
 		if (0 == count)
 			return nameList;
 		
-		for (int i = 0; i < count; i++)
+// 		for (int i = 0; i < count; i++)
+// 		{
+// 			ModelBase* model = modelList.at(i);
+// 			
+// 			if (nullptr == model)
+// 				continue;;
+// 			
+// 			if (0 == TChinese)
+// 				nameList.append(model->GetChnName());
+// 			else
+// 				nameList.append(model->GetEngName());
+// 		}
+		if (nameType == TChinese)
 		{
-			ModelBase* model = modelList.at(i);
-			
-			if (nullptr == model)
-				continue;;
-			
-			if (0 == TChinese)
-				nameList.append(model->GetChnName());
-			else
-				nameList.append(model->GetEngName());
-		}
+			for (int i = 0; i < count; i++)
+			{
+				ModelBase* model = modelList.at(i);
 
+				if (nullptr == model)
+					continue;;
+
+				nameList.append(model->GetChnName());
+			}
+		}
+		else
+		{
+			for (int i = 0; i < count; i++)
+			{
+				ModelBase* model = modelList.at(i);
+
+				if (nullptr == model)
+					continue;;
+
+				nameList.append(model->GetEngName());
+			}
+		}
+		
 		return nameList;
 	}
 

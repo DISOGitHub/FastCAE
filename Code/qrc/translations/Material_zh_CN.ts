@@ -43,16 +43,59 @@
     </message>
 </context>
 <context>
-    <name>QObject</name>
+    <name>Material::RemoveMaterialDialog</name>
     <message>
-        <location filename="../../Material/MaterialSingletion.cpp" line="124"/>
+        <location filename="../../Material/DialogRemoveMaterial.cpp" line="78"/>
+        <location filename="../../Material/DialogRemoveMaterial.cpp" line="83"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../Material/MaterialSingletion.cpp" line="124"/>
+        <location filename="../../Material/DialogRemoveMaterial.cpp" line="78"/>
+        <source>No one has been Selected !</source>
+        <translation>没有对象被选中！</translation>
+    </message>
+    <message>
+        <location filename="../../Material/DialogRemoveMaterial.cpp" line="83"/>
+        <source>%1 object(s) will be removed, continue ?</source>
+        <translation>%1个对象将被移除，继续？</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../../Material/MaterialSingletion.cpp" line="125"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../Material/MaterialSingletion.cpp" line="125"/>
         <source>Material has already exist, replace?</source>
         <translation>材料已经存在，是否替换？</translation>
+    </message>
+</context>
+<context>
+    <name>RemoveMaterialDialog</name>
+    <message>
+        <location filename="../../Material/DialogRemoveMaterial.ui" line="14"/>
+        <location filename="../../Material/DialogRemoveMaterial.ui" line="69"/>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <location filename="../../Material/DialogRemoveMaterial.ui" line="22"/>
+        <source>Select All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location filename="../../Material/DialogRemoveMaterial.ui" line="42"/>
+        <source>Clear Select</source>
+        <translation>全不选</translation>
+    </message>
+    <message>
+        <location filename="../../Material/DialogRemoveMaterial.ui" line="76"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
     </message>
 </context>
 </TS>

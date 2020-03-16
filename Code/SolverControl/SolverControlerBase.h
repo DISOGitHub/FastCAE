@@ -45,6 +45,8 @@ namespace SolverControl
 		void startSolver();
 		//设置求解名称（描述）
 		void setSolverDescription(QString des);
+		//结束求解
+		void stopSolver();
 
 	signals:
 		void solverStarted(QWidget* processBar);

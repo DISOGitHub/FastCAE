@@ -42,112 +42,119 @@
 <context>
     <name>GUI::MainWindow</name>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="288"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="292"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="288"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="292"/>
         <source>Do you want to save before exit ?</source>
         <translation>退出前是否保存？</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="288"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="292"/>
         <source>Yes</source>
         <translation>是</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="288"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="292"/>
         <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="288"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="292"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="370"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="411"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="746"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="754"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="376"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="417"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="670"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="780"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="788"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="370"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="754"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="376"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="788"/>
         <source>Do you want to save current data ?</source>
         <translation>是否保存当前数据？</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="377"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="403"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="383"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="409"/>
         <source>Project file(*.diso);;Project file(*.xml)</source>
         <translation>工程文件(*.diso);;工程文件(*.xml)</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="378"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="384"/>
         <source>Open a project</source>
         <translation>打开工程</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="404"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="410"/>
         <source>Save project</source>
         <translation>保存工程</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="411"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="417"/>
         <source>Geometry will be lost! still continue?</source>
         <translation>几何信息将会丢失，是否继续？</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="444"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="450"/>
         <source>Import Mesh</source>
         <translation>导入网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="469"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="475"/>
         <source>Export Geometry</source>
         <translation>导出几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="498"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="504"/>
         <source>Export Mesh</source>
         <translation>导出网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="542"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="548"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="654"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="662"/>
         <source>Please make sure &quot; %1 &quot; file exist!</source>
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="719"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="336"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="738"/>
         <source>Recent</source>
         <translation>最近文件</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="746"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="669"/>
+        <source>%1 not exist !</source>
+        <translation>%1 不存在！</translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/mainWindow.cpp" line="780"/>
         <source>File &quot;%1&quot; is not exist !</source>
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="804"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="838"/>
         <source>Save Script</source>
         <translation>保存脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="813"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="847"/>
         <source>Execute Script</source>
         <translation>执行脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="863"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="897"/>
         <source>Canvas %1mm * %2mm  </source>
         <translation>画布 %1mm * %2mm  </translation>
     </message>
@@ -155,81 +162,87 @@
 <context>
     <name>GUI::SignalHandler</name>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="162"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="196"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="743"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="756"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="769"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="783"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="797"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="811"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="825"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="838"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="884"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="898"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="911"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="925"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="960"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1035"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1056"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="166"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="200"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="417"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="760"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="773"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="786"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="800"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="814"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="828"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="842"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="855"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="901"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="915"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="928"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="942"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="977"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1052"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1073"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="162"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="166"/>
         <source>read Failed !</source>
         <translation>读取失败！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="196"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="200"/>
         <source>Write Failed !</source>
         <translation>写出失败！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="420"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="417"/>
+        <source>%1 is Solving , Please wait...</source>
+        <translation>%1正在求解，请等待…</translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/signalHandler.cpp" line="434"/>
         <source>Solving-%1</source>
         <translation>正在求解-%1</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="454"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="470"/>
         <source>Mesh Generated &quot;%1&quot;</source>
         <translation>网格已生成“%1”</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="471"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="484"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="497"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="487"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="500"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="513"/>
         <source>Failed Export Mesh To &quot;%1&quot;</source>
         <translation>导出网格到%1失败</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="475"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="488"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="501"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="491"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="504"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="517"/>
         <source>Export Mesh To &quot;%1&quot;</source>
         <translation>导出网格到%1</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="507"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="523"/>
         <source>Unsupport data format!</source>
         <translation>不支持的文件类型！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="743"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="756"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="769"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="783"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="797"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="811"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="825"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="838"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="884"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="898"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="911"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="925"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="960"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1035"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1056"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="760"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="773"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="786"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="800"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="814"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="828"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="842"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="855"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="901"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="915"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="928"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="942"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="977"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1052"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1073"/>
         <source>Open PreWindow First!</source>
         <translation>请先打开前处理窗口！</translation>
     </message>

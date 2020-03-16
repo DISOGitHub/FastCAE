@@ -80,6 +80,8 @@ namespace MainWidget
 		void mergeSet();
 		//重命名
 		void rename();
+		//节点状态改变
+		void itemStatesChanged(QTreeWidgetItem*, int);
 
 	private:
 		void contextMenuEvent(QContextMenuEvent *event) override;

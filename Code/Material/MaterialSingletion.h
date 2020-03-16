@@ -40,6 +40,8 @@ namespace Material
 		void appendToMaterialLib(const int id);
 		//从材料库中加载
 		void loadFromMaterialLib(GUI::MainWindow* m);
+		//从材料库删除
+		void removeFromMAterialLib(GUI::MainWindow* m);
 	
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* e) override;
 		void readDataFromProjectFile(QDomElement* ele) override;

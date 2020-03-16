@@ -334,7 +334,6 @@ namespace Command
 	{
 		if ( _optionindex== 0)
 		{
-		
 				_vector[0] = _endpt[0] - _startpt[0];
 				_vector[1] = _endpt[1] - _startpt[1];
 				_vector[2] = _endpt[2] - _startpt[2];
@@ -343,8 +342,6 @@ namespace Command
 		else
 		{
 			if (_length < 1e-6) return ;
-
-
 			if (_reverse)
 			{
 				for (int i = 0; i < 3; ++i)

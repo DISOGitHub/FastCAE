@@ -15,6 +15,7 @@
 #include "ConfigOptions/GlobalConfig.h"
 #include "ConfigOptions/GeometryConfig.h"
 #include "ConfigOptions/MeshConfig.h"
+#include <QFileInfo>
 
 #pragma execution_character_set("utf-8")
 
@@ -79,7 +80,8 @@ namespace FastCAEDesigner
 		QDomElement logo = IoXml::getInstance()->CreateElement(doc, "Logo", globalConfig->getLogo());
 		QDomElement website = IoXml::getInstance()->CreateElement(doc, "Website", globalConfig->getWebsite());
 		QDomElement describe = IoXml::getInstance()->CreateElement(doc, "Describe", "Memo");
-		QDomElement helpDoc = IoXml::getInstance()->CreateElement(doc, "HelpFile", globalConfig->GetUserManual());
+		//QDomElement helpDoc = IoXml::getInstance()->CreateElement(doc, "HelpFile", globalConfig->GetUserManual());
+		QDomElement helpDoc = IoXml::getInstance()->CreateElement(doc, "HelpFile", getUserManual(globalConfig->GetUserManual()));
 		
 		QString b = (globalConfig->isMaterialEnabled()) ? "true" : "false";
 		QDomElement Material = IoXml::getInstance()->CreateElementAttribute(doc, "Material", "Enable", b);
@@ -199,6 +201,24 @@ namespace FastCAEDesigner
 		Post.appendChild(Post3D);
 		root.appendChild(Post);
 		return true;
+	}
+
+	//xuxinwei  20200306
+	QString WriterGlobalConfig::getUserManual(QString surUserManual)
+	{
+		QFileInfo surNameFile(surUserManual);
+		QStringList surNameList = surNameFile.fileName().split(".");
+		QString surNameSuffix = surNameList.last();
+		surUserManual.remove(surNameFile.fileName());
+
+		QStringList desNamelist{};
+		desNamelist.append(QString("UserManual"));
+		desNamelist.append(surNameSuffix);
+
+		QString desName = desNamelist.join(".");
+		QString userManual = surUserManual + desName;
+
+		return userManual;
 	}
 
 }

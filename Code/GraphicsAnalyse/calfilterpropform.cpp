@@ -127,7 +127,7 @@ void calFilterPropForm::on_tanh_pushButton_clicked()
 
 void calFilterPropForm::on_abs_pushButton_clicked()
 {
-	input("abs");
+	input("fabs");
 }
 
 void calFilterPropForm::on_ceil_pushButton_clicked()

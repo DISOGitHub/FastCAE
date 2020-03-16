@@ -51,7 +51,7 @@ namespace GeometryWidget
 
 		QList<Geometry::GeometrySet*> _geobodyList{};
 		Geometry::GeometrySet* _faceBody{};
-		int _faceIndex{ 0 };
+		int _faceIndex{ -1 };
 		QList<vtkActor*> _faceActor{};
 		int _typeindex{0};
 		int _planeindex{0};

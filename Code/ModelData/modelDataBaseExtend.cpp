@@ -1,4 +1,5 @@
 #include "modelDataBaseExtend.h"
+#include "BCBase/BCBase.h"
 #include <QDomElement>
 #include <assert.h>
 #include "simulationSettingBase.h"
@@ -254,6 +255,31 @@ namespace ModelData
 		{
 			_setMaterial.remove(setid);
 		}
+	}
+
+	void ModelDataBaseExtend::setMeshSetList(QList<int> ids)
+	{
+		QList<int> old = _componentIDList;
+		QList<int> removeid;
+		for (auto id : old)
+			if (!ids.contains(id)) removeid.append(id);
+
+		for (int id : removeid)
+		{
+			if (_setMaterial.contains(id))
+				_setMaterial.remove(id);
+			for (auto bc : _bcList)
+			{
+				if (bc->getMeshSetID() == id)
+				{
+					_bcList.removeOne(bc);
+					delete bc;
+					break;
+				}
+			}
+		}
+
+		ModelDataBase::setMeshSetList(ids);
 	}
 
 	void ModelDataBaseExtend::removeMeshSetAt(int index)
