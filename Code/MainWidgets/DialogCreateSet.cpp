@@ -191,6 +191,7 @@ namespace MainWidget
 		for (int i = 0; i < n; ++i)
 		{
 			MeshData::MeshKernal* k = meshdata->getKernalAt(i);
+			if (!k->isVisible())  continue;
 			int kid = k->getID();
 			vtkDataSet* dataset = k->getMeshData();
 

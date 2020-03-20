@@ -18,7 +18,6 @@ namespace Command
 		for (int i = 0; i < 3; ++i)
 		{
 			_startPoint[i] = s[i];
-			//_endPoint[i] = e[i];
 		}
 	}
 
@@ -156,7 +155,6 @@ namespace Command
 		}
 		else
 			_geoData->appendGeometrySet(_result);
-
 		emit updateGeoTree();
 		emit showSet(_result);
 	}

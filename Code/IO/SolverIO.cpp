@@ -36,6 +36,9 @@ namespace IO
 		QString desFilePath = path + "/" + filename;
 		qDebug() << desFilePath;
 
+		if (QFile::exists(desFilePath))
+			QFile::remove(desFilePath);
+
 		QFile::copy(templa, desFilePath);
 
 		QFile desFile(desFilePath);

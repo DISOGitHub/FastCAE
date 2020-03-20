@@ -50,7 +50,9 @@ namespace FastCAEDesigner
 			ChnNameIsEmpty = 1,
 			EngNameIsEmpty,
 			EmailNameInvalid,
-			WebsiteNameInvalid
+			WebsiteNameInvalid,
+			ChnNameIsError,
+			EngNameIsError
 		};
 
 		void Init();

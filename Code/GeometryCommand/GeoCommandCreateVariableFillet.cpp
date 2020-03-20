@@ -28,7 +28,6 @@ namespace Command
 			radius.insert(1.0, _basicRadius);
 
 		QList<double> locs = radius.keys();
-
 		TopoDS_Shape* shape = _edgeSet->getShape();
 		BRepFilletAPI_MakeFillet Rake(*shape);
 		ChFi3d_FilletShape FSH = ChFi3d_Rational;
@@ -36,10 +35,8 @@ namespace Command
 
 		TopTools_IndexedDataMapOfShapeListOfShape aEdgeFaceMap;
 		TopExp::MapShapesAndAncestors(*shape, TopAbs_EDGE, TopAbs_FACE, aEdgeFaceMap);
-
 		TopExp_Explorer ex(*shape, TopAbs_EDGE);
 		for (int i = 0; i < _edgeIndex; ++i, ex.Next());
-
 		const TopoDS_Shape& edgeshape = ex.Current();
 		const TopoDS_Edge& E = TopoDS::Edge(edgeshape);
 		TopTools_ListOfShape faces = aEdgeFaceMap.FindFromKey(E);
@@ -54,8 +51,6 @@ namespace Command
 			parAndRad.SetValue(i, gp_Pnt2d(loc, rad));
 		}
 
-		
-	
 		Rake.Add(parAndRad, E);
 		Rake.Build();
 		if (!Rake.IsDone()) return false;
@@ -69,10 +64,9 @@ namespace Command
 		Geometry::GeometrySet* set = new Geometry::GeometrySet;
 		set->setName(name);
 		set->setShape(resshape);
-
-
 		set->appendSubSet(_edgeSet);
 		_result = set;
+
 		if (_isEdit)
 		{
 			set->setName(_editSet->getName());
@@ -86,8 +80,8 @@ namespace Command
 		}
 
 		_geoData->removeTopGeometrySet(_edgeSet);
-		Geometry::GeometryParaVariableFillet* para = new Geometry::GeometryParaVariableFillet;
 
+		Geometry::GeometryParaVariableFillet* para = new Geometry::GeometryParaVariableFillet;
 		para->setInputSet(_edgeSet);
 		para->setEdgeSet(_edgeSet);
 		para->setEdgeIndex(_edgeIndex);
@@ -96,7 +90,6 @@ namespace Command
 		
 		set->setParameter(para);
 		emit removeDisplayActor(_edgeSet);
-		//_geoData->appendGeometrySet(set);
 		emit showSet(set);
 		emit updateGeoTree();
 		GeoCommandBase::execute();

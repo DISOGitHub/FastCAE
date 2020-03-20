@@ -59,11 +59,9 @@ namespace GeometryWidget
 			p->getPara(para);
 			p->getCorner(corner);
 			_pw->setCoordinate(corner);
-
 			_ui->lineEditX->setText(QString::number(para[0]));
 			_ui->lineEditY->setText(QString::number(para[1]));
 			_ui->lineEditZ->setText(QString::number(para[2]));
-
 
 		}
 	}
@@ -73,6 +71,7 @@ namespace GeometryWidget
 		QDialog::closeEvent(e);
 		delete this;
 	}
+
 	void CreatePointDialog::reject()
 	{
 		QDialog::reject();
@@ -116,13 +115,9 @@ namespace GeometryWidget
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
 		}
-
-		
-
 		double coor[3] = { 0.0 };
 		for (int i = 0; i < 3; ++i)
 			coor[i] = corner[i] + para[i];
-
 
 		QStringList codes{};
 		codes += QString("point = CAD.Point()");
@@ -137,7 +132,6 @@ namespace GeometryWidget
 			codes += QString("point.edit()");
 		else
 			codes += QString("point.create()");
-
 		_pyAgent->submit(codes);
 
 

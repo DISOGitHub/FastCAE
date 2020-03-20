@@ -38,6 +38,7 @@ namespace GeometryWidget
 		emit setSelectMode((int)ModuleBase::None);
 		emit updateGraphOptions();
 	}
+
 	void SweepDialog::init()
 	{
 		if (_editSet == nullptr) return;
@@ -47,7 +48,9 @@ namespace GeometryWidget
 		emit hideGeometry(_editSet);
 		_pathEdge = p->getPath();
 		_sectionEdgeHash = p->getShapeHash();
-		
+		_solid = p->getSloid();
+		_ui->solidCheckBox->setChecked(_solid);
+
 		QList<Geometry::GeometrySet*> setList = _sectionEdgeHash.uniqueKeys();
 		for (int i = 0; i < setList.size(); ++i)
 		{
@@ -73,6 +76,7 @@ namespace GeometryWidget
 		}
 
 	}
+
 	void SweepDialog::closeEvent(QCloseEvent *e)
 	{
 		QDialog::closeEvent(e);
@@ -105,7 +109,7 @@ namespace GeometryWidget
 		}*/
 
 		QStringList codes{};
-		bool isSolid = _ui->solidCheckBox->isChecked();
+		
 		codes += QString("sweep = CAD.Sweep()");
 		if (_isEdit)
 			codes += QString("sweep.setEditID(%1)").arg(_editSet->getID());
@@ -124,7 +128,8 @@ namespace GeometryWidget
 		codes += QString("sweep.setPath(%1,%2)").arg(pathset).arg(pathedge);
 
 		QString solidstr{};
-		if (isSolid) solidstr = "Yes";
+		_solid = _ui->solidCheckBox->isChecked();
+		if (_solid) solidstr = "Yes";
 		else solidstr = "No";
 		codes += QString("sweep.isSolid('%1')").arg(solidstr);
 
@@ -221,7 +226,5 @@ namespace GeometryWidget
 		QString label = QString(tr("Selected edge(%1)")).arg(1);
 		_ui->pathlabel->setText(label);
 	}
-
-
 
 }

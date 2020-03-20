@@ -164,8 +164,10 @@ namespace GeometryWidget
 		bool legal = true;
 		
 		bool s = _ui->checkBoxSaveOrigin->isChecked();
-		int planindex = _ui->comboBoxPlane->currentIndex();
-		if (_faceBody == nullptr) legal = false;
+		
+		if (_typeindex == 0)
+			if (_faceBody == nullptr) legal = false;
+		
 
 
 		if ((!legal) || _geobodyList.size() < 1)
@@ -173,8 +175,6 @@ namespace GeometryWidget
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
 		}
-		
-
 /*		
 
 		Command::CommandMirrorFeature* c = new Command::CommandMirrorFeature(_mainWindow, _preWindow);
@@ -229,7 +229,7 @@ namespace GeometryWidget
 		else if (_typeindex == 1) mestr = "Coordinate";
 		else if (_typeindex == 2) mestr = "Random";
 		codes += QString("mirrorfeature.setSymmetricPlaneMethod('%1')").arg(mestr);//method
-	
+		int planindex = _ui->comboBoxPlane->currentIndex();
 		if (_typeindex==0)
 			codes += QString("mirrorfeature.setFace(%1,%2)").arg(_faceIndex).arg(_faceBody->getID());
 		

@@ -93,6 +93,7 @@ namespace Command
 				_releasenew = false; 
 			}
 		}
+
 		emit updateGeoTree();
 		GeoCommandBase::execute();
 		return success;
@@ -336,9 +337,7 @@ namespace Command
 		para->setMethod(_method);
 		para->setEdge(_edge.first, _edge.second);
 		para->setVector(_vector);
-
 		para->isReverse(_reverse);
-
 		n->setParameter(para);
 	}
 

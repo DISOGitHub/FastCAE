@@ -28,11 +28,10 @@ namespace Command
 			return false;
 		}
 
-
 		Geometry::GeometrySet* set = new Geometry::GeometrySet(Geometry::STEP);
 		set->setName(_name);
 		set->setShape(shape);
-		//_geoData->appendGeometrySet(set);
+
 		_result = set;
 
 		if (_isEdit)
@@ -117,7 +116,6 @@ namespace Command
 	{
 		_length = l;
 	}
-
 
 	void GeoCommandCreateCone::setName(QString name)
 	{

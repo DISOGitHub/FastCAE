@@ -110,9 +110,13 @@ namespace GUI
 
 	void StartPage::load(QString web)
 	{
+#ifdef Q_OS_WIN32
+		if (web.isEmpty())
+			web = "www.fastcae.com";
 		if (!web.toLower().startsWith("http"))
 			web = "http://" + web;
 		_ui->webView->load(QUrl(web));
+#endif
 	}
 
 } 

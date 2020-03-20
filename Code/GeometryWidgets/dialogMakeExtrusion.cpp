@@ -34,7 +34,6 @@ namespace GeometryWidget
 		on_radioButtonUser();
 	}
 
-
 	CreateExtrusionDialog::CreateExtrusionDialog(GUI::MainWindow* m, MainWidget::PreWindow* p, Geometry::GeometrySet* set)
 		:GeoDialogBase(m, p)
 	{
@@ -54,8 +53,6 @@ namespace GeometryWidget
 		emit setSelectMode((int)ModuleBase::None);
 		emit updateGraphOptions();
 	}
-
-
 
 	void CreateExtrusionDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
 	{
@@ -86,7 +83,6 @@ namespace GeometryWidget
 		emit setSelectMode(int(ModuleBase::GeometryCurve));
 	}
 
-	
 	void CreateExtrusionDialog::on_radioButtonUser()
 	{
 		bool checked = _ui->radioButtonUser->isChecked();
@@ -103,7 +99,6 @@ namespace GeometryWidget
 		if (p == nullptr) return;
 		emit hideGeometry(_editSet);
 		
-
 		QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 		shapeHash = p->getShapeHash();
 		_shapeHash = shapeHash;
@@ -157,7 +152,6 @@ namespace GeometryWidget
 			_ui->doubleSpinBoxY->setValue(dir[1]);
 			_ui->doubleSpinBoxZ->setValue(dir[2]);
 		}
-		//bool iii = p->getReverse();
 		_ui->reversecheckBox->setChecked(p->getReverse());
 		_ui->solidCheckBox->setChecked(p->getSloid());
 	}
@@ -284,7 +278,6 @@ namespace GeometryWidget
 			codes += QString("extrusion.create()");
 
 		_pyAgent->submit(codes);
-
 		QDialog::accept();
 		this->close(); 
 	}
@@ -295,9 +288,7 @@ namespace GeometryWidget
 		{
 			if (_editSet == nullptr) return;
 			emit showGeometry(_editSet);
-			
 		}
-
 		QDialog::reject();
 		this->close();
 	}

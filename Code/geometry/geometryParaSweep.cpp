@@ -50,35 +50,43 @@ namespace Geometry
 		QDomAttr typeattr = doc->createAttribute("Type");
 		typeattr.setValue(this->typeToString());
 		element.setAttributeNode(typeattr);
-/*
 
-		QDomAttr rad1attr = doc->createAttribute("Distance1");
-		rad1attr.setValue(QString::number(_d1));
-		element.setAttributeNode(rad1attr);
-		
-		QDomAttr rad2attr = doc->createAttribute("Distance2");
-		rad2attr.setValue(QString::number(_d2));
-		element.setAttributeNode(rad2attr);
+		if (_shapeHash.size() == 0) return element;
+		QList<Geometry::GeometrySet*> setList = _shapeHash.keys();
+		QList<int> setidList;
+		QString setidStr{};
+		for (int i = 0; i < setList.size(); ++i)
+		{
+			setidStr.append(QString::number((setList[i]->getID())));
+			if (i != (setList.size() - 1)) setidStr.append(",");
 
-		
-		QDomElement idEle = doc->createElement("SubID");
-		QDomText idText = doc->createTextNode(QString::number(_inputSet->getID()));
-		idEle.appendChild(idText);
-		element.appendChild(idEle);
+		}
+		QDomElement startpointEle = doc->createElement("EdgeSetIDList");
+		QDomText startpointText = doc->createTextNode(setidStr);
+		startpointEle.appendChild(startpointText);
+		element.appendChild(startpointEle);
 
-		QDomElement _combindex0Ele = doc->createElement("Combindex0");
-		QDomText _combindex0Text = doc->createTextNode(QString::number(_combindex0));
-		_combindex0Ele.appendChild(idText);
-		element.appendChild(_combindex0Ele);
+		QList<int> indexList = _shapeHash.values();
+		QString indexListStr{};
+		for (int i = 0; i < indexList.size(); ++i)
+		{
+			indexListStr.append(QString::number(indexList[i]));
+			if (i != (indexList.size() - 1)) indexListStr.append(",");
 
+		}
+		QDomElement indexlistEle = doc->createElement("IndexList");
+		QDomText indexText = doc->createTextNode(indexListStr);
+		indexlistEle.appendChild(indexText);
+		element.appendChild(indexlistEle);
 
-		QDomElement edgeEle = doc->createElement("Edges");
-		QStringList edgeIndexs;
-		for (int i = 0; i < _edgeindexlist.size(); ++i)
-			edgeIndexs.append(QString::number(_edgeindexlist.at(i)));
-		QDomText edgeText = doc->createTextNode(edgeIndexs.join(","));
-		edgeEle.appendChild(edgeText);
-		element.appendChild(edgeEle);*/
+		QDomElement edgeEle = doc->createElement("Path");
+		if (_path.first!=nullptr)
+		{
+			QString edgeStr = QString("%1,%2").arg(_path.first->getID()).arg(_path.second);
+			QDomText edgeText = doc->createTextNode(edgeStr);
+			edgeEle.appendChild(edgeText);
+			element.appendChild(edgeEle);
+		}
 
 		parent->appendChild(element);
 		return element;
@@ -86,32 +94,47 @@ namespace Geometry
 
 	void GeometryParaSweep::readDataFromProjectFile(QDomElement* e)
 	{
-// 		_name = e->attribute("Name");
- 		/*_d1 = e->attribute("Distance1").toDouble();
-		_d2 = e->attribute("Distance2").toDouble();
-		int temp = e->attribute("Combindex0").toInt();
-		if (temp == 0) _combindex0 = true;
-		else _combindex0 = false;
-// 		
-		QDomNodeList nodeidList = e->elementsByTagName("SubID");
-		if (nodeidList.size() < 1) return;
-		QDomElement idele = nodeidList.at(0).toElement();
-		QString sid = idele.text();
-		int id = sid.toInt();
-		_inputSet = _geoData->getGeometrySetByID(id);
+ 		_name = e->attribute("Name");
 
-		QDomNodeList edgeIndexList = e->elementsByTagName("Edges");
-		if (edgeIndexList.size() < 1) return;
-		QDomElement edgeele = edgeIndexList.at(0).toElement();
-		QString sIndex = edgeele.text();
-		QStringList sindexs = sIndex.split(",");
-		for (int i = 0; i < sindexs.size(); ++i)
+		QDomNodeList setIdList = e->elementsByTagName("EdgeSetIDList");
+		if (setIdList.size() != 1) return;
+		QDomElement coorele = setIdList.at(0).toElement();
+		QString coorstr = coorele.text();
+		QStringList coorsl = coorstr.split(",");
+		if (coorsl.size() < 1) return;
+		QList<int> setidList;
+		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			int inedx = sindexs.at(i).toDouble();
-			_edgeindexlist.append(inedx);
-		}*/
+			setidList.append(coorsl.at(i).toInt());
+		}
 
+		QDomNodeList startList = e->elementsByTagName("IndexList");
+		if (startList.size() != 1) return;
+		QDomElement startele = startList.at(0).toElement();
+		QString startstr = startele.text();
+		QStringList startsl = startstr.split(",");
+		if (startsl.size() < 1) return;
+		QList<int> indexList;
+		for (int i = 0; i < startsl.size(); ++i)
+		{
+			indexList.append(startsl.at(i).toInt());
+		}
 
+		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+		for (int i = 0; i < setidList.size(); ++i)
+		{
+			Geometry::GeometrySet*set = data->getGeometrySetByID(setidList[i]);
+			_shapeHash.insert(set, indexList[i]);
+		}
+
+		QDomNodeList edgeList = e->elementsByTagName("Path");
+		if (edgeList.size() != 1) return;
+		QDomElement edgeele = edgeList.at(0).toElement();
+		QString edgestr = edgeele.text();
+		QStringList edgesl = edgestr.split(",");
+		_path.first = data->getGeometrySetByID((edgesl[0]).toInt());
+		_path.second = edgesl[1].toInt();
+ 		
 
 	}
 

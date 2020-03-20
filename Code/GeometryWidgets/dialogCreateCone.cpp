@@ -118,12 +118,15 @@ namespace GeometryWidget
 			ok = !name.isEmpty();
 		double r = _ui->doubleSpinBoxR->value();
 		double r2 = _ui->doubleSpinBoxR2->value();
-		if (fabs(r - r2) < 1e-6) ok = false;
+		if (fabs(r - r2) < 1e-6)
+		{
+			QMessageBox::warning(this, tr("Warning"), tr("The two radii are equal!"));
+			return;
+		}
 
 		double l = _ui->doubleSpinBoxL->value();
 		if (ok && l < 1e-6)
 			ok = false;
-
 
 		if (!ok)
 		{

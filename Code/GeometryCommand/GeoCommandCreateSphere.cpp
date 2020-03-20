@@ -23,15 +23,12 @@ namespace Command
 			delete shape;
 			return false;
 		}
-
-		
-
 		Geometry::GeometrySet* set = new Geometry::GeometrySet(Geometry::STEP);
 		set->setName(_name);
 		set->setShape(shape);
 		//_geoData->appendGeometrySet(set);
-
 		_result = set;
+
 		if (_isEdit)
 		{
 			set->setName(_editSet->getName());

@@ -63,10 +63,8 @@ namespace Command
 			 if (c->getComamndType() == D3Feature) _undoList.append(c);
 			 else _sketchUndoList.append(c);
 		 }
-			 
 		 else
 			 delete c;
-
 		 return success;
 	}
 

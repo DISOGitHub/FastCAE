@@ -51,14 +51,18 @@ namespace IO
 				for (int i = 0; i < variables.size(); ++i)
 				{
 					QString variable = variables.at(i);
+					if (variable.isEmpty()) continue;
 					QString va = variable.remove("%");
 					DataProperty::ParameterBase* p = _data->getParameterByName(va);
-					if (p != nullptr)
+					if (p == nullptr)
 					{
-						QString t = p->valueToString();
-						line.replace(variables.at(i), t);
-						qDebug() << line;
+						line.replace(variables.at(i), QString("!!%1!!").arg(va));
+						continue;
 					}
+					
+					QString t = p->valueToString();
+					line.replace(variables.at(i), t);
+					
 				}
 			}
 			while (pos > -1);

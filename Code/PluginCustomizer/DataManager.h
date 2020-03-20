@@ -35,6 +35,11 @@ namespace ConfigOption
 namespace FastCAEDesigner
 {
 	class ModelBase;
+	class ParametersLinkage;
+}
+
+namespace DataProperty{
+	class ParameterBase;
 }
 
 namespace FastCAEDesigner
@@ -111,6 +116,12 @@ namespace FastCAEDesigner
 		//20200306
 		void CopyUserManualFileToSystem(QString fileName, QString path);
 
+		//20200313
+		void setAllParameterListDict(QString name, QList<DataProperty::ParameterBase*> list);
+		QList<DataProperty::ParameterBase*> getAllParameterList(QString caseName);
+		void setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list);
+		QList<FastCAEDesigner::ParametersLinkage*> getParametersLinkageList();
+
 	private:
 		bool ReadGlobalConfig();                       //读取基础配置信息
 		bool ReadGeometryConfig();
@@ -164,6 +175,10 @@ namespace FastCAEDesigner
 		//2020.1.18
 		QList<ModelBase*> _parameterList;
 		QMap<TreeItemType, QList<ModelBase*>> _parameterListDict;
+
+		//202000313
+		QMap<QString, QList<DataProperty::ParameterBase*>> _allParameterDict;
+		QList<FastCAEDesigner::ParametersLinkage*> _parametersLinkageList;
 	};
 }
 

@@ -63,6 +63,7 @@ namespace Command
 				newset->setName(name);
 				newset->setShape(mshape);
 				_geoData->appendGeometrySet(newset);
+
 				Geometry::GeometryParaMatrix* para = new Geometry::GeometryParaMatrix;
 				para->setOriSet(set);
 				para->setBodyList(_bodys);
@@ -73,6 +74,7 @@ namespace Command
 				para->setCount1(_dir1Count);
 				para->setShowDir2(_selectDir2);
 				newset->setParameter(para);
+
 				if (_selectDir2)
 				{
 					para->setDirection2(_dir2);
@@ -212,7 +214,6 @@ namespace Command
 			return;
 		}
 
-
 		QList<Geometry::GeometrySet*> geoList = _resultHash.keys();
 		for (int i = 0; i < geoList.size(); ++i)
 		{
@@ -259,7 +260,6 @@ namespace Command
 			_selectWire = true;
 		}
 	}
-
 
 	void CommandMakeMatrix::setBasicPoint(double* bp)
 	{

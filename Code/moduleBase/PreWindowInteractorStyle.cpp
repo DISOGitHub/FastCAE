@@ -184,7 +184,7 @@ namespace ModuleBase
 		vtkSmartPointer<vtkPropPicker> picker = vtkSmartPointer<vtkPropPicker>::New();
 		int p = picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
 
-		if (p == 0 && !_ctrlPressed && !_altPressed)
+		if (p == 0 && !_ctrlPressed && !_altPressed && _selectModel!= GeometryBody && _selectModel!=GeometryCurve && _selectModel!= GeometrySurface && _selectModel!= GeometryPoint)
 		{
 			emit clearAllHighLight();
 			return;
@@ -230,7 +230,7 @@ namespace ModuleBase
 		emit higtLightActorDisplayPoint(false);
 		int* clickPos = this->GetInteractor()->GetEventPosition();
 		vtkSmartPointer<vtkCellPicker> picker = vtkSmartPointer<vtkCellPicker>::New();
-		picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
+		int ok = picker->Pick(clickPos[0], clickPos[1], 0, this->GetDefaultRenderer());
 		int id = picker->GetCellId();
 		qDebug() << id;
 		if (picker->GetCellId() >= 0)

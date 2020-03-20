@@ -110,11 +110,12 @@ namespace MainWidget
 		{ 
 			Geometry::GeometryDatum* datum = datumList[i];
 			QString name = datum->getName();
+			name += QString("(%1)").arg(datum->getID());
 			const bool visable = datum->isVisible();
-			Qt::CheckState isvisable = Qt::Unchecked;
-			if (visable) isvisable = Qt::Checked;
+// 			Qt::CheckState isvisable = Qt::Unchecked;
+// 			if (visable) isvisable = Qt::Checked;
 			QTreeWidgetItem* item = new QTreeWidgetItem(_datumroot, DatumPlane);
-			item->setCheckState(0, isvisable);
+//			item->setCheckState(0, isvisable);
 			item->setText(0, name);
 			item->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
 		}
@@ -125,10 +126,17 @@ namespace MainWidget
 	void GeometryTreeWidget::singleClicked(QTreeWidgetItem* item, int i)
 	{
 		_currentItem = currentItem();
-		const int index = _root->indexOfChild(item);
+		int index = _root->indexOfChild(item);
 		if (index < 0)
 		{
 			emit disPlayProp(nullptr); //清空属性框
+
+			index = _datumroot->indexOfChild(item);
+			if (index < 0) return;
+			auto datum = _data->getDatumByIndex(index);
+			emit highLightGeometrySet(datum, true);
+			emit disPlayProp(datum);
+
 			return;
 		}
 		bool visable = true;
@@ -233,7 +241,7 @@ namespace MainWidget
 	{
 		const int index = _datumroot->indexOfChild(_currentItem);
 		if (index < 0) return;
-		Geometry::GeometryDatum* datum=_data->getDatumPlaneByIndex(index);
+		Geometry::GeometryDatum* datum=_data->getDatumByIndex(index);
 		GeometrysetRenameDialog dlg(_mainWindow, datum, _currentItem);
 		dlg.exec();
 	}

@@ -349,8 +349,6 @@ namespace GeometryWidget
 					vec[i] = fac * dir[i];
 
 		}
-
-
 		return ok;
 	}
 

@@ -151,6 +151,11 @@ namespace Geometry
 			GeometrySet* set = _geometryList.at(i);
 			set->writeToProjectFile(doc, &georoot,isdiso);
 		}
+		for (auto datum : _geomtretryDatumList)
+		{
+			datum->writeToProjectFile(doc, &georoot, isdiso);
+		}
+
 		return georoot;
 	}
 	void GeometryData::readFromProjectFile(QDomNodeList* nodelist, bool isdiso)
@@ -161,21 +166,18 @@ namespace Geometry
 		for (int i = 0; i < geoCount; ++i)
 		{
  			QDomElement geoset = geolist.at(i).toElement();
-// 			if (!isdiso)
-// 			{
-// 				QDomNodeList setList = geoset.elementsByTagName("Path");
-// 				if (setList.size() != 1) continue;
-// 				QDomElement pathele = setList.at(0).toElement();
-// 				QString fpath = pathele.text();
-// 				GeometryReader reader(fpath);
-// 				if (!reader.read()) continue;
-// 			}
-// 			else
-// 			{
-				GeometrySet* s = new GeometrySet;
-				_geometryList.append(s);
-//			}
+			GeometrySet* s = new GeometrySet;
+			_geometryList.append(s);
 			s->readDataFromProjectFile(&geoset,isdiso);
+		}
+		QDomNodeList datumList = georoot.elementsByTagName("GeoDatum");
+		const int nd = datumList.size();
+		for (int i = 0; i < nd; ++i)
+		{
+			QDomElement geoDat = datumList.at(i).toElement();
+			GeometryDatum* s = new GeometryDatum;
+			_geomtretryDatumList.append(s);
+			s->readDataFromProjectFile(&geoDat, isdiso);
 		}
 	}
 	GeometrySet* GeometryData::getGeometrySetByID(const int id)
@@ -191,7 +193,7 @@ namespace Geometry
 		return nullptr;
 	}
 
-	GeometryDatum* GeometryData::getDatumPlaneByIndex(const int index)
+	GeometryDatum* GeometryData::getDatumByIndex(const int index)
 	{
 		GeometryDatum* d = nullptr;
 		if (index >=0 && index < _geomtretryDatumList.size())

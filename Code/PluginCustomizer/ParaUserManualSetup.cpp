@@ -28,7 +28,8 @@ namespace FastCAEDesigner
 	{
 		ui->setupUi(this);
 
-		this->setFixedSize(850, 650);
+		this->setFixedSize(1050, 650);
+		//ui->widget->resize(900, 600);
 
 		connect(ui->btnLoadDoc, SIGNAL(clicked()), this, SLOT(OnBtnLoadDocClicked()));
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
@@ -37,7 +38,7 @@ namespace FastCAEDesigner
 
 		_fileName = DataManager::getInstance()->GetUserManual();
 		ui->txtFileName->setText(_fileName);
-		ui->txtFileName->setEnabled(false);
+		//ui->txtFileName->setEnabled(false);
 		_globalConfig = globalConfig;
 
 		/*
@@ -162,10 +163,10 @@ namespace FastCAEDesigner
 #ifdef Q_OS_WIN
 
 		this->CloseOffice();
-		_officeContent = new QAxWidget("Excel.Application", ui->widget);
+		_officeContent = new QAxWidget("Excel.Application", this->ui->widget);
 		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//不显示窗体
 		_officeContent->setProperty("DisplayAlerts", false);
-		auto rect = ui->widget->geometry();
+		auto rect = this->ui->widget->geometry();
 		_officeContent->setGeometry(rect);
 		_officeContent->setControl(fileName);
 		_officeContent->show();
@@ -178,13 +179,14 @@ namespace FastCAEDesigner
 
 		this->CloseOffice();
 		//_officeContent = new QAxWidget("Word.Application", this);
-		_officeContent = new QAxWidget("Word.Application");
+		//_officeContent = new QAxWidget("Word.Application");
+		_officeContent = new QAxWidget("Word.Application",this->ui->widget);
 		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//不显示窗体
 		_officeContent->setProperty("DisplayAlerts", false);
 		ui->widget->hide();
-		auto rect =  ui->widget->geometry();
+		auto rect =  this->ui->widget->geometry();
 		_officeContent->setGeometry(rect);
-		//_officeContent->resize(800, 440);
+		qDebug() << fileName;
 		_officeContent->setControl(fileName);
 		_officeContent->show();
 		ui->widgetLayout->addWidget(_officeContent);

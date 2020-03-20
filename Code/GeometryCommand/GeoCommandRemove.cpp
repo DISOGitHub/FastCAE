@@ -13,7 +13,6 @@ namespace Command
 		auto set = _geoData->getGeometrySetAt(_index);
 		if (set == nullptr) return false;
 		_res = set;
-
 		_geoData->removeTopGeometrySet(set);
 
 		emit removeDisplayActor(set);
@@ -54,7 +53,5 @@ namespace Command
 		if (!needRelease && _res != nullptr)
 			delete _res;
 	}
-
-
 
 }

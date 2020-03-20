@@ -50,7 +50,6 @@ namespace Command
 	{
 		_sketchType = t;
 		if (_sketchType==ModuleBase::SketchPolyline) _pointList.clear();
-//		_polyPtList.clear();
 		_commandList->startSketchMode(t != ModuleBase::SketchNone);
 		if (t == ModuleBase::SketchNone)
 		{
@@ -66,8 +65,20 @@ namespace Command
 		Handle(Geom_Plane) gplane = new Geom_Plane(*p);
 		GeomAPI_ProjectPointOnSurf projector1(pt, gplane);
 		gp_Pnt point = projector1.NearestPoint();
-		_pointList.append(point);
-		this->exec();
+		
+		bool append = true;
+		if (!_pointList.isEmpty())
+		{
+			gp_Pnt last = _pointList.last();
+			if (last.Distance(point) < 1e-5)
+				append = false;
+		}
+		if (append)
+		{
+			_pointList.append(point);
+			this->exec();
+		}
+		
 	}
 
 	void SketchCreater::setTempPoint(gp_Pnt &pt)

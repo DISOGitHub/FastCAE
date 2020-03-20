@@ -216,6 +216,18 @@ namespace GeometryWidget
 
 	void MakeMatrixDialog::reject()
 	{
+		if (_isEdit)
+		{
+			if (_editSet == nullptr) return;
+			Geometry::GeometryModelParaBase* pb = _editSet->getParameter();
+			Geometry::GeometryParaMatrix* p = dynamic_cast<Geometry::GeometryParaMatrix*>(pb);
+			if (p == nullptr) return;
+			Geometry::GeometrySet*  originalSet = p->getOriSet();
+			if (originalSet == nullptr) return;
+			//emit hideGeometry(originalSet);
+			emit showGeometry(_editSet);
+		}
+
 		QDialog::reject();
 		this->close();
 	}
@@ -223,6 +235,16 @@ namespace GeometryWidget
 	void MakeMatrixDialog::accept()
 	{
 		bool ok = false;
+		if (_ui->tabWidget->currentIndex() == 0)
+		{
+			_selectLinear = true;
+			_selectWire = false;
+		}
+		else
+		{
+			_selectLinear = false;
+			_selectWire = true;
+		}
 
 		QStringList codes{};
 		codes += QString("makematrix = CAD.MakeMatrix()");
@@ -243,9 +265,6 @@ namespace GeometryWidget
 	
 		if (_selectLinear)
 		{
-			//QList<double*> vecDir2List{};
-			//QList<double*> vecSumList{};
-			//direction1
 			double dir1[3] = { 0.0 };
 			getDir1(dir1);
 			//distance1
@@ -255,10 +274,9 @@ namespace GeometryWidget
 			//sum1
 			QString sumStr = _ui->sum1spinBox->text();
 			const int dir1Count = sumStr.toInt(&ok);
+
 			if (dir1Count < 1) ok = false;
-
 			bool reverse1 = _ui->checkBoxDir1Reverse->isChecked();
-
 			codes += QString("makematrix.setDirection1(%1,%2,%3)").arg(dir1[0]).arg(dir1[1]).arg(dir1[2]);
 			QString revstr{};
 			if (reverse1) revstr = "Yes";
@@ -303,6 +321,7 @@ namespace GeometryWidget
 			}
 	
 		}
+
 		if (_selectWire)
 		{
 			double basicPoint[3] = { 0.0 };
@@ -312,7 +331,6 @@ namespace GeometryWidget
 			bool ok = _baseWidget->getCoordinate(basicPoint);
 			if (ok)
 				ok = getVector(vec);
-
 			//sum
 			QString textSum = _ui->sum1spinBox_2->text();
 			const int wireCount = textSum.toInt(&ok);
@@ -327,7 +345,6 @@ namespace GeometryWidget
 				return;
 			}
 
-			//codes += QString("makematrix.setVector(%1,%2,%3)").arg(vec[0]).arg(vec[1]).arg(vec[2]);
 			codes += QString("makematrix.setBasicPoint(%1,%2,%3)").arg(basicPoint[0]).arg(basicPoint[1]).arg(basicPoint[2]);
 			codes += QString("makematrix.setAxis(%1,%2,%3)").arg(_axisdir[0]).arg(_axisdir[1]).arg(_axisdir[2]);
 			QString wirerestr{};
@@ -338,14 +355,12 @@ namespace GeometryWidget
 			codes += QString("makematrix.setDegree(%1)").arg(deg);
 		}
 
-
 		if (_isEdit)
 			codes += QString("makematrix.edit()");
 		else
 			codes += QString("makematrix.create()");
 
 		_pyAgent->submit(codes);
-
 		QDialog::accept();
 		this->close();
 		
@@ -461,8 +476,6 @@ namespace GeometryWidget
 		return ok;
 	}
 
-
-
 	QList<double*> MakeMatrixDialog::getAngleList()
 	{
 		QList<double*> angleList{};
@@ -523,123 +536,5 @@ namespace GeometryWidget
 			dir[2] = _ui->doubleSpinBoxZ_2->value();
 		}
 	}
-	/*void MakeMatrixDialog::accept()
-	{
-		bool ok = false;
-
-		QStringList codes{};
-		codes += QString("makematrix = CAD.MakeMatrix()");
-
-		if (_isEdit)
-			codes += QString("makematrix.setEditID(%1)").arg(_editSet->getID());
-		QString setidStr{};
-		for (int i = 0; i < _geobodyList.size(); ++i)
-		{
-			setidStr.append(QString::number((_geobodyList[i]->getID())));
-			if (i != (_geobodyList.size() - 1)) setidStr.append(",");
-		}
-		codes += QString("makematrix.setBodys('%1')").arg(setidStr);
-
-		codes += QString("makematrix.setOptionIndex(%1)").arg(!_selectLinear);
-		//auto c = new Command::CommandMakeMatrix(_mainWindow, _preWindow);
-
-		if (_selectLinear)
-		{
-			QList<double*> vecDir2List{};
-			QList<double*> vecSumList{};
-			//direction1
-			double dir1[3] = { 0.0 };
-			getDir1(dir1);
-			//distance1
-			QString text = _ui->dir1lineEdit->text();
-			const double dir1Distance = text.toDouble(&ok);
-			if (dir1Distance < 1e-6) ok = false;
-			//sum1
-			QString sumStr = _ui->sum1spinBox->text();
-			const int dir1Count = sumStr.toInt(&ok);
-			if (dir1Count < 1) ok = false;
-			//Isselect direction2
-			codes += QString("makematrix.showDirection2(%1)").arg(_ui->dir2checkBox->isChecked());
-			if (_ui->dir2checkBox->isChecked())
-			{
-				//direction2
-				double dir2[3] = { 0.0 };
-				getDir2(dir2);
-				//distance2 
-				QString text = _ui->dir2lineEdit->text();
-				const double dir2Distance = text.toDouble(&ok);
-				if (dir2Distance < 1e-6) ok = false;
-				//sum2 
-				QString sumStr = _ui->sum2spinBox->text();
-				const int dir2Count = sumStr.toInt(&ok);
-				if (dir2Count < 1) ok = false;
-				bool reverse2 = _ui->checkBoxDir1Reverse_2->isChecked();
-
-				codes += QString("makematrix.setDir2(%1,%2,%3)").arg(dir2[0]).arg(dir2[1]).arg(dir2[2]);
-				codes += QString("makematrix.setReverse2(%1)").arg(reverse2);
-				codes += QString("makematrix.setDistance2(%1)").arg(dir2Distance);
-				codes += QString("makematrix.setCount2(%1)").arg(dir2Count);
-
-
-			}
-
-			if (!ok || _geobodyList.size() < 1)
-			{
-				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
-				return;
-			}
-			bool reverse1 = _ui->checkBoxDir1Reverse->isChecked();
-	
-			codes += QString("makematrix.setDir1(%1,%2,%3)").arg(dir1[0]).arg(dir1[1]).arg(dir1[2]);
-			codes += QString("makematrix.setReverse1(%1)").arg(reverse1);
-			codes += QString("makematrix.setDistance1(%1)").arg(dir1Distance);
-			codes += QString("makematrix.setCount1(%1)").arg(dir1Count);
-	
-		}
-		if (_selectWire)
-		{
-			double basicPoint[3] = { 0.0 };
-			double vec[3] = { 0.0 };
-			double deg{ 0.0 };
-			QList<double*> angleList;
-			bool ok = _baseWidget->getCoordinate(basicPoint);
-			if (ok)
-				ok = getVector(vec);
-
-			//sum
-			QString textSum = _ui->sum1spinBox_2->text();
-			const int wireCount = textSum.toInt(&ok);
-			//degree
-			QString textDegree = _ui->axisAnglelineEdit->text();
-			deg = textDegree.toDouble(&ok);
-			if (ok)
-				ok = fabs(deg) < 0.0000001 ? false : true;
-			if (!ok || _geobodyList.size() < 1)
-			{
-				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
-				return;
-			}
-
-			codes += QString("makematrix.setVec(%1,%2,%3)").arg(vec[0]).arg(vec[1]).arg(vec[2]);
-			codes += QString("makematrix.setBasicPoint(%1,%2,%3)").arg(basicPoint[0]).arg(basicPoint[1]).arg(basicPoint[2]);
-			codes += QString("makematrix.setAxis(%1,%2,%3)").arg(_axisdir[0]).arg(_axisdir[1]).arg(_axisdir[2]);
-			codes += QString("makematrix.setWireReverse(%1)").arg(_ui->checkBoxDir1Reverse_3->isChecked());
-			codes += QString("makematrix.setWireCount(%1)").arg(wireCount);
-			codes += QString("makematrix.setDegree(%1)").arg(deg);
-			
-		}
-		
-
-		if (_isEdit)
-			codes += QString("makematrix.edit()");
-		else
-			codes += QString("makematrix.create()");
-
-		_pyAgent->submit(codes);
-
-		QDialog::accept();
-		this->close();
-	}
-*/
 
 }

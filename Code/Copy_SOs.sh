@@ -1,5 +1,6 @@
 #mkdir
 mkdir -p ../output/bin
+mkdir -p ../output/bin/gmsh
 
 #python
 cp -a ../output/python37/lib/libpython3.7m.so.1.0  ../output/bin/
@@ -10,6 +11,11 @@ cp -a ../cgns/cgns_linux/libcgns.so        ../output/bin/
 
 #quazip
 cp -a ../quazip/lib/libquazip.so   ../output/bin/
+
+#gmsh
+cp -a ./Gmsh/gmsh454/gmsh         ../output/bin/gmsh/
+cp -a ./Gmsh/gmsh454/gmsh.Geo         ../output/bin/gmsh/
+chmox +x ../output/bin/gmsh/gmsh
 
 #QT
 cp -a /opt/Qt5.4.2/5.4/gcc_64/lib/libQt5Core.so    ../output/bin/

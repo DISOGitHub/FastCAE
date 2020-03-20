@@ -35,10 +35,6 @@ namespace Command
 			m.type = ModuleBase::Normal_Message;
 			m.message = QString("Import Geometry From \"%1\"").arg(filename);
 			emit showMessage(m);
-
-// 			const int n = _geoData->getGeometrySetCount();
-// 			auto set = _geoData->getGeometrySetAt(n - 1);
-
 			QList<Geometry::GeometrySet*> setList = reader.getResult();
 			for (auto set : setList)
 			{

@@ -44,7 +44,6 @@ namespace Command
 		bool success = false;
 
 		gp_Ax1 anAxis;
-	
 		anAxis.SetLocation(gp_Pnt(_basicPoint[0], _basicPoint[1], _basicPoint[2]));
 		double vec[3];
 		getVec(vec);
@@ -76,8 +75,6 @@ namespace Command
 		}
 
 		std::vector<TopoDS_Wire> wireList = GeoCommandCommon::bulidWire(edgeList);
-//		TopoDS_Shape resShape = GeoCommandCommon::makeFace(wireList);
-
 		double d = _degree*PI / 180.00;
 		if (!_isSolid)
 		{
@@ -95,8 +92,6 @@ namespace Command
 					builder.Add(comp, relvo);
 			}
 			relvo = comp;
-		
-
 		}
 		else
 		{
@@ -105,7 +100,6 @@ namespace Command
 			relvo = BRepPrimAPI_MakeRevol(face, anAxis, d, true);
 
 		}
-
 		TopoDS_Shape* shape = new TopoDS_Shape;
 		*shape = relvo;
 		if (shape->IsNull())
@@ -119,6 +113,7 @@ namespace Command
 		//_geoData->appendGeometrySet(newset);
 		_result = newset;
 		newset->setName(_extName);
+
 		if (_isEdit)
 		{
 			newset->setName(_editSet->getName());
@@ -130,10 +125,10 @@ namespace Command
 			newset->setName(_extName);
 			_geoData->appendGeometrySet(newset);
 		}
+
 		Geometry::GeometryParaRevol *para = new Geometry::GeometryParaRevol;
 		para->setName(_extName);
 		para->setShapeHash(_shapeHash);
-		
 		para->setBasciPoint(_basicPoint);
 		para->setDegree(_degree);
 		para->setMethod(_optionmethod);
@@ -151,9 +146,6 @@ namespace Command
 	}
 	void GeoCommandMakeRevol::undo()
 	{
-		/*_geoData->removeTopGeometrySet(_result);
-		emit updateGeoTree();
-		emit removeDisplayActor(_result);*/
 		emit removeDisplayActor(_result);
 		if (_isEdit)
 		{
@@ -169,9 +161,6 @@ namespace Command
 
 	void GeoCommandMakeRevol::redo()
 	{
-		/*_geoData->appendGeometrySet(_result);
-		emit updateGeoTree();
-		emit showSet(_result);*/
 		if (_isEdit)
 		{
 			_geoData->replaceSet(_result, _editSet);
@@ -183,9 +172,6 @@ namespace Command
 		emit showSet(_result);
 	}
 
-
-	
-	
 	void GeoCommandMakeRevol::setOptionMethod(int i)
 	{
 		_optionmethod = i;
@@ -249,7 +235,6 @@ namespace Command
 	{
 		_shapeHash = s;
 	}
-
 
 	void GeoCommandMakeRevol::setName(QString name)
 	{

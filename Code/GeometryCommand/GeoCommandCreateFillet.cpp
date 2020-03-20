@@ -50,16 +50,11 @@ namespace Command
 
 				TopTools_ListOfShape faces = aEdgeFaceMap.FindFromKey(shape);
 				if (faces.Size() < 2)  continue;
-
 				MF.Add(_radius, E);
-				
-// 				MF.Build();
-// 				if (!MF.IsDone()) continue;
 				onesucc = true;
 			}
 			if (!onesucc) continue;
 			success = true;
-
 			MF.Build();
 			if (!MF.IsDone()) continue;
 
@@ -97,12 +92,10 @@ namespace Command
 			newset->setParameter(filet);
 
 			GeoCommandBase::execute();
-			
 			emit removeDisplayActor(set);
 			emit showSet(newset);
 
 		}
-
 		emit updateGeoTree();
 		return success;
 	}
@@ -130,12 +123,9 @@ namespace Command
 				outputSet->removeSubSet(inputSet);
 				_geoData->removeTopGeometrySet(outputSet);
 				_geoData->appendGeometrySet(inputSet);
-
 				emit showSet(inputSet);
 			}
 		}
-
-		
 		emit updateGeoTree();
 	}
 
@@ -168,7 +158,6 @@ namespace Command
 		}
 		
 		emit updateGeoTree();
-
 	}
 
 	void CommandCreateFillet::releaseResult()

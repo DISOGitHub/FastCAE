@@ -79,12 +79,9 @@ namespace Command
 		for (int k = 0; k < index; ++k) ptExp.Next();
 		const TopoDS_Shape& shapecurrent = ptExp.Current();
 		const TopoDS_Edge& edge = TopoDS::Edge(shapecurrent);
-
 		TopoDS_Wire path = BRepBuilderAPI_MakeWire(edge);
 		if (path.IsNull()) return false;
-
 		BRepOffsetAPI_MakePipe aPipeMaker(path, section);
-
 		aPipeMaker.Build();
 		if (!aPipeMaker.IsDone()) return false;
 
@@ -94,6 +91,7 @@ namespace Command
 		newset->setShape(shape);
 		//_geoData->appendGeometrySet(newset);
 		_result = newset;
+
 		if (_isEdit)
 		{
 			newset->setName(_editSet->getName());
@@ -107,14 +105,12 @@ namespace Command
 			newset->setName(name);
 			_geoData->appendGeometrySet(newset);
 		}
+
 		Geometry::GeometryParaSweep* para = new Geometry::GeometryParaSweep;
-		//para->setName(_name);
 		para->setShapeHash(_sectionEdge);
 		para->setSolid(_isSolid);
 		para->setPath(_pathEdge);
 		_result->setParameter(para);
-
-
 
 		GeoCommandBase::execute();
 		emit showSet(newset);

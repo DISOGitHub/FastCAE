@@ -91,6 +91,13 @@ namespace MainWidget
 			showShape(*shape, set);
 
 		}
+		QList<Geometry::GeometryDatum*> dl = _geoData->getGeometryDatum();
+		for (auto da : dl)
+		{
+			TopoDS_Shape* shape = da->getShape();
+			if (shape == nullptr) continue;
+			showDatum(da);
+		}
 	}
 
 	void GeometryViewProvider::showShape(TopoDS_Shape& shape, Geometry::GeometrySet* set)
@@ -565,7 +572,8 @@ namespace MainWidget
 	{
 		QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
 		TopoDS_Shape* shape = datum->getShape();
-
+		bool visible = datum->isVisible();
+		visible = visible && _showface;
 		TopExp_Explorer faceExp(*shape, TopAbs_FACE);
 		QList<Handle(TopoDS_TShape)> tshapelist;
 		for (int index = 0; faceExp.More(); faceExp.Next(), ++index)
@@ -594,6 +602,7 @@ namespace MainWidget
 			_setActors.insert(datum, Actor);
 			_actotShapeHash.insert(Actor, index);
 			Actor->SetPickable(false);
+			Actor->SetVisibility(visible);
 			_preWindow->AppendActor(Actor, ModuleBase::D3, false);
 		}
 		_preWindow->reRender();

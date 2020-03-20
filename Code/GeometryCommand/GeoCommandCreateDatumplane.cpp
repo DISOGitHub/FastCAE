@@ -83,7 +83,6 @@ namespace Command
 	void GeoCommandCreateDatumplane::undo()
 	{
 		_geoData->removeGeometryDatum(_result);
-//		emit updateGeoTree();
 		emit removeDisplayDatumActor(_result);
 		updateGeoTree();
 	}
@@ -91,7 +90,6 @@ namespace Command
 	void GeoCommandCreateDatumplane::redo()
 	{
 		_geoData->appendGeometryDatum(_result);
-	//	emit updateGeoTree();
 		emit showDatum(_result);
 		updateGeoTree();
 	}

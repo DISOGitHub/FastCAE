@@ -53,7 +53,6 @@ namespace Command
 		para->setDirection(_axis);
 		_result->setParameter(para);
 
-
 		GeoCommandBase::execute();
 		emit updateGeoTree();
 		emit showSet(set);

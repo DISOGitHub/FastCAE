@@ -47,6 +47,7 @@ namespace GeometryWidget
 		if (_ui != nullptr) delete _ui;
 		emit updateGraphOptions();
 	}
+
 	void VariableFilletDialog::init()
 	{
 		if (_editSet == nullptr) return;
@@ -65,7 +66,6 @@ namespace GeometryWidget
 		
 		int edgeindex = p->getEdgeIndex();
 		_edgeIndex = edgeindex;
-
 		emit highLightGeometryEdge(subset, edgeindex, &_actors);
 
 		double basicradius = p->getBasicRadius();
@@ -139,8 +139,6 @@ namespace GeometryWidget
 			codes += QString("variablefillet.create()");
 
 		_pyAgent->submit(codes);
-
-		
 		/*Command::CommandCreateVariableFillet* c = new Command::CommandCreateVariableFillet(_mainWindow, _preWindow);
 		c->setShape(_edgeSet, _edgeIndex);
 		c->setBasicRadius(basicRad);
@@ -195,7 +193,6 @@ namespace GeometryWidget
 				{
 					QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
 					var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
 				}
 			}
 			emit _preWindow->reRenderSig();

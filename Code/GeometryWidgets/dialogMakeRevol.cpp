@@ -43,6 +43,7 @@ namespace GeometryWidget
 	{
 		_ui = new Ui::CreateRevol;
 		_ui->setupUi(this);
+		this->setWindowTitle("Edit Revol");
 		init();
 		connect(_ui->radioButtonUser, SIGNAL(toggled(bool)), this, SLOT(on_radioButtonUser()));
 		connect(_ui->comboBoxOption, SIGNAL(currentIndexChanged(int)), this, SLOT(on_TypeChanged(int)));
@@ -83,7 +84,6 @@ namespace GeometryWidget
 		_ui->lineEditDegree->setText(QString::number(degree));
 		_ui->comboBoxOption->setCurrentIndex(p->getMethod());
 		_ui->tabWidget->setCurrentIndex(p->getMethod());
-
 		
 		if (p->getMethod()==0)
 		{
@@ -99,15 +99,15 @@ namespace GeometryWidget
 			double dir[3]{};
 			p->getCoor(dir);
 
-			if (dir[0] != 0 && dir[1] == 0 && dir[2] == 0)
+			if (dir[0] == 1 && dir[1] == 0 && dir[2] == 0)
 			{
 				_ui->radioButtonX->setChecked(true);
 			}
-			else if (dir[0] == 0 && dir[1] != 0 && dir[2] == 0)
+			else if (dir[0] == 0 && dir[1] == 1 && dir[2] == 0)
 			{
 				_ui->radioButtonY->setChecked(true);
 			}
-			else if (dir[0] == 0 && dir[1] == 0 && dir[2] != 0)
+			else if (dir[0] == 0 && dir[1] == 0 && dir[2] == 1)
 			{
 				_ui->radioButtonZ->setChecked(true);
 			}
@@ -268,7 +268,7 @@ namespace GeometryWidget
 			if (ok)
 				ok = fabs(degree) < 0.0000001 ? false : true;
 		}
-		if (_ui->comboBoxOption->currentIndex() == 0() && _axisSet == nullptr)
+		if (_ui->comboBoxOption->currentIndex() == 0 && _axisSet == nullptr)
 			ok = false;
 		if (!ok)
 		{
@@ -357,23 +357,17 @@ namespace GeometryWidget
 			codes += QString("revol.create()");
 
 		_pyAgent->submit(codes);
-
-
-
 		QDialog::accept();
 		this->close(); 
 	}
 	
-
 	void CreateRevolDialog::reject()
 	{
 		if (_isEdit)
 		{
 			if (_editSet == nullptr) return;
 			emit showGeometry(_editSet);
-
 		}
-
 		QDialog::reject();
 		this->close();
 	}

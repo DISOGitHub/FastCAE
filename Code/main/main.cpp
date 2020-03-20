@@ -29,6 +29,8 @@
 
 int main(int argc, char* argv[])
 {
+	QString releaseVersion = "2.0.1965";
+
 	{
 		bool nogui = false;
 		bool design = false;
@@ -125,6 +127,7 @@ int main(int argc, char* argv[])
 			//*****************************************
 			mainwindow.show();
 			mainwindow.showMaximized();
+			emit mainwindow.sendInfoToStatesBar(QString("Version: %1").arg(releaseVersion));
 	}
 // 		if (design)
 // 			mainwindow.changeToDesignModel();

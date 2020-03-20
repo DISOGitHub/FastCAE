@@ -305,11 +305,21 @@ namespace FastCAEDesigner
 		if (!welcomeFile.isEmpty())
 			_welcomeFileName = destPath + welcomeFile;
 
-		destPath = FileHelper::GetSystemConfigPath() + "doc//";
+// 		destPath = FileHelper::GetSystemConfigPath() + "doc//";
+// 		QString userManualFile = _globalConfig->GetUserManual();
+// 
+// 		if (!userManualFile.isEmpty())
+// 			_userManual = destPath + userManualFile;
+		
+
+		destPath = FileHelper::GetSystemConfigPath();
+		QDir desDir(destPath);
+		desDir.cdUp();
+		QString manualPath = desDir.path() + "/Doc/";
 		QString userManualFile = _globalConfig->GetUserManual();
 
 		if (!userManualFile.isEmpty())
-			_userManual = destPath + userManualFile;
+			_userManual = manualPath + userManualFile;
 		
 		return true;
 	}

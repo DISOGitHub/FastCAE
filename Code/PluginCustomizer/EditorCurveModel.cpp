@@ -15,6 +15,7 @@
 #include <QIcon>
 #include <QToolButton>
 #include <QDebug>
+#include <QMessageBox>
 
 #pragma execution_character_set("utf-8")
 
@@ -104,12 +105,19 @@ namespace FastCAEDesigner{
 
 		for (int i = 0; i < _curveInfoList.count(); i++)
 		{
-			int rowIndex = ui->tableWidget->rowCount();
-			ui->tableWidget->insertRow(rowIndex);
 			ConfigOption::PostCurve* postCurve = _curveInfoList.at(i);
+			qDebug() << postCurve->getDescribe();
 
 			if (postCurve->getDescribe().isEmpty())
 				continue;
+
+			int rowIndex = ui->tableWidget->rowCount();
+			ui->tableWidget->insertRow(rowIndex);
+// 			ConfigOption::PostCurve* postCurve = _curveInfoList.at(i);
+// 			qDebug() << postCurve->getDescribe();
+
+// 			if (postCurve->getDescribe().isEmpty())
+// 				continue;
 
 			insertRowtoTableWidget(ui->tableWidget, rowIndex, postCurve);
 			//insertRowtoTableWidget(ui->tableWidget, rowIndex, _curveInfoList.at(i).getDescribe(), _curveInfoList.at(i).XAxisName, _curveInfoList.at(i).YAxisName);
@@ -232,6 +240,11 @@ namespace FastCAEDesigner{
 	//相关槽函数
 	void EditorCurveModel::OnOkPBtnClicked()
 	{
+		if (_curveInfoList.isEmpty())
+		{
+			QMessageBox::warning(this, tr("prompt"), tr("There is no curve!"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+			return;
+		}
 		QString fileName = ui->NameLE->text().trimmed();
 		fileName.append(ui->comboBox->currentText().trimmed());
 		QList<QString> nameUsedList = getNameUsedList();
@@ -615,6 +628,8 @@ namespace FastCAEDesigner{
 		_fileModel->setDataList(_nodeScalarList, _nodeVectorList, _cellScalarList, _cellVectorList);
 		_fileModel->setFileName(name);
 
+		//getNameUsedList();
+
 		if (_treeWidgetItem != nullptr)
 		{
 			_treeWidgetItem->setText(0, name);
@@ -862,6 +877,8 @@ namespace FastCAEDesigner{
 
 			if (nullptr == model)
 				continue;
+
+		//	qDebug() << model->getFileName();
 
 			nameList.append(model->getFileName());
 		}

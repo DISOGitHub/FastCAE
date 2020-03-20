@@ -76,7 +76,6 @@ namespace Command
 		Geometry::GeometryParaFace* para = new Geometry::GeometryParaFace;
 		para->setName(_name);
 		para->setShapeHash(_shapeHash);
-		//para->setEdges(_edges);
 		_result->setParameter(para);
 
 		GeoCommandBase::execute();
@@ -135,11 +134,5 @@ namespace Command
 	{
 		_name = name;
 	}
-
-/*
-	void CommandCreateFace::setEdges(int i)
-	{
-		_edges = i;
-	}*/
 
 }

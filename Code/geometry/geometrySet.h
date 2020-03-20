@@ -71,18 +71,18 @@ namespace Geometry
 		GeometrySet* getSubSetAt(int index);
 
 		void dataToStream(QDataStream* s) override;
-		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele, bool isDisp = false);
-		void readDataFromProjectFile(QDomElement* e, bool isDiso = false);
+		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele, bool isDisp = false);
+		virtual void readDataFromProjectFile(QDomElement* e, bool isDiso = false);
 		//写出brep文件，路径不能出现中文
 		bool writeBrep(QString name);
 		//读入brep文件，路径不能出现中文
 		bool readBrep(QString name);
 
-	private:
+	protected:
 		void writeSubSet(QDomDocument* doc, QDomElement* parent, bool isDiso = false);
 		void readSubSet(QDomElement* e, bool isDiso = false);
 
-	private:
+	protected:
 //		int _id{ -1 };
 		GeometryType _type{ NONE };
 //		QString _name{};

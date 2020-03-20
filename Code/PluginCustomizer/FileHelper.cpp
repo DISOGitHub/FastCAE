@@ -30,6 +30,7 @@ namespace FastCAEDesigner
 	//¿½±´ÎÄ¼þ£º
 	bool FileHelper::CopyFileToPath(QString sourceDir, QString destDir, bool coverFileIfExist)
 	{
+		qDebug() << sourceDir << destDir;
 		destDir.replace("\\", "/");
 
 		if (sourceDir == destDir)
@@ -38,22 +39,22 @@ namespace FastCAEDesigner
 		if (!QFile::exists(sourceDir))
 			return false;
 		
-		QDir *createfile = new QDir;
-		bool exist = createfile->exists(destDir);
-
-		if (exist)
-		{
-			if (coverFileIfExist)
-			{
-				createfile->remove(destDir);
-			}
-		}
+// 		QDir *createfile = new QDir;
+// 		bool exist = createfile->exists(destDir);
+// 
+// 		if (exist)
+// 		{
+// 			if (coverFileIfExist)
+// 			{
+// 				createfile->remove(destDir);
+// 			}
+// 		}
 
 		if (!QFile::copy(sourceDir, destDir))
 			return false;
 		
-		delete createfile;
-		createfile = nullptr;
+// 		delete createfile;
+// 		createfile = nullptr;
 
 		return true;
 	}

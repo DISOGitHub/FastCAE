@@ -64,8 +64,6 @@ namespace Command
 		loftGenerator.Build();
 		if (!loftGenerator.IsDone()) return false;
 	    TopoDS_Shape shapeloft = loftGenerator.Shape();
-		
-		
 		TopoDS_Shape* shape = new TopoDS_Shape;
 		*shape = shapeloft;
 		if (shape->IsNull())
@@ -96,8 +94,6 @@ namespace Command
 		para->setSolid(_isSolid);
 		_result->setParameter(para);
 
-
-		//newset->setName(_name);
 		emit showSet(newset);
 		emit updateGeoTree();
 		return true;
@@ -116,8 +112,6 @@ namespace Command
 			_geoData->removeTopGeometrySet(_result);
 		}
 		emit updateGeoTree();
-
-
 		
 	}
 
@@ -144,8 +138,6 @@ namespace Command
 	{
 		_isSolid = s;
 	}
-
-
 
 	void GeoCommandMakeLoft::releaseResult()
 	{

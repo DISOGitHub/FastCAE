@@ -18,6 +18,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "mainWindow/SubWindowManager.h"
+#include "InputValidator.h"
 
 
 
@@ -112,6 +113,8 @@ namespace FastCAEDesigner
 		_errorList.insert(EngNameIsEmpty, tr("English name is empty."));
 		_errorList.insert(EmailNameInvalid, tr("Email format error."));
 		_errorList.insert(WebsiteNameInvalid, tr("Website format error."));
+		_errorList.insert(ChnNameIsError, tr("Chinese name contain illegal characters."));
+		_errorList.insert(EngNameIsError, tr("English name contain illegal characters."));
 	}
 	
 	void ParaBasicSetup::Init()
@@ -216,10 +219,12 @@ namespace FastCAEDesigner
 
 	int ParaBasicSetup::IsDataOk()
 	{
-		if (ui->txtNameCn->text().isEmpty())
+		QString chnName = ui->txtNameCn->text();
+		QString engName = ui->txtNameEn->text();
+		if (chnName.isEmpty())
 			return ChnNameIsEmpty;
 		
-		if (ui->txtNameEn->text().isEmpty())
+		if (engName.isEmpty())
 			return EngNameIsEmpty;
 
 		if (!_emailIsValid)
@@ -227,6 +232,12 @@ namespace FastCAEDesigner
 
 		if (!_websiteisValid)
 			return WebsiteNameInvalid;
+
+		if (!InputValidator::getInstance()->FileChnNameIsAllow(chnName))
+			return ChnNameIsError;
+
+		if (!InputValidator::getInstance()->FileEngNameIsAllow(engName))
+			return EngNameIsError;
 
 		return 0;
 	}
@@ -266,7 +277,7 @@ namespace FastCAEDesigner
 
 		//xuxinwei 20200305
 		QString web = ui->txtWedSite->text().trimmed();
-		qDebug() << web;
+		//qDebug() << web;
 		_subWindow->openUrl(web);
 
 		close();

@@ -48,6 +48,7 @@ namespace GeometryWidget
 		_editSet = set;
 		init();
 	}
+
 	void CreateLoftDialog::init()
 	{
 		if (_editSet == nullptr) return;
@@ -64,11 +65,6 @@ namespace GeometryWidget
 			int k = setList.size();
 			for (int i = 0; i < setList.size(); ++i)
 			{
-				/*Geometry::GeometrySet* set = setList.at(i);
-				if (set == nullptr) return;
-				int shapes = var.value(set);
-				emit highLightGeometryEdge(set, shapes, &temp);*/
-				
 				QList<int> edlist = var.values(setList[i]);
 				Geometry::GeometrySet* set = setList.at(i);
 				if (set == nullptr) return;
@@ -78,13 +74,11 @@ namespace GeometryWidget
 				}
 			}
 			_allActors.push_back(temp);
-
 		}
 		bool solid = p->getSloid();
 		_ui->solidCheckBox->setChecked(solid);
 		updateTab();
 	}
-
 
 	CreateLoftDialog::~CreateLoftDialog()
 	{
@@ -113,7 +107,6 @@ namespace GeometryWidget
 		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempActors.size());
 		_ui->topedgelabel->setText(label);
 		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-	
 
 	}
 
@@ -133,7 +126,6 @@ namespace GeometryWidget
 
 		_tempActors.clear();
 		_tempShapes.clear();
-
 		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempActors.size());
 		_ui->topedgelabel->setText(label);
 		updateTab();
@@ -251,10 +243,6 @@ namespace GeometryWidget
 			{
 				sec += strlist[i];
 			}
-			/*for each (QString* var in strlist)
-			{
-				sec += var;
-			}*/
 			codes += QString("loft.appendSection('%1')").arg(sec);
 
 		}
@@ -275,7 +263,6 @@ namespace GeometryWidget
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
 		
 */
-
 		QDialog::accept();
 		this->close(); 
 	}
@@ -323,7 +310,5 @@ namespace GeometryWidget
 			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
 		}
 	}
-
-	
 
 }

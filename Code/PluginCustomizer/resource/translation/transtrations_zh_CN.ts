@@ -897,92 +897,102 @@
 <context>
     <name>FastCAEDesigner::EditorCurveModel</name>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="35"/>
+        <location filename="../../EditorCurveModel.cpp" line="37"/>
         <source>Curve Parameter</source>
         <translation>曲线参数</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="47"/>
+        <location filename="../../EditorCurveModel.cpp" line="49"/>
         <source>3D Graph Parameter</source>
         <translation>三维后处理参数</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="62"/>
-        <location filename="../../EditorCurveModel.cpp" line="348"/>
+        <location filename="../../EditorCurveModel.cpp" line="64"/>
+        <location filename="../../EditorCurveModel.cpp" line="362"/>
         <source>.dat</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="100"/>
+        <location filename="../../EditorCurveModel.cpp" line="102"/>
         <source>Curve Name</source>
         <translation>曲线名称</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="100"/>
+        <location filename="../../EditorCurveModel.cpp" line="102"/>
         <source>X Variable</source>
         <translation>X 轴变量</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="100"/>
+        <location filename="../../EditorCurveModel.cpp" line="102"/>
         <source>Y Variable</source>
         <translation>Y 轴变量</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="100"/>
-        <location filename="../../EditorCurveModel.cpp" line="412"/>
+        <location filename="../../EditorCurveModel.cpp" line="102"/>
+        <location filename="../../EditorCurveModel.cpp" line="426"/>
         <source>Operation</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="241"/>
-        <location filename="../../EditorCurveModel.cpp" line="591"/>
+        <location filename="../../EditorCurveModel.cpp" line="245"/>
+        <source>prompt</source>
+        <translation>提示</translation>
+    </message>
+    <message>
+        <location filename="../../EditorCurveModel.cpp" line="245"/>
+        <source>There is no curve!</source>
+        <translation>没有曲线！</translation>
+    </message>
+    <message>
+        <location filename="../../EditorCurveModel.cpp" line="255"/>
+        <location filename="../../EditorCurveModel.cpp" line="605"/>
         <source>The name is empty.</source>
         <translation>名称为空。</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="249"/>
-        <location filename="../../EditorCurveModel.cpp" line="599"/>
+        <location filename="../../EditorCurveModel.cpp" line="263"/>
+        <location filename="../../EditorCurveModel.cpp" line="613"/>
         <source>The name is already in used.</source>
         <translation>该名称已经使用。</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="257"/>
-        <location filename="../../EditorCurveModel.cpp" line="607"/>
+        <location filename="../../EditorCurveModel.cpp" line="271"/>
+        <location filename="../../EditorCurveModel.cpp" line="621"/>
         <source>The name is illegal string.</source>
         <translation>名称中包含非法字符。</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="345"/>
+        <location filename="../../EditorCurveModel.cpp" line="359"/>
         <source>.vtk</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="346"/>
+        <location filename="../../EditorCurveModel.cpp" line="360"/>
         <source>.sol</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="347"/>
+        <location filename="../../EditorCurveModel.cpp" line="361"/>
         <source>.cgns</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="412"/>
+        <location filename="../../EditorCurveModel.cpp" line="426"/>
         <source>ID</source>
         <translation>序号</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="412"/>
+        <location filename="../../EditorCurveModel.cpp" line="426"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="412"/>
+        <location filename="../../EditorCurveModel.cpp" line="426"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
-        <location filename="../../EditorCurveModel.cpp" line="412"/>
+        <location filename="../../EditorCurveModel.cpp" line="426"/>
         <source>DataType</source>
         <translation>数据类型</translation>
     </message>
@@ -1233,6 +1243,7 @@
     <message>
         <location filename="../../EditorNameValue.cpp" line="28"/>
         <location filename="../../EditorNameValue.cpp" line="43"/>
+        <location filename="../../EditorNameValue.cpp" line="60"/>
         <source>.dat</source>
         <translation></translation>
     </message>
@@ -1257,22 +1268,27 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../EditorNameValue.cpp" line="87"/>
+        <location filename="../../EditorNameValue.cpp" line="59"/>
+        <source>.cgns</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../EditorNameValue.cpp" line="89"/>
         <source>Record already exists, operation failed</source>
         <translation>记录已经存在，操作失败</translation>
     </message>
     <message>
-        <location filename="../../EditorNameValue.cpp" line="106"/>
+        <location filename="../../EditorNameValue.cpp" line="108"/>
         <source>The name is empty.</source>
         <translation>名称为空。</translation>
     </message>
     <message>
-        <location filename="../../EditorNameValue.cpp" line="114"/>
+        <location filename="../../EditorNameValue.cpp" line="116"/>
         <source>The name is already in used.</source>
         <translation>该名称已经使用。</translation>
     </message>
     <message>
-        <location filename="../../EditorNameValue.cpp" line="122"/>
+        <location filename="../../EditorNameValue.cpp" line="124"/>
         <source>The name is illegal string.</source>
         <translation>名称中包含非法字符。</translation>
     </message>
@@ -1482,7 +1498,7 @@
     </message>
     <message>
         <location filename="../../FunctionTreeSetup.cpp" line="716"/>
-        <location filename="../../FunctionTreeSetup.cpp" line="1005"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1029"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
@@ -1492,85 +1508,85 @@
         <translation>该节点会被删除，是否确定？</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="950"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="974"/>
         <source>Mesh</source>
         <translation>网格组件</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="951"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="975"/>
         <source>Simulation</source>
         <translation>仿真参数设置</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="952"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="976"/>
         <source>Boundary</source>
         <translation>边界条件</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="953"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="977"/>
         <source>Solver</source>
         <translation>求解设置</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="954"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="978"/>
         <source>Monitor</source>
         <translation>监视器</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="955"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="979"/>
         <source>Post</source>
         <translation>后处理</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="956"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="980"/>
         <source>2DPlot</source>
         <translation>二维后处理</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="957"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="981"/>
         <source>3DGraph</source>
         <translation>三维后处理</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="978"/>
-        <location filename="../../FunctionTreeSetup.cpp" line="1059"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1002"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1083"/>
         <source>Show Child</source>
         <translation>显示子项</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1019"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1043"/>
         <source>Add Boundary Condition</source>
         <translation>添加边界条件</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1032"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1056"/>
         <source>Add Monitor File</source>
         <translation>添加监控文件</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1038"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1062"/>
         <source>Add File</source>
         <translation>添加文件</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1044"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1068"/>
         <source>Add Child</source>
         <translation>添加子项</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1048"/>
-        <location filename="../../FunctionTreeSetup.cpp" line="1083"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1072"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1107"/>
         <source>Hide This</source>
         <translation>隐藏该项</translation>
     </message>
     <message>
         <location filename="../../FunctionTreeSetup.cpp" line="845"/>
-        <location filename="../../FunctionTreeSetup.cpp" line="1199"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1223"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../FunctionTreeSetup.cpp" line="1200"/>
+        <location filename="../../FunctionTreeSetup.cpp" line="1224"/>
         <source>All record will be cleared. Are you sure?</source>
         <translation>全部记录会被清空，是否确认？</translation>
     </message>
@@ -1586,42 +1602,42 @@
 <context>
     <name>FastCAEDesigner::InputValidator</name>
     <message>
-        <location filename="../../InputValidator.cpp" line="101"/>
+        <location filename="../../InputValidator.cpp" line="103"/>
         <source>Chinese name is empty.</source>
         <translation>中文名称为空。</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="102"/>
+        <location filename="../../InputValidator.cpp" line="104"/>
         <source>English name is empty.</source>
         <translation>英文名称为空。</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="103"/>
+        <location filename="../../InputValidator.cpp" line="105"/>
         <source>Name is empty.</source>
         <translation>名称为空。</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="104"/>
+        <location filename="../../InputValidator.cpp" line="106"/>
         <source>Chinese name is already in use</source>
         <translation>该中文名称已经使用</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="105"/>
+        <location filename="../../InputValidator.cpp" line="107"/>
         <source>English name is already in use</source>
         <translation>该英文名称已经使用</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="106"/>
+        <location filename="../../InputValidator.cpp" line="108"/>
         <source>Special characters in name</source>
         <translation>名称中包含非法字符</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="107"/>
+        <location filename="../../InputValidator.cpp" line="109"/>
         <source>Special characters in  chinese name</source>
         <translation>中文名称中包含非法字符</translation>
     </message>
     <message>
-        <location filename="../../InputValidator.cpp" line="108"/>
+        <location filename="../../InputValidator.cpp" line="110"/>
         <source>Special characters in  english name</source>
         <translation>英文名称中包含非法字符</translation>
     </message>
@@ -1629,43 +1645,53 @@
 <context>
     <name>FastCAEDesigner::ParaBasicSetup</name>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="100"/>
+        <location filename="../../ParaBasicSetup.cpp" line="112"/>
         <source>Chinese name is empty.</source>
         <translation>中文名称为空。</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="101"/>
+        <location filename="../../ParaBasicSetup.cpp" line="113"/>
         <source>English name is empty.</source>
         <translation>英文名称为空。</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="102"/>
+        <location filename="../../ParaBasicSetup.cpp" line="114"/>
         <source>Email format error.</source>
         <translation>邮箱格式错误。</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="103"/>
+        <location filename="../../ParaBasicSetup.cpp" line="115"/>
         <source>Website format error.</source>
         <translation>网站格式错误。</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="240"/>
+        <location filename="../../ParaBasicSetup.cpp" line="116"/>
+        <source>Chinese name contain illegal characters.</source>
+        <translation>中文名称中包含非法字符</translation>
+    </message>
+    <message>
+        <location filename="../../ParaBasicSetup.cpp" line="117"/>
+        <source>English name contain illegal characters.</source>
+        <translation>英文名称中包含非法字符</translation>
+    </message>
+    <message>
+        <location filename="../../ParaBasicSetup.cpp" line="269"/>
         <source>Customizing</source>
         <translation>定制中</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="266"/>
+        <location filename="../../ParaBasicSetup.cpp" line="301"/>
         <source>Open logo file</source>
         <translation>选择Logo文件</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="266"/>
-        <location filename="../../ParaBasicSetup.cpp" line="275"/>
+        <location filename="../../ParaBasicSetup.cpp" line="301"/>
+        <location filename="../../ParaBasicSetup.cpp" line="310"/>
         <source>Images (*.png *.jpg)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.cpp" line="275"/>
+        <location filename="../../ParaBasicSetup.cpp" line="310"/>
         <source>Open welcom file</source>
         <translation>选择欢迎文件</translation>
     </message>
@@ -1686,17 +1712,17 @@
 <context>
     <name>FastCAEDesigner::ParaUserManualSetup</name>
     <message>
-        <location filename="../../ParaUserManualSetup.cpp" line="122"/>
+        <location filename="../../ParaUserManualSetup.cpp" line="125"/>
         <source>Open user doc file</source>
         <translation>用户doc文件</translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.cpp" line="122"/>
+        <location filename="../../ParaUserManualSetup.cpp" line="125"/>
         <source>doc (*.doc *.pdf *.docx)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.cpp" line="229"/>
+        <location filename="../../ParaUserManualSetup.cpp" line="234"/>
         <source>Not found pdf reader</source>
         <translation>没有发现PDF</translation>
     </message>
@@ -1835,32 +1861,32 @@
     </message>
     <message>
         <location filename="../../ParaBasicSetup.ui" line="66"/>
-        <location filename="../../ParaBasicSetup.ui" line="169"/>
+        <location filename="../../ParaBasicSetup.ui" line="143"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.ui" line="82"/>
+        <location filename="../../ParaBasicSetup.ui" line="185"/>
         <source>English name</source>
         <translation>英文名称</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.ui" line="111"/>
+        <location filename="../../ParaBasicSetup.ui" line="172"/>
         <source>Version</source>
         <translation>版本信息</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.ui" line="124"/>
+        <location filename="../../ParaBasicSetup.ui" line="82"/>
         <source>Corporation</source>
         <translation>单位名称</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.ui" line="137"/>
+        <location filename="../../ParaBasicSetup.ui" line="159"/>
         <source>Email</source>
         <translation>电子邮箱</translation>
     </message>
     <message>
-        <location filename="../../ParaBasicSetup.ui" line="211"/>
+        <location filename="../../ParaBasicSetup.ui" line="111"/>
         <source>Website</source>
         <translation>单位网站</translation>
     </message>
@@ -2069,22 +2095,22 @@
         <translation>用户手册</translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.ui" line="57"/>
+        <location filename="../../ParaUserManualSetup.ui" line="45"/>
         <source>Load doc</source>
         <translation>导入文档</translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.ui" line="64"/>
+        <location filename="../../ParaUserManualSetup.ui" line="52"/>
         <source>Preview</source>
         <translation>预览</translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.ui" line="110"/>
+        <location filename="../../ParaUserManualSetup.ui" line="98"/>
         <source>Ok</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../../ParaUserManualSetup.ui" line="123"/>
+        <location filename="../../ParaUserManualSetup.ui" line="111"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -2104,375 +2130,375 @@
     <message>
         <location filename="../../ParametersLinkage.ui" line="38"/>
         <source>Association</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="54"/>
         <source>Active Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>主动参数</translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="61"/>
         <source>Active Parameters Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>完成配置</translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="86"/>
         <source>Driven Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>从动参数</translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="96"/>
         <source>Driven Parameters Group</source>
-        <translation type="unfinished"></translation>
+        <translation>从动参数组</translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="131"/>
         <source>Ok</source>
-        <translation type="unfinished">确定</translation>
+        <translation>确定</translation>
     </message>
     <message>
         <location filename="../../ParametersLinkage.ui" line="138"/>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
     <name>Plugins::CustomActionManager</name>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="291"/>
-        <location filename="../../customizerActionManager.cpp" line="934"/>
+        <location filename="../../customizerActionManager.cpp" line="295"/>
+        <location filename="../../customizerActionManager.cpp" line="938"/>
         <source>Start Customizer</source>
         <translation>开始定制</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="295"/>
-        <location filename="../../customizerActionManager.cpp" line="935"/>
+        <location filename="../../customizerActionManager.cpp" line="299"/>
+        <location filename="../../customizerActionManager.cpp" line="939"/>
         <source>Finish Customizer</source>
         <translation>完成定制</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="299"/>
-        <location filename="../../customizerActionManager.cpp" line="936"/>
+        <location filename="../../customizerActionManager.cpp" line="303"/>
+        <location filename="../../customizerActionManager.cpp" line="940"/>
         <source>Cancel Customizer</source>
         <translation>取消定制</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="303"/>
-        <location filename="../../customizerActionManager.cpp" line="937"/>
+        <location filename="../../customizerActionManager.cpp" line="307"/>
+        <location filename="../../customizerActionManager.cpp" line="941"/>
         <source>Share &amp; Release</source>
         <translation>发布分享</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="320"/>
+        <location filename="../../customizerActionManager.cpp" line="324"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="321"/>
+        <location filename="../../customizerActionManager.cpp" line="325"/>
         <source>Users manual</source>
         <translation>用户手册</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="334"/>
-        <location filename="../../customizerActionManager.cpp" line="590"/>
+        <location filename="../../customizerActionManager.cpp" line="338"/>
+        <location filename="../../customizerActionManager.cpp" line="594"/>
         <source>New</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="334"/>
+        <location filename="../../customizerActionManager.cpp" line="338"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="335"/>
-        <location filename="../../customizerActionManager.cpp" line="591"/>
+        <location filename="../../customizerActionManager.cpp" line="339"/>
+        <location filename="../../customizerActionManager.cpp" line="595"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="335"/>
+        <location filename="../../customizerActionManager.cpp" line="339"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="336"/>
+        <location filename="../../customizerActionManager.cpp" line="340"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="336"/>
+        <location filename="../../customizerActionManager.cpp" line="340"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="338"/>
+        <location filename="../../customizerActionManager.cpp" line="342"/>
         <source>Import mesh</source>
         <translation>导入网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="339"/>
+        <location filename="../../customizerActionManager.cpp" line="343"/>
         <source>Export mesh</source>
         <translation>导出网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="340"/>
+        <location filename="../../customizerActionManager.cpp" line="344"/>
         <source>Import geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="341"/>
+        <location filename="../../customizerActionManager.cpp" line="345"/>
         <source>Export geometry</source>
         <translation>导出几何</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="343"/>
-        <location filename="../../customizerActionManager.cpp" line="592"/>
+        <location filename="../../customizerActionManager.cpp" line="347"/>
+        <location filename="../../customizerActionManager.cpp" line="596"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="343"/>
+        <location filename="../../customizerActionManager.cpp" line="347"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="344"/>
+        <location filename="../../customizerActionManager.cpp" line="348"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="344"/>
+        <location filename="../../customizerActionManager.cpp" line="348"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="346"/>
+        <location filename="../../customizerActionManager.cpp" line="350"/>
         <source>Save script</source>
         <translation>保存脚本</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="347"/>
+        <location filename="../../customizerActionManager.cpp" line="351"/>
         <source>Execution script</source>
         <translation>执行脚本</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="347"/>
+        <location filename="../../customizerActionManager.cpp" line="351"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="349"/>
+        <location filename="../../customizerActionManager.cpp" line="353"/>
         <source>Save pictures</source>
         <translation>保存图片</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="350"/>
+        <location filename="../../customizerActionManager.cpp" line="354"/>
         <source>Work dir</source>
         <translation>工作目录</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="352"/>
+        <location filename="../../customizerActionManager.cpp" line="356"/>
         <source>Newest File</source>
         <translation>最新文件</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="364"/>
+        <location filename="../../customizerActionManager.cpp" line="368"/>
         <source>Undo</source>
         <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="364"/>
+        <location filename="../../customizerActionManager.cpp" line="368"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="365"/>
+        <location filename="../../customizerActionManager.cpp" line="369"/>
         <source>Redo</source>
         <translation>重做</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="365"/>
+        <location filename="../../customizerActionManager.cpp" line="369"/>
         <source>Ctrl+Y</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="377"/>
+        <location filename="../../customizerActionManager.cpp" line="381"/>
         <source>Feature modeling</source>
         <translation>特征建模</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="380"/>
+        <location filename="../../customizerActionManager.cpp" line="384"/>
         <source>Feature operation</source>
         <translation>特征操作</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="383"/>
+        <location filename="../../customizerActionManager.cpp" line="387"/>
         <source>Sketch</source>
         <translation>草图</translation>
     </message>
     <message>
         <location filename="../../customizerActionManager.cpp" line="72"/>
-        <location filename="../../customizerActionManager.cpp" line="396"/>
-        <location filename="../../customizerActionManager.cpp" line="451"/>
+        <location filename="../../customizerActionManager.cpp" line="400"/>
+        <location filename="../../customizerActionManager.cpp" line="455"/>
         <source>Views</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="397"/>
+        <location filename="../../customizerActionManager.cpp" line="401"/>
         <source>Selected</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="428"/>
+        <location filename="../../customizerActionManager.cpp" line="432"/>
         <source>Mesh surface</source>
         <translation>面网格划分</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="431"/>
+        <location filename="../../customizerActionManager.cpp" line="435"/>
         <source>Mesh solid</source>
         <translation>体网格划分</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="436"/>
+        <location filename="../../customizerActionManager.cpp" line="440"/>
         <source>Gen mesh</source>
         <translation>生成网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="443"/>
-        <location filename="../../customizerActionManager.cpp" line="680"/>
+        <location filename="../../customizerActionManager.cpp" line="447"/>
+        <location filename="../../customizerActionManager.cpp" line="684"/>
         <source>Checking</source>
         <translation>网格质量检查</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="446"/>
+        <location filename="../../customizerActionManager.cpp" line="450"/>
         <source>Create set</source>
         <translation>创建组件</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="452"/>
+        <location filename="../../customizerActionManager.cpp" line="456"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="479"/>
+        <location filename="../../customizerActionManager.cpp" line="483"/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="480"/>
+        <location filename="../../customizerActionManager.cpp" line="484"/>
         <source>Solver Manager</source>
         <translation>求解器管理</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="593"/>
+        <location filename="../../customizerActionManager.cpp" line="597"/>
         <source>Import Mesh</source>
         <translation>导入网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="594"/>
+        <location filename="../../customizerActionManager.cpp" line="598"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="605"/>
+        <location filename="../../customizerActionManager.cpp" line="609"/>
         <source>SurfaceMesh</source>
         <translation>面网格划分</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="606"/>
+        <location filename="../../customizerActionManager.cpp" line="610"/>
         <source>SolidMesh</source>
         <translation>体网格划分</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="607"/>
+        <location filename="../../customizerActionManager.cpp" line="611"/>
         <source>GenMesh</source>
         <translation>生成网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="617"/>
+        <location filename="../../customizerActionManager.cpp" line="621"/>
         <source>selectOff</source>
         <translation>清楚选择</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="618"/>
+        <location filename="../../customizerActionManager.cpp" line="622"/>
         <source>selectMeshNode</source>
         <translation>选择网格节点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="619"/>
+        <location filename="../../customizerActionManager.cpp" line="623"/>
         <source>selectMeshCell</source>
         <translation>选择网格单元</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="620"/>
+        <location filename="../../customizerActionManager.cpp" line="624"/>
         <source>BoxMeshNode</source>
         <translation>框选网格节点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="621"/>
+        <location filename="../../customizerActionManager.cpp" line="625"/>
         <source>BoxMeshCell</source>
         <translation>框选网格单元</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="623"/>
+        <location filename="../../customizerActionManager.cpp" line="627"/>
         <source>SelectPoint</source>
         <translation>选择点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="624"/>
+        <location filename="../../customizerActionManager.cpp" line="628"/>
         <source>SelectCurve</source>
         <translation>选择曲线</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="625"/>
+        <location filename="../../customizerActionManager.cpp" line="629"/>
         <source>SelectFace</source>
         <translation>选择面</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="626"/>
+        <location filename="../../customizerActionManager.cpp" line="630"/>
         <source>SelectGeometryBody</source>
         <translation>选择几何体</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="636"/>
+        <location filename="../../customizerActionManager.cpp" line="640"/>
         <source>DisplayNode</source>
         <translation>显示网格节点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="637"/>
+        <location filename="../../customizerActionManager.cpp" line="641"/>
         <source>DisplayWireFrame</source>
         <translation>显示线框</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="638"/>
+        <location filename="../../customizerActionManager.cpp" line="642"/>
         <source>DisplaySurface</source>
         <translation>显示网格面</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="639"/>
+        <location filename="../../customizerActionManager.cpp" line="643"/>
         <source>DisplaySurfaceEdge</source>
         <translation>显示网格面和边</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="641"/>
+        <location filename="../../customizerActionManager.cpp" line="645"/>
         <source>DisplayPoint</source>
         <translation>显示点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="642"/>
+        <location filename="../../customizerActionManager.cpp" line="646"/>
         <source>DisplayCurve</source>
         <translation>显示曲线</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="643"/>
+        <location filename="../../customizerActionManager.cpp" line="647"/>
         <source>DisplayFace</source>
         <translation>显示面</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="477"/>
-        <location filename="../../customizerActionManager.cpp" line="479"/>
-        <location filename="../../customizerActionManager.cpp" line="653"/>
+        <location filename="../../customizerActionManager.cpp" line="481"/>
+        <location filename="../../customizerActionManager.cpp" line="483"/>
+        <location filename="../../customizerActionManager.cpp" line="657"/>
         <source>Solve</source>
         <translation>求解</translation>
     </message>
@@ -2507,38 +2533,38 @@
         <translation>不保存退出定制？</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="319"/>
+        <location filename="../../customizerActionManager.cpp" line="323"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="332"/>
+        <location filename="../../customizerActionManager.cpp" line="336"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="363"/>
+        <location filename="../../customizerActionManager.cpp" line="367"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="421"/>
+        <location filename="../../customizerActionManager.cpp" line="425"/>
         <source>Mesh</source>
         <translation>网格</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="531"/>
+        <location filename="../../customizerActionManager.cpp" line="535"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="531"/>
+        <location filename="../../customizerActionManager.cpp" line="535"/>
         <source>mainwindow or menuBar is nullptr</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../../customizerActionManager.cpp" line="146"/>
-        <location filename="../../customizerActionManager.cpp" line="533"/>
+        <location filename="../../customizerActionManager.cpp" line="537"/>
         <source>Yes</source>
         <translation>确定</translation>
     </message>
@@ -2549,177 +2575,177 @@
     </message>
     <message>
         <location filename="../../customizerActionManager.cpp" line="147"/>
-        <location filename="../../customizerActionManager.cpp" line="534"/>
+        <location filename="../../customizerActionManager.cpp" line="538"/>
         <source>No</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="663"/>
+        <location filename="../../customizerActionManager.cpp" line="667"/>
         <source>FitView</source>
         <translation>适应窗口</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="664"/>
+        <location filename="../../customizerActionManager.cpp" line="668"/>
         <source>ViewXPlus</source>
         <translation>X正向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="665"/>
+        <location filename="../../customizerActionManager.cpp" line="669"/>
         <source>ViewXMinus</source>
         <translation>X负向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="666"/>
+        <location filename="../../customizerActionManager.cpp" line="670"/>
         <source>ViewYPlus</source>
         <translation>Y正向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="667"/>
+        <location filename="../../customizerActionManager.cpp" line="671"/>
         <source>ViewYMinus</source>
         <translation>Y负向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="668"/>
+        <location filename="../../customizerActionManager.cpp" line="672"/>
         <source>ViewZPlus</source>
         <translation>Z正向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="669"/>
+        <location filename="../../customizerActionManager.cpp" line="673"/>
         <source>ViewZMinus</source>
         <translation>Z负向</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="681"/>
+        <location filename="../../customizerActionManager.cpp" line="685"/>
         <source>Create Set</source>
         <translation>创建组件</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="691"/>
+        <location filename="../../customizerActionManager.cpp" line="695"/>
         <source>undo</source>
         <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="692"/>
+        <location filename="../../customizerActionManager.cpp" line="696"/>
         <source>redo</source>
         <translation>重做</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="702"/>
+        <location filename="../../customizerActionManager.cpp" line="706"/>
         <source>Create Sketch</source>
         <translation>草绘</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="712"/>
+        <location filename="../../customizerActionManager.cpp" line="716"/>
         <source>CreateBox</source>
         <translation>创建立方体</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="713"/>
+        <location filename="../../customizerActionManager.cpp" line="717"/>
         <source>CreateCylinder</source>
         <translation>创建圆柱体</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="714"/>
+        <location filename="../../customizerActionManager.cpp" line="718"/>
         <source>CreaterCone</source>
         <translation>创建圆台</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="715"/>
+        <location filename="../../customizerActionManager.cpp" line="719"/>
         <source>CreaterSphere</source>
         <translation>创建球体</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="716"/>
+        <location filename="../../customizerActionManager.cpp" line="720"/>
         <source>Create_Surface</source>
         <translation>创建平面</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="717"/>
+        <location filename="../../customizerActionManager.cpp" line="721"/>
         <source>Create Line</source>
         <translation>创建线</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="718"/>
+        <location filename="../../customizerActionManager.cpp" line="722"/>
         <source>Create Point</source>
         <translation>创建点</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="719"/>
+        <location filename="../../customizerActionManager.cpp" line="723"/>
         <source>Create Datum Plane</source>
         <translation>创建基准面</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="729"/>
+        <location filename="../../customizerActionManager.cpp" line="733"/>
         <source>Chamfer</source>
         <translation>倒角</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="730"/>
+        <location filename="../../customizerActionManager.cpp" line="734"/>
         <source>Fillet</source>
         <translation>倒圆角</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="731"/>
+        <location filename="../../customizerActionManager.cpp" line="735"/>
         <source>Variable Fillet</source>
         <translation>可变圆角</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="741"/>
+        <location filename="../../customizerActionManager.cpp" line="745"/>
         <source>BoolCut</source>
         <translation>求差</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="742"/>
+        <location filename="../../customizerActionManager.cpp" line="746"/>
         <source>BoolFause</source>
         <translation>求和</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="743"/>
+        <location filename="../../customizerActionManager.cpp" line="747"/>
         <source>BoolCommon</source>
         <translation>求交</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="753"/>
+        <location filename="../../customizerActionManager.cpp" line="757"/>
         <source>MirrorFeature</source>
         <translation>镜像特征</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="754"/>
+        <location filename="../../customizerActionManager.cpp" line="758"/>
         <source>Move</source>
         <translation>移动特征</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="755"/>
+        <location filename="../../customizerActionManager.cpp" line="759"/>
         <source>Rotate</source>
         <translation>转动特征</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="756"/>
+        <location filename="../../customizerActionManager.cpp" line="760"/>
         <source>MakeMatrix</source>
         <translation>阵列</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="757"/>
+        <location filename="../../customizerActionManager.cpp" line="761"/>
         <source>Extrude</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="758"/>
+        <location filename="../../customizerActionManager.cpp" line="762"/>
         <source>Revol</source>
         <translation>旋转</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="759"/>
+        <location filename="../../customizerActionManager.cpp" line="763"/>
         <source>loft</source>
         <translation>放样</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="760"/>
+        <location filename="../../customizerActionManager.cpp" line="764"/>
         <source>Sweep</source>
         <translation>扫略</translation>
     </message>
     <message>
-        <location filename="../../customizerActionManager.cpp" line="932"/>
+        <location filename="../../customizerActionManager.cpp" line="936"/>
         <source>Customizer</source>
         <translation>定制</translation>
     </message>

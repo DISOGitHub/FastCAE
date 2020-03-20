@@ -20,12 +20,10 @@ namespace Geometry
 		GeometryParaSweep();
 		~GeometryParaSweep() = default;
 
-
 		void setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash);
 		QMultiHash<Geometry::GeometrySet*, int> getShapeHash();
 		void setPath(QPair<Geometry::GeometrySet*, int> path);
 		QPair<Geometry::GeometrySet*, int> getPath();
-
 
 		void setSolid(bool s);
 		bool getSloid();

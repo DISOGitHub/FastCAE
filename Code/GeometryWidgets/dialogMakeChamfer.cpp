@@ -116,15 +116,11 @@ namespace GeometryWidget
 		}
 	}
 
-	
-
 	void CreateChamferDialog::closeEvent(QCloseEvent *e)
 	{
 		QDialog::closeEvent(e);
 		delete this;
 	}
-
-
 
 	void CreateChamferDialog::reject()
 	{
@@ -170,7 +166,6 @@ namespace GeometryWidget
 		else
 			sectiontype = "Asymmetrical";
 		
-
 		QStringList codes{};
  		codes += QString("chamfer = CAD.Chamfer()");
 		if (_isEdit)
@@ -192,7 +187,6 @@ namespace GeometryWidget
 		else
 			codes += QString("chamfer.setAsymmetricalDistances(%1,%2)").arg(d1).arg(d2);
 			
-
 		if (_isEdit)
 			codes += QString("chamfer.edit()");
 		else
@@ -224,10 +218,6 @@ namespace GeometryWidget
 
 		}
 		qDebug() << indexListStr;
-
-
-
-
 		c->setShapeList(_shapeHash);
 		c->setSymmetrical(sym);
 		c->setDistance(d1,d2);
@@ -238,6 +228,7 @@ namespace GeometryWidget
 			QMessageBox::warning(this, tr("Warning"), tr("Create failed ! "));
 			return;
 		}*/
+
 		QDialog::accept();
 		this->close();
 	}
@@ -264,20 +255,15 @@ namespace GeometryWidget
 		}
 	
 		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		
-
 		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
 		_ui->edgelabel->setText(label);
 
-		
 	}
 
 	void CreateChamferDialog::on_sectionComboxChanged(int index)
 	{
 		bool v = true;
-		if (index == 0)
-			v = false;
-
+		if (index == 0) v = false;
 		_ui->label_4->setEnabled(v);
 		_ui->lineEditDistance_2->setEnabled(v);
 		_ui->label_7->setEnabled(v);

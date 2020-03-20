@@ -25,8 +25,6 @@ namespace GeometryWidget
 		
 	}
 
-
-
 	CreateLineDialog::CreateLineDialog(GUI::MainWindow* m, MainWidget::PreWindow* p, Geometry::GeometrySet* set)
 		: GeoDialogBase(m, p)
 	{
@@ -86,7 +84,6 @@ namespace GeometryWidget
 			double length, dir[3]; bool reverse{false};
 			length = p->getLength();
 			p->getDirection(dir);
-			//reverse = p->getReverse();
 			_ui->lineEditLength->setText(QString::number(length));
 			_ui->checkBoxReverse->setChecked(reverse);
 			
@@ -132,6 +129,7 @@ namespace GeometryWidget
 		QDialog::closeEvent(e);
 		delete this;
 	}
+
 	void CreateLineDialog::reject()
 	{
 		QDialog::reject();
@@ -195,7 +193,6 @@ namespace GeometryWidget
 			return;
 		}
 
-
 		QStringList codes{};
 		codes += QString("line = CAD.Line()");
 		if (_isEdit)
@@ -203,10 +200,9 @@ namespace GeometryWidget
 		else
 			codes += QString("line.setName('%1')").arg(name);
 		codes += QString("line.setStartPoint(%1,%2,%3)").arg(startPoint[0]).arg(startPoint[1]).arg(startPoint[2]);
+
 		if (index==0)
-
 			codes += QString("line.setEndPoint(%1,%2,%3)").arg(coor[0]).arg(coor[1]).arg(coor[2]);
-
 		else
 		{
 			codes += QString("line.setLength(%1)").arg(len);
@@ -217,7 +213,6 @@ namespace GeometryWidget
 			codes += QString("line.edit()");
 		else
 			codes += QString("line.create()");
-
 		_pyAgent->submit(codes);
 /*
 		auto c = new Command::GeoCommandCreateLine(_mainWindow, _preWindow);
@@ -260,6 +255,7 @@ namespace GeometryWidget
 		const int index = _ui->comboBoxOption->currentIndex();
 		double endpt[3]{ 0.0 };
 		bool ok = false;
+
 		switch (index)
 		{
 		case 0:
@@ -280,7 +276,6 @@ namespace GeometryWidget
 		QString text = _ui->lineEditLength->text();
 		double length = text.toDouble();
 		if (length < 1e-6) return false;
-
 		double dir[3] = { 0.0 };
 		if (_ui->radioButtonX->isChecked())
 			dir[0] = 1.0;
@@ -308,7 +303,6 @@ namespace GeometryWidget
 		if (ok)
 			for (int i = 0; i < 3; ++i)
 				ept[i] = ori[i] + fac * dir[i];
-
 		return ok;
 	}
 

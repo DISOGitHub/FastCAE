@@ -24,7 +24,13 @@ namespace Geometry
 
 		void setDatumType(DatumType t);
 		DatumType getDatumType();
-		
+
+		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele, bool isDisp /* = false */) override;
+		virtual void readDataFromProjectFile(QDomElement* e, bool isDiso /* = false */);
+
+		static QString datumTypeToString(DatumType t);
+		static DatumType datumTypeFromString(QString s);
+
 	private:
 		DatumType _type{ DatumNone };
 	};

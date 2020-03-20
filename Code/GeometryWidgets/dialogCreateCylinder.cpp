@@ -166,10 +166,6 @@ namespace GeometryWidget
 
 		_pyAgent->submit(codes);
 
-
-
-
-
 		QDialog::accept();
 		this->close();
 	}

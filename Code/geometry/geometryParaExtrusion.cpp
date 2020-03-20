@@ -85,7 +85,7 @@ namespace Geometry
 		element.setAttributeNode(rad1attr);
 
 		if (_shapeHash.size() == 0) return element;
-		QList<Geometry::GeometrySet*> setList = _shapeHash.uniqueKeys();
+		QList<Geometry::GeometrySet*> setList = _shapeHash.keys();
 		QList<int> setidList;
 		QString setidStr{};
 		for (int i = 0; i < setList.size(); ++i)

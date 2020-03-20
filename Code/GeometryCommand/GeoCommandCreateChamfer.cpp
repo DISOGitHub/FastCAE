@@ -54,8 +54,6 @@ namespace Command
 					MC.Add(_distance1, _distance1, E, F);
 				else
 					MC.Add(_distance1, _distance2, E, F);
-
-			
 				onesucc = true;
 			}
 
@@ -71,7 +69,6 @@ namespace Command
 
 			const int id = Geometry::GeometrySet::getMaxID() + 1;
 			QString name = _name.arg(id);
-
 
 			Geometry::GeometrySet* newset = new Geometry::GeometrySet(Geometry::STEP);
 			newset->setName(name);
@@ -93,7 +90,6 @@ namespace Command
 			_inputOutputHash.insert(set, newset);
 
 			Geometry::GeometryParaChamfer* para = new Geometry::GeometryParaChamfer;
-
 			para->setName(name);
 			para->setInputSet(set);
 			para->setEdgeIndexList(shapes);
@@ -101,9 +97,8 @@ namespace Command
 			para->setDistance1(_distance1);
 			para->setDistance2(_distance2);
 			newset->setParameter(para);
-
 			GeoCommandBase::execute();
-			
+
 			emit removeDisplayActor(set);
 			emit showSet(newset);
 
@@ -142,24 +137,6 @@ namespace Command
 		}
 
 		emit updateGeoTree();
-
-// 		for (int i = 0; i < _result.size(); ++i)
-// 		{
-// 			Geometry::GeometrySet* set = _result.at(i);
-// 			_geoData->removeTopGeometrySet(set);
-// 			emit removeDisplayActor(set);
-// 
-// 			const int n = set->getSubSetCount();
-// 			for (int j = 0; j < n; ++j)
-// 			{
-// 				Geometry::GeometrySet* subset = set->getSubSetAt(j);
-// 				if (subset == nullptr) continue;
-// 				set->removeSubSet(subset);
-// 				_geoData->appendGeometrySet(subset);
-// 				emit showSet(subset);
-// 			}
-// 		}
-// 		emit updateGeoTree();
 	}
 
 	void CommandCreateChamfer::redo()
@@ -192,22 +169,6 @@ namespace Command
 		}
 		emit updateGeoTree();
 	}
-// 
-// 		QList<Geometry::GeometrySet*> setList = _shapeHash.uniqueKeys();
-// 
-// 		for (int i = 0; i < setList.size(); ++i)
-// 		{
-// 			Geometry::GeometrySet* set = setList.at(i);
-// 			_geoData->removeTopGeometrySet(set);
-// 			emit removeDisplayActor(set);
-// 
-// 			Geometry::GeometrySet* res = _result.at(i);
-// 			res->appendSubSet(set);
-// 			_geoData->appendGeometrySet(res);
-// 			emit showSet(res);
-// 		}
-// 		emit updateGeoTree();
-
 
 	void CommandCreateChamfer::releaseResult()
 	{

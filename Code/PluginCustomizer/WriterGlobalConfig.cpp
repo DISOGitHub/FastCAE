@@ -206,6 +206,9 @@ namespace FastCAEDesigner
 	//xuxinwei  20200306
 	QString WriterGlobalConfig::getUserManual(QString surUserManual)
 	{
+		QString userManual{};
+		if (surUserManual.isEmpty())
+			return userManual;
 		QFileInfo surNameFile(surUserManual);
 		QStringList surNameList = surNameFile.fileName().split(".");
 		QString surNameSuffix = surNameList.last();
@@ -216,7 +219,7 @@ namespace FastCAEDesigner
 		desNamelist.append(surNameSuffix);
 
 		QString desName = desNamelist.join(".");
-		QString userManual = surUserManual + desName;
+		userManual = surUserManual + desName;
 
 		return userManual;
 	}

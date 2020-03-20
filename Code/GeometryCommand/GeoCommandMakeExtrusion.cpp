@@ -70,8 +70,6 @@ namespace Command
 		}
 
 		std::vector<TopoDS_Wire> wireList = GeoCommandCommon::bulidWire(edgeList);
-//		TopoDS_Shape resShape = GeoCommandCommon::makeFace(wireList);
-
 		TopoDS_Shape ResShape;
 		if (!_isSolid)
 		{
@@ -94,7 +92,6 @@ namespace Command
 		{
 			TopoDS_Shape face = GeoCommandCommon::makeFace(wireList);
 			if (face.IsNull()) return false;
-
 			ResShape = BRepPrimAPI_MakePrism(face, gp_Vec(_axis[0], _axis[1], _axis[2]), true, false);
 
 		}
@@ -122,6 +119,7 @@ namespace Command
 			newset->setName(_extName);
 			_geoData->appendGeometrySet(newset);
 		}
+
 		Geometry::GeometryParaExtrusion* para = new Geometry::GeometryParaExtrusion;
 		para->setName(_extName);
 		para->setShapeHash(_shapeHash);
@@ -130,7 +128,6 @@ namespace Command
 		para->setReverse(_reverse);
 		para->setSolid(_isSolid);
 		_result->setParameter(para);
-
 
 		GeoCommandBase::execute();
 		emit showSet(newset);

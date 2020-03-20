@@ -75,7 +75,6 @@ namespace GeometryWidget
 				{
 					QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
 					var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
 				}
 			}
 			emit _preWindow->reRenderSig();
@@ -164,7 +163,6 @@ namespace GeometryWidget
 		{
 			if (_shapeHash.keys().at(0) != set) return;
 		}
-
 		QColor color;
 		if (_actors.contains(ac))
 		{

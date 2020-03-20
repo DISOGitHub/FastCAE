@@ -35,9 +35,6 @@ namespace Command
 			for (int j = 0; j < i; ++j)
 				if (_pointList[i].Distance(_pointList[j]) < 1e-6) return false;
 		}
-		/*gp_Lin lin(pt1, gp_Dir(pt2.X() - pt1.X(), pt2.Y() - pt1.Y(), pt2.Z() - pt1.Z()));
-		if (lin.Distance(pt3) == 0) return false;
-*/
 
 		Handle(Geom_TrimmedCurve) tc = GC_MakeArcOfCircle(pt1, pt2, pt3);
 		TopoDS_Edge makeArc = BRepBuilderAPI_MakeEdge(tc);

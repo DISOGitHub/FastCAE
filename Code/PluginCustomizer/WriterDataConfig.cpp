@@ -298,7 +298,7 @@ namespace FastCAEDesigner
 			stateCurve.append("XVariable");
 			stateCurve.append("YVariable");
 
-			if (curveList.isEmpty())
+			if (curveList.isEmpty())/*;*/
 			{
 
 				QStringList curveValue;

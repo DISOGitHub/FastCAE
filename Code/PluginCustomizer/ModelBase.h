@@ -94,7 +94,8 @@ namespace FastCAEDesigner
 		QList<QString> GetUsedNameList(int nameType);
 		QList<ModelBase*> GetChildList();
 
-		QString getFileName();
+		virtual QString getFileName(); //xuxinwei 20200319
+		//QString getFileName();
 		void setFileName(QString name);
 
 		int GetId();

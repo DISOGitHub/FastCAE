@@ -34,6 +34,7 @@ namespace GeometryWidget
 		if (_ui != nullptr)
 			delete _ui;
 	}
+
 	void CreateSphereDialog::closeEvent(QCloseEvent *e)
 	{
 		QDialog::closeEvent(e);
@@ -63,7 +64,6 @@ namespace GeometryWidget
 			p->getLocation(loc);
 			_ui->doubleSpinBoxR->setValue(p->getRadius());
 			_pw->setCoordinate(loc);
-
 
 		}
 
@@ -115,7 +115,6 @@ namespace GeometryWidget
 			codes += QString("sphere.create()");
 
 		_pyAgent->submit(codes);
-		
 		QDialog::accept();
 		this->close();
 	}

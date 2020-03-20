@@ -80,6 +80,13 @@ namespace Geometry
 		rad2attr.setValue(QString::number(_d2));
 		element.setAttributeNode(rad2attr);
 
+	/*	QDomAttr sectypeattr = doc->createAttribute("Distance2");
+		QString secstr;
+		if (_type == 0) secstr = QString("Symmetrical");
+		else secstr = QString("Asymmetrical");
+		sectypeattr.setValue(secstr);
+		element.setAttributeNode(sectypeattr);*/
+
 		if (_inputSet != nullptr)
 		{
 			QDomElement idEle = doc->createElement("SubID");
@@ -87,8 +94,11 @@ namespace Geometry
 			idEle.appendChild(idText);
 			element.appendChild(idEle);
 		}
-		QDomElement _combindex0Ele = doc->createElement("Combindex0");
-		QDomText _combindex0Text = doc->createTextNode(QString::number(_combindex0));
+		QDomElement _combindex0Ele = doc->createElement("SectionType");
+		QString secstr;
+		if (_combindex0 == true) secstr = QString("Symmetrical");
+		else secstr = QString("Asymmetrical");
+		QDomText _combindex0Text = doc->createTextNode(secstr);
 		_combindex0Ele.appendChild(_combindex0Text);
 		element.appendChild(_combindex0Ele);
 
@@ -113,10 +123,11 @@ namespace Geometry
 // 		_name = e->attribute("Name");
  		_d1 = e->attribute("Distance1").toDouble();
 		_d2 = e->attribute("Distance2").toDouble();
-		int temp = e->attribute("Combindex0").toInt();
-		if (temp == 0) _combindex0 = true;
+	
+		QString temp = e->attribute("SectionType");
+		if (temp == "Symmetrical") _combindex0 = true;
 		else _combindex0 = false;
-// 		
+ 		
 		QDomNodeList nodeidList = e->elementsByTagName("SubID");
 		if (nodeidList.size() < 1) return;
 		QDomElement idele = nodeidList.at(0).toElement();

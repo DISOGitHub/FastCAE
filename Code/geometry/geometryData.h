@@ -55,7 +55,7 @@ namespace Geometry
 		//根据ID查找形状，递归子形状查找
 		GeometrySet* getGeometrySetByID(const int id);
 		//获取第index个子形状
-		GeometryDatum* getDatumPlaneByIndex(const int index);
+		GeometryDatum* getDatumByIndex(const int index);
 		QString getMD5();
 		//根据ID排序
 		void sort();

@@ -20,6 +20,7 @@
 #include <BRepBuilderAPI_MakeSolid.hxx>
 #include <BRepTools_ReShape.hxx>
 #include <ModelRefine.h>
+#include <QDebug>
 
 namespace Command
 {
@@ -108,7 +109,7 @@ namespace Command
 		else if (sep_wire_list.size() > 1)
 		{
 			TopoDS_Compound comp;
-			BRep_Builder builder;
+			BRep_Builder builder; 
 			builder.MakeCompound(comp);
 			for (std::list< std::list<TopoDS_Wire> >::iterator it = sep_wire_list.begin(); it != sep_wire_list.end(); ++it) 
 			{
@@ -116,7 +117,10 @@ namespace Command
 				if (!aFace.IsNull())
 					builder.Add(comp, aFace);
 			}
-
+			if (comp.Closed()==false)
+			{
+				return TopoDS_Shape();//no closed.
+			}
 			return comp;
 		}
 		else 

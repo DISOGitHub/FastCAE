@@ -47,7 +47,7 @@ namespace GeometryWidget
 		Ui::SweepDialog* _ui{};
 		bool _selectSection{ false }; 
 		bool _selectPath{ false };
-
+		bool _solid{ true};
 		QList<vtkActor*> _sectionActors{};
 		QMultiHash<Geometry::GeometrySet*, int> _sectionEdgeHash{};
 

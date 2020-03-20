@@ -99,15 +99,15 @@ namespace GeometryWidget
         {
             double axis[3] = { 0 };
             p->getVector(axis);
-			if (axis[0] != 0 && axis[1] == 0 && axis[2] == 0)
+			if (axis[0] == 1 && axis[1] == 0 && axis[2] == 0)
 			{
 				_ui->radioButtonX->setChecked(true);
 			}
-			else if (axis[0] == 0 && axis[1] != 0 && axis[2] == 0)
+			else if (axis[0] == 0 && axis[1] == 1 && axis[2] == 0)
 			{
 				_ui->radioButtonY->setChecked(true);
 			}
-			else if (axis[0] == 0 && axis[1] == 0 && axis[2] != 0)
+			else if (axis[0] == 0 && axis[1] == 0 && axis[2] == 1)
 			{
 				_ui->radioButtonZ->setChecked(true);
 			}
@@ -179,15 +179,12 @@ namespace GeometryWidget
             if (ok)
                 ok = fabs(degree) < 0.0000001 ? false: true;
         }
-
-		
         if (!ok)
         {
             QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
             return;
         }
         bool s = _ui->checkBoxSaveOrigin->isChecked();
-
         QStringList codes{};
         codes += QString("rotate = CAD.RotateFeature()");
         for (int i = 0; i < _geobodyList.size(); ++i)
@@ -218,8 +215,7 @@ namespace GeometryWidget
 			codes += QString("rotate.setEditID(%1)").arg(_editSet->getID());
 			codes += QString("rotate.edit()");
 		}
-            
-
+           
         _pyAgent->submit(codes);
  //		auto c = new Command::CommandRotateFeature(_mainWindow, _preWindow);
 // 		c->setBodys(_geobodyList);
@@ -323,21 +319,6 @@ namespace GeometryWidget
         if (_ui->comboBoxOption->currentIndex() == 0)
         {
             if (_edgeSet == nullptr || _edgeIndex < 0) return false;
-//             TopoDS_Shape* shape = _edgeSet->getShape();
-// 
-//             TopExp_Explorer edgeExp(*shape, TopAbs_EDGE);
-//             for (int k = 0; k < _edgeIndex; ++k) edgeExp.Next();
-// 
-//             const TopoDS_Edge &edge = TopoDS::Edge(edgeExp.Current());
-//             if (edge.IsNull()) return false;
-// 
-//             BRepAdaptor_Curve adapt(edge);
-//             if (adapt.GetType() != GeomAbs_Line) return false;
-//             gp_Lin line = adapt.Line();
-//             gp_Dir direc = line.Direction();
-//             vec[0] = direc.X();
-//             vec[1] = direc.Y();
-//             vec[2] = direc.Z();
             ok = true;
         }
         else
@@ -358,11 +339,6 @@ namespace GeometryWidget
             double mod = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
             if (mod > 0.000001) ok = true;
         }
-
-// 		if (_ui->checkBoxReverse->isChecked())
-// 			for (int i = 0; i < 3; ++i)
-// 				vec[i] *= -1;
-
         return ok;
     }
 

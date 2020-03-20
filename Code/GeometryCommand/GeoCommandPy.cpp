@@ -17,7 +17,7 @@
 #include "GeoCommandCreateVariableFillet.h"
 #include "GeoCommandMirrorFeature.h"
 #include "GeoCommandRotateFeature.h"
-#include "GeoCommandMoveFeature.h""
+#include "GeoCommandMoveFeature.h"
 #include "GeoCommandMakeMatrix.h"
 #include"GeoCommandMakeExtrusion.h"
 #include "GeoCommandMakeRevol.h"
@@ -60,8 +60,6 @@ namespace Command
         bool success = Command::GeoComandList::getInstance()->executeCommand(c);
         if (!success) warning();
     }
-
-
 
     void GeometryCommandPy::createCylinder(QString name, double*corner, double*dir, double r, double l)
     {
@@ -152,7 +150,6 @@ namespace Command
         c->setCorner(corner);
         c->setPara(para);
         double coor[3] = { 0.0 };
-
         for (int i = 0; i < 3; ++i)
             coor[i] = corner[i] + para[i];
         c->setCoordinate(coor);
@@ -697,8 +694,6 @@ void GEOMETRYCOMMANDAPI CreateFace(char* edges, char* name, int editId)
 			shapeHash.insert(set, index);
 		}
 	}
-	
-
 
     Command::GeometryCommandPy::createFace(sname, editId, shapeHash);
 }
@@ -761,6 +756,7 @@ void GEOMETRYCOMMANDAPI EditChamfer(int id, char*setidStr, char* indexListStr, d
     bool s;
     if (sym == 1) s = true;
     else { s = false; }
+
     Command::GeometryCommandPy::editChamfer(set,shapeHash, dis1, dis2, s);
 }
 
@@ -784,6 +780,7 @@ void GEOMETRYCOMMANDAPI CreateFillet(char* edges, double rad, int editID)
             shapeHash.insert(set, index);
         }
     }
+
     Command::GeometryCommandPy::createFillet(shapeHash, rad, editID);
 }
 
@@ -801,7 +798,6 @@ void GEOMETRYCOMMANDAPI CreateVariableFillet(char*edges, double basicrad, int ed
 
 	Command::GeometryCommandPy::CreateVariableFillet(radmap, basicrad, editId, setid, edgeindex);
 }
-
 
 void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int body2id)
 {
@@ -857,9 +853,9 @@ void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method, int facei
 	else s = false;
 
     Geometry::GeometrySet* facebodyset = Geometry::GeometryData::getInstance()->getGeometrySetByID(facebody);
-
     double random[3] = { random0, random1, random2 };
     double basept[3] = { base0, base1, base2 };
+
     Command::GeometryCommandPy::CreateMirrorFeature(setidList,s,typeindex,faceindex,facebodyset,planeindex,random,basept);
 }
 
@@ -894,9 +890,9 @@ void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int
 	else s = false;
 
 	Geometry::GeometrySet* facebodyset = Geometry::GeometryData::getInstance()->getGeometrySetByID(facebody);
-
 	double random[3] = { random0, random1, random2 };
 	double basept[3] = { base0, base1, base2 };
+
     Command::GeometryCommandPy::EditMirrorFeature(set,setidList, s, typeindex, faceindex, facebodyset, planeindex, random, basept);
 }
 
@@ -938,8 +934,6 @@ void GEOMETRYCOMMANDAPI EditRotateFeature(int body, double basicx, double basicy
 
 	Command::GeometryCommandPy::EditRotateFeature(editset, basicPt, method, edge, edgeIndex, axis, reverse, angle, saveOri);
 }
-
-
 
 void GEOMETRYCOMMANDAPI CreateMoveFeature(char * bodys, char* method, double startpt0, double startpt1, double startpt2, double endpt0, double endpt1, double endpt2, char* save, char* reverse,
 											double length, double dir0, double dir1, double dir2)
@@ -1127,7 +1121,6 @@ void GEOMETRYCOMMANDAPI CreateRevol(int id, char* name, char *edges, double base
 
 	QString re = QString(reverse);
 	QString so = QString(solid);
-	
 	bool r, s;
 	if (re == "Yes")r = true;
 	else r = false;
@@ -1181,9 +1174,9 @@ void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset
 {
 
 	bool s;
-	if (solid == "Yes") s = true;
+	QString solidstr = QString(solid);
+	if (solidstr == "Yes") s = true;
 	else s = false;
-
 	QString cedge = QString(edges);
 	QStringList setInfos = cedge.split(";");
 	QMultiHash<Geometry::GeometrySet*, int> shapeHash;

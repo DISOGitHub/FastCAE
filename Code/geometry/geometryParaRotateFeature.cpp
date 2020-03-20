@@ -95,7 +95,6 @@ namespace Geometry
 
 		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
 
-
 		QDomNodeList setIdList = e->elementsByTagName("Bodys");
 		if (setIdList.size() != 1) return;
 		QDomElement coorele = setIdList.at(0).toElement();

@@ -18,7 +18,6 @@ namespace Command
 		this->getVec();
 		gp_Vec vec(_vector[0], _vector[1], _vector[2]);
 		
-
 		if (_isEdit) //编辑模式下将原来的模型压进列表
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
@@ -32,7 +31,6 @@ namespace Command
 				_geoData->appendGeometrySet(ori);
 				_editSet->removeSubSet(ori);
 			}
-			//_bodys.append(ori);
 		}
 
 		bool success = false;
@@ -50,11 +48,9 @@ namespace Command
 			if (resShape.IsNull()) continue;
 
 			success = true;
-
 			TopoDS_Shape* mshape = new TopoDS_Shape;
 			*mshape = resShape;
 			QString name = QString("Move-%1").arg(set->getName());
-
 			Geometry::GeometrySet* newset = new Geometry::GeometrySet;
 			newset->setName(name);
 			newset->setShape(mshape);
@@ -74,7 +70,6 @@ namespace Command
 
 			emit showSet(newset);
 			_resultOriginHash.insert(newset, set);
-
 			if (!_saveOrigin)
 			{
 				emit removeDisplayActor(set);
@@ -147,21 +142,6 @@ namespace Command
 			emit removeDisplayActor(set);
 		}
 		emit updateGeoTree();
-		/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-		for (int i = 0; i < geoList.size(); ++i)
-		{
-			Geometry::GeometrySet* set = geoList.at(i);
-			if (!_saveOrigin)
-			{
-				auto ori = _resultOriginHash.value(set);
-				set->removeSubSet(ori);
-				_geoData->appendGeometrySet(ori);
-				emit showSet(ori);
-			}
-			_geoData->removeTopGeometrySet(set);
-			emit removeDisplayActor(set);
-		}
-		emit updateGeoTree();*/
 	}
 
 	void CommandMoveFeature::redo()
@@ -216,22 +196,6 @@ namespace Command
 			emit showSet(set);
 		}
 		emit updateGeoTree();
-			/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-			for (int i = 0; i < geoList.size(); ++i)
-			{
-			Geometry::GeometrySet* set = geoList.at(i);
-			if (!_saveOrigin)
-			{
-			auto ori = _resultOriginHash.value(set);
-			set->appendSubSet(ori);
-			_geoData->removeTopGeometrySet(ori);
-			emit removeDisplayActor(ori);
-			}
-			_geoData->appendGeometrySet(set);
-			emit showSet(set);
-			}
-			emit updateGeoTree();*/
-		
 	}
 
 	void CommandMoveFeature::releaseResult()
@@ -263,12 +227,6 @@ namespace Command
 			Geometry::GeometrySet* set = geoList.at(i);
 			delete set;
 		}
-		/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-		for (int i = 0; i < geoList.size(); ++i)
-		{
-			Geometry::GeometrySet* set = geoList.at(i);
-			delete set;
-		}*/
 	}
 
 	void CommandMoveFeature::setBodys(QList<Geometry::GeometrySet*> b)
@@ -351,10 +309,7 @@ namespace Command
 			double fac = _length / mod;
 			for (int i = 0; i < 3; ++i)
 				_vector[i] = fac * _dir[i];
-
 		}
-
-
 	}
 
 }

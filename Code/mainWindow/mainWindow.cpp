@@ -654,8 +654,14 @@ namespace GUI
 		QString file = ConfigOption::ConfigOption::getInstance()->getGlobalConfig()->GetUserManual();
 		QString userManulFile = QApplication::applicationDirPath() + "/../Doc/" + file;
 
+		if (file.isEmpty())
+		{
+			QDesktopServices::openUrl(QUrl("http://www.fastcae.com/document.html"));
+			return;
+		}
+
 		QFile f(userManulFile);
-		if (!f.exists())
+		if (!f.exists() )
 		{
 			ModuleBase::Message msg;
 			msg.type = ModuleBase::Warning_Message;

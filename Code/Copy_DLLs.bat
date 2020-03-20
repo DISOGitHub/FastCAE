@@ -1,3 +1,4 @@
+set currentPath=%cd%
 
 cd ../
 mkdir output
@@ -6,6 +7,9 @@ mkdir bin_d
 mkdir bin_d\gmsh
 copy /y ".\python37\python37.dll" ".\bin_d"
 cd ../
+
+copy /y "%currentPath%\Gmsh\gmsh454\gmsh.exe" ".\output\bin_d\gmsh" 
+copy /y "%currentPath%\Gmsh\gmsh454\gmsh.Geo" ".\output\bin_d\gmsh" 
 
 rem copy vtk dlls
 copy /y ".\VTK\vtk_7.1.1_x64_Debug\bin\VTKCOMMONCORE-7.1.DLL" ".\output\bin_d"
@@ -154,6 +158,10 @@ mkdir bin
 mkdir bin\gmsh
 copy /y ".\python37\python37.dll" ".\bin"
 cd ../
+
+copy /y "%currentPath%\Gmsh\gmsh454\gmsh.exe" ".\output\bin\gmsh" 
+copy /y "%currentPath%\Gmsh\gmsh454\gmsh.Geo" ".\output\bin\gmsh" 
+
 rem copy vtk dlls
 copy /y ".\VTK\vtk_7.1.1_x64_Release\bin\VTKCOMMONCORE-7.1.DLL" ".\output\bin"
 copy /y ".\VTK\vtk_7.1.1_x64_Release\bin\VTKSYS-7.1.DLL" ".\output\bin"

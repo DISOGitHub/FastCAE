@@ -35,8 +35,6 @@ namespace GeometryWidget
 		_editSet = set;
 		this->setWindowTitle("Edit Face");
 		init();
-
-
 	}
 	void CreateFaceDialog::init()
 	{
@@ -60,19 +58,21 @@ namespace GeometryWidget
 			QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 			shapeHash = p->getShapeHash();
 			_shapeHash = shapeHash;
-			QList<Geometry::GeometrySet*> setList = shapeHash.keys();
+			QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
 			int k = setList.size();
 			for (int i = 0; i < setList.size(); ++i)
 			{
 				Geometry::GeometrySet* set = setList.at(i);
 				if (set == nullptr) return;
-				int shapes = shapeHash.value(set);
-				emit highLightGeometryEdge(set, shapes, &_actors);
+				QList<int> edlist = shapeHash.values(setList[i]);
+				for (int var : edlist)
+				{
+					emit highLightGeometryEdge(set, var, &_actors);
+				}
 			}
 	
 			QString label = QString(tr("Selected edge(%1)")).arg(shapeHash.size());
 			_ui->edgelabel->setText(label);
-			
 		}
 	}
 	CreateFaceDialog::~CreateFaceDialog()
@@ -86,8 +86,6 @@ namespace GeometryWidget
 	{
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
 	}
-
-
 
 	void CreateFaceDialog::closeEvent(QCloseEvent *e)
 	{
@@ -116,7 +114,6 @@ namespace GeometryWidget
 		}
 
 		QStringList codes{};
-				
 		codes += QString("face = CAD.Face()");
 		if (_isEdit)
 		{
@@ -124,7 +121,6 @@ namespace GeometryWidget
 		}
 		else
 			codes += QString("face.setName('%1')").arg(name);
-		
 
 		QList<Geometry::GeometrySet*> sets = _shapeHash.uniqueKeys();
 		for (int i = 0; i < sets.size(); ++i)
@@ -182,8 +178,6 @@ namespace GeometryWidget
 
 		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
 		_ui->edgelabel->setText(label);
-
-		
 	}
 
 

@@ -81,7 +81,7 @@ namespace Material
 		
 		int nn = names.size();
 		QMessageBox::StandardButton b = (QMessageBox::StandardButton)QMessageBox::warning(this, QString(tr("Warning")), QString(tr("%1 object(s) will be removed, continue ?").arg(nn)), QMessageBox::Yes, QMessageBox::No);
-		if (n == QMessageBox::No) return;
+		if (b == QMessageBox::No) return;
 
 		for (QString name : names)
 		{

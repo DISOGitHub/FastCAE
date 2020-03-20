@@ -594,6 +594,7 @@ namespace ProjectTree
 		for (int i = 0; i < curlist.size(); ++i)
 		{
 			QString text = curlist.at(i)->getDescribe();
+			if (text.isEmpty()) continue;
 			QAction* action = menu->addAction(text);
 			connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
 			_postMapper->setMapping(action, text);
@@ -668,29 +669,31 @@ namespace ProjectTree
 		cellaction->setMenu(_cellMeun);
 
 		QStringList vectorVariables = info->getNodeVectorVariable();
-		if (vectorVariables.at(0) != "")
-		{
+// 		if (vectorVariables.at(0) != "")
+// 		{
 
-			for (int i = 0; i < vectorVariables.size(); ++i)
-			{
-				QString text = vectorVariables.at(i);
-				QAction* action = _nodeMenu->addAction(text);
-				connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
-				_postMapper->setMapping(action, text);
-			}
+		for (int i = 0; i < vectorVariables.size(); ++i)
+		{
+			QString text = vectorVariables.at(i);
+			if (text.isEmpty()) continue;
+			QAction* action = _nodeMenu->addAction(text);
+			connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
+			_postMapper->setMapping(action, text);
 		}
+//		}
 		vectorVariables = info->getCellVectorVariable();
-		if (vectorVariables.at(0) != "")
-		{
+// 		if (vectorVariables.at(0) != "")
+// 		{
 
-			for (int i = 0; i < vectorVariables.size(); ++i)
-			{
-				QString text = vectorVariables.at(i);
-				QAction* action = _cellMeun->addAction(text);
-				connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
-				_postMapper->setMapping(action, text.append("_cell000"));
-			}
+		for (int i = 0; i < vectorVariables.size(); ++i)
+		{
+			QString text = vectorVariables.at(i);
+			if (text.isEmpty()) continue;
+			QAction* action = _cellMeun->addAction(text);
+			connect(action, SIGNAL(triggered()), _postMapper, SLOT(map()));
+			_postMapper->setMapping(action, text.append("_cell000"));
 		}
+//		}
 		connect(_postMapper, SIGNAL(mapped(QString)), this, SLOT(viewVector(QString)));
 
 	}

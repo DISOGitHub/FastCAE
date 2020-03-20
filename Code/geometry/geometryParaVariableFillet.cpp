@@ -129,11 +129,9 @@ namespace Geometry
 	{
 		_edgeindex = e->attribute("EdgeIndex").toInt();
 		int edgesetid = e->attribute("EdgeSet").toInt();
-		_edgeset = Geometry::GeometryData::getInstance()->getGeometrySetByID(_edgeindex);
-
+		_edgeset = Geometry::GeometryData::getInstance()->getGeometrySetByID(edgesetid);
 		int subid = e->attribute("SubID").toInt();
 		_inputSet = Geometry::GeometryData::getInstance()->getGeometrySetByID(subid);
-
 		_basicradius = e->attribute("BasicRadius").toDouble();
 
 		QDomNodeList setIdList = e->elementsByTagName("LocList");

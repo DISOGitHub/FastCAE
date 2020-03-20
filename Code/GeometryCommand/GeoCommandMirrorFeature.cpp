@@ -39,7 +39,6 @@ namespace Command
 				_geoData->appendGeometrySet(ori);
 				_editSet->removeSubSet(ori);
 			}
-			//_bodys.append(ori);
 		}
 		bool success = false;
 		const int count = _bodys.size();
@@ -56,15 +55,14 @@ namespace Command
 			if (resShape.IsNull()) continue;
 			
 			success = true;
-
 			TopoDS_Shape* mshape = new TopoDS_Shape;
 			*mshape = resShape;
 			QString name = QString("Mirror-%1").arg(set->getName());
-
 			Geometry::GeometrySet* newset = new Geometry::GeometrySet;
 			newset->setName(name);
 			newset->setShape(mshape);
 			_geoData->appendGeometrySet(newset);
+
 			Geometry::GeometryParaMirrorFeature* para = new Geometry::GeometryParaMirrorFeature;
 			para->setOriSet(set);
 			para->setBodyList(_bodys);
@@ -73,7 +71,6 @@ namespace Command
 			para->setFaceBody(_faceBody);
 			para->setSaveOrigion(_saveOrigin);
 			para->setPlaneIndex(_planeindex);
-			//para->setReverse(_reverse);
 			para->setDirection(_randomdir);
 			para->setbasepoint(_basepoint);
 			newset->setParameter(para);
@@ -91,18 +88,8 @@ namespace Command
 				_geoData->removeTopGeometrySet(_editSet);
 				_releasenew = true;
 				_releaseEdit = false;
-				//newset->setName(_editSet->getName());
-				//_geoData->replaceSet(newset, _editSet);
+				
 			}
-			/*else
-			{
-				newset->setName(name);
-				_geoData->appendGeometrySet(newset);
-
-			}*/
-			
-	
-			
 		}
 		emit updateGeoTree();
 		GeoCommandBase::execute();
@@ -162,47 +149,6 @@ namespace Command
 			emit removeDisplayActor(set);
 		}
 		emit updateGeoTree();
-		/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-		for (int i = 0; i < geoList.size(); ++i)
-		{
-			Geometry::GeometrySet* set = geoList.at(i);
-			auto ori = _resultOriginHash.value(set);
-			if (!_isEdit)
-			{
-				if (!_saveOrigin)
-				{
-					auto ori = _resultOriginHash.value(set);
-					set->removeSubSet(ori);
-					_geoData->appendGeometrySet(ori);
-					emit showSet(ori);
-				}
-				_geoData->removeTopGeometrySet(set);
-				emit removeDisplayActor(set);
-			}
-			else
-			{
-				if (!_saveOrigin)
-				{
-					set->removeSubSet(ori);
-					_geoData->appendGeometrySet(ori);
-					emit showSet(ori);
-				}
-				else
-				{
-					auto editSetori = _resultOriginHash.value(_editSet);
-					if (editSetori == ori)
-					{
-						if ((_editSet->getSubSetCount() > 0&&(_geoData->hasGeometrySet(ori))))
-							_geoData->removeTopGeometrySet(ori);
-							emit removeDisplayActor(ori); 
-					}
-				}
-				_geoData->replaceSet(_editSet, set);
-				emit showSet(_editSet);
-				emit removeDisplayActor(set);	
-			}
-		}
-		emit updateGeoTree();*/
 	}
 
 	void CommandMirrorFeature::redo()
@@ -257,39 +203,6 @@ namespace Command
 			emit showSet(set);
 		}
 		emit updateGeoTree();
-		/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-		for (int i = 0; i < geoList.size(); ++i)
-		{
-			Geometry::GeometrySet* set = geoList.at(i);
-			auto ori = _resultOriginHash.value(set);
-			if (!_isEdit)
-			{
-				if (!_saveOrigin)
-				{
-					
-					set->appendSubSet(ori);
-					_geoData->removeTopGeometrySet(ori);
-					emit removeDisplayActor(ori);
-				}
-				_geoData->appendGeometrySet(set);
-				emit showSet(set);
-			}
-			
-			else
-			{
-				if (!_saveOrigin)
-				{
-
-					set->appendSubSet(ori);
-					_geoData->removeTopGeometrySet(ori);
-					emit removeDisplayActor(ori);
-				}
-			    _geoData->replaceSet(set,_editSet);
-				emit showSet(set);
-				emit removeDisplayActor(_editSet);
-			}
-		}
-		emit updateGeoTree();*/
 	}
 	 
 	void CommandMirrorFeature::releaseResult()
@@ -321,12 +234,6 @@ namespace Command
 			Geometry::GeometrySet* set = geoList.at(i);
 			delete set;
 		}
-		/*QList<Geometry::GeometrySet*> geoList = _resultOriginHash.keys();
-		for (int i = 0; i < geoList.size(); ++i)
-		{
-			Geometry::GeometrySet* set = geoList.at(i);
-			delete set;
-		}*/
 	}
 
 	void CommandMirrorFeature::setBodys(QList<Geometry::GeometrySet*> b)

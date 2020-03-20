@@ -34,7 +34,7 @@ namespace FastCAEDesigner
 			errorCode = ChnNameIsEmpty;
 		else if (nameEng.isEmpty())
 			errorCode = EngNameIsEmpty;
-		else if (!FileNameIsAllow(nameChn))
+		else if (!FileChnNameIsAllow(nameChn))
 			errorCode = ChnNameNotAllow;
 		else if (!FileEngNameIsAllow(nameEng))
 			errorCode = EngNameNotAllow;
@@ -152,10 +152,42 @@ namespace FastCAEDesigner
 		{
 // 			if ((fileName.at(i) < 65) || ((fileName.at(i) > 90) && (fileName.at(i) < 97)) || (fileName.at(i) > 122))
 // 				isOk = false;
-			qDebug() << fileName;
+			//qDebug() << fileName;
 			QChar c = fileName.at(i);
 			ushort u = c.unicode();
 			if ((u >= 0x4E00) && (u <= 0x9FA5))
+				return false;
+		}
+
+
+		return isOk;
+	}
+	//20200318 xuxinwei
+	bool InputValidator::FileChnNameIsAllow(QString fileName)
+	{
+		if (fileName.isEmpty())
+			return false;
+
+		bool isOk = true;
+		//QString pattern = "[\\\\/:*?\"<>., ;'{|`~!@#$%&*()=+\\^}\\[\\]]";
+		QString pattern = "[\\\\/:?\"<>., ;'{|`~!@#$%&=+\\^}\\[\\]]";
+
+		QRegExp rx(pattern);
+		int match = fileName.indexOf(rx);
+
+		if (match >= 0)
+			isOk = false;
+
+		for (int i = 0; i < fileName.length(); i++)
+		{
+// 			if ((fileName.at(i) >= 65) || ((fileName.at(i) <= 90) && (fileName.at(i) >= 97)) || (fileName.at(i) <= 122))
+// 				return false;
+			//qDebug() << fileName;
+			QChar c = fileName.at(i);
+			ushort u = c.unicode();
+			if (((u >= 0x4E00) && (u <= 0x9FA5)) || ((u >= '0') && (u <= '9')))
+				continue;
+			else
 				return false;
 		}
 
