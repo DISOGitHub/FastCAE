@@ -9,6 +9,7 @@
 #include <BRep_Builder.hxx>
 #include <BRepTools.hxx>
 #include <QDir>
+#include <QMessageBox>
 #include <QTextCodec>
 #include <vtkDataSetReader.h>
 #include <vtkCell.h>
@@ -251,6 +252,8 @@ namespace Gmsh
 		QString exelPath = QCoreApplication::applicationDirPath();
 		const QString tempDir = exelPath + "/../temp/";
 		const QString gmshDir = exelPath + "/gmsh/";
+		QFile::remove(tempDir + "gmsh.Geo");
+
 		QFile::copy(gmshDir + "gmsh.Geo", tempDir + "gmsh.Geo");
 
 		IO::TempalteReplacer replacer(this);
@@ -266,6 +269,19 @@ namespace Gmsh
 		const QString tempDir = exelPath + "/../temp/";
 		const QString gmshDir = exelPath + "/gmsh/";
 		QString gmshexe = exelPath + "/gmsh/gmsh";
+
+		bool ok = false;
+#ifdef Q_OS_WIN
+		ok = QFile::exists(gmshexe + ".exe");
+#endif
+#ifdef Q_OS_LINUX
+		ok = QFile::exists(gmshexe);
+#endif
+		if (!ok)
+		{
+			QMessageBox::warning(_mainwindow, QString(tr("Warning")), QString(tr("Gmsh is not exist !")));
+			return;
+		}
 
 // 		QString oldDir = QDir::currentPath();
 // 		QDir::setCurrent(gmshDir);
