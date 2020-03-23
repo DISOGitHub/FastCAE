@@ -37,4 +37,6 @@ http://www.fastcae.com/document.html
 #社区论坛
 http://disc.fastcae.com/forum.php
 
+#Linux版本地址
+https://github.com/DISOGitHub/FastCAE_Linux
 
