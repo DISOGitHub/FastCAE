@@ -31,3 +31,10 @@
 5. Run_MSVC.bat            启动VS，加载工程文件
 6. 每个模块的代码文件夹下都有一个_Create_Project.bat，作用与Create_X64_Project.bat相同，区别在于各模块只是更新各自的VS工程文件
 
+#帮助文档
+http://www.fastcae.com/document.html
+
+#社区论坛
+http://disc.fastcae.com/forum.php
+
+
