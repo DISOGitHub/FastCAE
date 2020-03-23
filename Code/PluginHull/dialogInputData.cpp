@@ -15,8 +15,6 @@ namespace PluginShip
 
 	}
 	
-
-
 	void InputDataDialog::accept()
 	{
 		double axis1 = _ui->lineEdit_1->text().toDouble();

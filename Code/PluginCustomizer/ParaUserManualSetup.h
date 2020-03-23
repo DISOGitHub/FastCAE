@@ -27,8 +27,8 @@ namespace FastCAEDesigner
 	public:
 		ParaUserManualSetup(ConfigOption::GlobalConfig* globalConfig, QWidget *parent = 0);
 		~ParaUserManualSetup();
-		void showEvent(QShowEvent *);
-		void resizeEvent(QResizeEvent *e);
+		void showEvent(QShowEvent *) override;
+		void resizeEvent(QResizeEvent *e) override;
 
 	private slots:
 		void OnBtnLoadDocClicked();
@@ -46,8 +46,8 @@ namespace FastCAEDesigner
 		void OpenFile(QString fileName);
 
 	private:
-		Ui::ParaUserManualSetup *ui;
-		ConfigOption::GlobalConfig* _globalConfig;
+		Ui::ParaUserManualSetup *ui{};
+		ConfigOption::GlobalConfig* _globalConfig{};
 
 #ifdef Q_OS_WIN
 

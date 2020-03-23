@@ -52,6 +52,7 @@
 #include <BRepIntCurveSurface_Inter.hxx>
 #include "ModelPoint.h"
 #include <BRep_Tool.hxx>
+#include "cleaner.hpp"
 
 namespace Command
 {
@@ -227,11 +228,15 @@ namespace Command
 		BRepAlgo_Section S(*modelShape, *plnShape, false);
 		S.Build();
 		if (!S.IsDone()) return;
-		const TopoDS_Shape& secShanpe = S.Shape();
-		if (secShanpe.IsNull()) return;
+	    const TopoDS_Shape& secShanpe = S.Shape();
+
+		TopoDS_Shape tempshape = secShanpe;
+		cleanEdge(tempshape);
+
+		if (tempshape.IsNull()) return;
 		//basicpt
 		Bnd_Box cutwireBox;
-		BRepBndLib::Add(secShanpe, cutwireBox);
+		BRepBndLib::Add(tempshape, cutwireBox);
 		gp_Pnt wiremax = cutwireBox.CornerMax();
 		gp_Pnt wiremin = cutwireBox.CornerMin();
 		//double dis = 1e66;
@@ -239,7 +244,7 @@ namespace Command
 
 		//≈≈–Úœﬂ∫Õµ„°£
 		TopTools_IndexedMapOfShape edges;
-		TopExp::MapShapes(secShanpe, TopAbs_EDGE, edges);
+		TopExp::MapShapes(tempshape, TopAbs_EDGE, edges);
 
 		const int n = edges.Extent();
 		std::list<TopoDS_Edge*> edgelist;
@@ -308,7 +313,7 @@ namespace Command
 			for (std::list<TopoDS_Edge*>::iterator pE = sortedEdge.begin(); pE != sortedEdge.end(); ++pE)
 			{
 				Standard_Real first, last;
-				Handle(Geom_Curve) &curve = BRep_Tool::Curve(**pE, first, last);
+				Handle(Geom_Curve) curve = BRep_Tool::Curve(**pE, first, last);
 				Handle(Geom_TrimmedCurve) myTrimmed = new Geom_TrimmedCurve(curve, first, last);
 				Handle(Geom_BSplineCurve) NurbsCurve = GeomConvert::CurveToBSplineCurve(myTrimmed);
 
@@ -345,8 +350,6 @@ namespace Command
 				EdgePtList.back()->setSave(true);
 				if (modelPntList.size() > 0)
 				{
-					/*gp_Pnt p = EdgePtList.front()->getPoint();
-					gp_Pnt t = modelPntList.back()->getPoint();*/
 					double d = EdgePtList.front()->getPoint().Distance(modelPntList.back()->getPoint());
 
 					if (d>1e-3)
@@ -445,7 +448,6 @@ namespace Command
 		for (std::list<PluginShip::ModelPoint*>::iterator iterPnt = modelPntList.begin(); iterPnt != modelPntList.end(); ++iterPnt)
 		{
 
-			//gp_Vec* vec1 = new gp_Vec;
 			if (iterPnt == modelPntList.begin())
 			{
 				PluginShip::ModelPoint* temp0 = *iterPnt;
@@ -494,7 +496,6 @@ namespace Command
 			modelPntList.push_back(end); 
 		}
 		else  save = true;
-
 		return save;
 	}
 
@@ -570,7 +571,6 @@ namespace Command
 		for (std::vector<PluginShip::ModelPoint*>::iterator iterPnt = modelPntList.begin(); iterPnt != modelPntList.end(); ++iterPnt)
 		{
 
-			//gp_Vec* vec1 = new gp_Vec;
 			if (iterPnt == modelPntList.begin())
 			{
 				PluginShip::ModelPoint* temp0 = *iterPnt;
@@ -627,7 +627,6 @@ namespace Command
 				}
 				else
 				{
-					//(*iter)->setSave(true);
 					newone->push_back(*iter);
 					splitvector.push_back(*newone);
 					QVector<PluginShip::ModelPoint*>* one = new QVector<PluginShip::ModelPoint *>;
@@ -699,7 +698,6 @@ namespace Command
 		separatevec.push_back(secondvec);
 
 		int maxVarVecIndex = splitvector.indexOf(maxVarVec);
-
 		splitvector.replace(maxVarVecIndex, firstvec);
 		splitvector.insert(maxVarVecIndex + 1, secondvec);
 
@@ -713,7 +711,7 @@ namespace Command
 		gp_Dir dir(0, 1, 0);
 		gp_Ax2 plane(p, dir);
 		std::list<PluginShip::ModelPoint*> temp;
-		for each (PluginShip::ModelPoint* var in result)
+		for (PluginShip::ModelPoint* var : result)
 		{
 			if (fabs(var->getPoint().Y()) < 1e-7) continue;
 			TopoDS_Vertex vertex = BRepBuilderAPI_MakeVertex(var->getPoint());
@@ -732,7 +730,7 @@ namespace Command
 
 		}
 		temp.reverse();
-		for each (PluginShip::ModelPoint* var in temp)
+		for(PluginShip::ModelPoint* var : temp)
 		{
 			result.push_back(var);
 		}
@@ -819,7 +817,6 @@ namespace Command
 		}
 		ofile.close();*/
 
-
 		PluginShip::ModelPoint* insertpt = new PluginShip::ModelPoint;
 		for (int  i = 1; i < cutlist.size(); i++)
 		{
@@ -873,7 +870,6 @@ namespace Command
 
 			TopoDS_Edge* edge = *pE;
 			/*
-
 			string filestr = "../../IGS/edgeone.brep";
 			const char* ch = filestr.c_str();
 			TopoDS_Wire r = BRepBuilderAPI_MakeWire(*edge);
@@ -881,8 +877,7 @@ namespace Command
 			*/
 
 			Standard_Real first, last;
-			Handle(Geom_Curve) &curve = BRep_Tool::Curve(*edge, first, last);
-
+			Handle(Geom_Curve) curve = BRep_Tool::Curve(*edge, first, last);
 			gp_Pnt startpt, endpt;
 			curve->D0(first, startpt);
 			curve->D0(last, endpt);
@@ -913,7 +908,7 @@ namespace Command
 				edgelist.remove(cancelEdge);
 				sortedEdge.push_back(cancelEdge);
 				Standard_Real first, last;
-				Handle(Geom_Curve) &curve = BRep_Tool::Curve(*cancelEdge, first, last);
+				Handle(Geom_Curve) curve = BRep_Tool::Curve(*cancelEdge, first, last);
 				gp_Pnt startpt, endpt;
 				curve->D0(first, startpt);
 				curve->D0(last, endpt);
@@ -988,9 +983,6 @@ namespace Command
 				bndBox.SetGap(0.0000);
 				gp_Pnt cutMin = cutBox.CornerMin();
 				gp_Pnt cutMax = cutBox.CornerMax();
-				//_minx = bndBox.CornerMin().X();
-				//_maxx = bndBox.CornerMax().X();
-
 
 				*halfBoat = BRepAlgoAPI_Cut(*halfBoat, currentVt);
 
@@ -1009,7 +1001,6 @@ namespace Command
 
 		for (int i = 0; i < pnlist.size() - 1; i++)
 		{
-			//_minx = pnlist[i]->X() < pnlist[i + 1]->X() ? pnlist[i]->X() : pnlist[i + 1]->X();
 			gp_Pnt *aa = pnlist[i];
 			gp_Pnt*bb = pnlist[i + 1];
 			double a = pnlist[i]->X();

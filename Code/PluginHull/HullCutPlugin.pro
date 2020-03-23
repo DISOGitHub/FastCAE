@@ -59,7 +59,7 @@ win32{
 	-L../../output/bin_d -lMeshData \
 	
    
-  message("Windows meshdata build")
+  message("Windows HullCutPlugin build")
   
 }
 
@@ -77,7 +77,7 @@ unix{
   LIBS += \
   -L../../output/bin -lDataProperty \
 	
-  message("Linux meshdata build")
+  message("Linux HullCutPlugin build")
   
 }
 RESOURCES += ./resource/resource.qrc \

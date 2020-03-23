@@ -35,7 +35,6 @@ namespace PluginShip
 		void getMinMaxValue();
 		int findPointlistIndex(int index, double* pt);
 
-		
 	private slots:
 		void on_pushButton_import_clicked();
 		void on_pushButton_save_clicked();
@@ -50,6 +49,7 @@ namespace PluginShip
 
 		QCustomPlot* _customplotsection;
 		QCustomPlot* _customplotwater;
+
 		double _minX{};
 		double _maxX{};
 		double _minY{};

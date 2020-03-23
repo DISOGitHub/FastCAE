@@ -34,7 +34,6 @@ namespace PluginShip
 	{
 		
 	}
-	
 
 	void ModelImportDialog::updateDialog()
 	{
@@ -48,7 +47,6 @@ namespace PluginShip
 
 	void ModelImportDialog::updateTableImport()
 	{
-		//_ui->tableWidget_import->clear();
 		//填表格1
 		int length{};
 		for (int i = 0; i < _pointlist.size(); i++)
@@ -84,11 +82,10 @@ namespace PluginShip
 			_ui->tableWidget_import->setItem(0, i+2, new QTableWidgetItem("Z"));
 		}
 		int k = 1;
-		for each (QList<double*>  var in _pointlist)
+		for (QList<double*>  var : _pointlist)
 		{
-			int kk = var.size();
 			int i = 0;
-			for each (double* varr in var)
+			for (double* varr : var)
 			{
 				
 				_ui->tableWidget_import->setItem(k, i, new QTableWidgetItem(QString::number(varr[0])));
@@ -176,6 +173,7 @@ namespace PluginShip
 			_customplotsection->graph(i)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle,p,QColor(Qt::black) ,5));
 
 		}
+
 		for (int i = 0; i < treelist.size(); i++)
 		{
 			QVector<double> x(_pointlist.size()), y(_pointlist.size());
@@ -213,13 +211,7 @@ namespace PluginShip
 			{
 				resultlist << _pointlist[i].mid(0,((_pointlist[i].size()-1)/2)+1 );//保存需要画出的一半数据
 				_symwaterlist << _pointlist[i].mid((((_pointlist[i].size() - 1) / 2)+1), _pointlist[i].size()-1 );//保留对称的数据。
-				/*for (int m = 0; m < _symwaterlist.size(); m++)
-				{
-					for each (double* var in _symwaterlist[m])
-					{
-						qDebug() << var[0] << " " << var[1] << " " << var[2]<< endl;
-					}
-				}*/
+			
 			}
 			else
 			{
@@ -231,16 +223,13 @@ namespace PluginShip
 		_waterlist = resultlist;
 		for (int i = 0; i < resultlist.size(); i++)
 		{
-			//qDebug() << "-------------------" << endl;
 			QVector<double> x(resultlist[i].size()), y(resultlist[i].size());
 			for (int j = 0; j < resultlist[i].size(); j++)
 			{
 				double* temp = resultlist[i][j];
 				x[j] = temp[1];
 				y[j] = temp[2];
-			//	qDebug() << "X:" << x[j] << "Y:" << y[j] << endl;
 			}
-		   
 			_customplotwater->addGraph();
 			//设置画笔
 			QPen p;
@@ -266,8 +255,8 @@ namespace PluginShip
 		_customplotwater->graph(resultlist.size() )->setPen(p0);
 		_customplotwater->graph(resultlist.size())->setLineStyle(QCPGraph::lsLine);
 		_customplotwater->graph(resultlist.size())->setData(x0, y0);
-
 		_customplotwater->addGraph();
+
 		QPen p1;
 		p1.setColor(Qt::black);
 		p1.setWidth(2.5);
@@ -275,12 +264,10 @@ namespace PluginShip
 		_customplotwater->graph(resultlist.size() + 1)->setLineStyle(QCPGraph::lsLine);
 		_customplotwater->graph(resultlist.size() + 1)->setData(x1, y1);
 		
-
 		_customplotwater->xAxis->setRange(_minY - 10, _maxY + 10);
 		_customplotwater->yAxis->setRange(_minZ - 10, _maxZ + 10);
 		_customplotwater->xAxis->setVisible(false);
 		_customplotwater->yAxis->setVisible(false);
-	
 		_customplotwater->replot();
 	}
 
@@ -290,7 +277,7 @@ namespace PluginShip
 		QList<double> Xlist, Ylist, Zlist;
 		for (int i = 0; i < _pointlist.size(); i++)
 		{
-			for each (double* var in _pointlist[i])
+			for (double* var : _pointlist[i])
 			{
 				Xlist << var[0];
 				Ylist << var[1];
@@ -304,7 +291,6 @@ namespace PluginShip
 		_minY = Ylist.front(); _maxY = Ylist.back(); 
 		_minZ = Zlist.front(); _maxZ = Zlist.back();
 	}
-
 
 	void ModelImportDialog::on_pushButton_import_clicked()
 	{
@@ -327,17 +313,13 @@ namespace PluginShip
 		}
 		 file.close();
 		 QDomElement root = doc.documentElement(); //返回根节点
-		 // qDebug() << root.nodeName();
-		//QDomNodeList nodelist = root.childNodes();
-		  QDomNode node = root.firstChild(); //获得第一个子节点
+		 QDomNode node = root.firstChild(); //获得第一个子节点
 		  while (!node.isNull())  //如果节点不空
 		  {
 			  if (node.isElement()) //如果节点是元素
 			  {
 				  QDomElement e = node.toElement(); 
-				//  qDebug() << e.tagName() << " " << e.attribute("ptNum") << " " << e.attribute("Numindex"); 
 				  QDomNodeList list = e.childNodes();
-				  int k = list.count();
 				  QList<double*>templist{};
 				  for (int i = 0; i < list.count(); i++) //遍历子元素，count和size都可以用,可用于标签数计数
 				  {
@@ -349,7 +331,7 @@ namespace PluginShip
 					  temp[1] = ne.attribute("Y").toDouble();
 					  temp[2] = ne.attribute("Z").toDouble();
 					  templist.push_back(temp);
-					  int kk = templist.size();
+			
 					  if (i == list.count() - 1)
 						  _pointlist.push_back(templist);
 				  }
@@ -361,9 +343,6 @@ namespace PluginShip
 		  getMinMaxValue();
 		  initsection();
 		  initwater();
-		 
-
-
 	}
 
 	void ModelImportDialog::on_pushButton_save_clicked()
@@ -393,7 +372,7 @@ namespace PluginShip
 		time.setValue(current_date);
 		root.setAttributeNode(time);
 		int i = 1;
-		for each (QList<double*> var in _pointlist)
+		for (QList<double*> var : _pointlist)
 		{
 
 			QList<double*> lastlist{};
@@ -412,11 +391,6 @@ namespace PluginShip
 			{
 				QDomElement pt = doc.createElement("pt");
 				pt.setAttribute("index", i);
-				/*
-				pt.setAttribute("X", QString::number(lastlist[i][0]));
-				pt.setAttribute("Y", QString::number(lastlist[i][1]));
-				pt.setAttribute("Z", QString::number(lastlist[i][2]));*/
-
 				pt.setAttribute("X", QString::number(lastlist[i][0], 'f', 1));
 				pt.setAttribute("Y", QString::number(lastlist[i][1], 'f', 1));
 				pt.setAttribute("Z", QString::number(lastlist[i][2], 'f', 1));
@@ -427,7 +401,6 @@ namespace PluginShip
 		QTextStream out_stream(&file);
 		doc.save(out_stream, 4); //缩进4格
 		file.close();
-
 	}
 
 	void ModelImportDialog::graphClicked(QCPAbstractPlottable*plottable, int dataIndex)
@@ -449,20 +422,20 @@ namespace PluginShip
 
 	void ModelImportDialog::getCurveData(int i, QList<QList<double*>> waterlist)
 	{
-		//qDebug() << i << endl;
+
 		qDebug() << "New:" << endl;
-		for each (double* var in waterlist[i])
+		for (double* var : waterlist[i])
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
 		qDebug() << "Old:" << endl;
-		for each (double* var in _waterlist[i])
+		for (double* var : _waterlist[i])
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
 		_waterlist.replace(i, waterlist[i]);
 		qDebug() << "AfterUpdate：" << endl;
-		for each (double* var in _waterlist[i])
+		for (double* var : _waterlist[i])
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
@@ -471,18 +444,18 @@ namespace PluginShip
 		if (i<=mid) newlist = _waterlist[i] + _symwaterlist[i];
 		else newlist = _symwaterlist[i] + _waterlist[i];
 		qDebug() << "pointlist[i]" << endl;
-		for each (double* var in _pointlist[i])
+		for (double* var : _pointlist[i])
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
 		qDebug() << "newlist:" << endl;
-		for each (double* var in newlist)
+		for (double* var : newlist)
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
 		_pointlist.replace(i, newlist);
 		qDebug() << "NEWpointlist[i]" << endl;
-		for each (double* var in _pointlist[i])
+		for (double* var :_pointlist[i])
 		{
 			qDebug() << var[0] << " " << var[1] << "" << var[2] << endl;
 		}
@@ -491,8 +464,6 @@ namespace PluginShip
 		getMinMaxValue();
 		initsection();
 		initwater();
-
-		
 	}
 
 	int ModelImportDialog::findPointlistIndex(int index, double* pt)
@@ -504,7 +475,5 @@ namespace PluginShip
 		}
 		return k;
 	}
-
-
 
 }

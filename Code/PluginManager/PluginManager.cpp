@@ -200,7 +200,7 @@ namespace Plugins
 #ifdef Q_OS_WIN
 				HMODULE m = p->getWinModule();
 #ifndef _DEBUG
-				delete p;
+//				delete p;
 #endif			
 				FreeLibrary(m);
 

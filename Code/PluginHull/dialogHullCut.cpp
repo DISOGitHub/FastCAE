@@ -34,9 +34,7 @@ namespace PluginShip
 		_ui->setupUi(this);
 		_mainwindow = m;
 		init();
-		//connect(_ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(on_TypeChanged(int)));
 		connect(_ui->comboBox_2, SIGNAL(currentIndexChanged(int)), this, SLOT(on_TypeChanged2(int)));
-		//connect(_ui->pushButton_import, SIGNAL(toggled(bool)), this, SLOT(on_pushButton_import_clicked()));
 	} 
 
 	HullCutDialog::~HullCutDialog()
@@ -68,8 +66,6 @@ namespace PluginShip
 		
 	}
 
-
-
 	void HullCutDialog::getModelShapePara(TopoDS_Shape* aShape)
 	{
 		Bnd_Box bndBox;
@@ -79,16 +75,6 @@ namespace PluginShip
 		gp_Pnt cornerMax = bndBox.CornerMax();
 		
 	}
-
-
-/*
-	void HullCutDialog::on_TypeChanged(int index)
-	{
-		/ *_geosetid = index;
-		_ui->comboBox
-* /
-
-	}*/
 
 	void HullCutDialog::on_TypeChanged2(int AxisId)
 	{
@@ -209,7 +195,6 @@ namespace PluginShip
 			_mainwindow->getSubWindowManager()->getPreWindow()->updateMeshActor();
 			emit _mainwindow->updateMeshTreeSig();
 			_mainwindow->updateActionsStates();
-		//	QMessageBox::information(NULL, "Title", "Content",QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 			QMessageBox::warning(this, tr("Title"), tr("Cut Completed !"));
 		
 		}

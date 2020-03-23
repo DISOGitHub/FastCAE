@@ -22,13 +22,11 @@ namespace PluginShip
 		
 	}
 	
-
 	void SingleCurveDialog::updateTable()
 	{
-		//_ui->tableSingleCurve->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 		_ui->tableSingleCurve->setRowCount(_waterlist[_curveindex].size());
 		_ui->tableSingleCurve->setColumnCount(2);
-		
 		QStringList header,sideheader;
 		header << "1" << "2";
 		_ui->tableSingleCurve->setHorizontalHeaderLabels(header);
@@ -76,7 +74,6 @@ namespace PluginShip
 		_singlecustom->yAxis->setRange(miny-10, maxy+10);
 		_singlecustom->replot();
 
-		
 	}
 	
 	void SingleCurveDialog::updateData()
@@ -152,7 +149,6 @@ namespace PluginShip
 		delete _singlecustom;
 		_singlecustom = nullptr;
 		updateCustom();
-		//emit signal_dataChanged(_curveindex, _waterlist);
 
 	}
 

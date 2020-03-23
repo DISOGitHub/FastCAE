@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "HullCutPlugin.h"
 #include "GeometryWidgets/geoDialogBase.h"
-#include "SelfDefObject\selfdeflineedit.h"
+#include "SelfDefObject/selfdeflineedit.h"
 #include "qtablewidget.h"
 
 namespace Ui

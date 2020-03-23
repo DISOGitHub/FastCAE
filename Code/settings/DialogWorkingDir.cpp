@@ -30,7 +30,7 @@ void WorkingDirDialog::accept()
 {
 	QString path = _ui->lineEdit->text();
 	QDir dir(path);
-	if (!dir.exists())
+	if (!dir.exists() || path.isEmpty())
 	{
 		QMessageBox::warning(this, tr("Warning"), tr("The Dir is not exist!"));
 		_ui->lineEdit->clear();

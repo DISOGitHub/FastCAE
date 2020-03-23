@@ -301,6 +301,15 @@ namespace FastCAEDesigner{
 		displayInstallInfo(QString("Copy Solvers failed!"));
 	}
 
+	///<MG 拷贝用户说明文档
+	QString doc_dir_from = caePath + "/Doc";
+	QString doc_dir_to = caePath + sysPath + "configfiles/data/Doc";
+	dir.mkpath(doc_dir_to);
+	result = copyDirectory(doc_dir_from, doc_dir_to, true);
+	if (!result){
+		displayInstallInfo(QString("Copy Doc failed!"));
+	}
+
 	///<MG 拷贝应用
 	//QString core_dir_from = caePath + "/GUI";
 	QString core_dir_from = path;
@@ -463,12 +472,12 @@ namespace FastCAEDesigner{
 
 		QDomElement name = doc.createElement("DisplayName");
 		root.appendChild(name);
-		QDomText nameText = doc.createTextNode(_softName + " Configure Files And Solvers Package");
+		QDomText nameText = doc.createTextNode(_softName + " Configure Files , Solvers Package And User Documentation");
 		name.appendChild(nameText);
 
 		QDomElement desc = doc.createElement("Description");
 		root.appendChild(desc);
-		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	配置文件包是一个包含项目所有必须配置环境及依赖文件和用户求解器环境的安装包，该安装包默认必须安装！"));
+		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	配置文件包是一个包含项目所有必须配置环境及依赖文件,用户求解器环境的安装包和用户说明文档，该安装包默认必须安装！"));
 		desc.appendChild(descText);
 
 		QDomElement version = doc.createElement("Version");

@@ -34,20 +34,19 @@ namespace PluginShip
 
 	ShipTreeDock::~ShipTreeDock()
 	{
-		//_ac->setEnabled(true);
+		
 	}
 	void ShipTreeDock::init()
 	{
-		QTreeWidget *treeWidget = new QTreeWidget;  //创建树形控件
-		QStringList headers;//树头
+		QTreeWidget *treeWidget = new QTreeWidget;  
+		QStringList headers;
 		headers <<QString( tr("Ship Interaction Kit"));
 		treeWidget->setHeaderLabels(headers);
 		_treeWidget = treeWidget; 
-		QStringList rootTextList;	//树的根节点
+		QStringList rootTextList;	
 		rootTextList << tr("Hull") ;
 
 		QTreeWidgetItem *root = new QTreeWidgetItem(treeWidget, rootTextList);
-
 		QTreeWidgetItem* item1 = new QTreeWidgetItem(root, QStringList() << QString(tr("Model import")), ShipTreeItemType::ShipKitModelImport);
 		QTreeWidgetItem* item2 = new QTreeWidgetItem(root, QStringList() << QString(tr("Type table")), ShipTreeItemType::ShipKitTypeTable);
 		QTreeWidgetItem* item3 = new QTreeWidgetItem(root, QStringList() << QString(tr("Hull Cut")), ShipTreeItemType::ShipKitHullCut);
@@ -60,14 +59,11 @@ namespace PluginShip
 		QTreeWidgetItem* itemoceancurrent = new QTreeWidgetItem(item4, QStringList() << QString(tr("OceanCurrent")), ShipTreeItemType::ParameterConfigOceanCurrent);
 		QTreeWidgetItem* itemwavespectrum = new QTreeWidgetItem(item4, QStringList() << QString(tr("WaveSpectrum")), ShipTreeItemType::ParameterConfigWaveSpectrum);
 
-
-
 		QList<QTreeWidgetItem *> rootList;
 		rootList << root;
 		treeWidget->insertTopLevelItems(0, rootList);  //将树形选项 添加入Tree控件
 		setWidget(treeWidget);
 		treeWidget->expandAll();
-	
 		connect(treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotOpenDialog(QTreeWidgetItem*, int)));
 		
 	}
@@ -81,76 +77,79 @@ namespace PluginShip
 	{
 		QTreeWidgetItem* currentItem = _treeWidget->currentItem();
 	
-		switch (currentItem->type())
-		{
-		case  ShipTreeItemType::ShipKitModelImport:
-		{
-			QString dir = Setting::BusAPI::instance()->getWorkingDir();
-			ConfigOption::GeometryConfig* geoconfig = ConfigOption::ConfigOption::getInstance()->getGeometryConfig();
-			QString conSuffix = geoconfig->getImportSuffix().toLower();
-			QStringList sl = conSuffix.split(";");
-			conSuffix.clear();
-			for (QString s : sl)
+			switch (currentItem->type())
 			{
-				conSuffix += " *." + s;
-			}
-			conSuffix = QString("Geometry Files(%1)").arg(conSuffix);
-			QString regSuffix{};
+				case  ShipTreeItemType::ShipKitModelImport:
+				{
+					QString dir = Setting::BusAPI::instance()->getWorkingDir();
+					ConfigOption::GeometryConfig* geoconfig = ConfigOption::ConfigOption::getInstance()->getGeometryConfig();
+					QString conSuffix = geoconfig->getImportSuffix().toLower();
+					QStringList sl = conSuffix.split(";");
+					conSuffix.clear();
+					for (QString s : sl)
+					{
+						conSuffix += " *." + s;
+					}
+					conSuffix = QString("Geometry Files(%1)").arg(conSuffix);
+					QString regSuffix{};
 
-			QString title = tr("Import Geometry");
-			QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix + regSuffix + ";;All Files(*.*)");
-			if (filenames.isEmpty()) return;
+					QString title = tr("Import Geometry");
+					QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix + regSuffix + ";;All Files(*.*)");
+					if (filenames.isEmpty()) return;
 
-			QString files = filenames.join(",");
-			QString pycode = QString("MainWindow.importGeometry(\"%1\")").arg(files);
-			Py::PythonAagent::getInstance()->submit(pycode);
-		}
-			break;
-			
-		case  ShipTreeItemType::ShipKitTypeTable:
-			{
-				PluginShip::ModelImportDialog* dlg = new PluginShip::ModelImportDialog(_mainWindow);
-				dlg->exec();
-			}break;
-			
-		case  ShipTreeItemType::ShipKitHullCut:
-		{
-			PluginShip::HullCutDialog* dlg = new PluginShip::HullCutDialog(_mainWindow);
-			dlg->show();
-		}
-		case  ShipTreeItemType::ParameterConfig:
-			qDebug() << "ParameterConfig"; break;
-		case  ShipTreeItemType::ParameterConfigWind:
-		{
-			PluginShip::ConfigWindDialog* dlg = new PluginShip::ConfigWindDialog(_mainWindow);
-			dlg->show();
-		} break;
+					QString files = filenames.join(",");
+					QString pycode = QString("MainWindow.importGeometry(\"%1\")").arg(files);
+					Py::PythonAagent::getInstance()->submit(pycode);
+				}break;
 
-		case  ShipTreeItemType::ParameterConfigWave:
-		{
-			PluginShip::ConfigWaveDialog* dlg = new PluginShip::ConfigWaveDialog(_mainWindow);
-			dlg->show();
-		} break;
+				case  ShipTreeItemType::ShipKitTypeTable:
+				{
+					PluginShip::ModelImportDialog* dlg = new PluginShip::ModelImportDialog(_mainWindow);
+					dlg->exec();
+				}break;
 
-		case  ShipTreeItemType::ParameterConfigOceanCurrent:
-		{
-			PluginShip::ConfigOceanCurrentDialog* dlg = new PluginShip::ConfigOceanCurrentDialog(_mainWindow);
-			dlg->show();
-		}break;
+				case  ShipTreeItemType::ShipKitHullCut:
+				{
+					PluginShip::HullCutDialog* dlg = new PluginShip::HullCutDialog(_mainWindow);
+					dlg->show();
+				}break;
 
-		case  ShipTreeItemType::ParameterConfigWaveSpectrum:
-		{
-			PluginShip::ConfigWaveSpectrumDialog* dlg = new PluginShip::ConfigWaveSpectrumDialog(_mainWindow);
-			dlg->show();
-		} break;
+				case  ShipTreeItemType::ParameterConfig:
+					qDebug() << "ParameterConfig"; break;
 
-		case  ShipTreeItemType::ShipKitPost:
-		{
-			QString pycode = QString("MainWindow.openPost3D()");
-			Py::PythonAagent::getInstance()->submit(pycode);
-		} break;
-		default:
-			break;
+				case  ShipTreeItemType::ParameterConfigWind:
+				{
+					PluginShip::ConfigWindDialog* dlg = new PluginShip::ConfigWindDialog(_mainWindow);
+					dlg->show();
+				} break;
+
+				case  ShipTreeItemType::ParameterConfigWave:
+				{
+					PluginShip::ConfigWaveDialog* dlg = new PluginShip::ConfigWaveDialog(_mainWindow);
+					dlg->show();
+				} break;
+
+				case  ShipTreeItemType::ParameterConfigOceanCurrent:
+				{
+					PluginShip::ConfigOceanCurrentDialog* dlg = new PluginShip::ConfigOceanCurrentDialog(_mainWindow);
+					dlg->show();
+				}break;
+
+				case  ShipTreeItemType::ParameterConfigWaveSpectrum:
+				{
+					PluginShip::ConfigWaveSpectrumDialog* dlg = new PluginShip::ConfigWaveSpectrumDialog(_mainWindow);
+					dlg->show();
+				} break;
+
+				case  ShipTreeItemType::ShipKitPost:
+				{
+					QString pycode = QString("MainWindow.openPost3D()");
+					Py::PythonAagent::getInstance()->submit(pycode);
+				} break;
+
+				default:
+					break;
+
 		}
 	}
 

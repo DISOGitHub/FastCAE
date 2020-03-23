@@ -71,9 +71,10 @@ namespace FastCAEDesigner
 		*/
 	}
 
-	void ParaUserManualSetup::showEvent(QShowEvent *)
+	void ParaUserManualSetup::showEvent(QShowEvent *e)
 	{
 		OpenFile(_fileName);
+		QDialog::showEvent(e);
 	}
 
 	void ParaUserManualSetup::Sleep(int msec)

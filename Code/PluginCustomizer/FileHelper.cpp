@@ -3,6 +3,7 @@
 #include <QString>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QFileInfo>
 
 namespace FastCAEDesigner
 {
@@ -30,31 +31,39 @@ namespace FastCAEDesigner
 	//¿½±´ÎÄ¼þ£º
 	bool FileHelper::CopyFileToPath(QString sourceDir, QString destDir, bool coverFileIfExist)
 	{
-		qDebug() << sourceDir << destDir;
-		destDir.replace("\\", "/");
-
-		if (sourceDir == destDir)
-			return true;
+	//	qDebug() << sourceDir << destDir;
+// 		destDir.replace("\\", "/");
+// 
+// 		if (sourceDir == destDir)
+// 			return true;
 		
+// 		if (!QFile::exists(sourceDir))
+// 			return false;
 		if (!QFile::exists(sourceDir))
 			return false;
+
+		QFileInfo sorFile(sourceDir);
+		QFileInfo desFile(destDir);
+
+		if (sorFile.absoluteFilePath() == desFile.absoluteFilePath())
+			return true;
 		
-// 		QDir *createfile = new QDir;
-// 		bool exist = createfile->exists(destDir);
-// 
-// 		if (exist)
-// 		{
-// 			if (coverFileIfExist)
-// 			{
-// 				createfile->remove(destDir);
-// 			}
-// 		}
+		QDir *createfile = new QDir;
+		bool exist = createfile->exists(destDir);
+
+		if (exist)
+		{
+			if (coverFileIfExist)
+			{
+				createfile->remove(destDir);
+			}
+		}
 
 		if (!QFile::copy(sourceDir, destDir))
 			return false;
 		
-// 		delete createfile;
-// 		createfile = nullptr;
+		delete createfile;
+		createfile = nullptr;
 
 		return true;
 	}

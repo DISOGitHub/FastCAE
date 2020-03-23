@@ -4,11 +4,11 @@
 #include <QWidget>
 #include "HullCutPlugin.h"
 #include "GeometryWidgets/geoDialogBase.h"
-#include "SelfDefObject\selfdeflineedit.h"
+#include "SelfDefObject/selfdeflineedit.h"
 #include "qbuttongroup.h"
 #include "qtablewidget.h"
 #include <qmessagebox.h>
-#include "moduleBase\Random.h"
+#include "moduleBase/Random.h"
 
 #define INVALID_DOUBLE -1e50  //无效的浮点数
 #define PI 3.14

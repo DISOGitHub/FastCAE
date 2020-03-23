@@ -55,7 +55,6 @@ namespace Plugins
 		return true;
 	} 
 
-
 	void HullCutPlugin::preWindowOpened(MainWidget::PreWindow* pw)
 	{
 		_actions->preWindowOpened(pw);
@@ -66,7 +65,5 @@ namespace Plugins
 
 		_actions->preWindowClosed();
 	}
-
-
 
 }

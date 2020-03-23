@@ -14,7 +14,7 @@ HEADERS += \
 	$$PWD/dialogSingleCurve.h \
 	$$PWD/dialogInputData.h \
 	$$PWD/ModelPoint.h \
-	
+	$$PWD/cleaner.hpp	\
 	
 SOURCES += \
 	$$PWD/HullCutPlugin.cpp \

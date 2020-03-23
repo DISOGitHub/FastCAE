@@ -18,7 +18,7 @@
 #undef min
 #endif
 
-#include "PostWidgets\Post2DWidget.h"
+#include "PostWidgets/Post2DWidget.h"
 using namespace std;
 
 #define INVALID_DOUBLE -1e50  //无效的浮点数
