@@ -1,41 +1,41 @@
 @echo off
-echo  ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-echo    FastCAE¿ª·¢»·¾³Ò»¼üÅäÖÃ Windows10°æ
+echo  â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+echo    FastCAEå¼€å‘ç¯å¢ƒä¸€é”®é…ç½® Windows10ç‰ˆ
 echo.
-echo      ±¾³ÌĞò½«Íê³ÉÒÔÏÂ¼¸µã¹¤×÷£º
-echo      1. È·ÈÏ°²×°±ØÒªµÄ¿ª·¢¹¤¾ß£»
-echo      2. ¿½±´µÚÈı·½¿â£»
-echo      3. Éú³É±ØÒªµÄÔËĞĞ»·¾³£»
-echo      4. ´ò¿ªVisual Studio IDE¡£
+echo      æœ¬ç¨‹åºå°†å®Œæˆä»¥ä¸‹å‡ ç‚¹å·¥ä½œï¼š
+echo      1. ç¡®è®¤å®‰è£…å¿…è¦çš„å¼€å‘å·¥å…·ï¼›
+echo      2. æ‹·è´ç¬¬ä¸‰æ–¹åº“ï¼›
+echo      3. ç”Ÿæˆå¿…è¦çš„è¿è¡Œç¯å¢ƒï¼›
+echo      4. æ‰“å¼€Visual Studio IDEã€‚
 echo.
-echo   ÇëÎñ±ØÈ·ÈÏµ±Ç°²Ù×÷ÏµÍ³ÖĞ Qt, Visual Studio¾ùÒÑÕıÈ·°²×°£¡
+echo   è¯·åŠ¡å¿…ç¡®è®¤å½“å‰æ“ä½œç³»ç»Ÿä¸­ Qt, Visual Studioå‡å·²æ­£ç¡®å®‰è£…ï¼
 echo.
-echo   ÈçÓö°²×°ÎÊÌâ£¬ÇëÁªÏµFastCAE¿ª·¢Ğ¡×é£¡
+echo   å¦‚é‡å®‰è£…é—®é¢˜ï¼Œè¯·è”ç³»FastCAEå¼€å‘å°ç»„ï¼
 echo.
-echo  ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+echo  â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 
 echo.  
-echo ÇëÈ·ÈÏÒÑ¾­°²×°Qt5.4.2ºÍVisual Studio 2013!
+echo è¯·ç¡®è®¤å·²ç»å®‰è£…Qt5.4.2å’ŒVisual Studio 2013!
 echo.
 
 cd /d "%~dp0"
 
 set currentPath=%cd%
 
-echo ÇëÊäÈëqmake.exeËùÔÚÂ·¾¶£¬ÀıÈç£ºC:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
+echo è¯·è¾“å…¥qmake.exeæ‰€åœ¨è·¯å¾„ï¼Œä¾‹å¦‚ï¼šC:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
 echo.
-set /p qmakeDir=ÇëÊäÈë:
+set /p qmakeDir=è¯·è¾“å…¥:
 echo.
 set qmakePath=%qmakeDir%\qmake.exe
 echo.
 
 
-echo ÇëÊäÈëVisual Studio 2013°²×°Ä¿Â¼£¬ÀıÈç£ºC:\Program Files (x86)\Microsoft Visual Studio 12.0\
-echo (¸ÃÄ¿Â¼ÏÂ´æÔÚVC¡¢Common7µÈÎÄ¼ş¼Ğ)
+echo è¯·è¾“å…¥Visual Studio 2013å®‰è£…ç›®å½•ï¼Œä¾‹å¦‚ï¼šC:\Program Files (x86)\Microsoft Visual Studio 12.0\
+echo (è¯¥ç›®å½•ä¸‹å­˜åœ¨VCã€Common7ç­‰æ–‡ä»¶å¤¹)
 echo.
-set /p VSDir=ÇëÊäÈë:
+set /p VSDir=è¯·è¾“å…¥:
 echo.
-echo ÕıÔÚÉú³ÉÅú´¦Àí½Å±¾...
+echo æ­£åœ¨ç”Ÿæˆæ‰¹å¤„ç†è„šæœ¬...
 echo.
 
 :Replace
@@ -44,7 +44,7 @@ for /d  %%d in ("%currentPath%\Code\*") do (
 if exist "%%d\_Create_project.bat" (
 cd %%d
 for /f "delims=" %%a in ('dir /b *.pro') do (
-rem ¸÷¹¤³ÌµÄqmake½Å±¾
+rem å„å·¥ç¨‹çš„qmakeè„šæœ¬
 echo. > %%d\_Create_project.bat
 echo call "%VSDir%\VC\bin\amd64\vcvars64.bat" >> %%d\_Create_project.bat
 
@@ -58,7 +58,7 @@ echo pause >> %%d\_Create_project.bat
 )
 )
 
-rem ×ÜÌåµÄ¹¤³Ì½Å±¾
+rem æ€»ä½“çš„å·¥ç¨‹è„šæœ¬
 echo. >%codePath%\Create_X64_Project.bat
 echo call "%VSDir%\VC\bin\amd64\vcvars64.bat" >> %codePath%\Create_X64_Project.bat
 echo. >> %codePath%\Create_X64_Project.bat 
@@ -76,7 +76,7 @@ echo. >> %codePath%\Create_X64_Project.bat
 echo pause >> %codePath%\Create_X64_Project.bat 
 
 :VS
-rem Æô¶¯Visual studio 2013
+rem å¯åŠ¨Visual studio 2013
 echo. > %codePath%\Run_MSVC.bat
 echo @echo off>> %codePath%\Run_MSVC.bat
 echo %%1 mshta vbscript:CreateObject^("Shell.Application"^).ShellExecute^("cmd.exe","/c %%~s0 ::","","runas",1^)^(window.close^)^&^&exit >> %codePath%\Run_MSVC.bat
@@ -85,9 +85,9 @@ echo. >> %codePath%\Run_MSVC.bat
 echo start "%VSDir%\Common7\IDE\devenv.exe" FastCAE.sln >> %codePath%\Run_MSVC.bat
 echo. >> %codePath%\Run_MSVC.bat
 
-echo Åú´¦Àí½Å±¾ĞÅÏ¢¸üĞÂÍê±Ï£¡
+echo æ‰¹å¤„ç†è„šæœ¬ä¿¡æ¯æ›´æ–°å®Œæ¯•ï¼
 echo.
-echo ½ÓÏÂÀ´½«Éú³É¿ª·¢»·¾³¡£¡£¡£
+echo æ¥ä¸‹æ¥å°†ç”Ÿæˆå¼€å‘ç¯å¢ƒã€‚ã€‚ã€‚
 echo.
 pause
 
@@ -159,19 +159,19 @@ cd %currentPath%
 
 mkdir %currentPath%\output\bin_d\gmsh
 mkdir %currentPath%\output\bin\gmsh
-copy /y "%codePath%\Gmsh\gmsh441\gmsh.exe" "%currentPath%\output\bin_d\gmsh"
-copy /y "%codePath%\Gmsh\gmsh441\gmsh.exe" "%currentPath%\output\bin\gmsh"
-copy /y "%codePath%\Gmsh\gmsh441\gmsh.Geo" "%currentPath%\output\bin_d\gmsh"
-copy /y "%codePath%\Gmsh\gmsh441\gmsh.Geo" "%currentPath%\output\bin\gmsh"
+copy /y "%codePath%\Gmsh\gmsh454\gmsh.exe" "%currentPath%\output\bin_d\gmsh"
+copy /y "%codePath%\Gmsh\gmsh454\gmsh.exe" "%currentPath%\output\bin\gmsh"
+copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin_d\gmsh"
+copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin\gmsh"
 
-echo ÏÂÃæ½«Æô¶¯Visual Studio 2013
+echo ä¸‹é¢å°†å¯åŠ¨Visual Studio 2013
 echo.
 pause
 call "%codePath%\Run_MSVC.bat"
 
 
 :finish
-echo ÉèÖÃÏîÄ¿È«²¿Íê³É£¬³ÌĞò¼´½«ÍË³ö£¡
+echo è®¾ç½®é¡¹ç›®å…¨éƒ¨å®Œæˆï¼Œç¨‹åºå³å°†é€€å‡ºï¼
 echo.
 pause
 exit
