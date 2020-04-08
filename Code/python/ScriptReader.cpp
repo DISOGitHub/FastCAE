@@ -15,6 +15,12 @@ namespace Py
 		_fileName = filename;
 		_agent = agent;
 	}
+
+	ScriptReader::~ScriptReader()
+	{
+
+	}
+
 	void ScriptReader::run()
 	{
 		QFile file(_fileName);
@@ -26,7 +32,7 @@ namespace Py
 		QTextStream stream(&file);
 		while (!stream.atEnd())
 		{
-			while (_locker);
+			if (_locker) continue;
 			QString line = stream.readLine().simplified();
 			
 			qDebug() << "read: " << line;

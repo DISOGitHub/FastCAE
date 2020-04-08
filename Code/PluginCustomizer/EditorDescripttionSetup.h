@@ -24,6 +24,7 @@ namespace DataProperty
 	class ParameterBase;
 	class ParameterList;
 	class ParameterGroup;
+	class DataBase;
 }
 
 namespace FastCAEDesigner
@@ -37,6 +38,9 @@ namespace FastCAEDesigner
 		~EditorDescripttionSetup();
 		void resizeEvent(QResizeEvent *e);
 		virtual void showEvent(QShowEvent *e);
+
+	signals:
+		void dispalyParameterLinkageManager();
 
 	private slots:
 		void OnBtnOkClicked();
@@ -82,6 +86,9 @@ namespace FastCAEDesigner
 		void OnTimeout();
 		void OnBtnShowGroupClicked();
 
+		//xuxinwei
+		void OnParameterLinkagePBtnClicked();
+
 	private:
 		void Init();
 		void UpdateDataToUi();
@@ -107,6 +114,9 @@ namespace FastCAEDesigner
 		DataProperty::ParameterGroup* GetCurrentSelecctedGroup();
 		DataProperty::ParameterBase* GetSelectedGroupParameter();
 
+		//20200326 xuxinwei  获取算例名称
+		QString getCaseName(ModelBase* model);
+
 	private:
 		//当前操作对象枚举说明
 		enum ECurrentOpObject
@@ -126,6 +136,9 @@ namespace FastCAEDesigner
 		int _paraListColNum{ 4 };//参数列表列数
 		int _groupListColNum{ 2 };//参数组列表列数
 		ECurrentOpObject _currentOpObject{ ParaList };//当前操作的时参数列表还是参数组的参数列表
+
+		//20200326   xuxinwei  仿真和求解所有参数列表
+		QList<DataProperty::ParameterBase*> _parameterList;
 		
 	};
 }

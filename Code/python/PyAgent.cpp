@@ -109,7 +109,12 @@ namespace Py
 		qDebug() << "submit: " << code;
 		emit printInfo(ModuleBase::Python, code);
 //		lock();
-		_interpreter->execCode(code,s);
+		int ok = _interpreter->execCode(code,s);
+		if (ok == -1)
+		{
+			if (_reader != nullptr)
+				_reader->restart();
+		}
 		
 	}	
 

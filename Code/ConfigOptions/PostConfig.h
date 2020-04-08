@@ -12,7 +12,7 @@ namespace ConfigOption
 	class CONFIGOPTIONSAPI PostConfig
 	{
 	public:
-		PostConfig() = default;
+		PostConfig();
 		~PostConfig() = default;
 
 		void enablePost(bool on);

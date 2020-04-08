@@ -6,10 +6,8 @@
 #include "ConfigOptions/MaterialConfig.h"
 #include <QDebug>
 #include <QMessageBox>
-// #include "ModelData/modelDataSingleton.h"
-// #include "ModelData/modelDataBase.h"
-// #include "ModelData/modelDataBaseExtend.h"
 #include "Material/MaterialFactory.h"
+#include "python/PyAgent.h"
 
 namespace MainWidget
 {
@@ -53,6 +51,8 @@ namespace MainWidget
 			return;
 		}
 		bool isequal = false;
+
+
 		Material::MaterialSingleton* s = Material::MaterialSingleton::getInstance();
 		const int nmodle = s->getMaterialCount();
 		for (int i = 0; i < nmodle; ++i)
@@ -80,7 +80,10 @@ namespace MainWidget
 			return;
 		}
 
-		Material::Material* material = nullptr;
+		QString code = QString("ControlPanel.CreateMaterial('%1','%2')").arg(name).arg(type);
+		Py::PythonAagent::getInstance()->submit(code);
+
+		/*Material::Material* material = nullptr;
 
 		auto ma = ConfigOption::ConfigOption::getInstance()->getMaterialConfig()->getMaterialByType(type);
 		if (ma != nullptr)
@@ -100,7 +103,9 @@ namespace MainWidget
 		}
 		material->setName(name);
 		
-		Material::MaterialSingleton::getInstance()->appendMaterial(material);
+		Material::MaterialSingleton::getInstance()->appendMaterial(material);*/
+
+
 		QDialog::accept();
 	
 	}

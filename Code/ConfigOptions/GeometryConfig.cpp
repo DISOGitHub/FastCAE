@@ -1,7 +1,17 @@
 #include "GeometryConfig.h"
 
+#define GEOON true;
+#define GEOOFF false;
+#define GEOIMPORT  "stp;step;igs;iges;brep"
+#define GEOEXPORT  "stp;step;igs;iges;brep"
+
 namespace ConfigOption
 {
+	GeometryConfig::GeometryConfig()
+	{
+		this->clearData();
+	}
+
 	//2019.11.20 xvxinwei Geometry modeling operations sketch
 	void GeometryConfig::enableGeometryModeling(bool on)
 	{
@@ -49,11 +59,14 @@ namespace ConfigOption
 	}
 
 
+
 	void GeometryConfig::clearData()
 	{
-		_isCreateSketch = _isGeoModeling = _isGeoOperations = false;
-		_importSuffix.clear();
-		_exportSuffix.clear();
+		_importSuffix = GEOIMPORT;
+		_exportSuffix = GEOEXPORT;
+		_isGeoModeling = GEOON;
+		_isGeoOperations = GEOON;
+		_isCreateSketch = GEOON;
 	}
 
 	bool GeometryConfig::isGeometryEnabled()

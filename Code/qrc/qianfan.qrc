@@ -132,6 +132,8 @@
         <file>QUI/geometry/selectbody.png</file>
         <file>QUI/icon/Plugin_ava.png</file>
         <file>QUI/icon/Plugin_ins.png</file>
+        <file>QUI/icon/FastCAEFrame.png</file>
+        <file>QUI/icon/ruler.png</file>
     </qresource>
     <qresource prefix="/Beauty">
         <file>QUI/beauty/radio_selected.png</file>

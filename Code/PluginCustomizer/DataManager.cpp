@@ -89,6 +89,12 @@ namespace FastCAEDesigner
 
 		_physicsList.clear();
 		DictTreeItemToModel.clear();
+
+		_iconNameList.clear();//20200324 xuxinwei
+
+		_allParameterDict.clear();
+		_allParameterGroupDict.clear();
+		_treeList.clear();
 	}
 	
 	DataManager* DataManager::getInstance()
@@ -298,12 +304,24 @@ namespace FastCAEDesigner
 		QString logoFile = _globalConfig->getLogo();
 		
 		if (!logoFile.isEmpty())
+		{
 			_logoFileName = destPath + logoFile;
+			setIconNameList(logoFile);
+		}
+// 		if (!logoFile.isEmpty())
+// 			_logoFileName = destPath + logoFile;
 		
 		QString welcomeFile = _globalConfig->getWelcome();
 
 		if (!welcomeFile.isEmpty())
+		{
 			_welcomeFileName = destPath + welcomeFile;
+			setIconNameList(welcomeFile);
+		}
+			
+
+// 		if (!welcomeFile.isEmpty())
+// 			_welcomeFileName = destPath + welcomeFile;
 
 // 		destPath = FileHelper::GetSystemConfigPath() + "doc//";
 // 		QString userManualFile = _globalConfig->GetUserManual();
@@ -632,5 +650,75 @@ namespace FastCAEDesigner
 			bool b = FileHelper::CopyFileToPath(fileName, path + desFileName, true);
 			qDebug() << b;
 		}
+	}
+
+	//20200324
+	void DataManager::setIconNameList(QString iconName)
+	{
+		_iconNameList.append(iconName);
+	}
+
+	bool DataManager::getIconNameIsAvailable(QString iconName)
+	{
+		for (int i = 0; i < _iconNameList.count(); i++)
+		{
+			if (_iconNameList.contains(iconName))
+				return false;
+		}
+
+		return true;
+	}
+
+	void DataManager::clearIconNameList()
+	{
+		this->_iconNameList.clear();
+	}
+
+	void DataManager::removeIconNameFromList(QString iconName)
+	{
+		_iconNameList.removeOne(iconName);
+	}
+
+	//20200325 xuxinwei
+	void DataManager::setAllParameterListDict(QString name, QList<DataProperty::ParameterBase*> list)
+	{
+		_allParameterDict.insert(name, list);
+	}
+
+	QList<DataProperty::ParameterBase*> DataManager::getAllParameterList(QString caseName)
+	{
+		return _allParameterDict[caseName];
+	}
+
+// 	void DataManager::setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list)
+// 	{
+// 		_parametersLinkageList = list;
+// 	}
+// 
+// 	QList<FastCAEDesigner::ParametersLinkage*> DataManager::getParametersLinkageList()
+// 	{
+// 		return _parametersLinkageList;
+// 	}
+	//20200325 xuxinwei
+
+
+	void DataManager::setAllParameterGroupListDict(QString name, QList<DataProperty::ParameterGroup*> list)
+	{
+		_allParameterGroupDict.insert(name, list);
+	}
+
+	QList<DataProperty::ParameterGroup*> DataManager::getAllParameterGroupList(QString caseName)
+	{
+		return _allParameterGroupDict[caseName];
+	}
+
+	void DataManager::setTreeList(QString name)
+	{
+		_treeList.append(name);
+	}
+
+	QList<QString> DataManager::getTreeList()
+	{
+		return _treeList;
 	}
 }

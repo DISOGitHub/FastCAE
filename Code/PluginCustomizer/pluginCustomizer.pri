@@ -54,7 +54,10 @@ HEADERS += \
 	$$PWD/EditorDependencyFiles.h \
 	$$PWD/Generateinstallationpackage.h \
 	$$PWD/ValidatorName.h \
-	
+	$$PWD/ParametersLinkage.h \
+	$$PWD/ParaLinkageManager.h \
+	$$PWD/ParaLinkageData.h \
+	$$PWD/ParaManagerData.h \
 	
 SOURCES += \
 	$$PWD/pluginCustomizer.cpp \
@@ -110,7 +113,10 @@ SOURCES += \
 	$$PWD/EditorDependencyFiles.cpp \
 	$$PWD/Generateinstallationpackage.cpp \
 	$$PWD/ValidatorName.cpp \
-
+	$$PWD/ParametersLinkage.cpp \
+	$$PWD/ParaLinkageManager.cpp \
+	$$PWD/ParaLinkageData.cpp \
+	$$PWD/ParaManagerData.cpp \
   
 	
 FORMS += \
@@ -139,6 +145,8 @@ FORMS += \
 	$$PWD/EditorSolverManager.ui \
 	$$PWD/EditorDependencyFiles.ui \
 	$$PWD/Generateinstallationpackage.ui \
+	$$PWD/ParametersLinkage.ui \
+	$$PWD/ParaLinkageManager.ui \
 
 
 

@@ -45,7 +45,7 @@ namespace FastCAEDesigner
 		QFileInfo sorFile(sourceDir);
 		QFileInfo desFile(destDir);
 
-		if (sorFile.absoluteFilePath() == desFile.absoluteFilePath())
+ 		if (sorFile.absoluteFilePath() == desFile.absoluteFilePath())
 			return true;
 		
 		QDir *createfile = new QDir;

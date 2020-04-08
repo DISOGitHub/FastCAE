@@ -24,7 +24,6 @@
 #include "geometry/geometryData.h"
 #include "geometry/geometryExporter.h"
 #include "meshData/meshSingleton.h"
-#include "settings/busAPI.h"
 #include "IO/ProjectFileIO.h"
 #include "ConfigOptions/ConfigOptions.h"
 #include "ConfigOptions/ProjectTreeConfig.h"
@@ -71,7 +70,9 @@
 #include "GeometryWidgets/dialogMakeMatrix.h"
 #include "GeometryWidgets/dialogCreateCylindricalComplex.h"
 #include "GeometryWidgets/dialogCreateBoxComplex.h"
+#include "GeometryWidgets/dialogMeasureDistance.h"
 #include "Gmsh/GmshModule.h"
+#include "UserGuidence/DialogUserGuidence.h"
 
 namespace GUI
 {
@@ -94,6 +95,7 @@ namespace GUI
 		connect(mainwindow->getUi()->actionSave_Picture, SIGNAL(triggered()), this, SLOT(saveImange()));
 		connect(mainwindow->getUi()->actionChecking, SIGNAL(triggered()), this, SLOT(meshChecking()));
 		connect(mainwindow, SIGNAL(showDialogSig(QDialog*)), this, SLOT(showDialog(QDialog*)));
+		connect(mainwindow, SIGNAL(clearDataSig()), this, SLOT(clearData()));
 
 		connect(this, SIGNAL(importMeshPySig(QStringList)), _mainWindow, SLOT(importMesh(QStringList)));
 		connect(this, SIGNAL(exportMeshPySig(QString)), this, SLOT(exportMeshPy(QString)));
@@ -103,6 +105,8 @@ namespace GUI
 		connect(this, SIGNAL(openProjectFileSig(QString)), this, SLOT(openProjectFile(QString)));
 		connect(this, SIGNAL(saveToProjectFileSig(QString)), this, SLOT(saveToProjectFile(QString)));
 		connect(this, SIGNAL(solveProjectSig(int, int)), this, SLOT(solveProject(int, int)));
+
+		connect(mainwindow->getUi()->actionUser_Guidance, SIGNAL(triggered()), this, SLOT(showUserGuidence()));
 
 		//创建几何
 		connect(mainwindow->getUi()->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -137,6 +141,7 @@ namespace GUI
 		connect(mainwindow->getUi()->actionDrawPolyline, SIGNAL(triggered()), this, SLOT(DrawGraphicsPolyline()));
 		connect(mainwindow->getUi()->actionMakeMatrix, SIGNAL(triggered()), this, SLOT(MakeMatrix()));
 		connect(mainwindow->getUi()->actionDrawSpline, SIGNAL(triggered()), this, SLOT(DrawGraphSpline()));
+		connect(mainwindow->getUi()->actionMeasure_Distance, SIGNAL(triggered()), this, SLOT(MeasureDistance()));
 		//connect(mainwindow->getUi()->actionDemo, SIGNAL(triggered()), this, SLOT(showDemo()));
 
 		_solveProcessManager = new SolveProcessManager;
@@ -405,6 +410,7 @@ namespace GUI
 		emit _mainWindow->updatePhysicsTreeSignal();
 		emit _mainWindow->updateMaterialTreeSig();
 		
+		Py::PythonAagent::getInstance()->unLock();
 	}
 	void SignalHandler::solveProjectPy(int projectIndex, int solverIndex)
 	{
@@ -637,6 +643,8 @@ namespace GUI
 		if (n > 0)
 			ui->actionGenMesh->setEnabled(true);
 
+		bool showGuidence = Setting::BusAPI::instance()->isEnableUserGuidence();
+
 	}
 	void SignalHandler::open2DPlotWindow()
 	{
@@ -695,7 +703,31 @@ namespace GUI
 		dlg.exec();
 	}
 
-	void SignalHandler::undo() 
+	void SignalHandler::showUserGuidence(bool start)
+	{
+		bool show = false;
+		QAction* ac = _mainWindow->getUi()->actionUser_Guidance;
+		bool inis = Setting::BusAPI::instance()->isEnableUserGuidence();
+		if (start)
+		{
+			show = inis;
+			ac->setChecked(inis);
+		}
+		else
+		{
+			bool che = ac->isChecked();
+			show = che;
+			Setting::BusAPI::instance()->isEnableUserGuidence(show);
+		}
+		if (!show) return;
+		if (!_launched) _launched = true;
+		else return;
+
+		auto dlg = new Guidence::UserGuidenceDialog(_mainWindow, ac);
+		 dlg->show();
+	}
+
+	void SignalHandler::undo()
 	{
 		QString pycode = QString("MainWindow.undo()");
 		Py::PythonAagent::getInstance()->submit(pycode);
@@ -1075,6 +1107,19 @@ namespace GUI
 		}
 		MainWidget::PreWindow *p = sw->getPreWindow();
 		GeometryWidget::MakeMatrixDialog* dlg = new GeometryWidget::MakeMatrixDialog(_mainWindow, p);
+		this->showDialog(dlg);
+	}
+
+	void SignalHandler::MeasureDistance()
+	{
+		SubWindowManager* sw = _mainWindow->getSubWindowManager();
+		if (!sw->isPreWindowOpened())
+		{
+			QMessageBox::warning(_mainWindow, tr("Warning"), tr("Open PreWindow First!"));
+			return;
+		}
+		MainWidget::PreWindow *p = sw->getPreWindow();
+		GeometryWidget::MeasureDistanceDialog* dlg = new GeometryWidget::MeasureDistanceDialog(_mainWindow, p);
 		this->showDialog(dlg);
 	}
 

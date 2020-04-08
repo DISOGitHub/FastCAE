@@ -52,6 +52,10 @@ namespace Setting
 		void setPlugins(QStringList p);
 		//获取已经加载的插件
 		QStringList getPlugins();
+		//设置是否需要用户向导
+		void isEnableUserGuidence(bool s);
+		bool isEnableUserGuidence();
+
 
 		QString getLicensePath() const;
 		void setLicensePath(const QString & licensePath);

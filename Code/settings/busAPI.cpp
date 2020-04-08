@@ -183,4 +183,14 @@ namespace Setting
 		return _mainSetting->getPlugins();
 	}
 
+	void BusAPI::isEnableUserGuidence(bool s)
+	{
+		_mainSetting->isShowUserGuidance(s);
+	}
+
+	bool BusAPI::isEnableUserGuidence()
+	{
+		return _mainSetting->isShowUserGuidance();
+	}
+
 }

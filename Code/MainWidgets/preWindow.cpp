@@ -329,4 +329,9 @@ namespace MainWidget
 
 
 
+	void PreWindow::setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items)
+	{
+		_geoProvider->setGeoSelectItems(items);
+	}
+
 }

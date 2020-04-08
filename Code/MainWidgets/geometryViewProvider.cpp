@@ -743,4 +743,9 @@ namespace MainWidget
 		return _selectItems;
 	}
 
+	void GeometryViewProvider::setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items)
+	{
+		_selectItems = items;
+	}
+
 }

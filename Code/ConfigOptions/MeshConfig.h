@@ -10,7 +10,7 @@ namespace ConfigOption
 	class CONFIGOPTIONSAPI MeshConfig
 	{
 	public:
-		MeshConfig() = default;
+		MeshConfig();
 		~MeshConfig() = default;
 		void clearData();
 

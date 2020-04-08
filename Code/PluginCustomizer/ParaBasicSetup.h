@@ -86,6 +86,8 @@ namespace FastCAEDesigner
 		QMainWindow* _mainWindow{};
 
 		GUI::SubWindowManager* _subWindow{};
+		//20200324
+		//QList<QString> _iconNameList{};
 	};
 }
 #endif // PARABASICSETUP_H

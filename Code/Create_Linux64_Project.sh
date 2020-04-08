@@ -105,6 +105,10 @@ qmake -o Makefile GmshModule.pro
 #cp -d ./gmsh441/lib/*    ../../output/bin/
 make ver=release
 
+cd ../UserGuidence
+qmake -o Makefile mainWindow.pro
+make ver=release
+
 cd ../mainWindow
 qmake -o Makefile mainWindow.pro
 make ver=release

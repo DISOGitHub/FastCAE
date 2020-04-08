@@ -73,7 +73,7 @@ namespace MeshData
 
 	void MeshSet::appendMember(int ker, int id)
 	{
-		if (_members.contains(ker, id)) return;
+//		if (_members.contains(ker, id)) return;
 		_members.insert(ker, id);
 	}
 

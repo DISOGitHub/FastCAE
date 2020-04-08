@@ -359,12 +359,12 @@
 <context>
     <name>ModuleBase::PropPickerInteractionStyle</name>
     <message>
-        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="300"/>
+        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="301"/>
         <source>Node ID</source>
         <translation>节点ID</translation>
     </message>
     <message>
-        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="301"/>
+        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="302"/>
         <source>Coordinate</source>
         <translation>坐标</translation>
     </message>

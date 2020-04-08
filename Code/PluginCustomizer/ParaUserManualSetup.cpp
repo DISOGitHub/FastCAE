@@ -30,7 +30,7 @@ namespace FastCAEDesigner
 
 		this->setFixedSize(1050, 650);
 		//ui->widget->resize(900, 600);
-
+		//ui->gridLayout_2->
 		connect(ui->btnLoadDoc, SIGNAL(clicked()), this, SLOT(OnBtnLoadDocClicked()));
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));

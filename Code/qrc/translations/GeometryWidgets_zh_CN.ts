@@ -651,8 +651,8 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="156"/>
-        <source>Axis</source>
-        <translation>轴线</translation>
+        <source>Direction</source>
+        <translation>方向</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="162"/>
@@ -803,12 +803,18 @@
 <context>
     <name>GeometryWidget::CreateConeDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="130"/>
+        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="123"/>
+        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="133"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="130"/>
+        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="123"/>
+        <source>The two radii are equal!</source>
+        <translation>两端面半径相等!</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="133"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -848,18 +854,18 @@
 <context>
     <name>GeometryWidget::CreateExtrusionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="79"/>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="123"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="76"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="118"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="225"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="219"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="225"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="219"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -867,18 +873,18 @@
 <context>
     <name>GeometryWidget::CreateFaceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="114"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="112"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="114"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="112"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="73"/>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="183"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="74"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="179"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -891,18 +897,18 @@
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="119"/>
+        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="118"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="119"/>
+        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="118"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="54"/>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="183"/>
+        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="181"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -910,12 +916,12 @@
 <context>
     <name>GeometryWidget::CreateLineDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="194"/>
+        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="192"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="194"/>
+        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="192"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -923,18 +929,18 @@
 <context>
     <name>GeometryWidget::CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="113"/>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="137"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="107"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="129"/>
         <source>Selected TopEdge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="201"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="193"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="201"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="193"/>
         <source>Create failed ! </source>
         <translation>创建失败！</translation>
     </message>
@@ -942,12 +948,12 @@
 <context>
     <name>GeometryWidget::CreatePointDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="116"/>
+        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="115"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="116"/>
+        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="115"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -1004,33 +1010,41 @@
 <context>
     <name>GeometryWidget::MakeMatrixDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="301"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="326"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="319"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="344"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="301"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="326"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="319"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="344"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="80"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="381"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="396"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
 </context>
 <context>
+    <name>GeometryWidget::MeasureDistanceDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="65"/>
+        <source>Selected Object(%1)</source>
+        <translation>已选取对象(%1)</translation>
+    </message>
+</context>
+<context>
     <name>GeometryWidget::MirorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="173"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="175"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="173"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="175"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -1069,24 +1083,24 @@
 <context>
     <name>GeometryWidget::RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="186"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="184"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="186"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="184"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="69"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="276"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="272"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="90"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="294"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="290"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
@@ -1107,20 +1121,20 @@
 <context>
     <name>GeometryWidget::SweepDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="67"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="71"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="195"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="221"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="70"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="74"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="200"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="226"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="91"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="95"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="91"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="95"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -1134,18 +1148,18 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="118"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="226"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="223"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="118"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="226"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="223"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="183"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="181"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -1194,104 +1208,143 @@
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="121"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="290"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="507"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="293"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="510"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="166"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="335"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="552"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="338"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="555"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="173"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="342"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="559"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="345"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="562"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="180"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="349"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="566"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="183"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="352"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="569"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="192"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="361"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="585"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="195"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="364"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="588"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="199"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="368"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="578"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="202"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="371"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="581"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="209"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="387"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="212"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="390"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="235"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="445"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="238"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="448"/>
         <source>15</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="242"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="380"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="610"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="245"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="383"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="613"/>
         <source>Count</source>
         <translation>数目</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="284"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="287"/>
         <source>Direction 1</source>
         <translation>方向1</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="457"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="460"/>
         <source>Set Direction 2</source>
         <translation>设置方向2</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="465"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="468"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="477"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="480"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="489"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="492"/>
         <source>Basic Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="643"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="646"/>
         <source>Pitch Angle</source>
         <translation>角度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="665"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="668"/>
         <source>30</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="672"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="675"/>
         <source>deg</source>
         <translation>度</translation>
+    </message>
+</context>
+<context>
+    <name>MeasureaDistanceDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="20"/>
+        <source>Distance</source>
+        <translation>距离</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="26"/>
+        <source>Distance:</source>
+        <translation>距离:</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="33"/>
+        <source>0.00</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="52"/>
+        <source>mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="62"/>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="69"/>
+        <source>Object</source>
+        <translation>对象</translation>
+    </message>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="75"/>
+        <source>Selected Object(0)</source>
+        <translation>已选取对象(0)</translation>
     </message>
 </context>
 <context>

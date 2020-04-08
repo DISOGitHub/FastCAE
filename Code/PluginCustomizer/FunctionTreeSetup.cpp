@@ -67,6 +67,8 @@
 #include "BCBase/BCUserDef.h"
 #include "Material/Material.h"
 #include "FileHelper.h"
+#include "DataProperty/ParameterGroup.h"
+#include "ParaLinkageManager.h"
 
 
 
@@ -197,6 +199,9 @@ namespace FastCAEDesigner
 			if (nullptr == treeModel)
 				continue;
 
+			_parameterList.clear();
+			_parameterGroupList.clear();
+
 			QString nameEng = treeModel->getName();
 			QString nameChn = treeModel->getChinese();
 			QStringList disableItemList = treeModel->getDisableItems();
@@ -223,6 +228,12 @@ namespace FastCAEDesigner
 			FillPostData(postModel, type);
 
 			_physicsList.append(caseRoot);
+
+			//20200325 xuxinwei  添加仿真以及求解参数列表 
+			DataManager::getInstance()->setTreeList(nameChn);
+			DataManager::getInstance()->setAllParameterListDict(nameChn, _parameterList);
+			DataManager::getInstance()->setAllParameterGroupListDict(nameChn, _parameterGroupList);
+			//20200325 xuxinwei
 		}
 
 		projectTreeTypeList.clear();
@@ -286,8 +297,10 @@ namespace FastCAEDesigner
 
 		int count = bcConfig->getBCCount(type);
 
-		if (0 == count)
-			return;
+		//Modified xvdongming 2020-04-02 解决当边界根节点下面没有子节点时，边界条件无法填充的问题
+		//if (0 == count)
+		//	return;
+
 
 		QStringList conditionList = bcConfig->getEnabledType(type);
 		BoundaryModel* bcModel = (BoundaryModel*)model;
@@ -310,6 +323,12 @@ namespace FastCAEDesigner
 			ModelBase* childModel = CreateModelFactory(TreeItemType::ProjectBoundaryCondationChild);
 			childModel->SetEngName(nameEng);
 			childModel->SetChnName(nameChh);
+
+			//xuxinwei
+			if (!icon.isEmpty())
+			{
+				DataManager::getInstance()->setIconNameList(icon);
+			}
 
 			//Added xvdongming 将文件名称加上系统icon目录名
 			QString destPath = FileHelper::GetSystemConfigPath() + "icon/";
@@ -342,6 +361,14 @@ namespace FastCAEDesigner
 		DataProperty::DataBase* modelDataBase = new DataProperty::DataBase();
 		modelDataBase->copy(dataBase);
 		model->SetDataBase(modelDataBase);
+
+		//20200325   xuxinwei
+// 		for (int i = 0; i < modelDataBase->getParameterCount(); i++)
+// 		{
+// 			DataProperty::ParameterBase* base = modelDataBase->getParameterAt(i);
+// 			_parameterList.append(base);
+// 		}
+		insertParameterToList(modelDataBase);
 	}
 
 	void FunctionTreeSetup::FillSimulationAndSolverChildModel(ModelBase* caseRoot, ConfigOption::ProjectTreeInfo* treeModel, int projectTreeType)
@@ -377,8 +404,15 @@ namespace FastCAEDesigner
 			QString iconPath = "";
 			QString iconName = treeItem->getIcon();
 
+// 			if (!iconName.isEmpty())
+// 				iconPath = destPath + treeItem->getIcon();
+			//xuxinwei 20200324
 			if (!iconName.isEmpty())
+			{
 				iconPath = destPath + treeItem->getIcon();
+				DataManager::getInstance()->setIconNameList(iconName);
+			}
+			//xuxinwei 20200324
 
 			//childModel->SetIconName(treeItem->getIcon());
 			childModel->SetIconName(iconPath);
@@ -396,6 +430,15 @@ namespace FastCAEDesigner
 
 			modelDataBase->copy(dataBase);
 			childModel->SetDataBase(modelDataBase);
+
+			//20200325 xuxinwei
+// 			for (int i = 0; i < modelDataBase->getParameterCount(); i++)
+// 			{
+// 				DataProperty::ParameterBase* base = modelDataBase->getParameterAt(i);
+// 				_parameterList.append(base);
+// 			}
+			insertParameterToList(modelDataBase);
+			
 		}
 
 		caseTree.clear();
@@ -999,6 +1042,13 @@ namespace FastCAEDesigner
 		//QMenu* menu = new QMenu(ui->treeWidget);
 		int flag = 0;
 		QSignalMapper *signalMapper = new QSignalMapper(this);
+		QSignalMapper *nameMapper = new QSignalMapper(this);
+
+		ModelBase* model = DataManager::getInstance()->GetModelFromDict(treeNode);
+		if (model == nullptr)
+			return menu;
+		QString name = model->GetChnName();
+
 		QMenu *childmenu = new QMenu(tr("Show Child"), ui->treeWidget);
 		int childCount = treeNode->childCount();
 		for (int i = 0; i < childCount; i++)
@@ -1027,8 +1077,15 @@ namespace FastCAEDesigner
 			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnShowThis(int)));
 		}
 		QAction* deletetree = new QAction(tr("Delete"), this);
+		//QAction* paraLinkage = new QAction(tr("ParameterLinkage"), this);
+
 		menu->addAction(deletetree);
+		//menu->addAction(paraLinkage);
 		connect(deletetree, SIGNAL(triggered()), this, SLOT(OnDeleteItem()));
+
+		//connect(paraLinkage, SIGNAL(triggered()), nameMapper, SLOT(map()));
+		//nameMapper->setMapping(paraLinkage, name);
+		//connect(nameMapper, SIGNAL(mapped(QString)), this, SLOT(onShowParameterLinkage(QString)));
 
 		return menu;
 	}
@@ -1171,6 +1228,8 @@ namespace FastCAEDesigner
 		}
 		else//其他节点
 		{
+			SetParentModel(treeItem);
+
 			model->SetParentModelBase(parentModel);
 			int r = model->ShowEditor(treeItem, this);
 
@@ -1263,4 +1322,42 @@ namespace FastCAEDesigner
 		list.clear();
 	}
 
+	void FunctionTreeSetup::insertParameterToList(DataProperty::DataBase* model)
+	{
+		for (int i = 0; i < model->getParameterCount(); i++)
+		{
+			_parameterList.append(model->getParameterAt(i));
+		}
+
+		for (int i = 0; i < model->getParameterGroupCount(); i++)
+		{
+			DataProperty::ParameterGroup* paraGroup = model->getParameterGroupAt(i);
+			_parameterGroupList.append(paraGroup);
+			paraGroup->getParameterCount();
+			for (int j = 0; j < paraGroup->getParameterCount(); j++)
+			{
+				_parameterList.append(paraGroup->getParameterAt(j));
+			}
+			//qDebug() << i;
+		}
+	}
+
+	void FunctionTreeSetup::SetParentModel(QTreeWidgetItem* item)
+	{
+		while (item->parent() != nullptr)
+		{
+			ModelBase* model = DataManager::getInstance()->GetModelFromDict(item);
+			ModelBase* parenModel = DataManager::getInstance()->GetModelFromDict(item->parent());
+
+			model->SetParentModelBase(parenModel);
+
+			item = item->parent();
+		}
+	}
+
+	void FunctionTreeSetup::onShowParameterLinkage(QString name)
+	{
+		ParaLinkageManager dlg(name);
+		dlg.exec();
+	}
 }       

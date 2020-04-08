@@ -21,7 +21,7 @@ namespace Py
 		~PyInterpreter() = default;
 
 		bool init(PythonAagent* agent);
-		void execCode(QString code,bool save = true);
+		int execCode(QString code,bool save = true);
 		void execFile(QString file);
 		int getCodeCount();
 		QString getCodeAt(int i);

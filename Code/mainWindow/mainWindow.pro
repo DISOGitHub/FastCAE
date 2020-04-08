@@ -39,6 +39,7 @@ win32{
 	-L../../output/bin -lGeometryCommand \
 	-L../../output/bin -lGmshModule \
 	-L../../output/bin -lPluginManager \
+	-L../../output/bin -lUserGuidence \
   
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
@@ -67,6 +68,7 @@ win32{
 	-L../../output/bin_d -lGeometryCommand \
 	-L../../output/bin_d -lGmshModule \
 	-L../../output/bin_d -lPluginManager \
+	-L../../output/bin_d -lUserGuidence \
 
   message("Windows mainwindow build")
                                                
@@ -102,6 +104,7 @@ unix{
 	-L../../output/bin -lGeometryCommand \
 	-L../../output/bin -lGmshModule \
 	-L../../output/bin -lPluginManager \
+	-L../../output/bin -lUserGuidence \
 	
   message("Linux mainwindow build")
 }

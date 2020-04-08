@@ -36,6 +36,8 @@ namespace MainWidget
 		static void updatePostTree(int id);
 		static void viewCounter(int id, char* variable);
 		static void viewVector(int id, char* variable);
+		static void loadFromMaterialLib(char* namelist);
+		static void CreateMaterial(char* name,char*type);
 
 	private:
 		static GUI::MainWindow* _mainWindow;
@@ -62,6 +64,8 @@ extern "C"
 	void MAINWIDGETSAPI updatePostTree(int id);
 	void MAINWIDGETSAPI viewCounter(int id, char* variable);
 	void MAINWIDGETSAPI viewVector(int id, char* variable);
+	void MAINWIDGETSAPI loadFromMaterialLib(char* namelist);
+	void MAINWIDGETSAPI CreateMaterial(char* name,char* type);
 }
 
 #endif

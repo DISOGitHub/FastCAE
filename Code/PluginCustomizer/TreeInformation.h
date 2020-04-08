@@ -83,6 +83,8 @@ namespace FastCAEDesigner
 		QHash<int, QString> _errorList{};
 		QList<QString> _usedChnNameList;
 		QList<QString> _usedEngNameList;
+		//20200324
+		//QList<QString> _iconNameList;
 	};
 }
 

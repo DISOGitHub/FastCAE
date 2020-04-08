@@ -69,15 +69,15 @@
     <message>
         <location filename="../../mainWindow/mainWindow.cpp" line="376"/>
         <location filename="../../mainWindow/mainWindow.cpp" line="417"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="670"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="780"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="788"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="676"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="786"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="794"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
         <location filename="../../mainWindow/mainWindow.cpp" line="376"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="788"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="794"/>
         <source>Do you want to save current data ?</source>
         <translation>是否保存当前数据？</translation>
     </message>
@@ -123,38 +123,38 @@
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="662"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="668"/>
         <source>Please make sure &quot; %1 &quot; file exist!</source>
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
         <location filename="../../mainWindow/mainWindow.cpp" line="336"/>
-        <location filename="../../mainWindow/mainWindow.cpp" line="738"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="744"/>
         <source>Recent</source>
         <translation>最近文件</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="669"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="675"/>
         <source>%1 not exist !</source>
         <translation>%1 不存在！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="780"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="786"/>
         <source>File &quot;%1&quot; is not exist !</source>
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="838"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="851"/>
         <source>Save Script</source>
         <translation>保存脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="847"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="860"/>
         <source>Execute Script</source>
         <translation>执行脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="897"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="910"/>
         <source>Canvas %1mm * %2mm  </source>
         <translation>画布 %1mm * %2mm  </translation>
     </message>
@@ -162,87 +162,89 @@
 <context>
     <name>GUI::SignalHandler</name>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="166"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="200"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="417"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="760"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="773"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="786"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="800"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="814"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="828"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="842"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="855"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="901"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="915"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="928"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="942"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="977"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1052"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1073"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="171"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="205"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="423"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="792"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="805"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="818"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="832"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="846"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="860"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="874"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="887"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="933"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="947"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="960"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="974"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1009"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1084"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1105"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1118"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="166"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="171"/>
         <source>read Failed !</source>
         <translation>读取失败！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="200"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="205"/>
         <source>Write Failed !</source>
         <translation>写出失败！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="417"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="423"/>
         <source>%1 is Solving , Please wait...</source>
         <translation>%1正在求解，请等待…</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="434"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="440"/>
         <source>Solving-%1</source>
         <translation>正在求解-%1</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="470"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="476"/>
         <source>Mesh Generated &quot;%1&quot;</source>
         <translation>网格已生成“%1”</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="487"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="500"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="513"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="493"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="506"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="519"/>
         <source>Failed Export Mesh To &quot;%1&quot;</source>
         <translation>导出网格到%1失败</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="491"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="504"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="517"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="497"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="510"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="523"/>
         <source>Export Mesh To &quot;%1&quot;</source>
         <translation>导出网格到%1</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="523"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="529"/>
         <source>Unsupport data format!</source>
         <translation>不支持的文件类型！</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="760"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="773"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="786"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="800"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="814"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="828"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="842"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="855"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="901"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="915"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="928"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="942"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="977"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1052"/>
-        <location filename="../../mainWindow/signalHandler.cpp" line="1073"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="792"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="805"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="818"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="832"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="846"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="860"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="874"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="887"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="933"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="947"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="960"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="974"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1009"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1084"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1105"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="1118"/>
         <source>Open PreWindow First!</source>
         <translation>请先打开前处理窗口！</translation>
     </message>
@@ -258,45 +260,45 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="625"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="645"/>
         <source>Solve</source>
         <translation>求解</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="330"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="331"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="490"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="493"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="510"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="513"/>
         <source>New</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="496"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="516"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="505"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="508"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="525"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="528"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="511"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="531"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="535"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="538"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="555"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="558"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="523"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="543"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
@@ -321,17 +323,17 @@
         <translation>&amp;帮助</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="318"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="319"/>
         <source>&amp;Solve</source>
         <translation>&amp;求解</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="326"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="327"/>
         <source>&amp;Settings</source>
         <translation>&amp;设置</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="373"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="374"/>
         <source>Post</source>
         <translation>后处理</translation>
     </message>
@@ -361,59 +363,59 @@
         <translation>网格工具栏</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="526"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="546"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="826"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="846"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="553"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="573"/>
         <source>SaveAs</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="341"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="342"/>
         <source>&amp;Mesh</source>
         <translation>&amp;网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="345"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="405"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="346"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="406"/>
         <source>View</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="354"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="435"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="355"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="436"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="380"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="381"/>
         <source>Windows</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="387"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="388"/>
         <source>&amp;Geometry</source>
         <translation>&amp;几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="391"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="392"/>
         <source>Feature Modeling</source>
         <translation>特征建模</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="413"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="414"/>
         <source>Feature Operation</source>
         <translation>特征操作</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="446"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="447"/>
         <source>Sketch</source>
         <translation>草图</translation>
     </message>
@@ -437,6 +439,7 @@
         <location filename="../../mainWindow/MainWindow.ui" line="180"/>
         <location filename="../../mainWindow/MainWindow.ui" line="227"/>
         <location filename="../../mainWindow/MainWindow.ui" line="246"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="494"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
@@ -451,447 +454,467 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="469"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="460"/>
+        <source>在这里输入</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/MainWindow.ui" line="477"/>
         <source>Plugins</source>
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="541"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="561"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="577"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="580"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="597"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="600"/>
         <source>English</source>
         <translation>英文</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="589"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="609"/>
         <source>Import Mesh</source>
         <translation>导入网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="592"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="612"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="601"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="621"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="604"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="624"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="613"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="633"/>
         <source>WorkingDir</source>
         <translation>工作目录</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="637"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="657"/>
         <source>Solver Manager</source>
         <translation>求解器管理</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="649"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="669"/>
         <source>ViewXPlus</source>
         <translation>X正向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="661"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="681"/>
         <source>ViewXMinus</source>
         <translation>X负向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="673"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="693"/>
         <source>ViewYPlus</source>
         <translation>Y正向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="685"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="705"/>
         <source>ViewYMinus</source>
         <translation>Y负向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="697"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="717"/>
         <source>ViewZPlus</source>
         <translation>Z正向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="709"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="729"/>
         <source>ViewZMinus</source>
         <translation>Z负向</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="721"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="741"/>
         <source>FitView</source>
         <translation>适应窗口</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="739"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="759"/>
         <source>selectOff</source>
         <translation>清除选择</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="754"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="774"/>
         <source>selectMeshNode</source>
         <translation>选择网格节点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="769"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="789"/>
         <source>selectMeshCell</source>
         <translation>选择网格单元</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="778"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="798"/>
         <source>Solve Options</source>
         <translation>求解选项</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="787"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="807"/>
         <source>Graph Options</source>
         <translation>绘图选项</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="799"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="819"/>
         <source>SurfaceMesh</source>
         <translation>面网格剖分</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="811"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="831"/>
         <source>SolidMesh</source>
         <translation>体网格剖分</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="823"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="843"/>
         <source>Export Mesh</source>
         <translation>导出网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="835"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="861"/>
         <source>User Manual</source>
         <translation>用户手册</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="844"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="870"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="859"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="885"/>
         <source>DisplayNode</source>
         <translation>显示网格节点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="877"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="903"/>
         <source>DisplayWireFrame</source>
         <translation>显示线框</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="892"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="918"/>
         <source>DisplaySurface</source>
         <translation>显示网格面</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="910"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="913"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="936"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="939"/>
         <source>DisplaySurfaceEdge</source>
         <translation>显示网格面和边</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="925"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="951"/>
         <source>Create Set</source>
         <translation>创建组件</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="930"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="956"/>
         <source>2D Plot</source>
         <translation>二维绘图</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="935"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="961"/>
         <source>3D Graph</source>
         <translation>三维渲染</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="944"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="970"/>
         <source>Save Script</source>
         <translation>保存脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="953"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="979"/>
         <source>Execute Script</source>
         <translation>执行脚本</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="956"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="982"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="968"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="994"/>
         <source>GenMesh</source>
         <translation>生成网格</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="977"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1003"/>
         <source>Save Picture</source>
         <translation>保存图片</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="992"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1018"/>
         <source>BoxMeshNode</source>
         <translation>框选网格节点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1007"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1033"/>
         <source>BoxMeshCell</source>
         <translation>框选网格单元</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1012"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1038"/>
         <source>Start Page</source>
         <translation>开始页</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1017"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1043"/>
         <source>Pre Window</source>
         <translation>前处理窗口</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1030"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1056"/>
         <source>Checking</source>
         <translation>网格质量检查</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1039"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1065"/>
         <source>CreateBox</source>
         <translation>创建立方体</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1048"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1074"/>
         <source>CreateCylinder</source>
         <translation>创建圆柱体</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1057"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1083"/>
         <source>CreaterSphere</source>
         <translation>创建球体</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1066"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1092"/>
         <source>Chamfer</source>
         <translation>倒角</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1075"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1101"/>
         <source>Fillet</source>
         <translation>倒圆角</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1084"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1110"/>
         <source>BoolCut</source>
         <translation>求差</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1093"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1119"/>
         <source>BoolFause</source>
         <translation>求和</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1102"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1128"/>
         <source>BoolCommon</source>
         <translation>求交</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1111"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1137"/>
         <source>undo</source>
         <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1114"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1140"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1123"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1149"/>
         <source>redo</source>
         <translation>重做</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1126"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1152"/>
         <source>Ctrl+Y</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1135"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1161"/>
         <source>ExportGeometry</source>
         <translation>导出几何</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1144"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1170"/>
         <source>CreaterCone</source>
         <translation>创建圆台</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1153"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1179"/>
         <source>MirrorFeature</source>
         <translation>镜像特征</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1162"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1188"/>
         <source>Variable Fillet</source>
         <translation>可变圆角</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1171"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1197"/>
         <source>Extrude</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1180"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1206"/>
         <source>Create Point</source>
         <translation>创建点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1189"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1215"/>
         <source>Create Line</source>
         <translation>创建直线</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1198"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1224"/>
         <source>Create_Surface</source>
         <translation>创建平面</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1207"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1233"/>
         <source>Move</source>
         <translation>移动特征</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1216"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1242"/>
         <source>Rotate</source>
         <translation>转动特征</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1225"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1251"/>
         <source>Revol</source>
         <translation>旋转</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1234"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1260"/>
         <source>loft</source>
         <translation>放样</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1243"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1269"/>
         <source>Create Datum Plane</source>
         <translation>创建基准面</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1255"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1281"/>
         <source>DrawLine</source>
         <translation>直线</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1267"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1293"/>
         <source>DrawRectangle</source>
         <translation>矩形</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1279"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1305"/>
         <source>DrawCircle</source>
         <translation>圆形</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1291"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1317"/>
         <source>Create Sketch</source>
         <translation>草绘</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1306"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1332"/>
         <source>DrawArc</source>
         <translation>圆弧</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1315"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1341"/>
         <source>DrawPolyline</source>
         <translation>多段线</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1324"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="1327"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1350"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1353"/>
         <source>MakeMatrix</source>
         <translation>阵列</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1336"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1362"/>
         <source>Sweep</source>
         <translation>扫略</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1345"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1371"/>
         <source>DrawSpline</source>
         <translation>样条</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1360"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1386"/>
         <source>DisplayPoint</source>
         <translation>显示点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1375"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1401"/>
         <source>DisplayCurve</source>
         <translation>显示曲线</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1390"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1416"/>
         <source>DisplayFace</source>
         <translation>显示面</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1402"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1428"/>
         <source>SelectPoint</source>
         <translation>选择点</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1414"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1440"/>
         <source>SelectCurve</source>
         <translation>选择曲线</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1426"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1452"/>
         <source>SelectFace</source>
         <translation>选择面</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1438"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1464"/>
         <source>SelectGeometryBody</source>
         <translation>选择几何体</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="1443"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="1446"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1469"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1472"/>
         <source>Plugin Manager</source>
         <translation>插件管理</translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="556"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="1483"/>
+        <source>User Guidance</source>
+        <translation>用户引导</translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/MainWindow.ui" line="1492"/>
+        <source>Measure Distance</source>
+        <translation>测量距离</translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/MainWindow.ui" line="1497"/>
+        <source>Measure</source>
+        <translation>测量</translation>
+    </message>
+    <message>
+        <location filename="../../mainWindow/MainWindow.ui" line="576"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="628"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="648"/>
         <source>F5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="565"/>
-        <location filename="../../mainWindow/MainWindow.ui" line="568"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="585"/>
+        <location filename="../../mainWindow/MainWindow.ui" line="588"/>
         <source>Chinese</source>
         <translation>中文</translation>
     </message>

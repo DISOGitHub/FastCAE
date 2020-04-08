@@ -3,6 +3,8 @@
 #include "Material.h"
 #include "MaterialSingletion.h"
 #include <QMessageBox>
+#include "python/PyAgent.h"
+#include <QDebug>
 namespace Material
 {
 	LoadMaterialDialog::LoadMaterialDialog(GUI::MainWindow* m,QHash<QString, Material*> ma)
@@ -33,6 +35,10 @@ namespace Material
 	void LoadMaterialDialog::accept()
 	{
 		QStringList materiallist = this->getSelectedMaterials();
+		QString namelist = materiallist.join(",");
+		QString code = QString("ControlPanel.loadFromMaterialLib('%1')").arg(namelist);
+		Py::PythonAagent::getInstance()->submit(code);
+/*
 		const int n = materiallist.size();
 		if (n <= 0) return;
 		MaterialSingleton* s = MaterialSingleton::getInstance();
@@ -51,7 +57,7 @@ namespace Material
 			Material* nma = new Material;
 			nma->copy(ori);
 			s->appendMaterial(nma);
-		}
+		}*/
 
 		QDialog::accept();
 

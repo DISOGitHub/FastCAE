@@ -817,6 +817,13 @@ namespace GUI
 	{
 		qDebug() << "release";
 	}
+
+	void MainWindow::showEvent(QShowEvent *e)
+	{
+		QMainWindow::showEvent(e);
+		_signalHandler->showUserGuidence(true);
+	}
+
 	void MainWindow::on_CreateSet()
 	{
 		MainWidget::CreateSetDialog dlg(this,_subWindowManager->getPreWindow());

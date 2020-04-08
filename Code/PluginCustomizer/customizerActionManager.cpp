@@ -21,6 +21,7 @@
 #include "DataManager.h"
 #include "Generateinstallationpackage.h"
 #include <QCoreApplication>
+#include "ParaManagerData.h"
 
 namespace FastCAEDesigner
 {
@@ -54,6 +55,9 @@ namespace Plugins
 		_finishAction->setEnabled(true);
 		_cancelAction->setEnabled(true);
 		_shareAction->setEnabled(false);
+
+		//xuxinwei 20200324 
+		FastCAEDesigner::DataManager::getInstance()->clearIconNameList();
 
 		_mainWindow->getCustomizerHelper()->startCustomizer();
 
@@ -133,6 +137,7 @@ namespace Plugins
 			copySolverDependencyFiles(dependencyfiles, dependencyfilesPath);
 		}
 		
+		FastCAEDesigner::ParaManagerData::getInstance()->writeObserverConfig();
 
 		this->quitCustomizer();		
 	}

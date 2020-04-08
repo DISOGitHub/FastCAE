@@ -44,6 +44,11 @@ namespace GUI
 		_pyAgent = Py::PythonAagent::getInstance();
 	}
 
+	void MainWindowPy::clearData()
+	{
+		emit _mainWindow->clearDataSig();
+	}
+
 	void MainWindowPy::importMesh(char* f)
 	{
 		QString file(f);
@@ -1257,6 +1262,11 @@ namespace GUI
 
 
 
+	void MainWindowPy::updateInterface()
+	{
+		emit _mainWindow->updateInterfaces();
+	}
+
 }
 
 void importMesh(char* f)
@@ -1794,5 +1804,15 @@ void MAINWINDOWAPI undo()
 void MAINWINDOWAPI redo()
 {
 	GUI::MainWindowPy::redo();
+}
+
+void MAINWINDOWAPI clearData()
+{
+	GUI::MainWindowPy::clearData();
+}
+
+void MAINWINDOWAPI updateInterface()
+{
+	GUI::MainWindowPy::updateInterface();
 }
 

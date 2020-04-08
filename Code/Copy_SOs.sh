@@ -15,7 +15,7 @@ cp -a ../quazip/lib/libquazip.so   ../output/bin/
 #gmsh
 cp -a ./Gmsh/gmsh454/gmsh         ../output/bin/gmsh/
 cp -a ./Gmsh/gmsh454/gmsh.Geo         ../output/bin/gmsh/
-chmox +x ../output/bin/gmsh/gmsh
+chmod +x ../output/bin/gmsh/gmsh
 
 #QT
 cp -a /opt/Qt5.4.2/5.4/gcc_64/lib/libQt5Core.so    ../output/bin/

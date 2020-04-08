@@ -161,6 +161,8 @@ namespace GUI
 		void highLightSetSig(MeshData::MeshSet* set);
 		void highLightKernelSig(MeshData::MeshKernal* k);
 		void highLightDataSetSig(vtkDataSet* dataset);
+		//清空数据
+		void clearDataSig();
 		///更新前处理窗口所有几何网格Actor
 //		void updatePreActors();
 		/*创建物理模型 */
@@ -331,7 +333,7 @@ namespace GUI
 		//键盘按下事件
 		void keyPressEvent(QKeyEvent *e) override;
 		void keyReleaseEvent(QKeyEvent *e) override;
-
+		void showEvent(QShowEvent *e) override;
 	private:
 		Ui::MainWindow* _ui{};
 		Translator* _translator{};

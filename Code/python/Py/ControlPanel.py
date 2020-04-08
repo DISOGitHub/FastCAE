@@ -51,14 +51,20 @@ def updateBCSubTree(caseid):
 def updatePostTree(caseid):
   lib.updatePostTree(caseid)
   pass
-
-   
   
 def updateGeometrySubTree(caseid):
   lib.updateGeometrySubTree(caseid)
   pass
   
-	
+def loadFromMaterialLib(namelist):
+  namelist=bytes(namelist,encoding='utf-8')
+  lib.loadFromMaterialLib(namelist)
+
+def CreateMaterial(name,type):
+  name=bytes(name,encoding='utf-8')
+  type=bytes(type,encoding='utf-8')
+  lib.CreateMaterial(name, type)
+  pass
 
 
   

@@ -10,6 +10,19 @@
     </message>
 </context>
 <context>
+    <name>Gmsh::GmshThread</name>
+    <message>
+        <location filename="../../Gmsh/GmshThread.cpp" line="282"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../Gmsh/GmshThread.cpp" line="282"/>
+        <source>Gmsh is not exist !</source>
+        <translation>Gmsh不存在！</translation>
+    </message>
+</context>
+<context>
     <name>Gmsh::SolidMeshDialog</name>
     <message>
         <location filename="../../Gmsh/DialogSolidMesh.cpp" line="54"/>

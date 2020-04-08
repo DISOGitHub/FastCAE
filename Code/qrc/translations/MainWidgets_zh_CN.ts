@@ -121,15 +121,14 @@
 <context>
     <name>MainWidget::CreateMaterialDialog</name>
     <message>
-        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="52"/>
+        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="50"/>
         <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="72"/>
         <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="79"/>
-        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="98"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="52"/>
+        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="50"/>
         <source>Material name can not be empty!</source>
         <translation>材料名称不能为空！</translation>
     </message>
@@ -142,11 +141,6 @@
         <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="79"/>
         <source>Material type can not be empty!</source>
         <translation>材料类型不能为空！</translation>
-    </message>
-    <message>
-        <location filename="../../MainWidgets/DialogCreateMaterial.cpp" line="98"/>
-        <source>Material create failed!</source>
-        <translation>材料创建失败！</translation>
     </message>
 </context>
 <context>
@@ -236,34 +230,34 @@
         <translation>基准</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="154"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="162"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="158"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="200"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="166"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="208"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="161"/>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="202"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="169"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="210"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="178"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="186"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="181"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="189"/>
         <source>Hide All</source>
         <translation>隐藏全部</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="184"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="192"/>
         <source>Show All</source>
         <translation>显示全部</translation>
     </message>
@@ -377,7 +371,7 @@
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="39"/>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="274"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="523"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="526"/>
         <source>Materials</source>
         <translation>材料</translation>
     </message>
@@ -389,7 +383,7 @@
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="42"/>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="293"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="524"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="527"/>
         <source>Case</source>
         <translation>算例</translation>
     </message>
@@ -445,9 +439,9 @@
     </message>
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="339"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="484"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="490"/>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="517"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="487"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="493"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="520"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -462,17 +456,17 @@
         <translation>模板导入成功！</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="483"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="486"/>
         <source>Name can not contains fellowing char: \/:*?&quot;&lt;&gt;|!</source>
         <translation>名称不能包含下列字符：\/:*?&quot;&lt;&gt;|!</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="489"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="492"/>
         <source>Name contains too many characters !</source>
         <translation>名称包含过多字符！</translation>
     </message>
     <message>
-        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="517"/>
+        <location filename="../../MainWidgets/PhysicsWidget.cpp" line="520"/>
         <source>Case &quot;%1&quot; has already exist!</source>
         <translation>案例“%1”已经存在！</translation>
     </message>
@@ -860,6 +854,25 @@
         <location filename="../../MainWidgets/PropertyTable.ui" line="14"/>
         <source>Form</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../../MainWidgets/MainWidgetsPy.cpp" line="176"/>
+        <location filename="../../MainWidgets/MainWidgetsPy.cpp" line="208"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/MainWidgetsPy.cpp" line="176"/>
+        <source>The material that you want to load from lib already exists!</source>
+        <translation>已存在同名的材料！</translation>
+    </message>
+    <message>
+        <location filename="../../MainWidgets/MainWidgetsPy.cpp" line="208"/>
+        <source>Material create failed!</source>
+        <translation>材料创建失败！</translation>
     </message>
 </context>
 <context>

@@ -38,6 +38,8 @@ public:
 	void setPlugins(QStringList ps);
 	QStringList getPlugins();
 
+	void isShowUserGuidance(bool s);
+	bool isShowUserGuidance();
 
 	void setLicensePath(const QString & path);
 	QString getLicensePath() const;
@@ -48,6 +50,7 @@ private:
 	QStringList _recentFiles{};
 	QString _licensePath;
 	QStringList _plugins{};
+	bool _showUserGuidance{ true };
 
 };
 

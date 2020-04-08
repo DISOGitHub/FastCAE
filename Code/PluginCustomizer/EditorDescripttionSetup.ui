@@ -222,6 +222,13 @@
    <item row="2" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
+      <widget class="QPushButton" name="parameterLinkagePBtn">
+       <property name="text">
+        <string>Parameter Linkage</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="lbl_info">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 0, 0);</string>

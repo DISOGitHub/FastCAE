@@ -54,6 +54,8 @@ namespace MainWidget
 		Geometry::GeometrySet* getSelectedGeoSet();
 		//获取选择的几何
 		QMultiHash<Geometry::GeometrySet*, int> getGeoSelectItems();
+		//设置已经选择的几何
+		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
 	
 	
 	signals:

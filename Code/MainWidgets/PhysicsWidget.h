@@ -61,6 +61,7 @@ namespace MainWidget
 		void updatePhysicsTree();
 	
 
+
 	protected slots:
 		void contextMenuEvent(QContextMenuEvent *event) override;
 		void singleClicked(QTreeWidgetItem* item,int col);
@@ -70,7 +71,7 @@ namespace MainWidget
 		void renameProject();
 		void deleteProject();
 		void solveProject();
-		void importProjectPy();
+		void importProjectPy(); 
 		void importProject(int id);
 		void openProjectPath();
 

@@ -20,6 +20,7 @@ namespace Py
 		_agent = agent;
 		PyErr_PrintEx(1);
 		this->execCode("import sys", false);
+		this->execCode("import os", false);
 		QString path = QDir::cleanPath(qApp->applicationDirPath());
 		QString qs = QString("sys.path.append(\"%1\")").arg(path);
 		this->execCode(qs, false);
@@ -39,7 +40,7 @@ namespace Py
 		return true;
 	}
 
-	void PyInterpreter::execCode(QString code, bool save)
+	int PyInterpreter::execCode(QString code, bool save)
 	{
 		std::string s = code.toStdString();
 		const char* c = s.c_str();
@@ -54,6 +55,7 @@ namespace Py
 	
 		if (save)
 			_codelist.append(code);
+		return ok;
 	}
 	void PyInterpreter::execFile(QString file)
 	{

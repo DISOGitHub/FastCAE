@@ -13,6 +13,7 @@
 #include "ConfigOptions/GlobalConfig.h"
 #include "MainWidgets/ControlPanel.h"
 #include "MainWidgets/messageWindow.h"
+#include <python/PyAgent.h>
 #include "settings/busAPI.h"
 #include "IO/IOConfig.h"
 #include <QAction>
@@ -51,6 +52,7 @@ namespace GUI
 		_toolBarList.append(_ui->BoolToolBar);
 		_toolBarList.append(_ui->FeatureOpertionToolBar);
 		_toolBarList.append(_ui->SketchToolBar);
+		_toolBarList.append(_ui->MeasureToolBar);
 
 		connect(m, SIGNAL(updateInterfaces()), this, SLOT(registerInterface()));
 	}
@@ -133,6 +135,8 @@ namespace GUI
 		this->enableGeoFeatureModeling(ok);
 		ok = geometryOption->isGeometryOperationsEnabled();
 		this->enableGeoFeatureOperate(ok);
+		ok = geometryOption->isGeometryEnabled();
+		_ui->MeasureToolBar->setVisible(ok);
 
 		ok = meshOption->isImportMeshEnabled();
 		const QStringList plgsin = IO::IOConfigure::getMeshImporters();
@@ -156,6 +160,7 @@ namespace GUI
 		_ui->actionUndo->setVisible(geoEnable);
 		_ui->actionRedo->setVisible(geoEnable);
 		_ui->RedoToolBar->setVisible(geoEnable);
+		_ui->MeasureToolBar->setVisible(geoEnable);
 		this->enableGeoSelectAndView(geoEnable);
 
 		bool meshEnable = meshOption->isMeshEnabled();
@@ -167,6 +172,8 @@ namespace GUI
 
 
 		_mainWindow->getControlPanel()->registerEnabledModule();
+
+		Py::PythonAagent::getInstance()->unLock();
 	}
 
 

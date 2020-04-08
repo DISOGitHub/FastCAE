@@ -19,6 +19,8 @@
 #include <QTimer>
 #include "mainWindow/SubWindowManager.h"
 #include "InputValidator.h"
+#include "DataManager.h"
+#include <QFileInfo>
 
 
 
@@ -127,6 +129,11 @@ namespace FastCAEDesigner
 		setTabOrder(ui->txtCorporation, ui->txtEmail);
 		setTabOrder(ui->txtEmail, ui->txtWedSite);
 		//setTabOrder(ui->txtWedSite, ui->txtNameCn);
+
+		QFileInfo fi1(_logoFileName);
+		QFileInfo fi2(_welcomeFileName);
+		DataManager::getInstance()->removeIconNameFromList(fi1.fileName());
+		DataManager::getInstance()->removeIconNameFromList(fi2.fileName());
 		
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(OnBtnCancelClicked()));
@@ -258,9 +265,31 @@ namespace FastCAEDesigner
 			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
 			return;
 		}
-
 		UpdateUiToData();
-		this->accept();
+
+		//xuxinwei 20200324
+		QFileInfo logoIcon(_logoFileName);
+		QFileInfo welcomeIcon(_welcomeFileName);
+		if (!DataManager::getInstance()->getIconNameIsAvailable(logoIcon.fileName()))
+		{
+			ui->lbl_info->setText(tr("Logo icon file is already existed."));
+			ui->lbl_info->show();
+			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
+			return;
+		}
+
+		if (!DataManager::getInstance()->getIconNameIsAvailable(welcomeIcon.fileName()))
+		{
+			ui->lbl_info->setText(tr("Welcome page icon file is already existed."));
+			ui->lbl_info->show();
+			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
+			return;
+		}
+
+		DataManager::getInstance()->setIconNameList(logoIcon.fileName());
+		DataManager::getInstance()->setIconNameList(welcomeIcon.fileName());
+		//xuxinwei 20200324
+		
 		// added by libaojun @ 2019/11/26
 		QString title = ui->txtNameEn->text();
 		const QString lang = Setting::BusAPI::instance()->getLanguage();
@@ -280,6 +309,8 @@ namespace FastCAEDesigner
 		//qDebug() << web;
 		_subWindow->openUrl(web);
 
+
+		this->accept();
 		close();
 	}
 

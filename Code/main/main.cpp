@@ -29,7 +29,7 @@
 
 int main(int argc, char* argv[])
 {
-	QString releaseVersion = "2.0.2018";
+	QString releaseVersion = "2.1.2049";
 
 	{
 		bool nogui = false;

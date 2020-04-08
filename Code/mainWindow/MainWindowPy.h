@@ -22,6 +22,7 @@ namespace GUI
 		static void undo();
 		static void redo();
 		static void init(GUI::MainWindow* m,GUI::SignalHandler* sg);
+		static void clearData();
 		static void importMesh(char* f);
 		static void exportMesh(char* f);
 		static void importGeometry(char* f);
@@ -37,6 +38,7 @@ namespace GUI
 		static void quit();
 		static void solveProject(int projectIndex, int solverIndex);
 		static void createSet(char* name, char* type, char*  idstring);
+		static void updateInterface();
 
 		static void script_openFile(int id, char* type, char* file);
 		static void script_applyClicked(int id, char* type);
@@ -156,12 +158,14 @@ extern "C"
 	//void MAINWINDOWAPI showFastCAE();
 	void MAINWINDOWAPI undo();
 	void MAINWINDOWAPI redo();
+	void MAINWINDOWAPI clearData();
 	void MAINWINDOWAPI importMesh(char* f);
 	void MAINWINDOWAPI exportMesh(char* f);
 	void MAINWINDOWAPI importGeometry(char* f);
 	void MAINWINDOWAPI exportGeometry(char* f);
 	void MAINWINDOWAPI openProjectFile(char* f);
 	void MAINWINDOWAPI saveProjectFile(char* f);
+	void MAINWINDOWAPI updateInterface();
 	void MAINWINDOWAPI quit();
 	void MAINWINDOWAPI saveImage(int w, int h, int id, char*win, char* file);
 	void MAINWINDOWAPI setView( int id, char*win, char* view);//设置特定视角

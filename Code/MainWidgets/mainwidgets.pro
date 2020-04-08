@@ -2,7 +2,7 @@ TEMPLATE	=   lib
 CONFIG		+=  debug  c++11 
 CONFIG		+=  qt
 TARGET		=   MainWidgets
-QT          +=  core gui widgets 
+QT          +=  core gui widgets xml
 DEFINES     +=  MAINWIDGETS_API
 
 include(./mainwidgets.pri)
@@ -43,6 +43,7 @@ win32{
   -L../../output/bin -lPythonModule \
   -L../../output/bin -lPostWidgets \
   -L../../output/bin -lGeometryWidgets \
+
  
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
@@ -71,6 +72,7 @@ win32{
   -L../../output/bin_d -lPythonModule \
   -L../../output/bin_d -lPostWidgets \
   -L../../output/bin_d -lGeometryWidgets \
+
   
   message("Windows mainWidgets build")
   

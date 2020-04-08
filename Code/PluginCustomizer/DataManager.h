@@ -40,6 +40,8 @@ namespace FastCAEDesigner
 
 namespace DataProperty{
 	class ParameterBase;
+	class ParameterGroup;
+	class DataBase;
 }
 
 namespace FastCAEDesigner
@@ -121,6 +123,16 @@ namespace FastCAEDesigner
 		QList<DataProperty::ParameterBase*> getAllParameterList(QString caseName);
 		void setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list);
 		QList<FastCAEDesigner::ParametersLinkage*> getParametersLinkageList();
+		void setAllParameterGroupListDict(QString name, QList<DataProperty::ParameterGroup*> list);
+		QList<DataProperty::ParameterGroup*> getAllParameterGroupList(QString caseName);
+		void setTreeList(QString name);
+		QList<QString> getTreeList();
+
+		//20200324
+		void clearIconNameList();
+		void setIconNameList(QString iconName);
+		bool getIconNameIsAvailable(QString iconName);
+		void removeIconNameFromList(QString iconName);
 
 	private:
 		bool ReadGlobalConfig();                       //读取基础配置信息
@@ -178,7 +190,12 @@ namespace FastCAEDesigner
 
 		//202000313
 		QMap<QString, QList<DataProperty::ParameterBase*>> _allParameterDict;
-		QList<FastCAEDesigner::ParametersLinkage*> _parametersLinkageList;
+		QMap<QString, QList<DataProperty::ParameterGroup*>> _allParameterGroupDict;
+		QList<QString> _treeList;
+	//	QList<FastCAEDesigner::ParametersLinkage*> _parametersLinkageList;
+
+		//20200324
+		QList<QString> _iconNameList{};
 	};
 }
 

@@ -307,6 +307,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="actionUser_Guidance"/>
     <addaction name="actionUser_Manual"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -454,6 +455,11 @@
      <addaction name="actionDrawPolyline"/>
      <addaction name="actionDrawSpline"/>
     </widget>
+    <widget class="QMenu" name="menu">
+     <property name="title">
+      <string>在这里输入</string>
+     </property>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
@@ -463,6 +469,8 @@
     <addaction name="separator"/>
     <addaction name="menuView_3"/>
     <addaction name="menuSelect_2"/>
+    <addaction name="actionMeasure"/>
+    <addaction name="menu"/>
    </widget>
    <widget class="QMenu" name="menuPlugins">
     <property name="title">
@@ -480,6 +488,18 @@
    <addaction name="menuSettings"/>
    <addaction name="menuPlugins"/>
    <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="MeasureToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionMeasure_Distance"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -827,6 +847,12 @@
    </property>
   </action>
   <action name="actionUser_Manual">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../qrc/qianfan.qrc">
      <normaloff>:/QUI/icon/help.png</normaloff>:/QUI/icon/help.png</iconset>
@@ -1444,6 +1470,31 @@
    </property>
    <property name="toolTip">
     <string>Plugin Manager</string>
+   </property>
+  </action>
+  <action name="actionUser_Guidance">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>User Guidance</string>
+   </property>
+  </action>
+  <action name="actionMeasure_Distance">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/ruler.png</normaloff>:/QUI/icon/ruler.png</iconset>
+   </property>
+   <property name="text">
+    <string>Measure Distance</string>
+   </property>
+  </action>
+  <action name="actionMeasure">
+   <property name="text">
+    <string>Measure</string>
    </property>
   </action>
  </widget>

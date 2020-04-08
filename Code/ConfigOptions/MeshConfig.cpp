@@ -1,7 +1,18 @@
 #include "MeshConfig.h"
 
+#define MESHON  true;
+#define MESHOFF false;
+#define MESHIMPORT "cgns;msh;neu;stl;dat;vtk;inp"
+#define MESHEXPORT "vtk;neu"
+
+
 namespace ConfigOption
 {
+	MeshConfig::MeshConfig()
+	{
+		this->clearData();
+
+	}
 
 	bool MeshConfig::isMeshEnabled()
 	{
@@ -75,12 +86,13 @@ namespace ConfigOption
 	void MeshConfig::clearData()
 	{
 		
-		_importSuffix.clear();
-		_exportSuffix.clear();
-	
-		_enableSurfaceMesh = _enableSolidMesh = false;
-		_enableComponent = false;
-		_checkMesh	= false;
+		_exportSuffix = MESHEXPORT;
+		_importSuffix = MESHIMPORT;
+
+		_enableSurfaceMesh = MESHON;
+		_enableSolidMesh = MESHON;
+		_enableComponent = MESHON;
+		_checkMesh = MESHON;
 
 	}
 

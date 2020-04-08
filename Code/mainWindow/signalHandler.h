@@ -43,10 +43,11 @@ namespace GUI
 		QString getMD5();
 		/*创建工程 */
 		void on_actionNew();
-		///清除数据
-		void clearData();
+	
 
 	public slots:
+		///清除数据
+		void clearData();
 		/*求解 */
 		void on_actionSolve();
 		/*切换为英语 */
@@ -85,8 +86,9 @@ namespace GUI
 		void saveToProjectFile(QString filename);
 		//检查网格质量
 		void meshChecking();
+		//显示用户引导
+		void showUserGuidence(bool start = false);
 		//创建几何
-		
 		void undo();
 		void redo();
 		void createBox();
@@ -120,6 +122,7 @@ namespace GUI
 		void DrawGraphSpline();
 		void showDialog(QDialog* d);
 		void MakeMatrix();
+		void MeasureDistance();
 		//void showDemo();
 
 	private:
@@ -130,6 +133,7 @@ namespace GUI
 		MainWindow* _mainWindow{};
 		int _proID{ -1 };
 		SolveProcessManager* _solveProcessManager{};
+		bool _launched{ false };
 //		QString _currentFilePath{};
 
 	};

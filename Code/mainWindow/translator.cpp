@@ -21,6 +21,7 @@ namespace GUI
 		":/translations/PluginManager_zh_CN",
 		":/translations/GmshModule_zh_CN",
 		":/translations/SolverControl_Zh_CN",
+		":/translations/UserGuidence_zh_CN",
 	};
 
 	Translator::Translator()

@@ -29,6 +29,14 @@ def undo():
 def redo():
 	mw.redo()
 	pass
+    
+def clearData():
+    mw.clearData()
+    pass
+    
+def updateInterface():
+    mw.updateInterface()
+    pass
 
 def importMesh(filename):
   str = bytes(filename,encoding='utf-8')

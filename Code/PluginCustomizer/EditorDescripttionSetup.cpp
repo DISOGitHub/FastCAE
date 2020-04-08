@@ -27,6 +27,9 @@
 #include "InputValidator.h"
 #include <QFileDialog>
 #include "DataProperty/modelTreeItemType.h"
+#include "ParametersLinkage.h"
+#include "DataManager.h"
+#include "ParaLinkageManager.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -39,6 +42,23 @@ namespace FastCAEDesigner
 		_treeItem(treeItem)
 	{
 		ui->setupUi(this);
+		//202003026 xuxinwei
+// 		if (_model->GetType() == TreeItemType::ProjectBoundaryCondationChild)
+// 			ui->parameterLinkagePBtn->setVisible(false);
+// 		else
+// 		{
+// 			ui->parameterLinkagePBtn->setVisible(false);
+ 			QString caseName = getCaseName(_model);
+ 			//qDebug() << caseName;
+			_parameterList = DataManager::getInstance()->getAllParameterList(caseName);
+			if (_parameterList.isEmpty())
+ 				qDebug() << "list empty";
+			else
+				qDebug() << _parameterList.count();
+
+			ui->parameterLinkagePBtn->setVisible(false);
+// 		}
+
 		//resizeEvent(0);
 		Init();
 		//ui->groupBox->hide();
@@ -85,6 +105,12 @@ namespace FastCAEDesigner
 		QString title = _model->GetChnName();
 		setWindowTitle(title);
 		UpdateDataToUi();
+
+		//20200324 xuxinwei
+		QFileInfo icon(ui->txtIcon->text().trimmed());
+		DataManager::getInstance()->removeIconNameFromList(icon.fileName());
+		//20200324 xuxinwei
+
 		//SetIsEdit(_model->GetIsEdit()); 
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
@@ -132,7 +158,13 @@ namespace FastCAEDesigner
 			connect(ui->txtChineseName, SIGNAL(textChanged(QString)), ui->txtEnglishName, SLOT(setText(QString)));
 		}
 
+		//xuxinwei
+		connect(ui->parameterLinkagePBtn, SIGNAL(clicked()), this, SLOT(OnParameterLinkagePBtnClicked()));
+		//xuxinwei
+
+
 		ui->tableWidget_GList->setMaximumHeight(160);
+
 	}
 
 	//填充参数组列表
@@ -1260,6 +1292,19 @@ namespace FastCAEDesigner
 			return;
 		}
 
+		//20200324  xuxinwei
+		QFileInfo icon(ui->txtIcon->text().trimmed());
+		if (!DataManager::getInstance()->getIconNameIsAvailable(icon.fileName()))
+		{
+			ui->lbl_info->setText(tr("The icon file is already existed."));
+			ui->lbl_info->show();
+			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
+			return;
+		}
+
+		DataManager::getInstance()->setIconNameList(icon.fileName());
+		//20200324	xuxinwei
+
 		UpdateUiToData();
 
 		if (nullptr != _treeItem)
@@ -1304,5 +1349,37 @@ namespace FastCAEDesigner
 		}
 
 		resizeEvent(nullptr);
+	}
+
+	//xuxinwei
+	void EditorDescripttionSetup::OnParameterLinkagePBtnClicked()
+	{
+		/*ParametersLinkage dlg/ *(/ *_parameterList* /)* /;
+		dlg.exec();*/
+	//	this->close();
+
+// 		ParaLinkageManager wid /*= new ParaLinkageManager()*/;
+//  		wid.exec();
+// 		this->close();
+// 		emit dispalyParameterLinkageManager();
+	}
+
+	//xuxinwei 20200326
+	QString EditorDescripttionSetup::getCaseName(ModelBase* model)
+	{
+		QString str{};
+		if (model == nullptr)
+			return str;
+		QString caseName{};
+		if ((model->GetType() == TreeItemType::ProjectSimulationSettingChild) || (model->GetType() == TreeItemType::ProjectSolverChild))
+	
+		{
+			caseName = model->GetParentModelBase()->GetParentModelBase()->GetChnName();
+			qDebug() << caseName;
+		}
+		else
+			caseName = model->GetParentModelBase()->GetChnName();
+
+		return caseName;
 	}
 }

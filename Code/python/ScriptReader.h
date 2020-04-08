@@ -16,7 +16,7 @@ namespace Py
 		Q_OBJECT
 	public: 
 		ScriptReader(QString filename, PythonAagent* agent);
-		~ScriptReader() = default;
+		~ScriptReader();
 
 		void pause();
 		void restart();

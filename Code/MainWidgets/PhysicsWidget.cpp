@@ -393,8 +393,10 @@ namespace MainWidget
 	}
 	void PhysicsWidget::slot_load_from_material_lib()
 	{
+		/*QString code = QString("ControlPanel.loadFromMaterialLib()");
+		Py::PythonAagent::getInstance()->submit(code);*/
 		Material::MaterialSingleton::getInstance()->loadFromMaterialLib(_mainWindow);
-		updateMaterialTree();
+		//updateMaterialTree();
 	}
 
 	void PhysicsWidget::slot_remove_from_material_lib()
@@ -406,10 +408,10 @@ namespace MainWidget
 	{
 //		XMaterial::XMaterial material(_mainWindow,getProjectMaterialNames(), this);
 		CreateMaterialDialog dlg(_mainWindow);
-		if (QDialog::Accepted == dlg.exec())
+		/*if (QDialog::Accepted == dlg.exec())
 		{
 			updateMaterialTree();
-		}
+		}*/
 	}
 
 
@@ -444,6 +446,7 @@ namespace MainWidget
 	void PhysicsWidget::caseRename(int pid,QString newname)
 	{
 		ModelData::ModelDataBase* model = ModelData::ModelDataSingleton::getinstance()->getModelByID(pid);
+		if (nullptr == model)  return;
 		model->setName(newname);
 	
 	}

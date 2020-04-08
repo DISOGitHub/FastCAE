@@ -32,6 +32,7 @@ namespace DataProperty
 {
 	class ParameterBase;
 	class DataBase;
+	class ParameterGroup;
 }
 
 namespace ConfigOption
@@ -71,7 +72,9 @@ namespace FastCAEDesigner
 // 		
 
 	private slots:
-		void OnProjectTreeRightClicked(const QPoint &point);
+		void OnProjectTreeRightClicked
+			
+			(const QPoint &point);
 		void OnInsertChild();
 		void OnHideThis();
 		void OnShowThis(int childindex);
@@ -82,6 +85,8 @@ namespace FastCAEDesigner
 
 		void OnInsertMaterialTree();
 		void OnDeleteAllMaterialItem();
+
+		void onShowParameterLinkage(QString name);
 
 	private:
 		void Init();
@@ -117,6 +122,11 @@ namespace FastCAEDesigner
 		//初始化构造功能树及节点的数据
 		void ClearModelBaseList(QList<ModelBase*> &list);
 
+		//获取参数信息列表
+		void insertParameterToList(DataProperty::DataBase* model);
+
+		//20200327
+		void SetParentModel(QTreeWidgetItem* item);
 
 	private:
 		Ui::FunctionTreeSetup *ui;
@@ -128,6 +138,10 @@ namespace FastCAEDesigner
 
 		QList<ModelBase*> _physicsList;
 		QList<ModelBase*> _materialList;
+
+		//xuxinwei   20200325
+		QList<DataProperty::ParameterBase*> _parameterList;
+		QList<DataProperty::ParameterGroup*> _parameterGroupList;
 		
 	};
 }

@@ -1,7 +1,17 @@
 #include "PostConfig.h"
 
+#define POSTON true;
+#define POSTOFF false;
+
+
 namespace ConfigOption
 {
+
+	PostConfig::PostConfig()
+	{
+		this->clearData();
+	}
+
 	void PostConfig::enablePost(bool on)
 	{
 		_enablePost = on;
@@ -47,7 +57,9 @@ namespace ConfigOption
 
 	void PostConfig::clearData()
 	{
-		_enablePost = _enablePost2D = _enablePost3D = false;
+		_enablePost = POSTON;
+		_enablePost2D = POSTON;
+		_enablePost3D = POSTON;
 		QList<PostConfigInfo*> infos = _postConfigInfo.values();
 		for (auto info : infos)
 			delete info;

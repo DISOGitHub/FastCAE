@@ -9,7 +9,7 @@ namespace ConfigOption
 	class CONFIGOPTIONSAPI GeometryConfig
 	{
 	public:
-		GeometryConfig() = default;
+		GeometryConfig();
 		~GeometryConfig() = default;
 
 		void clearData();

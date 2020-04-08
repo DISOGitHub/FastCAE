@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QTimer>
 #include "InputValidator.h"
+#include "DataManager.h"
+#include <QFileInfo>
 
 
 namespace FastCAEDesigner{
@@ -16,6 +18,7 @@ namespace FastCAEDesigner{
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
 		connect(ui->btnLoadIcon, SIGNAL(clicked()), this, SLOT(OnBtnLoadIconClicked()));
 		InitErrorList();
+		//_iconNameList = DataManager::getInstance()->getIconNameList();
 		//Init();
 	}
 
@@ -42,6 +45,12 @@ namespace FastCAEDesigner{
 	{
 		UpdateDataToUi();
 		SetIsEdit(_model->GetIsEdit());
+
+		//20200324 xuxinwei
+		QFileInfo icon(ui->txtIcon->text().trimmed());
+		DataManager::getInstance()->removeIconNameFromList(icon.fileName());
+		//20200324 xuxinwei
+
 		connect(ui->btnOk, SIGNAL(clicked()), this, SLOT(OnBtnOkClicked()));
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
 		connect(ui->btnLoadIcon, SIGNAL(clicked()), this, SLOT(OnBtnLoadIconClicked()));
@@ -103,6 +112,19 @@ namespace FastCAEDesigner{
 			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
 			return;
 		}
+
+		//xuxinwei 20200324
+		QFileInfo iconName(ui->txtIcon->text().trimmed());
+		if (!DataManager::getInstance()->getIconNameIsAvailable(iconName.fileName()))
+		{
+			ui->lbl_info->setText(tr("The icon file is already existed."));
+			ui->lbl_info->show();
+			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
+			return;
+		}
+		
+		DataManager::getInstance()->setIconNameList(iconName.fileName());
+		//xuxinwei 20200324
 
 		UpdateUiToData();
 		

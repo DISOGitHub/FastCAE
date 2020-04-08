@@ -40,6 +40,7 @@ namespace MainWidget
 		void updateGraphOption();
 		void updateDiaplayStates(Geometry::GeometrySet* s, bool visibility);
 		QMultiHash<Geometry::GeometrySet*, int> getGeoSelectItems();
+		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
 
 	public slots:
 		void showGeoSet(Geometry::GeometrySet* set);

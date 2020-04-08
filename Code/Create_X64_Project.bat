@@ -90,14 +90,9 @@ cd ../PluginManager
 qmake CONFIG+=X64 -tp vc PluginManager.pro
 
 cd ../Gmsh
-
 qmake CONFIG+=X64 -tp vc GmshModule.pro
-mkdir ..\..\output\bin_d\gmsh
-mkdir ..\..\output\bin\gmsh
-copy /y ".\gmsh441\gmsh.exe" "..\..\output\bin_d\gmsh"
-copy /y ".\gmsh441\gmsh.exe" "..\..\output\bin\gmsh"
-copy /y ".\gmsh441\gmsh.Geo" "..\..\output\bin_d\gmsh"
-copy /y ".\gmsh441\gmsh.Geo" "..\..\output\bin\gmsh"
-
+ 
+cd ../UserGuidence
+qmake CONFIG+=X64 -tp vc UserGuidence.pro
 
 pause

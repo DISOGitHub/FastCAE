@@ -30,19 +30,6 @@
     </message>
 </context>
 <context>
-    <name>Material::LoadMaterialDialog</name>
-    <message>
-        <location filename="../../Material/DialogLoadMaterial.cpp" line="47"/>
-        <source>Warning</source>
-        <translation>警告</translation>
-    </message>
-    <message>
-        <location filename="../../Material/DialogLoadMaterial.cpp" line="47"/>
-        <source>The material that you want to load from lib already exists!</source>
-        <translation>您想导入的材料已经存在！</translation>
-    </message>
-</context>
-<context>
     <name>Material::RemoveMaterialDialog</name>
     <message>
         <location filename="../../Material/DialogRemoveMaterial.cpp" line="78"/>

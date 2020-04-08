@@ -106,7 +106,7 @@
     </message>
     <message>
         <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="401"/>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="840"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="843"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -116,27 +116,27 @@
         <translation>网格组件正在被使用，确认移除？</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="615"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="616"/>
         <source>Node Scalar</source>
         <translation>节点标量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="616"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="617"/>
         <source>Cell Scalar</source>
         <translation>单元标量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="663"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="664"/>
         <source>Node Vector</source>
         <translation>节点矢量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="664"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="665"/>
         <source>Cell Vector</source>
         <translation>单元矢量</translation>
     </message>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="840"/>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="843"/>
         <source>File %1 is not exist</source>
         <translation>文件 %1 不存在</translation>
     </message>
