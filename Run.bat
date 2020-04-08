@@ -1,41 +1,40 @@
 @echo off
-echo  ——————————————————————————————————————————
-echo    FastCAE开发环境一键配置 Windows10版
+echo  --------------------------------------------------------------
+echo  FastCAE Development environment Configuration For Windows10
 echo.
-echo      本程序将完成以下几点工作：
-echo      1. 确认安装必要的开发工具；
-echo      2. 拷贝第三方库；
-echo      3. 生成必要的运行环境；
-echo      4. 打开Visual Studio IDE。
+echo      This procedure will complete the following work:
+echo      1. Confirm the installation of necessary development tools;
+echo      2. Copy third party libraries;
+echo      3. Generate necessary Debug environment;
+echo      4. Open Visual Studio IDE.
 echo.
-echo   请务必确认当前操作系统中 Qt, Visual Studio均已正确安装！
+echo   Please make sure that QT and Visual Studio are installed correctly in the current operating system!
 echo.
-echo   如遇安装问题，请联系FastCAE开发小组！
+echo   In case of installation problems, please contact FastCAE development team!
 echo.
-echo  ———————————————————————————————————————————
-
+echo  -----------------------------------------------------------------
 echo.  
-echo 请确认已经安装Qt5.4.2和Visual Studio 2013!
+echo  Please make sure that QT 5.4.2 and Visual Studio 2013 are installed correctly! 
 echo.
 
 cd /d "%~dp0"
 
 set currentPath=%cd%
 
-echo 请输入qmake.exe所在路径，例如：C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
+echo Please input the path of qmake.exe, For example: C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
 echo.
-set /p qmakeDir=请输入:
+set /p qmakeDir=Waitting for input: 
 echo.
 set qmakePath=%qmakeDir%\qmake.exe
 echo.
 
 
-echo 请输入Visual Studio 2013安装目录，例如：C:\Program Files (x86)\Microsoft Visual Studio 12.0\
-echo (该目录下存在VC、Common7等文件夹)
+echo Please input the path of Visual Studio 2013, For example: C:\Program Files (x86)\Microsoft Visual Studio 12.0\
+echo (There are VC, common7 and other folders in this directory)
 echo.
-set /p VSDir=请输入:
+set /p VSDir=Waitting for input: 
 echo.
-echo 正在生成批处理脚本...
+echo Generating batch script...
 echo.
 
 :Replace
@@ -85,9 +84,9 @@ echo. >> %codePath%\Run_MSVC.bat
 echo start "%VSDir%\Common7\IDE\devenv.exe" FastCAE.sln >> %codePath%\Run_MSVC.bat
 echo. >> %codePath%\Run_MSVC.bat
 
-echo 批处理脚本信息更新完毕！
+echo Batch script information update completed!
 echo.
-echo 接下来将生成开发环境。。。
+echo The next step is to generate the development environment...
 echo.
 pause
 
@@ -164,14 +163,14 @@ copy /y "%codePath%\Gmsh\gmsh454\gmsh.exe" "%currentPath%\output\bin\gmsh"
 copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin_d\gmsh"
 copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin\gmsh"
 
-echo 下面将启动Visual Studio 2013
+echo Visual studio 2013 will be launched next!
 echo.
 pause
 call "%codePath%\Run_MSVC.bat"
 
 
 :finish
-echo 设置项目全部完成，程序即将退出！
+echo The setup project is completed, and the program will exit soon!
 echo.
 pause
 exit
