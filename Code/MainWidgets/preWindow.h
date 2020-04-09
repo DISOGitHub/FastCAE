@@ -62,7 +62,7 @@ namespace MainWidget
 		//关闭
 		void closed();
 		//显示几何形状
-		void showGeoSet(Geometry::GeometrySet* set);
+		void showGeoSet(Geometry::GeometrySet* set, bool render = true);
 		//移除几何形状的显示
 		void removeGemoActors(Geometry::GeometrySet* set);
 		//显示基准

@@ -31,7 +31,7 @@ namespace MainWidget
 		_mainWindow(mainwindow), _preWindow(renderWin)
 	{
 		_geoData = Geometry::GeometryData::getInstance();
-		connect(_preWindow, SIGNAL(showGeoSet(Geometry::GeometrySet*)), this, SLOT(showGeoSet(Geometry::GeometrySet*)));
+		connect(_preWindow, SIGNAL(showGeoSet(Geometry::GeometrySet*,bool)), this, SLOT(showGeoSet(Geometry::GeometrySet*,bool)));
 		connect(_preWindow, SIGNAL(showDatum(Geometry::GeometryDatum*)), this, SLOT(showDatum(Geometry::GeometryDatum*)));
 		connect(_preWindow, SIGNAL(removeGemoActors(Geometry::GeometrySet*)), this, SLOT(removeActors(Geometry::GeometrySet*)));
 		connect(_preWindow, SIGNAL(removeGeoDatumActors(Geometry::GeometryDatum*)), this, SLOT(removeDatumActors(Geometry::GeometryDatum*)));
@@ -100,12 +100,13 @@ namespace MainWidget
 		}
 	}
 
-	void GeometryViewProvider::showShape(TopoDS_Shape& shape, Geometry::GeometrySet* set)
+	void GeometryViewProvider::showShape(TopoDS_Shape& shape, Geometry::GeometrySet* set, bool render)
 	{
 		showVertex(set);
 		showEdge(set);
 		showFace(set);
-//		_preWindow->resetCamera();
+		if (render)
+			_preWindow->resetCamera();
 		
 	}
 
@@ -294,10 +295,10 @@ namespace MainWidget
 		}
 	}
 
-	void GeometryViewProvider::showGeoSet(Geometry::GeometrySet* set)
+	void GeometryViewProvider::showGeoSet(Geometry::GeometrySet* set, bool render)
 	{
 		TopoDS_Shape* shape = set->getShape();
-		showShape(*shape, set);
+		showShape(*shape, set,render);
 	}
 
 	void GeometryViewProvider::showDatum(Geometry::GeometryDatum* datum)

@@ -56,7 +56,7 @@ namespace Command
 
 	signals:
 		void updateGeoTree();
-		void showSet(Geometry::GeometrySet* s);
+		void showSet(Geometry::GeometrySet* s, bool r = true);
 		void showDatum(Geometry::GeometryDatum*);
 		void removeDisplayActor(Geometry::GeometrySet* s);
 		void removeDisplayDatumActor(Geometry::GeometryDatum*);

@@ -20,7 +20,7 @@ namespace Command
 		}
 		if (_preWindow != nullptr)
 		{
-			connect(this, SIGNAL(showSet(Geometry::GeometrySet*)), _preWindow, SIGNAL(showGeoSet(Geometry::GeometrySet*)));
+			connect(this, SIGNAL(showSet(Geometry::GeometrySet*,bool)), _preWindow, SIGNAL(showGeoSet(Geometry::GeometrySet*,bool)));
 			connect(this, SIGNAL(showDatum(Geometry::GeometryDatum*)), _preWindow, SIGNAL(showDatum(Geometry::GeometryDatum*)));
 			connect(this, SIGNAL(removeDisplayActor(Geometry::GeometrySet*)), _preWindow, SIGNAL(removeGemoActors(Geometry::GeometrySet*)));
 			connect(this, SIGNAL(removeDisplayDatumActor(Geometry::GeometryDatum*)), _preWindow, SIGNAL(removeGeoDatumActors(Geometry::GeometryDatum*)));

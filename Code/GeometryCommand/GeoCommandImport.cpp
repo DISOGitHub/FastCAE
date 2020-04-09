@@ -39,7 +39,9 @@ namespace Command
 			for (auto set : setList)
 			{
 				_resSet.append(set);
-				emit showSet(set);
+				if (set != setList.last())
+					emit showSet(set, false);
+				else emit showSet(set);
 			}
 		}
 

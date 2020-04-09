@@ -35,7 +35,7 @@ namespace MainWidget
 		GeometryViewProvider(GUI::MainWindow* mainwindow, PreWindow* preWin);
 		~GeometryViewProvider();
 
-		void showShape(TopoDS_Shape& shape,Geometry::GeometrySet* set);
+		void showShape(TopoDS_Shape& shape,Geometry::GeometrySet* set,bool render = true);
 		void updateGeoActors();
 		void updateGraphOption();
 		void updateDiaplayStates(Geometry::GeometrySet* s, bool visibility);
@@ -43,7 +43,7 @@ namespace MainWidget
 		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
 
 	public slots:
-		void showGeoSet(Geometry::GeometrySet* set);
+		void showGeoSet(Geometry::GeometrySet* set, bool render = true);
 		void showDatum(Geometry::GeometryDatum* datm);
 		void removeActors(Geometry::GeometrySet* set);
 		void removeDatumActors(Geometry::GeometryDatum* plane);
