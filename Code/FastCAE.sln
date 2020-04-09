@@ -284,6 +284,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PluginETS", "PluginETS\Plug
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserGuidence", "UserGuidence\UserGuidence.vcxproj", "{1754671D-0FB7-3B31-A1E3-D716458783CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D178B917-370A-38A1-A9C4-CBDE18F2C16E} = {D178B917-370A-38A1-A9C4-CBDE18F2C16E}
+		{D1389573-7215-30CF-9ECA-FA250C4EEA1F} = {D1389573-7215-30CF-9ECA-FA250C4EEA1F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -368,6 +368,7 @@ namespace GUI
 		Command::GeoCommandImport* c = new Command::GeoCommandImport(_mainWindow, _mainWindow->getSubWindowManager()->getPreWindow());
 		c->setFileName(filenames);
 		bool ok = Command::GeoComandList::getInstance()->executeCommand(c);
+		_mainWindow->getSubWindowManager()->setView(-1, "PreWindow", "fit");
 		return ok;
 	}
 

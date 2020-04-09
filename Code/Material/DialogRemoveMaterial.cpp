@@ -2,7 +2,7 @@
 #include <ui_DialogRemoveMaterial.h>
 #include <QMessageBox>
 #include <QDebug>
-
+#include "python/PyAgent.h"
 namespace Material
 {
 	RemoveMaterialDialog::RemoveMaterialDialog(GUI::MainWindow* m, QHash<QString, Material*>* ms) :
@@ -83,14 +83,19 @@ namespace Material
 		QMessageBox::StandardButton b = (QMessageBox::StandardButton)QMessageBox::warning(this, QString(tr("Warning")), QString(tr("%1 object(s) will be removed, continue ?").arg(nn)), QMessageBox::Yes, QMessageBox::No);
 		if (b == QMessageBox::No) return;
 
-		for (QString name : names)
+		QString namestr = names.join(",");
+		QString code = QString("ControlPanel.RemoveFromMaterialLib('%1')").arg(namestr);
+		Py::PythonAagent::getInstance()->submit(code);
+
+
+		/*for (QString name : names)
 		{
 			auto ma = _data->value(name);
 			qDebug() << name;
 			if (ma == nullptr) continue;
 			_data->remove(name);
 			delete ma;
-		}
+		}*/
 		this->close();
 	}
 

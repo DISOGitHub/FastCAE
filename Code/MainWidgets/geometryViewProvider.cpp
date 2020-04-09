@@ -105,7 +105,7 @@ namespace MainWidget
 		showVertex(set);
 		showEdge(set);
 		showFace(set);
-		_preWindow->resetCamera();
+//		_preWindow->resetCamera();
 		
 	}
 

@@ -29,6 +29,7 @@
 
 namespace MainWidget
 {
+
 	GUI::MainWindow* MainWidgetPy::_mainWindow = nullptr;
 	ControlPanel* MainWidgetPy::_controlPanel = nullptr;
 	GeometryTreeWidget* MainWidgetPy::_geoWidget = nullptr;
@@ -141,12 +142,12 @@ namespace MainWidget
 		QString path = qApp->applicationDirPath() + "/MaterialLib.xml";
 
 		QFile lib(path);
-		if (!lib.open(QIODevice::Text | QIODevice::ReadOnly)) return ;
+		if (!lib.open(QIODevice::Text | QIODevice::ReadOnly)) return;
 
 		QDomDocument doc;
 		if (!doc.setContent(&lib))
 		{
-			return ;
+			return;
 		}
 		QDomNodeList materiallist = doc.elementsByTagName("Material");
 		const int nm = materiallist.size();
@@ -213,6 +214,62 @@ namespace MainWidget
 		_physicsWidget->updateMaterialTree();
 		_pyAgent->unLock();
 
+	}
+
+	void MainWidgetPy::RemoveFromMaterialLib(char* namelist)
+	{
+
+		QString namestr = QString(namelist);
+		QStringList nlist = namestr.simplified().split(",");
+		if (nlist.size() < 1) return;
+
+		//¶ÁÈ¡xml
+		QHash<QString, Material::Material*> malib;
+		QString path = qApp->applicationDirPath() + "/MaterialLib.xml";
+		QFile lib(path);
+		if (!lib.open(QIODevice::Text | QIODevice::ReadOnly)) return ;
+		QDomDocument doc;
+		if (!doc.setContent(&lib)) return;
+		
+		QDomNodeList materiallist = doc.elementsByTagName("Material");
+		const int nm = materiallist.size();
+		for (int i = 0; i < materiallist.size(); ++i)
+		{
+			QDomElement ele = materiallist.at(i).toElement();
+			Material::Material* m = new Material::Material(false);
+			m->readDataFromProjectFile(&ele);
+			QString name = m->getName();
+			malib[name] = m;
+		}
+		lib.close();
+		for (QString name : nlist)
+		{
+			auto ma = malib.value(name);
+			qDebug() << name;
+			if (ma == nullptr) continue;
+			malib.remove(name);
+			delete ma;
+		}
+		//Ð´Èëxml
+		QFile writelib(path);
+		if (!writelib.open(QIODevice::Text | QIODevice::WriteOnly)) return;
+		QDomDocument wdoc;
+		QDomProcessingInstruction instruction = wdoc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+		wdoc.appendChild(instruction);
+		QDomElement root = wdoc.createElement("MaterialLib");
+		wdoc.appendChild(root);
+		QList<Material::Material*> mlist = malib.values();
+		for (int i = 0; i < mlist.size(); ++i)
+		{
+			Material::Material*m = mlist.at(i);
+			m->writeToProjectFile(&wdoc, &root);
+			delete m;
+		}
+		QTextStream* stream = new QTextStream(&writelib);
+		wdoc.save(*stream, 4);
+		writelib.close();
+		delete stream;
+		_pyAgent->unLock();
 	}
 
 	void MainWidgetPy::updateGeometrySubTree(int id)
@@ -287,4 +344,9 @@ void  loadFromMaterialLib(char* namelist)
 void MAINWIDGETSAPI CreateMaterial(char* name,char* type)
 {
 	MainWidget::MainWidgetPy::CreateMaterial(name,type);
+}
+
+void MAINWIDGETSAPI RemoveFromMaterialLib(char* namelist)
+{
+	MainWidget::MainWidgetPy::RemoveFromMaterialLib(namelist);
 }

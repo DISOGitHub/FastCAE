@@ -289,7 +289,7 @@ namespace MeshData
 
 	void MeshSet::dataToStream(QDataStream* s)
 	{
-		*s << _id << _name << _members;
+		*s << _id << _name << _members.size();
 	}
 
 	void MeshSet::merge(MeshSet* set)

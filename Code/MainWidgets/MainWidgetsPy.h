@@ -38,6 +38,7 @@ namespace MainWidget
 		static void viewVector(int id, char* variable);
 		static void loadFromMaterialLib(char* namelist);
 		static void CreateMaterial(char* name,char*type);
+		static void RemoveFromMaterialLib(char* namelist);
 
 	private:
 		static GUI::MainWindow* _mainWindow;
@@ -45,7 +46,6 @@ namespace MainWidget
 		static GeometryTreeWidget* _geoWidget;
 		static MeshWidget* _meshWidget;
 		static PhysicsWidget* _physicsWidget;
-
 		static Py::PythonAagent* _pyAgent;
 
 	};
@@ -66,6 +66,7 @@ extern "C"
 	void MAINWIDGETSAPI viewVector(int id, char* variable);
 	void MAINWIDGETSAPI loadFromMaterialLib(char* namelist);
 	void MAINWIDGETSAPI CreateMaterial(char* name,char* type);
+	void MAINWIDGETSAPI RemoveFromMaterialLib(char* namelist);
 }
 
 #endif

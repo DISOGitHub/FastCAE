@@ -65,6 +65,11 @@ def CreateMaterial(name,type):
   type=bytes(type,encoding='utf-8')
   lib.CreateMaterial(name, type)
   pass
+  
+def RemoveFromMaterialLib(namelist):
+  namelist=bytes(namelist,encoding='utf-8')
+  lib.RemoveFromMaterialLib(namelist)
+  pass
 
 
   
