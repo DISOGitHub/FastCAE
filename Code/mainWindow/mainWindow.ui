@@ -455,11 +455,6 @@
      <addaction name="actionDrawPolyline"/>
      <addaction name="actionDrawSpline"/>
     </widget>
-    <widget class="QMenu" name="menu">
-     <property name="title">
-      <string>在这里输入</string>
-     </property>
-    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="separator"/>
@@ -470,7 +465,6 @@
     <addaction name="menuView_3"/>
     <addaction name="menuSelect_2"/>
     <addaction name="actionMeasure"/>
-    <addaction name="menu"/>
    </widget>
    <widget class="QMenu" name="menuPlugins">
     <property name="title">
