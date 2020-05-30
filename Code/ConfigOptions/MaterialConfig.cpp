@@ -23,9 +23,9 @@ namespace ConfigOption
 		return _materialHash.value(t);
 	}
 
-	bool MaterialConfig::readConfig(QString filename)
+	bool MaterialConfig::readConfig(QString fileName)
 	{
-		QFile file(filename);
+		QFile file(fileName);
 		if (!file.open(QFile::ReadOnly | QFile::Text)) return false;
 		QDomDocument doc;
 		if (!doc.setContent(&file))

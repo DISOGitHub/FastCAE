@@ -5,7 +5,7 @@ readDataFileProp::readDataFileProp(QObject *parent) : QObject(parent)
     codec = QTextCodec::codecForName("GBK");
 }
 
-bool readDataFileProp::initNewFileProp(QString filename,curve_file_prop *tep_file_prop)
+bool readDataFileProp::initNewFileProp(QString fileName,curve_file_prop *tep_file_prop)
 {
 
 	bool ok; 
@@ -13,20 +13,20 @@ bool readDataFileProp::initNewFileProp(QString filename,curve_file_prop *tep_fil
     double tep_val;
     QStringList col_list;
     QString line_str;
-	if (filename[0] == '.')
+	if (fileName[0] == '.')
 	{
 		QString tep = QCoreApplication::applicationDirPath();
-		filename.remove(0, 1);
-		tep += filename;
-		filename = tep;
+		fileName.remove(0, 1);
+		tep += fileName;
+		fileName = tep;
 	}
-    QFile file_y(filename);
+    QFile file_y(fileName);
     if(!file_y.exists())
 		return false;
 	
     if (!file_y.open(QIODevice::ReadOnly))
         return false;
-    tep_file_prop->Axis_filename=filename;
+    tep_file_prop->Axis_filename=fileName;
     col_list.clear();
     while(!file_y.atEnd())
     {

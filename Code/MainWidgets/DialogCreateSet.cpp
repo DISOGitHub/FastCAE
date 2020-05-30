@@ -4,7 +4,7 @@
 #include "meshData/meshSingleton.h"
 #include "meshData/meshSet.h"
 #include "meshData/meshKernal.h"
-#include "meshData/setMember.h"
+//#include "meshData/setMember.h"
 #include "mainWindow/mainWindow.h"
 #include <vtkIdTypeArray.h>
 #include <QMessageBox>
@@ -150,7 +150,7 @@ namespace MainWidget
 		for (Geometry::GeometrySet* set : geoList)
 		{
 			TopoDS_Shape* body = set->getShape();
-			if (modle == ModuleBase::GeometryBody)
+			if (modle == ModuleBase::GeometryBody || modle == ModuleBase::GeometryWinBody)
 			{
 				aBuilder.Add(aRes, *body);
 				continue;
@@ -201,6 +201,8 @@ namespace MainWidget
 				inids = GeoCommon::getD2ElementsInShape(dataset, &aRes);
 			if ((modle == ModuleBase::GeometrySurface || modle == ModuleBase::GeometryWinSurface) && type.toLower() == "node")
 				inids = GeoCommon::getNodesInShape(dataset, &aRes);
+			if ((modle == ModuleBase::GeometryBody || modle == ModuleBase::GeometryWinBody) && type.toLower() == "element")
+				inids = GeoCommon::getBodyElementsInShape(dataset, &aRes);
 			if (inids.isEmpty()) continue;
 
 			QStringList ids;

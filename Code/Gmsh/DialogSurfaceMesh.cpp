@@ -1,5 +1,6 @@
 #include "DialogSurfaceMesh.h"
 #include "ui_DialogSurfaceMesh.h"
+#include "DialogLocalSetting.h"
 #include "settings/busAPI.h"
 #include "settings/GraphOption.h"
 #include <vtkActor.h>
@@ -12,26 +13,29 @@
 namespace Gmsh
 {
 	SurfaceMeshDialog::SurfaceMeshDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre)
-		: GeometryWidget::GeoDialogBase(m, pre)
+		: GmshDialogBase(m, pre)
 	{
 		_ui = new Ui::SurfaceMeshDialog;
 		_ui->setupUi(this);
-		_pyAgent = Py::PythonAagent::getInstance();
+	
 	}
 	SurfaceMeshDialog::~SurfaceMeshDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
+		
 		emit updateGraphOptions();
 	}
 
 	void SurfaceMeshDialog::on_geoSelectSurface_clicked()
 	{
 		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		_selectFace = true;
+		
 	}
 
 	void SurfaceMeshDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* st)
 	{
+		if (!_selectFace)  return;
 		if (_actorList.contains(ac))
 		{
 			_actorList.removeOne(ac);
@@ -48,6 +52,14 @@ namespace Gmsh
 		}
 		QString text = QString(tr("Selected Surface(%1)").arg(_actorList.size()));
 		_ui->planelabel->setText(text);
+	}
+
+	void SurfaceMeshDialog::on_localButton_clicked()
+	{
+		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		_selectFace = false;
+		auto d = new LocalSettingDialog(this,_mainWindow, _preWindow);
+		emit showDialog(d);
 	}
 
 	void SurfaceMeshDialog::accept()
@@ -110,9 +122,13 @@ namespace Gmsh
 
 		if (_ui->geoCleanCheckBox->isChecked()) //geoclean = 1;
 			_pyAgent->submit(QString("gmsher.cleanGeo()"));
+
+		_pyAgent->submit(QString("gmsher.setGridCoplanar(%1)").arg(_ui->gridCoplanarCheckBox->isChecked()));
+		this->appendPointSizeFiled();
 		_pyAgent->submit("gmsher.startGenerationThread()");
 // 		_pyAgent->submit("gmsh.model.mesh.generate(2)");
 // 		_pyAgent->submit("Mesher.TransFormMesh(2)");
+		
 		QDialog::accept();
 		this->close();
 	}

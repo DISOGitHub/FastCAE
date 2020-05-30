@@ -200,6 +200,7 @@ namespace ConfigOption
 			auto cp = _configfollow.value(name);
 			auto dp = _datafollow.value(name);
 			if ((cp == nullptr) || (dp == nullptr)) continue;
+			dp->copy(cp, true);
 			dp->copyStatus(cp);
 		}
 		follolwnames = _configfollowGroup.keys();

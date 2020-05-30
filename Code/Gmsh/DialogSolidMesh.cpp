@@ -2,22 +2,22 @@
 #include "ui_DialogSolidMesh.h"
 #include "python/PyAgent.h"
 #include "geometry/geometrySet.h"
+#include "DialogLocalSetting.h"
 #include <QMessageBox>
 
 namespace Gmsh
 {
 	SolidMeshDialog::SolidMeshDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre)
-		: GeometryWidget::GeoDialogBase(m, pre)
+		: GmshDialogBase(m, pre)
 	{
 		_ui = new Ui::SolidMeshDialog;
 		_ui->setupUi(this);
-		_pyAgent = Py::PythonAagent::getInstance();
 	}
 
 	SolidMeshDialog::~SolidMeshDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
+//		emit setSelectMode((int)ModuleBase::None);
 		emit updateGraphOptions();
 	}
 
@@ -36,10 +36,12 @@ namespace Gmsh
 	void SolidMeshDialog::on_geoSelectSurface_clicked()
 	{
 		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		_selectBody = true;
 	}
 
 	void SolidMeshDialog::selectActorShape(vtkActor*, int, Geometry::GeometrySet* set)
 	{
+		if (!_selectBody) return;
 		if (_geosetList.contains(set))
 		{
 			_geosetList.removeOne(set);
@@ -53,6 +55,14 @@ namespace Gmsh
 		}
 		QString text = QString(tr("Selected solid(%1)").arg(_geosetList.size()));
 		_ui->planelabel->setText(text);
+	}
+
+	void SolidMeshDialog::on_localButton_clicked()
+	{
+		emit setSelectMode((int)ModuleBase::None);
+		_selectBody = false;
+		auto d = new LocalSettingDialog(this,_mainWindow,  _preWindow);
+		emit showDialog(d);
 	}
 
 	void SolidMeshDialog::accept()
@@ -104,6 +114,9 @@ namespace Gmsh
 
 		if (_ui->geoCleanCheckBox->isChecked()) //geoclean = 1;
 			_pyAgent->submit(QString("gmsher.cleanGeo()"));
+
+		_pyAgent->submit(QString("gmsher.setGridCoplanar(%1)").arg(_ui->gridCoplanarCheckBox->isChecked()));
+		this->appendPointSizeFiled();
 		_pyAgent->submit("gmsher.startGenerationThread()");
 
 		QDialog::accept();

@@ -9,10 +9,10 @@
 
 namespace ConfigOption
 {
-	BCConfigReader::BCConfigReader(const QString filename, BCConfig* bcconfig) /*:IOBase(filename)*/
+	BCConfigReader::BCConfigReader(const QString fileName, BCConfig* bcconfig) /*:IOBase(fileName)*/
 	{
 //		_bcconfig = ConfigOption::getInstance()->getBCConfig();
-		_file.setFileName(filename);
+		_file.setFileName(fileName);
 		_bcconfig = bcconfig;
 	}
 	BCConfigReader::~BCConfigReader()

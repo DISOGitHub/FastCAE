@@ -32,6 +32,7 @@ namespace ModelData
         _simlutationSetting = new SimlutationSettingBase(this);
         _solverSetting = new SolverSettingBase(this);
     }
+
     ModelDataBase::~ModelDataBase()
     {
         int n = _bcList.size();
@@ -42,27 +43,33 @@ namespace ModelData
         }
         _bcList.clear();
     }
+
     void ModelDataBase::resetMaxID()
     {
         maxID = 0;
     }
+
     int ModelDataBase::getMaxID()
     {
         return maxID;
     }
+
     void ModelDataBase::setTreeType(ProjectTreeType type)
     {
         _treeType = type;
     }
+
     ProjectTreeType ModelDataBase::getTreeType()
     {
         return _treeType;
     }
+
     void ModelDataBase::dataToStream(QDataStream* datas)
     {
         *datas << _name << _id << _treeType;
         DataBase::dataToStream(datas);
     }
+
     QDomElement& ModelDataBase::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
     {
         QDomElement modelEle = doc->createElement("Model");
@@ -134,12 +141,14 @@ namespace ModelData
         parent->appendChild(modelEle);
         return modelEle;
     }
+
     void ModelDataBase::setID(int id)
     {
         DataBase::setID(id);
         if (id > maxID)
             maxID = id;
     }
+
     ProjectTreeType ModelDataBase::getTreeTypeByString(const QString& stype)
     {
         ProjectTreeType type = UnDefined;
@@ -154,6 +163,7 @@ namespace ModelData
         }
         return  ProjectTreeType(TreeType + i);
     }
+
     QString ModelDataBase::getTreeTypeToSring(ProjectTreeType type)
     {
         QString stype = "UnDefined";
@@ -163,6 +173,7 @@ namespace ModelData
         }
         return stype;
     }
+
     void ModelDataBase::readDataFromProjectFile(QDomElement* e)
     {
         int id = e->attribute("ID").toInt();
@@ -187,7 +198,6 @@ namespace ModelData
                 _geometryList.append(id);
             }
         }
-
         //component
         QDomNodeList complist = e->elementsByTagName("Component");
         if (complist.size() == 1)
@@ -200,8 +210,7 @@ namespace ModelData
                 int id = sids.at(i).toInt();
                 _componentIDList.append(id);
             }
-        }
-        
+        }      
         //BC
         QDomNodeList bclist = e->elementsByTagName("BoundaryCondition");
         if (bclist.size() == 1)
@@ -259,11 +268,13 @@ namespace ModelData
 // 		if (_treeType != TreeType + 1){ return; }
 // 		*stream << "船型标识符(os表示油船，cs表示集装箱船，bs表示散货船)：" << endl;
     }
+
     void ModelDataBase::writeToSolverXML(QDomDocument* doc,QDomElement* e)
     {
 //		Q_UNUSED(doc);
         writeToProjectFile(doc, e);
     }
+
     QString ModelDataBase::getPath()
     {
         QString workingdir = Setting::BusAPI::instance()->getWorkingDir();
@@ -288,23 +299,28 @@ namespace ModelData
     {
         _solvetime = t;
     }
+
     double ModelDataBase::getSolveTime()
     {
         return _solvetime;
     }
+
     void ModelDataBase::setOutputFileName(QString name)
     {
         _outputFileName = name;
 //		qDebug() << name;
     }
+
     QString ModelDataBase::getOutputFileName()
     {
         return _outputFileName;
     }
+
     int ModelDataBase::getBCCount()
     {
         return _bcList.size();
     }
+
     void ModelDataBase::appeendBC(BCBase::BCBase* bc)
     {
         int index = _bcList.size();
@@ -312,6 +328,7 @@ namespace ModelData
         bc->setIndex(index);
         bc->setID(_id);
     }
+
     QList<BCBase::BCBase*> ModelDataBase::getBCByType(BCBase::BCType t)
     {
         QList<BCBase::BCBase*> l;
@@ -324,34 +341,41 @@ namespace ModelData
         }
         return l;
     }
+
     BCBase::BCBase* ModelDataBase::getBCAt(const int index)
     {
         if(index >= 0 && index < _bcList.size())
            return _bcList.at(index);
          return nullptr;
     }
+
     void ModelDataBase::removeBCAt(const int index)
     {
         assert(index >= 0 && index < _bcList.size());
         _bcList.removeAt(index);
     }
+
     void ModelDataBase::setMeshSetList(QList<int> ids)
     {
         _componentIDList = ids;
         //Py::PythonAagent::getInstance()->unLock();
     }
+
     QList<int> ModelDataBase::getMeshSetList()
     {
         return _componentIDList;
     }
+
     void ModelDataBase::setMeshKernelList(QList<int> k)
     {
         _meshKernalIDList = k;
     }
+
     QList<int> ModelDataBase::getMeshKernalList()
     {
         return _meshKernalIDList;
     }
+
     void ModelDataBase::removeMeshSetAt(int index)
     {
         assert(index >= 0 && index < _componentIDList.size());
@@ -372,14 +396,17 @@ namespace ModelData
             delete bc;
         }
     }
+
     SimlutationSettingBase* ModelDataBase::getSimlutationSetting()
     {
         return _simlutationSetting;
     }
+
     SolverSettingBase* ModelDataBase::getSolverSetting()
     {
         return _solverSetting;
     }
+
     void ModelDataBase::writeToProjectFile1(QDomDocument* doc, QDomElement* modelEle)
     {
     //	QDomElement modelEle = doc->createElement("Model");
@@ -446,6 +473,7 @@ namespace ModelData
         _solverSetting->writeToProjectFile(doc, &solverEle);
         modelEle->appendChild(solverEle);
     }
+
     void ModelDataBase::copyFormConfig()
     {
         ConfigOption::DataConfig* dataconfig = ConfigOption::ConfigOption::getInstance()->getDataConfig();
@@ -456,6 +484,7 @@ namespace ModelData
         DataProperty::DataBase* solver = dataconfig->getSolverSettingData(_treeType);
         if (solver != nullptr) _solverSetting->copy(solver);
     }
+
     bool ModelDataBase::isComponentUsed(int index)
     {
         if (index < 0 || index >= _componentIDList.size()) return false;
@@ -467,7 +496,6 @@ namespace ModelData
             if (bc->getMeshSetID() == id)
                 return true;
         }
-
         return false;
     }
 
@@ -521,6 +549,4 @@ namespace ModelData
         _simlutationSetting->generateParaInfo();
         DataBase::generateParaInfo();
     }
-
-
 }

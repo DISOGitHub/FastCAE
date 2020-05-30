@@ -202,9 +202,9 @@ void PipelineObjPropWidget::on_color1_pushButton_clicked()
     else
     {
         //自定义文件
-        QString filename = QFileDialog::getOpenFileName(this, tr("open file"), "",tr("backgound image(*.jpg)"));
-        //ui->lineEdit->setText(filename);
-        cur_renderview_global_prop_data.image_file=filename;
+        QString fileName = QFileDialog::getOpenFileName(this, tr("open file"), "",tr("backgound image(*.jpg)"));
+        //ui->lineEdit->setText(fileName);
+        cur_renderview_global_prop_data.image_file=fileName;
         emit sig_change_global_view_prop();
     }
 }
@@ -244,7 +244,7 @@ void PipelineObjPropWidget::add_propForm(PipelineObject *tep_pipeObj)
 		tep_widget->cur_pipelineObj = tep_pipeObj;
 		tep_widget->block_showMap = tep_pipeObj->mPipeLineObjProp.pipelineObj_base_propData.block_showMap;
 		tep_widget->m_colorList = tep_pipeObj->mPipeLineObjProp.pipelineObj_base_propData.m_colorList;
-		tep_widget->suffix_filename = QFileInfo(tep_pipeObj->mPipeLineObjProp.pipelineObj_base_propData.filename).suffix();
+		tep_widget->suffix_filename = QFileInfo(tep_pipeObj->mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix();
 		tep_widget->mooringLine_propData = &(tep_pipeObj->mPipeLineObjProp.mooringLine_propData);
 		tep_widget->particles_propData = &(tep_pipeObj->mPipeLineObjProp.particles_propData);
 		tep_widget->updateForm();
@@ -448,23 +448,23 @@ void PipelineObjPropWidget::slot_update_pipelineObj_propForm(PipelineObject *tep
 	add_propForm(tep_pipeObj);
 	//ui->pipelineObj_GloPropwidget->setVisible(true);
 	if (tep_pipeObj->GetObjectType()==dNumeric_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1)")).arg( pipelineObj_propPtr->pipelineObj_base_propData.filename));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1)")).arg( pipelineObj_propPtr->pipelineObj_base_propData.fileName));
 	else if (tep_pipeObj->GetObjectType() == dClip_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->plane_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->plane_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dSlice_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->plane_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->plane_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dContour_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->contourFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->contourFilter_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dVector_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->vectorFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->vectorFilter_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dReflection_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->reflectionFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->reflectionFilter_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dCalculator_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->calculatorFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->calculatorFilter_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dSmooth_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->smoothFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->smoothFilter_propData.filterName));
 	else if (tep_pipeObj->GetObjectType() == dStreamLine_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->streamLineFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->streamLineFilter_propData.filterName));
 	
 	//20190121/////////////////////////////////////////
 	//ui->m_cmb_Representation->setEnabled(false);
@@ -1443,23 +1443,23 @@ void PipelineObjPropWidget::reTranslate()
 	if ((cur_pipelineObj == NULL) || (pipelineObj_propPtr == NULL))
 		return;
 	if (cur_pipelineObj->GetObjectType() == dNumeric_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName));
 	else if (cur_pipelineObj->GetObjectType() == dClip_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->plane_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->plane_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dSlice_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->plane_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->plane_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dContour_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->contourFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->contourFilter_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dVector_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->vectorFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->vectorFilter_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dReflection_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->reflectionFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->reflectionFilter_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dCalculator_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->calculatorFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->calculatorFilter_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dSmooth_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->smoothFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->smoothFilter_propData.filterName));
 	else if (cur_pipelineObj->GetObjectType() == dStreamLine_DataSource)
-		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.filename).arg(pipelineObj_propPtr->streamLineFilter_propData.filterName));
+		ui->BtnPropertiesButton->setText(QString(tr("Properties(%1 <%2>)")).arg(pipelineObj_propPtr->pipelineObj_base_propData.fileName).arg(pipelineObj_propPtr->streamLineFilter_propData.filterName));
 	pipelineObj_propPtr->pipelineObj_base_propData.m_enum_representationtype = (ERepresentationType)tep_rep;
 	pipelineObj_propPtr->pipelineObj_base_propData.m_enum_interpolationtype = (EInterpolationType)tep_interpolation;
 	ui->m_cmb_Representation->setCurrentIndex(pipelineObj_propPtr->pipelineObj_base_propData.m_enum_representationtype);

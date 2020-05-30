@@ -11,8 +11,9 @@
 #include <vtkIdTypeArray.h>
 #include "meshData/meshSingleton.h"
 #include "meshData/meshSet.h"
-#include "meshData/setMember.h"
+//#include "meshData/setMember.h"
 #include "GeometryCommand/GeoCommandList.h"
+
 namespace GUI
 {
 
@@ -49,19 +50,19 @@ namespace GUI
 		emit _mainWindow->clearDataSig();
 	}
 
-	void MainWindowPy::importMesh(char* f)
+	void MainWindowPy::importMesh(char* f,char* s)
 	{
 		QString file(f);
-		QStringList fl = file.split(",");
-		emit _signalHander->importMeshPySig(fl);
+		QString suffix(s);
+		emit _signalHander->importMeshPySig(file, suffix);
 		//_pyAgent->unLock();
-
 	}
 
-	void MainWindowPy::exportMesh(char* f)
+	void MainWindowPy::exportMesh(char* f,char* s)
 	{
 		QString file(f);
-		emit _signalHander->exportMeshPySig(file);
+		QString suffix(s);
+		emit _signalHander->exportMeshPySig(file,s);
 	}
 
 	void MainWindowPy::importGeometry(char* f)
@@ -1269,14 +1270,14 @@ namespace GUI
 
 }
 
-void importMesh(char* f)
+void importMesh(char* f,char* s)
 {
-	GUI::MainWindowPy::importMesh(f);
+	GUI::MainWindowPy::importMesh(f,s);
 }
 
-void exportMesh(char* f)
+void exportMesh(char* f, char* s)
 {
-	GUI::MainWindowPy::exportMesh(f);
+	GUI::MainWindowPy::exportMesh(f,s);
 }
 
 void importGeometry(char* f)

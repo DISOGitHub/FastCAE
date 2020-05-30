@@ -74,11 +74,14 @@ namespace DataProperty
 		QString c = chlist.at(0).toElement().text();
 		_chinese = c.split(";");
 	}
-	void ParameterSelectable::copy(ParameterBase* ori)
+	void ParameterSelectable::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
+		ParameterBase::copy(ori, valueOnly);
 		ParameterSelectable* p = (ParameterSelectable*)ori;
-		_currentIndex = p->getCurrentIndex();
+		if (p == nullptr) return;
+		int currentIndex = p->getCurrentIndex();
+		this->setCurrentIndex(currentIndex);
+		if (valueOnly) return;
 		_option = p->getOption();
 		_chinese = p->getChinese();
 	}
@@ -109,6 +112,6 @@ namespace DataProperty
 	void ParameterSelectable::setValueFromString(QString v)
 	{
 		int i = v.toInt();
-		_currentIndex = i;
+		setCurrentIndex(i);
 	}
 }

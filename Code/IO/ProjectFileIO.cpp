@@ -1,4 +1,4 @@
-#include "ProjectFileIO.h"
+ï»¿#include "ProjectFileIO.h"
 #include <QDomDocument>
 #include <QTextStream>
 #include "geometry/geometryData.h"
@@ -26,8 +26,8 @@
 
 namespace IO
 {
-	ProjectFileIO::ProjectFileIO(const QString& filename)
-		:IOBase(filename)
+	ProjectFileIO::ProjectFileIO(const QString& fileName)
+		:IOBase(fileName)
 	{
 		_geoData = Geometry::GeometryData::getInstance();
 		_meshData = MeshData::MeshData::getInstance();
@@ -53,7 +53,7 @@ namespace IO
 		return ok;
 	}
 
-	bool ProjectFileIO::writeDiso(QString filename)
+	bool ProjectFileIO::writeDiso(QString fileName)
 	{
  		bool ok = false;
 		QString exelPath = QCoreApplication::applicationDirPath();
@@ -73,39 +73,39 @@ namespace IO
 		_doc->appendChild(root);
 	
 		const int geoCount = _geoData->getGeometrySetCount();
-		if (geoCount > 0)  //Ð´³ö¼¸ºÎ
+		if (geoCount > 0)  //å†™å‡ºå‡ ä½•
 		{
 			isEmpty = false;
 			_geoData->writeToProjectFile(_doc, &root, true);
 		}
  		const int meshCount = _meshData->getKernalCount();
- 		if (meshCount > 0) //Ð´³öÍø¸ñ
+ 		if (meshCount > 0) //å†™å‡ºç½‘æ ¼
  		{
  			isEmpty = false;
 // 			_meshData->writeToProjectFile(_doc, &root);
  		}
 		const int nMaterial = _materialData->getMaterialCount();
-		if (nMaterial > 0)  //Ð´³ö²ÄÁÏ
+		if (nMaterial > 0)  //å†™å‡ºææ–™
 		{
 			isEmpty = false;
 			_materialData->writeToProjectFile(_doc, &root);
 		}
 
 		const int modelCount = _modelData->getModelCount();
-		if (modelCount > 0) //Ð´³öÎïÀíÄ£ÐÍ
+		if (modelCount > 0) //å†™å‡ºç‰©ç†æ¨¡åž‹
 		{
 			isEmpty = false;
 			_modelData->writeToProjectFile(_doc, &root);
 		}
 
 		_plugins->writeToProjectFile(_doc, &root);
-//		if (isEmpty) return false;  //Êý¾ÝÎª¿Õ ²»Ð´ÎÄ¼þ
+//		if (isEmpty) return false;  //æ•°æ®ä¸ºç©º ä¸å†™æ–‡ä»¶
 		QFile file(tempPath + "case.xml");
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) return false;
 		_stream = new QTextStream(&file);
 		_doc->save(*_stream, 4);
 		file.close();
-		//Ð´Íø¸ñ
+		//å†™ç½‘æ ¼
 	
 		if (meshCount > 0)
 		{
@@ -116,11 +116,11 @@ namespace IO
 			mhFile.close();
 		}
 
-		ok = JlCompress::compressDir(filename, tempPath);
+		ok = JlCompress::compressDir(fileName, tempPath);
 		return ok;
 	}
 
-	bool ProjectFileIO::writeXml(QString filename)
+	bool ProjectFileIO::writeXml(QString fileName)
 	{
 		bool isEmpty = true;
 		_doc = new QDomDocument;
@@ -129,32 +129,32 @@ namespace IO
 		QDomElement root = _doc->createElement("DISO_FILE_1.0");
 		_doc->appendChild(root);
 		const int geoCount = _geoData->getGeometrySetCount();
-		if (geoCount > 0)  //Ð´³ö¼¸ºÎ
+		if (geoCount > 0)  //å†™å‡ºå‡ ä½•
 		{
 			isEmpty = false;
 			_geoData->writeToProjectFile(_doc, &root);
 		}
 		const int meshCount = _meshData->getKernalCount();
-		if (meshCount > 0) //Ð´³öÍø¸ñ
+		if (meshCount > 0) //å†™å‡ºç½‘æ ¼
 		{
 			isEmpty = false;
 			_meshData->writeToProjectFile(_doc, &root);
 		}
 		const int nMaterial = _materialData->getMaterialCount();
-		if (nMaterial > 0)  //Ð´³ö²ÄÁÏ
+		if (nMaterial > 0)  //å†™å‡ºææ–™
 		{
 			isEmpty = false;
 			_materialData->writeToProjectFile(_doc, &root);
 		}
 
 		const int modelCount = _modelData->getModelCount();
-		if (modelCount > 0) //Ð´³öÎïÀíÄ£ÐÍ
+		if (modelCount > 0) //å†™å‡ºç‰©ç†æ¨¡åž‹
 		{
 			isEmpty = false;
 			_modelData->writeToProjectFile(_doc, &root);
 		}
 		_plugins->writeToProjectFile(_doc, &root);
-//		if (isEmpty) return false;  //Êý¾ÝÎª¿Õ ²»Ð´ÎÄ¼þ
+//		if (isEmpty) return false;  //æ•°æ®ä¸ºç©º ä¸å†™æ–‡ä»¶
 		if (!_file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) return false;
 		_stream = new QTextStream(&_file);
 		_doc->save(*_stream, 4);
@@ -167,7 +167,7 @@ namespace IO
 	{
 		bool ok = false;
 		QString f = _filename;
-		qDebug() << f;
+		//qDebug() << f;
 		QString suffix = f.right(4);
 		if (suffix == ".xml")
 			ok = readXml(f);
@@ -176,12 +176,15 @@ namespace IO
 		return ok;
 	}
 
-	bool ProjectFileIO::readXml(QString filename)
+	bool ProjectFileIO::readXml(QString fileName)
 	{
 		if (!_file.open(QIODevice::ReadOnly | QFile::Text)) return false;
 		_doc = new QDomDocument;
-		if (!_doc->setContent(&_file))
+		int row{0}, col{0};
+		QString errstr{};
+		if (!_doc->setContent(&_file,true,&errstr,&row,&col))
 		{
+			qDebug() << errstr << "line:Â " << row << "col:Â " << col;
 			_file.close();
 			return false;
 		}
@@ -205,7 +208,7 @@ namespace IO
 		return true;
 	}
 
-	bool ProjectFileIO::readDiso(QString filename)
+	bool ProjectFileIO::readDiso(QString fileName)
 	{
 		QString exelPath = QCoreApplication::applicationDirPath();
 		const QString tempPath = exelPath + "/../tempIO/";
@@ -218,7 +221,7 @@ namespace IO
 				dir.mkdir(tempPath);
 		}
 
-		QStringList files = JlCompress::extractDir(filename, tempPath);
+		QStringList files = JlCompress::extractDir(fileName, tempPath);
 		if (files.size() == 0) return false;
 
 		QFile file(tempPath + "case.xml");

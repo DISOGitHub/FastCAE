@@ -62,7 +62,7 @@ namespace ProjectTree
 //		void copy(ProjectTreeBase* tree);
 		//从配置文件中拷贝信息
 		void copy(ConfigOption::ProjectTreeInfo* info);
-		void setOutputFileName(QString filename);
+		void setOutputFileName(QString fileName);
 		//设置名称
 		void setName(const QString &name);
 		//获取名称
@@ -99,8 +99,12 @@ namespace ProjectTree
 		void setDisableItems(QStringList s);
 		//获取不可见节点
 		QStringList getDisableItems();
+		//设置当前item
+		void setCurrentItem(QTreeWidgetItem* item);
 		//文件是否存在
-		static bool isFileExist(QString filename);
+		static bool isFileExist(QString fileName);
+		//右键菜单
+		virtual void contextMenu(QMenu* menu);
 
 	protected slots:
 		//mainwindow 发送的求解模型信号
@@ -128,9 +132,12 @@ namespace ProjectTree
 		virtual void singleClicked(/*QTreeWidgetItem* item, TreeItemType type */);
 	 	virtual void doubleClicked(/*QTreeWidgetItem* item, TreeItemType type */);
 		virtual void createContextMenu(/*QTreeWidgetItem* item, TreeItemType type */);
-		virtual void contextMenu(QMenu* menu);
+		
 		///根据类型获取树节点，根节点为nullptr时遍历全树
 		QList<QTreeWidgetItem*> getItemByType(const TreeItemType type,QTreeWidgetItem *root = nullptr);
+
+	private:
+		virtual void transferData(){}
 
 	protected:
 		QString _name{};

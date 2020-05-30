@@ -35,9 +35,6 @@ namespace Command
 		void setreverse(bool reverse);
 		void setRandomDir(double* randomdir);
 		void setBasePt(double* basepoint);
-	
-
-	protected:
 
 	private:
 		QList<Geometry::GeometrySet*> _bodys{};
@@ -47,10 +44,7 @@ namespace Command
 		void getDirection();
 
 		QHash<Geometry::GeometrySet*, Geometry::GeometrySet*> _resultOriginHash{};
-
-
 		int _planeindex;
-
 		Geometry::GeometrySet* _faceBody{};
 		int _typeindex{ 0 };
 		int _faceIndex{ 0 };

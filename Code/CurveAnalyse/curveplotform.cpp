@@ -641,7 +641,7 @@ void CurvePlotForm::set_saveImage_prop_data(curve_saveImage_prop tep_prop)
 	saveImage_prop_data = tep_prop;
 }
 
-void CurvePlotForm::func_saveImage(bool flag_dlg, int wid, int hei, QString filename)
+void CurvePlotForm::func_saveImage(bool flag_dlg, int wid, int hei, QString fileName)
 {
 	if (flag_dlg)
 	{
@@ -659,7 +659,7 @@ void CurvePlotForm::func_saveImage(bool flag_dlg, int wid, int hei, QString file
 		curve_saveImage_prop tep_data;
 		tep_data.image_wid = wid;
 		tep_data.image_hei = hei;
-		tep_data.saveImage_fileName = filename;set_saveImage_prop_data(tep_data);
+		tep_data.saveImage_fileName = fileName;set_saveImage_prop_data(tep_data);
 		slot_saveImage();
 	}
 }

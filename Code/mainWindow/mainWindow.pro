@@ -40,7 +40,7 @@ win32{
 	-L../../output/bin -lGmshModule \
 	-L../../output/bin -lPluginManager \
 	-L../../output/bin -lUserGuidence \
-  
+	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 
@@ -69,7 +69,7 @@ win32{
 	-L../../output/bin_d -lGmshModule \
 	-L../../output/bin_d -lPluginManager \
 	-L../../output/bin_d -lUserGuidence \
-
+	
   message("Windows mainwindow build")
                                                
 }

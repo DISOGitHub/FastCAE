@@ -12,7 +12,7 @@ namespace DataProperty
 		ParameterDouble();
 		~ParameterDouble() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 		//设置值
 		void setValue(double v);
 		//获取值

@@ -1,12 +1,16 @@
 #include "GeoCommandImport.h"
-#include "geometry/geometryReader.h"
 #include "mainWindow/mainWindow.h"
 #include "geometry/geometryData.h"
+#include "GeometryDataExchange/IGESdataExchange.h"
+#include "GeometryDataExchange/BREPdataExchange.h"
+#include "GeometryDataExchange/STEPdataExchange.h"
+#include "GeometryDataExchange/GeometryThreadBase.h"
+#include <QFileInfo>
 
 namespace Command
 {
 	GeoCommandImport::GeoCommandImport(GUI::MainWindow* m, MainWidget::PreWindow* p)
-		: GeoCommandBase(m, p)
+		: GeoCommandBase(m, p), _mw(m)
 	{
 		connect(this, SIGNAL(showMessage(ModuleBase::Message)), _mainWindow, SIGNAL(printMessageToMessageWindow(ModuleBase::Message)));
 	}
@@ -17,36 +21,34 @@ namespace Command
 	}
 
 	bool GeoCommandImport::execute()
-	{
-		bool ok = false;
+	{		
 		for (int i = 0; i < _fileNames.size(); ++i)
 		{
-			ModuleBase::Message m;
-			QString filename = _fileNames.at(i);
-			Geometry::GeometryReader reader(filename);
-			if (!reader.read())
+			QString fileName = _fileNames.at(i);
+			QFileInfo info(fileName);
+			if (!info.exists()) return false;
+			const QString suffix = info.suffix().toLower();
+
+			if (suffix == "iges" || suffix == "igs")
 			{
-				m.type = ModuleBase::Error_Message;
-				m.message = QString("Failed import Geometry From \"%1\"").arg(filename);
-				emit showMessage(m);
-				continue;
+				auto igesReader = new Geometry::IGESdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				connect(igesReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
+				emit igesReader->start();
+			}				
+			else if (suffix == "step" || suffix == "stp")
+			{
+				auto stepReader = new Geometry::STEPdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				connect(stepReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
+				emit stepReader->start();
 			}
-			ok = true;
-			m.type = ModuleBase::Normal_Message;
-			m.message = QString("Import Geometry From \"%1\"").arg(filename);
-			emit showMessage(m);
-			QList<Geometry::GeometrySet*> setList = reader.getResult();
-			for (auto set : setList)
+			else if (suffix == "brep")
 			{
-				_resSet.append(set);
-				if (set != setList.last())
-					emit showSet(set, false);
-				else emit showSet(set);
+				auto brepReader = new Geometry::BREPdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				connect(brepReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
+				emit brepReader->start();
 			}
 		}
-
-		emit updateGeoTree();
-		return ok;
+		return true;
 	}
 
 	void GeoCommandImport::undo()
@@ -80,5 +82,4 @@ namespace Command
 		}
 		_resSet.clear();
 	}
-
 }

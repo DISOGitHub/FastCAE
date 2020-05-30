@@ -126,7 +126,7 @@ namespace GUI
 		void setView(QString view);
 		
 		//±£´æÍ¼Æ¬
-		void saveImage(QString filename, int winType, Post::PostWindowBase*winhandle, int w, int h);
+		void saveImage(QString fileName, int winType, Post::PostWindowBase*winhandle, int w, int h);
 		void saveImage(int w, int h, QString f);
 		
 

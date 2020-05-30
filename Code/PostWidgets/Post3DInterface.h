@@ -25,7 +25,7 @@ namespace Post
 		//获取三维绘图窗口
 		Post3DWindow* getWindow();
 		virtual void reTranslate() override;
-		void saveImage(QString filename, int width, int heigh, bool showDlg) override;
+		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
 
 	private:
 		void init();

@@ -16,10 +16,12 @@ namespace ModelData
 	ModelDataSingleton::ModelDataSingleton()
 	{
 	}
+
 	ModelDataSingleton::~ModelDataSingleton()
 	{
 		clear();
 	}
+
 	ModelDataSingleton* ModelDataSingleton::getinstance()
 	{
 		if (_instance == nullptr)
@@ -28,19 +30,23 @@ namespace ModelData
 		}
 		return _instance;
 	}
+
 	void ModelDataSingleton::appendModel(ModelDataBase* model)
 	{
 		_modelList.append(model);
 	}
+
 	int ModelDataSingleton::getModelCount()
 	{
 		return _modelList.size();
 	}
+
 	ModelDataBase* ModelDataSingleton::getModelAt(const int index)
 	{
 		assert(index >= 0 && index < _modelList.size());
 		return _modelList.at(index);
 	}
+
 	QString ModelDataSingleton::getMD5()
 	{
 		const int n = _modelList.size();
@@ -77,6 +83,7 @@ namespace ModelData
 		//return md5;
 		return md5;
 	}
+
 	ModelDataBase* ModelDataSingleton::getModelByID(const int id)
 	{
 		const int n = _modelList.size();
@@ -118,6 +125,7 @@ namespace ModelData
 		parent->appendChild(modelElement);
 		return modelElement;
 	}
+
 	void ModelDataSingleton::clear()
 	{
 		const int n = _modelList.size();
@@ -129,6 +137,7 @@ namespace ModelData
 		_modelList.clear();
 		ModelDataBase::resetMaxID();
 	}
+
 	void ModelDataSingleton::removeModelByID(const int id)
 	{
 		ModelDataBase* dataBase = getModelByID(id);
@@ -137,6 +146,7 @@ namespace ModelData
 		_modelList.removeAt(index);
 		delete dataBase;
 	}
+
 	int ModelDataSingleton::getModelIDByIndex(const int index)
 	{
 		const int n = _modelList.size();

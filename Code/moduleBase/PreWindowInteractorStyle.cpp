@@ -31,7 +31,8 @@
 #include <vtkCell.h>
 #include <vtkCoordinate.h>
 #include <QDebug>
-
+#include <QMenu>
+#include <QAction>
 namespace ModuleBase
 {
 	PropPickerInteractionStyle::PropPickerInteractionStyle()
@@ -629,6 +630,16 @@ namespace ModuleBase
 				return;
 			}
 		}
+	}
+
+
+	void PropPickerInteractionStyle::OnRightButtonDown()
+	{
+		//判断是否选中几何，bool
+		bool isSelectBody = false;
+		//if (_preGeoSeltctActor != nullptr) return;
+		emit rightDownMenu();
+
 	}
 
 	void PropPickerInteractionStyle::OnRightButtonUp()

@@ -27,17 +27,18 @@ namespace GUI
 		~SignalHandler();
 
 	signals:
-		void importMeshPySig(QStringList);
-		void exportMeshPySig(QString);
+		void importMeshPySig(QString, QString);
+		void exportMeshPySig(QString,QString);
 		void open3DGraphWindowPySig();
 		void open2DPlotWindowPySig();
 		bool openProjectFileSig(QString fileName);
-		void saveToProjectFileSig(QString filename);
+		void saveToProjectFileSig(QString fileName);
 		void solveProjectSig(int projectIndex, int solverIndex);
 		
 
 	public:
-		bool importMesh(const QStringList &filenames);
+		//不要通过返回值判断
+		bool importMesh(const QString &fileName, QString s);
 		bool importGeometry(const QStringList &filenames);
 		bool exportGeometry(QString f);
 		QString getMD5();
@@ -68,8 +69,8 @@ namespace GUI
 		//添加求解器生成网格
 		void appendGeneratedMesh(QString name, vtkDataSet* dataset);
 		//导出网格
-		void exportMeshByID(QString filename, int kenerlID = -1);
-		void exportMeshPy(QString filename);
+		void exportMeshByID(QString fileName, QString suffix, int kenerlID = -1);
+		void exportMeshPy(QString fileName, QString suffix);
 		///刷新Action状态
 		void updateActionsStates();
 		//独立打开2D后处理窗口
@@ -83,7 +84,7 @@ namespace GUI
 		//保存图片
 		void saveImange();
 		bool openProjectFile(QString fileName);
-		void saveToProjectFile(QString filename);
+		void saveToProjectFile(QString fileName);
 		//检查网格质量
 		void meshChecking();
 		//显示用户引导
@@ -123,6 +124,7 @@ namespace GUI
 		void showDialog(QDialog* d);
 		void MakeMatrix();
 		void MeasureDistance();
+		void GeoSplitter();
 		//void showDemo();
 
 	private:
@@ -138,6 +140,5 @@ namespace GUI
 
 	};
 }
-
 
 #endif

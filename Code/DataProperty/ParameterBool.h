@@ -11,7 +11,7 @@ namespace DataProperty
 		ParameterBool();
 		~ParameterBool() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 		//设置值
 		void setValue(bool ok);
 		//获取值

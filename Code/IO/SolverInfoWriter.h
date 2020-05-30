@@ -39,7 +39,7 @@ namespace IO
 	class IOAPI SolverInfoWriter : public ModuleBase::IOBase
 	{
 	public:
-		SolverInfoWriter(const QString& filename);
+		SolverInfoWriter(const QString& fileName);
 		SolverInfoWriter();
 		~SolverInfoWriter() = default;
 
@@ -48,10 +48,10 @@ namespace IO
 		void appendModel(ModelData::ModelDataBase *model);
 		bool write(QString dir = QString()) override;
 //		void setFileType(FileType type);
-		void xml2json_model(QString filename);
-		void xml2json_material(QString filename);
-		void xml2json_geometry(QString filename);
-		void xml2json_meshdata(QString filename);
+		void xml2json_model(QString fileName);
+		void xml2json_material(QString fileName);
+		void xml2json_geometry(QString fileName);
+		void xml2json_meshdata(QString fileName);
 		void write_xml_model();
 		void write_xml_material();
 		void write_xml_geometry();

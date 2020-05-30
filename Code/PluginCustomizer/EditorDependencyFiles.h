@@ -14,7 +14,7 @@ namespace FastCAEDesigner{
 
 	public:
 		explicit EditorDependencyFiles(QWidget *parent = 0);
-		EditorDependencyFiles(QString filename, QWidget *parent = 0);
+		EditorDependencyFiles(QString fileName, QWidget *parent = 0);
 		~EditorDependencyFiles();
 
 		QString getFiles();

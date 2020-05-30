@@ -2,7 +2,6 @@ HEADERS += \
 	$$PWD/geometryAPI.h \
 	$$PWD/GeoCommon.h \
 	$$PWD/geometryData.h \
-	$$PWD/geometryReader.h \
 	$$PWD/geometrySet.h \
 	$$PWD/geometryExporter.h \
 	$$PWD/geometryDatum.h \
@@ -25,12 +24,13 @@ HEADERS += \
 	$$PWD/geometryParaLoft.h \
 	$$PWD/geometryParaSweep.h \
 	$$PWD/geometryParaRevol.h \
+	$$PWD/GeometryPy.h \
+	$$PWD/geometryParaGeoSplitter.h \
 	
 	
 SOURCES += \
     $$PWD/GeoCommon.cpp \
 	$$PWD/geometryData.cpp \
-	$$PWD/geometryReader.cpp \
 	$$PWD/geometrySet.cpp \
 	$$PWD/geometryExporter.cpp \
 	$$PWD/geometryDatum.cpp \
@@ -54,3 +54,5 @@ SOURCES += \
 	$$PWD/geometryParaLoft.cpp \
 	$$PWD/geometryParaSweep.cpp \
 	$$PWD/geometryParaRevol.cpp \
+	$$PWD/GeometryPy.cpp \
+	$$PWD/geometryParaGeoSplitter.cpp \

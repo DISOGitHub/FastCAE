@@ -24,7 +24,6 @@
 #include "MainWidgets/preWindow.h"
 #include "GmshModule.h"
 #include "moduleBase/processBar.h"
-
 #include "DataProperty/ParameterString.h"
 #include "DataProperty/ParameterInt.h"
 #include "DataProperty/ParameterDouble.h"
@@ -225,10 +224,10 @@ namespace Gmsh
 	{
 		MeshData::MeshData* data = MeshData::MeshData::getInstance();
 		QString exelPath = QCoreApplication::applicationDirPath();
-		const QString filename = exelPath + "/../temp/mesh.vtk";
+		const QString fileName = exelPath + "/../temp/mesh.vtk";
 
 		QTextCodec *codec = QTextCodec::codecForName("GB18030");
-		QByteArray ba = codec->fromUnicode(filename);
+		QByteArray ba = codec->fromUnicode(fileName);
 		vtkSmartPointer<vtkDataSetReader> vtkReader = vtkSmartPointer<vtkDataSetReader>::New();
 		vtkReader->SetFileName(ba);
 		vtkReader->Update();
@@ -259,6 +258,9 @@ namespace Gmsh
 		IO::TempalteReplacer replacer(this);
 		replacer.appendFile(tempDir + "gmsh.Geo");
 		replacer.replace();
+
+		appenScript(tempDir + "gmsh.Geo");
+
 	}
 
 	void GmshThread::generate()
@@ -352,6 +354,8 @@ namespace Gmsh
 		this->setMaxSize(para->_maxSize);
 		this->setSizeFactor(para->_sizeFactor);
 		this->isCleanGeo(para->_geoclean);
+		this->setGridCoplanar(para->_isGridCoplanar);
+		this->setSizeAtPoint(para->_sizeAtPoints);
 
 	}
 
@@ -363,6 +367,80 @@ namespace Gmsh
 	void GmshThread::setSurface(QMultiHash<int, int> s)
 	{
 		_surfaceHash = s;
+	}
+
+	void GmshThread::gridCoplanar(QTextStream* out)
+	{
+		if (!_isGridCoplanar)
+			return;
+
+		*out << "//+" << endl;
+		*out << "BooleanFragments{ }{ }" << endl;
+		*out << "//+" << endl;
+		*out << "Coherence;" << endl;
+// 		out << "//+" << endl;
+// 		out << "Point(333) = {0, 0, 0, 0.01};" << endl;
+	}
+
+	void GmshThread::appenScript(QString path)
+	{
+		QFile file(path);
+		if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
+		{
+			qDebug() << path << "open failed.";
+			return;
+		}
+		QTextStream out(&file);
+
+		out << "//+" << endl;
+		out << "SetFactory(\"OpenCASCADE\");" << endl;
+
+		gridCoplanar(&out);
+		sizeAtPoints(&out);
+
+		file.close();
+	}
+
+	void GmshThread::sizeAtPoints(QTextStream* out)
+	{
+		if (_sizeAtPoints.isEmpty())
+			return;
+
+		int d = 100000;
+
+		QStringList points = _sizeAtPoints.split(";");
+		for (QString s : points)
+		{
+			QStringList coors = s.split(",");
+			if (coors.size() != 4) continue;
+
+			bool ok = false;
+			for (QString c : coors)
+			{
+				c.toDouble(&ok);
+				if (!ok) break;
+			}
+
+			if (ok)
+			{
+				*out << "//+" << endl;
+				QString temp = QString("Point(%1) = {").arg(d);
+				*out << temp << coors.join(",") << "};" << endl;
+				d++;
+			}
+			
+		}
+
+	}
+
+	void GmshThread::setGridCoplanar(bool gc)
+	{
+		_isGridCoplanar = gc;
+	}
+
+	void GmshThread::setSizeAtPoint(QString ps)
+	{
+		_sizeAtPoints = ps;
 	}
 
 

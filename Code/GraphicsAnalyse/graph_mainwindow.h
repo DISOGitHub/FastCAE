@@ -237,8 +237,8 @@ public:
 	void script_Camera_Zoom(double zoom);
 	void script_Camera_Reset();
 	void script_Camera_SelfAdaptation(bool flag);
-	void RunScript(QString filename);
-	void SetDosScriptFile(QString filename);
+	void RunScript(QString fileName);
+	void SetDosScriptFile(QString fileName);
 
 	//set view direction
 	void script_resetView();
@@ -246,7 +246,7 @@ public:
 	void script_setViewValueDirection(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);
 
 	void script_Save_Animate(QString aviFileName);
-	void script_saveImage(bool flag_dlg, int wid, int hei, QString filename);
+	void script_saveImage(bool flag_dlg, int wid, int hei, QString fileName);
 	void script_delPipelineObj(PipelineObject* pipeObj);
 	void script_update_pipelineObj_propForm(PipelineObject* pipeObj);
 	void script_projectTreeItemClicked(PipelineObject* tep_pipelineObj);
@@ -366,7 +366,7 @@ private:
 	void do_calculatorFilter(PipelineObject *pipelineobj);
 	void do_smoothFilter(PipelineObject *pipelineobj);
 	void do_streamLineFilter(PipelineObject *pipelineobj);
-	void func_saveImage(bool flag_dlg, int wid, int hei, QString filename);
+	void func_saveImage(bool flag_dlg, int wid, int hei, QString fileName);
 	saveAni_prop aniSetting_data;
 	int count_obj_id;
 	void ani_update_all_form(bool flag_start);

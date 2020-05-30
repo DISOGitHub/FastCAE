@@ -3,7 +3,7 @@
 #include "ModelBase.h"
 #include <QFileDialog>
 #include <QTimer>
-#include "InputValidator.h"
+#include "InputValidator.h"-
 #include "DataManager.h"
 #include <QFileInfo>
 
@@ -18,6 +18,10 @@ namespace FastCAEDesigner{
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
 		connect(ui->btnLoadIcon, SIGNAL(clicked()), this, SLOT(OnBtnLoadIconClicked()));
 		InitErrorList();
+
+		QFileInfo icon(ui->txtIcon->text().trimmed());
+		DataManager::getInstance()->removeIconNameFromList(icon.fileName());
+
 		//_iconNameList = DataManager::getInstance()->getIconNameList();
 		//Init();
 	}

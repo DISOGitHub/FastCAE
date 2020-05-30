@@ -11,7 +11,7 @@ namespace DataProperty
 		ParameterInt();
 		~ParameterInt() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 	    //设置值
 		void setValue(int v);
 		//获取值

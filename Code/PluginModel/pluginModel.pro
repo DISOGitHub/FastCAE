@@ -6,7 +6,7 @@ QT          +=  core xml gui widgets
 DEFINES     +=  MODELPLUGIN_API
 
 include(./pluginModel.pri)
-
+include(../vtk.pri)
 
 win32{
 
@@ -19,7 +19,7 @@ win32{
   Release:UI_DIR          = ./release/qui
   Release:OBJECTS_DIR     = ./release/obj
   Release:LIBS +=  \
-	-L../../output/bin -lMeshData \
+  -L../../output/bin -lMeshData \
   -L../../output/bin -lGeometry \
   -L../../output/bin -lModelData \
   -L../../output/bin -lModuleBase \
@@ -40,6 +40,7 @@ win32{
   -L../../output/bin -lPostWidgets \
   -L../../output/bin -lGeometryWidgets \
   -L../../output/bin -lPluginManager \
+   -L../../output/bin -lBCBase \
  
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d/plugins
@@ -69,6 +70,7 @@ win32{
   -L../../output/bin_d -lPostWidgets \
   -L../../output/bin_d -lGeometryWidgets \
   -L../../output/bin_d -lPluginManager \
+  -L../../output/bin_d -lBCBase \
    
   message("Windows pluginModel build")
   

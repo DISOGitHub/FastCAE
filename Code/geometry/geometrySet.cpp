@@ -336,6 +336,28 @@ namespace Geometry
 			
 	}
 
+	int GeometrySet::getGeoMemberCount(int type)
+	{
+		TopAbs_ShapeEnum shapeType;
+		switch (type)
+		{
+		case 1: shapeType = TopAbs_VERTEX; break;
+		case 2: shapeType = TopAbs_EDGE; break;
+		case 3: shapeType = TopAbs_FACE; break;
+		default:  return -1;
+		}
+		TopExp_Explorer ptExp(*_shape, shapeType);
+		QList<Handle(TopoDS_TShape)> tshapelist;
+		for (int index = 0; ptExp.More(); ptExp.Next(), ++index)
+		{
+			TopoDS_Shape s = ptExp.Current();
+			Handle(TopoDS_TShape) ts = s.TShape();
+			if (tshapelist.contains(ts)) continue;
+			tshapelist.append(ts);
+		}
+		return tshapelist.size();
+	}
+
 	void GeometrySet::releaseSubSet()
 	{
 		for (int i = 0; i < _subSetList.size(); ++i)

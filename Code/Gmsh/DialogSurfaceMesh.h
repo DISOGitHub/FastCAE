@@ -1,7 +1,7 @@
 #ifndef DIALOGDURFACEMESH_H__
 #define DIALOGDURFACEMESH_H__
 
-#include "GeometryWidgets/geoDialogBase.h"
+#include "GmshDialogBase.h"
 #include <QList>
 #include <QMultiHash>
 
@@ -24,7 +24,7 @@ class vtkActor;
 
 namespace Gmsh
 {
-	class SurfaceMeshDialog : public GeometryWidget::GeoDialogBase
+	class SurfaceMeshDialog : public GmshDialogBase
 	{
 		Q_OBJECT
 	public:
@@ -34,6 +34,7 @@ namespace Gmsh
 	private slots:
 	    void on_geoSelectSurface_clicked();
 		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+		void on_localButton_clicked();
 
 	private:
 		void closeEvent(QCloseEvent *) override;
@@ -42,10 +43,10 @@ namespace Gmsh
 
 	private:
 		Ui::SurfaceMeshDialog* _ui{};
-		Py::PythonAagent* _pyAgent{};
 
 		QList<vtkActor*> _actorList{};
 		QMultiHash<Geometry::GeometrySet*, int> _geoHash{};
+		bool _selectFace{ false };
 	};
 
 }

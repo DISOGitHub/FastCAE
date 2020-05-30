@@ -17,9 +17,9 @@ namespace FastCAEDesigner{
 		_name = name;
 	}
 
-	void ParaLinkageData::setParameterType(QString name)
+	void ParaLinkageData::setParameterType(int type)
 	{
-		_caseName = name;
+		_type = type;
 	}
 
 	void ParaLinkageData::setActiveList(QList<DataProperty::ParameterBase*> list)
@@ -42,9 +42,9 @@ namespace FastCAEDesigner{
 		return _name;
 	}
 
-	QString ParaLinkageData::getParameterType()
+	int ParaLinkageData::getParameterType()
 	{
-		return _caseName;
+		return _type;
 	}
 
 	QList<DataProperty::ParameterBase*> ParaLinkageData::getActiveList()

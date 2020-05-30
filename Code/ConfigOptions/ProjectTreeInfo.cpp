@@ -19,9 +19,9 @@ namespace ConfigOption
 		}
 		_itemList.clear();
 	}
-	void ProjectTreeInfo::setName(const QString &filename)
+	void ProjectTreeInfo::setName(const QString &fileName)
 	{
-		_name = filename;
+		_name = fileName;
 	}
 	QString ProjectTreeInfo::getName()
 	{
@@ -244,9 +244,9 @@ namespace ConfigOption
 // 		emit solveStatusChanged();
 // #endif
 // 	}
-	void ProjectTreeInfo::setOutputFileName(QString filename)
+	void ProjectTreeInfo::setOutputFileName(QString fileName)
 	{
-		_outputFile = filename;
+		_outputFile = fileName;
 	}
 // 	void ProjectTreeInfo::reTranslate()
 // 	{
@@ -308,12 +308,12 @@ namespace ConfigOption
 // 		if (_realTimeWin == w)
 // 			_realTimeWin = nullptr;
 // 	}
-// 	bool ProjectTreeInfo::isFileExist(QString filename)
+// 	bool ProjectTreeInfo::isFileExist(QString fileName)
 // 	{
-// 		QFile f(filename);
+// 		QFile f(fileName);
 // 		if (!f.exists())
 // 		{
-// 			QMessageBox::warning(nullptr, tr("Warning"), tr("File %1 is not exist!").arg(filename));
+// 			QMessageBox::warning(nullptr, tr("Warning"), tr("File %1 is not exist!").arg(fileName));
 // 			return false;
 // 		}
 // 		return true;

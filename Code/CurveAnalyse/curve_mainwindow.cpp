@@ -458,9 +458,9 @@ void curve_MainWindow::initPlotData()
 	curve_data.curveList.clear();
 }
 
-void curve_MainWindow::RunScript(QString filename)
+void curve_MainWindow::RunScript(QString fileName)
 {
-	CurveScriptHandler handler(this, filename);
+	CurveScriptHandler handler(this, fileName);
 	flag_script_running = true;
 	handler.Handle();
 	flag_script_running = false;
@@ -484,9 +484,9 @@ void curve_MainWindow::slot_editScript()
 	editScript(tep_filename);
 }
 
-void curve_MainWindow::editScript_start(QString filename)
+void curve_MainWindow::editScript_start(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
 		QTextStream stream(&tep_file1);
@@ -495,9 +495,9 @@ void curve_MainWindow::editScript_start(QString filename)
 	}
 }
 
-void curve_MainWindow::editScript_end(QString filename)
+void curve_MainWindow::editScript_end(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -518,9 +518,9 @@ void curve_MainWindow::editScript(QString tep_filename)
 	editScript_end(tep_filename);
 }
 
-void curve_MainWindow::editScript_GlobalProp(QString filename)
+void curve_MainWindow::editScript_GlobalProp(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -598,9 +598,9 @@ void curve_MainWindow::editScript_GlobalProp(QString filename)
 	}
 }
 
-void curve_MainWindow::editScript_Curve(QString filename)
+void curve_MainWindow::editScript_Curve(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QColor tep_color;
@@ -1347,9 +1347,9 @@ QToolBar* curve_MainWindow::script_get_helpToolBar()
 	return helpToolBar;
 }
 
-void curve_MainWindow::script_saveImage(bool flag_dlg, int wid, int hei, QString filename)
+void curve_MainWindow::script_saveImage(bool flag_dlg, int wid, int hei, QString fileName)
 {
-	curve_plotWidget->func_saveImage(flag_dlg, wid, hei, filename);
+	curve_plotWidget->func_saveImage(flag_dlg, wid, hei, fileName);
 }
 
 void curve_MainWindow::reTranslate()

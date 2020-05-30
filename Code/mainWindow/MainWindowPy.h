@@ -15,7 +15,7 @@ namespace GUI
 	class SubWindowManager;
 
 	//静态类，封装C++功能，供C接口调用
-	class MainWindowPy
+	class MAINWINDOWAPI MainWindowPy
 	{
 	public :
 		//static void showFastCAE();
@@ -23,8 +23,8 @@ namespace GUI
 		static void redo();
 		static void init(GUI::MainWindow* m,GUI::SignalHandler* sg);
 		static void clearData();
-		static void importMesh(char* f);
-		static void exportMesh(char* f);
+		static void importMesh(char* f,char* s);
+		static void exportMesh(char* f,char* s);
 		static void importGeometry(char* f);
 		static void exportGeometry(char* f);
 		static void openProjectFile(char* f);
@@ -159,8 +159,8 @@ extern "C"
 	void MAINWINDOWAPI undo();
 	void MAINWINDOWAPI redo();
 	void MAINWINDOWAPI clearData();
-	void MAINWINDOWAPI importMesh(char* f);
-	void MAINWINDOWAPI exportMesh(char* f);
+	void MAINWINDOWAPI importMesh(char* f, char* s);
+	void MAINWINDOWAPI exportMesh(char* f, char* s);
 	void MAINWINDOWAPI importGeometry(char* f);
 	void MAINWINDOWAPI exportGeometry(char* f);
 	void MAINWINDOWAPI openProjectFile(char* f);

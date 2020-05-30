@@ -18,13 +18,13 @@ namespace FastCAEDesigner{
 		~ParaLinkageData();
 
 		void setParameterName(QString name);
-		void setParameterType(QString name);
+		void setParameterType(int type);
 		void setActiveList(QList<DataProperty::ParameterBase*> list);
 		void setDrivenList(QList<DataProperty::ParameterBase*> list);
 		void setDrivenGroupList(QList<DataProperty::ParameterGroup*> list);
 
 		QString getParameterName();
-		QString getParameterType();
+		int getParameterType();
 		QList<DataProperty::ParameterBase*> getActiveList();
 		QList<DataProperty::ParameterBase*> getDrivenList();
 		QList<DataProperty::ParameterGroup*> getDrivenGroupList();
@@ -32,7 +32,7 @@ namespace FastCAEDesigner{
 
 	private:
 		QString _name;
-		QString _caseName;
+		int _type;
 		QList<DataProperty::ParameterBase*> _activeList;
 		QList<DataProperty::ParameterBase*> _drivenList;
 		QList<DataProperty::ParameterGroup*> _drivenGroupList;

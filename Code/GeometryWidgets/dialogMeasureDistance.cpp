@@ -75,15 +75,40 @@ namespace GeometryWidget
 			_point[0] = pt.X();
 			_point[1] = pt.Y();
 			_point[2] = pt.Z();
+			this->setPointLocation(_point, nullptr);
 			return;
 		}
 
 		double d = bef.Distance(pt);
-		_ui->disLabel->setText(QString::number(d));
+		double p1[3] = { bef.X(), bef.Y(), bef.Z() };
+		double p2[3] = { pt.X(), pt.Y(), pt.Z() };
+		this->setPointLocation(p1, p2);
+
+		_ui->disLabel->setText(QString::number(d, 'f', 6));
 
 		_point[0] = pt.X();
 		_point[1] = pt.Y();
 		_point[2] = pt.Z();
+	}
+
+	void MeasureDistanceDialog::setPointLocation(double* p1, double* p2)
+	{
+		const QString em{ "0.0" };
+		_ui->X1->setText(em); _ui->Y1->setText(em); _ui->Z1->setText(em);
+		_ui->X2->setText(em); _ui->Y2->setText(em); _ui->Z2->setText(em);
+
+		if (p1 != nullptr)
+		{
+			_ui->X1->setText(QString::number(p1[0], 'f', 6)); 
+			_ui->Y1->setText(QString::number(p1[1], 'f', 6));
+			_ui->Z1->setText(QString::number(p1[2], 'f', 6));
+		}
+		if (p2 != nullptr)
+		{
+			_ui->X2->setText(QString::number(p2[0], 'f', 6));
+			_ui->Y2->setText(QString::number(p2[1], 'f', 6));
+			_ui->Z2->setText(QString::number(p2[2], 'f', 6));
+		}
 	}
 
 }

@@ -50,9 +50,9 @@ FilterContour::FilterContour(const QString& dataFile, PipelineObject * parent)
 		mPipeLineObjProp.contourFilter_propData.contour_colName = mPipeLineObjProp.contourFilter_propData.col_list.at(0);
 	else
 		mPipeLineObjProp.contourFilter_propData.contour_colName = "";*/
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "ContourFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "ContourFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dContour_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 }

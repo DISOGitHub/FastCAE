@@ -27,12 +27,16 @@ namespace FastCAEDesigner{
 
 	public:
 		
-		ParaLinkageManager(QString name, QWidget *parent = 0);
+		ParaLinkageManager(int type, QWidget *parent = 0);
 		~ParaLinkageManager();
 
+	private:
+		//更新参数预览界面
 		void init();
 		void initParameterTableWidget();
-
+		void initTableWidgetTitle();
+		//显示相关参数信息
+		void refreshParameterLinkage(ParaLinkageData* data);
 		void showActiveList(QList<DataProperty::ParameterBase*> list);
 		void showDrivenList(QList<DataProperty::ParameterBase*> list);
 		void showDrivenGroupList(QList<DataProperty::ParameterGroup*> list);
@@ -40,6 +44,8 @@ namespace FastCAEDesigner{
 		void insertActiveDataToTable(int row, DataProperty::ParameterBase* model);
 		void insertDrivenDataToTable(int row, DataProperty::ParameterBase* model);
 		void insertDrivenGroupDataToTable(int row, DataProperty::ParameterGroup* model);
+
+		void clearTableWidget();
 
 	private slots:
 		void onCreateQPBClicked();
@@ -50,9 +56,10 @@ namespace FastCAEDesigner{
 
 
 	private:
-		QString _caseName{};
+		int _type{ -1 };
 		QList<ParametersLinkage*> _parametersLinkageList;
 		QList<ParaLinkageData*> _paraLinkageDataList;
+		QList<QString> _usedNameList{};
 
 		//QMap<QListWidgetItem*, ParaLinkageData*> _paraDataDict;
 

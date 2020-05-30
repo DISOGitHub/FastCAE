@@ -5,7 +5,7 @@
 
 namespace ModuleBase
 {
-	IOBase::IOBase(const QString& filename) : _filename(filename)
+	IOBase::IOBase(const QString& fileName) : _filename(fileName)
 	{
 		_file.setFileName(_filename);
 	}
@@ -31,9 +31,9 @@ namespace ModuleBase
 	{
 		return false;
 	}
-	void IOBase::readRealTimeData(QList<QVector<double>> &xs, QList<QVector<double>> &ys, QString filename)
+	void IOBase::readRealTimeData(QList<QVector<double>> &xs, QList<QVector<double>> &ys, QString fileName)
 	{
-		this->setFileName(filename);
+		this->setFileName(fileName);
 		if (!_file.open(QIODevice::ReadOnly | QIODevice::Text)) return;
 		_stream = new QTextStream(&_file);
 		QVector<double> x; QVector<double> y;

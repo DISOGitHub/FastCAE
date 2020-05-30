@@ -15,11 +15,12 @@ namespace Py
 	{
 		Q_OBJECT
 	public: 
-		ScriptReader(QString filename, PythonAagent* agent);
+		ScriptReader(QString fileName, PythonAagent* agent);
 		~ScriptReader();
 
 		void pause();
 		void restart();
+		void stop();
 
 	private:
 		void run() override;
@@ -29,7 +30,8 @@ namespace Py
 		QString _fileName{};
 		PythonAagent* _agent{};
 	//	QMutex _mutex{};
-		bool _locker{ false };
+		bool _stop{ false };
+		int _lockCount{ 0 };
 	};
 }
 

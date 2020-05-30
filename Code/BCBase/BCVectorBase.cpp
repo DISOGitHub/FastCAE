@@ -67,7 +67,7 @@ namespace BCBase
 		_valueZ->setValue(z);
 	}
 	void BCVectorBase::getValue(double* v)
-	{
+	{		
 		v[0] = _valueX->getValue();
 		v[1] = _valueY->getValue();
 		v[2] = _valueZ->getValue();

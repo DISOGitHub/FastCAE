@@ -19,7 +19,7 @@ namespace ConfigOption
 	class CONFIGOPTIONSAPI TreeConfigReader /*: public ModuleBase::IOBase*/
 	{
 	public:
-		TreeConfigReader(const QString &filename, ProjectTreeConfig* treeconfig);
+		TreeConfigReader(const QString &fileName, ProjectTreeConfig* treeconfig);
 		~TreeConfigReader();
 		bool read();
 

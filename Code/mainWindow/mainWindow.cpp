@@ -45,11 +45,11 @@
 #include "CustomizerHelper.h"
 #include "SolverControl/DialogSolverManager.h"
 #include "Gmsh/GmshModule.h"
+#include "moduleBase/ThreadTaskManager.h"
 
 
 namespace GUI
 {
-
 	MainWindow::MainWindow() 
 		:_ui(new Ui::MainWindow)
 	{
@@ -103,9 +103,11 @@ namespace GUI
 
 	MainWindow::~MainWindow()
 	{
+		Py::PythonAagent::getInstance()->finalize();
 		Plugins::PluginManager::getInstance()->releasePlugs();
 		Gmsh::GmshModule::getInstance(this)->finalize();
-		Py::PythonAagent::getInstance()->finalize();
+	
+		ModuleBase::ThreadTaskManager::getInstance()->clearThreadTaskList();
 
 		if (_signalHandler != nullptr)             delete _signalHandler;
 		if (_controlPanel != nullptr)              delete _controlPanel;
@@ -120,12 +122,14 @@ namespace GUI
 		if (_recentMenu != nullptr)                delete _recentMenu;
 		if (_graphRange != nullptr)                delete _graphRange;
 		if (_customizerHelper != nullptr)          delete _customizerHelper;
+
 	}
 
 	void MainWindow::connectSignals()
 	{
+		connect(this, SIGNAL(closeMainWindow()), this, SLOT(closeWindow()));
 		connect(this, SIGNAL(sendInfoToStatesBar(QString)), this, SLOT(setStatusBarInfo(QString)));
-		connect(this, SIGNAL(importMeshByNamesSig(QStringList)), this, SLOT(importMesh(QStringList)));
+//		connect(this, SIGNAL(importMeshByNamesSig(QString)), this, SLOT(importMesh(QString)));
 		connect(this, SIGNAL(importMeshDataSetSig(vtkDataSet*)), this, SLOT(importMeshDataset(vtkDataSet*)));
 		connect(this, SIGNAL(printMessageSig(int, QString)), this, SLOT(printMessage(int, QString)));
 
@@ -226,7 +230,9 @@ namespace GUI
 		connect(this, SIGNAL(showGraphRangeSig(double, double)), this, SLOT(showGraphRange(double, double)));
 		connect(this, SIGNAL(startSketchSig(bool, double*, double*)), this, SLOT(startSketch(bool)));
 		connect(this, SIGNAL(updateActionsStatesSig()), this, SLOT(updateActionsStates()));
+		connect(this, SIGNAL(updatePreMeshActorSig()), this, SLOT(updatePreMeshActor()));
 	}
+							 
 	void MainWindow::registerMoudel()
 	{
 		///添加ProjectWindow
@@ -241,30 +247,38 @@ namespace GUI
 		///添加ProcessWindow
 		_processWindow = new MainWidget::ProcessWindow(this);
 		_processWindow->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
-		addDockWidget(Qt::BottomDockWidgetArea, _processWindow);
-		
-		
+		addDockWidget(Qt::BottomDockWidgetArea, _processWindow);			
 	}
+
 	Ui::MainWindow* MainWindow::getUi()
 	{
 		return _ui;
 	}
+
 	Translator* MainWindow::GetTranslator()
 	{
 		return _translator;
 	}
+
 	void MainWindow::setStatusBarInfo(QString info)
 	{
 		_ui->statusbar->showMessage(info,10000);
 	}
+
 	void MainWindow::setMD5(const QString& md5)
 	{
 		_MD5 = md5;
 	}
+
 	void MainWindow::setCurrentFile(const QString& file)
 	{
 		if (!file.isEmpty())
-		  _currentFile = file;
+		{
+			QFileInfo F(file);
+			if (!F.exists()) return;
+			_currentFile = F.absoluteFilePath();
+		}
+		  
 		QString lang = Setting::BusAPI::instance()->getLanguage();
 		QString title;
 		ConfigOption::GlobalConfig* g = ConfigOption::ConfigOption::getInstance()->getGlobalConfig();
@@ -272,7 +286,8 @@ namespace GUI
 		title = g->getSoftName();
 		if (lang.toLower() == "chinese")
 			title = g->getChineseName();
-
+		if (title.isEmpty())
+			title = "FastCAE";
 		if (!_currentFile.isEmpty())
 			title = QString("%1-[%2]").arg(title).arg(_currentFile);
 
@@ -308,6 +323,7 @@ namespace GUI
 		_subWindowManager->closeAllSubWindow();
 		Setting::BusAPI::instance()->writeINI();
 	}
+
 	void MainWindow::closeWindow()
 	{
 		close();
@@ -393,6 +409,7 @@ namespace GUI
 		qDebug() << pycode;
 		Py::PythonAagent::getInstance()->submit(pycode);
 	}
+
 	void MainWindow::on_actionSave()
 	{
 		if (!_currentFile.isEmpty())
@@ -404,6 +421,7 @@ namespace GUI
 			on_actionSaveAs();
 		
 	}
+
 	void MainWindow::on_actionSaveAs()
 	{
 		QString fillter = tr("Project file(*.diso);;Project file(*.xml)");
@@ -426,36 +444,32 @@ namespace GUI
 		}
 		
 	}
+
 	void MainWindow::on_importMesh()
 	{
-		QString dir = Setting::BusAPI::instance()->getWorkingDir();
-
-		ConfigOption::MeshConfig* meshconfig = ConfigOption::ConfigOption::getInstance()->getMeshConfig();
-		QString conSuffix = meshconfig->getImportSuffix().toLower();
-		QStringList sl;
-		if (!conSuffix.isEmpty())
+		QString workDir = Setting::BusAPI::instance()->getWorkingDir();	
+		QStringList list = IO::IOConfigure::getMeshImporters();
+		if (list.isEmpty())
 		{
-			sl = conSuffix.split(";");
+			QMessageBox::warning(this, tr("Warning"), tr("The MeshPlugin is not installed !"));
+			return;
 		}
-		QStringList plugins = IO::IOConfigure::getMeshImporters();
-		sl += plugins;
-		conSuffix.clear();
-		for (QString s : sl)
-		{
-			conSuffix += " *." + s;
-		}
-		conSuffix = QString("Mesh Files(%1)").arg(conSuffix);
 
+		qSort(list.begin(), list.end());
+		QString suffixes = list.join(";;");
 
-		QString title = tr("Import Mesh");
-		QStringList filenames = QFileDialog::getOpenFileNames(this, title, dir, conSuffix /*+ ";;All Files(*.*)"*/);
-		if (filenames.isEmpty()) return;
-		
-		QString files = filenames.join(",");
-		QString pycode = QString("MainWindow.importMesh(\"%1\")").arg(files);
-		Py::PythonAagent::getInstance()->submit(pycode);
-//		importMesh(filenames);
+		QFileDialog dlg(this, tr("Import Mesh"), workDir, suffixes);
+		dlg.setAcceptMode(QFileDialog::AcceptOpen);
+		dlg.setFileMode(QFileDialog::ExistingFile);		
+		if (dlg.exec() != QFileDialog::Accepted)	return;
+
+		QString aSuffix = dlg.selectedNameFilter();
+		QString fileName = dlg.selectedFiles().join(",");
+		if (fileName.isEmpty())	return;
+		QString pyCode = QString("MainWindow.importMesh(\"%1\",\"%2\")").arg(fileName).arg(aSuffix);
+		Py::PythonAagent::getInstance()->submit(pyCode);
 	}
+
 	void MainWindow::on_exportGeometry()
 	{
 		QString dir = Setting::BusAPI::instance()->getWorkingDir();
@@ -481,45 +495,34 @@ namespace GUI
 	}
 
 	void MainWindow::on_exportMesh()
-	{
-		QString dir = Setting::BusAPI::instance()->getWorkingDir();
-
-		ConfigOption::MeshConfig* meshconfig = ConfigOption::ConfigOption::getInstance()->getMeshConfig();
-		QString conSuffix = meshconfig->getExportSuffix().toLower();
-		QStringList sl;
-		if (!conSuffix.isEmpty())
+	{	
+		QString workDir = Setting::BusAPI::instance()->getWorkingDir();
+		QStringList list = IO::IOConfigure::getMeshExporters();
+		if (list.isEmpty())
 		{
-			sl = conSuffix.split(";");
+			QMessageBox::warning(this, tr("Warning"), tr("The MeshPlugin is not installed !"));
+			return;
 		}
-		QStringList plugins = IO::IOConfigure::getMeshExporters();
-		sl += plugins;
-		conSuffix.clear();
-		for (QString s : sl)
-		{
-			conSuffix += " *." + s;
-		}
-		conSuffix = QString("Mesh Files(%1)").arg(conSuffix);
-		QString regSuffix{};
+		qSort(list.begin(), list.end());
+		QString suffixes = list.join(";;");
 
-		QString title = tr("Export Mesh");
-		QString filename = QFileDialog::getSaveFileName(this, title, dir, conSuffix + regSuffix /*+ ";;All Files(*.*)"*/);
+		QFileDialog dlg(this, tr("Export Mesh"), workDir ,suffixes);
+		dlg.setAcceptMode(QFileDialog::AcceptSave);
+		if (dlg.exec() != QFileDialog::FileName)    return;
 
-		if (filename.isEmpty()) return;
-		QString pycode = QString("MainWindow.exportMesh(\"%1\")").arg(filename);
-		Py::PythonAagent::getInstance()->submit(pycode);
-//		_signalHandler->exportMesh(filename);
+		QString aSuffix = dlg.selectedNameFilter();
+		QString aFileName = dlg.selectedFiles().join(",");
+		if (aFileName.isEmpty())	return;
+		
+		QString pyCode = QString("MainWindow.exportMesh(\"%1\",\"%2\")").arg(aFileName).arg(aSuffix);		
+		Py::PythonAagent::getInstance()->submit(pyCode);
 	}
-	void MainWindow::importMesh(QStringList filenames)
+
+	void MainWindow::importMesh(QString fileName ,QString suffix)
 	{
-		if (!_signalHandler->importMesh(filenames)) return;
-		_subWindowManager->openPreWindow();
-		_subWindowManager->updatePreMeshActor();
-		emit updateMeshTreeSig();
-		emit updateSetTreeSig();
-		emit updateActionStatesSig();
-		updateActionsStates();
-		Py::PythonAagent::getInstance()->unLock();
+		_signalHandler->importMesh(fileName, suffix);	
 	}
+
 	void MainWindow::importMeshDataset(vtkDataSet* dataset)
 	{
 		if (dataset == nullptr) return;
@@ -531,6 +534,7 @@ namespace GUI
 		emit updateMeshTreeSig();
 		emit updateActionStatesSig();
 	}
+
 	void MainWindow::on_importGeometry()
 	{
 		QString dir = Setting::BusAPI::instance()->getWorkingDir();
@@ -551,9 +555,9 @@ namespace GUI
 
 		QString files = filenames.join(",");
 		QString pycode = QString("MainWindow.importGeometry(\"%1\")").arg(files);
-		Py::PythonAagent::getInstance()->submit(pycode);
-		
+		Py::PythonAagent::getInstance()->submit(pycode);		
 	}
+
 	void MainWindow::importGeometry(QStringList filenames)
 	{
 		_subWindowManager->openPreWindow();
@@ -561,9 +565,10 @@ namespace GUI
 //		_subWindowManager->updatePreGeometryActor();
 // 		emit updateGeometryTreeSig();
 // 		emit updateActionStatesSig();
-		updateActionsStates();
-		Py::PythonAagent::getInstance()->unLock();
+//		updateActionsStates();
+//		Py::PythonAagent::getInstance()->unLock();
 	}
+
 	void MainWindow::exportGeometry(QString f)
 	{
 		if (!_signalHandler->exportGeometry(f)) return;
@@ -574,22 +579,27 @@ namespace GUI
 	{
 		_signalHandler->generateSolidMesh();
 	}
+
 	void MainWindow::on_surfaceMesh()
 	{
 		_signalHandler->generateSurfaceMesh();
 	}
+
 	void MainWindow::on_genMesh()
 	{
 	}
+
 	void MainWindow::setWorkingDir()
 	{
 		Setting::BusAPI::instance()->setWorkingDir();
 	}
+
 	void MainWindow::on_solverManager()
 	{
 		SolverControl::SolverManagerDialog dlg(this);
 		dlg.exec();
 	}
+
 	void MainWindow::on_solve()
 	{
 		bool showDlg = true;
@@ -597,6 +607,7 @@ namespace GUI
 		if (showDlg)
 			dlg.exec();
 	}
+
 	void MainWindow::solveProject(int id)
 	{
 		bool showDlg = true;
@@ -604,14 +615,17 @@ namespace GUI
 		if (showDlg)
 			dlg.exec();
 	}
+
 	void MainWindow::on_solveOption()
 	{
 //		Setting::BusAPI::instance()->setSolverOptions();
 	}
+
 	void MainWindow::on_graphOption()
 	{
 		Setting::BusAPI::instance()->setGraphOptions();
 	}
+
 	void MainWindow::selectModelChanged(int model)
 	{
 		_ui->actionSelectOff->setChecked(false);
@@ -638,17 +652,18 @@ namespace GUI
 		default: break;
 		}
 	}
+
 	SubWindowManager* MainWindow::getSubWindowManager()
 	{
 		return _subWindowManager;
 	}
-
 
 	void MainWindow::on_about()
 	{
 		AboutDialog dlg;
 		dlg.exec();
 	}
+
 	void MainWindow::on_userManual()
 	{
 		QString file = ConfigOption::ConfigOption::getInstance()->getGlobalConfig()->GetUserManual();
@@ -678,6 +693,7 @@ namespace GUI
 				
 		}
 	}
+
 	void MainWindow::setDisplay(QString m)
 	{
 		_ui->actionDisplayNode->setChecked(false);
@@ -777,7 +793,6 @@ namespace GUI
 		}
 	}
 
-
 	void MainWindow::openRencentFile(QString file)
 	{
 		QFileInfo info(file);
@@ -808,11 +823,13 @@ namespace GUI
 		updateRecentMenu();
 		emit updateActionStatesSig();
 	}
+
 	void MainWindow::keyPressEvent(QKeyEvent *e)
 	{
 		qDebug() << "press";
 
 	}
+
 	void MainWindow::keyReleaseEvent(QKeyEvent *e)
 	{
 		qDebug() << "release";
@@ -861,8 +878,9 @@ namespace GUI
 		QString dir = Setting::BusAPI::instance()->getWorkingDir();
 		QString filePath = QFileDialog::getOpenFileName(this, title, dir, fillter);
 		if (filePath.isEmpty()) return;
-		Py::PythonAagent::getInstance()->execScript(filePath);
-			
+		bool ok = Py::PythonAagent::getInstance()->execScript(filePath);
+		if (!ok)
+			QMessageBox::warning(this, tr("Warning"), QString(tr("%1 execute failed !")).arg(filePath));
 	}
 
 	MainWidget::ControlPanel* MainWindow::getControlPanel()
@@ -930,7 +948,6 @@ namespace GUI
 	{
 		return _messageWindow;
 	}
-
 
 	void MainWindow::setIcon(QString iconPath)
 	{

@@ -12,7 +12,12 @@ namespace DataProperty
 	
 	void ParameterString::setValue(QString s)
 	{
-		_value = s;
+		if (s != _value)
+		{
+			_value = s;
+			emit dataChanged();
+		}
+		
 	}
 
 	QString ParameterString::getValue()
@@ -33,12 +38,13 @@ namespace DataProperty
 		QString s = e->attribute("Text");
 		_value = s;
 	}
-	void ParameterString::copy(ParameterBase* ori)
+	void ParameterString::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
+		ParameterBase::copy(ori, valueOnly);
 
-		ParameterString* p = (ParameterString*)ori;
-		_value = p->getValue();
+		ParameterString* p = dynamic_cast<ParameterString*>(ori);
+		QString value = p->getValue();
+		this->setValue(value);
 	}
 
 	bool ParameterString::isSameValueWith(ParameterBase* p)
@@ -61,7 +67,7 @@ namespace DataProperty
 
 	void ParameterString::setValueFromString(QString v)
 	{
-		_value = v;
+		setValue(v);
 	}
 
 }

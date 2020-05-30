@@ -51,7 +51,9 @@ namespace MeshData
 		int getDimension();
 
 		void dataToStream(QDataStream* s) override;
+		//写xml
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele) override;
+		//读xml
 		void readDataFromProjectFile(QDomElement* e) override;
 		//写出二进制文件
 		void writeBinaryFile(QDataStream* dataStream);

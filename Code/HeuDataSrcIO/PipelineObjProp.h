@@ -18,7 +18,7 @@ struct HEUDATASRCIOSHARED_EXPORT pipelineObj_propData
 	bool flag_rectilinear = false;//是否是线性网格，如是可做等值面
 	QStringList fileList;
 	QStringList fileListBak;
-	QString filename;
+	QString fileName;
 	int file_xh;
 	QMap<QString, bool> scalarBar_showMap;
 	QMap<QString, bool> scalarBar_opacityMap;

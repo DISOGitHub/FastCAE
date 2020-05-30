@@ -48,7 +48,7 @@ namespace Post
 		//获取树的widget
 		QWidget* getTreeWidget();
 		//更新pipeline Object
-		void updatePipelineObjeDataSet(PipelineObject* obj, QString filename);
+		void updatePipelineObjeDataSet(PipelineObject* obj, QString fileName);
 		//获取当前Pipeline object
 		PipelineObject* getCurrentPipelineObj();
 		///获取树 Prop widget
@@ -60,7 +60,7 @@ namespace Post
 		///设置背景色
 		void setBackGround(QColor color1, QColor color2) override;
 		///保存图片
-		void saveImage(QString filename, int width, int heigh, bool showDlg) override;
+		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
 		//获取ScalarBar范围
 		void getScalarRange(PipelineObject* obj, double value[2]);
 		//设置ScalarBar范围
@@ -263,7 +263,7 @@ namespace Post
 		//发送三维拾取曲线窗口
 		void createPickCurveWidgetSig(QWidget* w); 
 		//AVI动画保存完成信号
-		void AVIFileFinishedSig(QString filename);
+		void AVIFileFinishedSig(QString fileName);
 		//刷新三维渲染区域
 		void refreshViewFromMainWindowSig(QList<PipelineObject*>);
 		//打开文件

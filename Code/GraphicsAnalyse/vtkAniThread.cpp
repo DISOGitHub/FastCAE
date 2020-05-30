@@ -34,7 +34,7 @@ PipelineObject* vtkAniThread::findParentPipelineObj(QString tep_filename, QList<
 {
 	for (int i = 0; i < tep_mPipelineObjs.count(); i++)
 	{
-		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.filename)
+		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.fileName)
 		{
 			return tep_mPipelineObjs[i];
 		}
@@ -185,7 +185,7 @@ void vtkAniThread::run()
 						int tep_count = tep_list1.count();
 						if (tep_count > 0)
 						{
-							g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.filename = tep_list1.at(tep_count - 1);
+							g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileName = tep_list1.at(tep_count - 1);
 							g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.file_xh = cur_frame_xh;
 						}
 					}
@@ -208,7 +208,7 @@ void vtkAniThread::run()
 			{
 				if (g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileList.count() > cur_frame_xh)
 				{
-					tep_filename = g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.filename;
+					tep_filename = g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 					PipelineObject *tep_pipelineObj = findParentPipelineObj(tep_filename, source_mPipelineObjs);
 					if (tep_pipelineObj != NULL)
 					{

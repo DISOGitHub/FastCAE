@@ -20,6 +20,7 @@
 #include "dialogMakeSweep.h"
 #include "dialogMoveFeature.h"
 #include "dialogMakeRevol.h"
+#include "dialogGeoSplitter.h"
 namespace GeometryWidget
 {
 	QDialog* GeometryDialogFactory::editGeometryDialog(GUI::MainWindow* m, MainWidget::PreWindow* p, Geometry::GeometrySet* set)
@@ -68,6 +69,8 @@ namespace GeometryWidget
 			dlg = new SweepDialog(m, p, set); break;
 		case  Geometry::GeometryParaMakeRevol:
 			dlg = new CreateRevolDialog(m, p, set); break; 
+		case  Geometry::GeometryParaSplitter:
+			dlg = new GeoSplitterDialog(m, p, set); break;
 		default:
 			break;
 		}

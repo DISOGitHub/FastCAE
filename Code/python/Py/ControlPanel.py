@@ -70,7 +70,16 @@ def RemoveFromMaterialLib(namelist):
   namelist=bytes(namelist,encoding='utf-8')
   lib.RemoveFromMaterialLib(namelist)
   pass
-
+  
+def DeleteMaterial(id, name):
+  name=bytes(name,encoding='utf-8')
+  lib.DeleteMaterial(id,name)
+  pass
+  
+def AddMaterialToLib(id, name):
+  name=bytes(name,encoding='utf-8')
+  lib.AddMaterialToLib(id,name)
+  pass
 
   
 

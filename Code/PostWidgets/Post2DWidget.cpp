@@ -34,13 +34,13 @@ namespace Post
 	{
 		_curveMainWindow->script_addCurve(data_x, data_y, tep_filename);
 	}
-	void Post2DWindow::addCurve(QVector<double> data_y, QString filename)
+	void Post2DWindow::addCurve(QVector<double> data_y, QString fileName)
 	{
-		_curveMainWindow->script_addCurve(data_y, filename);
+		_curveMainWindow->script_addCurve(data_y, fileName);
 	}
-	void Post2DWindow::delCurve(QString filename, int colum_index)
+	void Post2DWindow::delCurve(QString fileName, int colum_index)
 	{
-		_curveMainWindow->script_delCurve(filename, colum_index);
+		_curveMainWindow->script_delCurve(fileName, colum_index);
 	}
 	void Post2DWindow::delAllCurves()
 	{
@@ -97,29 +97,29 @@ namespace Post
 		if (font < 0 || font>2) return;
 		_curveMainWindow->script_Plot_axisFontType(axis, (plotProp_fontType)font);
 	}
-	void Post2DWindow::setCurveColor(QString filename, int colIndex, QColor color)
+	void Post2DWindow::setCurveColor(QString fileName, int colIndex, QColor color)
 	{
-		_curveMainWindow->script_Curve_color(filename, colIndex, color);
+		_curveMainWindow->script_Curve_color(fileName, colIndex, color);
 	}
-	void Post2DWindow::setCurveStyle(QString filename, int colIndex, Qt::PenStyle style)
+	void Post2DWindow::setCurveStyle(QString fileName, int colIndex, Qt::PenStyle style)
 	{
-		_curveMainWindow->script_Curve_lineType(filename, colIndex, style);
+		_curveMainWindow->script_Curve_lineType(fileName, colIndex, style);
 	}
-	void Post2DWindow::setCurveWidth(QString filename, int colindex, int width)
+	void Post2DWindow::setCurveWidth(QString fileName, int colindex, int width)
 	{
-		_curveMainWindow->script_Curve_lineWidth(filename, colindex, width);
+		_curveMainWindow->script_Curve_lineWidth(fileName, colindex, width);
 	}
-	void Post2DWindow::setCurveShowPoint(QString filename, int index, bool show)
+	void Post2DWindow::setCurveShowPoint(QString fileName, int index, bool show)
 	{
-		_curveMainWindow->script_Curve_showPoint(filename, index, show);
+		_curveMainWindow->script_Curve_showPoint(fileName, index, show);
 	}
-	void Post2DWindow::setCurveName(QString filename, int colindex, QString name)
+	void Post2DWindow::setCurveName(QString fileName, int colindex, QString name)
 	{
-		_curveMainWindow->script_Curve_name(filename, colindex, name);
+		_curveMainWindow->script_Curve_name(fileName, colindex, name);
 	}
-	void Post2DWindow::setCurveAxisIndex(QString filename, int colindex, int axisIndex)
+	void Post2DWindow::setCurveAxisIndex(QString fileName, int colindex, int axisIndex)
 	{
-		_curveMainWindow->script_Curve_axisIndex(filename, colindex, axisIndex);
+		_curveMainWindow->script_Curve_axisIndex(fileName, colindex, axisIndex);
 	}
 // 	QWidget* Post2DWindow::getPropWidget()
 // 	{
@@ -141,17 +141,17 @@ namespace Post
 	{
 		//TODO
 	}
-	void Post2DWindow::saveImage(QString filename, int width, int heigh, bool showDlg)
+	void Post2DWindow::saveImage(QString fileName, int width, int heigh, bool showDlg)
 	{
-		_curveMainWindow->script_saveImage(showDlg, width, heigh, filename);
+		_curveMainWindow->script_saveImage(showDlg, width, heigh, fileName);
 	}
 	void Post2DWindow::setAxisRange(QString axis, double range[2])
 	{
 		_curveMainWindow->script_Plot_axisrange(axis, range);
 	}
-	QStringList Post2DWindow::getColumnNameList(QString filename)
+	QStringList Post2DWindow::getColumnNameList(QString fileName)
 	{
-		return _curveMainWindow->script_getFileColumnNameList(filename);
+		return _curveMainWindow->script_getFileColumnNameList(fileName);
 	}
 	void Post2DWindow::reTranslate()
 	{
@@ -192,14 +192,14 @@ namespace Post
 		return _curveMainWindow->script_stop_animate();
 	}
 
-	void Post2DWindow::setAniPointColor(QString filename, int colum, QColor color)
+	void Post2DWindow::setAniPointColor(QString fileName, int colum, QColor color)
 	{
-		_curveMainWindow->script_AniPoint_color(filename, colum, color);
+		_curveMainWindow->script_AniPoint_color(fileName, colum, color);
 	}
 
-	void Post2DWindow::setAniPointType(QString filename, int colum, aniPointType type)
+	void Post2DWindow::setAniPointType(QString fileName, int colum, aniPointType type)
 	{
-		_curveMainWindow->script_AniPoint_type(filename, colum, type);
+		_curveMainWindow->script_AniPoint_type(fileName, colum, type);
 	}
 
 

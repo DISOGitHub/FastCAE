@@ -72,7 +72,7 @@ namespace ModuleBase
 		void RemoveActor(vtkProp* actor);
 		//启用/禁用渲染读一下
 		void enableActor(vtkActor* actor, bool show = true);
-		void saveImage(QString filename, int w, int h, bool showdlg) override;
+		void saveImage(QString fileName, int w, int h, bool showdlg) override;
 		void setViewValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3) override;
 		void updateScalarBar(vtkLookupTable* lookuptable, QString title = QString(""));
 		void updateScalarBarLecel(const int n);
@@ -112,6 +112,7 @@ namespace ModuleBase
 		void highLightActorDispalyPoint(bool on);
 		void clearHighLight();
 		void mouseWheelMove();
+	
 
 	private:
 		void init();
@@ -141,6 +142,7 @@ namespace ModuleBase
 		void reRenderSig();
 		//还原几何颜色
 		void RestoreGeoColorSig();
+		void rightDownMenuSig();
 		
 
 	protected:

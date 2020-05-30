@@ -2,6 +2,7 @@
 #define  _GEOPOINTWIDGET_H_
 
 #include <QWidget>
+#include "GeometryWidgets/geometryWidgetsAPI.h"
 
 namespace GUI
 {
@@ -24,7 +25,7 @@ class vtkActor;
 
 namespace GeometryWidget
 {
-	class  GeoPointWidget:public QWidget
+	class GEOMETRYWIDGETSAPI GeoPointWidget :public QWidget
 	{
 		Q_OBJECT
 	public:

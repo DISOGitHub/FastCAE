@@ -61,7 +61,7 @@ namespace Post
 		void closeWindow(Post::RealTimeWindowBase* w);
 
 	protected slots :
-		virtual void updatePlot(QString filename);
+		virtual void updatePlot(QString fileName);
 		void endMonitor(int proid);
 
 	protected:

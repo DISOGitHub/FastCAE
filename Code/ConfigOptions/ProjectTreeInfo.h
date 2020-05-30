@@ -26,7 +26,7 @@ namespace ConfigOption
 		virtual ~ProjectTreeInfo()=default;
 		//ProjectTree* copy();
 		void copy(ProjectTreeInfo* tree);
-		void setOutputFileName(QString filename);
+		void setOutputFileName(QString fileName);
 		QString getOutputFileName();
 		void setName(const QString &name);
 		QString getName();
@@ -49,7 +49,7 @@ namespace ConfigOption
 		void setDisableItems(QStringList s);
 		QStringList getDisableItems();
 		QList<TreeItem*> getItemList();
-//		static bool isFileExist(QString filename);
+//		static bool isFileExist(QString fileName);
 
 // 	protected slots:
 // 		//mainwindow 发送的求解模型信号

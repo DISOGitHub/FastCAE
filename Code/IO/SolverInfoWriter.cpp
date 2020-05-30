@@ -21,7 +21,7 @@ using namespace std;
 
 namespace IO
 {
-	SolverInfoWriter::SolverInfoWriter(const QString& filename) : IOBase(filename)
+	SolverInfoWriter::SolverInfoWriter(const QString& fileName) : IOBase(fileName)
 	{
 // 		_solveOption = Setting::BusAPI::instance()->getSolveOptions();
 // 		if (!_solveOption->isJSON())
@@ -211,13 +211,13 @@ namespace IO
 		}
 		_file.close();
 	}
-	void SolverInfoWriter::xml2json_model(QString filename){
+	void SolverInfoWriter::xml2json_model(QString fileName){
 		ifstream inf;
 		std::string filename_model_xml, filename_model_temp, filename_model_json;
 		QString temp;
 		//从QString 到 std::string
-		filename_model_xml = string((const char *)filename.toLocal8Bit());
-		filename_model_temp = string((const char *)filename.remove("model.xml").toLocal8Bit());
+		filename_model_xml = string((const char *)fileName.toLocal8Bit());
+		filename_model_temp = string((const char *)fileName.remove("model.xml").toLocal8Bit());
 		filename_model_json = filename_model_temp + "model.json";
 		inf.open(filename_model_xml);
 		//filename_model
@@ -255,14 +255,14 @@ namespace IO
 		inf.close();
 		outf.close();
 	}
-	void SolverInfoWriter::xml2json_material(QString filename){
+	void SolverInfoWriter::xml2json_material(QString fileName){
 		ifstream inf;
 		std::string filename_material_xml, filename_material_temp, filename_material_json;
 		QString temp;
 		//从QString 到 std::string
 
-		filename_material_xml = string((const char *)filename.toLocal8Bit());
-		filename_material_temp = string((const char *)filename.remove("material.xml").toLocal8Bit());
+		filename_material_xml = string((const char *)fileName.toLocal8Bit());
+		filename_material_temp = string((const char *)fileName.remove("material.xml").toLocal8Bit());
 		filename_material_json = filename_material_temp + "material.json";
 		inf.open(filename_material_xml);
 		//filename_material
@@ -287,14 +287,14 @@ namespace IO
 		inf.close();
 		outf.close();
 	}
-	void SolverInfoWriter::xml2json_geometry(QString filename){
+	void SolverInfoWriter::xml2json_geometry(QString fileName){
 		ifstream inf;
 		std::string filename_geometry_xml, filename_geometry_temp, filename_geometry_json;
 		QString temp;
 		//从QString 到 std::string
 
-		filename_geometry_xml = string((const char *)filename.toLocal8Bit());
-		filename_geometry_temp = string((const char *)filename.remove("geometry.xml").toLocal8Bit());
+		filename_geometry_xml = string((const char *)fileName.toLocal8Bit());
+		filename_geometry_temp = string((const char *)fileName.remove("geometry.xml").toLocal8Bit());
 		filename_geometry_json = filename_geometry_temp + "geometry.json";
 		inf.open(filename_geometry_xml);
 		//filename_geometry
@@ -319,14 +319,14 @@ namespace IO
 		inf.close();
 		outf.close();
 	}
-	void SolverInfoWriter::xml2json_meshdata(QString filename){
+	void SolverInfoWriter::xml2json_meshdata(QString fileName){
 		ifstream inf;
 		std::string filename_meshdata_xml, filename_meshdata_temp, filename_meshdata_json;
 		QString temp;
 		//从QString 到 std::string
 
-		filename_meshdata_xml = string((const char *)filename.toLocal8Bit());
-		filename_meshdata_temp = string((const char *)filename.remove("meshdata.xml").toLocal8Bit());
+		filename_meshdata_xml = string((const char *)fileName.toLocal8Bit());
+		filename_meshdata_temp = string((const char *)fileName.remove("meshdata.xml").toLocal8Bit());
 		filename_meshdata_json = filename_meshdata_temp + "meshdata.json";
 		inf.open(filename_meshdata_xml);
 		//filename_meshdata
@@ -356,7 +356,7 @@ namespace IO
 //		QString workingdir = Setting::BusAPI::instance()->getWorkingDir();
 //		if (workingdir.isEmpty()) return false;
 //
-//		QString filename;
+//		QString fileName;
 //		ModelData::ModelDataBase* model = _modelList.at(0);
 ////		if (_solveOption->isProjectPath())
 ////		{
@@ -365,18 +365,18 @@ namespace IO
 //		if (!dir.exists(filePath)) dir.mkpath(filePath);
 ////			QString name = _solveOption->getName();
 //		QString name = "model.xml";
-//		filename = filePath + "/" + name;
+//		fileName = filePath + "/" + name;
 ////		}
 //// 		else
 //// 		{
 //// 			QString filePath = _solveOption->getPath();
 //// //			QString name = _solveOption->getName();
 //// 			QString name = model->getOutputFileName();
-//// 			filename = filePath +"/" +name.remove("%");
+//// 			fileName = filePath +"/" +name.remove("%");
 //// 		}
 //
-//		this->setFileName(filename);
-//		qDebug() << filename;
+//		this->setFileName(fileName);
+//		qDebug() << fileName;
 //		if (!_file.open(QIODevice::WriteOnly | QIODevice::Text)) return false;
 //		_stream = new QTextStream(&_file);
 //// 		if (_isTextType)

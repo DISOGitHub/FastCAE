@@ -75,6 +75,17 @@ namespace ConfigOption
 		QDomNodeList followlist = ele->elementsByTagName("Follow");
 		if (followlist.size() != 1) return;
 		domelement = followlist.at(0).toElement();
+		QDomNodeList followgroupList = domelement.elementsByTagName("ParameterGroup");
+		npara = followgroupList.size();
+		for (int i = 0; i < npara; ++i)
+		{
+			QDomElement paragroupele = followgroupList.at(i).toElement();
+			DataProperty::ParameterGroup* g = new DataProperty::ParameterGroup;
+			g->readParameters(&paragroupele);
+			obs->appendConfigFollowGroup(g->getDescribe(), g);
+			domelement.removeChild(paragroupele);
+		}
+
 		QDomNodeList followParaList = domelement.elementsByTagName("Parameter");
 		npara = followParaList.size();
 		for (int i = 0; i < npara; ++i)
@@ -86,15 +97,7 @@ namespace ConfigOption
 			p->readParameter(&paraele);
 			obs->appendConfigFollow(p->getDescribe(), p);
 		}
-		QDomNodeList followgroupList = domelement.elementsByTagName("ParameterGroup");
-		npara = followgroupList.size();
-		for (int i = 0; i < npara; ++i)
-		{
-			QDomElement paragroupele = followgroupList.at(i).toElement();
-			DataProperty::ParameterGroup* g = new DataProperty::ParameterGroup;
-			g->readParameters(&paragroupele);
-			obs->appendConfigFollowGroup(g->getDescribe(), g);
-		}
+	
 
 		_observerConfig->appendObserver(type, obs);
 

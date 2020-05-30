@@ -39,7 +39,7 @@ namespace FastCAEDesigner
 		ModelBase(QString nameEng, QString nameChn, QString iconName, QObject *parent);
 		ModelBase(QString nameEng, QString nameChn, int type, QObject *parent = nullptr);
 		ModelBase(QString nameEng, QString nameChn, QString iconName, int type, QObject *parent);
-		ModelBase(QString filename, int type, QObject *parent);
+		ModelBase(QString fileName, int type, QObject *parent);
 		~ModelBase();
 
 	signals:
@@ -102,6 +102,9 @@ namespace FastCAEDesigner
 		void SetId(int id);
 
 		void Copy(ModelBase* data);
+
+		void setTreeType(int type);
+		int getTreeType();
 		
 
 	protected:
@@ -123,6 +126,7 @@ namespace FastCAEDesigner
 		ModelBase* _parentModelBase{nullptr};        //父节点指针
 
 		QString _fileName;
+		int _treeType{ -1 };
 	};
 
 }

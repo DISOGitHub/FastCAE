@@ -3,18 +3,15 @@
 
 #include "GeoCommandBase.h"
 #include "moduleBase/messageWindowBase.h"
-#include <QStringList>
-#include <QList>
+#include "geometry/GeometrySet.h"
 
-namespace Geometry
+namespace GUI
 {
-	class GeometrySet;
+	class MainWindow;
 }
-
 
 namespace Command
 {
-
 	class GEOMETRYCOMMANDAPI GeoCommandImport : public GeoCommandBase
 	{
 		Q_OBJECT
@@ -34,9 +31,8 @@ namespace Command
 
 	private:
 		QStringList _fileNames{};
-
 		QList<Geometry::GeometrySet*> _resSet{};
-
+		GUI::MainWindow *_mw;		
 	};
 }
 

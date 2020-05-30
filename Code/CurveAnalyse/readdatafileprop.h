@@ -12,7 +12,7 @@ class readDataFileProp : public QObject
     Q_OBJECT
 public:
     explicit readDataFileProp(QObject *parent = 0);
-    bool initNewFileProp(QString filename,curve_file_prop *tep_file_prop);
+    bool initNewFileProp(QString fileName,curve_file_prop *tep_file_prop);
 signals:
 
 public slots:

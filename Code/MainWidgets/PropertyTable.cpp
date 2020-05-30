@@ -31,8 +31,8 @@ namespace MainWidget
 		connect(_ui->propTable, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(clickItem(QTableWidgetItem*)));
 		connect(_ui->propTable, SIGNAL(cellClicked(int, int)), this, SLOT(clickCell(int, int)));
 	
-		_monitor = new Monitor(this, _ui->propTable);
-		_monitor->run();
+// 		_monitor = new Monitor(this, _ui->propTable);
+// 		_monitor->run();
 	}
 	PropertyTable::~PropertyTable()
 	{
@@ -79,11 +79,11 @@ namespace MainWidget
 		}
 		const int nprop = data->getPropertyCount();
 		int npara = data->getVisibleParaCount();
-		const int ngroup = data->getParameterGroupCount();
-		for (int i = 0; i < ngroup; ++i)
+		const int ngroup = data->getVisiableParameterGroupCount();
+		for (int i = 0; i < data->getParameterGroupCount(); ++i)
 		{
 			DataProperty::ParameterGroup* g = data->getParameterGroupAt(i);
-			if (g == nullptr) continue;
+			if (g == nullptr || !g->isVisible()) continue;
 			npara += g->getVisibleParaCount();
 		}
 
@@ -132,8 +132,8 @@ namespace MainWidget
 	{
 		this->clearObserver();
 		const int nprop = _data->getPropertyCount();
-		const int npara = _data->getParameterCount();
-		const int ngroup = _data->getParameterGroupCount();
+		int npara = _data->getVisibleParaCount();
+		int ngroup = _data->getVisiableParameterGroupCount();
 		bool isEnglish = true;
 		QString lang = Setting::BusAPI::instance()->getLanguage();
 		if (lang.toLower() == "chinese")
@@ -150,6 +150,7 @@ namespace MainWidget
 		_paraRoot->setIcon(QIcon(":/QUI/icon/expandL1.png"));
 		_ui->propTable->setItem(offsetRow, 0, _paraRoot);
 		int currertrow = offsetRow + 1;
+		ngroup = _data->getParameterGroupCount();
 		for (int i = 0; i < ngroup; ++i)
 		{
 			DataProperty::ParameterGroup* g = _data->getParameterGroupAt(i);
@@ -188,6 +189,7 @@ namespace MainWidget
 			_widgetRowHash[l] = rowlist;
 		}
 
+		npara = _data->getParameterCount();
 		for (int i = 0; i < npara; ++i)
 		{
 			auto p = _data->getParameterAt(i);
@@ -403,37 +405,6 @@ namespace MainWidget
 			}
 		}
 
-	}
-
-
-
-
-
-	Monitor::Monitor(PropertyTable* tab,QTableWidget* w)
-	{
-		_table = tab;
-		_w = w;
-		_timer = new QTimer();
-		_timer->setInterval(200);
-		connect(_timer, SIGNAL(timeout()), this, SLOT(onTimeOut()));
-	}
-	Monitor::~Monitor()
-	{
-		_timer->stop();
-		delete _timer;
-	}
-	void Monitor::run()
-	{
-		_timer->start();
-	}
-	void Monitor::onTimeOut()
-	{
-		bool v = _w->verticalScrollBar()->isVisible();
-		if (v != _visible)
-		{
-			_visible = v;
-			_table->resize();
-		}
 	}
 }
 

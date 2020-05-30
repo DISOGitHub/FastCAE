@@ -34,11 +34,11 @@ namespace IO
 		{
 			QString f = files.at(i);
 			QStringList variables = _data->getMonitorVariables(f);
-			QString filename = _casePath + "/MonitorFiles/" + f;
-			QFileInfo info(filename);
+			QString fileName = _casePath + "/MonitorFiles/" + f;
+			QFileInfo info(fileName);
 			QDir dir = info.absoluteDir();
 			if (!dir.exists()) dir.mkpath(dir.absolutePath());
-			QFile file(filename);
+			QFile file(fileName);
 			if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
 			QTextStream ins(&file);
 			QString title;
@@ -66,11 +66,11 @@ namespace IO
 		{
 			QString f = files.at(i);
 			QStringList variables = _data->getPost2DVariables(f);
-			QString filename = _casePath + "/Result/" + f;
-			QFileInfo info(filename);
+			QString fileName = _casePath + "/Result/" + f;
+			QFileInfo info(fileName);
 			QDir dir = info.absoluteDir();
 			if (!dir.exists()) dir.mkpath(dir.absolutePath());
-			QFile file(filename);
+			QFile file(fileName);
 			if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
 			QTextStream ins(&file);
 			QString title;
@@ -91,17 +91,17 @@ namespace IO
 	}
 	void TemplateWriter::writePost3D()
 	{
-		QString filename = _data->getPost3DFile();
-//		qDebug() << filename;
+		QString fileName = _data->getPost3DFile();
+//		qDebug() << fileName;
 		
-		QString sfile = _casePath + "Result/" + filename;
+		QString sfile = _casePath + "Result/" + fileName;
 		QFileInfo info(sfile);
 		QDir dir = info.absoluteDir();
 		if (!dir.exists()) dir.mkpath(dir.absolutePath());
 		QFile file(sfile);
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
 		QTextStream ins(&file);
-		if (filename.toLower().endsWith("sol"))
+		if (fileName.toLower().endsWith("sol"))
 		{
 			QStringList ns, es, nv, ev;
 			_data->get3DScalars(ns, es);

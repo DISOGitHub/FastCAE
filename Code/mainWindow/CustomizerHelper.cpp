@@ -70,6 +70,7 @@ namespace GUI
 			for (auto a : acs)
 				a->setVisible(false);
 		}
+		_mainWindow->getControlPanel()->updataPropertyTab(nullptr);
 		_mainWindow->getSignalHandler()->clearData();
 //		_mainWindow->getSubWindowManager()->closeAllSubWindow();
 		auto gloc = ConfigOption::ConfigOption::getInstance()->getGlobalConfig();

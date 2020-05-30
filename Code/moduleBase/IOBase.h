@@ -18,12 +18,12 @@ namespace ModuleBase
 	class MODULEBASEAPI IOBase
 	{
 	public:
-		IOBase(const QString& filename);
+		IOBase(const QString& fileName);
 		IOBase();
 		~IOBase();
 		void setFileName(const QString &name);
 		///读取实时曲线数据
-		void readRealTimeData(QList<QVector<double>> &x, QList<QVector<double>> &y, QString filename);
+		void readRealTimeData(QList<QVector<double>> &x, QList<QVector<double>> &y, QString fileName);
 
 	public:
 		virtual bool read();

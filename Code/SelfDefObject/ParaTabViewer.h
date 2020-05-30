@@ -42,7 +42,7 @@ namespace SelfDefObj
 		void on_out_exportButton_clicked();
 	
 	private:
-		DataProperty::ParameterTable* readCSV(QString filename);
+		DataProperty::ParameterTable* readCSV(QString fileName);
 		void fillTab(DataProperty::ParameterTable* table);
 		QString generateCode() override;
 

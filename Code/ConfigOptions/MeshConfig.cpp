@@ -1,4 +1,5 @@
 #include "MeshConfig.h"
+#include <qDebug>
 
 #define MESHON  true;
 #define MESHOFF false;
@@ -40,7 +41,7 @@ namespace ConfigOption
 	}
 	
 	QString MeshConfig::getImportSuffix()
-	{
+	{		
 		return _importSuffix;
 	}
 

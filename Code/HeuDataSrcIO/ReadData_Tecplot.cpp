@@ -252,9 +252,9 @@ QString ReadData_Tecplot::readline()
 	return line;
 }
 
-bool ReadData_Tecplot::read1(QString filename)
+bool ReadData_Tecplot::read1(QString fileName)
 {
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return false;
 	_textStream = new QTextStream;
 	_textStream->setDevice(&file);

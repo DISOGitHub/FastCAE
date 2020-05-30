@@ -155,6 +155,7 @@ namespace Plugins
 
 		if (b != QMessageBox::Yes) return;
 		this->quitCustomizer();
+		FastCAEDesigner::ParaManagerData::getInstance()->setReadFlag(true);
 	}
 
 	//·¢²¼°æ±¾

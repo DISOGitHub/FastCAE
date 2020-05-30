@@ -27,13 +27,13 @@ namespace IO
 	{
 		QFileInfo temFile(templa);
 		if (!temFile.exists()) return false;
-		QString filename = temFile.fileName();
+		QString fileName = temFile.fileName();
 
 		QDir desDir(path);
 		if (!desDir.exists())
 			desDir.mkpath(path);
 
-		QString desFilePath = path + "/" + filename;
+		QString desFilePath = path + "/" + fileName;
 		qDebug() << desFilePath;
 
 		if (QFile::exists(desFilePath))

@@ -187,11 +187,11 @@ namespace FastCAEDesigner
 
 	void EditorSolverValue::on_fileSelect_clicked()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
-		if (filename.isEmpty()) return;
-		_ui->pathlineEdit->setText(filename);
+		QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
+		if (fileName.isEmpty()) return;
+		_ui->pathlineEdit->setText(fileName);
 
-// 		QStringList nameList = filename.split(".");
+// 		QStringList nameList = fileName.split(".");
 // 
 // 		if ((_ui->sdRadioButton->isChecked()) && (nameList.last() == "exe"))
 // 		{
@@ -202,9 +202,9 @@ namespace FastCAEDesigner
 
 	void EditorSolverValue::on_fileSelect_1_clicked()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
-		if (filename.isEmpty()) return;
-		_ui->templateLineEdit->setText(filename);
+		QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
+		if (fileName.isEmpty()) return;
+		_ui->templateLineEdit->setText(fileName);
 	}
 
 	void EditorSolverValue::initCombox()
@@ -257,15 +257,15 @@ namespace FastCAEDesigner
 			return;
 		}
 
-// 		QString filename = _ui->pathlineEdit->text().trimmed();
+// 		QString fileName = _ui->pathlineEdit->text().trimmed();
 // 
-// 		if (filename.isEmpty())
+// 		if (fileName.isEmpty())
 // 		{
 // 			initDependFiles(false);
 // 			return;
 // 		}
 // 
-// 		QStringList nameList = filename.split(".");
+// 		QStringList nameList = fileName.split(".");
 
 		if ((_ui->sdRadioButton->isChecked()) /*&& (nameList.last() == "exe")*/)
 		{

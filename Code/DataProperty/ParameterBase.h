@@ -47,7 +47,7 @@ namespace DataProperty
 		ParameterBase() = default;
 		~ParameterBase() = default;
 		//从ori中拷贝内容
-		virtual void copy(ParameterBase* ori);
+		virtual void copy(ParameterBase* ori, bool valueOnly = false);
 		//获取类型
 		ParaType getParaType();
 		//设置类型
@@ -56,12 +56,14 @@ namespace DataProperty
 		QString getDescribe();
 		//设置名称
 		void setDescribe(QString s);
-		//是否可编辑修改
-		bool isEditable();
 		//设置是否可见
 		void setVisible(bool v);
 		//获取可见状态
 		bool isVisible();
+		//设置是否可编辑
+		void setEditable(bool e);
+		//获取可编辑状态
+		bool isEditable();
 		//设置中文名称，与setDescribe()对应
 		void setChinese(QString chinese);
 		//获取中文名称

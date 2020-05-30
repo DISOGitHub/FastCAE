@@ -96,6 +96,17 @@ namespace DataProperty
 		return _paraGroupList.size();
 	}
 
+	int DataBase::getVisiableParameterGroupCount()
+	{
+		int c = 0;
+		for (auto g : _paraGroupList)
+		{
+			if (g->isVisible())
+				c++;
+		}
+		return c;
+	}
+
 	void DataBase::readParameters(QDomElement* ele)
 	{
 		QDomNodeList grouplist = ele->elementsByTagName("ParameterGroup");

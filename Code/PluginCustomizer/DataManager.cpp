@@ -680,14 +680,14 @@ namespace FastCAEDesigner
 	}
 
 	//20200325 xuxinwei
-	void DataManager::setAllParameterListDict(QString name, QList<DataProperty::ParameterBase*> list)
+	void DataManager::setAllParameterListDict(int type, QList<DataProperty::ParameterBase*> list)
 	{
-		_allParameterDict.insert(name, list);
+		_allParameterDict.insert(type, list);
 	}
 
-	QList<DataProperty::ParameterBase*> DataManager::getAllParameterList(QString caseName)
+	QList<DataProperty::ParameterBase*> DataManager::getAllParameterList(int type)
 	{
-		return _allParameterDict[caseName];
+		return _allParameterDict[type];
 	}
 
 // 	void DataManager::setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list)
@@ -702,14 +702,14 @@ namespace FastCAEDesigner
 	//20200325 xuxinwei
 
 
-	void DataManager::setAllParameterGroupListDict(QString name, QList<DataProperty::ParameterGroup*> list)
+	void DataManager::setAllParameterGroupListDict(int type, QList<DataProperty::ParameterGroup*> list)
 	{
-		_allParameterGroupDict.insert(name, list);
+		_allParameterGroupDict.insert(type, list);
 	}
 
-	QList<DataProperty::ParameterGroup*> DataManager::getAllParameterGroupList(QString caseName)
+	QList<DataProperty::ParameterGroup*> DataManager::getAllParameterGroupList(int type)
 	{
-		return _allParameterGroupDict[caseName];
+		return _allParameterGroupDict[type];
 	}
 
 	void DataManager::setTreeList(QString name)

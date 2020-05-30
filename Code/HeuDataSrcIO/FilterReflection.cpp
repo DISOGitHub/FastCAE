@@ -20,9 +20,9 @@ FilterReflection::FilterReflection(const QString& dataFile, PipelineObject * par
 	mPipeLineObjProp.reflectionFilter_propData.filterName = "Reflection" + tep_filter_str.setNum(GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_reflection, 10);
 	mPipeLineObjProp.reflectionFilter_propData.reflection_axis = USE_X_MIN;
 	mPipeLineObjProp.reflectionFilter_propData.flag_copyInput = false;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "ReflectionFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "ReflectionFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dReflection_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 }

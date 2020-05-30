@@ -85,29 +85,47 @@ namespace ModuleBase
 				newMessage = QString("<p style=\" margin-top:1px; margin-bottom:2px; \"><span style=\" font-size:%1pt; color:rgb(%2, %3, %4); \">%5</span></p>").arg(m_fontPts).arg(itemColor.red()).arg(itemColor.green()).arg(itemColor.blue()).arg(message.message);
 			}
 			_ui->textEdit->append(newMessage);
-		
+			
 			_ui->textEdit->update();
 		}
 	}
 
-	void MessageWindowBase::executePyscript()
+	bool MessageWindowBase::executePyscript()
 	{
+		bool ok = false;
+		QStringList execodelist{};
 		QString pyscript = _ui->textEdit->toPlainText();
-		QString midpyscript = pyscript.remove("[Normal]: Python Initialized");
-		QStringList pyscrilist = midpyscript.simplified().split(" ");
-		_ui->textEdit->insertPlainText("\n");
-		QString lastval = pyscrilist.at(pyscrilist.length() - 1);
-		qDebug() << lastval;
-		if (lastval.isEmpty())
+		if (m_messages.size()>0)
 		{
-			return;
-		}
-		if (!lastval.contains("Python Initialized"))
-		{
-			Py::PythonAagent::getInstance()->execMessWinCode(lastval);
+			for  (Message msg:m_messages)
+			{
+				QString removestr = m_typeNames[msg.type].remove(QRegExp("\\s"))+" " + msg.message;
+				if (pyscript.contains(removestr))
+					pyscript.remove(removestr);
+			}
 
 		}
+		if (pyscript.contains("executed"))
+		{
+			QStringList executelist = pyscript.split("executed!");
+			QString last = executelist.back();
+			QStringList lastlist = last.split("\n");
+			for (int i = 0; i < lastlist.size(); i++)
+				if (!lastlist[i].isEmpty()) execodelist.append(lastlist[i]);
+		}
+		else
+		{
+			QStringList lastlist = pyscript.split("\n");
+			for (int i = 0; i < lastlist.size(); i++)
+				if (!lastlist[i].isEmpty()) execodelist.append(lastlist[i]);
+		}
 		
+		for (int i = 0; i < execodelist.size(); i++)
+			Py::PythonAagent::getInstance()->execMessWinCode(execodelist[i]);
+		
+		if (execodelist.size() > 0)
+			ok = true;
+		return ok;
 	}
 
 	void MessageWindowBase::setColor(const TypeMessageColor & color)
@@ -119,7 +137,7 @@ namespace ModuleBase
 			updateMessage();
 		}
 	}
-
+	
 	ModuleBase::TypeMessageColor MessageWindowBase::color(MessageType type) const
 	{
 		return m_typeColors[type];
@@ -175,16 +193,38 @@ namespace ModuleBase
 		{
 			if (event->type() == QEvent::KeyPress)//»Ø³µ¼ü
 			{
-
+			
 				QKeyEvent *k = static_cast<QKeyEvent *>(event);
-				if (k->key() == Qt::Key_Return)
+				if (k->key() == Qt::Key_Return || k->key() == Qt::Key_Enter)
 				{
-					executePyscript();
+					bool iscommand = isParaComaand();
+					if (iscommand == true)
+					{
+						bool ok = executePyscript();
+						if (ok)
+							_ui->textEdit->insertPlainText(QString("\nexecuted!"));
+					}
+					else
+					{
+						_ui->textEdit->insertPlainText(QString("\n"));
+						_ui->textEdit->update();
+					}
 					return true;
 				}
 			}
 		}
 		return QWidget::eventFilter(target, event);
+	}
+
+	bool MessageWindowBase::isParaComaand()
+	{
+		bool ok = false;
+		QString pyscript = _ui->textEdit->toPlainText();
+		QStringList pylist = pyscript.split("\n");
+		QString last = pylist.back();
+		if (pyscript.endsWith("/n") == false && !(last.contains("executed") || last.contains("[Normal]") || last.contains("[Warning]") || last.contains("[Error]") || last.contains("[Python]")))
+			return ok=true;
+		return ok;
 	}
 
 	void MessageWindowBase::updateMessage()
@@ -194,6 +234,7 @@ namespace ModuleBase
 		{
 			showMessage(msg, false);
 		}
+	
 	}
 
 	void MessageWindowBase::initialize()
@@ -317,6 +358,7 @@ namespace ModuleBase
 	void MessageWindowBase::slot_clicked_menu_hide_header_action()
 	{
 		setShowType(false);
+		_ui->textEdit->insertPlainText(QString("\nexecuted!"));
 		Setting::BusAPI::instance()->setMessageShowType(false);
 	}
 

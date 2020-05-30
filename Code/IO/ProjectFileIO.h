@@ -42,7 +42,7 @@ namespace IO
 	class IOAPI ProjectFileIO : public ModuleBase::IOBase
 	{
 	public:
-		ProjectFileIO(const QString& filename);
+		ProjectFileIO(const QString& fileName);
 		ProjectFileIO();
 		~ProjectFileIO() = default;
 
@@ -50,11 +50,11 @@ namespace IO
 		bool write(QString s = QString()) override;
 		
 	private:
-		bool writeXml(QString filename);
-		bool writeDiso(QString filename);
+		bool writeXml(QString fileName);
+		bool writeDiso(QString fileName);
 
-		bool readXml(QString filename);
-		bool readDiso(QString filename);
+		bool readXml(QString fileName);
+		bool readDiso(QString fileName);
 
 		void readModelData(QDomNodeList* nodeList);
 		void readGeoData(QDomNodeList* nodeList, bool isdiso = false);

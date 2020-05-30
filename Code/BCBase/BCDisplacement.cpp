@@ -10,7 +10,4 @@ namespace BCBase
 		_valueY->setDescribe(QObject::tr("Displacement Y"));
 		_valueZ->setDescribe(QObject::tr("Displacement Z"));
 	}
-	
-
-
 }

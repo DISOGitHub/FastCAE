@@ -133,8 +133,6 @@ namespace ModelData
 	protected:
 		void registerObserver();
 		
-	
-
 	protected:
 		QHash<int, int> _setMaterial{};
 		QStringList _reportList{};

@@ -78,9 +78,9 @@ namespace SelfDefObj
 		this->accept();
 	}
 
-	DataProperty::ParameterTable* ParaTabViewer::readCSV(QString filename)
+	DataProperty::ParameterTable* ParaTabViewer::readCSV(QString fileName)
 	{
-		QFile file(filename);
+		QFile file(fileName);
 		QString line;
 
 		

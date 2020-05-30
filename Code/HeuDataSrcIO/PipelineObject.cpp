@@ -320,7 +320,7 @@ QByteArray PipelineObject::QStringToChar(QString sourceStr)
 
 void PipelineObject::SetRenderMode()
 {
-	QFileInfo tep_fin(mPipeLineObjProp.pipelineObj_base_propData.filename);
+	QFileInfo tep_fin(mPipeLineObjProp.pipelineObj_base_propData.fileName);
 	for (int i = 0; i < mVecActors.count(); i++)
 	{
 		auto p = mVecActors[i]->GetProperty();

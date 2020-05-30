@@ -47,9 +47,9 @@ FilterStreamLine::FilterStreamLine(const QString& dataFile, PipelineObject * par
 	mPipeLineObjProp.streamLineFilter_propData.vector_list = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.vectorList;
 	if (mPipeLineObjProp.streamLineFilter_propData.vector_list.count()>0)
 		mPipeLineObjProp.streamLineFilter_propData.vectorColName = mPipeLineObjProp.streamLineFilter_propData.vector_list.at(0);
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "StreamFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "StreamFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dStreamLine_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 	stream_grid = mBaseGrid;

@@ -10,8 +10,8 @@
 
 namespace ConfigOption
 {
-	DataConfigReader::DataConfigReader(const QString filename, DataConfig* dataconfig, PostConfig* postconfig)
-		//: IOBase(filename)
+	DataConfigReader::DataConfigReader(const QString fileName, DataConfig* dataconfig, PostConfig* postconfig)
+		//: IOBase(fileName)
 	{
 // 		_dataConfig = ConfigOption::getInstance()->getDataConfig();
 // 		_postConfig = ConfigOption::getInstance()->getPostConfig();
@@ -19,7 +19,7 @@ namespace ConfigOption
 		_dataConfig = dataconfig;
 		_postConfig = postconfig;
 
-		_file.setFileName(filename);
+		_file.setFileName(fileName);
 	}
 	DataConfigReader::~DataConfigReader()
 	{
@@ -84,8 +84,8 @@ namespace ConfigOption
 			for (int j = 0; j < filenodeList.size(); ++j)
 			{
 				QDomElement fileele = filenodeList.at(j).toElement();
-				QString filename = fileele.attribute("Name");
-//				_dataConfig->appendMonitorFile(type, filename);
+				QString fileName = fileele.attribute("Name");
+//				_dataConfig->appendMonitorFile(type, fileName);
 
 				QDomNodeList curvenodelist = fileele.elementsByTagName("Curve");
 				for (int k = 0; k < curvenodelist.size(); ++k)
@@ -98,7 +98,7 @@ namespace ConfigOption
 					c->setDescribe(desattr);
 					c->setXVariable(xvariable);
 					c->setYVariable(yvariable);
-					c->setFile(filename);
+					c->setFile(fileName);
 					_dataConfig->appendMonitorCurves(type, c);
 				}
 			}
@@ -141,7 +141,7 @@ namespace ConfigOption
 		for (int i = 0; i < d2file.size(); ++i)
 		{
 			QDomElement element = d2file.at(i).toElement();
-			QString filename = element.attribute("Name");
+			QString fileName = element.attribute("Name");
 			QDomNodeList curvelist = element.elementsByTagName("Curve");
 			for (int j = 0; j < curvelist.size(); ++j)
 			{
@@ -154,7 +154,7 @@ namespace ConfigOption
 				c->setDescribe(des);
 				c->setXVariable(xv);
 				c->setYVariable(yv);
-				c->setFile(filename);
+				c->setFile(fileName);
 				info->appendPostCurve(c);
 			}
 		}

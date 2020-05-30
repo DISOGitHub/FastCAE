@@ -81,7 +81,7 @@ namespace MainWidget
 		connect(this, SIGNAL(disPlayProp(DataProperty::DataBase*)), _mainWindow, SIGNAL(updateProperty(DataProperty::DataBase*)));
 		//	求解
 		connect(this, SIGNAL(solveProject(int)), _mainWindow, SLOT(solveProject(int)));
-
+		 
 		connect(this, SIGNAL(updateActionStates()), _mainWindow, SIGNAL(updateActionStatesSig()));
 
 		connect(_mainWindow, SIGNAL(updateMaterialTreeSig()), this, SLOT(updateMaterialTree()));
@@ -251,7 +251,6 @@ namespace MainWidget
 			
 			action = pop_menu.addAction(tr("Delete Case"));
 			connect(action, SIGNAL(triggered()), this, SLOT(deleteProject()));
-			//			action = pop_menu.addAction("Save Project");
 			action = pop_menu.addAction(tr("Solve Case"));
 			connect(action, SIGNAL(triggered()), this, SLOT(solveProject()));
 			action = pop_menu.addAction(tr("Rename Case"));
@@ -260,6 +259,15 @@ namespace MainWidget
 			connect(action, SIGNAL(triggered()), this, SLOT(importProjectPy()));
 			action = pop_menu.addAction(tr("Open Dir"));
 			connect(action, SIGNAL(triggered()), this, SLOT(openProjectPath()));
+
+			int id = item->data(0, Qt::UserRole).toInt();
+			auto tree = _idTreeHash.value(id);
+			if (tree != nullptr)
+			{
+				pop_menu.addSeparator();
+				tree->setCurrentItem(item);
+				tree->contextMenu(&pop_menu);
+			}
 		}
 		pop_menu.exec(QCursor::pos());
 	}
@@ -417,17 +425,19 @@ namespace MainWidget
 	{
 		if (_curretnItem->type() != TreeItemType::MaterialChild) return;
 		const int id = _curretnItem->data(0, Qt::UserRole).toInt();
-
-		Material::MaterialSingleton * s = Material::MaterialSingleton::getInstance();
-
-		s->removeMaterialByID(id);
-
 		_curretnItem->takeChildren();
 		_physicsModelRoot->removeChild(_curretnItem);
 
-		emit updateActionStates();
+		Material::MaterialSingleton * s = Material::MaterialSingleton::getInstance();
+		QString maname = s->getMaterialByID(id)->getName();
+		//qDebug() << maname;
+		//s->removeMaterialByID(id);
+		QString code = QString("ControlPanel.DeleteMaterial(%1,'%2')").arg(id).arg(maname);
+		Py::PythonAagent::getInstance()->submit(code);
+
+	/*	emit updateActionStates();
 		updateMaterialTree();
-		emit disPlayProp(nullptr);
+		emit disPlayProp(nullptr);*/
 	}
 
 	void PhysicsWidget::slot_add_to_material_lib()
@@ -435,8 +445,17 @@ namespace MainWidget
 		if (_curretnItem == nullptr) return;
 		if (_curretnItem->type() != TreeItemType::MaterialChild) return;
 		const int id = _curretnItem->data(0, Qt::UserRole).toInt();
+
 		Material::MaterialSingleton * s = Material::MaterialSingleton::getInstance();
-		s->appendToMaterialLib(id);
+		QString maname = s->getMaterialByID(id)->getName();
+		//qDebug() << maname;
+		//s->removeMaterialByID(id);
+		QString code = QString("ControlPanel.AddMaterialToLib(%1,'%2')").arg(id).arg(maname);
+		Py::PythonAagent::getInstance()->submit(code);
+
+
+
+		//s->appendToMaterialLib(id);
 
 	}
 

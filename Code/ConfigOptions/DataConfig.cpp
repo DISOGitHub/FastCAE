@@ -121,9 +121,9 @@ namespace ConfigOption
 			for (int i = 0; i < curvelist.size(); ++i)
 			{
 				PostCurve* c = curvelist.at(i);
-				QString filename = c->getFile();
-				if (!files.contains(filename))
-					files.append(filename);
+				QString fileName = c->getFile();
+				if (!files.contains(fileName))
+					files.append(fileName);
 			}
 			return files;
 		}

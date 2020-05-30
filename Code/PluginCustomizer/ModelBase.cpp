@@ -424,4 +424,14 @@ namespace FastCAEDesigner
 		}
 	}
 
+	int ModelBase::getTreeType()
+	{
+		return _treeType;
+	}
+
+	void ModelBase::setTreeType(int type)
+	{
+		_treeType = type;
+	}
+
 }

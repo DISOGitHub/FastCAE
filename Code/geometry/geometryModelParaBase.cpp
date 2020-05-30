@@ -19,6 +19,7 @@
 #include "geometryParaLoft.h"
 #include "geometryParaSweep.h"
 #include "geometryParaRevol.h"
+#include "geometryParaGeoSplitter.h"
 
 namespace Geometry
 {
@@ -60,6 +61,7 @@ namespace Geometry
 			case GeometryParaMakeLoft:stype = "MakeLoft"; break;
 			case GeometryParaMakeSweep:stype = "MakeSweep"; break;
 			case GeometryParaMakeRevol:stype = "MakeRevol"; break;
+			case GeometryParaSplitter:stype = "GeoSplitter"; break;
 			default: 
 				break;
 
@@ -91,7 +93,7 @@ namespace Geometry
 		else if (s == "MakeLoft") p = new GeometryParaLoft;
 		else if (s == "MakeSweep") p = new GeometryParaSweep;
 		else if (s == "MakeRevol") p = new GeometryParaRevol;
-
+		else if (s == "GeoSplitter") p = new GeometryParaGeoSplitter;
 		return p;
 	}
 

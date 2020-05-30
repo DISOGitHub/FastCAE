@@ -39,6 +39,7 @@ HEADERS += \
 	$$PWD/GeoCommandRemoveDatum.h \
 #	$$PWD/GeoCommandCreateCylindricalComplex.h \
 #	$$PWD/GeoCommandCreateBoxComplex.h \
+	$$PWD/GeoCommandGeoSplitter.h \
 
 
 SOURCES += \
@@ -81,5 +82,6 @@ SOURCES += \
 	$$PWD/GeoCommandRemoveDatum.cpp \
 #	$$PWD/GeoCommandCreateCylindricalComplex.cpp \
 #	$$PWD/GeoCommandCreateBoxComplex.cpp \
+	$$PWD/GeoCommandGeoSplitter.cpp \
 	
 FORMS +=  \

@@ -1,7 +1,7 @@
 #ifndef DIALOGSOLIDMESH_H_
 #define DIALOGSOLIDMESH_H_
 
-#include "GeometryWidgets/geoDialogBase.h"
+#include "GmshDialogBase.h"
 #include <QList>
 
 namespace Ui
@@ -24,16 +24,18 @@ class vtkActor;
 
 namespace Gmsh
 {
-	class SolidMeshDialog : public GeometryWidget::GeoDialogBase
+	class SolidMeshDialog : public GmshDialogBase
 	{
 		Q_OBJECT
 	public:
 		SolidMeshDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre);
 		~SolidMeshDialog();
 
+
 	private slots:
 		void on_geoSelectSurface_clicked();
 		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+		void on_localButton_clicked();
 
 	private:
 		void closeEvent(QCloseEvent *) override;
@@ -42,9 +44,9 @@ namespace Gmsh
 
 	private:
 		Ui::SolidMeshDialog* _ui{};
-		Py::PythonAagent* _pyAgent{};
-
 		QList<Geometry::GeometrySet*> _geosetList{};
+
+		bool _selectBody{ false };
 	};
 }
 

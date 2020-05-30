@@ -119,12 +119,12 @@ namespace FastCAEDesigner
 		void CopyUserManualFileToSystem(QString fileName, QString path);
 
 		//20200313
-		void setAllParameterListDict(QString name, QList<DataProperty::ParameterBase*> list);
-		QList<DataProperty::ParameterBase*> getAllParameterList(QString caseName);
-		void setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list);
-		QList<FastCAEDesigner::ParametersLinkage*> getParametersLinkageList();
-		void setAllParameterGroupListDict(QString name, QList<DataProperty::ParameterGroup*> list);
-		QList<DataProperty::ParameterGroup*> getAllParameterGroupList(QString caseName);
+		void setAllParameterListDict(int type, QList<DataProperty::ParameterBase*> list);
+		QList<DataProperty::ParameterBase*> getAllParameterList(int type);
+// 		void setParametersLinkageList(QList<FastCAEDesigner::ParametersLinkage*> list);
+// 		QList<FastCAEDesigner::ParametersLinkage*> getParametersLinkageList();
+		void setAllParameterGroupListDict(int type, QList<DataProperty::ParameterGroup*> list);
+		QList<DataProperty::ParameterGroup*> getAllParameterGroupList(int type);
 		void setTreeList(QString name);
 		QList<QString> getTreeList();
 
@@ -189,8 +189,8 @@ namespace FastCAEDesigner
 		QMap<TreeItemType, QList<ModelBase*>> _parameterListDict;
 
 		//202000313
-		QMap<QString, QList<DataProperty::ParameterBase*>> _allParameterDict;
-		QMap<QString, QList<DataProperty::ParameterGroup*>> _allParameterGroupDict;
+		QMap<int, QList<DataProperty::ParameterBase*>> _allParameterDict;
+		QMap<int, QList<DataProperty::ParameterGroup*>> _allParameterGroupDict;
 		QList<QString> _treeList;
 	//	QList<FastCAEDesigner::ParametersLinkage*> _parametersLinkageList;
 

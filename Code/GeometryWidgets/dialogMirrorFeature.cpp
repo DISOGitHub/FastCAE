@@ -274,7 +274,7 @@ namespace GeometryWidget
 		_selectBody = true;
 		_pw->handleProcess(false);
 
-		if ((_faceActor.size()>0)&&(_faceActor[0] != nullptr))
+		if ((_faceActor.size() > 0) && (_faceActor[0] != nullptr))
 		{
 			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
 			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());

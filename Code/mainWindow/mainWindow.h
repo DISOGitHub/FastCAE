@@ -34,15 +34,18 @@ namespace DataProperty
 {
 	class DataBase;
 }
+
 namespace MeshData
 {
 	class MeshSet;
 	class MeshKernal;
 }
+
 namespace Geometry
 {
 	class GeometrySet;
 }
+
 namespace MainWidget
 {
 	class ControlPanel;
@@ -50,11 +53,13 @@ namespace MainWidget
 	class ProcessWindow;
 	class PreWindow;
 }
+
 namespace Post
 {
 	class PostWindowBase;
 	class RealTimeWindowBase;
 }
+
 namespace XReport
 {
 	class ReportWindow;
@@ -151,9 +156,9 @@ namespace GUI
 		void highLightGeometryEdgeSig(Geometry::GeometrySet* set, int index, QList<vtkActor*>*);
 		void highLightGeometryFaceSig(Geometry::GeometrySet* set, int index, QList<vtkActor*>*);
 		/****网格相关信号***** */
-		void importMeshByNamesSig(QStringList names);
+		void importMeshByNamesSig(QString name);
 		void importMeshDataSetSig(vtkDataSet* dataset);
-		void exportMeshByIDSig(QString filename, int kID);
+		void exportMeshByIDSig(QString fileName, QString suffix, int kID);
 		void updateMeshTreeSig();
 		void updateSetTreeSig();
 		void updateMeshDispalyStateSig(int index, bool display);
@@ -184,7 +189,7 @@ namespace GUI
 		///关闭实时曲线窗口
 		void closeRealTimeWindowSig(Post::RealTimeWindowBase* w);
 		///更新实时曲线窗口
-		void updateRealTimePlotSig(QString filename);
+		void updateRealTimePlotSig(QString fileName);
 		///切换选择模式
 		void selectModelChangedSig(int i);
 		///切换显示模型
@@ -202,11 +207,12 @@ namespace GUI
 		///设置键盘事件
 		void enableGraphWindowKeyBoard(bool on);
 		///更新Action状态
-		void updateActionStatesSig();
+		void updateActionStatesSig();		
+		void updatePreMeshActorSig();
 		///根据绘图设置更新绘图
 		void updateGraphOptionsSig();
 		//保存图片 winType 0- 前处理窗口 1-后处理   Wintype为前处理时winhandle可任意
-		void saveImageSig(QString filename, int winType, Post::PostWindowBase*winhandle, int w, int h);
+		void saveImageSig(QString fileName, int winType, Post::PostWindowBase*winhandle, int w, int h);
 // 		//面网格划分
 // 		void surfaceMeshSig(Geometry::GeometrySet*);
 // 		//体网格划分
@@ -223,12 +229,10 @@ namespace GUI
 		void selectGeometryDisplay(bool, bool, bool);
 		//在几何上选取点、线、面。
 		void selectGeometryModelChangedSig(int);
-// 		//激活标记。
-// 		void selectGeoActiveSig(bool a);
-// 		//关闭标记
-// 		void selectGeoCloseSig(int);
 		//更新工具栏状态
 		void updateActionsStatesSig();
+		//关闭主窗口
+		void closeMainWindow();
 
 	public slots:
 		/*状态栏显示信息 */
@@ -259,7 +263,7 @@ namespace GUI
 		//打印信息
 		void printMessage(int type, QString m);
 		//导入网格
-		void importMesh(QStringList filename);
+		void importMesh(QString fileName,QString s);
 		//导入几何
 		void importGeometry(QStringList f);
 		//导出网格

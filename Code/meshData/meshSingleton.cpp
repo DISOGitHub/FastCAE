@@ -3,8 +3,6 @@
 #include "meshSet.h"
 #include "CgnsBCZone.h"
 #include "CgnsFamily.h"
-#include "vtkReader.h"
-#include "NeuReader.h"
 #include <assert.h>
 #include <QDataStream>
 #include <QCryptographicHash>
@@ -83,7 +81,16 @@ namespace MeshData
 		delete k;
 		_meshList.removeAt(index);
     }
-    void MeshData::clear()
+
+	void MeshData::removeKernalByID(const int id)
+	{
+		auto k = this->getKernalByID(id);
+		int index = _meshList.indexOf(k);
+		if (index < 0) return;
+		this->removeKernalAt(index);
+	}
+
+	void MeshData::clear()
     {
         int n = this->getKernalCount();
         for (int i = 0; i < n; ++i)
@@ -165,12 +172,12 @@ namespace MeshData
 // 			QString suffix = finfo.suffix().toLower();
 // 			if (suffix == "vtk" || suffix == "stl")
 // 			{
-// 				VTKReader reader(fpath);
+// 				VTKdataExchange reader(fpath);
 // 				if (!reader.read()) continue;
 // 			}
 // 			else if (suffix == "neu")
 // 			{
-// 				NeuReader reader(fpath);
+// 				NEUdataExchange reader(fpath);
 // 				if (!reader.read()) continue;
 // 			}
             MeshKernal* k = new MeshKernal;
@@ -280,7 +287,6 @@ namespace MeshData
 			MeshSet* s = this->getMeshSetAt(i);
 			s->generateDisplayDataSet();
 		}
-
 	}
 
 	void MeshData::writeBinaryFile(QDataStream* dataStream)

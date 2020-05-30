@@ -3,10 +3,11 @@
 #include "geometry/geometrySet.h"
 #include <TopoDS_Shape.hxx>
 #include <BRepAlgoAPI_Cut.hxx>
-#include <BRepAlgo_Fuse.hxx>
+//#include <BRepAlgo_Fuse.hxx>
 #include <BRepAlgo_Section.hxx>
 #include <BRepAlgoAPI_Cut.hxx>
 #include <BRepAlgoAPI_Common.hxx>
+#include <BRepAlgoAPI_Fuse.hxx>
 #include <BRepBuilderAPI_MakeFace.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS.hxx>
@@ -206,9 +207,10 @@ namespace Command
 	{
 		TopoDS_Shape* shape1 = _body1->getShape();
 		TopoDS_Shape* shape2 = _body2->getShape();
-		BRepAlgo_Fuse fau(*shape1, *shape2);
-		fau.PerformDS();
-		fau.Build();
+		BRepAlgoAPI_Fuse fau(*shape1, *shape2);//BRepAlgoAPI_Fuse
+
+		//fau.PerformDS();
+		//fau.Build();
 		
 		if (!fau.IsDone()) return nullptr;
 		const TopoDS_Shape& aFusedShape = fau.Shape();

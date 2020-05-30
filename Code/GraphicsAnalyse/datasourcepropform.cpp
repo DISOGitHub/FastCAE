@@ -361,9 +361,9 @@ void DataSourcePropForm::on_comModel_checkBox_clicked(bool checked)
 		ui->comModel_comboBox->clear();
 		for (int i = 0; i < g_ani_objList.count(); i++)
 		{
-			QFileInfo inf(g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.filename);
+			QFileInfo inf(g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.fileName);
 			if (inf.suffix() == "obj")
-				ui->comModel_comboBox->addItem(g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.filename);
+				ui->comModel_comboBox->addItem(g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.fileName);
 		}
 		if (cur_pipelineObj->mPipeLineObjProp.pipelineObj_base_propData.comModel_fileName != "")
 		{

@@ -47,9 +47,9 @@ namespace ProjectTree
 		}
 		_itemList.clear();
 	}
-	void ProjectTreeBase::setName(const QString &filename)
+	void ProjectTreeBase::setName(const QString &fileName)
 	{
-		_name = filename;
+		_name = fileName;
 	}
 	QString ProjectTreeBase::getName()
 	{
@@ -170,6 +170,7 @@ namespace ProjectTree
 	void ProjectTreeBase::setData(ModelData::ModelDataBase* data)
 	{
 		_data = data;
+		transferData();
 	}
 	ModelData::ModelDataBase* ProjectTreeBase::getData()
 	{
@@ -183,6 +184,12 @@ namespace ProjectTree
 	{
 		return _disableItems;
 	}
+
+	void ProjectTreeBase::setCurrentItem(QTreeWidgetItem* item)
+	{
+		_currentItem = item;
+	}
+
 	void ProjectTreeBase::singleClicked()
 	{
 		qDebug() << "parent s";
@@ -282,9 +289,9 @@ namespace ProjectTree
 		_data->setSolveTime(time);
 		emit solveStatusChanged();
 	}
-	void ProjectTreeBase::setOutputFileName(QString filename)
+	void ProjectTreeBase::setOutputFileName(QString fileName)
 	{
-		_outputFile = filename;
+		_outputFile = fileName;
 	}
 	void ProjectTreeBase::reTranslate()
 	{
@@ -333,12 +340,12 @@ namespace ProjectTree
 		if (_realTimeWin == w)
 			_realTimeWin = nullptr;
 	}
-	bool ProjectTreeBase::isFileExist(QString filename)
+	bool ProjectTreeBase::isFileExist(QString fileName)
 	{
-		QFile f(filename);
+		QFile f(fileName);
 		if (!f.exists())
 		{
-			QMessageBox::warning(nullptr, tr("Warning"), tr("File %1 is not exist!").arg(filename));
+			QMessageBox::warning(nullptr, tr("Warning"), tr("File %1 is not exist!").arg(fileName));
 			return false;
 		}
 		return true;

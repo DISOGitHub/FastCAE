@@ -7,8 +7,8 @@
 #include <QList>
 #include <QDebug>
 
-CurveScriptHandler::CurveScriptHandler(curve_MainWindow* mainwindow, QString filename) :
-	curveScript_mainWindow(mainwindow), curveScript_filename(filename)
+CurveScriptHandler::CurveScriptHandler(curve_MainWindow* mainwindow, QString fileName) :
+	curveScript_mainWindow(mainwindow), curveScript_filename(fileName)
 {
 	QTextCodec *codec = QTextCodec::codecForName("utf-8");
 	QTextCodec::setCodecForLocale(codec);

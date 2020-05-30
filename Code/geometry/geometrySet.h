@@ -40,6 +40,9 @@ namespace Geometry
 // 		QString getName();
 // 		void setFilePath(const QString& filepath);
 // 		QString getFilePath();
+
+		//获取点线面数量 1-点 2-线 3-面，错误返回值：-1
+		int getGeoMemberCount(int type);
 		//设置可见性
 		void setVisible(bool v);
 		//形状是否可见

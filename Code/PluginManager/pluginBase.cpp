@@ -23,6 +23,16 @@ namespace Plugins
 	PluginBase::~PluginBase()
 	{
 		if (_translator != nullptr) delete _translator;
+
+#ifdef Q_OS_WIN
+#ifndef _DEBUG
+	//	bool ok = FreeLibrary(_winModule);
+#endif
+#endif
+
+#ifdef Q_OS_LINUX
+		dlclose(_linuxModule);
+#endif
 	}
 
 	void PluginBase::setFileName(QString f)

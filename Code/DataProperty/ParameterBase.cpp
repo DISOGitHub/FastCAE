@@ -110,8 +110,9 @@ namespace DataProperty
 		return t;
 	}
 
-	void ParameterBase::copy(ParameterBase* ori)
+	void ParameterBase::copy(ParameterBase* ori, bool valueOnly)
 	{
+		if (valueOnly) return;
 		_type = ori->getParaType();
 		_describe = ori->getDescribe();
 		_editable = ori->isEditable();
@@ -125,6 +126,11 @@ namespace DataProperty
 	bool ParameterBase::isVisible()
 	{
 		return _visible;
+	}
+
+	void ParameterBase::setEditable(bool e)
+	{
+		_editable = e;
 	}
 
 	bool ParameterBase::isSameValueWith(ParameterBase* p)

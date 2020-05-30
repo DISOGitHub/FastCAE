@@ -280,11 +280,11 @@ bool SolutionDataIO::read_ZonesCellID(int num_Ids, QString name)
 //	return true;
 //}
 
-vtkDataSet* SolutionDataIO::readSolutionData(QString filename)
+vtkDataSet* SolutionDataIO::readSolutionData(QString fileName)
 {
-	//QFile file(filename);
+	//QFile file(fileName);
 	vtkDataSet* tep_dataSet = NULL;
-	rFile.setFileName(filename);
+	rFile.setFileName(fileName);
 	if (!rFile.open(QIODevice::ReadOnly))
 		return tep_dataSet;
 	QString line_str;
@@ -415,27 +415,27 @@ vtkDataSet* SolutionDataIO::readSolutionData(QString filename)
 	return tep_dataSet;
 }
 
-bool SolutionDataIO::writeSolutionData(QString filename, vtkDataSet* dataSet)
+bool SolutionDataIO::writeSolutionData(QString fileName, vtkDataSet* dataSet)
 {
 	if (dataSet == NULL)
 		return false;
-	if (!write_Points(filename, dataSet,pointsID))
+	if (!write_Points(fileName, dataSet,pointsID))
 		return false;
-	if (!write_Cells(filename, dataSet, cellsID))
+	if (!write_Cells(fileName, dataSet, cellsID))
 		return false;
-	if (!write_Points_Value(filename, dataSet, " "))
+	if (!write_Points_Value(fileName, dataSet, " "))
 		return false;
-	if (!write_Cells_Value(filename, dataSet, " "))
+	if (!write_Cells_Value(fileName, dataSet, " "))
 		return false;
 	return true;
 }
 
-bool SolutionDataIO::write_Points(QString filename, vtkDataSet* dataSet, QString strID)
+bool SolutionDataIO::write_Points(QString fileName, vtkDataSet* dataSet, QString strID)
 {
 	int num_points = dataSet->GetNumberOfPoints();
 	if (num_points < 1)
 		return false;
-	QFile file(filename);
+	QFile file(fileName);
 	if (strID == pointsID)
 	{
 		if (!file.open(QIODevice::WriteOnly))
@@ -467,12 +467,12 @@ bool SolutionDataIO::write_Points(QString filename, vtkDataSet* dataSet, QString
 	return true;
 }
 
-bool SolutionDataIO::write_Points_Value(QString filename, vtkDataSet* dataSet, QString strID)
+bool SolutionDataIO::write_Points_Value(QString fileName, vtkDataSet* dataSet, QString strID)
 {
 	int num_points = dataSet->GetNumberOfPoints();
 	if (num_points < 1)
 		return false;
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
 		return false;
 	QTextStream ts(&file);
@@ -532,13 +532,13 @@ bool SolutionDataIO::write_Points_Value(QString filename, vtkDataSet* dataSet, Q
 	return true;
 }
 
-bool SolutionDataIO::write_Cells(QString filename, vtkDataSet* dataSet, QString strID)
+bool SolutionDataIO::write_Cells(QString fileName, vtkDataSet* dataSet, QString strID)
 {
 	//write cells
 	int num_cells = dataSet->GetNumberOfCells();
 	if (num_cells<1)
 		return false;
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
 		return false;
 	QTextStream ts(&file);
@@ -561,12 +561,12 @@ bool SolutionDataIO::write_Cells(QString filename, vtkDataSet* dataSet, QString 
 	return true;
 }
 
-bool SolutionDataIO::write_Cells_Value(QString filename, vtkDataSet* dataSet, QString strID)
+bool SolutionDataIO::write_Cells_Value(QString fileName, vtkDataSet* dataSet, QString strID)
 {
 	int num_cells = dataSet->GetNumberOfCells();
 	if (num_cells<1)
 		return false;
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
 		return false;
 	QTextStream ts(&file);
@@ -619,13 +619,13 @@ bool SolutionDataIO::write_Cells_Value(QString filename, vtkDataSet* dataSet, QS
 	return true;
 }
 
-bool SolutionDataIO::write_Zones(QString filename, QMap<QString, vtkSmartPointer<vtkIdTypeArray>> tep_zoneMap)
+bool SolutionDataIO::write_Zones(QString fileName, QMap<QString, vtkSmartPointer<vtkIdTypeArray>> tep_zoneMap)
 {
 	//write cells
 	int num_zones = tep_zoneMap.count();
 	if (num_zones<1)
 		return false;
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
 		return false;
 	QTextStream ts(&file);
@@ -668,7 +668,7 @@ bool SolutionDataIO::write_Zones(QString filename, QMap<QString, vtkSmartPointer
 	return true;
 }
 
-bool SolutionDataIO::write_Zones(QString filename, vtkMultiBlockDataSet* blockDataSet)
+bool SolutionDataIO::write_Zones(QString fileName, vtkMultiBlockDataSet* blockDataSet)
 {
 	if (blockDataSet == NULL)
 		return false;
@@ -678,30 +678,30 @@ bool SolutionDataIO::write_Zones(QString filename, vtkMultiBlockDataSet* blockDa
 	QString line_str, tep_str;
 	for (int i = 0; i < num_blocks;i++)
 	{
-		if(!write_ZonesString(filename, zoneStartID))
+		if(!write_ZonesString(fileName, zoneStartID))
 			return false;
 		vtkDataSet* tep_dataSet = vtkDataSet::SafeDownCast(blockDataSet->GetBlock(i));
-		if (!write_Points(filename, tep_dataSet, zonePointsID))
+		if (!write_Points(fileName, tep_dataSet, zonePointsID))
 		{
-			if (!write_ZonesString(filename, zoneEndID))
+			if (!write_ZonesString(fileName, zoneEndID))
 				return false;
 			return false;
 		}
-		if(!write_Cells(filename, tep_dataSet, zoneCellsID))
+		if(!write_Cells(fileName, tep_dataSet, zoneCellsID))
 			return false;
-		if (!write_Points_Value(filename, tep_dataSet, zoneID))
+		if (!write_Points_Value(fileName, tep_dataSet, zoneID))
 			return false;
-		if (!write_Cells_Value(filename, tep_dataSet, zoneID))
+		if (!write_Cells_Value(fileName, tep_dataSet, zoneID))
 			return false;
-		if(!write_ZonesString(filename, zoneEndID))
+		if(!write_ZonesString(fileName, zoneEndID))
 			return false;
 	}
 	return true;
 }
 
-bool SolutionDataIO::write_ZonesString(QString filename, QString strID)
+bool SolutionDataIO::write_ZonesString(QString fileName, QString strID)
 {
-	QFile file(filename);
+	QFile file(fileName);
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		file.close();

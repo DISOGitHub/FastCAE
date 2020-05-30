@@ -80,7 +80,8 @@ namespace MainWidget
 	}
 	void MainWidgetPy::caseRename(int pid, char* newname)
 	{
-		_physicsWidget->caseRename(pid, newname);
+		QString name = QString(newname);
+		_physicsWidget->caseRename(pid, name);
 		_pyAgent->unLock();
 	}
 	void MainWidgetPy::startMesher(char* cmesher)
@@ -272,6 +273,25 @@ namespace MainWidget
 		_pyAgent->unLock();
 	}
 
+	void MainWidgetPy::DeleteMaterial(int id, char* name)
+	{
+		Material::MaterialSingleton * s = Material::MaterialSingleton::getInstance();
+		s->removeMaterialByID(id);
+
+
+		emit _physicsWidget->updateActionStates();
+		_physicsWidget->updateMaterialTree();
+		emit _physicsWidget->disPlayProp(nullptr);
+		_pyAgent->unLock();
+	}
+
+	void MainWidgetPy::AddMaterialToLib(int id, char* name)
+	{
+		Material::MaterialSingleton * s = Material::MaterialSingleton::getInstance();
+		s->appendToMaterialLib(id);
+		_pyAgent->unLock();
+	}
+
 	void MainWidgetPy::updateGeometrySubTree(int id)
 	{
 		ProjectTree::ProjectTreeBase* tree = _physicsWidget->getProjectByID(id);
@@ -349,4 +369,14 @@ void MAINWIDGETSAPI CreateMaterial(char* name,char* type)
 void MAINWIDGETSAPI RemoveFromMaterialLib(char* namelist)
 {
 	MainWidget::MainWidgetPy::RemoveFromMaterialLib(namelist);
+}
+
+void MAINWIDGETSAPI DeleteMaterial(int id, char* name)
+{
+	MainWidget::MainWidgetPy::DeleteMaterial(id, name);
+}
+
+void MAINWIDGETSAPI AddMaterialToLib(int id, char* name)
+{
+	MainWidget::MainWidgetPy::AddMaterialToLib(id, name);
 }

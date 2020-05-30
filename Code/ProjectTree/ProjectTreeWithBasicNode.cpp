@@ -417,8 +417,8 @@ namespace ProjectTree
 			RemoveReportDialog dlg(_mainWindow);
 			if (dlg.exec() == QDialog::Accepted)
 			{
-				QString filename = _modelDataExtend->getReportAt(index);
-				QFile f(filename);
+				QString fileName = _modelDataExtend->getReportAt(index);
+				QFile f(fileName);
 				if (f.exists() && dlg.isRemoveCompletely())
 					f.remove();
 				_modelDataExtend->removeReportAt(index);
@@ -550,7 +550,7 @@ namespace ProjectTree
 	}
 	void ProjectTreeWithBasicNode::doubleClicked()
 	{
-		qDebug() << "ss";
+		//qDebug() << "ss";
 	}
 
 	void ProjectTreeWithBasicNode::updateReportTree()
@@ -731,10 +731,10 @@ namespace ProjectTree
 
 			for (int i = 0; i < filenames.size(); ++i)
 			{
-				QString filename = filenames.at(i);
-			//	QString file = _data->getPath() + "/Result/" + filename;
-			//	qDebug() << filename;
-				p2d->openfile(filename);
+				QString fileName = filenames.at(i);
+			//	QString file = _data->getPath() + "/Result/" + fileName;
+			//	qDebug() << fileName;
+				p2d->openfile(fileName);
 			}
 			
 		}
@@ -769,8 +769,8 @@ namespace ProjectTree
 		{
 			ConfigOption::PostConfig* option = ConfigOption::ConfigOption::getInstance()->getPostConfig();
 			ConfigOption::PostConfigInfo* info = option->getPostConfigInfo(_treeType);
-			QString filename = info->getPost3DFile();
-			QString file = _data->getPath() + "/Result/" + filename;
+			QString fileName = info->getPost3DFile();
+			QString file = _data->getPath() + "/Result/" + fileName;
 //			if (!isFileExist(file)) return;
 			p3d = new Post::Post3DWindowInterface(_mainWindow, _data->getID());
 			_modelDataExtend->setPost3DWindow(p3d);
@@ -808,8 +808,8 @@ namespace ProjectTree
 		{
 			ConfigOption::PostConfig* option = ConfigOption::ConfigOption::getInstance()->getPostConfig();
 			ConfigOption::PostConfigInfo* info = option->getPostConfigInfo(_treeType);
-			QString filename = info->getPost3DFile();
-			QString file = _data->getPath() + "/Result/" + filename;
+			QString fileName = info->getPost3DFile();
+			QString file = _data->getPath() + "/Result/" + fileName;
 	//		if (!isFileExist(file)) return;
 			p3d = new Post::Post3DWindowInterface(_mainWindow, _data->getID());
 			_modelDataExtend->setPost3DWindow(p3d);

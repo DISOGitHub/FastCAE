@@ -17,7 +17,7 @@ namespace ConfigOption
 	class BCConfigReader //: public ModuleBase::IOBase
 	{
 	public:
-		BCConfigReader(const QString filename, BCConfig* bcconfig);
+		BCConfigReader(const QString fileName, BCConfig* bcconfig);
 		~BCConfigReader();
 		
 		bool read()/* override*/;

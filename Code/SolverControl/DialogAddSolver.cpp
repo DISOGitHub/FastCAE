@@ -121,16 +121,16 @@ namespace SolverControl
 
 	void AddSolverDialog::on_fileSelect_clicked()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
-		if (filename.isEmpty()) return;
-		_ui->pathlineEdit->setText(filename);
+		QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
+		if (fileName.isEmpty()) return;
+		_ui->pathlineEdit->setText(fileName);
 	}
 
 	void AddSolverDialog::on_fileSelect_1_clicked()
 	{
-		QString filename = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
-		if (filename.isEmpty()) return;
-		_ui->templateLineEdit->setText(filename);
+		QString fileName = QFileDialog::getOpenFileName(this, QString(tr("Solver")), "", QString(tr("All Files (*.*)")));
+		if (fileName.isEmpty()) return;
+		_ui->templateLineEdit->setText(fileName);
 	}
 
 	void AddSolverDialog::initCombox()

@@ -43,16 +43,16 @@ class SOLUTIONDATAIO_EXPORT SolutionDataIO
 public:
 	SolutionDataIO();
 	~SolutionDataIO();
-	bool writeSolutionData(QString filename, vtkDataSet* dataSet);
-	bool write_Points(QString filename, vtkDataSet* dataSet, QString strID);
-	bool write_Cells(QString filename, vtkDataSet* dataSet, QString strID);
-	bool write_Points_Value(QString filename, vtkDataSet* dataSet, QString strID);
-	bool write_Cells_Value(QString filename, vtkDataSet* dataSet, QString strID);
-	bool write_Zones(QString filename, QMap<QString, vtkSmartPointer<vtkIdTypeArray>> tep_zoneMap);
-	bool write_Zones(QString filename, vtkMultiBlockDataSet* blockDataSet);
-	bool write_ZonesString(QString filename, QString strID);
+	bool writeSolutionData(QString fileName, vtkDataSet* dataSet);
+	bool write_Points(QString fileName, vtkDataSet* dataSet, QString strID);
+	bool write_Cells(QString fileName, vtkDataSet* dataSet, QString strID);
+	bool write_Points_Value(QString fileName, vtkDataSet* dataSet, QString strID);
+	bool write_Cells_Value(QString fileName, vtkDataSet* dataSet, QString strID);
+	bool write_Zones(QString fileName, QMap<QString, vtkSmartPointer<vtkIdTypeArray>> tep_zoneMap);
+	bool write_Zones(QString fileName, vtkMultiBlockDataSet* blockDataSet);
+	bool write_ZonesString(QString fileName, QString strID);
 
-	vtkDataSet* readSolutionData(QString filename);
+	vtkDataSet* readSolutionData(QString fileName);
 	bool read_Points(int num_points, vtkUnstructuredGrid* tep_grid1);
 	bool read_Cells(int num_cells, vtkUnstructuredGrid* tep_grid1);
 	bool read_scalarPValue(int num_scalarPVal, QString name, vtkUnstructuredGrid* tep_grid1);

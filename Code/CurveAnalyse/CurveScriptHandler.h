@@ -6,7 +6,7 @@ class curve_MainWindow;
 class CurveScriptHandler
 {
 public:
-	CurveScriptHandler(curve_MainWindow* mainwindow, QString filename);
+	CurveScriptHandler(curve_MainWindow* mainwindow, QString fileName);
 	~CurveScriptHandler();
 	void Handle();
 	

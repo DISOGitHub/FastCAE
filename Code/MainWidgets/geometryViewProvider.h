@@ -54,6 +54,9 @@ namespace MainWidget
 		void highLightGeoEdge(Geometry::GeometrySet* s, int, QList<vtkActor*>*);
 		void highLightGeoFace(Geometry::GeometrySet* s, int, QList<vtkActor*>*);
 		void setGeometryDisplay( bool v, bool c, bool f);
+		void rightDownCreateMenu();
+		void slotHideGeometry();
+		void slotShowGeometryAll();
 		//还原几何颜色。
 		void RestoreGeoColor();
 // 		//激活几何选取模式
@@ -83,6 +86,7 @@ namespace MainWidget
 		bool _showedge{ false };
 		bool _showface{ true };
 //		bool _activeSeletGeo{ false };
+		bool _hasShowed{ false };
 
 		QMultiHash<Geometry::GeometrySet*, vtkActor*> _setActors{};
 		QMultiHash<Geometry::GeometryDatum*, vtkActor*> _datumActors{};

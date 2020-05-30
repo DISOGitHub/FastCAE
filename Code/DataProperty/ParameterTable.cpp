@@ -73,7 +73,16 @@ namespace DataProperty
 	void ParameterTable::setValue(int row, int col, double v)
 	{
 		if (row < _rowCount && col < _columnCount)
-			_data[row][col] = v;
+		{
+			double  c = _data[row][col];
+			if (fabs(c - v) >0.0000001)
+			{
+				_data[row][col] = v;
+				emit dataChanged();
+			}
+		}
+			
+
 	}
 
 	double ParameterTable::getValue(int row, int col)
@@ -168,10 +177,10 @@ namespace DataProperty
 		return _data;
 	}
 
-	void ParameterTable::copy(ParameterBase* ori)
+	void ParameterTable::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
-		ParameterTable* p = (ParameterTable*)ori;
+		ParameterBase::copy(ori, valueOnly);
+		ParameterTable* p = dynamic_cast<ParameterTable*>(ori);
 
 		_rowCount = p->getRowCount();
 		_columnCount = p->getColumnCount();

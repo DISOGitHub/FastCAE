@@ -74,7 +74,7 @@ namespace ModuleBase
 		virtual void reTranslate() override;
 		
 		//执行python命令
-		void executePyscript();
+		bool executePyscript();
 		// 
 		protected slots:
 		virtual void showMessage(QString message);
@@ -102,6 +102,8 @@ namespace ModuleBase
 		void setFont(int _font);
 
 		bool eventFilter(QObject *target, QEvent *event);//事件过滤器
+
+		bool isParaComaand();
 	private:
 		void updateMessage();
 

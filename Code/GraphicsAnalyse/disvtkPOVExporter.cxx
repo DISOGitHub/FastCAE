@@ -154,7 +154,7 @@ disvtkPOVExporter::~disvtkPOVExporter()
 
 void disvtkPOVExporter::WriteData()
 {
-  // make sure user specified a filename
+  // make sure user specified a fileName
   if (this->FileName == NULL)
   {
     vtkErrorMacro(<< "Please specify file name to create");

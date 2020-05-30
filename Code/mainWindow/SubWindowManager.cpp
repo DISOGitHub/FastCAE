@@ -350,18 +350,18 @@ namespace GUI
 			return true;
 		return false;
 	}
-	void SubWindowManager::saveImage(QString filename, int winType, Post::PostWindowBase*winhandle, int w, int h)
+	void SubWindowManager::saveImage(QString fileName, int winType, Post::PostWindowBase*winhandle, int w, int h)
 	{
 		if (winType == 0)
 		{
 			MainWidget::PreWindow* preW = _preWindow.second;
 			if (preW == nullptr) return;
-			preW->saveImage(filename, w, h, false);
+			preW->saveImage(fileName, w, h, false);
 		}
 		else if (winType == 1)
 		{
 			if (_postWindow.key(winhandle) == nullptr) return;
-			winhandle->saveImage(filename, w, h, false);
+			winhandle->saveImage(fileName, w, h, false);
 		}
 	}
 

@@ -44,11 +44,12 @@ namespace DataProperty
 		this->setValue(v);
 	}
 
-	void ParameterBool::copy(ParameterBase* ori)
+	void ParameterBool::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
-		ParameterBool* p = (ParameterBool*)ori;
-		_value = p->getValue();
+		ParameterBase::copy(ori,valueOnly);
+		ParameterBool* p = dynamic_cast<ParameterBool*>(ori);
+		if (p != nullptr)
+			this->setValue(p->getValue());
 	}
 
 	bool ParameterBool::isSameValueWith(ParameterBase* p)
@@ -74,11 +75,13 @@ namespace DataProperty
 
 	void ParameterBool::setValueFromString(QString v)
 	{
+		bool val = false;
 		QString va = v.toLower();
 		if (va == "true")
-			_value = true;
+			val = true;
 		else if (va == "false")
-			_value = false;
+			val = false;
+		this->setValue(val);
 	}
 
 }

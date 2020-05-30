@@ -25,7 +25,8 @@ win32{
   -L../../output/bin -lDataProperty \
   -L../../output/bin -lGeometry \
   -L../../output/bin -lModuleBase \
- 
+  -L../../output/bin -lGeometryDataExchange \
+  
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 
@@ -36,7 +37,8 @@ win32{
   -L../../output/bin_d -lDataProperty \
   -L../../output/bin_d -lGeometry \
   -L../../output/bin_d -lModuleBase \
-  
+  -L../../output/bin_d -lGeometryDataExchange \
+						 
   message("Windows geometryCommand build")
   
 }

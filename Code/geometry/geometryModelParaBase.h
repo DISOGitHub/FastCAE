@@ -28,6 +28,8 @@ namespace Geometry
 		GeometryParaMakeLoft,
 		GeometryParaMakeSweep,
 		GeometryParaMakeRevol,
+		GeometryParaSplitter,
+
 
 	};
 

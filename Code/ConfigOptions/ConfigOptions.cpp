@@ -28,6 +28,7 @@ namespace ConfigOption
 		}
 		return _instance;
 	}
+
 	ConfigOption::ConfigOption()
 	{
 //		_treeConfig = new ProjectTreeConfig;
@@ -42,6 +43,7 @@ namespace ConfigOption
 		_materialConfig = new MaterialConfig;
 		_projectTreeConfig = new ProjectTreeConfig;
 	}
+
 	ConfigOption::~ConfigOption()
 	{
 //		if (_treeConfig != nullptr ) delete _treeConfig;
@@ -71,42 +73,52 @@ namespace ConfigOption
 		_materialConfig->clearData();
 		_projectTreeConfig->clearData();
 	}
+
 	BCConfig* ConfigOption::getBCConfig()
 	{
 		return _bcConfig;
 	}
+
 	DataConfig* ConfigOption::getDataConfig()
 	{
 		return _dataConfig;
 	}
+
 	GeometryConfig* ConfigOption::getGeometryConfig()
 	{
 		return _geoConfig;
 	}
+
 	GlobalConfig* ConfigOption::getGlobalConfig()
 	{
 		return _globalConfig;
 	}
+
 	MeshConfig* ConfigOption::getMeshConfig()
 	{
 		return _meshConfig;
 	}
+
 	PostConfig* ConfigOption::getPostConfig()
 	{
 		return _postConfig;
 	}
+
 	SolverOption* ConfigOption::getSolverOption()
 	{
 		return _solverOption;
 	}
+
 	bool ConfigOption::isGeometryEnabled()
 	{
 		return _geoConfig->isGeometryEnabled();
 	}
+
 	bool ConfigOption::isMeshEnabled()
 	{
 		return _meshConfig->isMeshEnabled();
 	}
+
 	bool ConfigOption::isPostEnabled()
 	{
 		return _postConfig->isPostEnabled();
@@ -126,5 +138,4 @@ namespace ConfigOption
 	{
 		return _projectTreeConfig;
 	}
-
 }

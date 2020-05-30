@@ -16,7 +16,7 @@ public:
 	ReadeData_Cntm() = default;
 	~ReadeData_Cntm();
 
-	bool Read(QString filename) override;
+	bool Read(QString fileName) override;
 
 private:
 	QString readLine();

@@ -13,7 +13,7 @@ namespace DataProperty
 		ParameterString();
 		~ParameterString() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 		//获取值
 		QString getValue();
 		//设置值

@@ -23,6 +23,7 @@
 #include "GeoCommandMakeRevol.h"
 #include "GeometryCommand/GeoCommandMakeLoft.h"
 #include "GeometryCommand/GeoCommandMakeSweep.h"
+#include "GeometryCommand/GeoCommandGeoSplitter.h"
 #include <QMap>
 #include <QPair>
 namespace Command
@@ -547,6 +548,27 @@ namespace Command
 			if (set != nullptr) command->setEditData(set);
 		}
 
+		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::MakeGeoSplitter(Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody)
+	{
+		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
+		command->setBody(body);
+		command->setFaceIndex(faceindex);
+		command->setFaceBody(facebody);
+		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::EditGeoSplitter(Geometry::GeometrySet* editset, Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody)
+	{
+		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
+		command->setEditData(editset);
+		command->setBody(body);
+		command->setFaceIndex(faceindex);
+		command->setFaceBody(facebody);
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
 		if (!success) warning();
 	}
@@ -1199,5 +1221,24 @@ void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset
 
 	Command::GeometryCommandPy::CreateSweep(id, shapeHash, pahtHash, s);
 	
+}
+
+void GEOMETRYCOMMANDAPI MakeGeoSplitter(int body, int faceid, int facebody)
+{
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	Geometry::GeometrySet* bodyset = data->getGeometrySetByID(body);
+	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
+	Command::GeometryCommandPy::MakeGeoSplitter(bodyset, faceid, faceset);
+
+}
+
+void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, int body, int faceid, int facebody)
+{
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	Geometry::GeometrySet* editset = data->getGeometrySetByID(editid);
+	Geometry::GeometrySet* bodyset = data->getGeometrySetByID(body);
+	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
+	Command::GeometryCommandPy::EditGeoSplitter(editset, bodyset, faceid, faceset);
+
 }
 

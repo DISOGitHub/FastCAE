@@ -38,14 +38,16 @@ def updateInterface():
     mw.updateInterface()
     pass
 
-def importMesh(filename):
+def importMesh(filename,suffix):
   str = bytes(filename,encoding='utf-8')
-  mw.importMesh(str)
+  suf = bytes(suffix,encoding='utf-8')
+  mw.importMesh(str,suf)
   pass
   
-def exportMesh(filename):
+def exportMesh(filename,suffix):
   str = bytes(filename,encoding='utf-8')
-  mw.exportMesh(str)
+  suf = bytes(suffix,encoding='utf-8')
+  mw.exportMesh(str,suf)
   pass
 
 def importGeometry(filename):

@@ -47,6 +47,7 @@ win32{
   -L../../output/bin_d -lSettings \
   -L../../output/bin_d -lPythonModule \
 #  -L../../output/bin_d -lXMaterial \
+#  -L../../output/bin_d -lMainWindow \
   
   message("Windows moduleBase build")
   

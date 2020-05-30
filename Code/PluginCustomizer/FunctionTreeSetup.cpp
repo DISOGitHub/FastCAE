@@ -207,6 +207,8 @@ namespace FastCAEDesigner
 			QStringList disableItemList = treeModel->getDisableItems();
 
 			ModelBase* caseRoot = CreatePhysics(nameEng, nameChn);
+			caseRoot->setTreeType(type);
+
 			InitPhysicsTreeNodeVisable(disableItemList,caseRoot);
 			FillSimulationAndSolverChildModel(caseRoot, treeModel, type);
 
@@ -231,8 +233,8 @@ namespace FastCAEDesigner
 
 			//20200325 xuxinwei  添加仿真以及求解参数列表 
 			DataManager::getInstance()->setTreeList(nameChn);
-			DataManager::getInstance()->setAllParameterListDict(nameChn, _parameterList);
-			DataManager::getInstance()->setAllParameterGroupListDict(nameChn, _parameterGroupList);
+			DataManager::getInstance()->setAllParameterListDict(type, _parameterList);
+			DataManager::getInstance()->setAllParameterGroupListDict(type, _parameterGroupList);
 			//20200325 xuxinwei
 		}
 
@@ -1047,7 +1049,8 @@ namespace FastCAEDesigner
 		ModelBase* model = DataManager::getInstance()->GetModelFromDict(treeNode);
 		if (model == nullptr)
 			return menu;
-		QString name = model->GetChnName();
+
+		int type = model->getTreeType();
 
 		QMenu *childmenu = new QMenu(tr("Show Child"), ui->treeWidget);
 		int childCount = treeNode->childCount();
@@ -1077,15 +1080,15 @@ namespace FastCAEDesigner
 			connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnShowThis(int)));
 		}
 		QAction* deletetree = new QAction(tr("Delete"), this);
-		//QAction* paraLinkage = new QAction(tr("ParameterLinkage"), this);
+		QAction* paraLinkage = new QAction(tr("ParameterLinkage"), this);
 
 		menu->addAction(deletetree);
-		//menu->addAction(paraLinkage);
+		menu->addAction(paraLinkage);
 		connect(deletetree, SIGNAL(triggered()), this, SLOT(OnDeleteItem()));
 
-		//connect(paraLinkage, SIGNAL(triggered()), nameMapper, SLOT(map()));
-		//nameMapper->setMapping(paraLinkage, name);
-		//connect(nameMapper, SIGNAL(mapped(QString)), this, SLOT(onShowParameterLinkage(QString)));
+		connect(paraLinkage, SIGNAL(triggered()), nameMapper, SLOT(map()));
+		nameMapper->setMapping(paraLinkage, type);
+		connect(nameMapper, SIGNAL(mapped(int)), this, SLOT(onShowParameterLinkage(int)));
 
 		return menu;
 	}
@@ -1333,7 +1336,7 @@ namespace FastCAEDesigner
 		{
 			DataProperty::ParameterGroup* paraGroup = model->getParameterGroupAt(i);
 			_parameterGroupList.append(paraGroup);
-			paraGroup->getParameterCount();
+		//	paraGroup->getParameterCount();
 			for (int j = 0; j < paraGroup->getParameterCount(); j++)
 			{
 				_parameterList.append(paraGroup->getParameterAt(j));
@@ -1355,9 +1358,9 @@ namespace FastCAEDesigner
 		}
 	}
 
-	void FunctionTreeSetup::onShowParameterLinkage(QString name)
+	void FunctionTreeSetup::onShowParameterLinkage(int type)
 	{
-		ParaLinkageManager dlg(name);
+		ParaLinkageManager dlg(type);
 		dlg.exec();
 	}
 }       

@@ -44,23 +44,7 @@ namespace Plugins
 			Plugins::PluginBase* p = _pluginList.at(i);
 			bool ok = p->uninstall();
 			if (!ok) continue;
-#ifdef _DEBUG
 			delete p;
-#endif
-#ifdef Q_OS_WIN
-			HMODULE m = p->getWinModule();
-#ifndef _DEBUG
-			delete p;
-#endif			
-			FreeLibrary(m);
-			
-#endif
-#ifdef Q_OS_LINUX
-			void* m = p->getLinuxModule();
-//			delete p;
-			dlclose(m);
-#endif
-//			delete p;
 		}
 		_pluginList.clear();
 
@@ -194,22 +178,7 @@ namespace Plugins
 			{
 				bool ok = p->uninstall();
 				if (!ok) return false;
-#ifdef _DEBUG
 				delete p;
-#endif
-#ifdef Q_OS_WIN
-				HMODULE m = p->getWinModule();
-#ifndef _DEBUG
-//				delete p;
-#endif			
-				FreeLibrary(m);
-
-#endif
-#ifdef Q_OS_LINUX
-				void* m = p->getLinuxModule();
-				//			delete p;
-				dlclose(m);
-#endif
 				_pluginList.removeOne(p);
 				break;
 			}

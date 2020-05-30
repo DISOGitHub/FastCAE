@@ -16,7 +16,7 @@ namespace ConfigOption
 	class GlobalConfigReader
 	{
 	public:
-		GlobalConfigReader(QString filename, ConfigDataBase* data);
+		GlobalConfigReader(QString fileName, ConfigDataBase* data);
 		~GlobalConfigReader();
 
 		bool read();

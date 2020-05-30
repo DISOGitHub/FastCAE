@@ -264,7 +264,7 @@ void PipelineObjPlotForm::func_set_disActors(QList<PipelineObject*> mPipelineObj
 	{
 		/*if (mPipelineObjs[i]->mPipeLineObjProp.aniDisplace_propData.flag_AniDisplaceFile
 		&& mPipelineObjs[i]->mPipeLineObjProp.aniDisplace_propData.flag_exeDisplace)*/
-		if (QFileInfo(mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "obj")
+		if (QFileInfo(mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "obj")
 		{
 			for (int j = 0; j < mPipelineObjs[i]->mVecActors.count(); j++)
 			{
@@ -791,7 +791,7 @@ void PipelineObjPlotForm::func_combine_obj_model(PipelineObject* tep_pipelineObj
 			NumericSrcObject* tep_numericObj;
 			for (int i = 0; i < g_ani_objList.count(); i++)
 			{
-				if (g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.filename == tep_pipelineObj->mPipeLineObjProp.pipelineObj_base_propData.comModel_fileName)
+				if (g_ani_objList.at(i)->mPipeLineObjProp.pipelineObj_base_propData.fileName == tep_pipelineObj->mPipeLineObjProp.pipelineObj_base_propData.comModel_fileName)
 				{
 					flag = true;
 					tep_numericObj = (NumericSrcObject*)g_ani_objList.at(i);
@@ -1656,7 +1656,7 @@ void PipelineObjPlotForm::slot_changeCurFrame(int tep_frame_xh)
 					int tep_count = tep_list1.count();
 					if (tep_count > 0)
 					{
-						g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.filename = tep_list1.at(tep_count - 1);
+						g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileName = tep_list1.at(tep_count - 1);
 						g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.file_xh = tep_frame_xh;
 					}
 				}
@@ -1680,7 +1680,7 @@ void PipelineObjPlotForm::slot_changeCurFrame(int tep_frame_xh)
 		{
 			if (g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileList.count() > tep_frame_xh)
 			{
-				tep_filename = g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.filename;
+				tep_filename = g_ani_objList[j]->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 				PipelineObject *tep_pipelineObj = findParentPipelineObj(tep_filename, source_mPipelineObjs);
 				if (tep_pipelineObj != NULL)
 				{
@@ -1699,7 +1699,7 @@ PipelineObject* PipelineObjPlotForm::findParentPipelineObj(QString tep_filename,
 {
 	for (int i = 0; i < tep_mPipelineObjs.count(); i++)
 	{
-		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.filename)
+		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.fileName)
 		{
 			return tep_mPipelineObjs[i];
 		}

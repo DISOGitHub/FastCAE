@@ -101,7 +101,7 @@ bool ReadDataIO::LoadFile(QString tep_filename)
 	QString errmsg = "succeed";
 	if (tep_filename.isEmpty())
 	{
-		errmsg = QStringLiteral("filename is empty，please select file again!");
+		errmsg = QStringLiteral("fileName is empty，please select file again!");
 		return false;
 	}
 	QFile file(tep_filename);

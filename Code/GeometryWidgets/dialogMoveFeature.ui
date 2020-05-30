@@ -48,7 +48,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-image: url(:/QUI/geometry/selectface.png);</string>
+         <string notr="true">background-image: url(:/QUI/geometry/selectbody.png);</string>
         </property>
         <property name="text">
          <string/>

@@ -12,9 +12,9 @@
 
 namespace Geometry
 {
-	GeometryExporter::GeometryExporter(QString filename)
+	GeometryExporter::GeometryExporter(QString fileName)
 	{
-		_fileName = filename;
+		_fileName = fileName;
 		_geoData = GeometryData::getInstance();
 	}
 

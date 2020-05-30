@@ -13,7 +13,12 @@ namespace DataProperty
 	}
 	void ParameterInt::setValue(int v)
 	{
-		_value = v;
+		if (v != _value)
+		{
+			_value = v;
+			emit dataChanged();
+		}
+		
 	}
 	int ParameterInt::getValue()
 	{
@@ -73,11 +78,14 @@ namespace DataProperty
 		_range[1] = slrange[1].toInt();
 	}
 
-	void ParameterInt::copy(ParameterBase* ori)
+	void ParameterInt::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
-		ParameterInt* p = (ParameterInt*)ori;
-		_value = p->getValue();
+		ParameterBase::copy(ori, valueOnly);
+		ParameterInt* p = dynamic_cast<ParameterInt*>(ori);
+		if (p == nullptr) return;
+		int v = p->getValue();
+		this->setValue(v);
+		if (valueOnly) return;
 		_unit = p->getUnit();
 		p->getRange(_range);
 	}
@@ -102,7 +110,8 @@ namespace DataProperty
 
 	void ParameterInt::setValueFromString(QString v)
 	{
-		_value = v.toInt();
+		int value = v.toInt();
+		setValue(value);
 	}
 
 }

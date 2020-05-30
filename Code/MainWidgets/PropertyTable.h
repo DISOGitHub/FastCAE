@@ -84,24 +84,6 @@ namespace MainWidget
 	};
 
 
-	class Monitor :public QThread
-	{
-		Q_OBJECT
-	public:
-		Monitor(PropertyTable* tab, QTableWidget* w);
-		~Monitor();
-		void run() override;
-
-	private slots:
-		void onTimeOut();
-
-	private:
-		QTimer* _timer{};
-		PropertyTable* _table{};
-		QTableWidget* _w{};
-		bool _visible = false;
-
-	};
 }
 
 #endif

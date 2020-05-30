@@ -29,6 +29,8 @@ HEADERS += \
 	$$PWD/XRandom.h \
 	$$PWD/XRandomWidget.h \
 	$$PWD/CommonFunctions.h \
+	$$PWD/ThreadTask.h \
+	$$PWD/ThreadTaskManager.h \
 	
 SOURCES += \
 	$$PWD/ModuleBase.cpp \
@@ -58,6 +60,8 @@ SOURCES += \
 	$$PWD/XRandom.cpp \
 	$$PWD/XRandomWidget.cpp \
 	$$PWD/CommonFunctions.cpp \
+	$$PWD/ThreadTask.cpp \
+	$$PWD/ThreadTaskManager.cpp \
 
 FORMS +=  \
 	$$PWD/messageWindowBase.ui \

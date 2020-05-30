@@ -270,6 +270,7 @@ namespace FastCAEDesigner
 		//xuxinwei 20200324
 		QFileInfo logoIcon(_logoFileName);
 		QFileInfo welcomeIcon(_welcomeFileName);
+		//qDebug() << logoIcon.fileName() << welcomeIcon.fileName();
 		if (!DataManager::getInstance()->getIconNameIsAvailable(logoIcon.fileName()))
 		{
 			ui->lbl_info->setText(tr("Logo icon file is already existed."));
@@ -278,6 +279,8 @@ namespace FastCAEDesigner
 			return;
 		}
 
+		DataManager::getInstance()->setIconNameList(logoIcon.fileName());
+
 		if (!DataManager::getInstance()->getIconNameIsAvailable(welcomeIcon.fileName()))
 		{
 			ui->lbl_info->setText(tr("Welcome page icon file is already existed."));
@@ -285,8 +288,7 @@ namespace FastCAEDesigner
 			QTimer::singleShot(3000, this, SLOT(OnTimeout()));
 			return;
 		}
-
-		DataManager::getInstance()->setIconNameList(logoIcon.fileName());
+	
 		DataManager::getInstance()->setIconNameList(welcomeIcon.fileName());
 		//xuxinwei 20200324
 		

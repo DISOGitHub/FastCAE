@@ -24,20 +24,20 @@ void pickCurveDockWidget::slot_draw_3d_curve(QString tep_curve_name,QVector<doub
 		return;
 	if (curve_name != "")
 		slot_del_3d_curve();
-	QString filename = tep_curve_name;
+	QString fileName = tep_curve_name;
 	//curve_widget->script_Plot_backgroundColor(QColor(0,192,255));
-	curve_widget->script_addCurve(data, filename);
-	curve_widget->script_Curve_color(filename, 0, QColor(255, 0, 0));
-	//curve_widget->script_Curve_axisIndex(filename, 0, 0);
-	curve_widget->script_Curve_name(filename, 0, tep_curve_name);
+	curve_widget->script_addCurve(data, fileName);
+	curve_widget->script_Curve_color(fileName, 0, QColor(255, 0, 0));
+	//curve_widget->script_Curve_axisIndex(fileName, 0, 0);
+	curve_widget->script_Curve_name(fileName, 0, tep_curve_name);
 	curve_widget->script_Plot_title(tep_curve_name);
 	curve_widget->script_Plot_legend(plotProp_legendPostion::none);
 	curve_widget->script_Plot_numAxis(1);
 	curve_widget->script_Plot_axisName("x", "x");
 	curve_widget->script_Plot_axisName("y", "y");
-	curve_widget->script_Curve_lineType(filename, 0, Qt::PenStyle::SolidLine);
-	curve_widget->script_Curve_lineWidth(filename, 0, 2);
-	curve_widget->script_Curve_showPoint(filename, 0, true);
+	curve_widget->script_Curve_lineType(fileName, 0, Qt::PenStyle::SolidLine);
+	curve_widget->script_Curve_lineWidth(fileName, 0, 2);
+	curve_widget->script_Curve_showPoint(fileName, 0, true);
 
 	curve_widget->script_update_replot();
 	setDiaplayCurveName(tep_curve_name);

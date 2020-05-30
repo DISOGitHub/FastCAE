@@ -25,7 +25,7 @@ namespace ModuleBase
 		//获取类型
 		GraphWindowType getGraphWindowType();
 		//保存图片
-		virtual void saveImage(QString filename, int width, int heigh, bool showDlg);
+		virtual void saveImage(QString fileName, int width, int heigh, bool showDlg);
 		//获取ID
 		int getID();
 		//设置视角

@@ -15,7 +15,7 @@ namespace DataProperty
 		ParameterTable();
 		~ParameterTable() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 		//设置行数
 		void setRowCount(const int n);
 		//设置列数

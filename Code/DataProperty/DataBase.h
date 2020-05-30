@@ -60,6 +60,8 @@ namespace DataProperty
 		ParameterGroup* getParameterGroupAt(const int index);
 		//获取参数组个数
 		int getParameterGroupCount();
+		//获取可见参数组个数
+		int getVisiableParameterGroupCount();
 		//移除参数组
 		virtual void removeParameterGroup(ParameterGroup* g);
 		//移除第i个参数组

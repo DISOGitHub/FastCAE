@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>234</width>
-    <height>241</height>
+    <width>304</width>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1,1">
      <item>
       <spacer name="horizontalSpacer_2">
        <property name="orientation">
@@ -62,7 +62,7 @@
         </size>
        </property>
        <property name="text">
-        <string>STP</string>
+        <string>STP(*.stp)</string>
        </property>
       </widget>
      </item>
@@ -82,7 +82,7 @@
     </layout>
    </item>
    <item row="2" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1">
      <item>
       <spacer name="horizontalSpacer_7">
        <property name="orientation">
@@ -105,7 +105,7 @@
         </size>
        </property>
        <property name="text">
-        <string>STEP</string>
+        <string>STEP(*.step)</string>
        </property>
       </widget>
      </item>
@@ -125,7 +125,7 @@
     </layout>
    </item>
    <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1">
      <item>
       <spacer name="horizontalSpacer_6">
        <property name="orientation">
@@ -148,7 +148,7 @@
         </size>
        </property>
        <property name="text">
-        <string>IGS</string>
+        <string>IGS(*.igs)</string>
        </property>
       </widget>
      </item>
@@ -168,7 +168,7 @@
     </layout>
    </item>
    <item row="4" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1">
      <item>
       <spacer name="horizontalSpacer_11">
        <property name="orientation">
@@ -191,7 +191,7 @@
         </size>
        </property>
        <property name="text">
-        <string>IGES</string>
+        <string>IGES(*.iges)</string>
        </property>
       </widget>
      </item>
@@ -211,7 +211,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
      <item>
       <spacer name="horizontalSpacer_8">
        <property name="orientation">
@@ -234,7 +234,7 @@
         </size>
        </property>
        <property name="text">
-        <string>BREP</string>
+        <string>BREP(*.brep)</string>
        </property>
       </widget>
      </item>

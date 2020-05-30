@@ -823,7 +823,7 @@ bool graph_MainWindow::slot_LoadDataSource(QString tep_file, QStringList fileLis
 		{
 			if (pipelineObj_plotWidget->load_objFile(cur_NumericSrcObj, obj_name))
 			{
-				cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.filename = QFileInfo(tep_file).fileName();
+				cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileName = QFileInfo(tep_file).fileName();
 				cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileList.clear();
 				cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileList.append(tep_file);
 				cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileListBak = cur_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileList;
@@ -878,7 +878,7 @@ void graph_MainWindow::addNewPipelineObjectForMulBlock(NumericSrcObject* tep_obj
 		
 		QStringList teplist = tep_obj->GetAllDataFiles();
 		NumericSrcObject*	tep_NumericSrcObj = new NumericSrcObject(teplist, 0);
-		tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.filename = tep_obj->mPipeLineObjProp.pipelineObj_base_propData.filename;
+		tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileName = tep_obj->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 		tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.file_xh = tep_obj->mPipeLineObjProp.pipelineObj_base_propData.file_xh;
 		tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileList = teplist;
 		tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.block_showMap = tep_obj->mPipeLineObjProp.pipelineObj_base_propData.block_showMap;
@@ -889,7 +889,7 @@ void graph_MainWindow::addNewPipelineObjectForMulBlock(NumericSrcObject* tep_obj
 		tep_NumericSrcObj->dataSetNameMap = tep_obj->dataSetNameMap;
 		if (tep_obj->dataSetNameMap.contains(tep_dataSet))
 		{
-			tep_NumericSrcObj->SetName(tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.filename + QString(" (%1)").arg(tep_NumericSrcObj->dataSetNameMap[tep_dataSet]));
+			tep_NumericSrcObj->SetName(tep_NumericSrcObj->mPipeLineObjProp.pipelineObj_base_propData.fileName + QString(" (%1)").arg(tep_NumericSrcObj->dataSetNameMap[tep_dataSet]));
 		}
 		tep_NumericSrcObj->idTypeBlockDataSet = tep_obj->dataSetMap[tep_dataSet];
 		tep_NumericSrcObj->set_GridType(dUNSTRUCTURED_GRID);
@@ -918,7 +918,7 @@ void graph_MainWindow::slot_saveImage()
 	func_saveImage(true, -1, -1, "invalid");
 }
 
-void graph_MainWindow::func_saveImage(bool flag_dlg, int wid, int hei, QString filename)
+void graph_MainWindow::func_saveImage(bool flag_dlg, int wid, int hei, QString fileName)
 {
 	if (flag_dlg)
 	{
@@ -941,7 +941,7 @@ void graph_MainWindow::func_saveImage(bool flag_dlg, int wid, int hei, QString f
 		tep_data.image_wid = wid;
 		tep_data.image_hei = hei;
 		tep_data.flag_saveImage = true;
-		tep_data.saveImage_fileName = filename;
+		tep_data.saveImage_fileName = fileName;
 
 		tep_data.flag_savePov = false;
 		tep_data.savePov_fileName = "";
@@ -2468,9 +2468,9 @@ void graph_MainWindow::runScript()
 	RunScript(path);
 }
 
-void graph_MainWindow::RunScript(QString filename)
+void graph_MainWindow::RunScript(QString fileName)
 {
-	ScriptHandler handler(this, filename);
+	ScriptHandler handler(this, fileName);
 	connect(&handler, SIGNAL(sig_script_clearAllPipelineObjs(int)), this, SLOT(slot_script_clearAllPipelineObjs(int)));
 	connect(&handler, SIGNAL(sig_script_setPlotSize(int*)), this, SLOT(slot_script_setPlotSize(int*)));
 	get_pipelineObj_plotWidget()->setScriptRunning(true);
@@ -4060,20 +4060,20 @@ void graph_MainWindow::script_projectTreeItemClicked(PipelineObject* tep_pipelin
 	pipelineObj_treeWidget->script_projectTreeItemClicked(tep_pipelineObj);
 }
 
-void graph_MainWindow::script_saveImage(bool flag_dlg, int wid, int hei, QString filename)//void func_saveImage(bool flag_dlg,int wid,int hei,QString filename);
+void graph_MainWindow::script_saveImage(bool flag_dlg, int wid, int hei, QString fileName)//void func_saveImage(bool flag_dlg,int wid,int hei,QString fileName);
 {
 	saveImage_prop tep_data;
 	tep_data.image_wid = wid;
 	tep_data.image_hei = hei;
 	tep_data.flag_saveImage = true;
-	tep_data.saveImage_fileName = filename;
+	tep_data.saveImage_fileName = fileName;
 	tep_data.flag_savePov = false;
 	tep_data.savePov_fileName = "";
 	get_pipelineObj_plotWidget()->set_saveImage_prop_data(tep_data);
 
 	emit sig_script_saveImage();
 
-	//func_saveImage(flag_dlg,wid,hei,filename);
+	//func_saveImage(flag_dlg,wid,hei,fileName);
 }
 void graph_MainWindow::script_exitSoftWare()
 {
@@ -4574,9 +4574,9 @@ void graph_MainWindow::resizeEvent(QResizeEvent * event)
 		dos_scriptFileName = "";
 	}
 }
-void graph_MainWindow::SetDosScriptFile(QString filename)
+void graph_MainWindow::SetDosScriptFile(QString fileName)
 {
-	dos_scriptFileName = filename;
+	dos_scriptFileName = fileName;
 }
 bool graph_MainWindow::func_aniToolBar(int tep_cur_frame_xh)
 {

@@ -123,7 +123,7 @@ bool NumericSrcObject::readFile(QString tep_filename)
 		int tep_count = tep_list1.count();
 		if (tep_count > 0)
 		{
-			mPipeLineObjProp.pipelineObj_base_propData.filename = tep_list1.at(tep_count - 1);
+			mPipeLineObjProp.pipelineObj_base_propData.fileName = tep_list1.at(tep_count - 1);
 			
 		}
 		mPipeLineObjProp.pipelineObj_base_propData.file_xh = mFileXh;
@@ -174,7 +174,7 @@ bool NumericSrcObject::readFile(QString tep_filename)
 			idTypeBlockDataSet = dataSetMap[mBaseGridBak]; 
 			if ((dataSetNameMap.contains(mBaseGridBak)) && (dataSetMap.count() >1))
 			{
-				SetName(mPipeLineObjProp.pipelineObj_base_propData.filename + QString(" (%1)").arg(dataSetNameMap[mBaseGridBak]));
+				SetName(mPipeLineObjProp.pipelineObj_base_propData.fileName + QString(" (%1)").arg(dataSetNameMap[mBaseGridBak]));
 			}
 		}
 		set_GridType(readdata_io->getGridType());
@@ -220,8 +220,8 @@ bool NumericSrcObject::readFile(QString tep_filename)
 
 void NumericSrcObject::ChangeColumnColor()
 {
-	if ((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() != "moor") ||
-		((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "moor") && (mPipeLineObjProp.mooringLine_propData.glyph_data.type ==-1)))
+	if ((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() != "moor") ||
+		((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "moor") && (mPipeLineObjProp.mooringLine_propData.glyph_data.type ==-1)))
 	{
 		func_ChangeColumnColor();
 	}
@@ -424,8 +424,8 @@ void NumericSrcObject::generate_actors()
 	}
 	if (mBaseGrid == NULL)
 		return;
-	if ((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() != "moor")||
-		((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "moor")&&(mPipeLineObjProp.mooringLine_propData.glyph_data.type==-1)))
+	if ((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() != "moor")||
+		((QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "moor")&&(mPipeLineObjProp.mooringLine_propData.glyph_data.type==-1)))
 	{
 		if (mBaseGrid->GetNumberOfCells() == 0)
 		{
@@ -451,7 +451,7 @@ void NumericSrcObject::generate_actors()
 			mVecActors.clear();
 			mVecActors.push_back(selectActor);
 			flag_exist_actors = true;
-			if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "moor")
+			if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "moor")
 				addSeaBottom(0.69, 1.0, 1.0);
 		}
 	}
@@ -468,7 +468,7 @@ void NumericSrcObject::generate_actors()
 }
 void NumericSrcObject::addSeaBottom(double r,double g,double b)
 {
-	if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "moor")
+	if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "moor")
 	{
 		numPoints_SeaBottom = readdata_io->get_num_mooringline();
 		if (numPoints_SeaBottom > 0)
@@ -714,7 +714,7 @@ bool NumericSrcObject::MakeGlyphs()
 	mVecActors.clear();
 	mVecActors.push_back(selectActor);
 	flag_exist_actors = true;
-	if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.filename).suffix() == "moor")
+	if (QFileInfo(mPipeLineObjProp.pipelineObj_base_propData.fileName).suffix() == "moor")
 	{
 		if(mPipeLineObjProp.mooringLine_propData.flag_seaBottom)
 			addSeaBottom(mPipeLineObjProp.mooringLine_propData.seaBottomColor.r, mPipeLineObjProp.mooringLine_propData.seaBottomColor.g, 

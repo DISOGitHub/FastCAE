@@ -64,7 +64,41 @@ QList<int> GeoCommon::getNodesInShape(vtkDataSet* d, TopoDS_Shape* sh)
 			ids.append(i);
 
 	}
+	
+	return ids;
+}
 
+QList<int> GeoCommon::getBodyElementsInShape(vtkDataSet* d, TopoDS_Shape* sh)
+{
+	TopAbs_ShapeEnum type = sh->ShapeType();
+	QList<int> ids;
+	vtkCell *cell = nullptr;
+	const int nc = d->GetNumberOfCells();
+	for (int i = 0; i < nc; i++)
+	{
+		cell = d->GetCell(i);
+		int type = cell->GetCellType();
+		int dim = VTKCellTypeToDim(type);
+		if (dim != 3) continue;
+
+		bool inbody = true;
+		double center[3]{};
+		int a = cell->GetParametricCenter(center); 
+		double x[3]{};
+		double weight{};
+		cell->EvaluateLocation(a, center, x, &weight); 
+		gp_Pnt pt(x[0], x[1], x[2]);
+		if (!isPointInBody(sh, &pt))
+		{
+			inbody = false;
+			continue;
+		}
+		if (inbody)
+		{
+			ids.append(i);
+		}
+	}
+		
 	return ids;
 }
 
@@ -154,4 +188,18 @@ bool GeoCommon::IsPointOnFace(TopoDS_Shape *s, gp_Pnt *aPoint, double aTolerance
 	return false;
 };
 
+bool GeoCommon::isPointInBody(TopoDS_Shape *s, gp_Pnt *aPoint)
+{
+	TopoDS_Vertex aVertex = BRepBuilderAPI_MakeVertex(*aPoint);
+	TopExp_Explorer solidexp(*s, TopAbs_SOLID);
+	for (; solidexp.More();solidexp.Next())
+	{
+		TopoDS_Shape solid = solidexp.Current();
+		BRepExtrema_DistShapeShape anExtrema(solid, aVertex);
+		bool insec = anExtrema.InnerSolution();
+		if (insec) return true;
+	}
+	
+	return false;
+}
 

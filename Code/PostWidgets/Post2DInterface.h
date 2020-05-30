@@ -29,12 +29,12 @@ namespace Post
 		//获取二维绘图窗口
 		Post2DWindow* getWindow();
 		//打开文件
-		void openfile(QString filename);
+		void openfile(QString fileName);
 		//添加曲线
 		void addCurve(QString name, QString f, QString x, QString y);
 		//移除曲线
 		void removeCurve(QString name);
-		void saveImage(QString filename, int width, int heigh, bool showDlg) override;
+		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
 		
 	private:
 		QString readLine();

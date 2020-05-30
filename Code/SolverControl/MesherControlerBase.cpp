@@ -79,11 +79,13 @@ namespace SolverControl
 
 	void MesherControlerBase::processFinished(int, QProcess::ExitStatus)
 	{
-		this->setProcess(100);
+		
 		QStringList flies;
 		flies.append(_tempPath + _mesher->getOutput());
 		emit importMesh(flies);
+		this->setProcess(100);
 		Py::PythonAagent::getInstance()->unLock();
+		
 	}
 
 	void MesherControlerBase::readSolverOutput()

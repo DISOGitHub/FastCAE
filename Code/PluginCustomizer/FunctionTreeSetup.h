@@ -72,9 +72,7 @@ namespace FastCAEDesigner
 // 		
 
 	private slots:
-		void OnProjectTreeRightClicked
-			
-			(const QPoint &point);
+		void OnProjectTreeRightClicked(const QPoint &point);
 		void OnInsertChild();
 		void OnHideThis();
 		void OnShowThis(int childindex);
@@ -86,7 +84,7 @@ namespace FastCAEDesigner
 		void OnInsertMaterialTree();
 		void OnDeleteAllMaterialItem();
 
-		void onShowParameterLinkage(QString name);
+		void onShowParameterLinkage(int type);
 
 	private:
 		void Init();

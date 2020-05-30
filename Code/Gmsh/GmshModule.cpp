@@ -48,6 +48,8 @@ namespace Gmsh
 		}
 		if (dlg != nullptr)
 			emit showDialog(dlg);
+		
+			
 	}
 
 	GmshModule* GmshModule::getInstance(GUI::MainWindow* m)
@@ -94,8 +96,6 @@ namespace Gmsh
 		_threadManager->insertThread(processBar, thread);
 
 	}
-
-
 
 
 }

@@ -4,23 +4,23 @@
 <context>
     <name>BoolOptionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="+14"/>
         <source>Bool Dialog</source>
         <translation>布尔运算</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="20"/>
+        <location line="+6"/>
         <source>Body 1</source>
         <translation>几何体1</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="26"/>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="73"/>
+        <location line="+6"/>
+        <location line="+47"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.ui" line="67"/>
+        <location line="-6"/>
         <source>Body 2</source>
         <translation>几何体2</translation>
     </message>
@@ -28,51 +28,51 @@
 <context>
     <name>CreateBox</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="+14"/>
         <source>Create Box</source>
         <translation>创建立方体</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="34"/>
+        <location line="+12"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="58"/>
+        <location line="+24"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="64"/>
+        <location line="+6"/>
         <source>Length:</source>
         <translation>长度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="71"/>
+        <location line="+7"/>
         <source>Width:</source>
         <translation>宽度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="80"/>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="98"/>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="116"/>
+        <location line="+9"/>
+        <location line="+18"/>
+        <location line="+18"/>
         <source>10.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="87"/>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="105"/>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="123"/>
+        <location line="-29"/>
+        <location line="+18"/>
+        <location line="+18"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.ui" line="132"/>
+        <location line="+9"/>
         <source>Height:</source>
         <translation>高度：</translation>
     </message>
@@ -80,59 +80,59 @@
 <context>
     <name>CreateChamferDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="+14"/>
         <source>Create Chamfer</source>
         <translation>创建倒角</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="20"/>
+        <location line="+6"/>
         <source>Edge</source>
         <translation>倒角边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="70"/>
+        <location line="+44"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="76"/>
+        <location line="+6"/>
         <source>Section:</source>
         <translation>选项：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="84"/>
+        <location line="+8"/>
         <source>Symmetrical</source>
         <translation>对称</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="89"/>
+        <location line="+5"/>
         <source>Asymmetrical</source>
         <translation>非对称</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="99"/>
+        <location line="+10"/>
         <source>Distance 1:</source>
         <translation>距离1：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="106"/>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="131"/>
+        <location line="+7"/>
+        <location line="+25"/>
         <source>1.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="113"/>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="138"/>
+        <location line="-18"/>
+        <location line="+25"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeChamfer.ui" line="124"/>
+        <location line="-14"/>
         <source>Distance 2:</source>
         <translation>距离2：</translation>
     </message>
@@ -140,69 +140,69 @@
 <context>
     <name>CreateCone</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="+14"/>
         <source>Create Cone</source>
         <translation>创建圆台</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="34"/>
+        <location line="+12"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="58"/>
+        <location line="+24"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="64"/>
+        <location line="+6"/>
         <source>Radius 1:</source>
         <translation>半径1：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="71"/>
+        <location line="+7"/>
         <source>Radius 2:</source>
         <translation>半径2：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="78"/>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="95"/>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="108"/>
+        <location line="+7"/>
+        <location line="+17"/>
+        <location line="+13"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="88"/>
+        <location line="-20"/>
         <source>Length:</source>
         <translation>长度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="124"/>
+        <location line="+36"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="132"/>
+        <location line="+8"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="139"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="146"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.ui" line="158"/>
+        <location line="+12"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
@@ -210,63 +210,63 @@
 <context>
     <name>CreateCylinder</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="+14"/>
         <source>Create Cylinder</source>
         <translation>创建圆柱</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="34"/>
+        <location line="+12"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="58"/>
+        <location line="+24"/>
         <source>Parameter</source>
         <translation>参数</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="64"/>
+        <location line="+6"/>
         <source>Radius:</source>
         <translation>半径：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="71"/>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="91"/>
+        <location line="+7"/>
+        <location line="+20"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="84"/>
+        <location line="-7"/>
         <source>Length:</source>
         <translation>长度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="107"/>
+        <location line="+23"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="115"/>
+        <location line="+8"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="122"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="129"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.ui" line="141"/>
+        <location line="+12"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
@@ -274,33 +274,33 @@
 <context>
     <name>CreateDatumplaneDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="+14"/>
         <source>Create Datum</source>
         <translation>创建基准平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="20"/>
+        <location line="+6"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="49"/>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="61"/>
+        <location line="+29"/>
+        <location line="+12"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="74"/>
+        <location line="+13"/>
         <source>10.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="84"/>
+        <location line="+10"/>
         <source>Select</source>
         <translation>选择面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.ui" line="90"/>
+        <location line="+6"/>
         <source>Selected Plane</source>
         <translation>已选择平面</translation>
     </message>
@@ -308,63 +308,63 @@
 <context>
     <name>CreateExtrusion</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="+14"/>
         <source>Create Extrusion</source>
         <translation>拉伸</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="20"/>
+        <location line="+6"/>
         <source>Select</source>
         <translation>选择边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="68"/>
+        <location line="+42"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="74"/>
+        <location line="+6"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="120"/>
+        <location line="+46"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="127"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="134"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="146"/>
+        <location line="+12"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="165"/>
+        <location line="+19"/>
         <source>Generate Solid</source>
         <translation>生成实体</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="187"/>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="199"/>
+        <location line="+22"/>
+        <location line="+12"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.ui" line="212"/>
+        <location line="+13"/>
         <source>10.00</source>
         <translation></translation>
     </message>
@@ -372,22 +372,22 @@
 <context>
     <name>CreateFaceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.ui" line="+14"/>
         <source>Create Face</source>
         <translation>创建基准平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.ui" line="34"/>
+        <location line="+12"/>
         <source>Select Edge</source>
         <translation>选择边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.ui" line="40"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
@@ -395,37 +395,37 @@
 <context>
     <name>CreateFilterDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="+14"/>
         <source>Create Fillet</source>
         <translation>创建圆角</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="20"/>
+        <location line="+6"/>
         <source>Edge</source>
         <translation>倒角边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="67"/>
+        <location line="+41"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="75"/>
+        <location line="+8"/>
         <source>Radius:</source>
         <translation>半径：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="82"/>
+        <location line="+7"/>
         <source>1.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.ui" line="89"/>
+        <location line="+7"/>
         <source>mm</source>
         <translation></translation>
     </message>
@@ -433,83 +433,83 @@
 <context>
     <name>CreateLineDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="+14"/>
         <source>Create Edge</source>
         <translation>创建直线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="34"/>
+        <location line="+12"/>
         <source>Start Point</source>
         <translation>起始点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="58"/>
+        <location line="+24"/>
         <source>End Point</source>
         <translation>终止点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="66"/>
+        <location line="+8"/>
         <source>Option：</source>
         <translation>选项：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="74"/>
+        <location line="+8"/>
         <source>Point</source>
         <translation>两点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="79"/>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="137"/>
+        <location line="+5"/>
+        <location line="+58"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="93"/>
+        <location line="-44"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="113"/>
+        <location line="+20"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="121"/>
+        <location line="+8"/>
         <source>Length:</source>
         <translation>长度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="128"/>
+        <location line="+7"/>
         <source>10.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="182"/>
+        <location line="+54"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="189"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="196"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="208"/>
+        <location line="+12"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.ui" line="215"/>
+        <location line="+7"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
@@ -517,38 +517,38 @@
 <context>
     <name>CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="+14"/>
         <source>Create Loft</source>
         <translation>创建放样</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="20"/>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="128"/>
+        <location line="+6"/>
+        <location line="+108"/>
         <source>Section</source>
         <translation>横截面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="28"/>
+        <location line="-100"/>
         <source>Selected Edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="86"/>
+        <location line="+58"/>
         <source>Add new section</source>
         <translation>添加新截面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="121"/>
+        <location line="+35"/>
         <source>Sections</source>
         <translation>横截面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="133"/>
+        <location line="+12"/>
         <source>Numbers</source>
         <translation>边数</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.ui" line="167"/>
+        <location line="+34"/>
         <source>Generate Solid</source>
         <translation>生成实体</translation>
     </message>
@@ -556,51 +556,51 @@
 <context>
     <name>CreatePoint</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="+14"/>
         <source>Create Point</source>
         <translation>创建点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="34"/>
+        <location line="+12"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="58"/>
+        <location line="+24"/>
         <source>Offset</source>
         <translation>偏移</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="64"/>
+        <location line="+6"/>
         <source>X:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="71"/>
+        <location line="+7"/>
         <source>Y</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="80"/>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="98"/>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="116"/>
+        <location line="+9"/>
+        <location line="+18"/>
+        <location line="+18"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="87"/>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="105"/>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="123"/>
+        <location line="-29"/>
+        <location line="+18"/>
+        <location line="+18"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.ui" line="132"/>
+        <location line="+9"/>
         <source>Z</source>
         <translation></translation>
     </message>
@@ -608,99 +608,99 @@
 <context>
     <name>CreateRevol</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="+14"/>
         <source>Create Revol</source>
         <translation>旋转</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="20"/>
+        <location line="+6"/>
         <source>Basic Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="44"/>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="56"/>
+        <location line="+24"/>
+        <location line="+12"/>
         <source>Degree</source>
         <translation>角度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="71"/>
+        <location line="+15"/>
         <source>90.0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="78"/>
+        <location line="+7"/>
         <source>deg</source>
         <translation>度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="90"/>
+        <location line="+12"/>
         <source>Edge</source>
         <translation>选择边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="118"/>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="193"/>
+        <location line="+28"/>
+        <location line="+75"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="136"/>
+        <location line="-57"/>
         <source>Generate Solid</source>
         <translation>生成实体</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="156"/>
+        <location line="+20"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="162"/>
+        <location line="+6"/>
         <source>Option</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="170"/>
+        <location line="+8"/>
         <source>Select On Geometry</source>
         <translation>选取几何边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="175"/>
+        <location line="+5"/>
         <source>Coordinate</source>
         <translation>坐标系</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="187"/>
+        <location line="+12"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="223"/>
+        <location line="+36"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="233"/>
+        <location line="+10"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="240"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="247"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="261"/>
+        <location line="+14"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.ui" line="309"/>
+        <location line="+48"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
@@ -708,76 +708,104 @@
 <context>
     <name>CreateSphere</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="+14"/>
         <source>Create Sphere</source>
         <translation>创建球体</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="22"/>
+        <location line="+8"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="34"/>
+        <location line="+12"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="58"/>
+        <location line="+24"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="64"/>
+        <location line="+6"/>
         <source>Radius:</source>
         <translation>半径：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.ui" line="71"/>
+        <location line="+7"/>
         <source>mm</source>
         <translation></translation>
     </message>
 </context>
 <context>
+    <name>GeoSplitterDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogGeoSplitter.ui" line="+14"/>
+        <source>Geometry Splitter</source>
+        <translation>几何分割</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Body</source>
+        <translation>实体</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Selected Body(0)</source>
+        <translation>已选择实体(0)</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Plane</source>
+        <translation>平面</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Selected Plane(0)</source>
+        <translation>已选择平面(0)</translation>
+    </message>
+</context>
+<context>
     <name>GeometryWidget::BoolOpertionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="78"/>
+        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="+78"/>
         <source>Cut</source>
         <translation>求差</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="81"/>
+        <location line="+3"/>
         <source>Fause</source>
         <translation>求和</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="84"/>
+        <location line="+3"/>
         <source>Common</source>
         <translation>求交</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="88"/>
+        <location line="+4"/>
         <source>Unmaned</source>
         <translation>未命名</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="57"/>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="114"/>
+        <location line="-31"/>
+        <location line="+57"/>
         <source>Selected body(1)</source>
         <translation>已选择体(1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="115"/>
+        <location line="+1"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="175"/>
+        <location line="+60"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="175"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -785,17 +813,17 @@
 <context>
     <name>GeometryWidget::CreateBoxDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.cpp" line="31"/>
+        <location filename="../../GeometryWidgets/dialogCreateBox.cpp" line="+31"/>
         <source>Edit Box</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.cpp" line="122"/>
+        <location line="+91"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateBox.cpp" line="122"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -803,18 +831,18 @@
 <context>
     <name>GeometryWidget::CreateConeDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="123"/>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="133"/>
+        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="+123"/>
+        <location line="+10"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="123"/>
+        <location line="-10"/>
         <source>The two radii are equal!</source>
         <translation>两端面半径相等!</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCone.cpp" line="133"/>
+        <location line="+10"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -822,12 +850,12 @@
 <context>
     <name>GeometryWidget::CreateCylinderDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.cpp" line="115"/>
+        <location filename="../../GeometryWidgets/dialogCreateCylinder.cpp" line="+115"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateCylinder.cpp" line="115"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -835,18 +863,18 @@
 <context>
     <name>GeometryWidget::CreateDatumplaneDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="109"/>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="120"/>
+        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="+109"/>
+        <location line="+11"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="109"/>
+        <location line="-11"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="120"/>
+        <location line="+11"/>
         <source>Create failed ! </source>
         <translation>创建失败！</translation>
     </message>
@@ -854,18 +882,18 @@
 <context>
     <name>GeometryWidget::CreateExtrusionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="76"/>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="118"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="+76"/>
+        <location line="+42"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="219"/>
+        <location line="+101"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="219"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -873,18 +901,18 @@
 <context>
     <name>GeometryWidget::CreateFaceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="112"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="+112"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="112"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="74"/>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="179"/>
+        <location line="-38"/>
+        <location line="+105"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -892,23 +920,23 @@
 <context>
     <name>GeometryWidget::CreateFiletDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="37"/>
+        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="+37"/>
         <source>Edit Fillet</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="118"/>
+        <location line="+81"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="118"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="54"/>
-        <location filename="../../GeometryWidgets/dialogMakeFillet.cpp" line="181"/>
+        <location line="-64"/>
+        <location line="+127"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -916,12 +944,12 @@
 <context>
     <name>GeometryWidget::CreateLineDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="192"/>
+        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="+192"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="192"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -929,18 +957,18 @@
 <context>
     <name>GeometryWidget::CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="107"/>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="129"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="+107"/>
+        <location line="+22"/>
         <source>Selected TopEdge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="193"/>
+        <location line="+64"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="193"/>
+        <location line="+0"/>
         <source>Create failed ! </source>
         <translation>创建失败！</translation>
     </message>
@@ -948,12 +976,12 @@
 <context>
     <name>GeometryWidget::CreatePointDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="115"/>
+        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="+115"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="115"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -961,22 +989,22 @@
 <context>
     <name>GeometryWidget::CreateRevolDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="166"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="+166"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="185"/>
+        <location line="+19"/>
         <source>Selected Axis_edge(1)</source>
         <translation>已选轴线(1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="275"/>
+        <location line="+90"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="275"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -984,12 +1012,12 @@
 <context>
     <name>GeometryWidget::CreateSphereDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.cpp" line="90"/>
+        <location filename="../../GeometryWidgets/dialogCreateSphere.cpp" line="+90"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateSphere.cpp" line="90"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -997,33 +1025,48 @@
 <context>
     <name>GeometryWidget::GeoDialogBase</name>
     <message>
-        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="48"/>
+        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="+48"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="52"/>
+        <location line="+4"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
 </context>
 <context>
+    <name>GeometryWidget::GeoSplitterDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogGeoSplitter.cpp" line="+58"/>
+        <location line="+122"/>
+        <source>Selected body(1)</source>
+        <translation>已选择体(1)</translation>
+    </message>
+    <message>
+        <location line="-111"/>
+        <location line="+130"/>
+        <source>Selected Plane(1)</source>
+        <translation>已选择平面(1)</translation>
+    </message>
+</context>
+<context>
     <name>GeometryWidget::MakeMatrixDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="319"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="344"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="+319"/>
+        <location line="+25"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="319"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="344"/>
+        <location line="-25"/>
+        <location line="+25"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="80"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="396"/>
+        <location line="-264"/>
+        <location line="+316"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
@@ -1031,7 +1074,7 @@
 <context>
     <name>GeometryWidget::MeasureDistanceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="65"/>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="+65"/>
         <source>Selected Object(%1)</source>
         <translation>已选取对象(%1)</translation>
     </message>
@@ -1039,24 +1082,24 @@
 <context>
     <name>GeometryWidget::MirorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="175"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="+175"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="175"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="111"/>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="326"/>
+        <location line="-64"/>
+        <location line="+215"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="119"/>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="344"/>
+        <location line="-207"/>
+        <location line="+225"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
     </message>
@@ -1064,18 +1107,18 @@
 <context>
     <name>GeometryWidget::MoveFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="164"/>
+        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="+164"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="164"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="96"/>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="273"/>
+        <location line="-68"/>
+        <location line="+177"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
@@ -1083,24 +1126,24 @@
 <context>
     <name>GeometryWidget::RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="184"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="+184"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="184"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="69"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="272"/>
+        <location line="-115"/>
+        <location line="+203"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="90"/>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="290"/>
+        <location line="-182"/>
+        <location line="+200"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
@@ -1108,12 +1151,12 @@
 <context>
     <name>GeometryWidget::SketchPlanDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.cpp" line="73"/>
+        <location filename="../../GeometryWidgets/dialogSketchPlane.cpp" line="+73"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.cpp" line="73"/>
+        <location line="+0"/>
         <source>Create failed ! </source>
         <translation>创建失败！</translation>
     </message>
@@ -1121,20 +1164,20 @@
 <context>
     <name>GeometryWidget::SweepDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="70"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="74"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="200"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="226"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="+70"/>
+        <location line="+4"/>
+        <location line="+126"/>
+        <location line="+26"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="95"/>
+        <location line="-131"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="95"/>
+        <location line="+0"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
@@ -1142,24 +1185,24 @@
 <context>
     <name>GeometryWidget::VariableFilletDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="77"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="+77"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="118"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="223"/>
+        <location line="+41"/>
+        <location line="+105"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="118"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="223"/>
+        <location line="-105"/>
+        <location line="+105"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="181"/>
+        <location line="-42"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -1167,143 +1210,143 @@
 <context>
     <name>MakeMatrixDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="+14"/>
         <source>Make Matrix</source>
         <translation>阵列</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="32"/>
+        <location line="+18"/>
         <source>Option:</source>
         <translation>选项：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="40"/>
+        <location line="+8"/>
         <source>Linear Matrix</source>
         <translation>线性阵列</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="45"/>
+        <location line="+5"/>
         <source>Wire Matrix</source>
         <translation>环形阵列</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="55"/>
+        <location line="+10"/>
         <source>Body</source>
         <translation>几何体</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="92"/>
+        <location line="+37"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="106"/>
+        <location line="+14"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="112"/>
+        <location line="+6"/>
         <source>Direction 2</source>
         <translation>方向2</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="121"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="293"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="510"/>
+        <location line="+9"/>
+        <location line="+172"/>
+        <location line="+217"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="166"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="338"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="555"/>
+        <location line="-344"/>
+        <location line="+172"/>
+        <location line="+217"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="173"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="345"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="562"/>
+        <location line="-382"/>
+        <location line="+172"/>
+        <location line="+217"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="183"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="352"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="569"/>
+        <location line="-379"/>
+        <location line="+169"/>
+        <location line="+217"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="195"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="364"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="588"/>
+        <location line="-374"/>
+        <location line="+169"/>
+        <location line="+224"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="202"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="371"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="581"/>
+        <location line="-386"/>
+        <location line="+169"/>
+        <location line="+210"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="212"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="390"/>
+        <location line="-369"/>
+        <location line="+178"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="238"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="448"/>
+        <location line="-152"/>
+        <location line="+210"/>
         <source>15</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="245"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="383"/>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="613"/>
+        <location line="-203"/>
+        <location line="+138"/>
+        <location line="+230"/>
         <source>Count</source>
         <translation>数目</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="287"/>
+        <location line="-326"/>
         <source>Direction 1</source>
         <translation>方向1</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="460"/>
+        <location line="+173"/>
         <source>Set Direction 2</source>
         <translation>设置方向2</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="468"/>
+        <location line="+8"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="480"/>
+        <location line="+12"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="492"/>
+        <location line="+12"/>
         <source>Basic Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="646"/>
+        <location line="+154"/>
         <source>Pitch Angle</source>
         <translation>角度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="668"/>
+        <location line="+22"/>
         <source>30</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.ui" line="675"/>
+        <location line="+7"/>
         <source>deg</source>
         <translation>度</translation>
     </message>
@@ -1311,38 +1354,71 @@
 <context>
     <name>MeasureaDistanceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="14"/>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="20"/>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="+14"/>
+        <location line="+229"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="26"/>
+        <location line="-143"/>
+        <source>Location</source>
+        <translation>位置</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Point 1:</source>
+        <translation>第一点：</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+23"/>
+        <location line="+23"/>
+        <location line="+21"/>
+        <location line="+23"/>
+        <location line="+23"/>
+        <source>0.0</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="-97"/>
+        <location line="+23"/>
+        <location line="+44"/>
+        <location line="+23"/>
+        <source>,</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="-48"/>
+        <source>Point 2:</source>
+        <translation>第二点：</translation>
+    </message>
+    <message>
+        <location line="+76"/>
         <source>Distance:</source>
         <translation>距离:</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="33"/>
+        <location line="+7"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="52"/>
+        <location line="+19"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="62"/>
+        <location line="-255"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="69"/>
+        <location line="+20"/>
         <source>Object</source>
         <translation>对象</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="75"/>
+        <location line="+6"/>
         <source>Selected Object(0)</source>
         <translation>已选取对象(0)</translation>
     </message>
@@ -1350,117 +1426,117 @@
 <context>
     <name>MirrorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="+14"/>
         <source>Mirror Feature</source>
         <translation>镜像特征</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="20"/>
+        <location line="+6"/>
         <source>Body</source>
         <translation>镜像对象</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="67"/>
+        <location line="+41"/>
         <source>Symmetric Plane</source>
         <translation>对称平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="87"/>
+        <location line="+20"/>
         <source>Plane</source>
         <translation>平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="101"/>
+        <location line="+14"/>
         <source>Select plane on geometry</source>
         <translation>选取几何平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="106"/>
+        <location line="+5"/>
         <source>Coordinate</source>
         <translation>坐标系</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="111"/>
+        <location line="+5"/>
         <source>Random</source>
         <translation>任意</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="125"/>
+        <location line="+14"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="131"/>
+        <location line="+6"/>
         <source>Selected Plane(0)</source>
         <translation>已选择平面(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="170"/>
+        <location line="+39"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="176"/>
+        <location line="+6"/>
         <source>Plane:</source>
         <translation>平面：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="184"/>
+        <location line="+8"/>
         <source>XOY</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="189"/>
+        <location line="+5"/>
         <source>XOZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="194"/>
+        <location line="+5"/>
         <source>YOZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="203"/>
+        <location line="+9"/>
         <source>Tab 3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="209"/>
+        <location line="+6"/>
         <source>Basic Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="227"/>
+        <location line="+18"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="235"/>
+        <location line="+8"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="242"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="249"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="261"/>
+        <location line="+12"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.ui" line="325"/>
+        <location line="+64"/>
         <source>Save Origin body</source>
         <translation>保留原始几何体</translation>
     </message>
@@ -1468,102 +1544,102 @@
 <context>
     <name>MoveFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="+14"/>
         <source>Move Feature</source>
         <translation>移动特征</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="20"/>
+        <location line="+6"/>
         <source>Body</source>
         <translation>移动对象</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="67"/>
+        <location line="+41"/>
         <source>Transform</source>
         <translation>移动</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="75"/>
+        <location line="+8"/>
         <source>Option:</source>
         <translation>选项：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="83"/>
+        <location line="+8"/>
         <source>Two Points</source>
         <translation>两点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="88"/>
+        <location line="+5"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="102"/>
+        <location line="+14"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="108"/>
+        <location line="+6"/>
         <source>Base Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="126"/>
+        <location line="+18"/>
         <source>End Point</source>
         <translation>终止点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="145"/>
+        <location line="+19"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="153"/>
+        <location line="+8"/>
         <source>Length:</source>
         <translation>长度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="160"/>
+        <location line="+7"/>
         <source>10.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="169"/>
+        <location line="+9"/>
         <source>Direction</source>
         <translation>方向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="214"/>
+        <location line="+45"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="221"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="228"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="240"/>
+        <location line="+12"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="247"/>
+        <location line="+7"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.ui" line="277"/>
+        <location line="+30"/>
         <source>Save Origin body</source>
         <translation>保留原始几何体</translation>
     </message>
@@ -1571,107 +1647,107 @@
 <context>
     <name>RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="+14"/>
         <source>Rotate Feature</source>
         <translation>转动特征</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="20"/>
+        <location line="+6"/>
         <source>Body</source>
         <translation>转动对象</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected body(0)</source>
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="67"/>
+        <location line="+41"/>
         <source>Basic Point</source>
         <translation>基准点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="85"/>
+        <location line="+18"/>
         <source>Axis</source>
         <translation>轴线</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="93"/>
+        <location line="+8"/>
         <source>Option:</source>
         <translation>选项：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="101"/>
+        <location line="+8"/>
         <source>Select on geometry</source>
         <translation>选取几何边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="106"/>
+        <location line="+5"/>
         <source>Coordinate</source>
         <translation>坐标系</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="120"/>
+        <location line="+14"/>
         <source>Tab 1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="126"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="168"/>
+        <location line="+42"/>
         <source>Tab 2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="176"/>
+        <location line="+8"/>
         <source>X axis</source>
         <translation>X轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="183"/>
+        <location line="+7"/>
         <source>Y axis</source>
         <translation>Y轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="190"/>
+        <location line="+7"/>
         <source>Z axis</source>
         <translation>Z轴</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="239"/>
+        <location line="+49"/>
         <source>User define</source>
         <translation>自定义</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="263"/>
+        <location line="+24"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="273"/>
+        <location line="+10"/>
         <source>Degree</source>
         <translation>角度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="279"/>
+        <location line="+6"/>
         <source>Degree:</source>
         <translation>角度：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="288"/>
+        <location line="+9"/>
         <source>30.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="301"/>
+        <location line="+13"/>
         <source>deg</source>
         <translation>度</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.ui" line="326"/>
+        <location line="+25"/>
         <source>Save Origin body</source>
         <translation>保留原始几何体</translation>
     </message>
@@ -1679,37 +1755,37 @@
 <context>
     <name>SketchPlaneDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="+14"/>
         <source>Sketch Plane</source>
         <translation>草绘平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="20"/>
+        <location line="+6"/>
         <source>Plane</source>
         <translation>平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="28"/>
+        <location line="+8"/>
         <source>XOY plane</source>
         <translation>XOY平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="38"/>
+        <location line="+10"/>
         <source>YOZ plane</source>
         <translation>YOZ平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="45"/>
+        <location line="+7"/>
         <source>XOZ plane</source>
         <translation>XOZ平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="59"/>
+        <location line="+14"/>
         <source>Select a plane</source>
         <translation>选择一个平面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.ui" line="93"/>
+        <location line="+34"/>
         <source>Reverse</source>
         <translation>反向</translation>
     </message>
@@ -1717,39 +1793,39 @@
 <context>
     <name>SketchPointWidget</name>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="14"/>
+        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="+14"/>
         <source>Input Sketch Point</source>
         <translation>输入草绘点</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="20"/>
+        <location line="+6"/>
         <source>Coordinate</source>
         <translation>坐标</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="26"/>
+        <location line="+6"/>
         <source>X:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="35"/>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="60"/>
+        <location line="+9"/>
+        <location line="+25"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="42"/>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="67"/>
+        <location line="-18"/>
+        <location line="+25"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="51"/>
+        <location line="-16"/>
         <source>Y:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/SketchPointWidget.ui" line="92"/>
+        <location line="+41"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
@@ -1757,28 +1833,28 @@
 <context>
     <name>SweepDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="+14"/>
         <source>Sweep</source>
         <translation>扫略</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="20"/>
+        <location line="+6"/>
         <source>Section</source>
         <translation>横截面</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="26"/>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="64"/>
+        <location line="+6"/>
+        <location line="+38"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="58"/>
+        <location line="-6"/>
         <source>Path</source>
         <translation>路径</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.ui" line="102"/>
+        <location line="+44"/>
         <source>Generate Solid</source>
         <translation>生成实体</translation>
     </message>
@@ -1786,76 +1862,76 @@
 <context>
     <name>VariableFilletDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="14"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="+14"/>
         <source>Variable Fillet</source>
         <translation>创建可变圆角</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="20"/>
+        <location line="+6"/>
         <source>Edge</source>
         <translation>倒角边</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="26"/>
+        <location line="+6"/>
         <source>Selected edge(0)</source>
         <translation>已选择边(0)</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="70"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="149"/>
+        <location line="+44"/>
+        <location line="+79"/>
         <source>Radius</source>
         <translation>半径</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="78"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="177"/>
+        <location line="-71"/>
+        <location line="+99"/>
         <source>Radius:</source>
         <translation>半径：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="85"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="197"/>
+        <location line="-92"/>
+        <location line="+112"/>
         <source>1.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="92"/>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="204"/>
+        <location line="-105"/>
+        <location line="+112"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="104"/>
+        <location line="-100"/>
         <source>Add Variable Point:</source>
         <translation>添加可变点：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="130"/>
+        <location line="+26"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="137"/>
+        <location line="+7"/>
         <source>Table</source>
         <translation>可变点列表</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="144"/>
+        <location line="+7"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="170"/>
+        <location line="+26"/>
         <source>Location(u):</source>
         <translation>参数化位置(u)：</translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="188"/>
+        <location line="+18"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.ui" line="217"/>
+        <location line="+29"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -1863,36 +1939,36 @@
 <context>
     <name>geoPointWidget</name>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="14"/>
+        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="+14"/>
         <source>Form</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="24"/>
+        <location line="+10"/>
         <source>X:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="31"/>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="56"/>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="81"/>
+        <location line="+7"/>
+        <location line="+25"/>
+        <location line="+25"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="38"/>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="63"/>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="88"/>
+        <location line="-43"/>
+        <location line="+25"/>
+        <location line="+25"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="49"/>
+        <location line="-39"/>
         <source>Y:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../GeometryWidgets/geoPointWidget.ui" line="74"/>
+        <location line="+25"/>
         <source>Z:</source>
         <translation></translation>
     </message>

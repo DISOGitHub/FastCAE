@@ -79,7 +79,7 @@ namespace MeshData
 
 	protected:
 		SetType _type{ None };
-		SetMember* _member{};
+//		SetMember* _member{};
 		QMultiHash<int, int> _members{};  //keneralID - node/elementID
 
 		QList<int> _tempMemberID{};

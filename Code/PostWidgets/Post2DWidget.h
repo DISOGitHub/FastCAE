@@ -34,13 +34,13 @@ namespace Post
 		//不调用文件，直接用2组浮点数画曲线
 		void addCurve(QVector<double> data_x, QVector<double> data_y, QString tep_filename);
 		//添加曲线 x默认为索引值（0，1，2）
-		void addCurve(QVector<double> data_y, QString filename);
+		void addCurve(QVector<double> data_y, QString fileName);
 		//更新曲线
 		void updateCurve(QVector<double> data_x, QVector<double> data_y, QString tep_filename);
 		//更新曲线
 		void updateCurve(QVector<double> data_y, QString tep_filename);
 		//删除曲线
-		void delCurve(QString filename, int colum_index);
+		void delCurve(QString fileName, int colum_index);
 		//清除全部曲线
 		void delAllCurves();
 		//设置标题名称
@@ -68,17 +68,17 @@ namespace Post
 		//设置坐标轴字体 0-宋体 1-黑体 2-Arial
 		void setAxisFont(QString axis, int font);
 		//设置曲线颜色
-		void setCurveColor(QString filename, int colIndex, QColor color);
+		void setCurveColor(QString fileName, int colIndex, QColor color);
 		//设置线型
-		void setCurveStyle(QString filename, int colIndex, Qt::PenStyle style);
+		void setCurveStyle(QString fileName, int colIndex, Qt::PenStyle style);
 		//设置线宽
-		void setCurveWidth(QString filename, int colindex, int width);
+		void setCurveWidth(QString fileName, int colindex, int width);
 		//是否显示数据点
-		void setCurveShowPoint(QString filename, int colindex, bool show);
+		void setCurveShowPoint(QString fileName, int colindex, bool show);
 		//设置曲线名称
-		void setCurveName(QString filename, int colindex, QString name);
+		void setCurveName(QString fileName, int colindex, QString name);
 		//设置曲线坐标轴索引
-		void setCurveAxisIndex(QString filename, int colindex, int axisIndex);
+		void setCurveAxisIndex(QString fileName, int colindex, int axisIndex);
 		//获取模型树窗口
 		QWidget* getTreeWidget();
 		//获取属性窗口
@@ -86,11 +86,11 @@ namespace Post
 		///设置背景颜色
 		void setBackGround(QColor color1, QColor color2) override;
 		///保存图片
-		void saveImage(QString filename, int width, int heigh, bool showDlg) override;
+		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
 		///设置坐标轴范围  axis-x y x2 y2  reange[0]-min range[1]-max
 		void setAxisRange(QString axis, double range[2]);
 		///获取属性列名称
-		QStringList getColumnNameList(QString filename);
+		QStringList getColumnNameList(QString fileName);
 		//语言切换
 		void reTranslate() override;
 		//获取曲线属性接口
@@ -100,9 +100,9 @@ namespace Post
 		//结束动画
 		bool stopAnimate();
 		//设置动点颜色
-		void setAniPointColor(QString filename, int colum, QColor color);
+		void setAniPointColor(QString fileName, int colum, QColor color);
 		//设置动点形状
-		void setAniPointType(QString filename, int colum, aniPointType type);
+		void setAniPointType(QString fileName, int colum, aniPointType type);
 
 
 	private:

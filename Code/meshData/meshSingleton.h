@@ -36,6 +36,8 @@ namespace MeshData
 		int getIDByDataSet(vtkDataSet* datset);
 		//移除第index个Kernal
 		void removeKernalAt(const int index);
+		//移除ID为i的Kernal
+		void removeKernalByID(const int id);
 		//添加组件
 		void appendMeshSet(MeshSet* s);
 		//获取组件数目

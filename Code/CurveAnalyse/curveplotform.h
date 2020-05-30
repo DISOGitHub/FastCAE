@@ -32,7 +32,7 @@ public:
     ~CurvePlotForm();
     curve_ini_data *curve_data_ptr;
 	void initPlot();
-	void func_saveImage(bool flag_dlg, int wid, int hei, QString filename);
+	void func_saveImage(bool flag_dlg, int wid, int hei, QString fileName);
 	void func_clear_plot();
 	void func_refreshPlotForm();
 	virtual void reTranslate();

@@ -364,10 +364,10 @@ void CurveTreeDockWidget::slot_addFile()
 {
     if(curve_data_ptr==NULL)
         return;
-    QString filename = QFileDialog::getOpenFileName(this, tr("open"), "", tr("file(*.dat)"));
-    if(filename==NULL)
+    QString fileName = QFileDialog::getOpenFileName(this, tr("open"), "", tr("file(*.dat)"));
+    if(fileName==NULL)
         return;
-	readDataFile(filename);
+	readDataFile(fileName);
 }
 
 bool CurveTreeDockWidget::readDataFile(QString data_filename)

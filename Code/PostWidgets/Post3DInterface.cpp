@@ -35,9 +35,9 @@ namespace Post
 		_post3DWindow->reTranslate();
 	}
 
-	void Post3DWindowInterface::saveImage(QString filename, int width, int heigh, bool showDlg)
+	void Post3DWindowInterface::saveImage(QString fileName, int width, int heigh, bool showDlg)
 	{
-		_post3DWindow->saveImage(filename, width, heigh, showDlg);
+		_post3DWindow->saveImage(fileName, width, heigh, showDlg);
 	}
 
 }

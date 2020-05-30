@@ -23,7 +23,7 @@ namespace DataProperty
 		ParameterPath();
 		~ParameterPath() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly = false) override;
 		//设置类型  Path, File, FileList
 		void setType(PathType t);
 		//获取类型

@@ -56,7 +56,7 @@ class DownloadManager: public QObject
 public:
     DownloadManager(QObject *parent = 0);
 
-	void download(QUrl &url, QString filename);
+	void download(QUrl &url, QString fileName);
 
 private:
     void append(const QUrl &url);

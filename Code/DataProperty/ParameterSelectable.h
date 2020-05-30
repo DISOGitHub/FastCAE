@@ -12,7 +12,7 @@ namespace DataProperty
 		ParameterSelectable();
 		~ParameterSelectable() = default;
 
-		void copy(ParameterBase* ori) override;
+		void copy(ParameterBase* ori, bool valueOnly= false) override;
 		//设置可选项
 		void setOption(QStringList s);
 		//获取可选项

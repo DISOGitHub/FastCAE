@@ -26,6 +26,7 @@ HEADERS += \
 	$$PWD/dialogMakeSweep.h \
 	$$PWD/dialogMakeMatrix.h \
 	$$PWD/dialogMeasureDistance.h \
+	$$PWD/dialogGeoSplitter.h \
 
 	
 SOURCES += \
@@ -55,6 +56,7 @@ SOURCES += \
 	$$PWD/dialogMakeSweep.cpp \
 	$$PWD/dialogMakeMatrix.cpp \
 	$$PWD/dialogMeasureDistance.cpp \
+	$$PWD/dialogGeoSplitter.cpp \
 	
 FORMS +=  \
 	$$PWD/geoPointWidget.ui \
@@ -81,3 +83,4 @@ FORMS +=  \
 	$$PWD/dialogMakeSweep.ui \
 	$$PWD/dialogMakeMatrix.ui \
 	$$PWD/dialogMeasureDistance.ui \
+	$$PWD/dialogGeoSplitter.ui \

@@ -34,7 +34,7 @@ PipelineObject* updateCgnsThread::findParentPipelineObj(QString tep_filename, QL
 {
 	for (int i = 0; i < tep_mPipelineObjs.count(); i++)
 	{
-		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.filename)
+		if (tep_filename == tep_mPipelineObjs[i]->mPipeLineObjProp.pipelineObj_base_propData.fileName)
 		{
 			return tep_mPipelineObjs[i];
 		}

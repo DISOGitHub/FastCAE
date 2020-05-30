@@ -320,10 +320,10 @@ void PipelineObjTreeDockWidget::on_treeWidget_customContextMenuRequested(QPoint 
     }
 }
 
-void PipelineObjTreeDockWidget::editScript_start(QString filename)
+void PipelineObjTreeDockWidget::editScript_start(QString fileName)
 {
 	QString command_line;
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Truncate))
 	{
 		QTextStream stream(&tep_file1);
@@ -338,9 +338,9 @@ void PipelineObjTreeDockWidget::editScript_start(QString filename)
 	}
 }
 
-//void PipelineObjTreeDockWidget::editScript_end(QString filename)
+//void PipelineObjTreeDockWidget::editScript_end(QString fileName)
 //{
-//	QFile tep_file1(filename);
+//	QFile tep_file1(fileName);
 //	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 //	{
 //		QTextStream stream(&tep_file1);
@@ -361,10 +361,10 @@ void PipelineObjTreeDockWidget::editScript_start(QString filename)
 //		tep_file1.close();
 //	}
 //}
-void PipelineObjTreeDockWidget::editScript_end(QString filename)
+void PipelineObjTreeDockWidget::editScript_end(QString fileName)
 {
 	QString command_line;
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -404,13 +404,13 @@ void PipelineObjTreeDockWidget::editScript_end(QString filename)
 		tep_file1.close();
 	}
 }
-void PipelineObjTreeDockWidget::editScript_scalarBarPosition(QTreeWidgetItem* data_item, QString filename)
+void PipelineObjTreeDockWidget::editScript_scalarBarPosition(QTreeWidgetItem* data_item, QString fileName)
 {
 	//bool flag_Obj;
 	QString command_line;
 	PipelineObject* tep_pipelineObj = mTreeItems[data_item];
 	QMap<QString, bool>::iterator it;
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -431,7 +431,7 @@ void PipelineObjTreeDockWidget::editScript_scalarBarPosition(QTreeWidgetItem* da
 		tep_file1.close();
 	}
 }
-void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QString filename)
+void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QString fileName)
 {
 	bool flag_Obj;
 	QString command_line;
@@ -445,7 +445,7 @@ void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QS
 			QTreeWidgetItem *filter_item = data_item->child(j);
 			if (mTreeItems.contains(filter_item))
 			{
-				QFile tep_file1(filename);
+				QFile tep_file1(fileName);
 				if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 				{
 					QTextStream stream(&tep_file1);
@@ -537,28 +537,28 @@ void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QS
 				if (flag_Obj)
 				{
 					if ((piplnObj_filter->GetObjectType() == dClip_DataSource) || (piplnObj_filter->GetObjectType() == dSlice_DataSource))
-						editScript_Properties_Plane(piplnObj_filter, filename);
+						editScript_Properties_Plane(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dContour_DataSource)
-						editScript_Properties_Contour(piplnObj_filter, filename);
+						editScript_Properties_Contour(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dVector_DataSource)
-						editScript_Properties_Vector(piplnObj_filter, filename);
+						editScript_Properties_Vector(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dReflection_DataSource)
-						editScript_Properties_Reflection(piplnObj_filter, filename);
+						editScript_Properties_Reflection(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dCalculator_DataSource)
-						editScript_Properties_Calculator(piplnObj_filter, filename);
+						editScript_Properties_Calculator(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dSmooth_DataSource)
-						editScript_Properties_Smooth(piplnObj_filter, filename);
+						editScript_Properties_Smooth(piplnObj_filter, fileName);
 					else if (piplnObj_filter->GetObjectType() == dStreamLine_DataSource)
-						editScript_Properties_StreamLine(piplnObj_filter, filename);
-					editScript_Properties(piplnObj_filter, filename);
+						editScript_Properties_StreamLine(piplnObj_filter, fileName);
+					editScript_Properties(piplnObj_filter, fileName);
 				}					
 			}
 		}
 	}
 }
-void PipelineObjTreeDockWidget::editScript_camera(QString filename)
+void PipelineObjTreeDockWidget::editScript_camera(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -601,9 +601,9 @@ void PipelineObjTreeDockWidget::editScript_camera(QString filename)
 		tep_file1.close();
 	}
 }
-/*void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QString filename)
+/*void PipelineObjTreeDockWidget::editScript_filter(QTreeWidgetItem* data_item, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -664,12 +664,12 @@ void PipelineObjTreeDockWidget::editScript_camera(QString filename)
 	}
 }*/
 
-void PipelineObjTreeDockWidget::editScript_dataSource(QTreeWidgetItem* data_item, QString filename)
+void PipelineObjTreeDockWidget::editScript_dataSource(QTreeWidgetItem* data_item, QString fileName)
 {
 	if (mTreeItems.contains(data_item))
 	{
 		PipelineObject* piplnObj = mTreeItems[data_item];
-		QFile tep_file1(filename);
+		QFile tep_file1(fileName);
 		if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 		{
 			QTextStream stream(&tep_file1);
@@ -701,22 +701,22 @@ void PipelineObjTreeDockWidget::editScript_dataSource(QTreeWidgetItem* data_item
 		}
 		if (QFileInfo(piplnObj->mPipeLineObjProp.pipelineObj_base_propData.fileList.at(0)).suffix() == "moor")
 		{
-			editScript_Properties_MooringLine(piplnObj, filename);
+			editScript_Properties_MooringLine(piplnObj, fileName);
 		}
 		if (piplnObj->mPipeLineObjProp.aniDisplace_propData.flag_AniDisplaceFile)
 		{
-			editScript_Properties_AniDisplace(piplnObj, filename);
+			editScript_Properties_AniDisplace(piplnObj, fileName);
 		}
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_Zone(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Zone(PipelineObject* piplnObj, QString fileName)
 {
 	if (piplnObj->mPipeLineObjProp.pipelineObj_base_propData.block_showMap.count() < 1)
 		return;
 	if (!piplnObj->mPipeLineObjProp.pipelineObj_base_propData.flag_grid_blocks)
 		return;
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		//QMap<QString, bool> block_showMap;
@@ -755,9 +755,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Zone(PipelineObject* pipln
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_Plane(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Plane(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -783,9 +783,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Plane(PipelineObject* pipl
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_Vector(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Vector(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -817,9 +817,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Vector(PipelineObject* pip
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_Contour(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Contour(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -851,9 +851,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Contour(PipelineObject* pi
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_Reflection(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Reflection(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -870,9 +870,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Reflection(PipelineObject*
 		tep_file1.close();
 	}
 }
-void PipelineObjTreeDockWidget::editScript_Properties_Calculator(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Calculator(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -886,9 +886,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Calculator(PipelineObject*
 		tep_file1.close();
 	}
 }
-void PipelineObjTreeDockWidget::editScript_Properties_Smooth(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_Smooth(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		/*QTextStream stream(&tep_file1);
@@ -906,9 +906,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_Smooth(PipelineObject* pip
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_StreamLine(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_StreamLine(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -963,9 +963,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_StreamLine(PipelineObject*
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_MooringLine(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_MooringLine(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -1003,9 +1003,9 @@ void PipelineObjTreeDockWidget::editScript_Properties_MooringLine(PipelineObject
 		tep_file1.close();
 	}
 }
-void PipelineObjTreeDockWidget::editScript_Properties_AniDisplace(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_AniDisplace(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -1137,9 +1137,9 @@ QString PipelineObjTreeDockWidget::editScript_Properties_LookupOpacity(PipelineO
 	}
 	return command_line;
 }
-void PipelineObjTreeDockWidget::editScript_Properties(PipelineObject* piplnObj, QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties(PipelineObject* piplnObj, QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -1265,9 +1265,9 @@ void PipelineObjTreeDockWidget::editScript_Properties(PipelineObject* piplnObj, 
 	}
 }
 
-void PipelineObjTreeDockWidget::editScript_Properties_RenderView(QString filename)
+void PipelineObjTreeDockWidget::editScript_Properties_RenderView(QString fileName)
 {
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -1564,7 +1564,7 @@ void PipelineObjTreeDockWidget::slot_script_refresh_pickData(struct pick_pipelin
 	script_pickData.pick_pipelineObj = pick_Data.pick_pipelineObj;
 }
 
-void PipelineObjTreeDockWidget::editScript_Pick(QString filename)
+void PipelineObjTreeDockWidget::editScript_Pick(QString fileName)
 {
 	if (script_pickData.pick_pipelineObj == NULL)
 		return;
@@ -1602,7 +1602,7 @@ void PipelineObjTreeDockWidget::editScript_Pick(QString filename)
 	}
 	if (it == mTreeItems.end())
 		return;
-	QFile tep_file1(filename);
+	QFile tep_file1(fileName);
 	if (tep_file1.open(QIODevice::WriteOnly | QIODevice::Append))
 	{
 		QTextStream stream(&tep_file1);
@@ -1708,7 +1708,7 @@ void PipelineObjTreeDockWidget::writeVRXml(QString tep_filename)
 				}
 				else
 					text = doc.createTextNode(tep_obj->mPipeLineObjProp.pipelineObj_base_propData.fileList.at(tep_obj->mPipeLineObjProp.pipelineObj_base_propData.file_xh));
-				//text = doc.createTextNode(tep_obj->mPipeLineObjProp.pipelineObj_base_propData.filename);
+				//text = doc.createTextNode(tep_obj->mPipeLineObjProp.pipelineObj_base_propData.fileName);
 				fileName.appendChild(text);
 				dataSource.appendChild(fileName);
 				//////////////////////////////////

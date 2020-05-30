@@ -40,14 +40,14 @@ FilterVector::FilterVector(const QString& dataFile, PipelineObject * parent)
 	else
 		mPipeLineObjProp.vectorFilter_propData.scalarColName = "None";
 	mPipeLineObjProp.vectorFilter_propData.vectorColName = "None";
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "VectorFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "VectorFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
 	mPipeLineObjProp.vectorFilter_propData.mask = 1;
 	//mPipeLineObjProp.vectorFilter_propData.numPoints = 0;
 	mPipeLineObjProp.vectorFilter_propData.numPoints = mBaseGrid->GetNumberOfPoints();
 	if (mPipeLineObjProp.vectorFilter_propData.numPoints >mBaseGrid->GetNumberOfCells())
 		mPipeLineObjProp.vectorFilter_propData.numPoints = mBaseGrid->GetNumberOfCells();
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dVector_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 }

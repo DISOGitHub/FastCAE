@@ -23,6 +23,7 @@
 #include <vtkPolyDataNormals.h>
 #include <QDebug>
 #include <TopExp.hxx>
+#include <QMenu>
 
 
 namespace MainWidget
@@ -42,6 +43,7 @@ namespace MainWidget
 		connect(_mainWindow, SIGNAL(highLightGeometryEdgeSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)), this, SLOT(highLightGeoEdge(Geometry::GeometrySet*, int, QList<vtkActor*>*)));
 		connect(_mainWindow, SIGNAL(highLightGeometryFaceSig(Geometry::GeometrySet*, int, QList<vtkActor*>*)), this, SLOT(highLightGeoFace(Geometry::GeometrySet*, int, QList<vtkActor*>*)));
 		connect(_mainWindow, SIGNAL(selectGeometryDisplay(bool, bool, bool)), this, SLOT(setGeometryDisplay(bool,bool,bool)));
+		connect(_preWindow, SIGNAL(rightDownMenuSig()), this, SLOT(rightDownCreateMenu()));
 // 		connect(_mainWindow, SIGNAL(selectGeoActiveSig(bool)), this, SLOT(activeSelectGeo(bool)));
 // 		
 // 		connect(_mainWindow, SIGNAL(selectGeoCloseSig(int)), this, SLOT(closeSelectGeo(int)));
@@ -98,7 +100,7 @@ namespace MainWidget
 			if (shape == nullptr) continue;
 			showDatum(da);
 		}
-	}
+	}  
 
 	void GeometryViewProvider::showShape(TopoDS_Shape& shape, Geometry::GeometrySet* set, bool render)
 	{
@@ -700,6 +702,74 @@ namespace MainWidget
 			QList<vtkActor*> acs = _setActors.values(set);
 			for (auto ac : acs) ac->SetVisibility(false);
 		}
+		_preWindow->reRender();
+	}
+
+	void GeometryViewProvider::rightDownCreateMenu()
+	{
+		QMenu *pMenu = new QMenu(_preWindow);
+		QAction *pNewTask = new QAction(tr("Hide"), this);
+		pMenu->addAction(pNewTask);
+		connect(pNewTask, SIGNAL(triggered()), this, SLOT(slotHideGeometry()));
+		QAction *pShowTask = new QAction(tr("Show All"), this);
+		pMenu->addAction(pShowTask);
+		pShowTask->setEnabled(_hasShowed);
+		connect(pShowTask, SIGNAL(triggered()), this, SLOT(slotShowGeometryAll()));
+		
+		pMenu->exec(QCursor::pos());
+	
+	}
+
+	void GeometryViewProvider::slotHideGeometry()
+	{
+		if (_selectItems.size() < 1) return;
+ 		_hasShowed = true;
+		for (auto set : _selectItems.keys())
+		{
+			for (int index : _selectItems.values(set))
+			{
+				switch (_selectType)
+				{
+					case ModuleBase::GeometryWinPoint:
+					{
+						vtkActor* ac = _vertexActors.at(index);
+						ac->SetVisibility(false);
+						break;
+					}
+					case ModuleBase::GeometryWinCurve:
+					{
+						vtkActor* ac = _edgeActors.at(index);
+						ac->SetVisibility(false);
+						break;
+					}
+					case ModuleBase::GeometryWinSurface:
+					{
+						vtkActor* ac = _faceActors.at(index);
+						ac->SetVisibility(false);
+						break;
+					}
+					case ModuleBase::GeometryWinBody:
+					{
+						QList<vtkActor*> setActors = _setActors.values(set);
+						for (auto ac : setActors) 
+							ac->SetVisibility(false);
+						break;
+					}
+					default:  
+						break;
+					}
+
+				}
+			}
+		_preWindow->reRender();
+	}
+
+	void GeometryViewProvider::slotShowGeometryAll()
+	{
+		if (_selectItems.size() < 1) return;
+		_hasShowed = false;
+		for (auto set : _selectItems.keys())
+			showGeoSet(set);
 		_preWindow->reRender();
 	}
 

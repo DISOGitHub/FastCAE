@@ -7,8 +7,8 @@
 #include <QList>
 #include <QDebug>
 
-ScriptHandler::ScriptHandler(graph_MainWindow* mainwindow, QString filename) :
-	_mainWindow(mainwindow), _filename(filename)
+ScriptHandler::ScriptHandler(graph_MainWindow* mainwindow, QString fileName) :
+	_mainWindow(mainwindow), _filename(fileName)
 {
 	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	QTextCodec::setCodecForLocale(codec);
@@ -1832,7 +1832,7 @@ void ScriptHandler::Camera_SelfAdaptation()
 void ScriptHandler::Save_Image(QString args)
 {
 	bool ok;
-	bool flag_dlg; int wid; int hei; QString filename;
+	bool flag_dlg; int wid; int hei; QString fileName;
 	QStringList tep_list = args.split(",");
 	if (tep_list.count() == 4)
 	{
@@ -1842,8 +1842,8 @@ void ScriptHandler::Save_Image(QString args)
 			flag_dlg = false;
 		wid = tep_list.at(1).trimmed().toInt(&ok);
 		hei = tep_list.at(2).trimmed().toInt(&ok);
-		filename = tep_list.at(3).trimmed();
-		_mainWindow->script_saveImage(flag_dlg, wid, hei, filename);
+		fileName = tep_list.at(3).trimmed();
+		_mainWindow->script_saveImage(flag_dlg, wid, hei, fileName);
 	}	
 }
 void ScriptHandler::clearAllPipelineObjs(QString args)

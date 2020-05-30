@@ -240,6 +240,7 @@
    <addaction name="actionRevol"/>
    <addaction name="actionLoft"/>
    <addaction name="actionSweep"/>
+   <addaction name="actionGeoSplitter"/>
   </widget>
   <widget class="QToolBar" name="SketchToolBar">
    <property name="windowTitle">
@@ -430,6 +431,7 @@
      <addaction name="actionRevol"/>
      <addaction name="actionLoft"/>
      <addaction name="actionSweep"/>
+     <addaction name="actionGeoSplitter"/>
     </widget>
     <widget class="QMenu" name="menuSelect_2">
      <property name="title">
@@ -1489,6 +1491,15 @@
   <action name="actionMeasure">
    <property name="text">
     <string>Measure</string>
+   </property>
+  </action>
+  <action name="actionGeoSplitter">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/split.png</normaloff>:/QUI/geometry/split.png</iconset>
+   </property>
+   <property name="text">
+    <string>Split</string>
    </property>
   </action>
  </widget>

@@ -26,8 +26,8 @@ namespace Py
 		//后台执行，不在界面显示，也不保存
 		void backstageExec(QString code);
 		void submit(QStringList codes, bool save = true);
-		void saveScript(QString filename);
-		void execScript(QString filename);
+		void saveScript(QString fileName);
+		bool execScript(QString fileName);
 		void appCodeList(QString code);
 		void lock();
 		void unLock();
@@ -36,10 +36,11 @@ namespace Py
 		void appendOff();
 		void execMessWinCode(QString code);
 		QStringList getcodelist();
-
+		void setNoGUI(bool nogui);
 
 	signals:
 		void printInfo(int type, QString m);
+		void closeMainWindow();
 
 	private:
 		PythonAagent();
@@ -57,6 +58,8 @@ namespace Py
 		ScriptReader* _reader{};
 		bool _islock{ false };
 		bool _append{ true };
+
+		bool _noGUI{ false };
 	
 	};
 }

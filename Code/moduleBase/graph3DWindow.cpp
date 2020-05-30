@@ -122,6 +122,7 @@ namespace ModuleBase
 			connect(style, SIGNAL(higtLightActorDisplayPoint(bool)), this, SLOT(highLightActorDispalyPoint(bool)));
 			connect(style, SIGNAL(grabKeyBoard(bool)), this, SLOT(enableKeyBoard(bool)));
 			connect(style, SIGNAL(mouseWhellMove()), this, SLOT(mouseWheelMove()));
+			connect(style, SIGNAL(rightDownMenu()), this, SIGNAL(rightDownMenuSig()));
 		}
 		initAxes();
 		updateGraphOption();
@@ -606,6 +607,7 @@ namespace ModuleBase
 		double h = this->getWorldHight();
 		emit showGraphRange(w, h);
 	}
+
 
 	QMultiHash<vtkDataSet*, int>* Graph3DWindow::getSelectItems()
 	{

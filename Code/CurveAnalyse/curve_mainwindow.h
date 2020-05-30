@@ -37,7 +37,7 @@ public:
 	CurvePlotForm *get_curve_plotWidget() { return curve_plotWidget; };
 
 	//script function
-	void RunScript(QString filename);
+	void RunScript(QString fileName);
 	bool script_openFile(QString args);
 	QStringList script_getFileColumnNameList(QString tep_filename);
 	void script_addCurve(QString tep_filename,int tep_column_index);
@@ -80,7 +80,7 @@ public:
 	void script_AniPoint_del();////////////////////////
 	QToolBar *script_getAniToolBar() { return aniPointBar; };
 
-	void script_saveImage(bool flag_dlg, int wid, int hei, QString filename);
+	void script_saveImage(bool flag_dlg, int wid, int hei, QString fileName);
 	
 	QToolBar* script_get_fileToolBar();
 	QToolBar* script_get_helpToolBar();
@@ -114,10 +114,10 @@ private:
 	QAction *editScriptAct;
 	QAction *runScriptAct;
 	void editScript(QString tep_filename);
-	void editScript_GlobalProp(QString filename);
-	void editScript_Curve(QString filename);
-	void editScript_start(QString filename);
-	void editScript_end(QString filename);
+	void editScript_GlobalProp(QString fileName);
+	void editScript_Curve(QString fileName);
+	void editScript_start(QString fileName);
+	void editScript_end(QString fileName);
 
     QAction *openAct;
     QAction *savePngAct;

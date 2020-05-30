@@ -80,10 +80,10 @@ namespace Post
 		emit closeWindow(this);
 		QWidget::closeEvent(e);
 	}
-	void RealTimeWindowBase::updatePlot(QString filename)
+	void RealTimeWindowBase::updatePlot(QString fileName)
 	{
-		if (!_fileNames.contains(filename)) return;
-		this->readFile(filename);
+		if (!_fileNames.contains(fileName)) return;
+		this->readFile(fileName);
 		this->reDraw();
 	}
 	void RealTimeWindowBase::endMonitor(int proid)

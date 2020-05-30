@@ -39,6 +39,8 @@ namespace MainWidget
 		static void loadFromMaterialLib(char* namelist);
 		static void CreateMaterial(char* name,char*type);
 		static void RemoveFromMaterialLib(char* namelist);
+		static void DeleteMaterial(int id, char* name);
+		static void AddMaterialToLib(int id, char* name);
 
 	private:
 		static GUI::MainWindow* _mainWindow;
@@ -67,6 +69,8 @@ extern "C"
 	void MAINWIDGETSAPI loadFromMaterialLib(char* namelist);
 	void MAINWIDGETSAPI CreateMaterial(char* name,char* type);
 	void MAINWIDGETSAPI RemoveFromMaterialLib(char* namelist);
+	void MAINWIDGETSAPI DeleteMaterial(int id, char* name);
+	void MAINWIDGETSAPI AddMaterialToLib(int id, char* name);
 }
 
 #endif

@@ -48,9 +48,11 @@ namespace FastCAEDesigner
 // 		else
 // 		{
 // 			ui->parameterLinkagePBtn->setVisible(false);
- 			QString caseName = getCaseName(_model);
+ 			_treeType = getCaseType(_model);
  			//qDebug() << caseName;
-			_parameterList = DataManager::getInstance()->getAllParameterList(caseName);
+			_parameterList = DataManager::getInstance()->getAllParameterList(_treeType);
+			_parameterGroupList = DataManager::getInstance()->getAllParameterGroupList(_treeType);
+
 			if (_parameterList.isEmpty())
  				qDebug() << "list empty";
 			else
@@ -66,6 +68,8 @@ namespace FastCAEDesigner
 
 	EditorDescripttionSetup::~EditorDescripttionSetup()
 	{
+		DataManager::getInstance()->setAllParameterListDict(_treeType, _parameterList);
+		DataManager::getInstance()->setAllParameterGroupListDict(_treeType, _parameterGroupList);
 		delete ui;
 	}
 
@@ -449,8 +453,12 @@ namespace FastCAEDesigner
 		if (nullptr == model)
 			return;
 		
+		_parameterList.removeOne(model);
+
 		EditModel(model);
 		ui->tableWidget_PList->selectRow(rowNo);
+
+		_parameterList.append(model);
 	}
 
 	//参数列表 --删除参数--槽函数
@@ -468,6 +476,8 @@ namespace FastCAEDesigner
 		
 		if (QMessageBox::Yes == result)
 		{
+			_parameterList.removeOne(model);
+
 			DeleteParameter(model);
 			FillParameterList();
 		}
@@ -506,6 +516,8 @@ namespace FastCAEDesigner
 			if (nullptr == item)
 				continue;
 			dataBase->removeParameter(item);
+
+			_parameterList.removeOne(item);
 		}
 
 		FillParameterList();
@@ -595,6 +607,7 @@ namespace FastCAEDesigner
 
 		QList<QString> usedNameList = GetParameterGroupNameList();
 		EditorNameValue dlg(this);
+		usedNameList.append("0");
 		dlg.SetUsedNameList(usedNameList);
 		int r = dlg.exec();
 
@@ -608,6 +621,8 @@ namespace FastCAEDesigner
 			ui->btnEdit_S_G->setEnabled(false);
 			ui->btnDel_S_G->setEnabled(false);
 			ui->btnClearAll_S_G->setEnabled(true);
+
+			_parameterGroupList.append(group);
 		}
 	}
 
@@ -640,11 +655,14 @@ namespace FastCAEDesigner
 		if (nullptr == group)
 			return;
 
+		_parameterGroupList.removeOne(group);
+
 		int row = ui->tableWidget_GList->currentRow();
 
 		QString name = group->getDescribe();
 		QList<QString> usedNameList = GetParameterGroupNameList();
 		usedNameList.removeOne(name);
+		usedNameList.append("0");
 
 		EditorNameValue dlg(this);
 		dlg.SetNameString(name);
@@ -657,6 +675,8 @@ namespace FastCAEDesigner
 			this->FillGroupList();
 			ui->tableWidget_GList->selectRow(row);
 		}
+
+		_parameterGroupList.append(group);
 	}
 
 	//删除参数组
@@ -678,8 +698,12 @@ namespace FastCAEDesigner
 		QString msg = tr("Deleted parameter group %1?").arg(group->getDescribe());
 		QMessageBox::StandardButton result = QMessageBox::warning(NULL, title, msg, QMessageBox::Yes | QMessageBox::No);
 
+		qDebug() << group->getParameterCount();
+
 		if (QMessageBox::Yes == result)
 		{
+			deleteGroupAndParameters(group);
+			
 			dataBase->removeParameterGroup(group);
 			FillGroupList();
 		}
@@ -720,7 +744,10 @@ namespace FastCAEDesigner
 
 		for (int i = 0; i < count; i++)
 		{
-			dataBase->removeParameterGroupAt(0);
+			DataProperty::ParameterGroup* group = dataBase->getParameterGroupAt(0);
+			deleteGroupAndParameters(group);
+
+			dataBase->removeParameterGroupAt(0);			
 		}
 
 		FillGroupList();
@@ -804,8 +831,12 @@ namespace FastCAEDesigner
 		if (nullptr == model)
 			return;
 
+		_parameterList.removeOne(model);
+
 		EditModel(model);
 		ui->tableWidget_GPList->selectRow(rowNo);
+
+		_parameterList.append(model);
 	}
 
 	//参数组--参数表单--删除一个数据
@@ -828,6 +859,8 @@ namespace FastCAEDesigner
 
 		if (QMessageBox::Yes == result)
 		{
+			_parameterList.removeOne(model);
+
 			group->removeParameter(model);
 			FillParameterList(group, ui->tableWidget_GPList);
 		}
@@ -868,6 +901,9 @@ namespace FastCAEDesigner
 			DataProperty::ParameterBase* item = paraList.at(i);
 			if (nullptr == item)
 				continue;
+
+			_parameterList.removeOne(item);
+
 			group->removeParameter(item);
 		}
 
@@ -1062,6 +1098,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelBool);
+
+			_parameterList.append(modelBool);
 		}
 	}
 	
@@ -1078,6 +1116,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelInt);
+
+			_parameterList.append(modelInt);
 		}
 	}
 
@@ -1094,6 +1134,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelDouble);
+
+			_parameterList.append(modelDouble);
 		}
 	}
 
@@ -1111,6 +1153,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelString);
+
+			_parameterList.append(modelString);
 		}
 	}
 	
@@ -1126,6 +1170,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelEnum);
+
+			_parameterList.append(modelEnum);
 		}
 
 	}
@@ -1143,6 +1189,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelTable);
+
+			_parameterList.append(modelTable);
 		}
 	}
 
@@ -1158,6 +1206,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelPath);
+
+			_parameterList.append(modelPath);
 		}
 	}
 
@@ -1365,21 +1415,34 @@ namespace FastCAEDesigner
 	}
 
 	//xuxinwei 20200326
-	QString EditorDescripttionSetup::getCaseName(ModelBase* model)
+	int EditorDescripttionSetup::getCaseType(ModelBase* model)
 	{
-		QString str{};
+		int type{-1};
 		if (model == nullptr)
-			return str;
-		QString caseName{};
+			return type;
+		//QString caseName{};
 		if ((model->GetType() == TreeItemType::ProjectSimulationSettingChild) || (model->GetType() == TreeItemType::ProjectSolverChild))
 	
 		{
-			caseName = model->GetParentModelBase()->GetParentModelBase()->GetChnName();
-			qDebug() << caseName;
+			type = model->GetParentModelBase()->GetParentModelBase()->GetType();
+			qDebug() << type;
 		}
 		else
-			caseName = model->GetParentModelBase()->GetChnName();
+			type = model->GetParentModelBase()->GetType();
 
-		return caseName;
+		return type;
+	}
+
+	void EditorDescripttionSetup::deleteGroupAndParameters(DataProperty::ParameterGroup* group)
+	{
+		//QList<DataProperty::ParameterBase*> list = group->getParaList();
+		for (int i = 0; i < group->getParameterCount();i++)
+		{
+			if (_parameterList.contains(group->getParameterAt(i)))
+				_parameterList.removeOne(group->getParameterAt(i));
+		}
+
+		_parameterGroupList.removeOne(group);
+
 	}
 }

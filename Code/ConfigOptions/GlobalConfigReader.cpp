@@ -12,9 +12,9 @@
 
 namespace ConfigOption
 {
-	GlobalConfigReader::GlobalConfigReader(QString filename, ConfigDataBase* data)
+	GlobalConfigReader::GlobalConfigReader(QString fileName, ConfigDataBase* data)
 	{
-		_file.setFileName(filename);
+		_file.setFileName(fileName);
 		_globalConfig = data->getGlobalConfig();
 		_geoConfig = data->getGeometryConfig();
 		_meshConfig = data->getMeshConfig();

@@ -60,6 +60,7 @@ namespace ModuleBase
 		void mouseRightUp();
 		void mouseMiddleUp();
 		void mouseWhellMove();
+		void rightDownMenu();
 		//还原几何颜色
 		void RestoreGeoColorSig();
 		void clearAllHighLight();
@@ -69,6 +70,7 @@ namespace ModuleBase
 		virtual void OnLeftButtonUp() override;
 		virtual void OnMiddleButtonDown() override;
 		virtual void OnMiddleButtonUp() override;
+		virtual void OnRightButtonDown() override;
 		virtual void OnRightButtonUp() override;
 		virtual void OnMouseMove() override;
 		virtual void OnMouseWheelForward() override;

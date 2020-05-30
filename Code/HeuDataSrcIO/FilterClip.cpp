@@ -37,8 +37,8 @@ FilterClip::FilterClip(const QString& dataFile, PipelineObject * parent)
 	mPipeLineObjProp.plane_propData.m_plane_normal.z = 0;
 	mPipeLineObjProp.plane_propData.flag_plane = true;
 	mPipeLineObjProp.plane_propData.flag_insideOut = true;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "ClipFilter";
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "ClipFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
 	SetObjectType(dClip_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;

@@ -29,7 +29,12 @@ namespace DataProperty
 	}
 	void ParameterPath::setFile(QString f)
 	{
-		_file = f;
+		if (f != _file)
+		{
+			_file = f;
+			emit  dataChanged();
+		}
+		
 	}
 	QString ParameterPath::getFile()
 	{
@@ -37,7 +42,12 @@ namespace DataProperty
 	}
 	void ParameterPath::setFileList(QStringList sl)
 	{
-		_files = sl;
+		if (sl != _files)
+		{
+			_files = sl;
+			emit dataChanged();
+		}
+		
 	}
 	QStringList ParameterPath::getFileList()
 	{
@@ -45,7 +55,12 @@ namespace DataProperty
 	}
 	void ParameterPath::setPath(QString s)
 	{
-		_path = s;
+		if (s != _path)
+		{
+			_path = s;
+			emit dataChanged();
+		}
+		
 	}
 
 	QString ParameterPath::getPath()
@@ -129,16 +144,24 @@ namespace DataProperty
 		default: break;
 		}
 	}
-	void ParameterPath::copy(ParameterBase* ori)
+	void ParameterPath::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
-		ParameterPath* p = (ParameterPath*)ori;
-
-		_type = p->getType();
-		_suffix = p->getSuffix();
-		_file = p->getFile();
-		_path = p->getPath();
-		_files = p->getFileList();
+		ParameterBase::copy(ori,  valueOnly);
+		ParameterPath* p = dynamic_cast<ParameterPath*>(ori);
+		if (p == nullptr) return;
+		PathType type = p->getType();
+		switch (type)
+		{
+		case DataProperty::Path:
+			setPath(p->getPath());  break;
+		case DataProperty::File:
+			setFile(p->getFile()); break;
+		case DataProperty::FileList:
+			setFileList(p->getFileList()); break;
+		default: break;
+		}
+		if (valueOnly) return;
+		_type = type;
 	}
 
 	QString ParameterPath::valueToString()
@@ -167,11 +190,11 @@ namespace DataProperty
 		case DataProperty::None:
 			break;
 		case DataProperty::Path:
-			_path = v;  break;
+			setPath(v);  break;
 		case DataProperty::File:
-			_file = v; break;
+			setFile(v); break;
 		case DataProperty::FileList:
-			_files = v.split(","); break;
+			setFileList(v.split(",")); break;
 		default:
 			break;
 		}

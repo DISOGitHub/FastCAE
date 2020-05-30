@@ -21,7 +21,7 @@ private:
 	void processingDataSet(vtkDataSet* d);
 	bool isVectorComponent(QString name, QString& vecName, QString& comp);
 
-	bool read1(QString filename);
+	bool read1(QString fileName);
 	QString readline();
 	void readZone(QString zoneHead);
 

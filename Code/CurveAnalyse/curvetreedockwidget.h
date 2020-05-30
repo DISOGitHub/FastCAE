@@ -56,7 +56,7 @@ public slots :
 	void slot_delAllFiles();
     void slot_update_curveTree();
     void slot_update_tree_curve_name(int tep_index_file,int tep_index_curve,QString tep_item_name);
-    void slot_add_dropItem(QString filename);
+    void slot_add_dropItem(QString fileName);
 	//void projectTreeDoubleClicked(QTreeWidgetItem *item, int column);
 private:
 	void setAxisRange(int axis_index, int tep_file_index, int tep_column_index);

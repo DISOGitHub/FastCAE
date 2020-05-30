@@ -7,6 +7,7 @@
 #include <QString>
 #include <QProcess>
 #include "DataProperty/DataBase.h"
+#include <QTextStream>
 
 namespace GUI
 {
@@ -46,6 +47,8 @@ namespace Gmsh
 		double _maxSize{ 0.0 };
 		bool _geoclean{ false };
 		int _smoothIteration{ 0 };
+		bool _isGridCoplanar{ false };
+		QString _sizeAtPoints{};
 
 	};
 
@@ -81,6 +84,10 @@ namespace Gmsh
 		void isCleanGeo(bool c);
 		//设置光滑迭代次数
 		void setSmoothIteration(int it);
+		//设计是否网格功面
+		void setGridCoplanar(bool gc);
+		//设置点网格密度
+		void setSizeAtPoint(QString ps);
 
 		void run();
 		void stop();
@@ -99,8 +106,9 @@ namespace Gmsh
 		void submitParaToGmsh();
 		void generate();
 		void readMesh();
-
-		
+		void appenScript(QString path);
+		void gridCoplanar(QTextStream* out);
+		void sizeAtPoints(QTextStream* out);
 
 	private:
 		GUI::MainWindow* _mainwindow{};
@@ -122,6 +130,9 @@ namespace Gmsh
 		double _maxSize{ 0.0 };
 		bool _geoclean{ false };
 		int _smoothIteration{ 0 };
+		bool _isGridCoplanar{ false };
+		QString _sizeAtPoints{};
+
 	};
 
 }

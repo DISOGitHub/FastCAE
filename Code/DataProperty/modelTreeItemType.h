@@ -9,7 +9,7 @@ enum ProjectTreeType
 	UnDefined = -1,
 	TreeType = 0,
 	PluginDefType = 100,
-	TreeTypeBoundary = 1000,
+	TreeTypeBoundary = 100000,
 };
 
 

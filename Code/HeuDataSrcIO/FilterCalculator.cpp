@@ -19,9 +19,9 @@ FilterCalculator::FilterCalculator(const QString& dataFile, PipelineObject * par
 	mPipeLineObjProp.calculatorFilter_propData.formula = "";
 	mPipeLineObjProp.calculatorFilter_propData.pre_formula = "";
 	mPipeLineObjProp.calculatorFilter_propData.resultName = "result";
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "CalculatorFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "CalculatorFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dCalculator_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 	arrCalculator = vtkSmartPointer<vtkArrayCalculator>::New();

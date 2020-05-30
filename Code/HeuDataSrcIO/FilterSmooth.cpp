@@ -22,9 +22,9 @@ FilterSmooth::FilterSmooth(const QString& dataFile, PipelineObject * parent)
 	mPipeLineObjProp.smoothFilter_propData.smooth_coef = 5;
 	mPipeLineObjProp.smoothFilter_propData.flag_cellToPoint = true;
 	mPipeLineObjProp.smoothFilter_propData.flag_meshSmooth = false;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = "SmoothFilter";
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = "SmoothFilter";
 	mPipeLineObjProp.pipelineObj_base_propData.file_xh = 0;
-	mPipeLineObjProp.pipelineObj_base_propData.filename = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.filename;
+	mPipeLineObjProp.pipelineObj_base_propData.fileName = GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.fileName;
 	SetObjectType(dSmooth_DataSource);
 	GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.count_total_child++;
 	smoothFilter = new Smooth_VtkSetData;

@@ -25,6 +25,9 @@ namespace GeometryWidget
 		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
 
 	private:
+		void setPointLocation(double* p1, double* p2);
+
+	private:
 		Ui::MeasureaDistanceDialog* _ui{};
 		double _point[3];
 		QList<vtkActor*> _actors{};

@@ -19,10 +19,10 @@ namespace FastCAEDesigner{
 		connect(ui->CancelPBtn, SIGNAL(clicked()), this, SLOT(close()));
 	}
 
-	EditorDependencyFiles::EditorDependencyFiles(QString filename, QWidget *parent) :
+	EditorDependencyFiles::EditorDependencyFiles(QString fileName, QWidget *parent) :
 		QDialog(parent),
 		ui(new Ui::EditorDependencyFiles),
-		_fileNames(filename)
+		_fileNames(fileName)
 	{
 		ui->setupUi(this);
 

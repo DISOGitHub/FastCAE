@@ -916,7 +916,30 @@ class Sweep:
     def edit(self):
         self.create()
 		
+class GeoSplitter:
+    def __init__(self):
+        self.faceindex = -1
+        self.facebody = -1
+        self.body = -1
+        self.editID = -1
 		
+    def setEditID(self, id):
+        self.editID = id
+		
+    def setBody(self,body):
+        self.body=body
+		  
+    def setFace(self,faceindex,facebody):
+        self.faceindex=faceindex
+        self.facebody=facebody
+    
+    def create(self):
+        command.MakeGeoSplitter(c_int(self.body),c_int(self.faceindex),c_int(self.facebody))
+        del self
+
+    def edit(self):
+        command.EditGeoSplitter(c_int(self.editID),c_int(self.body),c_int(self.faceindex),c_int(self.facebody))
+        del self			
 		
 		
 		

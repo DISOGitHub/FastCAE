@@ -17,12 +17,12 @@ namespace IO{
 	}
 	QStringList ProjectTemplete::getTempletefromFile(){
 		QStringList rtn;
-		QString filename = QFileDialog::getOpenFileName(nullptr,
+		QString fileName = QFileDialog::getOpenFileName(nullptr,
 			QObject::tr("Open File"), "/home/templete.dat", QObject::tr("Configuration Files (*.dat *.txt)"));
-		if (filename.isEmpty()){
+		if (fileName.isEmpty()){
 			return rtn;
 		}
-		QFile file(filename);
+		QFile file(fileName);
 		if (!file.exists()){
 			return rtn;
 		}

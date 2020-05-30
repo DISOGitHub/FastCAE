@@ -17,7 +17,7 @@ PipelineObjProp::PipelineObjProp()
 	pipelineObj_base_propData.count_streamLine = 0;
 
 	pipelineObj_base_propData.flag_rectilinear = false;
-	pipelineObj_base_propData.filename = "";
+	pipelineObj_base_propData.fileName = "";
 	pipelineObj_base_propData.file_xh = 0;
 	pipelineObj_base_propData.scalarColorRange[0] = 0.667;
 	pipelineObj_base_propData.scalarColorRange[1] = 0;	

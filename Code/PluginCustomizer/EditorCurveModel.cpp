@@ -82,8 +82,8 @@ namespace FastCAEDesigner{
 	//文件名初始化
 	void EditorCurveModel::InitFileName()
 	{
-		QString filename = _curveModel->getFileName();
-		QStringList filenamelist = filename.split(".");
+		QString fileName = _curveModel->getFileName();
+		QStringList filenamelist = fileName.split(".");
 		filenamelist.removeLast();
 		QString name = filenamelist.join(".");
 
@@ -386,8 +386,8 @@ namespace FastCAEDesigner{
 	//vector文件名初始化
 	void EditorCurveModel::InitFileName_3D()
 	{
-		QString filename = _fileModel->getFileName();
-		QStringList filenamelist = filename.split(".");
+		QString fileName = _fileModel->getFileName();
+		QStringList filenamelist = fileName.split(".");
 
 		if (filenamelist.last() == "vtk")
 			ui->comboBox->setCurrentIndex(0);

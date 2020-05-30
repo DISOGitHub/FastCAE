@@ -16,7 +16,12 @@ namespace DataProperty
 	}
 	void ParameterDouble::setValue(double v)
 	{
-		_value = v;
+		if (fabs(v - _value) > 0.00000001)
+		{
+			_value = v;
+			emit dataChanged();
+		}
+		
 	}
 	double ParameterDouble::getValue()
 	{
@@ -94,15 +99,20 @@ namespace DataProperty
 		_accuracy = sacc.toInt();
 	}
 
-	void ParameterDouble::copy(ParameterBase* ori)
+	void ParameterDouble::copy(ParameterBase* ori, bool valueOnly)
 	{
-		ParameterBase::copy(ori);
-		ParameterDouble* p = (ParameterDouble*)ori;
-		_accuracy = p->getAccuracy();
-		_value = p->getValue();
-		_unit = p->getUnit();
-		p->getRange(_range);
-
+		ParameterBase::copy(ori,valueOnly);
+		ParameterDouble* p = dynamic_cast<ParameterDouble*> (ori);
+		if (p != nullptr)
+		{
+			double v = p->getValue();
+			this->setValue(v);
+		    if (valueOnly) return;
+			_accuracy = p->getAccuracy();
+			_unit = p->getUnit();
+			p->getRange(_range);
+		}
+		
 	}
 
 	bool ParameterDouble::isSameValueWith(ParameterBase* p)
@@ -125,7 +135,8 @@ namespace DataProperty
 
 	void ParameterDouble::setValueFromString(QString v)
 	{
-		_value = v.toDouble();
+		double value = v.toDouble();
+		this->setValue(value);
 	}
 
 }
