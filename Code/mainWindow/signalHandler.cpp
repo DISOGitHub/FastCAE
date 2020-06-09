@@ -12,7 +12,7 @@
 #include <QFileDialog>
 #include "settings/busAPI.h"
 #include "meshData/meshKernal.h"
-#include "geometry/geometryReader.h"
+//#include "geometry/geometryReader.h"
 #include "ModelData/modelDataSingleton.h"
 #include "ModelData/modelDataBase.h"
 #include "geometry/geometryData.h"

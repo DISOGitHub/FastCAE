@@ -1,5 +1,5 @@
 #include "geometryData.h"
-#include "geometryReader.h"
+//#include "geometryReader.h"
 #include <gp_Ax3.hxx>
 #include <assert.h>
 #include <QCryptographicHash>
