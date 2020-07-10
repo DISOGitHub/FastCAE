@@ -8,6 +8,7 @@
 #include "settings/busAPI.h"
 #include "settings/GraphOption.h"
 #include "geometryViewProvider.h"
+#include "meshViewProvider.h"
 #include "sketchViewProvider.h"
 #include "moduleBase/PreWindowInteractorStyle.h"
 #include <vtkActor.h>
@@ -37,71 +38,42 @@ namespace MainWidget
 		_geometryData = Geometry::GeometryData::getInstance();
 		_modelData = ModelData::ModelDataSingleton::getinstance();
 		_geoProvider = new GeometryViewProvider(mw, this);
+		_meshProvider = new MeshViewProvider(mw, this);
 		_sketchProvider = new SketchViewProvider(mw, this);
 		this->setWindowTitle(tr("Pre-Window"));
+		connect(this, SIGNAL(closed()), mw, SIGNAL(closePreWindowSig()));
+		//
+		connect(mw, SIGNAL(clearAllHighLight()), this, SIGNAL(clearAllHighLight()));
+		//几何
 		connect(mw, SIGNAL(updateGeoDispalyStateSig(int, bool)), this, SLOT(updateGeoDispaly(int, bool)));
 		connect(mw, SIGNAL(removeGeometryActorSig(int)), this, SLOT(removeGemoActor(int)));
+		connect(mw, SIGNAL(clearHighLightSig()), this, SIGNAL(clearGeometryHighLight()));
+		connect(mw, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)));
+		//草图
+		connect(mw, SIGNAL(startSketchSig(bool, double*, double*)), this, SLOT(startSketch(bool, double*, double*)));
+		//网格
+		connect(this, SIGNAL(updateMeshActorSig()), this, SLOT(updateMeshActor()));
+		connect(this, SIGNAL(highLighSet(QMultiHash<vtkDataSet*, int>*)), this, SLOT(highLighSet(QMultiHash<vtkDataSet*, int>*)));
 		connect(mw, SIGNAL(updateMeshDispalyStateSig(int, bool)), this, SLOT(updateMeshDispaly(int, bool)));
 		connect(mw, SIGNAL(removeMeshActorSig(int)), this, SLOT(removeMeshActor(int)));
-		connect(this, SIGNAL(closed()), mw, SIGNAL(closePreWindowSig()));
-		connect(mw, SIGNAL(startSketchSig(bool, double*, double*)), this, SLOT(startSketch(bool, double*, double*)));
-		connect(this, SIGNAL(RestoreGeoColorSig()), _geoProvider, SLOT(RestoreGeoColor()));
-		connect(this, SIGNAL(updateMeshActorSig()), this, SLOT(updateMeshActor()));
-		connect(mw, SIGNAL(clearAllHighLight()), this, SLOT(clearAllHighLight()));
-		updateMeshActor();
-		//updateGeometryActor();
+		connect(mw, SIGNAL(removeSetDataSig(int)), this, SIGNAL(removeSetDataSig(int)));
+		connect(mw, SIGNAL(clearHighLightSig()), this, SIGNAL(clearMeshSetHighLight()));
+		//
+		connect(mw, SIGNAL(selectModelChangedSig(int)), this, SLOT(setSelectModel(int)));
+		connect(mw, SIGNAL(displayModeChangedSig(QString)), this, SLOT(setDisplay(QString)));
+		connect(mw, SIGNAL(updateGraphOptionsSig()), this, SLOT(updateGraphOption()));
+		//网格相关的高亮信号槽连接
+		connect(mw, SIGNAL(highLightSetSig(MeshData::MeshSet*)), this, SIGNAL(highLighMeshSet(MeshData::MeshSet*)));
+		connect(mw, SIGNAL(highLightKernelSig(MeshData::MeshKernal*)), this, SIGNAL(highLighKernel(MeshData::MeshKernal*)));
+		connect(mw, SIGNAL(highLightDataSetSig(vtkDataSet*)), this, SIGNAL(highLighDataSet(vtkDataSet*)));
+		//
 	}
 	PreWindow::~PreWindow()
 	{
-		removeMeshActors();
-//		removeGeometryActors();
-// 		_meshData->clear();
-// 		_geometryData->clear();
-// 		_modelData->clear();
 		if (_geoProvider != nullptr) delete _geoProvider;
 		if (_sketchProvider != nullptr) delete _sketchProvider;
+		if (_meshProvider != nullptr) delete _meshProvider;
 		emit closed();
-	}
-	void PreWindow::removeMeshActors()
-	{
-		const int n = _meshActors.size();
-		for (int i = 0; i < n; ++i)
-		{
-			vtkActor* actor = _meshActors.at(i);
-			this->RemoveActor(actor);
-		}
-		_meshActors.clear();
-	}
-// 	void PreWindow::removeGeometryActors()
-// 	{
-// 		const int n = _geometryActors.size();
-// 		for (int i = 0; i < n; ++i)
-// 		{
-// 			vtkActor* actor = _geometryActors.at(i);
-// 			this->RemoveActor(actor);
-// 		}
-// 		_geometryActors.clear();
-// 	}
-	void PreWindow::updateMeshActor()
-	{
-		removeMeshActors();
-		const int n = _meshData->getKernalCount();
-		for (int i = 0; i < n; ++i)
-		{
-			MeshData::MeshKernal* k = _meshData->getKernalAt(i);
-			bool visible = k->isVisible();
-			vtkDataSet* dataset = k->getMeshData();
-			vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
-			vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
-			mapper->SetInputData(dataset);
-			mapper->ScalarVisibilityOff();
-			mapper->Update();
-			actor->SetMapper(mapper);
-			actor->SetVisibility(visible);
-			this->AppendActor(actor, ModuleBase::ActorType::D3);
-			_meshActors.append(actor);
-			updateDisplayModel();
-		}
 	}
 	void PreWindow::updateGeometryActor()
 	{
@@ -123,37 +95,11 @@ namespace MainWidget
 		delete set;
 
 	}
-	void PreWindow::updateMeshDispaly(int index, bool display)
-	{
-		assert(index >= 0 && index < _meshActors.size());
-		vtkActor* ac = _meshActors.at(index);
-		if (ac == nullptr) return;
-		ac->SetVisibility(display);
-		_renderWindow->Render();
-//		resetCamera();
-	}
-	void PreWindow::removeMeshActor(const int index)
-	{
-		assert(index >= 0 && index < _meshActors.size());
-		vtkActor* actor = _meshActors.at(index);
-		RemoveActor(actor);
-		_meshActors.removeAt(index);
-		_renderWindow->Render();
-//		resetCamera();
-	}
 	
 	Geometry::GeometrySet* PreWindow::getSelectedGeoSet()
 	{
 		Geometry::GeometrySet* set = _geometryData->getGeometrySetAt(_selectedGeoIndex);
 		return set;
-	}
-	void PreWindow::setDisplay(QString m)
-	{
-		if (m.toLower() == "node") _displayModel = Node;
-		else if (m.toLower() == "wireframe") _displayModel = WireFrame;
-		else if (m.toLower() == "surface") _displayModel = Surface;
-		else if (m.toLower() == "surfacewithedge") _displayModel = SurfaceWithEdge;
-		updateDisplayModel();
 	}
 
 	/*void PreWindow::setGeometryDisplay(QString m)
@@ -164,119 +110,51 @@ namespace MainWidget
 		updateDisplayGeometryModel();
 	}*/
 
-	void PreWindow::updateDisplayModel()
+	void PreWindow::setDisplay(QString m)
 	{
-		const int n = _meshActors.size();
-		QColor c;
-		float size;
-		Setting::GraphOption* goptions = Setting::BusAPI::instance()->getGraphOption();
-
-		for (int i = 0; i < n; ++i)
-		{
-			auto prop = _meshActors.at(i)->GetProperty();
-			
-			switch (_displayModel)
-			{
-			case MainWidget::Node:
-				prop->SetRepresentationToPoints();
-				c = goptions->getMeshNodeColor();
-				size = goptions->getMeshNodeSize();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
-				prop->SetPointSize(size);
-				prop->EdgeVisibilityOff();
-				break;
-			case MainWidget::WireFrame:
-				prop->SetRepresentationToWireframe();
-				prop->EdgeVisibilityOn();
-				c = goptions->getMeshEdgeColor();
-				size = goptions->getMeshEdgeWidth();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
-				prop->SetEdgeColor(c.redF(), c.greenF(), c.blueF());
-				prop->SetLineWidth(size);
-				break;
-			case MainWidget::Surface:
-				c = Setting::BusAPI::instance()->getGraphOption()->getMeshFaceColor();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
-				prop->SetRepresentationToSurface();
-				prop->EdgeVisibilityOff();
-				break;
-			case MainWidget::SurfaceWithEdge:
-				c = goptions->getMeshFaceColor();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
-				c = goptions->getMeshEdgeColor();
-				prop->SetRepresentationToSurface();
-				prop->SetEdgeColor(c.redF(), c.greenF(), c.blueF());
-				size = goptions->getMeshEdgeWidth();
-				prop->SetLineWidth(size);
-				prop->EdgeVisibilityOn();
-				break;
-			default:
-				break;
-			}
-		}
-		this->_renderWindow->Render();
+		_meshProvider->setDisplay(m);
 	}
 
-/*
-	void PreWindow::updateDisplayGeometryModel()
+	void PreWindow::updateMeshActor()
 	{
-		//QList<vtkActor*> ac;
-		int setcount= _geometryData->getGeometrySetCount();
-		for (int i = 0; i < setcount;++i)
-		{
-			Geometry::GeometrySet*set = _geometryData->getGeometrySetByID(i);
+		_meshProvider->updateMeshActor();
+	}
 
-			switch (_displayModel)
-			{
-				case DisplayGeometryModel::GeometryPoint:
-							
-					//emit _mainWindow->highLightGeometryPointSig(set, id, ac);
-					break;
-				case DisplayGeometryModel::GeometryCurve:
-					//emit _mainwindow->highLightGeometryEdgeSig(set, id, ac);
-					break;
-				case DisplayGeometryModel::GeometrySurface:
-					//emit _mainwindow->highLightGeometryFaceSig(set, id, ac);
-					break;
+	void PreWindow::updateMeshDispaly(int index, bool display)
+	{
+		_meshProvider->updateMeshDispaly(index, display);
+	}
 
-				default:
-					break;
-			}
+	void PreWindow::removeMeshActor(const int index)
+	{
+		_meshProvider->removeMeshActor(index);
+	}
 
-		}
-		this->_renderWindow->Render();
-	}*/
 	void PreWindow::setSelectModel(int mode)
 	{
-		ModuleBase::SelectModel m = (ModuleBase::SelectModel) mode;
-		int n = 0;
-// 		n = _geometryActors.size();
-// 		for (int i = 0; i < n; ++i) _geometryActors.at(i)->PickableOff();
-		n = _meshActors.size();
-		for (int i = 0; i < n; ++i) _meshActors.at(i)->PickableOff();
-		switch (m)
-		{
-		case ModuleBase::None:
-			break;
-		case ModuleBase::GeometryBody:
-// 			n = _geometryActors.size();
-// 			for (int i = 0; i < n; ++i) _geometryActors.at(i)->PickableOn();
-			break;
-		case ModuleBase::MeshNode:
-			n = _meshActors.size();
-			for (int i = 0; i < n; ++i) _meshActors.at(i)->PickableOn();
-			break;
-		case ModuleBase::MeshCell:
-			n = _meshActors.size();
-			for (int i = 0; i < n; ++i) _meshActors.at(i)->PickableOn();
-			break;
-		default:
-			break;
-		}
+		_selectModel = (ModuleBase::SelectModel) mode;
+		_meshProvider->setMeshSelectMode(mode);
 	}
+
+	ModuleBase::SelectModel PreWindow::getSelectModel()
+	{
+		return _selectModel;
+	}
+
+	void PreWindow::highLighSet(QMultiHash<vtkDataSet*, int>* items)
+	{
+		_meshProvider->highLighSet(items);
+	}
+
+	QMultiHash<vtkDataSet*, int>* PreWindow::getSelectItems()
+	{
+		return  _meshProvider->_selectItems;
+	}
+
 	void PreWindow::updateGraphOption()
 	{
-		updateDisplayModel();
+		_meshProvider->updateDisplayModel();
+		_meshProvider->updateGraphOption();
 		_geoProvider->updateGraphOption();
 // 		QColor c(0,0,0) /*= Setting::BusAPI::instance()->getGraphOption()->getGeometryColor()*/;
 // 		const int n = _geometryActors.size();
@@ -285,8 +163,8 @@ namespace MainWidget
 // 			vtkActor* actor = _geometryActors.at(i);
 // 			actor->GetProperty()->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
 // 		}
-		ModuleBase::Graph3DWindow::updateGraphOption();
-		_renderWindow->Render();
+//		ModuleBase::Graph3DWindow::updateGraphOption();
+//		_renderWindow->Render();
 	}
 
 	void PreWindow::startSketch(bool start, double* loc, double* dir)
@@ -314,12 +192,6 @@ namespace MainWidget
 	void PreWindow::setSketchType(ModuleBase::SketchType t)
 	{
 		_sketchProvider->setSketchType(t);
-	}
-
-	void PreWindow::clearAllHighLight()
-	{
-		emit RestoreGeoColorSig();
-		clearHighLight();
 	}
 
 	QMultiHash<Geometry::GeometrySet*, int> PreWindow::getGeoSelectItems()

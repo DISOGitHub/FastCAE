@@ -5,11 +5,6 @@
 #include "GeometryCommand/GeoCommandRotateFeature.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include <QMessageBox>
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
-#include <QColor>
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <TopExp_Explorer.hxx>
 #include "geometry/geometrySet.h"
 #include <TopoDS_Edge.hxx>
@@ -48,13 +43,12 @@ namespace GeometryWidget
     RotateFeatureDialog::~RotateFeatureDialog()
     {
         if (_ui != nullptr) delete _ui;
-        emit setSelectMode((int)ModuleBase::None);
-        emit updateGraphOptions();
     }
 
     void RotateFeatureDialog::initEdit()
     {
-		_ui->geoSelectSurface->setEnabled(false);  //不允许选取其他的
+		if (_isEdit)
+			_ui->geoSelectSurface->setEnabled(false);
         if (_editSet == nullptr)  return;
         Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
         Geometry::GeometryParaRotateFeature* p = dynamic_cast<Geometry::GeometryParaRotateFeature*>(pm);
@@ -62,13 +56,19 @@ namespace GeometryWidget
 
         Geometry::GeometrySet* ori = p->getOriginObject();
 		if (ori == nullptr) return;
-        _geobodyList.append(ori);
         emit showGeometry(ori);
         emit hideGeometry(_editSet);
-        emit highLightGeometrySet(ori, true);
-        QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+		_bodysHash = p->getBodys();
+		if (_bodysHash.size() < 1) return;
+		QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+		for (; iter != _bodysHash.end(); ++iter)
+		{
+			emit setSelectMode((int)ModuleBase::GeometryBody);
+			emit highLightGeometrySolidSig(iter.key(), iter.value(), true);
+		}
+        QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
         _ui->edgelabel->setText(text);
-
+		
         double basicPt[3] = { 0 };
         p->getBasicPoint(basicPt);
         _baseWidget->setCoordinate(basicPt);
@@ -88,12 +88,9 @@ namespace GeometryWidget
         if (method == 0)
         {
             _ui->edgelabel_2->setText(tr("Selected edge(1)"));
-            QPair<Geometry::GeometrySet*, int> edgeset = p->getEdge();
-            QList<vtkActor*> acs;
-            emit highLightGeometryEdge(edgeset.first, edgeset.second, &acs);
-            _edgeActor = acs.at(0);
-            _edgeSet = edgeset.first;
-            _edgeIndex = edgeset.second;
+			 _edgepair = p->getEdge();
+			 emit setSelectMode((int)ModuleBase::GeometryCurve);
+			 emit highLightGeometryEdgeSig(_edgepair.first, _edgepair.second, true);
         }
         else
         {
@@ -142,11 +139,11 @@ namespace GeometryWidget
 			Geometry::GeometrySet*  originalSet = p->getOriginObject();
 			if (originalSet == nullptr) return;
 			emit showGeometry(_editSet);
-			if (p->isSaveOrigin()==false)
-				emit hideGeometry(originalSet);
-		}
+			emit hideGeometry(originalSet);
+		} 
         QDialog::reject();
         this->close();
+	 
     }
 
     void RotateFeatureDialog::init()
@@ -168,9 +165,9 @@ namespace GeometryWidget
         if (ok)
             ok = getVector(vec);
 		if (ok)
-			if (_geobodyList.size() < 1) ok = false;
+			if (_bodysHash.size() < 1) ok = false;
 		if (ok)
-			if (_ui->comboBoxOption->currentIndex() == 0 && _edgeSet == nullptr)
+			if (_ui->comboBoxOption->currentIndex() == 0 && _edgepair.first == nullptr)
 				ok = false;
         if (ok)
         {
@@ -187,17 +184,16 @@ namespace GeometryWidget
         bool s = _ui->checkBoxSaveOrigin->isChecked();
         QStringList codes{};
         codes += QString("rotate = CAD.RotateFeature()");
-        for (int i = 0; i < _geobodyList.size(); ++i)
-        {
-            auto s = _geobodyList.at(i);
-            if (s == nullptr) continue;
-            int id = s->getID();
-            codes += QString("rotate.appendObject(%1)").arg(id);
-        }
+
+		QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+		for (; it != _bodysHash.end(); it++)
+		{
+			codes += QString("rotate.appendBody(%1,%2)").arg(it.key()->getID()).arg(it.value());
+		}
         codes += QString("rotate.setBasicPoint(%1,%2,%3)").arg(basicPoint[0]).arg(basicPoint[1]).arg(basicPoint[2]);
 
         if (_ui->comboBoxOption->currentIndex() == 0)
-            codes += QString("rotate.setAxisFromBody(%1, %2)").arg(_edgeSet->getID()).arg(_edgeIndex);
+            codes += QString("rotate.setAxisFromBody(%1, %2)").arg(_edgepair.first->getID()).arg(_edgepair.second);
         else
             codes += QString("rotate.setAxis(%1,%2,%3)").arg(vec[0]).arg(vec[1]).arg(vec[2]);
 
@@ -242,66 +238,91 @@ namespace GeometryWidget
 
     void RotateFeatureDialog::on_geoSelectSurface_clicked()
     {
-        emit setSelectMode((int)ModuleBase::GeometrySurface);
+        emit setSelectMode((int)ModuleBase::GeometryBody);
         _baseWidget->handleProcess(false);
         _selectBody = true;
         _selectEdge = false;
         
-        for (int i = 0; i < _geobodyList.size(); ++i)
-        {
-            auto set = _geobodyList.at(i);
-            emit highLightGeometrySet(set, true);
-        }
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], true);
+			}
+		}
+		if (_edgepair.first != nullptr)
+		{
+			highLightGeometryEdgeSig(_edgepair.first, _edgepair.second, false);
+		}
 
     }
 
-    void RotateFeatureDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
-    {
-        if (_selectBody)
-        {
-            if (_geobodyList.contains(set))
-            {
-                emit highLightGeometrySet(set, false);
-                _geobodyList.removeOne(set);
-            }
-            else
-            {
-                emit highLightGeometrySet(set, true);
-                _geobodyList.append(set);
-            }
-            QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
-            _ui->edgelabel->setText(text);
-        }
-        else if (_selectEdge)
-        {
-            QColor color;
-            if (_edgeActor != nullptr)
-            {
-                color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-                _edgeActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-            }
-            color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-            _edgeActor = actor;
-            _edgeActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+	void RotateFeatureDialog::shapeSlected(Geometry::GeometrySet* set, int index)
+	{
+		if (_selectBody)
+		{
+			bool legal{};
+			if (_bodysHash.size() > 0)
+			{
+				QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+				for (; it != _bodysHash.end(); it++)
+				{
+					if (it.key() == set&& it.value() == index)
+					{
+						it = _bodysHash.erase(it);
+						emit highLightGeometrySolidSig(set, index, false);
+						legal = true;
+						break;
+					}
+				}
+			}
+			if (!legal)
+			{
+				_bodysHash.insert(set, index);
+				emit highLightGeometrySolidSig(set, index, true);
+			}
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
+			_ui->edgelabel->setText(text);
+		}
+		else if (_selectEdge)
+		{
+			if (_edgepair.first != nullptr)
+			{
+				emit highLightGeometryEdgeSig(_edgepair.first, _edgepair.second, false);
+			}
+			_edgepair.first = set;
+			_edgepair.second = index;
+			
+			emit highLightGeometryEdgeSig(_edgepair.first, index, true);
+			_ui->edgelabel_2->setText(tr("Selected edge(1)"));
+		}
+	}
 
-            _edgeSet = set;
-            _edgeIndex = index;
-
-            _ui->edgelabel_2->setText(tr("Selected edge(1)"));
-        }
-    }
-
-    void RotateFeatureDialog::pointWidgetClicked(GeoPointWidget* w)
+	void RotateFeatureDialog::pointWidgetClicked(GeoPointWidget* w)
     {
         _selectBody = false;
         _selectEdge = false;
         w->handleProcess(true);
 
-        for (int i = 0; i < _geobodyList.size(); ++i)
-        {
-            auto set = _geobodyList.at(i);
-            emit highLightGeometrySet(set, false);
-        }
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
+		}
+		if (_edgepair.first != nullptr)
+		{
+			highLightGeometryEdgeSig(_edgepair.first, _edgepair.second, false);
+		}
     }
     
     void RotateFeatureDialog::on_radioButtonUser()
@@ -318,7 +339,7 @@ namespace GeometryWidget
 
         if (_ui->comboBoxOption->currentIndex() == 0)
         {
-            if (_edgeSet == nullptr || _edgeIndex < 0) return false;
+            if (_edgepair.first == nullptr || _edgepair.second < 0) return false;
             ok = true;
         }
         else
@@ -348,6 +369,20 @@ namespace GeometryWidget
         _baseWidget->handleProcess(false);
         _selectEdge = true;
         emit setSelectMode((int)ModuleBase::GeometryCurve);
+		if (_edgepair.first!=nullptr)
+		{
+			highLightGeometryEdgeSig(_edgepair.first, _edgepair.second, true);
+		}
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
+		}
     }
 
 }

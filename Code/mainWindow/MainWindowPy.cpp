@@ -134,7 +134,7 @@ namespace GUI
 	void MainWindowPy::quit()
 	{
 		_subWindowManager->closeAllSubWindow();
-		_signalHander->clearData();
+		_signalHander->clearData(false);
 		_mainWindow->close();
 	}
 

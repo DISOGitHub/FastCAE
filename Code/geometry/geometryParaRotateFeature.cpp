@@ -10,7 +10,6 @@ namespace Geometry
 		_type = GeometryParaMakeRotateFeature;
 	}
 
-
 	QDomElement& GeometryParaRotateFeature::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
 	{
 		QDomElement element = doc->createElement("Parameter");  //创建子节点
@@ -50,17 +49,16 @@ namespace Geometry
 		coorEle.appendChild(coorText);
 		element.appendChild(coorEle);
 
-		if (_bodys.size() > 0)
+		QStringList solidStrList{};
+		if (_solidHash.size() > 0)
 		{
-			QString setidStr{};
-			for (int i = 0; i < _bodys.size(); ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _solidHash.begin();
+			for (; it != _solidHash.end(); it++)
 			{
-				setidStr.append(QString::number((_bodys[i]->getID())));
-				if (i != (_bodys.size() - 1)) setidStr.append(",");
-
+				solidStrList << QString("%1:%2)").arg(it.key()->getID()).arg(it.value());
 			}
-			QDomElement startpointEle = doc->createElement("Bodys");
-			QDomText startpointText = doc->createTextNode(setidStr);
+			QDomElement startpointEle = doc->createElement("BodyIDList");
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
 			startpointEle.appendChild(startpointText);
 			element.appendChild(startpointEle);
 		}
@@ -87,15 +85,13 @@ namespace Geometry
 		parent->appendChild(element);
 		return element;
 
-
 	}
 
 	void GeometryParaRotateFeature::readDataFromProjectFile(QDomElement* e)
 	{
 
 		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-
-		QDomNodeList setIdList = e->elementsByTagName("Bodys");
+		QDomNodeList setIdList = e->elementsByTagName("BodyIDList");
 		if (setIdList.size() != 1) return;
 		QDomElement coorele = setIdList.at(0).toElement();
 		QString coorstr = coorele.text();
@@ -103,8 +99,11 @@ namespace Geometry
 		if (coorsl.size() < 1) return;
 		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			Geometry::GeometrySet*set = data->getGeometrySetByID((coorsl[i]).toInt());
-			_bodys.append(set);
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_solidHash.insert(set, solidindex);
 		}
 
 		QDomNodeList rList = e->elementsByTagName("SaveOrigion");
@@ -152,7 +151,6 @@ namespace Geometry
 			_vector[i] = dirsl.at(i).toDouble();
 		}
 
-
 		QDomNodeList edgeList = e->elementsByTagName("Edge");
 		if (edgeList.size() != 1) return;
 		QDomElement edgeele = edgeList.at(0).toElement();
@@ -160,9 +158,6 @@ namespace Geometry
 		QStringList edgesl = edgestr.split(",");
 		_edge.first = data->getGeometrySetByID((edgesl[0]).toInt());
 		_edge.second = edgesl[1].toInt();
-
-
-
 
 	}
 
@@ -176,14 +171,14 @@ namespace Geometry
 		return _originSet;
 	}
 
-	void GeometryParaRotateFeature::setBodys(QList<GeometrySet*> s)
+	void GeometryParaRotateFeature::appendBody(Geometry::GeometrySet* set, int bodyindex)
 	{
-		_bodys = s;
+		_solidHash.insert(set, bodyindex);
 	}
 
-	QList<GeometrySet*> GeometryParaRotateFeature::getBodys()
+	QMultiHash<Geometry::GeometrySet*, int> GeometryParaRotateFeature::getBodys()
 	{
-		return _bodys;
+		return _solidHash;
 	}
 
 	void GeometryParaRotateFeature::setBasicPoint(double* p)

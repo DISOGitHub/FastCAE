@@ -7,12 +7,10 @@
 #include <QDir>
 #include <QProcess>
 #include <QMessageBox>
-#include <QDebug>
 #include <assert.h>
 #include <QFileDialog>
 #include "settings/busAPI.h"
 #include "meshData/meshKernal.h"
-//#include "geometry/geometryReader.h"
 #include "ModelData/modelDataSingleton.h"
 #include "ModelData/modelDataBase.h"
 #include "geometry/geometryData.h"
@@ -100,6 +98,7 @@ namespace GUI
 		connect(this, SIGNAL(openProjectFileSig(QString)), this, SLOT(openProjectFile(QString)));
 		connect(this, SIGNAL(saveToProjectFileSig(QString)), this, SLOT(saveToProjectFile(QString)));
 		connect(this, SIGNAL(solveProjectSig(int, int)), this, SLOT(solveProject(int, int)));
+		connect(this, SIGNAL(projectFileProcessedSig(QString, bool, bool)), this, SLOT(projectFileProcessed(QString, bool, bool)));
 
 		connect(mainwindow->getUi()->actionUser_Guidance, SIGNAL(triggered()), this, SLOT(showUserGuidence()));
 
@@ -160,53 +159,71 @@ namespace GUI
 		QFile f(fileName);
 		if (!f.exists()) return false;
 
-		this->clearData();
-		IO::ProjectFileIO reader(fileName);
-		if (!reader.read())
-		{
-			QMessageBox::warning(_mainWindow, tr("Warning"), tr("read Failed !"));
-			clearData();
-			return false;
-		}
-	
-		emit _mainWindow->updateGeometryTreeSig();
-		emit _mainWindow->updateMeshTreeSig();
-		emit _mainWindow->updateSetTreeSig();
-		emit _mainWindow->updatePhysicsTreeSignal();
-
-		Setting::BusAPI::instance()->appendRecentFile(fileName);
-		_mainWindow->setCurrentFile(fileName);
-		QString md5 = getMD5();
-		_mainWindow->setMD5(md5);
-
-		_mainWindow->getSubWindowManager()->openPreWindow();
-//		_mainWindow->getSubWindowManager()->updatePreActors();
-
-// 		ModuleBase::Message msg(ModuleBase::Normal_Message, QString("Open project file \"%1\"").arg(fileName));
-// 
-// 		emit _mainWindow->printMessageToMessageWindow(msg);
-		_mainWindow->updateRecentMenu();
-		emit _mainWindow->updateActionStatesSig();
-
-		Py::PythonAagent::getInstance()->unLock();
-		return true;
-		
+		this->clearData(false);
+		IO::ProjectFileIO* reader = new IO::ProjectFileIO(_mainWindow,this ,fileName, true);
+		emit reader->start();
 	}
+
+	void SignalHandler::projectFileProcessed(QString fileName, bool success ,bool read)
+	{
+		ModuleBase::Message m;
+		m.type = ModuleBase::Error_Message;
+		if (success)
+			m.type = ModuleBase::Normal_Message;
+		if (read)
+		{
+			if (success)
+			{
+				emit _mainWindow->updateGeometryTreeSig();
+				emit _mainWindow->updateMeshTreeSig();
+				emit _mainWindow->updateSetTreeSig();
+				emit _mainWindow->updatePhysicsTreeSignal();
+
+				_mainWindow->setCurrentFile(fileName);
+				QString md5 = getMD5();
+				_mainWindow->setMD5(md5);
+				_mainWindow->getSubWindowManager()->openPreWindow();
+				emit _mainWindow->updateActionStatesSig();
+				m.message = QString("\"%1\" has been Opened !").arg(fileName);
+			}
+			else
+			{
+				clearData(false);
+				m.message = QString("\"%1\" open failed !").arg(fileName);
+			}
+				
+
+			Setting::BusAPI::instance()->appendRecentFile(fileName);
+			_mainWindow->updateRecentMenu();
+			
+		}
+		else
+		{
+			if (success)
+			{
+				Setting::BusAPI::instance()->appendRecentFile(fileName);
+				_mainWindow->setCurrentFile(fileName);
+				QString md5 = getMD5();
+				_mainWindow->setMD5(md5);
+				_mainWindow->updateRecentMenu();
+				m.message = QString("\"%1\" has been Saved !").arg(fileName);
+			}
+			else
+			{
+				m.message = QString("\"%1\" save failed !").arg(fileName);
+			}
+
+		}
+
+		emit _mainWindow->printMessageToMessageWindow(m);
+		Py::PythonAagent::getInstance()->unLock();
+	}
+
 	void SignalHandler::saveToProjectFile(QString filename)
 	{
 		//add a writer
-		IO::ProjectFileIO writer(filename);
-		if (!writer.write())
-		{
-			QMessageBox::warning(_mainWindow, tr("Warning"), tr("Write Failed !"));
-			return;
-		}
-		Setting::BusAPI::instance()->appendRecentFile(filename);
-		_mainWindow->setCurrentFile(filename);
-		QString md5 = getMD5();
-		_mainWindow->setMD5(md5);
-		_mainWindow->updateRecentMenu();
-		Py::PythonAagent::getInstance()->unLock();
+		IO::ProjectFileIO* writer = new IO::ProjectFileIO( _mainWindow, this,filename, false);
+		emit writer->start();
 	}
 
 	void SignalHandler::on_actionSolve()
@@ -294,7 +311,7 @@ namespace GUI
 		return md5;
 	}
 
-	void SignalHandler::clearData()
+	void SignalHandler::clearData(bool unlock)
 	{
 		_mainWindow->clearWidgets();
 		ModelData::ModelDataSingleton::getinstance()->clear();
@@ -307,8 +324,8 @@ namespace GUI
 		emit _mainWindow->updateGeometryTreeSig();
 		emit _mainWindow->updatePhysicsTreeSignal();
 		emit _mainWindow->updateMaterialTreeSig();
-		
-		Py::PythonAagent::getInstance()->unLock();
+		if (unlock)
+			Py::PythonAagent::getInstance()->unLock();
 	}
 
 	void SignalHandler::solveProjectPy(int projectIndex, int solverIndex)

@@ -10,6 +10,13 @@
 #include <BRep_Builder.hxx>
 #include <QDebug>
 #include "geometry/geometryParaGeoSplitter.h"
+#include <TopoDS_Face.hxx>
+#include <gp_Pln.hxx>
+#include <BRepAdaptor_Surface.hxx>
+#include <BRepBuilderAPI.hxx>
+#include <BRepBuilderAPI_MakeFace.hxx>
+#include "GeoCommandCommon.h"
+#include <BRepBuilderAPI_Copy.hxx>
 namespace Command
 {
 	CommandGeoSplitter::CommandGeoSplitter(GUI::MainWindow* m, MainWidget::PreWindow* p)
@@ -19,79 +26,125 @@ namespace Command
 
 	bool CommandGeoSplitter::execute()
 	{
-		bool success{ true };
-		if (_body == nullptr || _faceBody == nullptr || _faceIndex < 0)
-			success = false;
-		TopoDS_Shape* box = _body->getShape();
-		TopoDS_Shape* shape = _faceBody->getShape();
-		TopExp_Explorer faceExp(*shape, TopAbs_FACE);
-		for (int index = 0; index < _faceIndex && faceExp.More(); faceExp.Next(), ++index);
-		const TopoDS_Shape& faceShape = faceExp.Current();
-		if (faceShape.IsNull()) return false;
-
-		BOPAlgo_Splitter splitter;
-		splitter.AddArgument(*box);
-		splitter.AddTool(faceShape);
-		splitter.Perform();
-		//分割的体
-		TopoDS_Compound comp;
-		BRep_Builder builder;
-		builder.MakeCompound(comp);
-
-		TopExp_Explorer shapeExp(splitter.Shape(), TopAbs_SOLID);
-		for (; shapeExp.More(); shapeExp.Next())
+		if (_solidhash.size() < 1 || _faceBody == nullptr || _faceIndex < 0)
+			return false;
+		if (_isEdit) //编辑模式下将原来的模型压进列表
 		{
-			const TopoDS_Solid& anSolid = TopoDS::Solid(shapeExp.Current());
-			builder.Add(comp, anSolid);
-		}
+			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
+			Geometry::GeometryParaGeoSplitter* p = dynamic_cast<Geometry::GeometryParaGeoSplitter*>(pm);
+			if (p == nullptr) return false;
+
+			Geometry::GeometrySet* ori = p->getOriSet();
+			if (ori == nullptr) return false;
 		
-/*
-		QList<Handle(TopoDS_TShape)> tlist{};
+			_geoData->appendGeometrySet(ori);
+			_editSet->removeSubSet(ori);
 
-		TopExp_Explorer comExp(comp, TopAbs_FACE);
-		for (; comExp.More(); comExp.Next())
-		{
-			const TopoDS_Shape& shape = comExp.Current();
-			const Handle(TopoDS_TShape)&  tshape = shape.TShape();
-			tlist.push_back(tshape);
-		}*/
-
- 		TopoDS_Shape* mshape = new TopoDS_Shape;
-		*mshape = comp;
-		QString name = QString("Splitter-%1").arg(_body->getName());
-		Geometry::GeometrySet* newset = new Geometry::GeometrySet;
-		newset->setName(name);
-		newset->setShape(mshape);
-		//newset->appendSubSet(_body);
-		//_result = newset;
-		if (_isEdit)
-		{
-			newset->setName(_editSet->getName());
-			//_geoData->appendGeometrySet(newset);
-			_geoData->replaceSet(newset, _editSet);
 		}
-		else
+		bool success = false;
+
+		QList<Geometry::GeometrySet*> setlist = _solidhash.uniqueKeys();
+		for (Geometry::GeometrySet* set : setlist)
 		{
+
+			//保存下某个set下所选中的所有solid.
+			QMultiHash<Geometry::GeometrySet*, int> setToIndex{};
+			//aRes=new shape+无关shape.
+			TopoDS_Compound aRes;
+			BRep_Builder aBuilder;
+			aBuilder.MakeCompound(aRes);
+			QList<int> indexList = _solidhash.values(set);
+			for (int i = 0; i < indexList.size(); i++)
+			{
+				setToIndex.insert(set, indexList[i]);
+				TopoDS_Shape shape = *set->getShape(4, indexList[i]);
+				if (shape.IsNull()) return false;
+
+
+				TopoDS_Shape* faceshape = _faceBody->getShape();
+				TopExp_Explorer faceExp(*faceshape, TopAbs_FACE);
+				for (int index = 0; index < _faceIndex && faceExp.More(); faceExp.Next(), ++index);
+				const TopoDS_Shape& faceLimiteShape = faceExp.Current();
+				if (faceLimiteShape.IsNull()) return false;
+
+				//判断是否为平面。
+				const TopoDS_Face &face = TopoDS::Face(faceLimiteShape);
+				if (face.IsNull()) return false;
+				BRepAdaptor_Surface adapt(face);
+				if (adapt.GetType() != GeomAbs_Plane) return false;
+				gp_Pln plane = adapt.Plane();
+
+				BRepBuilderAPI_MakeFace mkFace(plane);
+				const TopoDS_Face& faceShape = mkFace.Face();
+				if (face.IsNull()) return false;
+				BOPAlgo_Splitter splitter;
+				splitter.AddArgument(shape);
+				splitter.AddTool(faceShape);
+				splitter.Perform();
+
+				/*TopoDS_Compound comp;
+				BRep_Builder builder;
+				builder.MakeCompound(comp);*/
+				TopExp_Explorer shapeExp(splitter.Shape(), TopAbs_SOLID);
+				for (; shapeExp.More(); shapeExp.Next())
+				{
+					const TopoDS_Solid& anSolid = TopoDS::Solid(shapeExp.Current());
+					aBuilder.Add(aRes, anSolid);
+				}
+			}
+			//将无关的solid存在compound中。
+			TopoDS_Shape* setShape = set->getShape();
+			TopoDS_Shape* setCopyShape = new TopoDS_Shape;
+			TopoDS_Shape* setOriShape = new TopoDS_Shape;
+			*setOriShape = BRepBuilderAPI_Copy(*setShape);
+			for (int i = 0; i < indexList.size(); i++)
+			{
+				TopoDS_Shape tempShape = *set->getShape(4, indexList[i]);
+				*setCopyShape = GeoCommandCommon::removeShape(setShape, &tempShape);
+
+			}
+			if (!GeoCommandCommon::isEmpty(*setShape))
+			{
+				aBuilder.Add(aRes, *setShape);
+
+			}
+			success = true;
+			TopoDS_Shape* mshape = new TopoDS_Shape;
+			*mshape = aRes;
+			QString name = QString("Splitter-%1").arg(set->getName());
+			Geometry::GeometrySet* newset = new Geometry::GeometrySet;
 			newset->setName(name);
+			newset->setShape(mshape);
+
 			_geoData->appendGeometrySet(newset);
+			_geoData->removeTopGeometrySet(set);
+			newset->appendSubSet(set);
+			_inputOutputHash.insert(newset, set);
+			emit showSet(newset);
+			emit removeDisplayActor(set);
+
+			Geometry::GeometryParaGeoSplitter* para = new Geometry::GeometryParaGeoSplitter;
+			set->setShape(setOriShape);
+			para->setOriSet(set);
+			for (int k = 0; k < indexList.size(); k++)
+			{
+				para->appendBody(set, indexList[k]);
+			}
+			para->setFaceIndex(_faceIndex);
+			para->setFaceBody(_faceBody);
+			newset->setParameter(para);
+			GeoCommandBase::execute();
+
+			if (_isEdit)
+			{
+				_geoData->removeTopGeometrySet(_editSet);
+				_releaseEdit = true;     //标记释放状态
+				_releasenew = false;
+			}
 
 		}
-		_geoData->removeTopGeometrySet(_body);
-		newset->appendSubSet(_body);
-		_inputOutputHash.insert(_body ,newset);
-
-		int k = _inputOutputHash.size();
-		Geometry::GeometryParaGeoSplitter* para = new Geometry::GeometryParaGeoSplitter;
-		para->setName(name);
-		para->setOriSet(_body);
-		para->setFaceIndex(_faceIndex);
-		para->setFaceBody(_faceBody);
-		newset->setParameter(para);
-		GeoCommandBase::execute();
-		//_resultOriginHash.insert(newset, _body);
-		emit removeDisplayActor(_body);
-		emit showSet(newset);
 		emit updateGeoTree();
+		GeoCommandBase::execute();
 		return success;
 	}
 
@@ -99,95 +152,123 @@ namespace Command
 	{
 		if (_isEdit)
 		{
-			Geometry::GeometrySet* orset = _editSet->getSubSetAt(0);
-			QList<Geometry::GeometrySet*> setlist = _inputOutputHash.values();
-			Geometry::GeometrySet* resplace = setlist.back();
-			_geoData->replaceSet(_editSet, resplace);
-			emit showSet(resplace->getSubSetAt(0));
-			emit removeDisplayActor(resplace);
+			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
+			Geometry::GeometryParaGeoSplitter* p = dynamic_cast<Geometry::GeometryParaGeoSplitter*>(pm);
+			if (p == nullptr) return;
+			Geometry::GeometrySet* ori = p->getOriSet();
+			if (ori == nullptr) return;
+			QList<Geometry::GeometrySet*> setliist = _inputOutputHash.keys(ori);
+			int sinz = setliist.size();
+			auto newset = _inputOutputHash.key(ori);
+			if (newset == nullptr) return;
+			_geoData->replaceSet(_editSet, newset);
+	
+			newset->removeSubSet(ori);
+			_editSet->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+
+			emit removeDisplayActor(ori);
 			emit showSet(_editSet);
+			emit removeDisplayActor(newset);
+
+			emit updateGeoTree();
+			_releasenew = true;
+			_releaseEdit = false;
+			return;
 		}
-		else
+
+		QList<Geometry::GeometrySet*> geoList = _inputOutputHash.keys();
+		for (int i = 0; i < geoList.size(); ++i)
 		{
-			QList<Geometry::GeometrySet*> inputList = _inputOutputHash.keys();
-			const int n = inputList.size();
-			for (int i = 0; i < n; ++i)
-			{
-				Geometry::GeometrySet* inputSet = inputList.at(i);
-				Geometry::GeometrySet* outputSet = _inputOutputHash.value(inputSet);
-				emit removeDisplayActor(outputSet);
-
-				outputSet->removeSubSet(inputSet);
-				_geoData->removeTopGeometrySet(outputSet);
-				_geoData->appendGeometrySet(inputSet);
-
-				emit showSet(inputSet);
-			}
+			Geometry::GeometrySet* set = geoList.at(i);
+	
+			auto ori = _inputOutputHash.value(set);
+			set->removeSubSet(ori);
+			_geoData->appendGeometrySet(ori);
+			emit showSet(ori);
+		
+			_geoData->removeTopGeometrySet(set);
+			emit removeDisplayActor(set);
 		}
-
 		emit updateGeoTree();
-
 	}
 
 	void CommandGeoSplitter::redo()
 	{
 		if (_isEdit)
 		{
-			Geometry::GeometrySet* orset = _editSet->getSubSetAt(0);
-			QList<Geometry::GeometrySet*> setlist = _inputOutputHash.values();
-			Geometry::GeometrySet* resplace = setlist.back();
-			_geoData->replaceSet( resplace,_editSet);
-			emit showSet(orset);
-			emit removeDisplayActor(resplace->getSubSetAt(0));
-			emit showSet(resplace);
+			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
+			Geometry::GeometryParaGeoSplitter* p = dynamic_cast<Geometry::GeometryParaGeoSplitter*>(pm);
+			if (p == nullptr) return;
+			Geometry::GeometrySet* ori = p->getOriSet();
+			if (ori == nullptr) return;
+			auto newset = _inputOutputHash.key(ori);
+			if (newset == nullptr) return;
+			_geoData->replaceSet(newset, _editSet);
+			
+			_editSet->removeSubSet(ori);
+			newset->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+
+			emit removeDisplayActor(ori);
+			emit showSet(newset);
 			emit removeDisplayActor(_editSet);
 
-
-/*
-
-			Geometry::GeometrySet* resplace = _inputOutputHash.value(orset);
-			_geoData->replaceSet(resplace, _editSet);
-			emit removeDisplayActor(_editSet);
-			emit showSet(resplace);*/
+			emit updateGeoTree();
+			_releasenew = false;
+			_releaseEdit = true;
+			return;
 		}
-		else
+		QList<Geometry::GeometrySet*> geoList = _inputOutputHash.keys();
+		for (int i = 0; i < geoList.size(); ++i)
 		{
-			QList<Geometry::GeometrySet*> inputList = _inputOutputHash.keys();
-			const int n = inputList.size();
-			for (int i = 0; i < n; ++i)
-			{
-				Geometry::GeometrySet* inputSet = inputList.at(i);
-				Geometry::GeometrySet* outputSet = _inputOutputHash.value(inputSet);
-				emit removeDisplayActor(inputSet);
-
-				outputSet->appendSubSet(inputSet);
-				_geoData->removeTopGeometrySet(inputSet);
-				_geoData->appendGeometrySet(outputSet);
-
-				emit showSet(outputSet);
-			}
-
+			Geometry::GeometrySet* set = geoList.at(i);
+		
+			auto ori = _inputOutputHash.value(set);
+			set->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+			emit removeDisplayActor(ori);
+			
+			_geoData->appendGeometrySet(set);
+			emit showSet(set);
 		}
 		emit updateGeoTree();
 	}
 
 	void CommandGeoSplitter::releaseResult()
 	{
-		QList<Geometry::GeometrySet*> outputList = _inputOutputHash.values();
-		const int n = outputList.size();
-		for (int i = 0; i < n; ++i)
+		if (_isEdit)
 		{
-			auto set = outputList.at(i);
+			if (_releasenew)
+			{
+				Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
+				Geometry::GeometryParaGeoSplitter* p = dynamic_cast<Geometry::GeometryParaGeoSplitter*>(pm);
+				if (p == nullptr) return;
+				Geometry::GeometrySet* ori = p->getOriSet();
+				if (ori == nullptr) return;
+				auto newset = _inputOutputHash.key(ori);
+				if (newset == nullptr) return;
+				delete newset;
+			}
+			if (_releaseEdit)
+			{
+				delete _editSet;
+			}
+
+			return;
+		}
+
+		QList<Geometry::GeometrySet*> geoList = _inputOutputHash.keys();
+		for (int i = 0; i < geoList.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geoList.at(i);
 			delete set;
 		}
-		_inputOutputHash.clear();
-		
-
 	}
 	  
-	void CommandGeoSplitter::setBody(Geometry::GeometrySet* b)
+	void CommandGeoSplitter::setBodys(QMultiHash<Geometry::GeometrySet*, int> setidList)
 	{
-		_body = b;
+		_solidhash= setidList;
 	}
 
 	void CommandGeoSplitter::setFaceIndex(int faceIndex)

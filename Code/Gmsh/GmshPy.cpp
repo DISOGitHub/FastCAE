@@ -71,21 +71,30 @@ namespace Gmsh
 
 
 
-	void GmshPy::GenerateMesh3D(char* solids, char* type, int order, int method, double factor, 
-		double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points)
+	void GmshPy::GenerateMesh3D(char* solids, char* type, int order, int method, double factor, double sizemin, double sizemax, 
+		bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible)
 	{
 		const QString solidBodys(solids);
 		const QString eleType(type);
-		const QStringList sSolids = solidBodys.split(",");
 		const QString pointSizes(points);
+		const QString fieldSize(fields);
+		//const QString physical(physicals);
 
 		GMshPara* p = new GMshPara;
-
-		for (QString s :  sSolids)
+		const QStringList bodySurface = solidBodys.split(";");
+		for (QString bodyset : bodySurface)
 		{
-			bool ok = false;
-			int id = s.toInt(&ok);
-			if (ok) p->_solidList.append(id);
+			if (bodyset.isEmpty())
+				continue;
+
+			QStringList faces = bodyset.split(":");
+			int setid = faces.at(0).toInt();
+			QStringList surfaceList = faces.at(1).split(",");
+			for (QString sindex : surfaceList)
+			{
+				int index = sindex.toInt();
+				p->_solidHash.insert(setid, index);
+			}
 		}
 		p->_elementType = eleType;
 		p->_elementOrder = order;
@@ -97,21 +106,31 @@ namespace Gmsh
 		p->_dim = 3;
 		p->_isGridCoplanar = isGridCoplanar;
 		p->_sizeAtPoints = pointSizes;
+		p->_sizeFields = fieldSize;
+	//	p->_physicals = physical;
+		p->_selectall = selectall;
+		p->_selectvisible = selectvisible;
 
 		emit _gmshModule->generateSig(p);
 	}
 
-	void GmshPy::GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points)
+	void GmshPy::GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, double sizemin, 
+		double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible)
 	{
 		const QString surfaces(solids);
 		const QString eleType(type);
 		const QString pointSizes(points);
+		const QString fieldSize(fields);
+		//const QString physical(physicals);
 		qDebug() << surfaces;
 
 		GMshPara* p = new GMshPara;
 		const QStringList bodySurface = surfaces.split(";");
 		for (QString bodyset : bodySurface)
 		{
+			if (bodyset.isEmpty())
+				continue;
+
 			QStringList faces = bodyset.split(":");
 			int setid = faces.at(0).toInt();
 			QStringList surfaceList = faces.at(1).split(",");
@@ -132,20 +151,24 @@ namespace Gmsh
 		p->_dim = 2;
 		p->_isGridCoplanar = isGridCoplanar;
 		p->_sizeAtPoints = pointSizes;
+		p->_sizeFields = fieldSize;
+	//	p->_physicals = physical;
+		p->_selectall = selectall;
+		p->_selectvisible = selectvisible;
 
 		emit _gmshModule->generateSig(p);
 	}
 
 }
 
-void GenerateMesh3D(char* solids, char* type, int order, int method, double factor, 
-	double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points)
+void GenerateMesh3D(char* solids, char* type, int order, int method, double factor, double sizemin, double sizemax, 
+	bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible)
 {
-	Gmsh::GmshPy::GenerateMesh3D(solids, type, order, method, factor, sizemin, sizemax, clean, isGridCoplanar, points);
+	Gmsh::GmshPy::GenerateMesh3D(solids, type, order, method, factor, sizemin, sizemax, clean, isGridCoplanar, points, fields/*, physicals*/,selectall,selectvisible);
 }
 
-void GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, 
-	double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points)
+void GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, double sizemin, double sizemax, 
+	bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible)
 {
-	Gmsh::GmshPy::GenerateMesh2D(solids, type, order, method, smooth, factor, sizemin, sizemax, clean, isGridCoplanar, points);
+	Gmsh::GmshPy::GenerateMesh2D(solids, type, order, method, smooth, factor, sizemin, sizemax, clean, isGridCoplanar, points, fields/*, physicals*/,selectall,selectvisible);
 }

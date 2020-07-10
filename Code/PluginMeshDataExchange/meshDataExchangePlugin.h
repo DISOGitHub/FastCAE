@@ -42,6 +42,7 @@ extern "C"
 	bool MESHDATAEXCHANGEPLUGINAPI SU2importMesh(QString AbFileName);
 	bool MESHDATAEXCHANGEPLUGINAPI AnotherSU2importMesh(QString AbFileName);
 	bool MESHDATAEXCHANGEPLUGINAPI KEYimportMesh(QString AbFileName);
+	bool MESHDATAEXCHANGEPLUGINAPI PDBimportMesh(QString AbFileName);
 
 	bool MESHDATAEXCHANGEPLUGINAPI CGNSexportMesh(QString AbFileName, int id);
 	bool MESHDATAEXCHANGEPLUGINAPI MSHexportMesh(QString AbFileName, int id);
@@ -52,6 +53,7 @@ extern "C"
 	bool MESHDATAEXCHANGEPLUGINAPI SU2exportMesh(QString AbFileName, int id);
 	bool MESHDATAEXCHANGEPLUGINAPI AnotherSU2exportMesh(QString AbFileName, int id);
 	bool MESHDATAEXCHANGEPLUGINAPI KEYexportMesh(QString AbFileName, int id);
+	bool MESHDATAEXCHANGEPLUGINAPI PDBexportMesh(QString AbFileName, int id);
 }
 
 #endif

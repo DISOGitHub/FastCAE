@@ -23,8 +23,6 @@ namespace Geometry
 		return _name;
 	}
 
-	
-
 	void GeometryParaFace::setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash)
 	{
 		_shapeHash = shapehash;
@@ -33,27 +31,6 @@ namespace Geometry
 	QMultiHash<Geometry::GeometrySet*, int> GeometryParaFace::getShapeHash()
 	{
 		return _shapeHash;
-	}
-/*
-
-	void GeometryParaFace::setEdges(int s)
-	{
-		_edges = s;
-	}
-
-	int GeometryParaFace::getEdges()
-	{
-		return _edges;
-	}*/
-
-	void GeometryParaFace::setActor(QList<vtkActor*> a)
-	{
-		_actor = a;
-	}
-
-	QList<vtkActor*> GeometryParaFace::getActor()
-	{
-		return _actor;
 	}
 
 	QDomElement& GeometryParaFace::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
@@ -67,39 +44,19 @@ namespace Geometry
 		nameattr.setValue(_name);
 		element.setAttributeNode(nameattr);
 
-	/*	QDomAttr edgesizeattr = doc->createAttribute("Edges");
-		edgesizeattr.setValue(QString::number(_actor.size()));
-		element.setAttributeNode(edgesizeattr);
-*/
-		if (_shapeHash.size() == 0) return element;
-
-		QList<Geometry::GeometrySet*> setList = _shapeHash.uniqueKeys();
-		QList<int> setidList;
-		QString setidStr{};
-		for (int i = 0; i < setList.size();++i)
+		QStringList solidStrList{};
+		if (_shapeHash.size() > 0)
 		{
-			setidStr.append(QString::number((setList[i]->getID())));
-			if (i!=(setList.size()-1)) setidStr.append(",");
-
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _shapeHash.begin();
+			for (; it != _shapeHash.end(); it++)
+			{
+				solidStrList << QString("%1:%2").arg(it.key()->getID()).arg(it.value());
+			}
+			QDomElement startpointEle = doc->createElement("EdgeList");
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
+			startpointEle.appendChild(startpointText);
+			element.appendChild(startpointEle);
 		}
-		QDomElement startpointEle = doc->createElement("EdgeSetIDList");
-		QDomText startpointText = doc->createTextNode(setidStr);
-		startpointEle.appendChild(startpointText);
-		element.appendChild(startpointEle);
-
-		QList<int> indexList = _shapeHash.values();
-		QString indexListStr{};
-		for (int i = 0; i < indexList.size(); ++i)
-		{
-			indexListStr.append(QString::number(indexList[i]));
-			if (i != (indexList.size() - 1)) indexListStr.append(",");
-
-		}
-		QDomElement indexlistEle = doc->createElement("IndexList");
-		QDomText indexText = doc->createTextNode(indexListStr);
-		indexlistEle.appendChild(indexText);
-		element.appendChild(indexlistEle);
-
 
 		parent->appendChild(element);
 		return element;
@@ -108,37 +65,21 @@ namespace Geometry
 	void GeometryParaFace::readDataFromProjectFile(QDomElement* e)
 	{
 		_name = e->attribute("Name");
-		//_edges = e->attribute("Edges").toInt();
 		
-		QDomNodeList setIdList = e->elementsByTagName("EdgeSetIDList");
+		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+		QDomNodeList setIdList = e->elementsByTagName("EdgeList");
 		if (setIdList.size() != 1) return;
 		QDomElement coorele = setIdList.at(0).toElement();
 		QString coorstr = coorele.text();
 		QStringList coorsl = coorstr.split(",");
-		if (coorsl.size() < 1 ) return;
-		QList<int> setidList;
-		for (int i = 0; i<coorsl.size(); ++i)
+		if (coorsl.size() < 1) return;
+		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			 setidList.append(coorsl.at(i).toInt());
-		}
-
-		QDomNodeList startList = e->elementsByTagName("IndexList");
-		if (startList.size() != 1) return;
-		QDomElement startele = startList.at(0).toElement();
-		QString startstr = startele.text();
-		QStringList startsl = startstr.split(",");
-		if (startsl.size() <1) return;
-		QList<int> indexList;
-		for (int i = 0; i < startsl.size(); ++i)
-		{
-			indexList.append( startsl.at(i).toInt());
-		}
-
-		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-		for (int i = 0; i < setidList.size();++i)
-		{
-			Geometry::GeometrySet*set = data->getGeometrySetByID(setidList[i]);
-			_shapeHash.insert(set, indexList[i]);
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_shapeHash.insert(set, solidindex);
 		}
 
 

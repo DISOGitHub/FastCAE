@@ -43,7 +43,7 @@ namespace Command
 			return false;
 		}
 
-
+		
 		Geometry::GeometrySet* set = new Geometry::GeometrySet(Geometry::STEP);
 		
 		set->setShape(shape);
@@ -99,7 +99,7 @@ namespace Command
 		}
 		else
 			_geoData->appendGeometrySet(_res);
-
+		
 		emit updateGeoTree();
 		emit showSet(_res);
 	}

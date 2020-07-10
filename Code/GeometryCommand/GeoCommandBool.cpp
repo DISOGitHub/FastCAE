@@ -3,7 +3,6 @@
 #include "geometry/geometrySet.h"
 #include <TopoDS_Shape.hxx>
 #include <BRepAlgoAPI_Cut.hxx>
-//#include <BRepAlgo_Fuse.hxx>
 #include <BRepAlgo_Section.hxx>
 #include <BRepAlgoAPI_Cut.hxx>
 #include <BRepAlgoAPI_Common.hxx>
@@ -13,7 +12,14 @@
 #include <TopoDS.hxx>
 #include "GeoCommandCommon.h"
 #include "geometry/geometryParaBoolOperation.h"
-
+#include <TopoDS_Compound.hxx>
+#include <BRep_Builder.hxx>
+#include <TopoDS_Iterator.hxx>
+#include <BRepTools.hxx>
+#include <QDebug>
+#include <TopoDS_Builder.hxx>
+#include <TopExp_Explorer.hxx>
+#include <BRepBuilderAPI_Copy.hxx>
 namespace Command
 {
 	CommandBool::CommandBool(GUI::MainWindow* m, MainWidget::PreWindow* p)
@@ -34,27 +40,75 @@ namespace Command
 			break;
 		case BoolFause:
 			name = "Fause_%1";
-			shape = fause(); 
+			shape = fause();
 			break;
 		case BoolCommon:
 			name = "Common_%1";
-			shape = common(); 
+			shape = common();
 			break;
 		default:
 			break;
 		}
+		/*std::string filestr1 = "D:/IGS/1.brep";
+		const char* ch = filestr1.c_str();
+		BRepTools::Write(aChild, ch);
+*/
 		if (shape == nullptr) return false;
 
+		TopoDS_Compound aRes;
+		BRep_Builder aBuilder;
+		aBuilder.MakeCompound(aRes);
+		aBuilder.Add(aRes, *shape);
+		//将set1中剩余shape和set2剩余shape组成compound，然后与新shape组合。
+		TopoDS_Shape* setShape1 = _solid1.first->getShape();
+		TopoDS_Shape* setShape2 = _solid2.first->getShape();
+		if (setShape1 == nullptr || setShape2 == nullptr) return false;
+		
+		TopoDS_Shape shape1=*(_solid1.first->getShape(4, _solid1.second));
+		TopoDS_Shape shape2 =* (_solid2.first->getShape(4, _solid2.second));
+		if (shape1.IsNull() || shape2.IsNull()) return false;
+
+		TopoDS_Shape* setCopyShape1 = new TopoDS_Shape;
+		TopoDS_Shape* setCopyShape2 = new TopoDS_Shape;
+
+
+		/*std::string filestr = "D:/IGS/1320000.brep";
+		const char* ch = filestr.c_str();
+		BRepTools::Write(*setShape1, ch);
+
+		std::string filestr1 = "D:/IGS/132000011111.brep";
+		const char* ch1 = filestr1.c_str();
+		BRepTools::Write(shape1, ch1);*/
+
+		*setCopyShape1 = GeoCommandCommon::removeShape(setShape1, &shape1);
+		*setCopyShape2 = GeoCommandCommon::removeShape(setShape2, &shape2);
+
+
+		if (!GeoCommandCommon::isEmpty(*setShape1))
+		{
+			/*std::string filestr = "D:/IGS/1321111.brep";
+			const char* ch = filestr.c_str();
+			BRepTools::Write(*setShape1, ch);*/
+
+			aBuilder.Add(aRes, *setShape1);
+		}
+		if (!GeoCommandCommon::isEmpty(*setShape2))
+		{
+			aBuilder.Add(aRes, *setShape2);
+		}
+		TopoDS_Shape* newShape = new TopoDS_Shape;
+		*newShape = aRes;
 		const int id = Geometry::GeometrySet::getMaxID() + 1;
 		name = name.arg(id);
 		Geometry::GeometrySet* newset = new Geometry::GeometrySet;
 		newset->setName(name);
-		newset->setShape(shape);
-		newset->appendSubSet(_body1);
-		newset->appendSubSet(_body2);
-
+		newset->setShape(newShape);
+		_solid1.first->setShape(setCopyShape1);
+		_solid2.first->setShape(setCopyShape2);
+		newset->appendSubSet(_solid1.first);
+		newset->appendSubSet(_solid2.first);
 		_result = newset;
-
+		
 		if (_isEdit)
 		{
 			newset->setName(_editSet->getName());
@@ -64,7 +118,6 @@ namespace Command
 			for (int i = 0; i < n; ++i)
 			{
 				Geometry::GeometrySet* subset = _editSet->getSubSetAt(i);
-				//_editSet->removeSubSet(subset);
 				_geoData->appendGeometrySet(subset);
 			}
 		}
@@ -74,17 +127,15 @@ namespace Command
 			_geoData->appendGeometrySet(newset);
 		}
 		Geometry::GeometryParaBoolOperation* para = new Geometry::GeometryParaBoolOperation;
-
-		para->setInputBody1(_body1);
-		para->setInputBody2(_body2);
-		para->setType(_type);  
+		para->setInputBody1(_solid1);
+		para->setInputBody2(_solid2);
+		para->setType(_type);
 		newset->setParameter(para);
 
-		//_geoData->appendGeometrySet(newset);
-		_geoData->removeTopGeometrySet(_body1);
-		_geoData->removeTopGeometrySet(_body2);
-		emit removeDisplayActor(_body1);
-		emit removeDisplayActor(_body2);
+		_geoData->removeTopGeometrySet(_solid1.first);
+		_geoData->removeTopGeometrySet(_solid2.first);
+		emit removeDisplayActor(_solid1.first);
+		emit removeDisplayActor(_solid2.first);
 		emit showSet(newset);
 		emit updateGeoTree();
 
@@ -96,9 +147,9 @@ namespace Command
 	{
 		if (_isEdit)
 		{
-			_geoData->replaceSet(_editSet,_result);
+			_geoData->replaceSet(_editSet, _result);
 			emit removeDisplayActor(_result);//c2
-			
+
 			const int n = _result->getSubSetCount();//添加b2,b3
 			for (int i = 0; i < n; ++i)
 			{
@@ -121,6 +172,7 @@ namespace Command
 		}
 		else
 		{
+			
 			_geoData->removeTopGeometrySet(_result);
 			emit removeDisplayActor(_result);
 
@@ -133,6 +185,7 @@ namespace Command
 				emit showSet(subset);
 			}
 		}
+
 		emit updateGeoTree();
 
 	}
@@ -145,30 +198,27 @@ namespace Command
 			emit removeDisplayActor(_editSet);
 			const int n = _editSet->getSubSetCount();
 			for (int i = 0; i < n; ++i)
-			{ 
+			{
 				Geometry::GeometrySet* subset = _editSet->getSubSetAt(i);
-				//_editSet->removeSubSet(subset);
 				_geoData->appendGeometrySet(subset);
 				emit showSet(subset);
 			}
-			_geoData->removeTopGeometrySet(_body1);
-			_geoData->removeTopGeometrySet(_body2);
-			emit removeDisplayActor(_body1);
-			emit removeDisplayActor(_body2);
+			_geoData->removeTopGeometrySet(_solid1.first);
+			_geoData->removeTopGeometrySet(_solid2.first);
+			emit removeDisplayActor(_solid1.first);
+			emit removeDisplayActor(_solid2.first);
 			emit showSet(_result);
-
-			
 		}
 		else
 		{
-			emit removeDisplayActor(_body1);
-			emit removeDisplayActor(_body2);
+			emit removeDisplayActor(_solid1.first);
+			emit removeDisplayActor(_solid2.first);
 
-			_geoData->removeTopGeometrySet(_body1);
-			_geoData->removeTopGeometrySet(_body2);
+			_geoData->removeTopGeometrySet(_solid1.first);
+			_geoData->removeTopGeometrySet(_solid2.first);
 
-			_result->appendSubSet(_body1);
-			_result->appendSubSet(_body2);
+			_result->appendSubSet(_solid1.first);
+			_result->appendSubSet(_solid2.first);
 
 			_geoData->appendGeometrySet(_result);
 			emit showSet(_result);
@@ -186,17 +236,21 @@ namespace Command
 		_type = t;
 	}
 
-	void CommandBool::setInputBody(Geometry::GeometrySet* b1, Geometry::GeometrySet* b2)
+	void CommandBool::setSolid1(QPair <Geometry::GeometrySet*, int> solid1)
 	{
-		_body1 = b1;
-		_body2 = b2;
+		_solid1 = solid1;
+	}
+
+	void CommandBool::setSolid2(QPair <Geometry::GeometrySet*, int> solid2)
+	{
+		_solid2 = solid2;
 	}
 
 	TopoDS_Shape* CommandBool::cut()
 	{
-		TopoDS_Shape* shape1 = _body1->getShape();
-		TopoDS_Shape* shape2 = _body2->getShape();
-		const TopoDS_Shape& aCuttedShape = BRepAlgoAPI_Cut(*shape1, *shape2);
+		TopoDS_Shape shape1 = *(_solid1.first->getShape(4, _solid1.second));
+		TopoDS_Shape shape2 = *(_solid2.first->getShape(4, _solid2.second));
+		const TopoDS_Shape& aCuttedShape = BRepAlgoAPI_Cut(shape1, shape2);
 		if (aCuttedShape.IsNull()) return nullptr;
 		auto s = new TopoDS_Shape;
 		*s = aCuttedShape;
@@ -205,12 +259,10 @@ namespace Command
 
 	TopoDS_Shape* CommandBool::fause()
 	{
-		TopoDS_Shape* shape1 = _body1->getShape();
-		TopoDS_Shape* shape2 = _body2->getShape();
-		BRepAlgoAPI_Fuse fau(*shape1, *shape2);//BRepAlgoAPI_Fuse
-
-		//fau.PerformDS();
-		//fau.Build();
+		TopoDS_Shape shape1 =* (_solid1.first->getShape(4, _solid1.second));
+		TopoDS_Shape shape2 =* (_solid2.first->getShape(4, _solid2.second));
+		if (shape1.IsNull() || shape2.IsNull()) return nullptr;
+		BRepAlgoAPI_Fuse fau(shape1, shape2);
 		
 		if (!fau.IsDone()) return nullptr;
 		const TopoDS_Shape& aFusedShape = fau.Shape();
@@ -225,10 +277,10 @@ namespace Command
 
 	TopoDS_Shape* CommandBool::common()
 	{
-		TopoDS_Shape* shape1 = _body1->getShape();
-		TopoDS_Shape* shape2 = _body2->getShape();
+		TopoDS_Shape shape1 = *(_solid1.first->getShape(4, _solid1.second));
+		TopoDS_Shape shape2 = *(_solid2.first->getShape(4, _solid2.second));
 	
-		const TopoDS_Shape& aFusedShape = BRepAlgoAPI_Common(*shape1, *shape2);
+		const TopoDS_Shape& aFusedShape = BRepAlgoAPI_Common(shape1, shape2);
 		if (!GeoCommandCommon::isEmpty(aFusedShape))
 		{
 			auto s = new TopoDS_Shape;
@@ -236,7 +288,7 @@ namespace Command
 			return s;
 		}
 		
-		BRepAlgo_Section S(*shape1, *shape2, false);
+		BRepAlgo_Section S(shape1, shape2, false);
 		S.Build();
 		if (S.IsDone())
 		{

@@ -12,8 +12,6 @@ namespace Geometry
 	{
 		_type = GeometryParaMakeExtrusion;
 	}
-
-
 	
 	void GeometryParaExtrusion::setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash)
 	{
@@ -190,7 +188,6 @@ namespace Geometry
 		QString solidsr = solidList.at(0).toElement().text();
 		if (solidsr == "1") _issolid = true;
 		else if (solidsr == "0") _issolid = false;
-
 
 	}
 

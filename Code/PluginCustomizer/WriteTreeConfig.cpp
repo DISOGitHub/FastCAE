@@ -109,7 +109,7 @@ namespace FastCAEDesigner{
 		//nodeNameDict.insert(TreeItemType::ProJectPost2DGraph, "2D Plot");
 		//nodeNameDict.insert(TreeItemType::ProjectPost3DGraph, "Vector");
 
-		int index = 1;
+
 		QList<ModelBase*> rootNodeList = model->GetChildList();
 
 		QStringList disableNodeList{};
@@ -179,7 +179,7 @@ namespace FastCAEDesigner{
 					sl2.append(typeName);
 					//sl2.append(item->GetIconName());
 					sl2.append(iconName);
-					sl2.append(QString::number(index));
+					sl2.append(QString::number(_index));
 					sl2.append(item->GetEngName());
 
 					QMap<QString, QString> treeMap = insertQString(sl1, sl2);
@@ -188,7 +188,9 @@ namespace FastCAEDesigner{
 
 					child.appendChild(parent);
 					root.appendChild(child);
-					index++;
+					_index++;
+
+					wirteSimulationAndSolverGrandSon(doc, root, item);
 				}
 
 			}
@@ -247,6 +249,57 @@ namespace FastCAEDesigner{
 // 		}
 
 		rootNodeList.clear();
+		return true;
+	}
+
+	bool WriteTreeConfig::wirteSimulationAndSolverGrandSon(QDomDocument &doc, QDomElement &root, ModelBase* model)
+	{
+		QMap<TreeItemType, QString> typeNameDict;
+		typeNameDict.insert(TreeItemType::ProjectSimulationSettingGrandSon, "SimulationSettingGrandSon");
+		//typeNameDict.insert(TreeItemType::ProjectBoundaryCondationChild, "BoundaryCondationChild");
+		typeNameDict.insert(TreeItemType::ProjectSolverGrandSon, "SolverSettingGrandSon");
+
+		QList<ModelBase*> childList = model->GetChildList();
+
+		for (int j = 0; j < childList.count(); j++)
+		{
+			ModelBase* item = childList.at(j);
+
+			if (nullptr == item)
+				continue;
+
+			TreeItemType type = (TreeItemType)item->GetType();
+
+			
+			QString typeName = typeNameDict[type];
+			QString parentName = model->GetEngName();
+			QStringList sl1, sl2;
+			QString iconName = SaveIconToSystem(item->GetIconName());
+
+			sl1.append("Chinese");
+			sl1.append("Type");
+			sl1.append("Icon");
+			sl1.append("DataID");
+			sl1.append("Text");
+
+			sl2.append(item->GetChnName());
+			sl2.append(typeName);
+			//sl2.append(item->GetIconName());
+			sl2.append(iconName);
+			sl2.append(QString::number(_index));
+			sl2.append(item->GetEngName());
+
+			QMap<QString, QString> treeMap = insertQString(sl1, sl2);
+			QDomElement child = IoXml::getInstance()->CreateElement(doc, "ChildNode", treeMap);
+			QDomElement parent = IoXml::getInstance()->CreateElement(doc, "Parent", parentName);
+
+			child.appendChild(parent);
+			root.appendChild(child);
+			_index++;
+			
+
+		}
+
 		return true;
 	}
 

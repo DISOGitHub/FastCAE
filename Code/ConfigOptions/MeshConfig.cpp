@@ -1,5 +1,5 @@
 #include "MeshConfig.h"
-#include <qDebug>
+#include <QDebug>
 
 #define MESHON  true;
 #define MESHOFF false;

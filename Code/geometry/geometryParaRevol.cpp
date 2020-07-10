@@ -13,8 +13,6 @@ namespace Geometry
 		_type = GeometryParaMakeRevol;
 	}
 
-
-	
 	void GeometryParaRevol::setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash)
 	{
 		_shapeHash = shapehash;
@@ -60,8 +58,6 @@ namespace Geometry
 			dir[i] = _basept[i];
 		}
 	}
-
-	
 
 	void GeometryParaRevol::setDegree(double d)
 	{
@@ -214,7 +210,6 @@ namespace Geometry
 		solidEle.appendChild(solidText);
 		element.appendChild(solidEle);
 
-
 		parent->appendChild(element);
 		return element;
 	}
@@ -301,9 +296,6 @@ namespace Geometry
 		if (solidsr == "1") _solid = true;
 		else if (solidsr == "0") _solid = false;
 
-
 	}
-
-	
 
 }

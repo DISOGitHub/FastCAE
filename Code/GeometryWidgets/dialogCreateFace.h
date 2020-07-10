@@ -4,7 +4,6 @@
 #include "geoDialogBase.h"
 #include <QMultiHash>
 
-class vtkActor;
 class TopoDS_Shape;
 
 namespace Ui
@@ -25,7 +24,7 @@ namespace GeometryWidget
 
 	private slots:
 	    void on_geoSelectCurve_clicked();
-		void selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set);
+		void shapeSlected(Geometry::GeometrySet* set,  int shape) override;
 
 	private:
 		void init();
@@ -37,7 +36,6 @@ namespace GeometryWidget
 	private:
 		Ui::CreateFaceDialog* _ui{};
 
-		QList<vtkActor*> _actors{};
 		QMultiHash<Geometry::GeometrySet*, int> _shapeHash{};
 	};
 	

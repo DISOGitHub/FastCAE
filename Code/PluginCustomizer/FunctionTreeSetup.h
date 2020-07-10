@@ -126,6 +126,9 @@ namespace FastCAEDesigner
 		//20200327
 		void SetParentModel(QTreeWidgetItem* item);
 
+		ModelBase* getSimulationSolverChildNameModel(QList<ModelBase*> modelList, QString name);
+		ModelBase* getChildModelFromName(ModelBase* model, QString name);
+
 	private:
 		Ui::FunctionTreeSetup *ui;
 		GUI::MainWindow* _mainwindow;

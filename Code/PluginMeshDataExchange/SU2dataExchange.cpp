@@ -36,7 +36,7 @@ namespace MeshData
 				_threadRuning = false;
 				return QString();;
 			}
-			QString line = _stream->readLine().simplified();
+			QString line = _stream->readLine().toLower().simplified();
 			if (line.isEmpty()) continue;
 			return line;
 		}
@@ -52,7 +52,7 @@ namespace MeshData
 		QFile file(_fileName);
 		if (!file.open(QIODevice::ReadOnly)) return false;
 		_stream = new QTextStream(&file);
-		_gird = vtkUnstructuredGrid::New();
+		//_gird = vtkUnstructuredGrid::New();
 
 		QString line;
 		bool success = false;
@@ -78,27 +78,47 @@ namespace MeshData
 			else if (line.contains("nelem="))
 			{
 				_cellNum = line.remove("nelem").remove("=").toInt();
+				vtkUnstructuredGrid* grid = vtkUnstructuredGrid::New();
+				_gridList.append(grid);
 				success = this->readElements();
 			}
 			else if (success && line.contains("npoin"))
 			{
 				_nodeNum = line.remove("npoin").remove("=").toInt();
 				success = this->readNodes();
+				_gridCount++;
 			}
 		}
 
 		if (!success)
 		{
-			_gird->Delete();
-			_gird = nullptr;
+			//_gird->Delete();
+			//_gird = nullptr;
+			//return false;
+			for (int i = 0; i < _gridCount; i++)
+			{
+				vtkUnstructuredGrid* grid = _gridList.at(i);
+				if (grid == nullptr) continue;
+				grid->Delete();
+				grid = nullptr;
+			}
+
 			return false;
 		}
 
-		MeshKernal* k = new MeshKernal;
-		k->setName(name);
-		k->setPath(path);
-		k->setMeshData(_gird);
-		_meshData->appendMeshKernal(k);
+// 		MeshKernal* k = new MeshKernal;
+// 		k->setName(name);
+// 		k->setPath(path);
+// 		k->setMeshData(_gird);
+// 		_meshData->appendMeshKernal(k);
+		for (int i = 0; i < _gridCount; i++)
+		{
+			MeshKernal* k = new MeshKernal;
+			k->setName(name);
+			k->setPath(path);
+			k->setMeshData(_gridList.at(i));
+			_meshData->appendMeshKernal(k);
+		}
 
 		return success;
 	}
@@ -130,8 +150,9 @@ namespace MeshData
 
 			points->InsertNextPoint(coor);
 		}
-		_gird->SetPoints(points);
-		return success;
+		//_gird->SetPoints(points);
+		_gridList.at(_gridCount)->SetPoints(points);
+		return true;
 	}
 
 	bool SU2dataExchange::readElements()
@@ -167,7 +188,8 @@ namespace MeshData
 //				indexList->InsertNextId(index);
 				indexList->InsertNextId(nodeid);
 			}
-			_gird->InsertNextCell(tp, indexList);
+			//_gird->InsertNextCell(tp, indexList);
+			_gridList.at(_gridCount)->InsertNextCell(tp, indexList);
 		}
 		return true;
 	}

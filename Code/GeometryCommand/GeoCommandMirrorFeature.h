@@ -24,7 +24,7 @@ namespace Command
 		void redo() override;
 		void releaseResult() override;
 
-		void setBodys(QList<Geometry::GeometrySet*> b);
+		void setBodys(QMultiHash<Geometry::GeometrySet*, int>  b);
 		void setPlane(double* loc, double* dir);
 		void setSaveOrigin(bool on);
 
@@ -37,7 +37,11 @@ namespace Command
 		void setBasePt(double* basepoint);
 
 	private:
+		//´ýÉ¾
 		QList<Geometry::GeometrySet*> _bodys{};
+		//ÐÂ¼Ó
+		QMultiHash<Geometry::GeometrySet*, int> _solidhash{};
+
 		double _planeLocation[3]{};
 		double _planeDirection[3]{};
 		bool _saveOrigin{ false };

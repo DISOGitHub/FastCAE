@@ -769,7 +769,7 @@
 <context>
     <name>GeometryWidget::BoolOpertionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="+78"/>
+        <location filename="../../GeometryWidgets/dialogBoolOperation.cpp" line="+64"/>
         <source>Cut</source>
         <translation>求差</translation>
     </message>
@@ -789,8 +789,8 @@
         <translation>未命名</translation>
     </message>
     <message>
-        <location line="-31"/>
-        <location line="+57"/>
+        <location line="-27"/>
+        <location line="+71"/>
         <source>Selected body(1)</source>
         <translation>已选择体(1)</translation>
     </message>
@@ -800,7 +800,7 @@
         <translation>已选择体(0)</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+89"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -863,7 +863,7 @@
 <context>
     <name>GeometryWidget::CreateDatumplaneDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="+109"/>
+        <location filename="../../GeometryWidgets/dialogCreateDatumplane.cpp" line="+97"/>
         <location line="+11"/>
         <source>Warning</source>
         <translation>警告</translation>
@@ -882,8 +882,8 @@
 <context>
     <name>GeometryWidget::CreateExtrusionDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="+76"/>
-        <location line="+42"/>
+        <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="+65"/>
+        <location line="+39"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -901,7 +901,7 @@
 <context>
     <name>GeometryWidget::CreateFaceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="+112"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="+120"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -911,8 +911,8 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+105"/>
+        <location line="-57"/>
+        <location line="+118"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -925,7 +925,7 @@
         <translation>编辑</translation>
     </message>
     <message>
-        <location line="+81"/>
+        <location line="+71"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -935,8 +935,8 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-64"/>
-        <location line="+127"/>
+        <location line="-54"/>
+        <location line="+113"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -944,7 +944,7 @@
 <context>
     <name>GeometryWidget::CreateLineDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="+192"/>
+        <location filename="../../GeometryWidgets/dialogCreateLine.cpp" line="+197"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -957,8 +957,8 @@
 <context>
     <name>GeometryWidget::CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="+107"/>
-        <location line="+22"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="+96"/>
+        <location line="+18"/>
         <source>Selected TopEdge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -976,7 +976,7 @@
 <context>
     <name>GeometryWidget::CreatePointDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="+115"/>
+        <location filename="../../GeometryWidgets/dialogCreatePoint.cpp" line="+114"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -989,17 +989,17 @@
 <context>
     <name>GeometryWidget::CreateRevolDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="+166"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="+157"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+13"/>
         <source>Selected Axis_edge(1)</source>
         <translation>已选轴线(1)</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+94"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1025,7 +1025,7 @@
 <context>
     <name>GeometryWidget::GeoDialogBase</name>
     <message>
-        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="+48"/>
+        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="+66"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -1038,22 +1038,26 @@
 <context>
     <name>GeometryWidget::GeoSplitterDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogGeoSplitter.cpp" line="+58"/>
-        <location line="+122"/>
+        <location filename="../../GeometryWidgets/dialogGeoSplitter.cpp" line="+63"/>
         <source>Selected body(1)</source>
         <translation>已选择体(1)</translation>
     </message>
     <message>
-        <location line="-111"/>
-        <location line="+130"/>
+        <location line="+11"/>
+        <location line="+157"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
+    </message>
+    <message>
+        <location line="-13"/>
+        <source>Selected body(%1)</source>
+        <translation>已选择体(%1)</translation>
     </message>
 </context>
 <context>
     <name>GeometryWidget::MakeMatrixDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="+319"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="+323"/>
         <location line="+25"/>
         <source>Warning</source>
         <translation>警告</translation>
@@ -1065,8 +1069,8 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-264"/>
-        <location line="+316"/>
+        <location line="-262"/>
+        <location line="+331"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
@@ -1074,7 +1078,7 @@
 <context>
     <name>GeometryWidget::MeasureDistanceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="+65"/>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="+56"/>
         <source>Selected Object(%1)</source>
         <translation>已选取对象(%1)</translation>
     </message>
@@ -1082,7 +1086,7 @@
 <context>
     <name>GeometryWidget::MirorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="+175"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="+173"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1092,14 +1096,14 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-64"/>
-        <location line="+215"/>
+        <location line="-62"/>
+        <location line="+233"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
-        <location line="-207"/>
-        <location line="+225"/>
+        <location line="-225"/>
+        <location line="+238"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
     </message>
@@ -1107,7 +1111,7 @@
 <context>
     <name>GeometryWidget::MoveFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="+164"/>
+        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="+172"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1118,7 +1122,7 @@
     </message>
     <message>
         <location line="-68"/>
-        <location line="+177"/>
+        <location line="+193"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
@@ -1126,7 +1130,7 @@
 <context>
     <name>GeometryWidget::RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="+184"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="+180"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1136,14 +1140,14 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-115"/>
-        <location line="+203"/>
+        <location line="-112"/>
+        <location line="+219"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
-        <location line="-182"/>
-        <location line="+200"/>
+        <location line="-198"/>
+        <location line="+211"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
@@ -1151,7 +1155,7 @@
 <context>
     <name>GeometryWidget::SketchPlanDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogSketchPlane.cpp" line="+73"/>
+        <location filename="../../GeometryWidgets/dialogSketchPlane.cpp" line="+68"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1164,15 +1168,15 @@
 <context>
     <name>GeometryWidget::SweepDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="+70"/>
+        <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="+61"/>
         <location line="+4"/>
-        <location line="+126"/>
-        <location line="+26"/>
+        <location line="+131"/>
+        <location line="+19"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location line="-131"/>
+        <location line="-129"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1185,26 +1189,22 @@
 <context>
     <name>GeometryWidget::VariableFilletDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="+77"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="+72"/>
+        <location line="+93"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
     </message>
     <message>
-        <location line="+41"/>
-        <location line="+105"/>
+        <location line="-52"/>
+        <location line="+82"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-105"/>
-        <location line="+105"/>
+        <location line="-82"/>
+        <location line="+82"/>
         <source>Input Wrong !</source>
         <translation>输入错误！</translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <source>Selected edge(%1)</source>
-        <translation>已选择边(%1)</translation>
     </message>
 </context>
 <context>

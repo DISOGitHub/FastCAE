@@ -136,6 +136,20 @@ namespace DataProperty
 		if (!appendProperty(pp))
 			delete pp;
 	}
+
+	bool PropertyList::removeProperty(QString name)
+	{		
+		auto p = getPropertyByName(name);
+		if (_propertyList.contains(p))
+		{
+			bool result = _propertyList.removeOne(p);
+			delete p;
+			p = nullptr;
+			return result;
+		}
+		else return false;
+	}
+
 	void PropertyList::copy(PropertyList* propList)
 	{
 		if (propList == nullptr) return;

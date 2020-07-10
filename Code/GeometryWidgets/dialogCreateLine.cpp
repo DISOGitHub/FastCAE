@@ -44,7 +44,6 @@ namespace GeometryWidget
 	CreateLineDialog::~CreateLineDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit updateGraphOptions();
 	}
 
 	void CreateLineDialog::init()
@@ -65,13 +64,14 @@ namespace GeometryWidget
 		else
 		{
 			if (_editSet == nullptr) return;
+			emit hideGeometry(_editSet);
 			_ui->namelineEdit->setText(_editSet->getName());
 			_ui->namelineEdit->setEnabled(false);
 			Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
 			Geometry::GeometryParaLine* p = dynamic_cast<Geometry::GeometryParaLine*>(bp);
 			if (p == nullptr) return;
 
-			int index;
+			int index{};
 			double startpt[3]{0.0},endpt[3]{0.0};
 			p->getStartPoint(startpt);
 			p->getCoor(endpt);
@@ -132,6 +132,11 @@ namespace GeometryWidget
 
 	void CreateLineDialog::reject()
 	{
+		if (_isEdit)
+		{
+			if (_editSet != nullptr)
+				emit showGeometry(_editSet);
+		}
 		QDialog::reject();
 		this->close();
 	}
@@ -160,7 +165,7 @@ namespace GeometryWidget
 			double m = sqrt(dx*dx + dy* dy + dz* dz);
 			if (m < 1e-6)  ok = false;
 		}
-		int index{0};
+		int index{ 0 };
 		double coor[3]{0.0};
 		double len;
 		double dir[3] = { 0.0 };

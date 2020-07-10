@@ -3,12 +3,7 @@
 #include "MainWidgets/preWindow.h"
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "geometry/geometrySet.h"
-#include <QColor>
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <TopoDS.hxx>
 #include <TopExp_Explorer.hxx>
 #include <BRep_Tool.hxx>
@@ -22,14 +17,16 @@ namespace GeometryWidget
 		_ui = new Ui::geoPointWidget;
 		_ui->setupUi(this);
 		connect(this, SIGNAL(setSelectMode(int)), _mainWindow, SIGNAL(selectModelChangedSig(int)));
-		connect(p, SIGNAL(selectGeoActorShape(vtkActor*, int, Geometry::GeometrySet*)), this, SLOT(selectPoint(vtkActor*, int, Geometry::GeometrySet*)));
-		connect(this, SIGNAL(updateGraphOptions()), m, SIGNAL(updateGraphOptionsSig()));
+		connect(_preWindow, SIGNAL(geoShapeSelected(Geometry::GeometrySet*, int)), this, SLOT(selectPoint(Geometry::GeometrySet*, int)));
+		connect(this, SIGNAL(highLightGeometryPointSig(Geometry::GeometrySet*, int, bool)), _preWindow, SIGNAL(highLightGeometryPoint(Geometry::GeometrySet*, int, bool)));
+		connect(this, SIGNAL(clearGeometryHighLightSig()), _preWindow, SIGNAL(clearGeometryHighLight()));
+
 	}
 
 	GeoPointWidget::~GeoPointWidget()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit updateGraphOptions();
+		emit clearGeometryHighLightSig();
 		emit setSelectMode(int(ModuleBase::None));
 	}
 
@@ -58,19 +55,25 @@ namespace GeometryWidget
 		emit buttonCkicked(this);
 	}
 
-	void GeoPointWidget::selectPoint(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void GeoPointWidget::selectPoint(Geometry::GeometrySet* set, int index)
 	{
 		if (!_handle) return;
-		QColor color;
-		if (_selectedActor != nullptr)
+		if (set == nullptr) return;
+		
+		if (_selectedPoint.first != nullptr)
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor();
-			_selectedActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			emit highLightGeometryPointSig(_selectedPoint.first, _selectedPoint.second, false);
+			_selectedPoint.first = set;
+			_selectedPoint.second = index;
+		
 		}
-		_selectedActor = ac;
-		color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
+		else
+		{
+			_selectedPoint.first = set;
+			_selectedPoint.second = index;
+			
+		}
+		emit highLightGeometryPointSig(_selectedPoint.first, _selectedPoint.second, true);
 		TopoDS_Shape* shape = set->getShape();
 		TopExp_Explorer ptExp(*shape, TopAbs_VERTEX);
 		for (int k = 0; k < index; ++k) ptExp.Next();

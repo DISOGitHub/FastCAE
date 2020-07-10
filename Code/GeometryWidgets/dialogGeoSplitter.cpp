@@ -4,10 +4,6 @@
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
 #include "python/PyAgent.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <BOPAlgo_Splitter.hxx>
 #include <TopExp_Explorer.hxx>
 #include <BRepTools.hxx>
@@ -16,6 +12,7 @@
 #include "GeometryCommand/GeoCommandGeoSplitter.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "geometry/geometryParaGeoSplitter.h"
+
 namespace GeometryWidget
 {
 	GeoSplitterDialog::GeoSplitterDialog(GUI::MainWindow* m, MainWidget::PreWindow* p) :
@@ -47,6 +44,7 @@ namespace GeometryWidget
 	{
 		if (_isEdit)
 		{
+			_ui->geoSelectSurface->setEnabled(false);
 			if (_editSet == nullptr) return;
 
 			Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
@@ -54,24 +52,30 @@ namespace GeometryWidget
 			if (p == nullptr) return;
 			auto oriset = p->getOriSet();
 			if (oriset == nullptr) return;
-			_body = oriset;
+			_bodysHash = p->getBodys();
+			if (_bodysHash.size() < 1) return;
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+			for (; iter != _bodysHash.end(); ++iter)
+			{
+				emit highLightGeometrySolidSig(iter.key(), iter.value(), true);
+			}
 			QString text = QString(tr("Selected body(1)"));
 			_ui->bodylabel->setText(text);
 
 			emit hideGeometry(_editSet);
 			emit showGeometry(oriset);
 			emit highLightGeometrySet(oriset, true);
-			_faceIndex = p->getFaceIndex();
-			_faceBody = p->getFaceBody();
-			if (_faceIndex >= 0 && _faceBody != nullptr)
+			_faceBodyPair.second = p->getFaceIndex();
+			_faceBodyPair.first = p->getFaceBody();
+
+			if (_faceBodyPair.second >= 0 && _faceBodyPair.first != nullptr)
 			{
-				emit highLightGeometryFace(_faceBody, _faceIndex, &_faceActor);
+				emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, true);
 				_ui->bodylabel_2->setText(tr("Selected Plane(1)"));
 			}
 		}
 			
 	}
-
 	
 	void GeoSplitterDialog::closeEvent(QCloseEvent *e)
 	{
@@ -102,17 +106,19 @@ namespace GeometryWidget
 	void GeoSplitterDialog::accept()
 	{
 		bool success{ true };
-		if (_faceBody == nullptr || _body == nullptr || _faceIndex < 0)
+		if (_faceBodyPair.first == nullptr || _bodysHash.size() < 1 || _faceBodyPair.second < 0)
 			success = false;
 		if (!success) return;
-
 		QStringList codes{};
 		codes += QString("geosplitter = CAD.GeoSplitter()");
-
+		QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+		for (; it != _bodysHash.end(); it++)
+		{
+			codes += QString("geosplitter.appendBody(%1,%2)").arg(it.key()->getID()).arg(it.value());
+		}
 		if (_isEdit)
 			codes += QString("geosplitter.setEditID(%1)").arg(_editSet->getID());
-		codes += QString("geosplitter.setBody(%1)").arg(_body->getID());
-		codes += QString("geosplitter.setFace(%1,%2)").arg(_faceIndex).arg(_faceBody->getID());
+		codes += QString("geosplitter.setFace(%1,%2)").arg(_faceBodyPair.first->getID()).arg(_faceBodyPair.second);
 		if (_isEdit)
 			codes += QString("geosplitter.edit()");
 		else
@@ -141,66 +147,90 @@ namespace GeometryWidget
 		emit setSelectMode((int)ModuleBase::GeometrySurface);
 		_selectPlane = true;
 		_selectBody = false;
-		if ((_faceActor.size() > 0) && (_faceActor[0] != nullptr))
-		{
-			QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		}
 
-		if (_body != nullptr)
+		if (_faceBodyPair.first != nullptr&&_faceBodyPair.second >= 0)
 		{
-			emit highLightGeometrySet(_body, false);
+			emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, true);
+		}
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
 		}
 	}
 
 	void GeoSplitterDialog::on_geoSelectSurface_clicked()
 	{
-		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		emit setSelectMode((int)ModuleBase::GeometryBody);
 		_selectPlane = false;
 		_selectBody = true;
-		if ((_faceActor.size() > 0) && (_faceActor[0] != nullptr))
+		if (_faceBodyPair.first != nullptr&&_faceBodyPair.second >= 0)
 		{
-			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
+			emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, false);
 		}
-		if (_body != nullptr)
-			emit highLightGeometrySet(_body, true);
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], true);
+			}
+		}
+		
 		
 	}
 
-	void GeoSplitterDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+	
+	void GeoSplitterDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 		if (_selectBody)
 		{
-			if (_body == set) return;
-			emit highLightGeometrySet(_body, false);
-			_body = set;
-			emit highLightGeometrySet(_body, true);
-			QString text = QString(tr("Selected body(1)"));
+			bool legal{};
+			if (_bodysHash.size() > 0)
+			{
+				QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+				for (; it != _bodysHash.end(); it++)
+				{
+					if (it.key() == set&& it.value() == index)
+					{
+						it = _bodysHash.erase(it);
+						emit highLightGeometrySolidSig(set, index, false);
+						legal = true;
+						break;
+					}
+				}
+
+			}
+			if (!legal)
+			{
+				_bodysHash.insert(set, index);
+				emit highLightGeometrySolidSig(set, index, true);
+			}
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 			_ui->bodylabel->setText(text);
 		}
 		else if (_selectPlane)
 		{
-			QColor color;
-			if ((_faceActor.size() > 0) && (_faceActor[0] != nullptr))
+			if (_faceBodyPair.first != nullptr)
 			{
-				color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-				_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+				emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, false);
 			}
+			_faceBodyPair.first = set;
+			_faceBodyPair.second = index;
 
-			_faceActor.insert(0, actor);
-
-			_faceIndex = index;
-			_faceBody = set;
-
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			emit highLightGeometryFaceSig(_faceBodyPair.first, index, true);
 			_ui->bodylabel_2->setText(tr("Selected Plane(1)"));
+			
 		}
 	}
 
-
-
-	
 }

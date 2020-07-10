@@ -140,8 +140,6 @@ namespace Geometry
 			QString solidsr = solidList.at(0).toElement().text();
 			if (solidsr == "1") _issolid = true;
 			else if (solidsr == "0") _issolid = false;
-
-		
 	}
 	
 

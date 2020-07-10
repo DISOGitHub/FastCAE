@@ -134,6 +134,13 @@ namespace FastCAEDesigner
 		bool getIconNameIsAvailable(QString iconName);
 		void removeIconNameFromList(QString iconName);
 
+		void appendParameterNameList(QString name);
+		QList<QString> getParameterNameList();
+		void removeParameterName(QString name);
+		void appendParaGroupNameList(QString name);
+		QList<QString> getParaGroupNameList();
+		void removeParaGroupName(QString name);
+
 	private:
 		bool ReadGlobalConfig();                       //读取基础配置信息
 		bool ReadGeometryConfig();
@@ -196,6 +203,9 @@ namespace FastCAEDesigner
 
 		//20200324
 		QList<QString> _iconNameList{};
+
+		QList<QString> _parameterNameList{};
+		QList<QString> _paraGroupNameList{};
 	};
 }
 

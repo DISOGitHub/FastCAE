@@ -2,8 +2,6 @@
 #include "ui_dialogMirrorFeature.h"
 #include "mainWindow/mainWindow.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
 #include "geoPointWidget.h"
@@ -11,8 +9,6 @@
 #include "GeometryCommand/GeoCommandList.h"
 #include <QColor>
 #include <QMessageBox>
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS.hxx>
@@ -51,8 +47,7 @@ namespace GeometryWidget
 	MirorFeatureDialog::~MirorFeatureDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
+		
 	}
 
 	void MirorFeatureDialog::closeEvent(QCloseEvent *e)
@@ -72,8 +67,7 @@ namespace GeometryWidget
 			Geometry::GeometrySet*  originalSet = p->getOriSet();
 			if (originalSet == nullptr) return;
 			emit showGeometry(_editSet);
-			if (p->getSaveOrigion() == false)
-				emit hideGeometry(originalSet);
+			emit hideGeometry(originalSet);
 		}
 		QDialog::reject();
 		this->close();
@@ -89,6 +83,7 @@ namespace GeometryWidget
 		connect(_pw, SIGNAL(buttonCkicked(GeoPointWidget*)), this, SLOT(pointWidgetClicked(GeoPointWidget*)));
 		if (_isEdit)
 		{
+			_ui->geoSelectSurface->setEnabled(false);
 			if (_editSet == nullptr) return;
 			
 			Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
@@ -97,28 +92,32 @@ namespace GeometryWidget
 
 			auto subset = p->getOriSet();
 			if (subset == nullptr) return;
-			_geobodyList.append(subset);//
 			emit hideGeometry(_editSet);
 			emit showGeometry(subset);
-			emit highLightGeometrySet(subset, true);
 			
 			int typeindex = p->getCurrentIndex();
 			_ui->comboBoxType->setCurrentIndex(typeindex);
 			_ui->tabWidget->setCurrentIndex(typeindex);
 			_ui->checkBoxSaveOrigin->setChecked(p->getSaveOrigion());
-
-			if (_geobodyList.size() < 1) return;
-			QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+			_bodysHash = p->getBodys();
+			if (_bodysHash.size() < 1) return;
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+			for (; iter != _bodysHash.end(); ++iter)
+			{
+				emit highLightGeometrySolidSig(iter.key(), iter.value(), true);
+			}
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 			_ui->bodylabel->setText(text);
 
 			if (typeindex==0)
 			{
-				int faceindex = p->getFaceIndex();
-				_faceBody = p->getFaceBody();
-				if (_faceBody == nullptr)return;
+				_faceBodyPair.second = p->getFaceIndex();
+				_faceBodyPair.first = p->getFaceBody();
+			
+				if (_faceBodyPair.first == nullptr)return;
 				_ui->planelabel->setText(tr("Selected Plane(1)"));
-				if (_faceBody!=nullptr)
-					emit highLightGeometryFace(_faceBody, faceindex,&_faceActor );
+				if (_faceBodyPair.first!=nullptr)
+					emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second,true );
 			}
 			else if (typeindex==1)
 			{
@@ -166,11 +165,9 @@ namespace GeometryWidget
 		bool s = _ui->checkBoxSaveOrigin->isChecked();
 		
 		if (_typeindex == 0)
-			if (_faceBody == nullptr) legal = false;
+			if (_faceBodyPair.first == nullptr) legal = false;
 		
-
-
-		if ((!legal) || _geobodyList.size() < 1)
+		if ((!legal) || _bodysHash.size() < 1)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
@@ -217,22 +214,22 @@ namespace GeometryWidget
 
 		if (_isEdit)
 			codes += QString("mirrorfeature.setEditID(%1)").arg(_editSet->getID());
-		QString setidStr{};
-		for (int i = 0; i < _geobodyList.size(); ++i)
+	
+		QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+		for (; it != _bodysHash.end(); it++)
 		{
-			setidStr.append(QString::number((_geobodyList[i]->getID())));
-			if (i != (_geobodyList.size() - 1)) setidStr.append(",");
+			codes += QString("mirrorfeature.appendBody(%1,%2)").arg(it.key()->getID()).arg(it.value());
 		}
-		codes += QString("mirrorfeature.setBodys('%1')").arg(setidStr);
+
 		QString mestr{};
 		if (_typeindex == 0) mestr = "SelectPlaneOnGeo";
 		else if (_typeindex == 1) mestr = "Coordinate";
 		else if (_typeindex == 2) mestr = "Random";
-		codes += QString("mirrorfeature.setSymmetricPlaneMethod('%1')").arg(mestr);//method
+		codes += QString("mirrorfeature.setSymmetricPlaneMethod('%1')").arg(mestr);
 		int planindex = _ui->comboBoxPlane->currentIndex();
-		if (_typeindex==0)
-			codes += QString("mirrorfeature.setFace(%1,%2)").arg(_faceIndex).arg(_faceBody->getID());
-		
+
+		if (_typeindex == 0)
+			codes += QString("mirrorfeature.setFace(%1,%2)").arg(_faceBodyPair.first->getID()).arg(_faceBodyPair.second);
 		if (_typeindex == 1)
 		{
 			QString planestr{};
@@ -241,12 +238,12 @@ namespace GeometryWidget
 			else if (planindex == 2) planestr = "YOZ";
 			codes += QString("mirrorfeature.setPlaneMethod('%1')").arg(planestr);
 		}
-
 		if (_typeindex == 2)
 		{
 			codes += QString("mirrorfeature.setBasePt(%1,%2,%3)").arg(_basepoint[0]).arg(_basepoint[1]).arg(_basepoint[2]);
 			codes += QString("mirrorfeature.setDir(%1,%2,%3)").arg(_randomdir[0]).arg(_randomdir[1]).arg(_randomdir[2]);
 		}
+
 		QString savestr{"No"};
 		if (s) savestr = "Yes";
 		codes += QString("mirrorfeature.SaveOrigin('%1')").arg(savestr);
@@ -269,23 +266,28 @@ namespace GeometryWidget
 
 	void MirorFeatureDialog::on_geoSelectSurface_clicked()
 	{
-		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		emit setSelectMode((int)ModuleBase::GeometryBody);
 		_selectPlane = false;
 		_selectBody = true;
 		_pw->handleProcess(false);
 
-		if ((_faceActor.size() > 0) && (_faceActor[0] != nullptr))
-		{
-			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
-		}
 		
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		if (_faceBodyPair.first != nullptr&&_faceBodyPair.second >= 0)
 		{
-			Geometry::GeometrySet* set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, true);
+			emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, false);
 		}
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+		
+		for (int i = 0; i < geolist.size(); ++i)
+		{
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], true);
+			}
+		}
+
 	}
 
 	void MirorFeatureDialog::on_geoSelectSurface_1_clicked()
@@ -295,55 +297,67 @@ namespace GeometryWidget
 		_selectBody = false;
 		_pw->handleProcess(false);
 
-		if ((_faceActor.size()>0) && (_faceActor[0] != nullptr))
+
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
 		{
-			QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
 		}
 
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		if (_faceBodyPair.first != nullptr&&_faceBodyPair.second >= 0)
 		{
-			Geometry::GeometrySet* set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, false);
+			emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, true);
 		}
+		
 
 	}
 
-	void MirorFeatureDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+	void MirorFeatureDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 		if (_selectBody)
 		{
-			if (_geobodyList.contains(set))
+			bool legal{};
+			if (_bodysHash.size() > 0)
 			{
-				_geobodyList.removeOne(set);
-				emit highLightGeometrySet(set, false);
+				QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+				for (; it != _bodysHash.end(); it++)
+				{
+					if (it.key() == set&& it.value() == index)
+					{
+						it = _bodysHash.erase(it);
+						emit highLightGeometrySolidSig(set, index, false);
+						legal = true;
+						break;
+					}
+				}
+				
 			}
-			else
+			if (!legal)
 			{
-				_geobodyList.append(set);
-				emit highLightGeometrySet(set, true);
+				_bodysHash.insert(set, index);
+				emit highLightGeometrySolidSig(set, index, true);
 			}
-			QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 			_ui->bodylabel->setText(text);
 		}
 		else if (_selectPlane)
 		{
-			QColor color;
-			if ((_faceActor.size()>0) && (_faceActor[0] != nullptr))
+			if (_faceBodyPair.first != nullptr)
 			{
-				color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-				_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+				emit highLightGeometryFaceSig(_faceBodyPair.first, _faceBodyPair.second, false);
 			}
-			
-			_faceActor.insert(0, actor);
-			_faceIndex = index;
-			_faceBody = set;
+			_faceBodyPair.first = set;
+			_faceBodyPair.second = index;
 
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_faceActor[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			emit highLightGeometryFaceSig(_faceBodyPair.first, index, true);
 			_ui->planelabel->setText(tr("Selected Plane(1)"));
 		}
-
 	}
 
 	bool MirorFeatureDialog::getDirection(double* basePt, double* dir)
@@ -352,11 +366,11 @@ namespace GeometryWidget
 		if (_ui->comboBoxType->currentIndex() == 0)
 		{
 			_planeindex = 0;
-			if (_faceBody == nullptr) return false;
+			if (_faceBodyPair.first == nullptr) return false;
 
-			TopoDS_Shape* shape = _faceBody->getShape();
+			TopoDS_Shape* shape = _faceBodyPair.first->getShape();
 			TopExp_Explorer faceExp(*shape, TopAbs_FACE);
-			for (int index = 0; index < _faceIndex && faceExp.More(); faceExp.Next(), ++index);
+			for (int index = 0; index < _faceBodyPair.second && faceExp.More(); faceExp.Next(), ++index);
 
 			const TopoDS_Shape& faceShape = faceExp.Current();
 			if (faceShape.IsNull()) return false;
@@ -427,6 +441,11 @@ namespace GeometryWidget
 
 	void MirorFeatureDialog::pointWidgetClicked(GeoPointWidget* g)
 	{
+		QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+		for (; iter != _bodysHash.end(); ++iter)
+		{
+			emit highLightGeometrySolidSig(iter.key(), iter.value(), false);
+		}
 		g->handleProcess(true);
 		_selectPlane = false;
 		_selectBody = false;

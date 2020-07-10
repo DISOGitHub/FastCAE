@@ -16,7 +16,6 @@ namespace Geometry
 	class GeometrySet;
 }
 
-class vtkActor;
 class TopoDS_Shape;
 
 namespace GeometryWidget
@@ -31,7 +30,7 @@ namespace GeometryWidget
 
 
 	private slots:
-		void selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int shape) override;
 		void on_geoSelectCurve_clicked();
 		void on_geoSelectCurve_1_clicked();
 
@@ -39,8 +38,8 @@ namespace GeometryWidget
 		void closeEvent(QCloseEvent *e);
 		void accept();
 		void reject();
-		void selectSection(vtkActor* ac, int shape, Geometry::GeometrySet* set);
-		void selectPath(vtkActor* ac, int shape, Geometry::GeometrySet* set);
+		void selectSection(int shape, Geometry::GeometrySet* set);
+		void selectPath(int shape, Geometry::GeometrySet* set);
 		void init();
 
 	private:
@@ -48,10 +47,7 @@ namespace GeometryWidget
 		bool _selectSection{ false }; 
 		bool _selectPath{ false };
 		bool _solid{ true};
-		QList<vtkActor*> _sectionActors{};
 		QMultiHash<Geometry::GeometrySet*, int> _sectionEdgeHash{};
-
-		vtkActor* _pathActor{};
 		QPair<Geometry::GeometrySet*, int> _pathEdge{};
 	};
 }

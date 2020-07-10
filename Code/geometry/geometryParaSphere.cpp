@@ -73,9 +73,6 @@ namespace Geometry
 		_name = e->attribute("Name");
 		QDomNodeList radiusList = e->elementsByTagName("Radius");
 		_radius = radiusList.at(0).toElement().text().toDouble();
-
-		
-
 		QDomNodeList locList = e->elementsByTagName("Location");
 		if (locList.size() != 1) return;
 		QDomElement locele = locList.at(0).toElement();

@@ -4,7 +4,7 @@
 <context>
     <name>Gmsh::GmshModule</name>
     <message>
-        <location filename="../../Gmsh/GmshModule.cpp" line="+91"/>
+        <location filename="../../Gmsh/GmshModule.cpp" line="+92"/>
         <source>Gmsh Working...</source>
         <translation>Gmsh工作中…</translation>
     </message>
@@ -12,7 +12,7 @@
 <context>
     <name>Gmsh::GmshThread</name>
     <message>
-        <location filename="../../Gmsh/GmshThread.cpp" line="+284"/>
+        <location filename="../../Gmsh/GmshThread.cpp" line="+265"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -25,12 +25,14 @@
 <context>
     <name>Gmsh::SolidMeshDialog</name>
     <message>
-        <location filename="../../Gmsh/DialogSolidMesh.cpp" line="+56"/>
-        <source>Selected solid(%1)</source>
+        <location filename="../../Gmsh/DialogSolidMesh.cpp" line="+63"/>
+        <location line="+95"/>
+        <location line="+48"/>
+        <source>Selected Solid(%1)</source>
         <translation>已选实体(%1)</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+8"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -43,12 +45,14 @@
 <context>
     <name>Gmsh::SurfaceMeshDialog</name>
     <message>
-        <location filename="../../Gmsh/DialogSurfaceMesh.cpp" line="+53"/>
+        <location filename="../../Gmsh/DialogSurfaceMesh.cpp" line="+66"/>
+        <location line="+54"/>
+        <location line="+42"/>
         <source>Selected Surface(%1)</source>
         <translation>已选曲面(%1)</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+8"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -66,34 +70,99 @@
         <translation>局部密度</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+257"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-33"/>
+        <source>Type</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <location line="-218"/>
         <source>Local</source>
         <translation>局部设置</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>Value:</source>
-        <translation>参数值：</translation>
+        <location line="+8"/>
+        <source>X Axis</source>
+        <translation>X 轴</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+7"/>
+        <source>Y Axis</source>
+        <translation>Y 轴</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Z Axis</source>
+        <translation>Z 轴</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Custom</source>
+        <translation>自定义</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>X:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Y:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Z:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+113"/>
+        <source>Backgroun Field</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+89"/>
+        <source>Type：</source>
+        <translation>类型：</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Box</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Ball</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Cylinder</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="-92"/>
         <source>Add</source>
         <translation>添加</translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>Point</source>
-        <translation>点坐标</translation>
+        <location line="+30"/>
+        <source>GeoInfo</source>
+        <translation>几何信息</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Value</source>
-        <translation>参数值</translation>
+        <translation>默认值</translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Point</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -104,17 +173,27 @@
         <translation>实体网格剖分</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+262"/>
         <source>Solid</source>
         <translation>实体</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Select All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Select Visible</source>
+        <translation>选择可见项</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Selected Solid(0)</source>
         <translation>已选实体(0)</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="-167"/>
         <source>Parameter</source>
         <translation>参数</translation>
     </message>
@@ -174,7 +253,7 @@
         <translation>最大单元尺寸：</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="-229"/>
         <source>Geometry Clean</source>
         <translation>几何清理</translation>
     </message>
@@ -184,12 +263,12 @@
         <translation>网格连贯</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+34"/>
         <source>Local setting</source>
         <translation>局部密度</translation>
     </message>
     <message>
-        <location line="-224"/>
+        <location line="+9"/>
         <source>Element Type</source>
         <translation>网格类型</translation>
     </message>
@@ -232,7 +311,17 @@
         <translation>曲面</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
+        <source>Select All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Select Visible</source>
+        <translation>选择可见项</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Selected Surface(0)</source>
         <translation>已选曲面(0)</translation>
     </message>

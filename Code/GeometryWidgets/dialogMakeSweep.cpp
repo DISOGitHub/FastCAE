@@ -1,9 +1,5 @@
 #include "dialogMakeSweep.h"
 #include "ui_dialogMakeSweep.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <QMessageBox>
 #include "geometry/geometrySet.h"
 #include "GeometryCommand/GeoCommandList.h"
@@ -35,8 +31,6 @@ namespace GeometryWidget
 	SweepDialog::~SweepDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
 	}
 
 	void SweepDialog::init()
@@ -59,14 +53,11 @@ namespace GeometryWidget
 			if (set == nullptr) return;
 			for(int var : edlist)
 			{
-				emit highLightGeometryEdge(set, var, &_sectionActors);
+				emit highLightGeometryEdgeSig(set, var, true);
 			}
 			
 		}
-		QList<vtkActor*> acs;
-		emit highLightGeometryEdge(_pathEdge.first, _pathEdge.second,&acs);
-		_pathActor = acs.at(0);
-
+		emit highLightGeometryEdgeSig(_pathEdge.first, _pathEdge.second, true);
 		QString label = QString(tr("Selected edge(%1)")).arg(_sectionEdgeHash.size());
 		_ui->edglabel->setText(label);
 		if (_pathEdge.first != nullptr)
@@ -87,7 +78,7 @@ namespace GeometryWidget
 	{
 		bool ok = true;
 
-		if (_pathActor == nullptr || _sectionActors.size() < 1||_pathEdge.first==nullptr)
+		if ( _sectionEdgeHash.size() < 1||_pathEdge.first==nullptr)
 			ok = false;
 		
 		if (!ok)
@@ -156,13 +147,12 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void SweepDialog::selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set)
+	void SweepDialog::shapeSlected(Geometry::GeometrySet* set, int shape)
 	{
-
 		if (_selectPath && !_selectSection)
-			selectPath(ac, shape, set);
+			selectPath(shape, set);
 		else if (_selectSection && !_selectPath)
-			selectSection(ac, shape, set);
+			selectSection(shape, set);
 	}
 
 	void SweepDialog::on_geoSelectCurve_clicked()
@@ -170,6 +160,7 @@ namespace GeometryWidget
 		_selectPath = false;
 		_selectSection = true;
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
+		for (QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _sectionEdgeHash.begin(); iter != _sectionEdgeHash.end(); ++iter)		{			emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);		}
 	}
 
 	void SweepDialog::on_geoSelectCurve_1_clicked()
@@ -177,51 +168,46 @@ namespace GeometryWidget
 		_selectPath = true;
 		_selectSection = false;
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
+		if (_pathEdge.first!=nullptr)
+		{
+			emit highLightGeometryEdgeSig(_pathEdge.first, _pathEdge.second, true);
+		}
 	}
 
-	void SweepDialog::selectSection(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void SweepDialog::selectSection(int index, Geometry::GeometrySet* set)
 	{
 		QColor color;
-		if (_sectionActors.contains(ac))
+		if (_sectionEdgeHash.contains(set,index))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_sectionActors.removeOne(ac);
+
+			emit highLightGeometryEdgeSig(set, index, false);
 			_sectionEdgeHash.remove(set, index);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_sectionActors.append(ac);
+			emit highLightGeometryEdgeSig(set, index, true);
 			_sectionEdgeHash.insert(set, index);
 		}
 
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
 
-		QString label = QString(tr("Selected edge(%1)")).arg(_sectionActors.size());
+		QString label = QString(tr("Selected edge(%1)")).arg(_sectionEdgeHash.size());
 		_ui->edglabel->setText(label);
 	}
 
-	void SweepDialog::selectPath(vtkActor* ac, int shape, Geometry::GeometrySet* set)
+	void SweepDialog::selectPath(int shape, Geometry::GeometrySet* set)
 	{
-		if (ac == nullptr) return;
-		if (_sectionActors.contains(ac)) return;
+		if (_sectionEdgeHash.contains(set,shape)) return;
 
 		QColor color;
-		if (_pathActor != nullptr)
+		if (_pathEdge.first != nullptr)
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_pathActor ->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-			_pathActor = nullptr;
+			emit highLightGeometryEdgeSig(_pathEdge.first, _pathEdge.second, false);
 			_pathEdge.first = nullptr;
 			_pathEdge.second = shape;
 		}
-		
-		color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		_pathActor = ac;
 		_pathEdge.first = set;
 		_pathEdge.second = shape;
-		
-		_pathActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+		emit highLightGeometryEdgeSig(_pathEdge.first, _pathEdge.second, true);
 
 		QString label = QString(tr("Selected edge(%1)")).arg(1);
 		_ui->pathlabel->setText(label);

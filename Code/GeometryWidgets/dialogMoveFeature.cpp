@@ -39,8 +39,6 @@ namespace GeometryWidget
 	MoveFeatureDialog::~MoveFeatureDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
 	}
 
 	void MoveFeatureDialog::closeEvent(QCloseEvent *e)
@@ -54,6 +52,7 @@ namespace GeometryWidget
 
 		if (_isEdit)
 		{
+			
 			if (_editSet == nullptr) return;
 			Geometry::GeometryModelParaBase* pb = _editSet->getParameter();
 			Geometry::GeometryParaMakeMove* p = dynamic_cast<Geometry::GeometryParaMakeMove*>(pb);
@@ -61,8 +60,8 @@ namespace GeometryWidget
 			Geometry::GeometrySet*  originalSet = p->getOriSet();
 			if (originalSet == nullptr) return;
 			emit showGeometry(_editSet);
-			if (p->getSaveOrigion() == false)
-				emit hideGeometry(originalSet);
+			emit hideGeometry(originalSet);
+				
 		}
 		QDialog::reject();
 		this->close();
@@ -80,20 +79,24 @@ namespace GeometryWidget
 		connect(_endWidget, SIGNAL(buttonCkicked(GeoPointWidget*)), this, SLOT(pointWidgetClicked(GeoPointWidget*)));
 		if (_isEdit)
 		{
+			_ui->geoSelectSurface->setEnabled(false);
 			if (_editSet == nullptr) return;
 			Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
 			Geometry::GeometryParaMakeMove* p = dynamic_cast<Geometry::GeometryParaMakeMove*>(bp);
 			if (p == nullptr) return;
-			
 			auto subset = p->getOriSet();
 			if (subset == nullptr) return;
-			_geobodyList.append(subset);
 			emit hideGeometry(_editSet);
 			emit showGeometry(subset);
-			emit highLightGeometrySet(subset, true);
 
-			if (_geobodyList.size() < 1) return;
-			QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+			_bodysHash = p->getBodys();
+			if (_bodysHash.size() < 1) return;
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+			for (; iter != _bodysHash.end(); ++iter)
+			{
+				emit highLightGeometrySolidSig(iter.key(), iter.value(), true);
+			}
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 			_ui->edgelabel->setText(text);
 
 			double basept[3]{0.0}, endpt[3]{0.0};
@@ -159,7 +162,7 @@ namespace GeometryWidget
 		QString text = _ui->lineEditLength->text();
 		double length = text.toDouble(&ok);
 
-		if (!ok || _geobodyList.size() < 1)
+		if (!ok || _bodysHash.size() < 1)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
@@ -192,19 +195,17 @@ namespace GeometryWidget
 
 		if (_isEdit)
 			codes += QString("movefeature.setEditID(%1)").arg(_editSet->getID());
-		QString setidStr{};
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+		for (; it != _bodysHash.end(); it++)
 		{
-			setidStr.append(QString::number((_geobodyList[i]->getID())));
-			if (i != (_geobodyList.size() - 1)) setidStr.append(",");
+			codes += QString("movefeature.appendBody(%1,%2)").arg(it.key()->getID()).arg(it.value());
 		}
-		codes += QString("movefeature.setBodys('%1')").arg(setidStr);
-		_optionindex = _ui->comboBoxOption->currentIndex();
+		_optionindex = _ui->comboBoxOption->currentIndex(); 
 		QString method{};
 		if (_optionindex == 0) method = "Two Points";
 		else method = "Distance";
 		codes += QString("movefeature.TransformMethod('%1')").arg(method);
-
+		
 		if (_optionindex == 0)
 		{
 			codes += QString("movefeature.setStartPoint(%1,%2,%3)").arg(startPoint[0]).arg(startPoint[1]).arg(startPoint[2]);
@@ -244,33 +245,51 @@ namespace GeometryWidget
 
 	void MoveFeatureDialog::on_geoSelectSurface_clicked()
 	{
-		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		emit setSelectMode((int)ModuleBase::GeometryBody);
 		_baseWidget->handleProcess(false);
 		_endWidget->handleProcess(false);
 		_selectBody = true;
 		
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+		
+		for (int i = 0; i < geolist.size(); ++i)
 		{
-			auto set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, true);
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], true);
+			}
 		}
-
 	}
 
-	void MoveFeatureDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+	void MoveFeatureDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
+
 		if (!_selectBody) return;
-		if (_geobodyList.contains(set))
+
+		bool legal{};
+		if (_bodysHash.size() > 0)
 		{
-			emit highLightGeometrySet(set, false);
-			_geobodyList.removeOne(set);
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+			for (; it != _bodysHash.end(); it++)
+			{
+				if (it.key() == set&& it.value() == index)
+				{
+					it = _bodysHash.erase(it);
+					emit highLightGeometrySolidSig(set, index, false);
+					legal = true;
+					break;
+				}
+			}
+
 		}
-		else
+		if (!legal)
 		{
-			emit highLightGeometrySet(set, true);
-			_geobodyList.append(set);
+			_bodysHash.insert(set, index);
+			emit highLightGeometrySolidSig(set, index, true);
 		}
-		QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+		QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 		_ui->edgelabel->setText(text);
 
 	}
@@ -282,11 +301,19 @@ namespace GeometryWidget
 		_endWidget->handleProcess(false);
 		w->handleProcess(true);
 
-		for (int i = 0; i < _geobodyList.size(); ++i)
+
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
 		{
-			auto set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, false);
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
 		}
+
 	}
 	void MoveFeatureDialog::on_radioButtonUser()
 	{

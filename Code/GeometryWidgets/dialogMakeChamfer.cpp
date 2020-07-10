@@ -4,14 +4,10 @@
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
 #include "geometry/geometrySet.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandCreateChamfer.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "geometry/geometryParaChamfer.h"
 #include "python/PyAgent.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include<QDebug>
 
@@ -48,33 +44,33 @@ namespace GeometryWidget
 
 	void CreateChamferDialog::init()
 	{
+		if (_isEdit)
+			_ui->geoSelectCurve->setEnabled(false);
 		if (_editSet == nullptr) return;
 		auto subset = _editSet->getSubSetAt(0);
-
 		emit hideGeometry(_editSet);
 		emit showGeometry(subset);
 
 		Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
 		Geometry::GeometryParaChamfer* p = dynamic_cast<Geometry::GeometryParaChamfer*>(bp);
 		if (p == nullptr) return;
-		
 		bool combIndex = p->getCombIndex();
 		double d1 = p->getDistance1();
 		double d2 = p->getDistance2();
 		Geometry::GeometrySet* inputset = p->getGeometrySet();
 		if (inputset == nullptr)return;
-		
-		QList<int> edgeIndexs = p->getEdgeIndexList();//subset中所有选中的边。
+		QList<int> edgeIndexs = p->getEdgeIndexList();
 	
 		for(int var : edgeIndexs)
 		{
 			_shapeHash.insert(inputset, var);
-			emit highLightGeometryEdge(subset, var, &_actors);
+			emit highLightGeometryEdgeSig(subset, var, true);
 		}
 		QString label = QString(tr("Selected edge(%1)")).arg(edgeIndexs.size());
 		_ui->edgelabel->setText(label);
 		_ui->lineEditDistance->setText(QString::number(d1));
 		_ui->lineEditDistance_2->setText(QString::number(d2));
+
 		if (combIndex == true)
 		{
 			_ui->comboBoxSection->setCurrentIndex(0);
@@ -86,34 +82,25 @@ namespace GeometryWidget
 			_ui->comboBoxSection->setCurrentIndex(1);
 			_ui->lineEditDistance_2->setEnabled(true);
 		}
-		
 
 	}
 
 	CreateChamferDialog::~CreateChamferDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
+
 	}
 
 	void CreateChamferDialog::on_geoSelectCurve_clicked()
 	{
 		
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
-		if (_isEdit)
+	
+		for (QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _shapeHash.begin(); iter != _shapeHash.end(); ++iter)
 		{
-			if ((_actors.size() > 0) && (_actors[0] != nullptr))
-			{
-				for(vtkActor* var : _actors)
-				{
-					QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-					var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
-				}
-			}
-			emit _preWindow->reRenderSig();
+			emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);
 		}
+			
 	}
 
 	void CreateChamferDialog::closeEvent(QCloseEvent *e)
@@ -176,6 +163,7 @@ namespace GeometryWidget
 		for (int i = 0; i < sets.size(); ++i)
 		{
 			auto s = sets.at(i);
+			if (s == nullptr)continue;
 			int id = s->getID();
 			QList<int> indexs = _shapeHash.values(s);
 			for(int var : indexs)
@@ -233,29 +221,25 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void CreateChamferDialog::selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set)
+	void CreateChamferDialog::shapeSlected(Geometry::GeometrySet* set, int shape)
 	{
 
 		if (_isEdit&&_shapeHash.size() > 0)
 		{
 			if (_shapeHash.keys().at(0) != set) return;
 		}
-		QColor color;
-		if (_actors.contains(ac))
+		if (_shapeHash.contains(set, shape))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_actors.removeOne(ac);
 			_shapeHash.remove(set, shape);
+			 emit highLightGeometryEdgeSig(set, shape, false);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_actors.append(ac);
 			_shapeHash.insert(set, shape);
+			emit highLightGeometryEdgeSig(set, shape, true);
 		}
-	
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
+
+		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edgelabel->setText(label);
 
 	}

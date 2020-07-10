@@ -24,8 +24,7 @@ namespace MeshData
 			void setWriteResult(bool);
 
 		private:
-			bool _isRead{ false };
-			bool _isWrite{ false };
+			bool _success{ false };
 			QString _fileName;
 			MeshOperation _operation;
 	};

@@ -23,6 +23,7 @@ namespace Gmsh
 
 		connect(this, SIGNAL(showDialog(QDialog*)), m, SIGNAL(showDialogSig(QDialog*)));
 		connect(this, SIGNAL(updateMeshTree()), m, SIGNAL(updateMeshTreeSig()));
+		connect(this, SIGNAL(updateSetTree()), m, SIGNAL(updateSetTreeSig()));
 		connect(this, SIGNAL(updateActions()), m, SIGNAL(updateActionsStatesSig()));
 
 		connect(m, SIGNAL(preWindowOpenedSig(MainWidget::PreWindow*)), this, SLOT(preWindowOpened(MainWidget::PreWindow*)));

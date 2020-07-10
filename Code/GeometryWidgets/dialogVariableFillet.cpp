@@ -5,15 +5,10 @@
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
 #include "geometry/geometryParaVariableFillet.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include <QMessageBox>
-#include <QColor>
 #include "geometry/geometrySet.h"
 #include <QTableWidgetItem>
-#include <vtkActor.h>
 #include "python/PyAgent.h"
-#include <vtkProperty.h>
 
 namespace GeometryWidget
 {
@@ -45,11 +40,15 @@ namespace GeometryWidget
 	VariableFilletDialog::~VariableFilletDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit updateGraphOptions();
 	}
 
 	void VariableFilletDialog::init()
 	{
+		if (_isEdit)
+		{
+			_ui->geoSelectCurve->setEnabled(false);
+		}
+		
 		if (_editSet == nullptr) return;
 		auto subset = _editSet->getSubSetAt(0);
 
@@ -59,20 +58,15 @@ namespace GeometryWidget
 		Geometry::GeometryModelParaBase* bp =_editSet->getParameter();
 		Geometry::GeometryParaVariableFillet* p = dynamic_cast<Geometry::GeometryParaVariableFillet*>(bp);
 		if (p == nullptr) return;
-		Geometry::GeometrySet*edgeset = p->getEdgeSet();
-		if (edgeset == nullptr) return;
-		_edgeSet = edgeset;
-		if (_editSet == nullptr) return;
-		
-		int edgeindex = p->getEdgeIndex();
-		_edgeIndex = edgeindex;
-		emit highLightGeometryEdge(subset, edgeindex, &_actors);
+		_edgpair = p->getEdgePair();
+		if (_edgpair.first == nullptr) return;
+		emit highLightGeometryEdgeSig(_edgpair.first, _edgpair.second, true);
 
 		double basicradius = p->getBasicRadius();
 		_ui->lineEditRadius->setText(QString::number(basicradius));
 		QMap<double, double> radiuMap = p->getRadiuMap();
 		_radiusMap = radiuMap;
-		if (_edgeIndex >= 0)
+		if (_edgpair.second >= 0)
 		{
 			QString label = QString(tr("Selected edge(1)"));
 			_ui->edgelabel->setText(label);
@@ -107,7 +101,7 @@ namespace GeometryWidget
 	void VariableFilletDialog::accept()
 	{
 		bool ok = true;
-		if (_edgeSet == nullptr) ok = false;
+		if (_edgpair.first == nullptr) ok = false;
 		QString text = _ui->lineEditRadius->text();
 		double basicRad = 0.0;
 		if (ok)
@@ -125,7 +119,7 @@ namespace GeometryWidget
 		if (_isEdit)
 			codes += QString("variablefillet.setEditID(%1)").arg(_editSet->getID());
 
-		codes += QString("variablefillet.VariableFilletOnEdge(%1,%2)").arg(_edgeSet->getID()).arg(_edgeIndex);
+		codes += QString("variablefillet.VariableFilletOnEdge(%1,%2)").arg(_edgpair.first->getID()).arg(_edgpair.second);
 		codes += QString("variablefillet.setBasicRad(%1)").arg(basicRad);
 		QList<double> loclist = _radiusMap.keys();
 		QList<double> radlist = _radiusMap.values();
@@ -156,47 +150,24 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void VariableFilletDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void VariableFilletDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
-		QColor color;
-		int count = 0;
-
-		if (_edgeSet != nullptr)
+		if (_edgpair.first != nullptr)
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_edgeSet = nullptr;
-			_edgeIndex = -1;
-			count = 0;
-			_actors[0]->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+
+			emit highLightGeometryEdgeSig(_edgpair.first, _edgpair.second, false);
 			
 		}
-		
-		color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		_edgeSet = set;
-		_edgeIndex = index;
-		count = 1;
-		_actors.insert(0, ac);
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		
-		QString label = QString(tr("Selected edge(%1)")).arg(count);
+		_edgpair.first = set;
+		_edgpair.second = index;
+		emit highLightGeometryEdgeSig(_edgpair.first, _edgpair.second, true);
+		QString label = QString(tr("Selected edge(1)"));
 		_ui->edgelabel->setText(label);
 	}
 
 	void VariableFilletDialog::on_geoSelectCurve_clicked()
 	{
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
-		if (_isEdit)
-		{
-			if ((_actors.size() > 0) && (_actors[0] != nullptr))
-			{
-				for(vtkActor* var : _actors)
-				{
-					QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-					var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-				}
-			}
-			emit _preWindow->reRenderSig();
-		}
 	}
 
 	void VariableFilletDialog::on_buttonAdd_clicked()

@@ -36,17 +36,14 @@ namespace GeometryWidget
 		/*选择几何体*/
 		void on_geoSelectSurface_clicked();
 
-		void selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 
 	private:
 		Ui::GeoSplitterDialog* _ui{};
 		bool _selectBody{ false };
 		bool _selectPlane{ false };
-		int _faceIndex{ -1 };
-		Geometry::GeometrySet* _faceBody{};
-
-		Geometry::GeometrySet*_body{};
-		QList<vtkActor*> _faceActor{};
+		QMultiHash<Geometry::GeometrySet*, int> _bodysHash{};
+		QPair <Geometry::GeometrySet*, int> _faceBodyPair{};
 
 	};
 

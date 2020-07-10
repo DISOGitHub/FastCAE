@@ -24,7 +24,7 @@ namespace Command
 		void redo() override;
 		void releaseResult() override;
 
-		void setBodys(QList<Geometry::GeometrySet*> b);
+		void setBodys(QMultiHash<Geometry::GeometrySet*, int> b);
 		void setSelectLinear(bool s);
 		void setSelectWire(bool s);
 		void setOptionIndex(int i);
@@ -55,7 +55,10 @@ namespace Command
 		QList<double*> getVecSumlist(QList<double*>dir1list, QList<double*>dir2list);
 
 	private:
+		//
 		QList<Geometry::GeometrySet*> _bodys{};
+		//
+		QMultiHash<Geometry::GeometrySet*, int> _solidhash{};
 		bool _selectLinear{ true };
 		bool _selectWire{ false };
 		

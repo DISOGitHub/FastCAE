@@ -10,18 +10,20 @@
 #include <vtkPoints.h>
 #include <vtkCellArray.h>
 #include <QFile>
+#include <QMessageBox>
 
 namespace MeshData
 {
 	MSHdataExchange::MSHdataExchange(const QString& fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId) :
-		_fileName(fileName),
+	//	_fileName(fileName),
 		_operation(operation), 
 		_meshData(MeshData::getInstance()),
 		_totalNumber(0),
 		MeshThreadBase(fileName, operation, mw),
 		_writeFileKid(KernalId)
 	{
-		
+		_fileName = fileName;
+		_file = new QFile(_fileName);
 	}
 
 	MSHdataExchange::~MSHdataExchange()
@@ -53,11 +55,13 @@ namespace MeshData
 	bool MSHdataExchange::readHeader()
 	{
 		QFileInfo tempinfo(_fileName);
-		if (!tempinfo.exists()) return false;
+		if (!tempinfo.exists()) 
+			return false;
 		QString name = tempinfo.fileName();
 		QString path = tempinfo.filePath();
 		QFile tempfile(_fileName);
-		if (!tempfile.open(QIODevice::ReadOnly)) return false;
+		if (!tempfile.open(QIODevice::ReadOnly)) 
+			return false;
 		//QTextStream* tempStream=new QTextStream(&tempfile);
 		QTextStream tempStream(&tempfile);
 		while (!tempStream.atEnd())
@@ -107,14 +111,22 @@ namespace MeshData
 
 	bool MSHdataExchange::read()
 	{
-		if (!readHeader())	return false;
-		_file = new QFile();
+		
+		if (!readHeader())
+		{
+			//QMessageBox::warning(nullptr, tr("Prompt"), tr("The file format could not parse the amount!"), QMessageBox::Ok);
+			return false;
+		}
+ 			
+		//_file = new QFile();
 		QFileInfo info(_fileName);
-		if (!info.exists()) return false;
+		if (!info.exists()) 
+			return false;
 		_baseFileName = info.fileName();
 		_filePath= info.filePath();
-		_file->setFileName(_fileName);
-		if (!_file->open(QIODevice::ReadOnly)) return false;
+		//_file->setFileName(_fileName);
+		if (!_file->open(QIODevice::ReadOnly)) 
+			return false;
 		_stream = new QTextStream(_file);
 		vtkSmartPointer<vtkUnstructuredGrid> dataset = vtkSmartPointer<vtkUnstructuredGrid>::New();
 		if (mMeshType == typeGambit)
@@ -131,6 +143,7 @@ namespace MeshData
 			else
 				return true;
 		}
+
 	}
 
 	void MSHdataExchange::readPoints10(vtkUnstructuredGrid* dataset, QString info)
@@ -381,7 +394,8 @@ namespace MeshData
 		double coordinate[3] = { 0.0, 0.0, 0.0 };
 		for (int i = 0; i < facenumber; ++i)
 		{
-			if (!_threadRuning) return false;
+			if (!_threadRuning) 
+				return false;
 			QList<int> member;
 //			idlist->InsertNextValue(_staticid);
 			set->appendTempMem(_staticid);
@@ -416,7 +430,8 @@ namespace MeshData
 			}
 			for (j; j <= selelist.count() - 3; j++)
 			{
-				if (!_threadRuning) return false;
+				if (!_threadRuning)
+					return false;
 				int pointIndex = strToInt(selelist.at(j), true);
 				if (pointIndex > 0)
 				{
@@ -489,7 +504,8 @@ namespace MeshData
 		QString line;
 		do
 		{
-			if (!_threadRuning) return false;
+			if (!_threadRuning) 
+				return false;
 			line = this->readLine();
 			char*  ch;
 			QByteArray ba = line.toLatin1();
@@ -557,7 +573,8 @@ namespace MeshData
 
 			for (int i = 0; i < setList.size(); ++i)
 			{
-				if (!_threadRuning) return false;
+				if (!_threadRuning) 
+					return false;
 				MeshSet* set = setList.at(i);
 //				set->setDataSet(dataset);
 				set->setKeneralID(kid);
@@ -580,7 +597,8 @@ namespace MeshData
 		QString line;
 		do
 		{
-			if (!_threadRuning) return false;
+			if (!_threadRuning) 
+				return false;
 			line = this->readLine();
 			char*  ch;
 			QByteArray ba = line.toLatin1();

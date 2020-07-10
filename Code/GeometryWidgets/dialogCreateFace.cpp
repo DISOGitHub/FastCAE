@@ -4,12 +4,8 @@
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
 #include "geometry/geometrySet.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandCreateFace.h"
 #include "GeometryCommand/GeoCommandList.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QDebug>
 #include "geometry/geometryParaFace.h"
@@ -55,23 +51,13 @@ namespace GeometryWidget
 			Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
 			Geometry::GeometryParaFace* p = dynamic_cast<Geometry::GeometryParaFace*>(bp);
 			if (p == nullptr) return;
-			QMultiHash<Geometry::GeometrySet*, int> shapeHash;
-			shapeHash = p->getShapeHash();
-			_shapeHash = shapeHash;
-			QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
-			int k = setList.size();
-			for (int i = 0; i < setList.size(); ++i)
+			_shapeHash = p->getShapeHash();
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _shapeHash.begin();
+			for (; iter != _shapeHash.end(); ++iter)
 			{
-				Geometry::GeometrySet* set = setList.at(i);
-				if (set == nullptr) return;
-				QList<int> edlist = shapeHash.values(setList[i]);
-				for (int var : edlist)
-				{
-					emit highLightGeometryEdge(set, var, &_actors);
-				}
+				emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);
 			}
-	
-			QString label = QString(tr("Selected edge(%1)")).arg(shapeHash.size());
+			QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 			_ui->edgelabel->setText(label);
 		}
 	}
@@ -84,7 +70,23 @@ namespace GeometryWidget
 
 	void CreateFaceDialog::on_geoSelectCurve_clicked()
 	{
+		
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
+		if (_shapeHash.size() > 0)
+		{
+			QList<Geometry::GeometrySet*> setList = _shapeHash.uniqueKeys();
+			int k = setList.size();
+			for (int i = 0; i < setList.size(); ++i)
+			{
+				Geometry::GeometrySet* set = setList.at(i);
+				if (set == nullptr) return;
+				QList<int> edlist = _shapeHash.values(setList[i]);
+				for (int var : edlist)
+				{
+					emit highLightGeometryEdgeSig(set, var, true);
+				}
+			}
+		}
 	}
 
 	void CreateFaceDialog::closeEvent(QCloseEvent *e)
@@ -95,6 +97,8 @@ namespace GeometryWidget
 
 	void CreateFaceDialog::reject()
 	{
+		if (_editSet!=nullptr)
+			emit showGeometry(_editSet);
 		QDialog::reject();
 		this->close();
 	}
@@ -157,26 +161,20 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void CreateFaceDialog::selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set)
+	void CreateFaceDialog::shapeSlected(Geometry::GeometrySet* set, int shape)
 	{
-		QColor color;
-		if (_actors.contains(ac))
+		if (_shapeHash.contains(set, shape))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_actors.removeOne(ac);
+			emit highLightGeometryEdgeSig(set, shape, false);
 			_shapeHash.remove(set, shape);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_actors.append(ac);
+			emit highLightGeometryEdgeSig(set, shape, true);
 			_shapeHash.insert(set, shape);
 		}
-	
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		
 
-		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
+		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edgelabel->setText(label);
 	}
 

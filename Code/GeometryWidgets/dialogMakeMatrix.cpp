@@ -49,17 +49,20 @@ namespace GeometryWidget
 	MakeMatrixDialog::~MakeMatrixDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
+
 	}
 	void MakeMatrixDialog::init()
 	{
+		if (_isEdit)
+		{
+			_ui->geoSelectSurface->setEnabled(false);
+		}
 		_ui->tabWidget->tabBar()->hide();
 		_baseWidget = new GeoPointWidget(_mainWindow, _preWindow);
 		this->translateButtonBox(_ui->buttonBox);
-
 		_ui->verticalLayout->addWidget(_baseWidget);
 		connect(_baseWidget, SIGNAL(buttonCkicked(GeoPointWidget*)), this, SLOT(pointWidgetClicked(GeoPointWidget*)));
+
 		if (_isEdit==true)
 		{
 			if (_editSet == nullptr) return;
@@ -67,19 +70,20 @@ namespace GeometryWidget
 			Geometry::GeometryParaMatrix* p = dynamic_cast<Geometry::GeometryParaMatrix*>(bp);
 			if (p == nullptr) return;
 
-
 			auto subset = p->getOriSet();
 			if (subset == nullptr) return;
-			_geobodyList.append(subset);
 			emit hideGeometry(_editSet);
 			emit showGeometry(subset);
-			emit highLightGeometrySet(subset, true);
-			
-			//_geobodyList = p->getBodyList();
-			if (_geobodyList.size() < 1) return;
-			QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
-			_ui->edgelabel->setText(text);
 
+			_bodysHash = p->getBodys();
+			if (_bodysHash.size() < 1) return;
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _bodysHash.begin();
+			for (; iter != _bodysHash.end(); ++iter)
+			{
+				emit highLightGeometrySolidSig(iter.key(), iter.value(), true);
+			}
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
+			_ui->edgelabel->setText(text);
 			int optionindex = p->getCurrentIndex();
 			_ui->comboBoxOption->setCurrentIndex(optionindex);
 			if (optionindex == 0)
@@ -204,7 +208,7 @@ namespace GeometryWidget
 				_ui->axisAnglelineEdit->setText(QString::number(p->getAngle()));
 			}
 
-			}
+		}
 	}
 
 	
@@ -224,7 +228,6 @@ namespace GeometryWidget
 			if (p == nullptr) return;
 			Geometry::GeometrySet*  originalSet = p->getOriSet();
 			if (originalSet == nullptr) return;
-			//emit hideGeometry(originalSet);
 			emit showGeometry(_editSet);
 		}
 
@@ -251,13 +254,12 @@ namespace GeometryWidget
 
 		if (_isEdit)
 			codes += QString("makematrix.setEditID(%1)").arg(_editSet->getID());
-		QString setidStr{};
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+		for (; it != _bodysHash.end(); it++)
 		{
-			setidStr.append(QString::number((_geobodyList[i]->getID())));
-			if (i != (_geobodyList.size() - 1)) setidStr.append(",");
+			codes += QString("makematrix.appendBody(%1,%2)").arg(it.key()->getID()).arg(it.value());
 		}
-		codes += QString("makematrix.setBodys('%1')").arg(setidStr);
+
 		if (_selectLinear)
 			codes += QString("makematrix.setOptionMethod('%1')").arg("Liear Matrix");
 		else
@@ -314,12 +316,12 @@ namespace GeometryWidget
 				codes += QString("makematrix.setCount2(%1)").arg(dir2Count);
 			}
 
-			if (!ok || _geobodyList.size() < 1)
+			if (!ok || _bodysHash.size() < 1)
 			{
 				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 				return;
 			}
-	
+
 		}
 
 		if (_selectWire)
@@ -339,7 +341,7 @@ namespace GeometryWidget
 			deg = textDegree.toDouble(&ok);
 			if (ok)
 				ok = fabs(deg) < 0.0000001 ? false : true;
-			if (!ok || _geobodyList.size() < 1)
+			if (!ok || _bodysHash.size() < 1)
 			{
 				QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 				return;
@@ -369,31 +371,48 @@ namespace GeometryWidget
 	void MakeMatrixDialog::on_geoSelectSurface_clicked()
 	{	
 			
-		emit setSelectMode((int)ModuleBase::GeometrySurface);
+		emit setSelectMode((int)ModuleBase::GeometryBody);
 		_baseWidget->handleProcess(false);
 		_selectBody = true;
-		for (int i = 0; i < _geobodyList.size(); ++i)
+
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
 		{
-			auto set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, true);
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], true);
+			}
 		}
-	
 	}
-	void MakeMatrixDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+
+	void MakeMatrixDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 		if (_selectBody)
 		{
-			if (_geobodyList.contains(set))
+			bool legal{};
+			if (_bodysHash.size() > 0)
 			{
-				emit highLightGeometrySet(set, false);
-				_geobodyList.removeOne(set);
+				QMultiHash<Geometry::GeometrySet*, int>::iterator it = _bodysHash.begin();
+				for (; it != _bodysHash.end(); it++)
+				{
+					if (it.key() == set&& it.value() == index)
+					{
+						it = _bodysHash.erase(it);
+						emit highLightGeometrySolidSig(set, index, false);
+						legal = true;
+						break;
+					}
+				}
 			}
-			else
+			if (!legal)
 			{
-				emit highLightGeometrySet(set, true);
-				_geobodyList.append(set);
+				_bodysHash.insert(set, index);
+				emit highLightGeometrySolidSig(set, index, true);
 			}
-			QString text = QString(tr("Selected body(%1)")).arg(_geobodyList.size());
+			QString text = QString(tr("Selected body(%1)")).arg(_bodysHash.size());
 			_ui->edgelabel->setText(text);
 		}
 	}
@@ -402,10 +421,16 @@ namespace GeometryWidget
 	{
 		_selectBody = false;
 		w->handleProcess(true);
-		for (int i = 0; i < _geobodyList.size(); ++i)
+		QList<Geometry::GeometrySet*> geolist = _bodysHash.uniqueKeys();
+
+		for (int i = 0; i < geolist.size(); ++i)
 		{
-			auto set = _geobodyList.at(i);
-			emit highLightGeometrySet(set, false);
+			Geometry::GeometrySet* set = geolist.at(i);
+			QList<int> indexlist = _bodysHash.values(set);
+			for (int j = 0; j < indexlist.size(); j++)
+			{
+				emit highLightGeometrySolidSig(set, indexlist[j], false);
+			}
 		}
 	}
 
@@ -452,7 +477,6 @@ namespace GeometryWidget
 		}
 	}
 
-	
 	bool MakeMatrixDialog::getVector(double* vec)
 	{
 		bool ok = false;

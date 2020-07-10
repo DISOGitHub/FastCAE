@@ -12,7 +12,15 @@ namespace Geometry
 		_type = GeometryParaMakeMatrix;
 	}
 
+	void GeometryParaMatrix::appendBody(Geometry::GeometrySet* set, int bodyindex)
+	{
+		_solidHash.insert(set, bodyindex);
+	}
 
+	QMultiHash<Geometry::GeometrySet*, int> GeometryParaMatrix::getBodys()
+	{
+		return _solidHash;
+	}
 
 	void GeometryParaMatrix::setCurrentIndex(int index)
 	{
@@ -24,7 +32,6 @@ namespace Geometry
 		return _optionindex;
 	}
 
-	
 	void GeometryParaMatrix::setDirection1(double* dir)
 	{
 		for (int i = 0; i < 3; ++i)
@@ -192,16 +199,6 @@ namespace Geometry
 		return _axisangle;
 	}
 
-	void GeometryParaMatrix::setBodyList(QList<Geometry::GeometrySet*> bodylist)
-	{
-		_bodylist = bodylist;
-	}
-			
-	QList<Geometry::GeometrySet*> GeometryParaMatrix::getBodyList()
-	{
-		return _bodylist;
-	}
-    
 
 	void GeometryParaMatrix::setOriSet(Geometry::GeometrySet* s)
 	{
@@ -226,17 +223,16 @@ namespace Geometry
 		indexEle.appendChild(indexText);
 		element.appendChild(indexEle);
 		
-		if (_bodylist.size() != 0)
+		QStringList solidStrList{};
+		if (_solidHash.size() > 0)
 		{
-			QString setidStr{};
-			for (int i = 0; i < _bodylist.size(); ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _solidHash.begin();
+			for (; it != _solidHash.end(); it++)
 			{
-				setidStr.append(QString::number((_bodylist[i]->getID())));
-				if (i != (_bodylist.size() - 1)) setidStr.append(",");
-
+				solidStrList << QString("%1:%2)").arg(it.key()->getID()).arg(it.value());
 			}
 			QDomElement startpointEle = doc->createElement("BodyIDList");
-			QDomText startpointText = doc->createTextNode(setidStr);
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
 			startpointEle.appendChild(startpointText);
 			element.appendChild(startpointEle);
 		}
@@ -349,8 +345,11 @@ namespace Geometry
 		if (coorsl.size() < 1) return;
 		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			Geometry::GeometrySet*set = data->getGeometrySetByID((coorsl[i]).toInt());
-			_bodylist.append(set);
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_solidHash.insert(set, solidindex);
 		}
 
 		QDomNodeList nodeidList = e->elementsByTagName("Oriset");
@@ -374,7 +373,6 @@ namespace Geometry
 		{
 			_dir1[i] = dir1sl.at(i).toDouble();
 		}
-
 
 		QDomNodeList r1List = e->elementsByTagName("Reverse1");
 		QString r1 = r1List.at(0).toElement().text();
@@ -402,7 +400,6 @@ namespace Geometry
 		{
 			_dir2[i] = dir2sl.at(i).toDouble();
 		}
-
 
 		QDomNodeList r2List = e->elementsByTagName("Reverse2");
 		QString r2 = r2List.at(0).toElement().text();

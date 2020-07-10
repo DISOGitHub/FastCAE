@@ -10,7 +10,11 @@
 #include <TopoDS.hxx>
 #include <BRepAdaptor_Curve.hxx>
 #include <gp_Lin.hxx>
-
+#include <TopoDS_Compound.hxx>
+#include <BRep_Builder.hxx>
+#include <TopoDS_Iterator.hxx>
+#include "GeoCommandCommon.h"
+#include <BRepBuilderAPI_Copy.hxx>
 namespace Command
 {
 	CommandRotateFeature::CommandRotateFeature(GUI::MainWindow* m, MainWidget::PreWindow* p)
@@ -35,7 +39,7 @@ namespace Command
 		double d = _degree*PI / 180.00;
 		gp_Trsf aTrsf;
 		aTrsf.SetRotation(ax, d);
-
+		
 		if (_isEdit) //编辑模式下将原来的模型压进列表
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
@@ -49,15 +53,104 @@ namespace Command
 				_geoData->appendGeometrySet(ori);
 				_editSet->removeSubSet(ori);
 			}
-			_bodys.append(ori);
+			//_bodys.append(ori);
 		}
 		
 		bool success = false;
-		const int count = _bodys.size();
-		for (int i = 0; i < count; ++i)
+	//	const int count = _bodys.size();
+		QList<Geometry::GeometrySet*> setlist = _solidHash.uniqueKeys();
+		for (Geometry::GeometrySet* set : setlist)
 		{
-			Geometry::GeometrySet* set = _bodys.at(i);
-			TopoDS_Shape* shape = set->getShape();
+
+			//保存下某个set下所选中的所有solid.
+			QMultiHash<Geometry::GeometrySet*, int> setToIndex{};
+			//aRes=new shape+无关shape.
+			TopoDS_Compound aRes;
+			BRep_Builder aBuilder;
+			aBuilder.MakeCompound(aRes);
+			QList<int> indexList = _solidHash.values(set);
+			for (int i = 0; i < indexList.size(); i++)
+			{
+				setToIndex.insert(set, indexList[i]);
+				TopoDS_Shape shape = *set->getShape(4, indexList[i]);
+				if (shape.IsNull()) return false;
+
+				BRepBuilderAPI_Transform aBRespTrsf(shape, aTrsf, true);
+				aBRespTrsf.Build();
+				if (!aBRespTrsf.IsDone()) continue;
+				const TopoDS_Shape& resShape = aBRespTrsf.Shape();
+				if (resShape.IsNull()) continue;
+
+				aBuilder.Add(aRes, aBRespTrsf.Shape());
+				if (_saveOrigin)
+				{
+					aBuilder.Add(aRes, shape);
+				}
+			}
+			//将无关的solid存在compound中。
+			TopoDS_Shape* setShape = set->getShape();
+			TopoDS_Shape* setCopyShape = new TopoDS_Shape;
+			TopoDS_Shape* setOriShape = new TopoDS_Shape;
+			*setOriShape = BRepBuilderAPI_Copy(*setShape);
+			for (int i = 0; i < indexList.size(); i++)
+			{
+				TopoDS_Shape tempShape = *set->getShape(4, indexList[i]);
+				*setCopyShape = GeoCommandCommon::removeShape(setShape, &tempShape);
+
+			}
+			if (!GeoCommandCommon::isEmpty(*setShape))
+			{
+				aBuilder.Add(aRes, *setShape);
+
+			}
+			success = true;
+			TopoDS_Shape* mshape = new TopoDS_Shape;
+			*mshape = aRes;
+			QString name = QString("RotateFacture-%1").arg(set->getName());
+			Geometry::GeometrySet* newset = new Geometry::GeometrySet;
+			newset->setName(name);
+			newset->setShape(mshape);
+
+			_geoData->appendGeometrySet(newset);
+			_geoData->removeTopGeometrySet(set);
+			newset->appendSubSet(set);
+			_resultOriginHash.insert(newset, set);
+			emit showSet(newset);
+			emit removeDisplayActor(set);
+
+			Geometry::GeometryParaRotateFeature* para = new Geometry::GeometryParaRotateFeature;
+			set->setShape(setOriShape);
+			for (int k = 0; k < indexList.size(); k++)
+			{
+				para->appendBody(set, indexList[k]);
+			}
+			para->setOriginObject(set);
+			para->setBasicPoint(_basicPoint);
+			para->setAngle(_degree);
+			para->isSaveOrigin(_saveOrigin);
+			para->setMethod(_method);
+			para->setEdge(_edge.first, _edge.second);
+			para->setVector(_vector);
+			para->isReverse(_reverse);
+			newset->setParameter(para);
+
+			if (_isEdit)
+			{
+				_geoData->removeTopGeometrySet(_editSet);
+				_releaseEdit = true;     //标记释放状态
+				_releasenew = false;
+			}
+
+		}
+		emit updateGeoTree();
+		GeoCommandBase::execute();
+		return success;
+		/*bool success = false;
+		QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _solidHash.begin();
+		for (; iter != _solidHash.end(); ++iter)
+		{
+			Geometry::GeometrySet* set = iter.key();
+			TopoDS_Shape* shape = set->getShape(4, iter.value());
 			
 			BRepBuilderAPI_Transform aBRespTrsf(*shape, aTrsf, true);
 			aBRespTrsf.Build();
@@ -96,13 +189,13 @@ namespace Command
 
 		emit updateGeoTree();
 		GeoCommandBase::execute();
-		return success;
+		return success;*/
 	}
 
 	void CommandRotateFeature::undo()
 	{
 		if (_isEdit)
-		{	
+		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
 			Geometry::GeometryParaRotateFeature* p = dynamic_cast<Geometry::GeometryParaRotateFeature*>(pm);
 			if (p == nullptr) return;
@@ -111,25 +204,25 @@ namespace Command
 			auto newset = _resultOriginHash.key(ori);
 			if (newset == nullptr) return;
 			_geoData->replaceSet(_editSet, newset);
-			if (p->isSaveOrigin())
+			/*if (p->isSaveOrigin())
 			{
-				newset->removeSubSet(ori);
-				_editSet->removeSubSet(ori);
-				_geoData->removeTopGeometrySet(ori);
-				_geoData->appendGeometrySet(ori);
-				emit showSet(ori);
-				emit showSet(_editSet);
-				emit removeDisplayActor(newset);
+			newset->removeSubSet(ori);
+			_editSet->removeSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+			_geoData->appendGeometrySet(ori);
+			emit showSet(ori);
+			emit showSet(_editSet);
+			emit removeDisplayActor(newset);
 			}
 			else
-			{
-				newset->removeSubSet(ori);
-				_editSet->appendSubSet(ori);
-				_geoData->removeTopGeometrySet(ori);
-				emit removeDisplayActor(ori);
-				emit showSet(_editSet);
-				emit removeDisplayActor(newset);
-			}
+			{*/
+			newset->removeSubSet(ori);
+			_editSet->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+			emit removeDisplayActor(ori);
+			emit showSet(_editSet);
+			emit removeDisplayActor(newset);
+			/*}*/
 			emit updateGeoTree();
 			_releasenew = true;
 			_releaseEdit = false;
@@ -140,13 +233,13 @@ namespace Command
 		for (int i = 0; i < geoList.size(); ++i)
 		{
 			Geometry::GeometrySet* set = geoList.at(i);
-			if (!_saveOrigin)
-			{
-				auto ori = _resultOriginHash.value(set);
-				set->removeSubSet(ori);
-				_geoData->appendGeometrySet(ori);
-				emit showSet(ori);
-			}
+			/*	if (!_saveOrigin)
+			{*/
+			auto ori = _resultOriginHash.value(set);
+			set->removeSubSet(ori);
+			_geoData->appendGeometrySet(ori);
+			emit showSet(ori);
+			/*}*/
 			_geoData->removeTopGeometrySet(set);
 			emit removeDisplayActor(set);
 		}
@@ -165,26 +258,26 @@ namespace Command
 			auto newset = _resultOriginHash.key(ori);
 			if (newset == nullptr) return;
 			_geoData->replaceSet(newset, _editSet);
-			if (_saveOrigin)
+			/*if (_saveOrigin)
 			{
-				newset->removeSubSet(ori);
-				_editSet->removeSubSet(ori);
-				_geoData->removeTopGeometrySet(ori);
-				_geoData->appendGeometrySet(ori);
-				emit showSet(ori);
-				emit showSet(newset);
-				emit removeDisplayActor(_editSet);
+			newset->removeSubSet(ori);
+			_editSet->removeSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+			_geoData->appendGeometrySet(ori);
+			emit showSet(ori);
+			emit showSet(newset);
+			emit removeDisplayActor(_editSet);
 			}
 			else
-			{
-				_editSet->removeSubSet(ori);
-				newset->appendSubSet(ori);
-				_geoData->removeTopGeometrySet(ori);
+			{*/
+			_editSet->removeSubSet(ori);
+			newset->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
 
-				emit removeDisplayActor(ori);
-				emit showSet(newset);
-				emit removeDisplayActor(_editSet);
-			}
+			emit removeDisplayActor(ori);
+			emit showSet(newset);
+			emit removeDisplayActor(_editSet);
+			/*}*/
 			emit updateGeoTree();
 			_releasenew = false;
 			_releaseEdit = true;
@@ -194,13 +287,13 @@ namespace Command
 		for (int i = 0; i < geoList.size(); ++i)
 		{
 			Geometry::GeometrySet* set = geoList.at(i);
-			if (!_saveOrigin)
-			{
-				auto ori = _resultOriginHash.value(set);
-				set->appendSubSet(ori);
-				_geoData->removeTopGeometrySet(ori);
-				emit removeDisplayActor(ori);
-			}
+			/*if (!_saveOrigin)
+			{*/
+			auto ori = _resultOriginHash.value(set);
+			set->appendSubSet(ori);
+			_geoData->removeTopGeometrySet(ori);
+			emit removeDisplayActor(ori);
+			/*}*/
 			_geoData->appendGeometrySet(set);
 			emit showSet(set);
 		}
@@ -238,9 +331,9 @@ namespace Command
 		}
 	}
 
-	void CommandRotateFeature::setBodys(QList<Geometry::GeometrySet*> b)
+	void CommandRotateFeature::setBodys(QMultiHash<Geometry::GeometrySet*, int> bodyhash)
 	{
-		_bodys = b;
+		_solidHash = bodyhash;
 	}
 
 	void CommandRotateFeature::setVector(double* vec)
@@ -326,20 +419,7 @@ namespace Command
 		return ok;
 	}
 
-	void CommandRotateFeature::setPara(Geometry::GeometrySet* n, Geometry::GeometrySet* o)
-	{
-		auto para = new Geometry::GeometryParaRotateFeature;
-		para->setBodys(_bodys);
-		para->setOriginObject(o);
-		para->setBasicPoint(_basicPoint);
-		para->setAngle(_degree);
-		para->isSaveOrigin(_saveOrigin);
-		para->setMethod(_method);
-		para->setEdge(_edge.first, _edge.second);
-		para->setVector(_vector);
-		para->isReverse(_reverse);
-		n->setParameter(para);
-	}
+	
 
 
 }

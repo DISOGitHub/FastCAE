@@ -2,10 +2,6 @@
 #include "ui_dialogMeasureDistance.h"
 #include "MainWidgets/preWindow.h"
 #include "mainWindow/mainWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include "geometry/geometrySet.h"
 #include <TopoDS_Shape.hxx>
 #include <TopExp_Explorer.hxx>
@@ -29,9 +25,6 @@ namespace GeometryWidget
 	MeasureDistanceDialog::~MeasureDistanceDialog()
 	{
 		if (nullptr != _ui) delete _ui;
-		
-		emit updateGraphOptions();
-		emit setSelectMode(int(ModuleBase::None));
 	}
 
 	void MeasureDistanceDialog::on_closeButton_clicked()
@@ -45,24 +38,22 @@ namespace GeometryWidget
 		emit setSelectMode(int(ModuleBase::GeometryPoint));
 	}
 
-	void MeasureDistanceDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+	void MeasureDistanceDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
-		if (actor == nullptr || set == nullptr) return;
-		QList<vtkActor*> actors;
-		QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor();
-		emit highLightGeometryPoint(set, index, &actors);
-		_actors.append(actor);
+		if ( set == nullptr) return;
+		emit highLightGeometryPointSig(set, index, true);
+		QPair<Geometry::GeometrySet*, int> temp{set,index};
+		_ptlist.push_back(temp);
 
-		
-
-		if (_actors.size() > 2)
+		if (_ptlist.size() > 2)
 		{
-			vtkActor* ac = _actors.first();
-			ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-			_actors.removeFirst();
+			QPair<Geometry::GeometrySet*, int> firstpair = _ptlist.front();
+			Geometry::GeometrySet* geoset = firstpair.first;
+			int setindex = firstpair.second;
+			emit highLightGeometryPointSig(geoset, setindex, false);
+			_ptlist.removeFirst();
 		}
-		
-		_ui->topedgelabel->setText(QString(tr("Selected Object(%1)")).arg(_actors.size()));
+		_ui->topedgelabel->setText(QString(tr("Selected Object(%1)")).arg(_ptlist.size()));
 
 		TopoDS_Shape* shape = set->getShape();
 		TopExp_Explorer ptExp(*shape, TopAbs_VERTEX);
@@ -70,7 +61,7 @@ namespace GeometryWidget
 		const TopoDS_Vertex& vertex = TopoDS::Vertex(ptExp.Current());
 		gp_Pnt pt = BRep_Tool::Pnt(vertex);
 		gp_Pnt bef(_point[0], _point[1], _point[2]);
-		if (_actors.size() != 2)
+		if (_ptlist.size() != 2)
 		{
 			_point[0] = pt.X();
 			_point[1] = pt.Y();
@@ -84,7 +75,7 @@ namespace GeometryWidget
 		double p2[3] = { pt.X(), pt.Y(), pt.Z() };
 		this->setPointLocation(p1, p2);
 
-		_ui->disLabel->setText(QString::number(d, 'f', 6));
+		_ui->disLabel->setText(QString::number(d));
 
 		_point[0] = pt.X();
 		_point[1] = pt.Y();

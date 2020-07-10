@@ -2,7 +2,7 @@
 #include <QFile>
 #include "mainWindow/mainWindow.h"
 #include "XBeautyUI.h"
-#include "commandLine.h"
+#include "CommandLine.h"
 
 #ifdef Q_OS_WIN
 #include "License/confirmation.h"
@@ -13,7 +13,7 @@
 
 #define CHECKINGMEMORY 0
 
-#define FASTCAE_VERSION "2.2.0e11"
+#define FASTCAE_VERSION "0709 Test"
 
 int main(int argc, char* argv[])
 {

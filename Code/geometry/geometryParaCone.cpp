@@ -161,8 +161,6 @@ namespace Geometry
 			_direction[i] = parasl.at(i).toDouble();
 		}
 
-
-
 	}
 
 	

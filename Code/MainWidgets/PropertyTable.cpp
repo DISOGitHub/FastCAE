@@ -17,7 +17,7 @@
 namespace MainWidget
 {
 	PropertyTable::PropertyTable(GUI::MainWindow* m, QWidget* parent /*= 0*/)
-		: _ui(new Ui::PropTable),_mainWindow(m), _parent(parent)
+		: _ui(new Ui::PropTable), _mainWindow(m), _parent(parent)
 	{
 		_ui->setupUi(this);
 		_ui->propTable->setColumnCount(2);
@@ -30,16 +30,16 @@ namespace MainWidget
 		_ui->propTable->resizeColumnsToContents();
 		connect(_ui->propTable, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(clickItem(QTableWidgetItem*)));
 		connect(_ui->propTable, SIGNAL(cellClicked(int, int)), this, SLOT(clickCell(int, int)));
-	
-// 		_monitor = new Monitor(this, _ui->propTable);
-// 		_monitor->run();
+
+		// 		_monitor = new Monitor(this, _ui->propTable);
+		// 		_monitor->run();
 	}
 	PropertyTable::~PropertyTable()
 	{
 		_ui->propTable->clear();
 		if (_ui != nullptr) delete _ui;
 		delete _monitor;
-//		this->clearObserver();
+		//		this->clearObserver();
 	}
 
 	void PropertyTable::resize(int w)
@@ -61,7 +61,7 @@ namespace MainWidget
 		_ui->propTable->setHorizontalHeaderLabels(lables);
 	}
 
-	void PropertyTable::updateTable(DataProperty::DataBase* data)
+	void PropertyTable::iniTable()
 	{
 		_ui->propTable->clear();
 		this->clearObserver();
@@ -70,6 +70,11 @@ namespace MainWidget
 		_ui->propTable->setColumnCount(2);
 		QStringList lables; lables << tr("Name") << tr("Value");
 		_ui->propTable->setHorizontalHeaderLabels(lables);
+	}
+
+	void PropertyTable::updateTable(DataProperty::DataBase* data)
+	{
+		iniTable();
 		_data = data;
 		if (data == nullptr)
 		{
@@ -121,8 +126,8 @@ namespace MainWidget
 			QTableWidgetItem*tableItem = new QTableWidgetItem(type);
 			QVariant v = p->getVariant();
 			tableItem->setData(0, v);
-			
-			if (tableItem != nullptr) 
+
+			if (tableItem != nullptr)
 				_ui->propTable->setItem(i + 1, 1, tableItem);
 		}
 		extendProp(true);
@@ -209,7 +214,7 @@ namespace MainWidget
 			currertrow++;
 		}
 		_ui->propTable->setRowCount(currertrow);
-//		this->extendPara(true);
+		//		this->extendPara(true);
 	}
 
 	void PropertyTable::fillButton()
@@ -229,7 +234,7 @@ namespace MainWidget
 		}
 
 		//fill && connect
-	
+
 		bool isshow = _data->isContainsButton();
 		_ui->buttonWidget->setVisible(isshow);
 		if (!isshow) return;
@@ -291,7 +296,7 @@ namespace MainWidget
 			}
 		}
 	}
-	
+
 	void PropertyTable::extendProp(bool extend)
 	{
 		QString icon = "://QUI/icon/normalL1.png";
@@ -304,7 +309,7 @@ namespace MainWidget
 				_ui->propTable->showRow(i);
 			else
 				_ui->propTable->hideRow(i);
-			
+
 		}
 	}
 
@@ -393,7 +398,7 @@ namespace MainWidget
 	void PropertyTable::appendObserver(DataProperty::ParameterBase* p)
 	{
 		QList<ConfigOption::ParameterObserver*> obslist = p->getObserverList();
-		
+
 		const int n = obslist.size();
 		for (int i = 0; i < n; ++i)
 		{

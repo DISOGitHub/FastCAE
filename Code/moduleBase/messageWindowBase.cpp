@@ -358,7 +358,7 @@ namespace ModuleBase
 	void MessageWindowBase::slot_clicked_menu_hide_header_action()
 	{
 		setShowType(false);
-		_ui->textEdit->insertPlainText(QString("\nexecuted!"));
+		//_ui->textEdit->insertPlainText(QString("\nexecuted!"));
 		Setting::BusAPI::instance()->setMessageShowType(false);
 	}
 

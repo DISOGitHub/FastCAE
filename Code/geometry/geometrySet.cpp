@@ -19,6 +19,8 @@
 namespace Geometry
 {
 	int GeometrySet::idOffset = 0;
+	TopoDS_Shape* GeometrySet::tempShape = new TopoDS_Shape;
+
 	int GeometrySet::getMaxID()
 	{
 		return idOffset;
@@ -80,15 +82,63 @@ namespace Geometry
 	{
 		return _shape;
 	}
-	void GeometrySet::setStlDataSet(vtkSmartPointer<vtkDataSet> polyData)
+
+	TopoDS_Shape* GeometrySet::getShape(int type, int index)
 	{
-		_polyData = polyData;
-		appendProperty(QObject::tr("Triangles"), (int)polyData->GetNumberOfCells());
+		*tempShape = TopoDS_Shape();
+		TopAbs_ShapeEnum shapeType;
+		switch (type)
+		{
+		case 1: shapeType = TopAbs_VERTEX; break;
+		case 2: shapeType = TopAbs_EDGE; break;
+		case 3: shapeType = TopAbs_FACE; break;
+		case 4: shapeType = TopAbs_SOLID; break;
+		default:  return tempShape;
+		}
+		TopExp_Explorer ptExp(*_shape, shapeType);
+		for (int i = 0; ptExp.More(); ptExp.Next(), ++i)
+		{
+			if (i == index)
+			{
+				*tempShape = ptExp.Current();
+				break;
+			}
+				
+		}
+		return tempShape;
+		
 	}
-	vtkDataSet* GeometrySet::getStlDataSet()
+
+	const TopoDS_Shape& GeometrySet::getRealShape(int type, int index)
 	{
-		return _polyData;
+		*tempShape = TopoDS_Shape();
+		TopAbs_ShapeEnum shapeType;
+		switch (type)
+		{
+		case 1: shapeType = TopAbs_VERTEX; break;
+		case 2: shapeType = TopAbs_EDGE; break;
+		case 3: shapeType = TopAbs_FACE; break;
+		case 4: shapeType = TopAbs_SOLID; break;
+		default: return TopoDS_Shape();
+		}
+		TopExp_Explorer ptExp(*_shape, shapeType);
+		for (int i = 0; ptExp.More(); ptExp.Next(), ++i)
+		{
+			if (i == index)
+				return ptExp.Current();
+		}
+		return TopoDS_Shape();
 	}
+
+// 	void GeometrySet::setStlDataSet(vtkSmartPointer<vtkDataSet> polyData)
+// 	{
+// 		_polyData = polyData;
+// 		appendProperty(QObject::tr("Triangles"), (int)polyData->GetNumberOfCells());
+// 	}
+// 	vtkDataSet* GeometrySet::getStlDataSet()
+// 	{
+// 		return _polyData;
+// 	}
 	QDomElement& GeometrySet::writeToProjectFile(QDomDocument* doc, QDomElement* ele, bool isDiso)
 	{
 		QDomElement element = doc->createElement("GeoSet");  //创建子节点
@@ -344,6 +394,7 @@ namespace Geometry
 		case 1: shapeType = TopAbs_VERTEX; break;
 		case 2: shapeType = TopAbs_EDGE; break;
 		case 3: shapeType = TopAbs_FACE; break;
+		case 4: shapeType = TopAbs_SOLID; break;
 		default:  return -1;
 		}
 		TopExp_Explorer ptExp(*_shape, shapeType);

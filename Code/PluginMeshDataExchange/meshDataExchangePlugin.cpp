@@ -10,6 +10,7 @@
 #include "IO/IOConfig.h"
 #include "ModelData/modelDataBase.h"
 #include "moduleBase/ThreadTaskManager.h"
+#include "PDBdataExchange.h"
 #include <QFileInfo>
 
 GUI::MainWindow* MeshData::MeshDataExchangePlugin::_mainwindow = nullptr;
@@ -33,6 +34,7 @@ namespace MeshData
 		IO::IOConfigure::RegisterMeshImporter("CNTM(*.cntm)", CNTMimportMesh);
 		IO::IOConfigure::RegisterMeshImporter("SU2(*.su2)", SU2importMesh);
 		IO::IOConfigure::RegisterMeshImporter("LS-DYNA(*.key)", KEYimportMesh);
+		IO::IOConfigure::RegisterMeshImporter("PDB(*.pdb)", PDBimportMesh);
 
 		IO::IOConfigure::RegisterMeshExporter("CGNS(*.cgns)", CGNSexportMesh);
 		IO::IOConfigure::RegisterMeshExporter("Fluent(*.msh)", MSHexportMesh);
@@ -44,6 +46,7 @@ namespace MeshData
 		IO::IOConfigure::RegisterMeshExporter("CNTM(*.cntm)", CNTMexportMesh);
 		IO::IOConfigure::RegisterMeshExporter("SU2(*.su2)", SU2exportMesh);		
 		IO::IOConfigure::RegisterMeshExporter("LS-DYNA(*.key)", KEYexportMesh);
+		IO::IOConfigure::RegisterMeshExporter("PDB(*.pdb)", PDBexportMesh);
 		return true;
 	}
 
@@ -59,6 +62,7 @@ namespace MeshData
 		IO::IOConfigure::RemoveMeshImporter("CNTM(*.cntm)");
 		IO::IOConfigure::RemoveMeshImporter("SU2(*.su2)");
 		IO::IOConfigure::RemoveMeshImporter("LS-DYNA(*.key)");
+		IO::IOConfigure::RemoveMeshImporter("PDB(*.pdb)");
 
 		IO::IOConfigure::RemoveMeshExporter("CGNS(*.cgns)");
 		IO::IOConfigure::RemoveMeshExporter("Fluent(*.msh)");
@@ -70,6 +74,7 @@ namespace MeshData
 		IO::IOConfigure::RemoveMeshExporter("CNTM(*.cntm)");
 		IO::IOConfigure::RemoveMeshExporter("SU2(*.su2)");
 		IO::IOConfigure::RemoveMeshExporter("LS-DYNA(*.key)");
+		IO::IOConfigure::RemoveMeshExporter("PDB(*.pdb)");
 		return true;
 	}
 
@@ -224,5 +229,19 @@ bool KEYexportMesh(QString AbFileName, int id)
 {
 	auto KEYwirter = new MeshData::KEYdataExchange(AbFileName, MeshData::MESH_WRITE, MeshData::MeshDataExchangePlugin::getMWpt(), id);
 	emit KEYwirter->start();
+	return false;
+}
+
+bool MESHDATAEXCHANGEPLUGINAPI PDBimportMesh(QString AbFileName)
+{
+	auto PDBReader = new MeshData::PDBdataExchange(AbFileName, MeshData::MESH_READ, MeshData::MeshDataExchangePlugin::getMWpt());
+	emit PDBReader->start();
+	return false;
+}
+
+bool MESHDATAEXCHANGEPLUGINAPI PDBexportMesh(QString AbFileName, int id)
+{
+	auto PDBWriter = new MeshData::PDBdataExchange(AbFileName, MeshData::MESH_WRITE, MeshData::MeshDataExchangePlugin::getMWpt(), id);
+	emit PDBWriter->start();
 	return false;
 }

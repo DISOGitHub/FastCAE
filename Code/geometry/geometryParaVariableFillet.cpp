@@ -17,30 +17,21 @@ namespace Geometry
 		_inputSet = s;
 	}
 
-
 	Geometry::GeometrySet* GeometryParaVariableFillet::getGeometrySet()
 	{
 		return _inputSet;
 	}
-	void GeometryParaVariableFillet::setEdgeSet(GeometrySet* s)
+
+	void GeometryParaVariableFillet::setEdgePair(QPair<Geometry::GeometrySet*, int> edgepair)
 	{
-		_edgeset = s;
+		_edgpair = edgepair;
 	}
 
-	Geometry::GeometrySet* GeometryParaVariableFillet::getEdgeSet()
+	QPair<Geometry::GeometrySet*, int> GeometryParaVariableFillet::getEdgePair()
 	{
-		return _edgeset;
+		return _edgpair;
 	}
 
-	void GeometryParaVariableFillet::setEdgeIndex(int e)
-	{
-		_edgeindex = e;
-	}
-
-	int GeometryParaVariableFillet::getEdgeIndex()
-	{
-		return _edgeindex;
-	}
 
 	void GeometryParaVariableFillet::setBasicRadius(double b)
 	{
@@ -62,8 +53,6 @@ namespace Geometry
 		return _radiusmap;
 	}
 
-
-
 	QDomElement& GeometryParaVariableFillet::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
 	{
 		QDomElement element = doc->createElement("Parameter");  //创建子节点
@@ -73,12 +62,12 @@ namespace Geometry
 		element.setAttributeNode(typeattr);
 
 		QDomAttr rad1attr = doc->createAttribute("EdgeIndex");
-		rad1attr.setValue(QString::number(_edgeindex));
+		rad1attr.setValue(QString::number(_edgpair.second));
 		element.setAttributeNode(rad1attr);
-		if (_edgeset != nullptr)
+		if (_edgpair.first != nullptr)
 		{
 			QDomAttr rad2attr = doc->createAttribute("EdgeSet");
-			rad2attr.setValue(QString::number(_edgeset->getID()));
+			rad2attr.setValue(QString::number(_edgpair.first->getID()));
 			element.setAttributeNode(rad2attr);
 		}
 
@@ -127,9 +116,9 @@ namespace Geometry
 
 	void GeometryParaVariableFillet::readDataFromProjectFile(QDomElement* e)
 	{
-		_edgeindex = e->attribute("EdgeIndex").toInt();
+		_edgpair.second= e->attribute("EdgeIndex").toInt();
 		int edgesetid = e->attribute("EdgeSet").toInt();
-		_edgeset = Geometry::GeometryData::getInstance()->getGeometrySetByID(edgesetid);
+		_edgpair.first = Geometry::GeometryData::getInstance()->getGeometrySetByID(edgesetid);
 		int subid = e->attribute("SubID").toInt();
 		_inputSet = Geometry::GeometryData::getInstance()->getGeometrySetByID(subid);
 		_basicradius = e->attribute("BasicRadius").toDouble();

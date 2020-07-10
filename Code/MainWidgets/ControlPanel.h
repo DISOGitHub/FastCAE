@@ -46,11 +46,11 @@ namespace MainWidget
 
 	public:
 		/*添加模型树 */
-//		void addTreeWidget(PhysicsWidget* treewidget);
-// 		/*设置属性窗口的头 */
-// 		void setHorizontalHeader(const QString label1, const QString label2);
-// 		/*设置属性窗口的头 */
-// 		void setHorizontalHeader(const QStringList _lables);
+		//		void addTreeWidget(PhysicsWidget* treewidget);
+		// 		/*设置属性窗口的头 */
+		// 		void setHorizontalHeader(const QString label1, const QString label2);
+		// 		/*设置属性窗口的头 */
+		// 		void setHorizontalHeader(const QStringList _lables);
 		///更新两个post widget
 		void updatePostWidget(QWidget* tree, QWidget* prop);
 		//清空属性窗widget
@@ -58,9 +58,11 @@ namespace MainWidget
 		//根据配置信息更新开放接口
 		void registerEnabledModule();
 
-	public slots :
+		public slots :
 		//鼠标点击事件，包括左键单击双击及右键菜单
 		virtual void on_TreeMouseEvent(int evevntType, QTreeWidgetItem* item, int proID);
+		//徐文强2020/6/5 初始化属性框
+		void iniPropertyWidgetSlot();
 		//更新属性框
 		void updataPropertyTab(DataProperty::DataBase* popList);
 		//设置属性窗当前页
@@ -69,10 +71,10 @@ namespace MainWidget
 		void updataParaWidget(QWidget* w);
 	private:
 		void Init();
-		
+
 		void resizeEvent(QResizeEvent *);
-// 		void fillProp();
-// 		void fillPara();
+		// 		void fillProp();
+		// 		void fillPara();
 
 	protected:
 		Ui::ControlPanel* _ui{};
@@ -86,7 +88,7 @@ namespace MainWidget
 		DataProperty::DataBase* _data{};
 
 		QWidget* _paraWidget{};
-	
+
 	};
 
 }

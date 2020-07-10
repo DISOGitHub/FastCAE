@@ -13,7 +13,6 @@ namespace Ui
 	class MoveFeatureDialog;
 }
 
-class vtkActor;
 
 namespace GeometryWidget
 {
@@ -39,7 +38,7 @@ namespace GeometryWidget
  		void on_geoSelectSurface_clicked();
 		void pointWidgetClicked(GeoPointWidget* w);
 		void on_radioButtonUser();
- 		void selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 
 	private:
 		Ui::MoveFeatureDialog* _ui{};
@@ -47,8 +46,7 @@ namespace GeometryWidget
 		GeoPointWidget* _endWidget{};
 
 		bool _selectBody{ false };
-		QList<Geometry::GeometrySet*> _geobodyList{};
-
+		QMultiHash<Geometry::GeometrySet*, int> _bodysHash{};
 		int _optionindex{};
 		double _dir[3]{};
 

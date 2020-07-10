@@ -3,12 +3,8 @@
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "GeometryCommand/GeoCommandMakeExtrusion.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QDebug>
 #include <QColor>
@@ -30,7 +26,6 @@ namespace GeometryWidget
 		_ui->setupUi(this);
 		connect(_ui->radioButtonUser, SIGNAL(toggled(bool)), this, SLOT(on_radioButtonUser()));
 		this->translateButtonBox(_ui->buttonBox);
-		
 		on_radioButtonUser();
 	}
 
@@ -54,26 +49,20 @@ namespace GeometryWidget
 		emit updateGraphOptions();
 	}
 
-	void CreateExtrusionDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void CreateExtrusionDialog::shapeSlected(Geometry::GeometrySet* set,  int index)
 	{
-
-		QColor color;
-		if (_actors.contains(ac))
+		if (_shapeHash.contains(set, index))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_actors.removeOne(ac);
+			emit highLightGeometryEdgeSig(set, index, false);
 			_shapeHash.remove(set, index);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_actors.append(ac);
 			_shapeHash.insert(set, index);
+			emit highLightGeometryEdgeSig(set, index,true);
 		}
 
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
-		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
+		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edglabel->setText(label);
 
 	}
@@ -81,6 +70,8 @@ namespace GeometryWidget
 	void CreateExtrusionDialog::on_geoSelectCurve_clicked()
 	{
 		emit setSelectMode(int(ModuleBase::GeometryCurve));
+
+		for (QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _shapeHash.begin(); iter != _shapeHash.end(); ++iter)		{			emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);		}
 	}
 
 	void CreateExtrusionDialog::on_radioButtonUser()
@@ -98,23 +89,9 @@ namespace GeometryWidget
 		Geometry::GeometryParaExtrusion* p = dynamic_cast<Geometry::GeometryParaExtrusion*>(bp);
 		if (p == nullptr) return;
 		emit hideGeometry(_editSet);
-		
-		QMultiHash<Geometry::GeometrySet*, int> shapeHash;
-		shapeHash = p->getShapeHash();
-		_shapeHash = shapeHash;
-		QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
-		for (int i = 0; i < setList.size(); ++i)
-		{
-			QList<int> edlist = shapeHash.values(setList[i]);
-			Geometry::GeometrySet* set = setList.at(i);
-			if (set == nullptr) return;
-			for(int var : edlist)
-			{
-				emit highLightGeometryEdge(set, var, &_actors);
-			}
-			
-		}
 
+		_shapeHash = p->getShapeHash();
+		for(QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _shapeHash.begin(); iter != _shapeHash.end(); ++ iter)		{			emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);		}
 		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edglabel->setText(label);
 		double dis = p->getDistance();

@@ -97,7 +97,6 @@ namespace FastCAEDesigner
 		QDomElement dataBlock = doc.createElement("DataBlock");
 		dataBlock.setAttribute("TreeType", typeName);
 
-		int index = 1;
 		int count = list.count();
 		
 		for (int i = 0; i < count; i++)
@@ -108,7 +107,7 @@ namespace FastCAEDesigner
 				continue;
 
 			QDomElement block = doc.createElement("Block");
-			block.setAttribute("ID", index);
+			block.setAttribute("ID", _index);
 			block.setAttribute("TreeNode", model->GetEngName());
 			DataProperty::DataBase *dataBase = model->GetDataBase();
 
@@ -116,7 +115,9 @@ namespace FastCAEDesigner
 				dataBase->writeParameters(&doc, &block);
 
 			dataBlock.appendChild(block);
-			index++;
+			_index++;
+
+			writeTreeGrandSonPara(doc, dataBlock, model, number);
 		}
 
 		root.appendChild(dataBlock);
@@ -327,6 +328,35 @@ namespace FastCAEDesigner
 			
 
 			root.appendChild(fileNode);
+		}
+
+		return true;
+	}
+
+	bool WriteDataConfig::writeTreeGrandSonPara(QDomDocument &doc, QDomElement &root, ModelBase* base, int number)
+	{
+		
+		QList<ModelBase*> list = base->GetChildList();
+
+		int count = list.count();
+
+		for (int i = 0; i < count; i++)
+		{
+			ModelBase* model = list.at(i);
+
+			if (nullptr == model)
+				continue;
+
+			QDomElement block = doc.createElement("Block");
+			block.setAttribute("ID", _index);
+			block.setAttribute("TreeNode", model->GetEngName());
+			DataProperty::DataBase *dataBase = model->GetDataBase();
+
+			if (nullptr != dataBase)
+				dataBase->writeParameters(&doc, &block);
+
+			root.appendChild(block);
+			_index++;
 		}
 
 		return true;

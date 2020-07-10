@@ -46,6 +46,7 @@ namespace Gmsh
 		void updateActions();
 		void generateSig(GMshPara* para);
 		void printMessageToMessageWindow(ModuleBase::Message message);
+		void updateSetTree();
 
 	private slots:
 		void preWindowOpened(MainWidget::PreWindow*);

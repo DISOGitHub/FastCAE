@@ -8,6 +8,9 @@
 #include <QProcess>
 #include "DataProperty/DataBase.h"
 #include <QTextStream>
+#include <QTime>
+
+class TopoDS_Compound;
 
 namespace GUI
 {
@@ -37,7 +40,7 @@ namespace Gmsh
 	{
 	public:
 		int _dim{ -1 };
-		QList<int> _solidList{};
+		QMultiHash<int, int> _solidHash{};
 		QMultiHash<int, int> _surfaceHash{};
 		QString _elementType{};
 		int _elementOrder{ -1 };
@@ -49,6 +52,10 @@ namespace Gmsh
 		int _smoothIteration{ 0 };
 		bool _isGridCoplanar{ false };
 		QString _sizeAtPoints{};
+		QString _sizeFields{};
+	//	QString _physicals{};
+		bool _selectall{ false };
+		bool _selectvisible{ false };
 
 	};
 
@@ -63,8 +70,8 @@ namespace Gmsh
 		void setPara(GMshPara*  para);
 
 		//追加实体
-		void appendSolid(int id);
-		void setSolid(QList<int> s);
+		void appendSolid(int id, int index);
+		void setSolid(QMultiHash<int, int> s);
 		//追加曲面
 		void appendSurface(int geo, int face);
 		void setSurface(QMultiHash<int, int> s);
@@ -88,6 +95,13 @@ namespace Gmsh
 		void setGridCoplanar(bool gc);
 		//设置点网格密度
 		void setSizeAtPoint(QString ps);
+		//设置区域网格密度
+		void setSizeFields(QString fs);
+		//设置物理分组
+		//void setPhysicals(QString ps);
+
+		void setSelectedAll(bool al);
+		void setSelectedVisible(bool sv);
 
 		void run();
 		void stop();
@@ -106,9 +120,25 @@ namespace Gmsh
 		void submitParaToGmsh();
 		void generate();
 		void readMesh();
-		void appenScript(QString path);
+		void appendScript(QString path);
+		void generalSetting(QTextStream* out);
 		void gridCoplanar(QTextStream* out);
 		void sizeAtPoints(QTextStream* out);
+		void sizeFields(QTextStream* out);
+		void boxFieldScript(QTextStream* out, QStringList list, int& index);
+		void ballFieldScript(QTextStream* out, QStringList list, int& index);
+		void cylinderFieldScript(QTextStream* out, QStringList list, int& index);
+	//	void physicalsGroup(QTextStream* out);
+	//	void physicalsScript(QTextStream* out,QString type,QMultiHash<QString,int> pHash);
+		//获取在新组合体的索引,返回值大于0， 若返回0则为错误标记
+		//type 1-点 2-线 3-面 4-实体
+		int getShapeIndexInCompound(int setid, int index, int type);
+		void mergeAllGeo();
+		void mergeVisibleGeo();
+		void mergeSelectGeo();
+
+
+		QStringList getGridCoplanarScript();
 
 	private:
 		GUI::MainWindow* _mainwindow{};
@@ -119,8 +149,9 @@ namespace Gmsh
 		ModuleBase::ProcessBar* _processBar{};
 
 		int _dim{ -1 };
+		TopoDS_Compound* _compounnd{};
 		
-		QList<int> _solidList{};
+		QMultiHash<int, int> _solidHash{};
 		QMultiHash<int, int> _surfaceHash{};
 		QString _elementType{};
 		int _elementOrder{ -1 };
@@ -132,7 +163,10 @@ namespace Gmsh
 		int _smoothIteration{ 0 };
 		bool _isGridCoplanar{ false };
 		QString _sizeAtPoints{};
-
+		QString _sizeFields{};
+		//QString _physicals{};
+		bool _selectall{ false };
+		bool _selectvisible{ false };
 	};
 
 }

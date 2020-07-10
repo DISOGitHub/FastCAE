@@ -2,6 +2,19 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>IO::ProjectFileIO</name>
+    <message>
+        <location filename="../../IO/ProjectFileIO.cpp" line="+47"/>
+        <source>Opening Project File: &quot;%1&quot;</source>
+        <translation>打开工程文件：“%1”</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Saving Project File: &quot;%1&quot;</source>
+        <translation>保存工程文件：“%1”</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../../IO/ProjectTemplete.cpp" line="+21"/>

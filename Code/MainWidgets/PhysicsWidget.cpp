@@ -147,31 +147,39 @@ namespace MainWidget
 		QTreeWidgetItem* rootitem = getProjectRoot(_curretnItem);
 		assert(rootitem);
 		const int proID = rootitem->data(0, Qt::UserRole).toInt();
-
 		bool e = false;
-
-		if (item->type() == TreeItemType::ProjectRoot)
+		switch (item->type())
+		{
+		case TreeItemType::ProjectRoot:
 		{
 			emit disPlayProp(ModelData::ModelDataSingleton::getinstance()->getModelByID(proID));
 			e = true;
+			break;
 		}
-		else if (item->type() == TreeItemType::MaterialChild)
+		case TreeItemType::MaterialChild:
 		{
- 			int materialID = item->data(0, Qt::UserRole).toInt();
+			int materialID = item->data(0, Qt::UserRole).toInt();
 			Material::Material * material = Material::MaterialSingleton::getInstance()->getMaterialByID(materialID);
 			emit disPlayProp(material);
 			e = true;
+			break;
 		}
-		else if (item->type() == TreeItemType::MaterialRoot || item->type() == TreeItemType::PhyaicsModelRoot)
+		case TreeItemType::MaterialRoot:
 		{
 			emit disPlayProp(nullptr);
 			e = true;
-		}
- 		else
- 			emit disPlayProp(nullptr);
-
-		if (!e)
-			emit mouseEvent(0, _curretnItem, proID);
+			break;
+		}			
+		case TreeItemType::PhyaicsModelRoot:
+		{
+			emit disPlayProp(nullptr);
+			e = true;
+			break;
+		}			
+// 		default:
+// 				emit disPlayProp(nullptr);
+		}		
+		if (!e)    emit mouseEvent(0, _curretnItem, proID);
 	}
 	void PhysicsWidget::doubleClicked(QTreeWidgetItem* item, int col)
 	{

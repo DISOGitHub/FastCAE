@@ -34,15 +34,7 @@ namespace MainWidget
 {
 	class GeometryViewProvider;
 	class SketchViewProvider;
-
-	enum DisplayModel
-	{
-		Node,
-		WireFrame,
-		Surface,
-		SurfaceWithEdge,
-	};
-	
+	class MeshViewProvider;
 
 	class MAINWIDGETSAPI PreWindow :public ModuleBase::Graph3DWindow
 	{
@@ -55,9 +47,8 @@ namespace MainWidget
 		//获取选择的几何
 		QMultiHash<Geometry::GeometrySet*, int> getGeoSelectItems();
 		//设置已经选择的几何
-		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
-	
-	
+		ModuleBase::SelectModel getSelectModel();
+		QMultiHash<vtkDataSet*, int>* getSelectItems();
 	signals:
 		//关闭
 		void closed();
@@ -73,48 +64,62 @@ namespace MainWidget
 		void setGeoSelectMode(int);
 		//选择的几何元素
 		void selectGeoActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set);
+		//新增接口
+		void geoShapeSelected(Geometry::GeometrySet*shape, int index);//被选中接口
+		void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//高亮显示主体
+		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//高亮显示点
+		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//高亮显示边
+		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//高亮显示面
+		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//高亮显示实体
+		void clearGeometryHighLight();//清空所有高亮对象
+		void removeSetDataSig(const int index);
 		//更新网格渲染元素
 		void updateMeshActorSig();
-		
-
+		void highLighKernel(MeshData::MeshKernal* k);
+		void highLighMeshSet(MeshData::MeshSet* set);
+		void setMeshSelectMode(int model);
+		void highLighDataSet(vtkDataSet* dataset);
+		void clearMeshSetHighLight();
 	public slots:
 	    //设置选择模式
 	    void setSelectModel(int mode) override;
+		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
 		//设置草图类型
 		void setSketchType(ModuleBase::SketchType t);
+		//选择网格类型
+		void setDisplay(QString m) override;
 		//更新网格渲染
 		void updateMeshActor();
+		//
+		void highLighSet(QMultiHash<vtkDataSet*, int>* items);
 		//更新几何渲染
 		void updateGeometryActor();
-		//清除所有高亮对象
-		void clearAllHighLight();
-
-	private:
-		void removeMeshActors();
-		void updateDisplayModel();
-
+		//
 	private slots:
-		void updateGeoDispaly(int index, bool display);
-		void updateMeshDispaly(int index, bool display);
-		void removeGemoActor(const int index);
-		void removeMeshActor(const int index);
-		//选择Geometry
-		void setDisplay(QString m) override;
-
 		void updateGraphOption() override;
+		//几何
+		void updateGeoDispaly(int index, bool display);
+		void removeGemoActor(const int index);
+		//网格
+		void updateMeshDispaly(int index, bool display);
+		void removeMeshActor(const int index);
+		//草图
 		void startSketch(bool start, double* loc, double* dir);
 
 	private:
-		QList<vtkActor*> _meshActors{};
+		//QList<vtkActor*> _meshActors{};
 		//QList<vtkActor*> _geometryActors{};
+		ModuleBase::SelectModel _selectModel;
+		QMultiHash<vtkDataSet*, int>* _selectItems{};
+		//
 		MeshData::MeshData* _meshData{};
 		Geometry::GeometryData* _geometryData{};
 
 		ModelData::ModelDataSingleton* _modelData{};
 		int _selectedGeoIndex{ -1 };
-		DisplayModel _displayModel{ SurfaceWithEdge };
 
 		GeometryViewProvider* _geoProvider{};
+		MeshViewProvider * _meshProvider{};
 		SketchViewProvider* _sketchProvider{};
 
 	};

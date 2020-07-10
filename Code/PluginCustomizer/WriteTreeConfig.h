@@ -18,6 +18,10 @@ namespace FastCAEDesigner{
 	private:	
 		bool WriteTreePara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list);
 		bool WriteTreeChildPara(QDomDocument &doc, QDomElement &root, ModelBase* model);
+		bool wirteSimulationAndSolverGrandSon(QDomDocument &doc, QDomElement &root, ModelBase* model);
+
+	private:
+		int _index{ 1 };
 	};
 }
 

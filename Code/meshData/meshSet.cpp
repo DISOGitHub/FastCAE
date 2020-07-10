@@ -298,6 +298,16 @@ namespace MeshData
 		*s << _id << _name << _members.size();
 	}
 
+	void MeshSet::isVisible(bool v)
+	{
+		_visible = v;
+	}
+
+	bool MeshSet::isVisible()
+	{
+		return _visible;
+	}
+
 	void MeshSet::merge(MeshSet* set)
 	{
 		if (set->getSetType() != _type) return;

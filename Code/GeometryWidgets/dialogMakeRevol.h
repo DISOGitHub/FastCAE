@@ -7,9 +7,7 @@
 #include "geoPointWidget.h"
 
 
-class vtkActor;
 class TopoDS_Shape;
-
 
 namespace Ui
 {
@@ -31,8 +29,7 @@ namespace GeometryWidget
 
 		
 	private slots:
-
-		void selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 		void on_geoSelectCurve_clicked();
 		void on_geoSelectCurve_1_clicked();
 		void on_radioButtonUser();
@@ -43,8 +40,6 @@ namespace GeometryWidget
 		void closeEvent(QCloseEvent *);
 		void accept() override;
 		void reject() override;
-	//	bool getVector(double* vec);
-
 
 	private:
 		Ui::CreateRevol* _ui{};
@@ -54,13 +49,8 @@ namespace GeometryWidget
 		bool _selectEdge{ false };
 
 		QMultiHash<Geometry::GeometrySet*, int> _shapeHash{};
-		QList<vtkActor*> _edgeActors{};
-
-		vtkActor* _axisActor{};
 		int _axisIndex{ -1 };
 		Geometry::GeometrySet* _axisSet{};
-
-
 
 
 	};

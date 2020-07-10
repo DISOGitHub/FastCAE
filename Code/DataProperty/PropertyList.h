@@ -36,6 +36,8 @@ namespace DataProperty
 		void appendProperty(QString name, bool value);
 		void appendProperty(QString name, double *c);
 		void appendProperty(QString name, double x, double y, double z);
+		//徐文强,2020/6/19 11:52添加
+		bool removeProperty(QString name);
 
 	protected:
 		bool appendProperty(PropertyBase* p);

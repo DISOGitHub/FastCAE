@@ -222,6 +222,42 @@ namespace FastCAEDesigner
 		return bcModelList;
 	}
 	
+	void DataManager::appendParameterNameList(QString name)
+	{
+		if (_parameterNameList.contains(name))
+			return;
+
+		_parameterNameList.append(name);
+	}
+
+	QList<QString> DataManager::getParameterNameList()
+	{
+		return _parameterNameList;
+	}
+
+	void DataManager::removeParameterName(QString name)
+	{
+		_parameterNameList.removeOne(name);
+	}
+
+	void DataManager::appendParaGroupNameList(QString name)
+	{
+		if (_paraGroupNameList.contains(name))
+			return;
+
+		_paraGroupNameList.append(name);
+	}
+
+	QList<QString> DataManager::getParaGroupNameList()
+	{
+		return _paraGroupNameList;
+	}
+
+	void DataManager::removeParaGroupName(QString name)
+	{
+		_paraGroupNameList.removeOne(name);
+	}
+
 	void DataManager::CopyFileToSystem(QString fileName, QString path)
 	{
 		QDir iconDir(path);

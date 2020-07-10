@@ -42,7 +42,7 @@
 <context>
     <name>GUI::MainWindow</name>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="+299"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="+313"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
@@ -70,21 +70,22 @@
         <location line="+85"/>
         <location line="+43"/>
         <location line="+19"/>
-        <location line="+48"/>
-        <location line="+188"/>
+        <location line="+49"/>
+        <location line="+183"/>
         <location line="+110"/>
         <location line="+8"/>
+        <location line="+74"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-416"/>
-        <location line="+416"/>
+        <location line="-486"/>
+        <location line="+412"/>
         <source>Do you want to save current data ?</source>
         <translation>是否保存当前数据？</translation>
     </message>
     <message>
-        <location line="-409"/>
+        <location line="-405"/>
         <location line="+28"/>
         <source>Project file(*.diso);;Project file(*.xml)</source>
         <translation>工程文件(*.diso);;工程文件(*.xml)</translation>
@@ -106,7 +107,7 @@
     </message>
     <message>
         <location line="+19"/>
-        <location line="+48"/>
+        <location line="+49"/>
         <source>The MeshPlugin is not installed !</source>
         <translation>没有安装网格插件!</translation>
     </message>
@@ -131,13 +132,13 @@
         <translation>导入几何</translation>
     </message>
     <message>
-        <location line="+131"/>
+        <location line="+126"/>
         <source>Please make sure &quot; %1 &quot; file exist!</source>
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location line="-330"/>
-        <location line="+407"/>
+        <location line="-326"/>
+        <location line="+403"/>
         <source>Recent</source>
         <translation>最近文件</translation>
     </message>
@@ -162,7 +163,12 @@
         <translation>执行脚本</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+6"/>
+        <source>%1 execute failed !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>Canvas %1mm * %2mm  </source>
         <translation>画布 %1mm * %2mm  </translation>
     </message>
@@ -170,10 +176,8 @@
 <context>
     <name>GUI::SignalHandler</name>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="+167"/>
-        <location line="+34"/>
-        <location line="+121"/>
-        <location line="+349"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="+339"/>
+        <location line="+343"/>
         <location line="+13"/>
         <location line="+13"/>
         <location line="+14"/>
@@ -194,17 +198,7 @@
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-843"/>
-        <source>read Failed !</source>
-        <translation>读取失败！</translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>Write Failed !</source>
-        <translation>写出失败！</translation>
-    </message>
-    <message>
-        <location line="+121"/>
+        <location line="-682"/>
         <source>%1 is Solving , Please wait...</source>
         <translation>%1正在求解，请等待…</translation>
     </message>
@@ -219,7 +213,7 @@
         <translation>网格已生成“%1”</translation>
     </message>
     <message>
-        <location line="+291"/>
+        <location line="+285"/>
         <location line="+13"/>
         <location line="+13"/>
         <location line="+14"/>

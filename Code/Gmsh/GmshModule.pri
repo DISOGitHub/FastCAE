@@ -8,6 +8,8 @@ HEADERS += \
 	$$PWD/GmshDialogBase.h \
 	$$PWD/DialogLocalSetting.h \
 	$$PWD/GmshThreadManager.h \
+	$$PWD/LocalField.h \
+	$$PWD/MeshReader.h \
 	
 SOURCES += \
 	$$PWD/GmshModule.cpp \
@@ -18,6 +20,8 @@ SOURCES += \
 	$$PWD/GmshDialogBase.cpp \
 	$$PWD/DialogLocalSetting.cpp \
 	$$PWD/GmshThreadManager.cpp \
+	$$PWD/LocalField.cpp \
+	$$PWD/MeshReader.cpp \
 	
 FORMS += \
 	$$PWD/DialogSurfaceMesh.ui \

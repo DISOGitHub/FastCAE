@@ -19,7 +19,7 @@ extern "C"
 
 	//获取索引
 	int GEOMETRYAPI getIndexOfGeoometrySet(char* name);
-
+	
 	//获取ID
 	int GEOMETRYAPI getIDOfGeoometrySet(char* name);
 

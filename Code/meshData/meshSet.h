@@ -19,6 +19,8 @@ namespace MeshData
 		Element,
 		Family,
 		BCZone,
+		UserDef = 101,
+		EndType = 100000,
 	};
 	
 	class SetMember;
@@ -54,6 +56,10 @@ namespace MeshData
 		void setKeneralID(int id);
 		//是否包含kernal
 		bool isContainsKernal(int id);
+		//设置可见性
+		void  isVisible(bool v);
+		//获取可见性
+		bool isVisible();
 		//合并组件
 		void merge(MeshSet* set);
 		//减去组件
@@ -71,7 +77,7 @@ namespace MeshData
 		//生成可以显示的模型, 每个实例只能调用一次
 		virtual void generateDisplayDataSet();
 		//获取显示模型
-		vtkDataSet* getDisplayDataSet();
+		virtual vtkDataSet* getDisplayDataSet();
 		//字符串转化为枚举
 		static SetType stringToSettype(QString s);
 
@@ -79,7 +85,8 @@ namespace MeshData
 
 	protected:
 		SetType _type{ None };
-//		SetMember* _member{};
+		bool _visible{ true };
+
 		QMultiHash<int, int> _members{};  //keneralID - node/elementID
 
 		QList<int> _tempMemberID{};

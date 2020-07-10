@@ -23,13 +23,7 @@ namespace Geometry
 
 		void setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash);
 		QMultiHash<Geometry::GeometrySet*, int> getShapeHash();
-/*
 
-		void setEdges(int s);
-		int getEdges();*/
-
-		void setActor(QList<vtkActor*> a);
-		QList<vtkActor*> getActor();
 		///数据写入工程文件
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
 		///从工程文件读入数据
@@ -39,7 +33,6 @@ namespace Geometry
 		QString _name{};
 	
 		QMultiHash<Geometry::GeometrySet*, int> _shapeHash;
-		QList<vtkActor*> _actor;
 		int _edges;
 	};
 }

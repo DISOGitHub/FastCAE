@@ -1,12 +1,10 @@
 #include "geometryData.h"
-//#include "geometryReader.h"
 #include <gp_Ax3.hxx>
 #include <assert.h>
 #include <QCryptographicHash>
 #include "geometrySet.h"
 #include <QDomDocument>
 #include <QDomElement>
-#include <QDebug>
 #include <QDataStream>
 #include "geometryDatum.h"
 
@@ -134,7 +132,7 @@ namespace Geometry
 		for (int i = 0; i < n; ++i)
 		{
 			GeometrySet* set = _geometryList[i];
-			stream << set->getID() << set->getName() << set->getShape()<<set->getStlDataSet();
+			stream << set->getID() << set->getName() << set->getShape()/*<<set->getStlDataSet()*/;
 		}
 		char* s;
 		stream >> s;

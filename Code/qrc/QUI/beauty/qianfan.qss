@@ -82,7 +82,7 @@ QPushButton#addButton,QPushButton#removeButton,QPushButton#btn_add,QPushButton#b
 	max-height:24px;
 }
 
-QPushButton#geoSelectPoint,QPushButton#geoSelectCurve,QPushButton#geoSelectSurface,QPushButton#geoSelectPoint_1,QPushButton#geoSelectCurve_1,QPushButton#geoSelectSurface_1,QPushButton#geoSelectCurve_2{
+QPushButton#geoSelectPoint,QPushButton#geoSelectCurve,QPushButton#geoSelectSurface,QPushButton#geoSelectPoint_1,QPushButton#geoSelectCurve_1,QPushButton#geoSelectSurface_1,QPushButton#geoSelectCurve_2,QPushButton#geoSelect{
 	min-width:31px;
 	min-height:28px;
 	max-width:31px;

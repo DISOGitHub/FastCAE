@@ -32,7 +32,6 @@ namespace GeometryWidget
 	CreatePointDialog::~CreatePointDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit updateGraphOptions();
 	}
 
 	void CreatePointDialog::init()

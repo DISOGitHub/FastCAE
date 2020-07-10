@@ -284,8 +284,7 @@ namespace Post
 		else
 		{
 			QString idaddtype = QString("(%1,\"%2\",").arg(caseid).arg(wintype);
-			newcode = code.replace(QRegExp("\\("), idaddtype);
-		
+			newcode = code.replace(QRegExp("\\("), idaddtype);	
 		}
 		qDebug() << newcode;
 		Py::PythonAagent::getInstance()->appCodeList(newcode);

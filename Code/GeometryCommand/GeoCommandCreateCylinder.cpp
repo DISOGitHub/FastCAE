@@ -43,7 +43,7 @@ namespace Command
 		{
 			set->setName(_name);
 			_geoData->appendGeometrySet(set);
-		}
+		} 
 
 		Geometry::GeometryParaCylinder* para = new Geometry::GeometryParaCylinder;
 		para->setName(_name);

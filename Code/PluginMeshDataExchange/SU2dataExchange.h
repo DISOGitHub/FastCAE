@@ -38,9 +38,11 @@ namespace MeshData
 		QHash<int, int> _nodeIdIndex{};
 
 		MeshData* _meshData{};
-		vtkUnstructuredGrid* _gird{};
+		//vtkUnstructuredGrid* _gird{};
 		int _writeFileKid;
 		MeshOperation _operation;
+		QList<vtkUnstructuredGrid*> _gridList{};
+		int _gridCount{ 0 };
 	};
 }
 

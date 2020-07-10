@@ -12,7 +12,6 @@ namespace Geometry
 		_type = GeometryParaMakeMoveFeature;
 	}
 
-
 	void GeometryParaMakeMove::setOptionIndex(int index)
 	{
 		_optionindex = index;
@@ -24,16 +23,15 @@ namespace Geometry
 		return _optionindex;
 	}
 
-	void GeometryParaMakeMove::setBodyList(QList<Geometry::GeometrySet*> bodylist)
+	void GeometryParaMakeMove::appendBody(Geometry::GeometrySet* set, int bodyindex)
 	{
-		_bodylist = bodylist;
+		_solidHash.insert(set, bodyindex);
 	}
 
-	QList<Geometry::GeometrySet*> GeometryParaMakeMove::getBodyList()
+	QMultiHash<Geometry::GeometrySet*, int> GeometryParaMakeMove::getBodys()
 	{
-		return _bodylist;
+		return _solidHash;
 	}
-
 	void GeometryParaMakeMove::setSaveOrigion(bool s)
 	{
 		_saveorigion = s;
@@ -43,7 +41,6 @@ namespace Geometry
 	{
 		return _saveorigion;
 	}
-
 
 	void GeometryParaMakeMove::setReverse(bool s)
 	{
@@ -136,17 +133,16 @@ namespace Geometry
 		indexEle.appendChild(indexText);
 		element.appendChild(indexEle);
 
-		if (_bodylist.size() != 0)
+		QStringList solidStrList{};
+		if (_solidHash.size() > 0)
 		{
-			QString setidStr{};
-			for (int i = 0; i < _bodylist.size(); ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _solidHash.begin();
+			for (; it != _solidHash.end(); it++)
 			{
-				setidStr.append(QString::number((_bodylist[i]->getID())));
-				if (i != (_bodylist.size() - 1)) setidStr.append(",");
-
+				solidStrList << QString("%1:%2)").arg(it.key()->getID()).arg(it.value());
 			}
 			QDomElement startpointEle = doc->createElement("BodyIDList");
-			QDomText startpointText = doc->createTextNode(setidStr);
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
 			startpointEle.appendChild(startpointText);
 			element.appendChild(startpointEle);
 		}
@@ -209,8 +205,11 @@ namespace Geometry
 		if (coorsl.size() < 1) return;
 		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			Geometry::GeometrySet*set = data->getGeometrySetByID((coorsl[i]).toInt());
-			_bodylist.append(set);
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_solidHash.insert(set, solidindex);
 		}
 		QDomNodeList rList = e->elementsByTagName("SaveOrigion");
 		QString r = rList.at(0).toElement().text();
@@ -274,6 +273,5 @@ namespace Geometry
 
 	}
 
-	
 
 }

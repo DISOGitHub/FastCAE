@@ -270,35 +270,47 @@ namespace Command
     }
 
 
-    void GeometryCommandPy::CreateBooLOperation(BoolType t, int body1, int body2)
+	void GeometryCommandPy::CreateBooLOperation(BoolType t, int set1, int body1, int set2, int body2)
     {
-        Geometry::GeometrySet* bodyset1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body1);
-        Geometry::GeometrySet* bodyset2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body2);
+		Geometry::GeometrySet* geo1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set1);
+		if (geo1 == nullptr) return;
+		Geometry::GeometrySet* geo2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set2);
+		if (geo2 == nullptr) return;
+		QPair <Geometry::GeometrySet*, int> solid1{ geo1, body1 };
+		QPair <Geometry::GeometrySet*, int> solid2{ geo2, body2 };
+
 
         Command::CommandBool* c = new Command::CommandBool(_mainWindow, _preWindow);
         c->setType(t);
-        c->setInputBody(bodyset1, bodyset2);
+        c->setSolid1(solid1);
+		c->setSolid2(solid2);
         bool success = Command::GeoComandList::getInstance()->executeCommand(c);
         if (!success) warning();
     }
 
-    void GeometryCommandPy::EditBooLOperation(Geometry::GeometrySet* set, BoolType t, int body1, int body2)
+	void GeometryCommandPy::EditBooLOperation(Geometry::GeometrySet* set, BoolType t, int set1, int body1, int set2, int body2)
     {
-        Geometry::GeometrySet* set1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body1);
-        Geometry::GeometrySet* set2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(body2);
-        
+		Geometry::GeometrySet* geo1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set1);
+		if (geo1 == nullptr) return;
+		Geometry::GeometrySet* geo2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set2);
+		if (geo2 == nullptr) return;
+		QPair <Geometry::GeometrySet*, int> solid1{ geo1, body1 };
+		QPair <Geometry::GeometrySet*, int> solid2{ geo2, body2 };
+
         Command::CommandBool* c = new Command::CommandBool(_mainWindow, _preWindow);
         c->setEditData(set);
         c->setType(t);
-        c->setInputBody(set1, set2);
+		c->setSolid1(solid1);
+		c->setSolid2(solid2);
+        //c->setInputBody(set1, set2);
         bool success = Command::GeoComandList::getInstance()->executeCommand(c);
         if (!success) warning();
     }
 
-    void GeometryCommandPy::CreateMirrorFeature(QList<Geometry::GeometrySet*>setlist, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
+	void GeometryCommandPy::CreateMirrorFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
     {
         Command::CommandMirrorFeature* c = new Command::CommandMirrorFeature(_mainWindow, _preWindow);
-        c->setBodys(setlist);
+        c->setBodys(bodyhash);
         c->setSaveOrigin(save);
         c->setTypeIndex(typeindex);
 		if (typeindex == 0)
@@ -319,11 +331,11 @@ namespace Command
         if (!success) warning();
     }
 
-    void GeometryCommandPy::EditMirrorFeature(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist,  bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
+	void GeometryCommandPy::EditMirrorFeature(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
     {
         Command::CommandMirrorFeature* c = new Command::CommandMirrorFeature(_mainWindow, _preWindow);
         c->setEditData(set);
-		c->setBodys(setlist);
+		c->setBodys(bodyhash);
 		c->setSaveOrigin(save);
 		c->setTypeIndex(typeindex);
 		if (typeindex == 0)
@@ -345,11 +357,11 @@ namespace Command
     }
 
 
-    void GeometryCommandPy::RotateFeature(QList<Geometry::GeometrySet*> sets, double* basicpt, int method, 
+	void GeometryCommandPy::RotateFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* basicpt, int method,
                            Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri)
     {
         auto c = new Command::CommandRotateFeature(_mainWindow, _preWindow);
-        c->setBodys(sets);
+		c->setBodys(bodyhash);
         c->setBasicPoint(basicpt);
         c->setMethod(method);
         c->setEdge(edgeBody, index);
@@ -362,10 +374,11 @@ namespace Command
         if (!success) warning();
     }
 
-	void GeometryCommandPy::EditRotateFeature(Geometry::GeometrySet* editset, double* basicpt, int method, 
+	void GeometryCommandPy::EditRotateFeature(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyHash, double* basicpt, int method,
 		Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri)
 	{
 		auto c = new Command::CommandRotateFeature(_mainWindow, _preWindow);
+		c->setBodys(bodyHash);
 		c->setEditData(editset);
 		c->setBasicPoint(basicpt);
 		c->setMethod(method);
@@ -379,10 +392,10 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::CreateMoveFeature(QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir)
+	void GeometryCommandPy::CreateMoveFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir)
 	{
 		Command::CommandMoveFeature* c = new Command::CommandMoveFeature(_mainWindow, _preWindow);
-		c->setBodys(setlist);
+		c->setBodys(bodyhash);
 		c->setSaveOrigin(s);
 		c->setOptionIndex(typeindex);
 		if (typeindex == 0)
@@ -400,11 +413,11 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::EditMoveFeature(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir)
+	void GeometryCommandPy::EditMoveFeature(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir)
 	{
 		Command::CommandMoveFeature* c = new Command::CommandMoveFeature(_mainWindow, _preWindow);
 		c->setEditData(set);
-		c->setBodys(setlist);
+		c->setBodys(bodyhash);
 		c->setSaveOrigin(s);
 		c->setOptionIndex(typeindex);
 		if (typeindex==0)
@@ -423,10 +436,10 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::MakeMatrix(QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1,double dis1, int count1, bool showdir2, double*dir2, bool reverse2,double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
+	void GeometryCommandPy::MakeMatrix(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
 	{
 		Command::CommandMakeMatrix*c = new Command::CommandMakeMatrix(_mainWindow, _preWindow);
-		c->setBodys(setlist);
+		c->setBodys(bodyhash);
 		c->setOptionIndex(optionindex);
 		c->setDir1(dir1);
 		c->setReverse1(reverse1);
@@ -448,11 +461,11 @@ namespace Command
 	}
 
 
-	void GeometryCommandPy::EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
+	void GeometryCommandPy::EditMatrix(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2, int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree)
 	{
 		Command::CommandMakeMatrix*c = new Command::CommandMakeMatrix(_mainWindow, _preWindow);
 		c->setEditData(set);
-		c->setBodys(setlist);
+		c->setBodys(bodyhash);
 		c->setOptionIndex(optionindex);
 		c->setDir1(dir1);
 		c->setReverse1(reverse1);
@@ -552,21 +565,21 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::MakeGeoSplitter(Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody)
+	void GeometryCommandPy::MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody)
 	{
 		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
-		command->setBody(body);
+		command->setBodys(bodyhash);
 		command->setFaceIndex(faceindex);
 		command->setFaceBody(facebody);
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::EditGeoSplitter(Geometry::GeometrySet* editset, Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody)
+	void GeometryCommandPy::EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody)
 	{
 		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
 		command->setEditData(editset);
-		command->setBody(body);
+		command->setBodys(bodyhash);
 		command->setFaceIndex(faceindex);
 		command->setFaceBody(facebody);
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
@@ -821,6 +834,7 @@ void GEOMETRYCOMMANDAPI CreateVariableFillet(char*edges, double basicrad, int ed
 	Command::GeometryCommandPy::CreateVariableFillet(radmap, basicrad, editId, setid, edgeindex);
 }
 
+/*
 void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int body2id)
 {
 	QString str = QString(booltype);
@@ -831,9 +845,21 @@ void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int bod
 	else if (str == "Common") sbooltype = BoolCommon;
   
     Command::GeometryCommandPy::CreateBooLOperation(sbooltype, body1id, body2id);
+}*/
+
+void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int set1, int body1, int set2, int body2)
+{
+	QString str = QString(booltype);
+	BoolType sbooltype{};
+	if (str == "None") return;
+	else if (str == "Cut") sbooltype = BoolCut;
+	else if (str == "Fause") sbooltype = BoolFause;
+	else if (str == "Common") sbooltype = BoolCommon;
+
+	Command::GeometryCommandPy::CreateBooLOperation(sbooltype, set1, body1, set2, body2);
 }
 
-void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int body1id, int body2id)
+void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int set1, int body1, int set2, int body2)
 {
     Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
 	QString str = QString(booltype);
@@ -843,21 +869,30 @@ void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int body1id, i
 	else if (str == "Fause") sbooltype = BoolFause;
 	else if (str == "Common") sbooltype = BoolCommon;
     
-    Command::GeometryCommandPy::EditBooLOperation(set, sbooltype, body1id, body2id);
+	Command::GeometryCommandPy::EditBooLOperation(set, sbooltype, set1, body1, set2, body2);
 }
 
 void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method, int faceindex, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2, char* saveori)
 {
-    QString locstr = QString(bodys);
-    QStringList coorsl = locstr.split(",");
-    if (coorsl.size() < 1) return;
-    QList<Geometry::GeometrySet*> setidList;
-    for (int i = 0; i < coorsl.size(); ++i)
-    {
-        int id=coorsl.at(i).toInt();
-        Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-        setidList.append(set);
-    }
+   
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
+
 	int typeindex{};
 	QString methodstr = QString(method);
 	if (methodstr == "SelectPlaneOnGeo") typeindex = 0;
@@ -877,23 +912,31 @@ void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method, int facei
     Geometry::GeometrySet* facebodyset = Geometry::GeometryData::getInstance()->getGeometrySetByID(facebody);
     double random[3] = { random0, random1, random2 };
     double basept[3] = { base0, base1, base2 };
-
-    Command::GeometryCommandPy::CreateMirrorFeature(setidList,s,typeindex,faceindex,facebodyset,planeindex,random,basept);
+	Command::GeometryCommandPy::CreateMirrorFeature(shapeHash, s, typeindex, faceindex, facebodyset, planeindex, random, basept);
 }
 
 void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int faceindex, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2, char* saveori)
 {
     Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-	QString locstr = QString(bodys);
-	QStringList coorsl = locstr.split(",");
-	if (coorsl.size() < 1) return;
-	QList<Geometry::GeometrySet*> setidList;
-	for (int i = 0; i < coorsl.size(); ++i)
+
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
 	{
-		int id = coorsl.at(i).toInt();
-		Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-		setidList.append(set);
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
 	}
+
 	int typeindex{};
 	QString methodstr = QString(method);
 	if (methodstr == "SelectPlaneOnGeo") typeindex = 0;
@@ -914,61 +957,87 @@ void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int
 	Geometry::GeometrySet* facebodyset = Geometry::GeometryData::getInstance()->getGeometrySetByID(facebody);
 	double random[3] = { random0, random1, random2 };
 	double basept[3] = { base0, base1, base2 };
-
-    Command::GeometryCommandPy::EditMirrorFeature(set,setidList, s, typeindex, faceindex, facebodyset, planeindex, random, basept);
+    Command::GeometryCommandPy::EditMirrorFeature(set,shapeHash, s, typeindex, faceindex, facebodyset, planeindex, random, basept);
 }
 
 void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, /*体 & 基准点 */ 
                                        int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*轴线 */
                                        double angle, int saveOri)
 {
-    QString strbody = QString(body);
-    QStringList sbodyList = strbody.split(",");
-    Geometry::GeometryData* gdata = Geometry::GeometryData::getInstance();
-    QList<Geometry::GeometrySet*> setList{};   //操作对象
-    for (int i = 0; i < sbodyList.size(); ++i)
-    {
-        int id = sbodyList.at(i).toInt();
-        Geometry::GeometrySet* set = gdata->getGeometrySetByID(id);
-        if (set == nullptr) continue;
-        setList.append(set);
-    }
-
+	QString cedge = QString(body);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
     double basicPt[3] = { basicx, basicy, basicz };
     double axis[3] = { axisx, axisy, axisz };
     
-    Geometry::GeometrySet* edge = gdata->getGeometrySetByID(edgeBoby);
-
-    Command::GeometryCommandPy::RotateFeature(setList, basicPt, method, edge, edgeIndex, axis, reverse, angle, saveOri);
+    Geometry::GeometrySet* edge = data->getGeometrySetByID(edgeBoby);
+	Command::GeometryCommandPy::RotateFeature(shapeHash, basicPt, method, edge, edgeIndex, axis, reverse, angle, saveOri);
 	  
 }
 
-void GEOMETRYCOMMANDAPI EditRotateFeature(int body, double basicx, double basicy, double basicz, /*体 & 基准点 */
+void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, /*体 & 基准点 */
 	int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*轴线 */
 	double angle, int saveOri)
 {
+	QString cedge = QString(body);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
 	Geometry::GeometryData* gdata = Geometry::GeometryData::getInstance();
-	Geometry::GeometrySet* editset = gdata->getGeometrySetByID(body);
+	Geometry::GeometrySet* editset = gdata->getGeometrySetByID(bodyid);
 	double basicPt[3] = { basicx, basicy, basicz };
 	double axis[3] = { axisx, axisy, axisz };
 
 	Geometry::GeometrySet* edge = gdata->getGeometrySetByID(edgeBoby);
-
-	Command::GeometryCommandPy::EditRotateFeature(editset, basicPt, method, edge, edgeIndex, axis, reverse, angle, saveOri);
+	Command::GeometryCommandPy::EditRotateFeature(editset, shapeHash,basicPt, method, edge, edgeIndex, axis, reverse, angle, saveOri);
 }
 
 void GEOMETRYCOMMANDAPI CreateMoveFeature(char * bodys, char* method, double startpt0, double startpt1, double startpt2, double endpt0, double endpt1, double endpt2, char* save, char* reverse,
 											double length, double dir0, double dir1, double dir2)
 {
-	QString locstr = QString(bodys);
-	QStringList coorsl = locstr.split(",");
-	if (coorsl.size() < 1) return;
-	QList<Geometry::GeometrySet*> setidList;
-	for (int i = 0; i < coorsl.size(); ++i)
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
 	{
-		int id = coorsl.at(i).toInt();
-		Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-		setidList.append(set);
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
 	}
 	int optionindex{};
 	QString methodstr = QString(method);
@@ -987,22 +1056,29 @@ void GEOMETRYCOMMANDAPI CreateMoveFeature(char * bodys, char* method, double sta
 	double start[3] = { startpt0, startpt1, startpt2 };
 	double end[3] = { endpt0, endpt1, endpt2 };
 	double dir[3] = { dir0, dir1, dir2 };
-	Command::GeometryCommandPy::CreateMoveFeature(setidList, start, end, s, optionindex, r, length, dir);
+	Command::GeometryCommandPy::CreateMoveFeature(shapeHash, start, end, s, optionindex, r, length, dir);
 }
 
 void GEOMETRYCOMMANDAPI EditMoveFeature(int id, char * bodys, char* method, double startpt0, double startpt1, double startpt2, double endpt0, double endpt1, double endpt2, char* save, char* reverse,
 											double length, double dir0, double dir1, double dir2)
 {
 	Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-	QString locstr = QString(bodys);
-	QStringList coorsl = locstr.split(",");
-	if (coorsl.size() < 1) return;
-	QList<Geometry::GeometrySet*> setidList;
-	for (int i = 0; i < coorsl.size(); ++i)
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
 	{
-		int id = coorsl.at(i).toInt();
-		Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-		setidList.append(set);
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
 	}
 	int optionindex{};
 	QString methodstr = QString(method);
@@ -1023,20 +1099,27 @@ void GEOMETRYCOMMANDAPI EditMoveFeature(int id, char * bodys, char* method, doub
 	double end[3] = { endpt0, endpt1, endpt2 };
 	double dir[3] = { dir0, dir1, dir2 };
 
-	Command::GeometryCommandPy::EditMoveFeature(set,setidList,  start, end, s, optionindex, r, length, dir);
+	Command::GeometryCommandPy::EditMoveFeature(set, shapeHash, start, end, s, optionindex, r, length, dir);
 }
 
 void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree)
 {
-	QString locstr = QString(bodys);
-	QStringList coorsl = locstr.split(",");
-	if (coorsl.size() < 1) return;
-	QList<Geometry::GeometrySet*> setidList;
-	for (int i = 0; i < coorsl.size(); ++i)
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
 	{
-		int id = coorsl.at(i).toInt(); 
-		Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-		setidList.append(set);
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
 	}
 	double dir1[3]{dir10, dir11, dir12};
 	double dir2[3]{dir20, dir21, dir22};
@@ -1050,22 +1133,29 @@ void GEOMETRYCOMMANDAPI MakeMatrix(char * bodys, int optionindex, double dir10, 
 	double axis[3]{axis0, axis1, axis2};
 	bool wr{ false };
 	if (wirereverse == 1) wr = true;
-	Command::GeometryCommandPy::MakeMatrix(setidList, optionindex,dir1,reverse1,dis1,count1,s,dir2,reverse2,dis2,count2,basepoint,axis,wr,wirecount,degree);
+	Command::GeometryCommandPy::MakeMatrix(shapeHash, optionindex,dir1,reverse1,dis1,count1,s,dir2,reverse2,dis2,count2,basepoint,axis,wr,wirecount,degree);
 	
 }
 
 void GEOMETRYCOMMANDAPI EditMatrix(int id, char * bodys, int optionindex, double dir10, double dir11, double dir12, int reverse1, double dis1, int count1, int showdir2, double dir20, double dir21, double dir22, int reverse2, double dis2, int count2, double basept0, double basept1, double basept2, double axis0, double axis1, double axis2, int wirereverse, int wirecount, double degree)
 {
 	Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-	QString locstr = QString(bodys);
-	QStringList coorsl = locstr.split(",");
-	if (coorsl.size() < 1) return;
-	QList<Geometry::GeometrySet*> setidList;
-	for (int i = 0; i < coorsl.size(); ++i)
+	QString cedge = QString(bodys);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
 	{
-		int id = coorsl.at(i).toInt();
-		Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
-		setidList.append(set);
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
 	}
 	double dir1[3]{dir10, dir11, dir12};
 	double dir2[3]{dir20, dir21, dir22};
@@ -1079,7 +1169,7 @@ void GEOMETRYCOMMANDAPI EditMatrix(int id, char * bodys, int optionindex, double
 	double axis[3]{axis0, axis1, axis2};
 	bool wr{ false };
 	if (wirereverse == 1) wr = true;
-	Command::GeometryCommandPy::EditMatrix(set,setidList, optionindex, dir1, reverse1, dis1,count1, s, dir2, reverse2,dis2, count2, basepoint, axis, wr, wirecount, degree);
+	Command::GeometryCommandPy::EditMatrix(set, shapeHash, optionindex, dir1, reverse1, dis1,count1, s, dir2, reverse2,dis2, count2, basepoint, axis, wr, wirecount, degree);
 }
 
 void GEOMETRYCOMMANDAPI CreateExtrusion(int id, char* name,char *edges, double dis, double pt0, double pt1, double pt2, char* reverse, char* solid)
@@ -1160,7 +1250,7 @@ void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec)
 	QString na(name);
 	QString sl(solid);
 	QString se(sec);
-	bool s;
+	bool s{};
 	if (sl == "Yes") s = true;
 	else s = false;
 	QList< QMultiHash<Geometry::GeometrySet*, int>> shapelist;
@@ -1187,15 +1277,13 @@ void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec)
 		}
 		shapelist.push_back(temphash);
 	}
-
-
 	Command::GeometryCommandPy::CreateLoft(id, na, s, shapelist);
 }
 
 void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset, int pathedge)
 {
 
-	bool s;
+	bool s{};
 	QString solidstr = QString(solid);
 	if (solidstr == "Yes") s = true;
 	else s = false;
@@ -1223,22 +1311,54 @@ void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset
 	
 }
 
-void GEOMETRYCOMMANDAPI MakeGeoSplitter(int body, int faceid, int facebody)
+void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, int faceid, int facebody)
 {
+
+	QString cedge = QString(bodystr);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-	Geometry::GeometrySet* bodyset = data->getGeometrySetByID(body);
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		} 
+	}
 	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
-	Command::GeometryCommandPy::MakeGeoSplitter(bodyset, faceid, faceset);
+	Command::GeometryCommandPy::MakeGeoSplitter(shapeHash, faceid, faceset);
 
 }
 
-void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, int body, int faceid, int facebody)
+void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, int faceid, int facebody)
 {
+
+	QString cedge = QString(bodystr);
+	QStringList setInfos = cedge.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
 	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
 	Geometry::GeometrySet* editset = data->getGeometrySetByID(editid);
-	Geometry::GeometrySet* bodyset = data->getGeometrySetByID(body);
 	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
-	Command::GeometryCommandPy::EditGeoSplitter(editset, bodyset, faceid, faceset);
+	Command::GeometryCommandPy::EditGeoSplitter(editset, shapeHash, faceid, faceset);
 
 }
 

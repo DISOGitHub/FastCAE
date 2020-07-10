@@ -39,7 +39,9 @@ namespace MainWidget
 		connect(_mainWindow, SIGNAL(updateSetTreeSig()), this, SLOT(updateMeshSetTree()));
 		connect(this, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(singleClicked(QTreeWidgetItem*, int)));
 		connect(this, SIGNAL(updateDisplay(int, bool)), _mainWindow, SIGNAL(updateMeshDispalyStateSig(int, bool)));
+		connect(this, SIGNAL(updateMeshSetVisible(MeshData::MeshSet*)), _mainWindow, SIGNAL(updateMeshSetVisibleSig(MeshData::MeshSet*)));
 		connect(this, SIGNAL(removeMeshData(int)), _mainWindow, SIGNAL(removeMeshActorSig(int)));
+		connect(this, SIGNAL(removeSetData(int)), _mainWindow, SIGNAL(removeSetDataSig(int)));
 		connect(this, SIGNAL(updateActionStates()), _mainWindow, SIGNAL(updateActionStatesSig()));
 		connect(this, SIGNAL(disPlayProp(DataProperty::DataBase*)), _mainWindow, SIGNAL(updateProperty(DataProperty::DataBase*)));
 		connect(this, SIGNAL(higtLightSet(MeshData::MeshSet*)), _mainWindow, SIGNAL(highLightSetSig(MeshData::MeshSet*)));
@@ -88,10 +90,13 @@ namespace MainWidget
 		_setRoot->takeChildren();
 		_setRoot->setText(0, tr("Set"));
 		const int n = _data->getMeshSetCount();
+
+		blockSignals(true);
 		for (int i = 0; i < n; ++i)
 		{
 			MeshData::MeshSet* s = _data->getMeshSetAt(i);
 			const QString name = s->getName();
+			const bool visible = s->isVisible();
 			const int  id = s->getID();
 			QTreeWidgetItem* item = new QTreeWidgetItem(_setRoot, TreeItemType::MeshSetChild);
 			item->setData(0, Qt::UserRole, id);
@@ -102,7 +107,12 @@ namespace MainWidget
 			else if (s->getSetType() == MeshData::Family)
 				icon = "://QUI/icon/family.png";
 			item->setIcon(0, QIcon(icon));
+
+			Qt::CheckState state = Qt::Checked;
+			if (!visible) state = Qt::Unchecked;
+			item->setCheckState(0, state);
 		}
+		blockSignals(false);
 	}
 
 	void MeshWidget::singleClicked(QTreeWidgetItem* item, int i)
@@ -216,6 +226,7 @@ namespace MainWidget
 	{
 		const int index = _setRoot->indexOfChild(_currentItem);
 		if (index < 0) return;
+		emit removeSetData(index);
 		_data->removeMeshSetAt(index);
 		updateMeshSetTree();
 		emit disPlayProp(nullptr);
@@ -306,24 +317,32 @@ namespace MainWidget
 			emit higtLightSet(nullptr);
 			return;
 		}
-
-		if (_currentItem->type() != TreeItemType::MeshChild) return;
+		disPlayProp(nullptr);
+//		if (_currentItem->type() != TreeItemType::MeshChild) return;
 		
-		const int index = _meshRoot->indexOfChild(item);
-		if (index < 0)
+		int index = _meshRoot->indexOfChild(item);
+		if (index >= 0)
 		{
-			emit disPlayProp(nullptr);
+			MeshData::MeshKernal* k = _data->getKernalAt(index);
+			if (k == nullptr) return;
+			bool visable = true;
+			Qt::CheckState state = item->checkState(0);
+			if (state != Qt::Checked) visable = false;
+			k->setVisible(visable);
+			emit updateDisplay(index, visable);
 			return;
 		}
-
-		MeshData::MeshKernal* k = _data->getKernalAt(index);
-		if (k == nullptr) return;
-		bool visable = true;
-		Qt::CheckState state = item->checkState(0);
-		if (state != Qt::Checked) visable = false;
-		k->setVisible(visable);
-		emit updateDisplay(index, visable);
-
+		index = _setRoot->indexOfChild(item);
+		if (index >=  0)
+		{
+			MeshData::MeshSet* s = _data->getMeshSetAt(index);
+			if (s == nullptr) return;
+			bool visable = true;
+			Qt::CheckState state = item->checkState(0);
+			if (state != Qt::Checked) visable = false;
+			s->isVisible(visable);
+			emit updateMeshSetVisible(s);
+		}
 		
 	}
 

@@ -12,6 +12,7 @@
 #include "geometry/geometrySet.h"
 #include "moduleBase/CommonFunctions.h"
 #include "PluginManager/PluginManager.h"
+#include "mainWindow/signalHandler.h"
 #include <QDebug>
 #include <QDomNodeList>
 #include <QDomElement>
@@ -26,18 +27,35 @@
 
 namespace IO
 {
-	ProjectFileIO::ProjectFileIO(const QString& fileName)
-		:IOBase(fileName)
+	ProjectFileIO::ProjectFileIO(GUI::MainWindow* mw, GUI::SignalHandler*sh, const QString& fileName, bool read)
+		:IOBase(fileName), ModuleBase::ThreadTask(mw), _read(read)
 	{
 		_geoData = Geometry::GeometryData::getInstance();
 		_meshData = MeshData::MeshData::getInstance();
 		_modelData = ModelData::ModelDataSingleton::getinstance();
 		_materialData = Material::MaterialSingleton::getInstance();
 		_plugins = Plugins::PluginManager::getInstance();
+
+		connect(this, SIGNAL(processFinished(QString, bool, bool)), sh, SIGNAL(projectFileProcessedSig(QString, bool, bool)));
 	}
-	ProjectFileIO::ProjectFileIO()
+
+	void ProjectFileIO::run()
 	{
+		bool success = false;
+		if (_read)
+		{
+			emit showInformation(tr("Opening Project File: \"%1\"").arg(_filename));
+			success = this->read();
+		}
+		else
+		{
+			emit showInformation(tr("Saving Project File: \"%1\"").arg(_filename));
+			success = this->write();
+		}
+		emit processFinished(_filename, success, _read);
+		ThreadTask::threadTaskFinished();
 	}
+
 	bool ProjectFileIO::write(QString s)
 	{
 		if (s.isEmpty()) s = _filename;

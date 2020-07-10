@@ -11,6 +11,7 @@ namespace Geometry
 		connect(this, SIGNAL(showGeometryMessageSig(ModuleBase::Message)), _mainwindow, SIGNAL(printMessageToMessageWindow(ModuleBase::Message)));
 		connect(this, SIGNAL(updateGeometryTree()), _mainwindow, SIGNAL(updateGeometryTreeSig()));
 		connect(this, SIGNAL(updateActionsStates()), _mainwindow, SIGNAL(updateActionsStatesSig()));
+		connect(this, SIGNAL(updatePreGeometryActor()), _mainwindow, SIGNAL(updatePreGeometryActorSig()));
 	}
 
 	GeometryThreadBase::~GeometryThreadBase()
@@ -21,8 +22,9 @@ namespace Geometry
 	void GeometryThreadBase::defaultGeometryFinished()
 	{
 		emit updateGeometryTree();
+//		emit updatePreGeometryActor();
 		Py::PythonAagent::getInstance()->unLock();	
-		ModuleBase::ThreadTask::threadTaskFinished();	
+		ModuleBase::ThreadTask::threadTaskFinished();
 	}
 
 	QList<GeometrySet*>& GeometryThreadBase::getResult()

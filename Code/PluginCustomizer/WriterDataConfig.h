@@ -28,6 +28,10 @@ namespace FastCAEDesigner{
 		bool WritePost2DDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list);
 		bool WritePost3DDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list);
 		bool WriteCurveDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list);
+		bool writeTreeGrandSonPara(QDomDocument &doc, QDomElement &root, ModelBase* model, int number);
+
+	private:
+		int _index{ 1 };
 	};
 }
 

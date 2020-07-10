@@ -13,7 +13,7 @@ namespace Ui
     class RotateFeatureDialog;
 }
 
-class vtkActor;
+//class vtkActor;
 
 namespace GeometryWidget
 {
@@ -26,7 +26,7 @@ namespace GeometryWidget
         RotateFeatureDialog(GUI::MainWindow* m, MainWidget::PreWindow* p);
 		RotateFeatureDialog(GUI::MainWindow* m, MainWidget::PreWindow* p, Geometry::GeometrySet* set);
 		~RotateFeatureDialog();
-
+		
     private:
         void init();
 		void initEdit();
@@ -41,19 +41,16 @@ namespace GeometryWidget
         void on_geoSelectCurve_clicked();
         void pointWidgetClicked(GeoPointWidget* w);
         void on_radioButtonUser();
-        void selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 
     private:
         Ui::RotateFeatureDialog* _ui{};
         GeoPointWidget*  _baseWidget{};
 
         bool _selectBody{ false };
-        bool _selectEdge{ false };
-
-        QList<Geometry::GeometrySet*> _geobodyList{};
-        vtkActor* _edgeActor{};
-        int _edgeIndex{ -1 };
-        Geometry::GeometrySet* _edgeSet{};
+		bool _selectEdge{ false };
+		QMultiHash<Geometry::GeometrySet*, int> _bodysHash{};
+		QPair<Geometry::GeometrySet*, int>_edgepair{};
 
     };
 

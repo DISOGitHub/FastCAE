@@ -1,4 +1,4 @@
-#include "commandLine.h"
+#include "CommandLine.h"
 #include "mainWindow/mainWindow.h"
 #include <iostream>
 #include <QtCore>

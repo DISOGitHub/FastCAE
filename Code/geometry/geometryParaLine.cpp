@@ -42,18 +42,6 @@ namespace Geometry
 		return _index;
 	}
 
-	/*void GeometryParaLine::setEndPoint(double* endpt)
-	{
-		for (int i = 0; i < 3; ++i)
-			_endpoint[i] = endpt[i];
-	}
-
-	void GeometryParaLine::getEndPoint(double* endpt)
-	{
-		for (int i = 0; i < 3; ++i)
-			endpt[i] = _endpoint[i];
-	}*/
-
 	void GeometryParaLine::setCoor(double* coor)
 	{
 		
@@ -61,8 +49,6 @@ namespace Geometry
 		{
 			_coor[i] = coor[i];
 		}
-		
-
 	}
 
 	void GeometryParaLine::getCoor(double* coor)
@@ -187,8 +173,6 @@ namespace Geometry
 			_coor[i] = coorsl.at(i).toDouble();
 		}
 
-
-
 		QDomNodeList startList = e->elementsByTagName("StartPoint");
 		if (startList.size() != 1) return;
 		QDomElement startele = startList.at(0).toElement();
@@ -210,9 +194,6 @@ namespace Geometry
 		{
 			_direction[i] = parasl.at(i).toDouble();
 		}
-
-
-
 	}
 
 	

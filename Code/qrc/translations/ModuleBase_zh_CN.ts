@@ -346,7 +346,7 @@
         <translation>清空</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+102"/>
         <source>Save Message Info</source>
         <translation>保存信息</translation>
     </message>
@@ -359,7 +359,7 @@
 <context>
     <name>ModuleBase::PropPickerInteractionStyle</name>
     <message>
-        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="+302"/>
+        <location filename="../../moduleBase/PreWindowInteractorStyle.cpp" line="+468"/>
         <source>Node ID</source>
         <translation>节点ID</translation>
     </message>

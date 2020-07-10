@@ -20,16 +20,20 @@ namespace Command
 	{
 		bool success = false;
 		const int count = _bodys.size();
-
+	
 		if (_selectLinear)
 		{
-			for (int i = 0; i < count; ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _solidhash.begin();
+			for (; iter != _solidhash.end(); ++iter)
 			{
+				Geometry::GeometrySet* set = iter.key();
+				QList<int> indexList = _solidhash.values(set);
+				TopoDS_Shape* shape = set->getShape(4, iter.value());
+				
 				TopoDS_Compound aRes;
 				BRep_Builder aBuilder;
 				aBuilder.MakeCompound(aRes);
-				Geometry::GeometrySet* set = _bodys.at(i);
-				TopoDS_Shape* shape = set->getShape();
+
 				//ªÒ»°vectors
 				QList<double*> vectors;
 				if (_selectDir2)
@@ -66,7 +70,10 @@ namespace Command
 
 				Geometry::GeometryParaMatrix* para = new Geometry::GeometryParaMatrix;
 				para->setOriSet(set);
-				para->setBodyList(_bodys);
+				for (int k = 0; k < indexList.size(); k++)
+				{
+					para->appendBody(set, indexList[k]);
+				}
 				para->setCurrentIndex(0);
 				para->setDirection1(_dir1);
 				para->setReverse1(_reverse1);
@@ -103,10 +110,12 @@ namespace Command
 			ax.SetLocation(pt);
 			ax.SetDirection(vec);
 		
-			for (int i = 0; i < count; ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _solidhash.begin();
+			for (; iter != _solidhash.end(); ++iter)
 			{
-				Geometry::GeometrySet* set = _bodys.at(i);
-				TopoDS_Shape* shape = set->getShape();
+				Geometry::GeometrySet* set = iter.key();
+				QList<int> indexList = _solidhash.values(set);
+				TopoDS_Shape* shape = set->getShape(4, iter.value());
 				TopoDS_Compound aRes;
 				BRep_Builder aBuilder;
 				aBuilder.MakeCompound(aRes);
@@ -131,7 +140,10 @@ namespace Command
 					_geoData->appendGeometrySet(newset);
 					Geometry::GeometryParaMatrix* para = new Geometry::GeometryParaMatrix;
 					para->setOriSet(set);
-					para->setBodyList(_bodys);
+					for (int k = 0; k < indexList.size(); k++)
+					{
+						para->appendBody(set, indexList[k]);
+					}
 					para->setCurrentIndex(1);
 					para->setAxis(_basicPoint);
 					para->setAxisDir(_axisdir);
@@ -234,9 +246,9 @@ namespace Command
 		}
 	}
 
-	void CommandMakeMatrix::setBodys(QList<Geometry::GeometrySet*> b)
+	void CommandMakeMatrix::setBodys(QMultiHash<Geometry::GeometrySet*, int> b)
 	{
-		_bodys = b;
+		_solidhash = b;
 	}
 	void CommandMakeMatrix::setSelectLinear(bool s)
 	{

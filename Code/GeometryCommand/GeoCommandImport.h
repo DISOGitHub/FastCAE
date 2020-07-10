@@ -3,7 +3,7 @@
 
 #include "GeoCommandBase.h"
 #include "moduleBase/messageWindowBase.h"
-#include "geometry/GeometrySet.h"
+//#include "geometry/GeometrySet.h"
 
 namespace GUI
 {

@@ -59,8 +59,10 @@ namespace MainWidget
 		_ui->projectTab->resize(300, 200);
 
 		_ui->propTabWidget->setTabPosition(QTabWidget::South);
-		
-//		registerEnabledModule();
+
+		//		registerEnabledModule();
+		//ÐìÎÄÇ¿,2020/06/05
+		connect(_mainWindow, SIGNAL(iniPropertyWidgetSig()), this, SLOT(iniPropertyWidgetSlot()));
 		connect(_mainWindow, SIGNAL(updateProperty(DataProperty::DataBase*)), this, SLOT(updataPropertyTab(DataProperty::DataBase*)));
 		connect(_ui->projectTab, SIGNAL(currentChanged(int)), this, SLOT(changePropTabByProjectPage(int)));
 		connect(_mainWindow, SIGNAL(updateParaWidget(QWidget*)), this, SLOT(updataParaWidget(QWidget*)));
@@ -84,9 +86,9 @@ namespace MainWidget
 		_ui->retranslateUi(this);
 		updataPropertyTab(_data);
 		DockWidgetBase::reTranslate();
-//		setHorizontalHeader( tr("Name"), tr("Property"));
+		//		setHorizontalHeader( tr("Name"), tr("Property"));
 		_propTable->retranslate();
-//		_physicsWidget->updateTree();
+		//		_physicsWidget->updateTree();
 		_physicsWidget->reTranslate();
 		if (_meshWidget != nullptr)
 			_meshWidget->updateTree();
@@ -95,12 +97,19 @@ namespace MainWidget
 
 		_ui->propTabWidget->setCurrentIndex(index);
 	}
+
 	void ControlPanel::on_TreeMouseEvent(int evevntType, QTreeWidgetItem* item, int proID)
 	{
 		Q_UNUSED(evevntType);
 		Q_UNUSED(item);
 		Q_UNUSED(proID);
 	}
+
+	void ControlPanel::iniPropertyWidgetSlot()
+	{
+		_propTable->iniTable();
+	}
+
 	void ControlPanel::updataPropertyTab(DataProperty::DataBase* data)
 	{
 		_ui->propTabWidget->setCurrentIndex(0);
@@ -123,20 +132,20 @@ namespace MainWidget
 			_postProp = nullptr;
 		}
 
-// 		_ui->projectTab->setCurrentIndex(2);
-// 		_ui->propTabWidget->setCurrentIndex(0);
+		// 		_ui->projectTab->setCurrentIndex(2);
+		// 		_ui->propTabWidget->setCurrentIndex(0);
 
 		if (tree != nullptr)
 		{
 			_ui->postLayout->addWidget(tree);
 			_postTree = tree;
-//			_ui->projectTab->setCurrentIndex(3);
+			//			_ui->projectTab->setCurrentIndex(3);
 		}
 		if (prop != nullptr)
 		{
 			_ui->postPropLayout->addWidget(prop);
 			_postProp = prop;
-//			_ui->propTabWidget->setCurrentIndex(1);
+			//			_ui->propTabWidget->setCurrentIndex(1);
 		}
 
 	}
@@ -200,7 +209,7 @@ namespace MainWidget
 
 	void ControlPanel::clearWidget()
 	{
-//		_ui->propertyTable -> setRowCount(0);
+		//		_ui->propertyTable -> setRowCount(0);
 
 		if (_paraWidget != nullptr)
 		{

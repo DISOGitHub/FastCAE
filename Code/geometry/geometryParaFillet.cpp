@@ -69,7 +69,7 @@ namespace Geometry
 		QDomText edgeText = doc->createTextNode(edgeIndexs.join(","));
 		edgeEle.appendChild(edgeText);
 		element.appendChild(edgeEle);
-
+		
 		parent->appendChild(element);
 		return element;
 	}
@@ -96,18 +96,6 @@ namespace Geometry
 			_edgeIndexList.append(inedx);
 		}
 	}
-
-// 	void GeometryParaFillet::setName(QString name)
-// 	{
-// 		_name = name;
-// 	}
-// 
-// 	QString GeometryParaFillet::getName()
-// 	{
-// 		return _name;
-// 	}
-
-
 
 
 }

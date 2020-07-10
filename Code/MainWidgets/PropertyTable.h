@@ -46,9 +46,11 @@ namespace MainWidget
 		void resize(int w = -1);
 		//更新属性窗
 		void updateTable(DataProperty::DataBase* data);
+		//徐文强2020/06/05, 初始化属性窗
+		void iniTable();
 		//翻译
 		void retranslate();
-		
+
 
 	private:
 		void fillProp();
@@ -60,7 +62,7 @@ namespace MainWidget
 		void clearObserver();
 		void appendObserver(DataProperty::ParameterBase* p);
 
-	private slots:
+		private slots:
 		void clickItem(QTableWidgetItem* item);
 		void clickCell(int row, int col);
 		void updateTable();
@@ -74,7 +76,7 @@ namespace MainWidget
 		QTableWidgetItem* _propRoot{};
 		QTableWidgetItem* _paraRoot{};
 		QHash<QWidget*, QList<int>> _widgetRowHash{};
-		
+
 		QList<ConfigOption::ParameterObserver*> _observerList{};
 
 		QList<QPushButton*> _buttonList{};

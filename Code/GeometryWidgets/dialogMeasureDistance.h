@@ -2,9 +2,7 @@
 #define DIALOGMEASUREDISTANCE_H_
  
 #include "geoDialogBase.h"
-
-class vtkActor;
-
+#include <QMultiMap>
 namespace Ui
 {
 	class MeasureaDistanceDialog;
@@ -22,7 +20,7 @@ namespace GeometryWidget
 	private slots:
 	    void on_closeButton_clicked();
 		void on_geoSelectPoint_clicked();
-		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 
 	private:
 		void setPointLocation(double* p1, double* p2);
@@ -30,7 +28,8 @@ namespace GeometryWidget
 	private:
 		Ui::MeasureaDistanceDialog* _ui{};
 		double _point[3];
-		QList<vtkActor*> _actors{};
+		QList<QPair<Geometry::GeometrySet*, int>>_ptlist{};
+		
 	};
 
 }

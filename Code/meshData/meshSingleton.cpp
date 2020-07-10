@@ -3,6 +3,7 @@
 #include "meshSet.h"
 #include "CgnsBCZone.h"
 #include "CgnsFamily.h"
+#include "MeshFactory.h"
 #include <assert.h>
 #include <QDataStream>
 #include <QCryptographicHash>
@@ -327,15 +328,15 @@ namespace MeshData
 		{
 			int type = 0;
 			*dataStream >> type;
-			MeshSet* s = nullptr;
-			switch (type)
-			{
-			case 1:
-			case 2: s = new MeshSet(QString(), SetType(type)); break;
-			case 3: s = new CgnsFamily; break;
-			case 4: s = new CgnsBCZone; break;
-			default:break;
-			}
+			MeshSet* s = MeshFactory::CreateMeshSet(type);
+// 			switch (type)
+// 			{
+// 			case 1:
+// 			case 2: s = new MeshSet(QString(), SetType(type)); break;
+// 			case 3: s = new CgnsFamily; break;
+// 			case 4: s = new CgnsBCZone; break;
+// 			default:break;
+// 			}
 			if (s == nullptr) continue;
 			_setList.append(s);
 			s->readBinaryFile(dataStream);

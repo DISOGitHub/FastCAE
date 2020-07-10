@@ -47,24 +47,27 @@ namespace Command
         static void editChamfer(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> hash, double d1, double d2, bool s);
         static void createFillet(QMultiHash<Geometry::GeometrySet*, int> edges, double radius, int editID);
 		static void CreateVariableFillet(QMap<double, double> rad, double b, int editid,int setid, int edginex);
-        static void CreateBooLOperation(BoolType t, int body1, int body2);
-        static void EditBooLOperation(Geometry::GeometrySet* set, BoolType t, int body1, int body2);
-        static void CreateMirrorFeature(QList<Geometry::GeometrySet*>setlist,bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
-        static void EditMirrorFeature(Geometry::GeometrySet* set,QList<Geometry::GeometrySet*>setlist, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
-		static void RotateFeature(QList<Geometry::GeometrySet*> sets, double* basicpt, int method, Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri);
-		static void EditRotateFeature(Geometry::GeometrySet* editset, double* basicpt,int method, Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri);
-		static void CreateMoveFeature(QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
-		static void EditMoveFeature(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
-		static void MakeMatrix(QList<Geometry::GeometrySet*>setlist,int optionindex,double* dir1,bool reverse1,double dis1,int count1,bool showdir2,double*dir2,bool reverse2,double dis2,int count2,
+		
+		static void CreateBooLOperation(BoolType t, int set1, int body1, int set2, int body2);
+        static void EditBooLOperation(Geometry::GeometrySet* set, BoolType t, int set1,int body1,int set2, int body2);
+		static void CreateMirrorFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
+		static void EditMirrorFeature(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, bool save, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
+		static void RotateFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* basicpt, int method, Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri);
+		static void EditRotateFeature(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyHash,double* basicpt, int method, Geometry::GeometrySet* edgeBody, int index, double* axis, int reverse, double angle, int saveOri);
+
+		static void CreateMoveFeature(QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
+		static void EditMoveFeature(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, double* start, double* end, bool s, int typeindex, bool r, double l, double* dir);
+		
+		static void MakeMatrix(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2, int count2,
 									double* basept,double*axis,bool wirereverse,int wirecount,double degree );
-		static void EditMatrix(Geometry::GeometrySet* set, QList<Geometry::GeometrySet*>setlist, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2,
+		static void EditMatrix(Geometry::GeometrySet* set, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int optionindex, double* dir1, bool reverse1, double dis1, int count1, bool showdir2, double*dir2, bool reverse2, double dis2,
 									 int count2, double* basept, double*axis, bool wirereverse, int wirecount, double degree);
 		static void CreateExtrusion(int editid,QString n, QMultiHash<Geometry::GeometrySet*, int> hash, double dis, double* dir, bool r, bool s);
 		static void CreateRevol(int editid, QString name, QMultiHash<Geometry::GeometrySet*, int> hash, double* basept, double degree, int optionindex, QPair<Geometry::GeometrySet*, int> axisetedge, double* coor, bool reverse, bool solid);
 		static void CreateLoft(int id, QString name, bool solid, QList< QMultiHash<Geometry::GeometrySet*, int>> shapelist);
 		static void CreateSweep(int id, QMultiHash<Geometry::GeometrySet*, int> hash, QPair<Geometry::GeometrySet*, int> path, bool solid);
-		static void MakeGeoSplitter(Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody);
-		static void EditGeoSplitter(Geometry::GeometrySet* editset, Geometry::GeometrySet* body, int faceindex, Geometry::GeometrySet* facebody);
+		static void MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody);
+		static void EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody);
 
     private:
         static void warning();
@@ -97,14 +100,14 @@ extern "C"
 	void GEOMETRYCOMMANDAPI EditChamfer(int id, char*setidStr, char* indexListStr, double d1, double d2, int sym);
 	void GEOMETRYCOMMANDAPI CreateFillet(char* edges, double rad, int editID);
 	void GEOMETRYCOMMANDAPI CreateVariableFillet(char*edges, double basicrad, int editId, int setid, int edgeindex);
-	void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int body2id);
-	void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int body1id, int body2id);
+	void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int set1, int body1, int set2, int body2);
+	void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int set1, int body1, int set2, int body2);
 	void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method,int faceindex, int facebody,char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2,char* saveori);
 	void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int faceindex, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2, char* saveori);
 	void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, //体 & 基准点
 										   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //轴线 
 											double angle, int saveOri);
-	void GEOMETRYCOMMANDAPI EditRotateFeature(int body, double basicx, double basicy, double basicz, //体 & 基准点
+	void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, //体 & 基准点
 											   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //轴线 
 												double angle, int saveOri);
 	void GEOMETRYCOMMANDAPI CreateMoveFeature(char * bodys, char* method,double startpt0, double startpt1, double startpt2, double endpt0, double endpt1, double endpt2, char* save,  char*reverse,
@@ -121,8 +124,8 @@ extern "C"
 	void GEOMETRYCOMMANDAPI CreateRevol(int id, char* name, char *edges, double basept0, double basept1, double basept2, double degree, char* optionindex, int axissetid, int edgeindex, double coor0, double coor1, double coor2, char* reverse, char* solid);
 	void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec);
 	void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset,int pathedge);
-	void GEOMETRYCOMMANDAPI MakeGeoSplitter(int body, int faceid, int facebody);
-	void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, int body, int faceid, int facebody );
+	void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, int facebody, int faceid);
+	void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, int facebody, int faceid);
 
 }
 #endif

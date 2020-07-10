@@ -3,12 +3,8 @@
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include"GeometryCommand/GeoCommandCreateDatumplane.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QDebug>
 #include <QColor>
@@ -19,8 +15,6 @@
 #include <BRepAdaptor_Surface.hxx>
 #include <BRep_Tool.hxx>
 #include "geometry/geometrySet.h"
-
-
 
 namespace GeometryWidget
 {
@@ -36,27 +30,21 @@ namespace GeometryWidget
 	CreateDatumplaneDialog::~CreateDatumplaneDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
+
 	}
 
-	void CreateDatumplaneDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void CreateDatumplaneDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
-
-		QColor color;
-		if (_faceActor != nullptr)
+		if (_faceBody != nullptr)
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-			_faceActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			emit highLightGeometryFaceSig(_faceBody, _faceIndex, false);
 		}
 
-		_faceActor = ac;
 		_faceIndex = index;
 		_faceBody = set;
 
-		color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		_faceActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
+		emit highLightGeometryFaceSig(_faceBody, _faceIndex, true);
+ 
 	}
 
 	void CreateDatumplaneDialog::on_geoSelectSurface_clicked()

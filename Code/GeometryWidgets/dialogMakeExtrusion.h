@@ -7,7 +7,6 @@
 #include "geoPointWidget.h"
 
 
-class vtkActor;
 class TopoDS_Shape;
 
 namespace Ui
@@ -29,7 +28,7 @@ namespace GeometryWidget
 		~CreateExtrusionDialog();
 
 	private slots:
-		void selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set) override;
+	    void shapeSlected(Geometry::GeometrySet* set, int shape) override;
 		void on_geoSelectCurve_clicked();
 		void on_radioButtonUser();
 
@@ -42,13 +41,10 @@ namespace GeometryWidget
 
 	private:
 		Ui::CreateExtrusion* _ui{};
-		QList<vtkActor*> _actors{};
 
 		double _distance{1.0};
 		QString _extruName{};
 		QMultiHash<Geometry::GeometrySet*, int> _shapeHash{};
-
-
 
 
 	};

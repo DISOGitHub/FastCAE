@@ -12,6 +12,9 @@ namespace Py
 
 namespace Gmsh
 {
+	class LocalField;
+//	class PhysicalsGroups;
+
 	class LocalPoint
 	{
 	public:
@@ -33,16 +36,22 @@ namespace Gmsh
 		~GmshDialogBase();
 
 		QList<LocalPoint*>* getLocalPoints();
+		QList<LocalField*>* getLocalFields();
+//		QList<PhysicalsGroups*>* getPhysicalsGroups();
 
 	signals:
 		void showDialog(QDialog*);
 
 	protected:
 		void appendPointSizeFiled();
+		void appendSizeFields();
+		//void appendPhysicals();
 
 	protected:
 		Py::PythonAagent* _pyAgent{};
 		QList <LocalPoint*> _localPoints{};
+		QList<LocalField*> _localFields{};
+//		QList<PhysicalsGroups*> _physicalsGroups{};
 	};
 
 }

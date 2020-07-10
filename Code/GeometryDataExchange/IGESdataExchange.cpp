@@ -1,5 +1,5 @@
 #include "IGESdataExchange.h"
-#include "geometry/GeometryData.h"
+#include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
 #include <QFileInfo>
 #include <TopoDS_Shape.hxx>

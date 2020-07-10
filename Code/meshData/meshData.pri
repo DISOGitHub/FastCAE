@@ -9,6 +9,7 @@ HEADERS += \
 	$$PWD/CgnsBCZone.h \
 	$$PWD/meshChecker.h \
 	$$PWD/meshCommon.h \
+	$$PWD/MeshFactory.h \
 	$$PWD/MeshPy.h \
 	
 SOURCES += \
@@ -21,4 +22,5 @@ SOURCES += \
 	$$PWD/CgnsBCZone.cpp \
 	$$PWD/meshChecker.cpp \
 	$$PWD/meshCommon.cpp \
+	$$PWD/MeshFactory.cpp \
 	$$PWD/MeshPy.cpp \

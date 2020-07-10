@@ -82,9 +82,7 @@ namespace MainWidget
 // 		idarray->DeepCopy(_preWindow->getHighLightIDArray());
 		
 		QMultiHash<vtkDataSet*, int>* selectItems = _preWindow->getSelectItems();
-
-		
-
+//		std::cout << "creat selectItems" << selectItems->size() << endl;
 		if (selectItems == nullptr || selectItems->isEmpty())
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("No Node or Element selected !"));
@@ -96,9 +94,11 @@ namespace MainWidget
 		QStringList memList;
 		auto meshdata = MeshData::MeshData::getInstance();
 		QList<vtkDataSet*> datasetList = selectItems->uniqueKeys();
+//		std::cout << "creat datasetList" << datasetList.size() << endl;
 		for (vtkDataSet* dataset : datasetList)
 		{
 			int kernalid = meshdata->getIDByDataSet(dataset);
+//			std::cout << "creat kernalid" << kernalid << endl;
 			QList<int> mem = selectItems->values(dataset);
 			QStringList mems;
 			for (int id : mem) mems.append(QString::number(id));
@@ -145,6 +145,7 @@ namespace MainWidget
 		TopoDS_Compound aRes;
 		BRep_Builder aBuilder;
 		aBuilder.MakeCompound(aRes);
+		bool empty = true;
 
 		QList<Geometry::GeometrySet*> geoList = selectgeo.uniqueKeys();
 		for (Geometry::GeometrySet* set : geoList)
@@ -181,10 +182,11 @@ namespace MainWidget
 
 				const TopoDS_Shape& s = exper.Current();
 				aBuilder.Add(aRes, s);
-
+				empty = false;
 			}
 
 		}
+		if (empty) return QString();
 
 		MeshData::MeshData* meshdata = MeshData::MeshData::getInstance();
 		const int n = meshdata->getKernalCount();

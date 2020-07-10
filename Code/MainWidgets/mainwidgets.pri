@@ -9,6 +9,7 @@ HEADERS += \
 	$$PWD/messageWindow.h \
 	$$PWD/ProcessWindow.h \
 	$$PWD/geometryViewProvider.h \
+	$$PWD/meshViewProvider.h \
 	$$PWD/projectSolveDialog.h \
 	$$PWD/DialogCreateSet.h \
     $$PWD/ReportProcessingDialog.h \
@@ -36,6 +37,7 @@ SOURCES += \
 	$$PWD/messageWindow.cpp \
 	$$PWD/ProcessWindow.cpp \
 	$$PWD/geometryViewProvider.cpp \
+	$$PWD/meshViewProvider.cpp \
 	$$PWD/projectSolveDialog.cpp \
 	$$PWD/DialogCreateSet.cpp \
     $$PWD/ReportProcessingDialog.cpp \

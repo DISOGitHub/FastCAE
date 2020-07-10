@@ -14,7 +14,6 @@ namespace Geometry
 	class GeometrySet;
 }
 
-class vtkActor;
 
 namespace GeometryWidget
 {
@@ -34,17 +33,15 @@ namespace GeometryWidget
 		void init();
 		
 	private slots:
-	    void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 		void on_geoSelectCurve_clicked();
 		void on_buttonAdd_clicked();
 		void on_addLR_clicked();
 
 	private:
 		Ui::VariableFilletDialog* _ui{};
-		Geometry::GeometrySet* _edgeSet{};
-		int _edgeIndex{ -1 };
-		vtkActor* _actor{};
-		QList<vtkActor*> _actors;
+
+		QPair<Geometry::GeometrySet*, int> _edgpair{};
 		QMap<double, double> _radiusMap{};
 	};
 

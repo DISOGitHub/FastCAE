@@ -5,8 +5,7 @@
 #include "geoDialogBase.h"
 #include <QMultiHash>
 
-
-class vtkActor;
+//class vtkActor;
 class TopoDS_Shape;
 
 namespace Ui
@@ -28,8 +27,7 @@ namespace GeometryWidget
 
 
 	private slots:
-
-		void selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set) override;
+		void shapeSlected(Geometry::GeometrySet* set, int shape) override;
 		void on_geoSelectSurface_clicked();
 	
 	private:
@@ -42,7 +40,7 @@ namespace GeometryWidget
 	private:
 		Ui::CreateDatumplaneDialog* _ui{};
 
-		vtkActor* _faceActor{};
+//		vtkActor* _faceActor{};
 		int _faceIndex{ 0 };
 		Geometry::GeometrySet* _faceBody{};
 

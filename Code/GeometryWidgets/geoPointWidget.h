@@ -2,6 +2,7 @@
 #define  _GEOPOINTWIDGET_H_
 
 #include <QWidget>
+#include <QPair>
 #include "GeometryWidgets/geometryWidgetsAPI.h"
 
 namespace GUI
@@ -21,7 +22,6 @@ namespace Geometry
 	class GeometrySet;
 }
 
-class vtkActor;
 
 namespace GeometryWidget
 {
@@ -38,20 +38,21 @@ namespace GeometryWidget
 
 	signals:
 		void setSelectMode(int);
-		void updateGraphOptions();
+		void clearGeometryHighLightSig();
+		void highLightGeometryPointSig(Geometry::GeometrySet*, int, bool);
 		void buttonCkicked(GeoPointWidget*);
 
 	private slots :
 		void on_geoSelectPoint_clicked();
-	    void selectPoint(vtkActor*, int, Geometry::GeometrySet*);
+	    void selectPoint(Geometry::GeometrySet*, int);
 
 	private:
 		Ui::geoPointWidget* _ui;
 		GUI::MainWindow* _mainWindow{};
 		MainWidget::PreWindow* _preWindow{};
+		QPair<Geometry::GeometrySet*, int> _selectedPoint{nullptr,-1};
+		
 		bool _handle{ true };
-
-		vtkActor* _selectedActor{};
 	};
 }
 

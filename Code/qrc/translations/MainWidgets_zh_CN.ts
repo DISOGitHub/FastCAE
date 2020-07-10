@@ -198,8 +198,8 @@
     </message>
     <message>
         <location line="+33"/>
-        <location line="+26"/>
-        <location line="+41"/>
+        <location line="+24"/>
+        <location line="+43"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -209,8 +209,8 @@
         <translation>前处理窗口未开启！</translation>
     </message>
     <message>
-        <location line="+26"/>
-        <location line="+41"/>
+        <location line="+24"/>
+        <location line="+43"/>
         <source>No Node or Element selected !</source>
         <translation>当前没有选中的节点或单元！</translation>
     </message>
@@ -255,19 +255,6 @@
         <location line="+3"/>
         <source>Hide All</source>
         <translation>隐藏全部</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Show All</source>
-        <translation>显示全部</translation>
-    </message>
-</context>
-<context>
-    <name>MainWidget::GeometryViewProvider</name>
-    <message>
-        <location filename="../../MainWidgets/geometryViewProvider.cpp" line="+711"/>
-        <source>Hide</source>
-        <translation>隐藏</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -337,18 +324,18 @@
     <name>MainWidget::MeshWidget</name>
     <message>
         <location filename="../../MainWidgets/MeshWidget.cpp" line="+28"/>
-        <location line="+38"/>
+        <location line="+40"/>
         <source>Mesh</source>
         <translation>网格</translation>
     </message>
     <message>
-        <location line="-34"/>
-        <location line="+57"/>
+        <location line="-36"/>
+        <location line="+59"/>
         <source>Set</source>
         <translation>组件</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+81"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
@@ -383,7 +370,7 @@
     <name>MainWidget::PhysicsWidget</name>
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="+39"/>
-        <location line="+243"/>
+        <location line="+251"/>
         <location line="+261"/>
         <source>Materials</source>
         <translation>材料</translation>
@@ -394,8 +381,8 @@
         <translation>从材料库导入</translation>
     </message>
     <message>
-        <location line="-185"/>
-        <location line="+259"/>
+        <location line="-193"/>
+        <location line="+267"/>
         <location line="+243"/>
         <source>Case</source>
         <translation>算例</translation>
@@ -487,7 +474,7 @@
 <context>
     <name>MainWidget::PreWindow</name>
     <message>
-        <location filename="../../MainWidgets/preWindow.cpp" line="+41"/>
+        <location filename="../../MainWidgets/preWindow.cpp" line="+43"/>
         <source>Pre-Window</source>
         <translation>前处理窗口</translation>
     </message>
@@ -509,7 +496,7 @@
         <translation>值</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+44"/>
         <source>Basic Info</source>
         <translation>基础信息</translation>
     </message>

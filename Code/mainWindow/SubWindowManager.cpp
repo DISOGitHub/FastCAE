@@ -446,7 +446,7 @@ namespace GUI
 		_geometryWindow.first = nullptr;
 		_geometryWindow.second = nullptr;
 
-		_signalHander->clearData();
+		_signalHander->clearData(false);
 		emit _mainWindow->updateGeometryTreeSig();
 		emit _mainWindow->updateMeshTreeSig();
 		emit _mainWindow->updatePhysicsTreeSignal();

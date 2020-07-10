@@ -24,6 +24,8 @@ namespace Command
 		static TopoDS_Face validateFace(const TopoDS_Face&);
 		static TopoDS_Shape removeSplitter(const TopoDS_Shape& shape);
 		static bool isEmpty(const TopoDS_Shape &shape);
+		//从inputShape中移除component，返回移除之前的副本
+		static TopoDS_Shape removeShape(TopoDS_Shape* inputShape, TopoDS_Shape* component);
 
 	private:
 		static TopoDS_Shape makeFace(std::list<TopoDS_Wire>&);

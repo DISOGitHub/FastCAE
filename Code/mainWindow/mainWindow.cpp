@@ -230,7 +230,8 @@ namespace GUI
 		connect(this, SIGNAL(showGraphRangeSig(double, double)), this, SLOT(showGraphRange(double, double)));
 		connect(this, SIGNAL(startSketchSig(bool, double*, double*)), this, SLOT(startSketch(bool)));
 		connect(this, SIGNAL(updateActionsStatesSig()), this, SLOT(updateActionsStates()));
-		connect(this, SIGNAL(updatePreMeshActorSig()), this, SLOT(updatePreMeshActor()));
+		connect(this, SIGNAL(updatePreMeshActorSig()), this, SLOT(updatePreMeshActor()));		
+		connect(this, SIGNAL(updatePreGeometryActorSig()), this, SLOT(updatePreGeometryActor()));
 	}
 							 
 	void MainWindow::registerMoudel()
@@ -296,7 +297,12 @@ namespace GUI
 
 	void MainWindow::updatePreMeshActor()
 	{
-		getSubWindowManager()->updatePreMeshActor();
+		_subWindowManager->updatePreMeshActor();
+	}
+
+	void MainWindow::updatePreGeometryActor()
+	{
+		_subWindowManager->updatePreGeometryActor();
 	}
 
 	void MainWindow::closeEvent(QCloseEvent *event)
@@ -562,11 +568,6 @@ namespace GUI
 	{
 		_subWindowManager->openPreWindow();
 		if (!_signalHandler->importGeometry(filenames)) return;
-//		_subWindowManager->updatePreGeometryActor();
-// 		emit updateGeometryTreeSig();
-// 		emit updateActionStatesSig();
-//		updateActionsStates();
-//		Py::PythonAagent::getInstance()->unLock();
 	}
 
 	void MainWindow::exportGeometry(QString f)
@@ -810,7 +811,7 @@ namespace GUI
 			if (but == QMessageBox::Yes)
 				on_actionSave();
 		}
-		_signalHandler->clearData();
+		_signalHandler->clearData(false);
 		QString dir = Setting::BusAPI::instance()->getWorkingDir();
 
 		bool ok = _signalHandler->openProjectFile(file);

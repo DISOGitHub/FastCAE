@@ -8,11 +8,14 @@ libaojun
 #define PROJECTFILEIO_H
 
 #include "moduleBase/IOBase.h"
+#include "moduleBase/ThreadTask.h"
 #include "IOAPI.h"
 
-
-
-
+namespace GUI
+{
+	class MainWindow;
+	class SignalHandler;
+}
 
 namespace Geometry
 {
@@ -39,17 +42,23 @@ class QDomNodeList;
 
 namespace IO
 {
-	class IOAPI ProjectFileIO : public ModuleBase::IOBase
+	class IOAPI ProjectFileIO : public ModuleBase::ThreadTask, public ModuleBase::IOBase
 	{
+		Q_OBJECT
 	public:
-		ProjectFileIO(const QString& fileName);
-		ProjectFileIO();
+		ProjectFileIO(GUI::MainWindow* mw, GUI::SignalHandler*sh,  const QString& fileName, bool read = true);
 		~ProjectFileIO() = default;
 
+		void run() override;
+
+	signals:
+		void processFinished(QString f, bool, bool);
+
+	private:
 		bool read() override;
 		bool write(QString s = QString()) override;
 		
-	private:
+	
 		bool writeXml(QString fileName);
 		bool writeDiso(QString fileName);
 
@@ -68,6 +77,8 @@ namespace IO
 		ModelData::ModelDataSingleton* _modelData{};
 		Material::MaterialSingleton* _materialData{};
 		Plugins::PluginManager* _plugins{};
+
+		bool _read{ true };
 	};
 }
 

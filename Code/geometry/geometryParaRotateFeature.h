@@ -3,7 +3,7 @@
 
 #include "geometryModelParaBase.h"
 #include <QPair>
-
+#include <QMultiHash>
 namespace Geometry
 {
 	class GeometrySet;
@@ -17,8 +17,9 @@ namespace Geometry
 		void setOriginObject(GeometrySet* set);
 		GeometrySet* getOriginObject();
 
-		void setBodys(QList<GeometrySet*> s);
-		QList<GeometrySet*> getBodys();
+		void appendBody(Geometry::GeometrySet* set, int bodyindex);
+		QMultiHash<Geometry::GeometrySet*, int> getBodys();
+
 
 		void setBasicPoint(double* p);
 		void getBasicPoint(double* p);
@@ -47,7 +48,8 @@ namespace Geometry
 		virtual void readDataFromProjectFile(QDomElement* e) override;
 
 	private:
-		QList<GeometrySet*> _bodys;
+
+		QMultiHash<Geometry::GeometrySet*, int>_solidHash{};
 		GeometrySet* _originSet{};
 		double _basicPoint[3];
 		double _angle{ 0.00 };

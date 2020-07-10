@@ -27,7 +27,6 @@ namespace Command
 		void setShapeList(QMultiHash<Geometry::GeometrySet*, int> s);
 		void setActor(QList<vtkActor*> ac);
 		void setName(QString name);
-		//void setEdges(int i);
 
 		bool execute() override;
 		void undo() override;
@@ -40,7 +39,6 @@ namespace Command
 		QMultiHash<Geometry::GeometrySet*, int> _shapeHash{};
 		QList<vtkActor*> _actor;
 		Geometry::GeometrySet* _result{};
-		//int _edges;
 	};
 }
 

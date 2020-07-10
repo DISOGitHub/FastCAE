@@ -22,11 +22,13 @@ namespace Geometry
 		void setInputSet(GeometrySet* s);
 		GeometrySet* getGeometrySet();
 
-		void setEdgeSet(GeometrySet* s);
+	/*	void setEdgeSet(GeometrySet* s);
 		GeometrySet* getEdgeSet();
 
 		void setEdgeIndex(int e);
-		int getEdgeIndex();
+		int getEdgeIndex();*/
+		void setEdgePair(QPair<Geometry::GeometrySet*, int> edgepair);
+		QPair<Geometry::GeometrySet*, int> getEdgePair();
 
 		void setBasicRadius(double b);
 		double getBasicRadius();
@@ -41,10 +43,10 @@ namespace Geometry
 		virtual void readDataFromProjectFile(QDomElement* e) override;
 
 	private:
-		int _edgeindex{};
-		GeometrySet* _edgeset{};
+		/*int _edgeindex{};
+		GeometrySet* _edgeset{};*/
 		GeometrySet* _inputSet{};
-
+		QPair<Geometry::GeometrySet*, int> _edgpair{};
 		double _basicradius;
 		QMap<double, double> _radiusmap{};
 

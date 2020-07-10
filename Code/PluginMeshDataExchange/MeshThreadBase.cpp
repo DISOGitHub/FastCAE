@@ -2,6 +2,7 @@
 #include "mainWindow/mainWindow.h"
 #include "mainWindow/SubWindowManager.h"
 #include "python/PyAgent.h"
+#include "meshData/meshSingleton.h"
 
 namespace MeshData
 {
@@ -24,7 +25,7 @@ namespace MeshData
 		ModuleBase::Message msg;
 		if (_operation == MESH_READ)
 		{
-			if (_isRead)
+			if (_success)
 			{
 				emit _mainwindow->updateMeshTreeSig();
 				emit _mainwindow->updateSetTreeSig();
@@ -35,6 +36,7 @@ namespace MeshData
 				information = QString("Successful Import Mesh From \"%1\"").arg(_fileName);
 				msg.type = ModuleBase::Normal_Message;
 				msg.message = information;
+				MeshData::getInstance()->generateDisplayDataSet();
 			}
 			else
 			{
@@ -45,7 +47,7 @@ namespace MeshData
 		}
 		else if (_operation == MESH_WRITE)
 		{
-			if (_isWrite)
+			if (_success)
 			{
 				information = QString("Successful Export Mesh To \"%1\"").arg(_fileName);
 				msg.type = ModuleBase::Normal_Message;
@@ -66,11 +68,11 @@ namespace MeshData
 
 	void MeshThreadBase::setReadResult(bool result)
 	{
-		_isRead = result;
+		_success = result;
 	}
 
 	void MeshThreadBase::setWriteResult(bool result)
 	{
-		_isWrite = result;
+		_success = result;
 	}
 }

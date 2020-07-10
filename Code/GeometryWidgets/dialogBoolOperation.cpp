@@ -18,9 +18,6 @@ namespace GeometryWidget
 		_ui = new Ui::BoolOptionDialog;
 		_ui->setupUi(this);
 		this->translateButtonBox(_ui->buttonBox);
-		connect(this, SIGNAL(setSelectMode(int)), _mainWindow, SIGNAL(selectModelChangedSig(int)));
-		connect(p, SIGNAL(selectGeoActorShape(vtkActor*, int, Geometry::GeometrySet*)), this, SLOT(selectActorShape(vtkActor*, int, Geometry::GeometrySet*)));
-		connect(this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), m, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)));
 	}
 
 	BoolOpertionDialog::BoolOpertionDialog(GUI::MainWindow* m, MainWidget::PreWindow* p, Geometry::GeometrySet* set)
@@ -29,28 +26,21 @@ namespace GeometryWidget
 		_ui = new Ui::BoolOptionDialog;
 		_ui->setupUi(this);
 		this->translateButtonBox(_ui->buttonBox);
-		connect(this, SIGNAL(setSelectMode(int)), _mainWindow, SIGNAL(selectModelChangedSig(int)));
-		connect(p, SIGNAL(selectGeoActorShape(vtkActor*, int, Geometry::GeometrySet*)), this, SLOT(selectActorShape(vtkActor*, int, Geometry::GeometrySet*)));
-		connect(this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), m, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)));
 		_isEdit = true;
 		_editSet = set;
-	   
 		emit hideGeometry(_editSet);
-
+		  
 		Geometry::GeometryModelParaBase* bp = _editSet->getParameter();
 		Geometry::GeometryParaBoolOperation* para = dynamic_cast<Geometry::GeometryParaBoolOperation*>(bp);
 		if (para == nullptr) return;
-		Geometry::GeometrySet* body1 = para->getBody1();
-		_body1 = body1;
-		if (body1 == nullptr) return;
-		Geometry::GeometrySet* body2 = para->getBody2();
-		if (body2 == nullptr) return;
-		_body2 = body2;
-		
-		emit showGeometry(body1);
-		emit showGeometry(body2);
-		emit highLightGeometrySet(body1,true);
-		emit highLightGeometrySet(body2, true);
+		_bodypair1 = para->getBody1();
+		if (_bodypair1.first == nullptr) return;
+		_bodypair2 = para->getBody2();
+		if (_bodypair2.first == nullptr) return;
+		emit showGeometry(_bodypair1.first);
+		emit showGeometry(_bodypair2.first);
+		emit highLightGeometrySolidSig(_bodypair1.first, _bodypair1.second, true);
+		emit highLightGeometrySolidSig(_bodypair2.first,_bodypair2.second, true);
 
 		_type = para->getType();
 		setType(_type);
@@ -62,11 +52,7 @@ namespace GeometryWidget
 	BoolOpertionDialog::~BoolOpertionDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode(int(ModuleBase::None));
-		emit updateGraphOptions();
 	}
-
-
 
 	void BoolOpertionDialog::setType(BoolType t)
 	{
@@ -99,46 +85,71 @@ namespace GeometryWidget
 	{
 		_selectBody2 = false;
 		_selectBody1 = true;
-		emit setSelectMode(int(ModuleBase::GeometrySurface));
+		
+		emit setSelectMode(int(ModuleBase::GeometryBody));
+		if (_bodypair1.first != nullptr)
+		{
+			emit highLightGeometrySolidSig(_bodypair1.first, _bodypair1.second, true);
+		}
+		if (_bodypair2.first != nullptr)
+		{
+			emit highLightGeometrySolidSig(_bodypair2.first, _bodypair2.second, false);
+		}
 	}
 
 	void BoolOpertionDialog::on_geoSelectSurface_1_clicked()
 	{
 		_selectBody2 = true;
 		_selectBody1 = false;
-		emit setSelectMode(int(ModuleBase::GeometrySurface));
+		
+		emit setSelectMode(int(ModuleBase::GeometryBody));
+		if (_bodypair2.first != nullptr)
+		{
+			emit highLightGeometrySolidSig(_bodypair2.first, _bodypair2.second, true);
+		}
+		if (_bodypair1.first != nullptr)
+		{
+			emit highLightGeometrySolidSig(_bodypair1.first, _bodypair1.second, false);
+		}
 	}
 
-	void BoolOpertionDialog::selectActorShape(vtkActor*, int, Geometry::GeometrySet* set)
+	void BoolOpertionDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 		QString text1 = tr("Selected body(1)");
 		QString text0 = tr("Selected body(0)");
 		if (_selectBody1)
 		{
-			if (_body1 == set) return;
-			emit highLightGeometrySet(_body1, false);
-			_body1 = set;
-			if (set == _body2)
+			if (_bodypair1.first == set&&_bodypair1.second==index) return;
+			if (_bodypair1.first!=nullptr)
+			{
+				emit highLightGeometrySolidSig(_bodypair1.first, _bodypair1.second, false);
+			}
+			_bodypair1.first = set;
+			_bodypair1.second = index;
+			if (set == _bodypair2.first&&index == _bodypair2.second)
 			{
 				_ui->edgelabel_1->setText(text0);
-				_body2 = nullptr;
+				_bodypair2.first = nullptr;
+				_bodypair2.second = -1;
 			}
 				
 			_ui->edgelabel->setText(text1);
 		}
 		if (_selectBody2)
 		{
-			if (_body2 == set) return;
-			emit highLightGeometrySet(_body2, false);
-			_body2 = set;
-			if (set == _body1)
+			if (_bodypair2.first == set&&_bodypair2.second == index) return;
+			emit highLightGeometrySolidSig(_bodypair2.first,_bodypair2.second, false);
+			_bodypair2.first = set;
+			_bodypair2.second = index;
+			if (set == _bodypair1.first&&index == _bodypair2.second)
 			{
-				_body1 = nullptr;
+				_bodypair1.first = nullptr;
+				_bodypair1.second = -1;
 				_ui->edgelabel->setText(text0);
 			}
 			_ui->edgelabel_1->setText(text1);
 		}
-		emit highLightGeometrySet(set, true);
+		emit highLightGeometrySolidSig(set,index, true);
 	}
 
 	void BoolOpertionDialog::closeEvent(QCloseEvent *e)
@@ -149,19 +160,20 @@ namespace GeometryWidget
 
 	void BoolOpertionDialog::reject()
 	{
+	
 		if (_isEdit)
 		{
 			if (_editSet == nullptr) return;
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
 			Geometry::GeometryParaBoolOperation* p = dynamic_cast<Geometry::GeometryParaBoolOperation*>(pm);
 			if (p == nullptr) return;
-			Geometry::GeometrySet* body1 = p->getBody1();
-			if (body1 == nullptr) return;
-			Geometry::GeometrySet* body2 = p->getBody2();
-			if (body2 == nullptr) return;
-
-			emit hideGeometry(body1);
-			emit hideGeometry(body2);
+			_bodypair1 = p->getBody1();
+			if (_bodypair1.first == nullptr) return;
+			_bodypair2 = p->getBody2();
+			if (_bodypair2.first == nullptr) return;
+			
+			emit hideGeometry(_bodypair1.first);
+			emit hideGeometry(_bodypair2.first);
 			emit showGeometry(_editSet);
 		}
 		QDialog::reject();
@@ -170,7 +182,28 @@ namespace GeometryWidget
 
 	void BoolOpertionDialog::accept()
 	{
-		if (_body1 == nullptr || _body2 == nullptr || _body2 == _body1)
+		//可编辑状态下，没有任何改变，则保留editset，不进入command执行。
+		if (_isEdit)
+		{
+			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
+			Geometry::GeometryParaBoolOperation* p = dynamic_cast<Geometry::GeometryParaBoolOperation*>(pm);
+			if (p == nullptr) return;
+			QPair<Geometry::GeometrySet*, int> bodypair1 = p->getBody1();
+			if (_bodypair1.first == nullptr) return;
+			QPair<Geometry::GeometrySet*, int> bodypair2 = p->getBody2();
+			if (_bodypair2.first == nullptr) return;
+			if (_bodypair1==bodypair1&&_bodypair2==bodypair2)
+			{
+				emit hideGeometry(_bodypair1.first);
+				emit hideGeometry(_bodypair2.first);
+				emit showGeometry(_editSet);
+				QDialog::accept();
+				this->close();
+				return;
+			}
+			
+		}
+		if (_bodypair1.first == nullptr || _bodypair2.first == nullptr || _bodypair2.first == _bodypair1.first)
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("Input Wrong !"));
 			return;
@@ -184,7 +217,8 @@ namespace GeometryWidget
 			codes += QString("booloperation.setEditID(%1)").arg(_editSet->getID());
 
 		codes += QString("booloperation.setBoolType('%1')").arg(str);
-		codes += QString("booloperation.setBodysId(%1,%2)").arg(_body1->getID()).arg(_body2->getID());
+		codes += QString("booloperation.setIndexOfSolid1InGeo(%1,%2)").arg(_bodypair1.first->getID()).arg(_bodypair1.second);
+		codes += QString("booloperation.setIndexOfSolid2InGeo(%1,%2)").arg(_bodypair2.first->getID()).arg(_bodypair2.second);
 
 		if (_isEdit)
 			codes += QString("booloperation.edit()");
@@ -192,7 +226,6 @@ namespace GeometryWidget
 			codes += QString("booloperation.create()");
 
 		_pyAgent->submit(codes);
-
 
 /*
 
@@ -236,5 +269,6 @@ namespace GeometryWidget
 		}
 		return str;
 	}
+
 
 	}

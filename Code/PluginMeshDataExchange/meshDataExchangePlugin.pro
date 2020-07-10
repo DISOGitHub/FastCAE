@@ -63,8 +63,10 @@ win32{
 
 
 unix{
+
     INCLUDEPATH	+=   ./ \
 		      ../ \
+                     ../SelfDefObject \
 					 
   CONFIG          += plugin
   DESTDIR         = ../../output/bin
@@ -73,7 +75,19 @@ unix{
   RCC_DIR         = ./release/rcc
   OBJECTS_DIR     = ./release/obj
   LIBS += \
-  -L../../output/bin -lDataProperty \
+    -L../../output/bin -lMainWindow \
+	-L../../output/bin -lSelfDefObject \
+	-L../../output/bin -lDataProperty \
+	-L../../output/bin -lGeometry \
+	-L../../output/bin -lGeometryWidgets \
+	-L../../output/bin -lGeometryCommand \
+	-L../../output/bin -lModuleBase \
+	-L../../output/bin -lModelData \
+	-L../../output/bin -lMainWidgets \
+	-L../../output/bin -lPythonModule \
+	-L../../output/bin -lPluginManager \
+	-L../../output/bin -lMeshData \
+	-L../../output/bin -lIO \
 	
   message("Linux MeshDataExchangePlugin build")
   

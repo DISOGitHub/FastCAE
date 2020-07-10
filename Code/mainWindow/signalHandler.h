@@ -34,6 +34,7 @@ namespace GUI
 		bool openProjectFileSig(QString fileName);
 		void saveToProjectFileSig(QString fileName);
 		void solveProjectSig(int projectIndex, int solverIndex);
+		void projectFileProcessedSig(QString file, bool success, bool isread);
 		
 
 	public:
@@ -48,7 +49,7 @@ namespace GUI
 
 	public slots:
 		///清除数据
-		void clearData();
+		void clearData(bool unlock = true);
 		/*求解 */
 		void on_actionSolve();
 		/*切换为英语 */
@@ -84,6 +85,7 @@ namespace GUI
 		//保存图片
 		void saveImange();
 		bool openProjectFile(QString fileName);
+		void projectFileProcessed(QString filename, bool success, bool read);
 		void saveToProjectFile(QString fileName);
 		//检查网格质量
 		void meshChecking();

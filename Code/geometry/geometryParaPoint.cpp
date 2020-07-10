@@ -20,9 +20,6 @@ namespace Geometry
 		return _name;
 	}
 
-
-
-
 	void GeometryParaPoint::setPara(double* para)
 	{
 		for (int i = 0; i < 3; ++i)
@@ -68,7 +65,6 @@ namespace Geometry
 		cornerEle.appendChild(corText);
 		element.appendChild(cornerEle);
 
-
 		QDomElement paraEle = doc->createElement("Para");
 		QString parastr = QString("%1,%2,%3").arg(_para[0]).arg(_para[1]).arg(_para[2]);
 		QDomText paraText = doc->createTextNode(parastr);
@@ -82,9 +78,6 @@ namespace Geometry
 	void GeometryParaPoint::readDataFromProjectFile(QDomElement* e)
 	{
 		_name = e->attribute("Name");
-	
-		
-
 		QDomNodeList cList = e->elementsByTagName("Corner");
 		if (cList.size() != 1) return;
 		QDomElement cele = cList.at(0).toElement();
@@ -95,7 +88,6 @@ namespace Geometry
 		{
 			_corner[i] = csl.at(i).toDouble();
 		}
-
 
 		QDomNodeList pList = e->elementsByTagName("Para");
 		if (pList.size() != 1) return;
@@ -108,7 +100,5 @@ namespace Geometry
 			_para[i] = psl.at(i).toDouble();
 		}
 	}
-
-
 
 }

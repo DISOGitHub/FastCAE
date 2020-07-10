@@ -3,7 +3,7 @@
 
 #include "geometryModelParaBase.h"
 #include <QString>
-
+#include <QMultiHash>
 namespace Geometry
 {
 	class GeometrySet;
@@ -16,8 +16,8 @@ namespace Geometry
 		void setOptionIndex(int index);
 		int getOptionIndex();
 
-		void setBodyList(QList<Geometry::GeometrySet*> bodylist);
-		QList<Geometry::GeometrySet*> getBodyList();
+		void appendBody(Geometry::GeometrySet* set, int bodyindex);
+		QMultiHash<Geometry::GeometrySet*, int> getBodys();
 
 		void setSaveOrigion(bool s);
 		bool getSaveOrigion();
@@ -47,9 +47,8 @@ namespace Geometry
 
 
 	private:
-		QList<Geometry::GeometrySet*> _bodylist{};
 		int _optionindex{};
-		
+		QMultiHash<Geometry::GeometrySet*, int>_solidHash{};
 		Geometry::GeometrySet* _oriset{};
 		double _startpoint[3]{};
 		double _endpoint[3]{};

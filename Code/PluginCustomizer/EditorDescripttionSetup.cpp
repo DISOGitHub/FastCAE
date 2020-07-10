@@ -60,7 +60,7 @@ namespace FastCAEDesigner
 
 			ui->parameterLinkagePBtn->setVisible(false);
 // 		}
-
+			_currentType = model->GetType();
 		//resizeEvent(0);
 		Init();
 		//ui->groupBox->hide();
@@ -68,8 +68,13 @@ namespace FastCAEDesigner
 
 	EditorDescripttionSetup::~EditorDescripttionSetup()
 	{
-		DataManager::getInstance()->setAllParameterListDict(_treeType, _parameterList);
-		DataManager::getInstance()->setAllParameterGroupListDict(_treeType, _parameterGroupList);
+		//非边界数据更新
+		if (_currentType != TreeItemType::ProjectBoundaryCondationChild)
+		{
+			DataManager::getInstance()->setAllParameterListDict(_treeType, _parameterList);
+			DataManager::getInstance()->setAllParameterGroupListDict(_treeType, _parameterGroupList);
+		}
+		
 		delete ui;
 	}
 
@@ -477,6 +482,7 @@ namespace FastCAEDesigner
 		if (QMessageBox::Yes == result)
 		{
 			_parameterList.removeOne(model);
+			removeNameFromList(model);
 
 			DeleteParameter(model);
 			FillParameterList();
@@ -515,6 +521,9 @@ namespace FastCAEDesigner
 			DataProperty::ParameterBase* item = paraList.at(i);
 			if (nullptr == item)
 				continue;
+
+			removeNameFromList(item);
+
 			dataBase->removeParameter(item);
 
 			_parameterList.removeOne(item);
@@ -605,7 +614,12 @@ namespace FastCAEDesigner
 		if (nullptr == dataBase)
 			return;
 
-		QList<QString> usedNameList = GetParameterGroupNameList();
+		QList<QString> usedNameList {};
+		if (_currentType == TreeItemType::ProjectBoundaryCondationChild)
+			usedNameList = GetParameterGroupNameList();
+		else
+			usedNameList = DataManager::getInstance()->getParaGroupNameList();
+
 		EditorNameValue dlg(this);
 		usedNameList.append("0");
 		dlg.SetUsedNameList(usedNameList);
@@ -623,6 +637,7 @@ namespace FastCAEDesigner
 			ui->btnClearAll_S_G->setEnabled(true);
 
 			_parameterGroupList.append(group);
+			DataManager::getInstance()->appendParaGroupNameList(group->getDescribe());
 		}
 	}
 
@@ -660,7 +675,12 @@ namespace FastCAEDesigner
 		int row = ui->tableWidget_GList->currentRow();
 
 		QString name = group->getDescribe();
-		QList<QString> usedNameList = GetParameterGroupNameList();
+		QList<QString> usedNameList{};
+		if (_currentType == TreeItemType::ProjectBoundaryCondationChild)
+			usedNameList = GetParameterGroupNameList();
+		else
+			usedNameList = DataManager::getInstance()->getParaGroupNameList();
+
 		usedNameList.removeOne(name);
 		usedNameList.append("0");
 
@@ -671,6 +691,9 @@ namespace FastCAEDesigner
 
 		if (r == QDialog::Accepted)
 		{
+			DataManager::getInstance()->removeParaGroupName(name);
+			DataManager::getInstance()->appendParaGroupNameList(dlg.GetNameString());
+
 			group->setDescribe(dlg.GetNameString());
 			this->FillGroupList();
 			ui->tableWidget_GList->selectRow(row);
@@ -860,6 +883,7 @@ namespace FastCAEDesigner
 		if (QMessageBox::Yes == result)
 		{
 			_parameterList.removeOne(model);
+			removeNameFromList(model);
 
 			group->removeParameter(model);
 			FillParameterList(group, ui->tableWidget_GPList);
@@ -903,6 +927,7 @@ namespace FastCAEDesigner
 				continue;
 
 			_parameterList.removeOne(item);
+			removeNameFromList(item);
 
 			group->removeParameter(item);
 		}
@@ -1032,8 +1057,11 @@ namespace FastCAEDesigner
 			return usedNameList;
 		
 		if (_currentOpObject == ParaList)//获取参数列表中的参数名称
-		{
-			usedNameList = GetParameterNameList(dataBase->getParaList());
+		{ 
+			if (_currentType == TreeItemType::ProjectBoundaryCondationChild)
+				usedNameList = GetParameterNameList(dataBase->getParaList());
+			else
+				usedNameList = DataManager::getInstance()->getParameterNameList();
 		}
 		else//获取参数组--参数列表中的参数名称
 		{
@@ -1100,6 +1128,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelBool);
 
 			_parameterList.append(modelBool);
+			DataManager::getInstance()->appendParameterNameList(modelBool->getDescribe());
 		}
 	}
 	
@@ -1116,6 +1145,8 @@ namespace FastCAEDesigner
 		if (r == QDialog::Accepted)
 		{
 			InsertModelInParameterList(modelInt);
+
+			DataManager::getInstance()->appendParameterNameList(modelInt->getDescribe());
 
 			_parameterList.append(modelInt);
 		}
@@ -1136,6 +1167,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelDouble);
 
 			_parameterList.append(modelDouble);
+			DataManager::getInstance()->appendParameterNameList(modelDouble->getDescribe());
 		}
 	}
 
@@ -1155,6 +1187,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelString);
 
 			_parameterList.append(modelString);
+			DataManager::getInstance()->appendParameterNameList(modelString->getDescribe());
 		}
 	}
 	
@@ -1172,6 +1205,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelEnum);
 
 			_parameterList.append(modelEnum);
+			DataManager::getInstance()->appendParameterNameList(modelEnum->getDescribe());
 		}
 
 	}
@@ -1191,6 +1225,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelTable);
 
 			_parameterList.append(modelTable);
+			DataManager::getInstance()->appendParameterNameList(modelTable->getDescribe());
 		}
 	}
 
@@ -1208,6 +1243,7 @@ namespace FastCAEDesigner
 			InsertModelInParameterList(modelPath);
 
 			_parameterList.append(modelPath);
+			DataManager::getInstance()->appendParameterNameList(modelPath->getDescribe());
 		}
 	}
 
@@ -1221,6 +1257,7 @@ namespace FastCAEDesigner
 		QList<QString> usedNameList = GetParameterNameList();
 		QString modelName = model->getDescribe();
 		usedNameList.removeOne(modelName);
+		DataManager::getInstance()->removeParameterName(modelName);
 		int r = 0;
 
 		if (model->getParaType() == DataProperty::ParaType::Para_Int)
@@ -1274,9 +1311,13 @@ namespace FastCAEDesigner
 			r = dlg.exec();
 		}
 
-
 		if (r != QDialog::Accepted)
+		{
+			DataManager::getInstance()->appendParameterNameList(model->getDescribe());
 			return;
+		}
+			
+		DataManager::getInstance()->appendParameterNameList(model->getDescribe());
 
 		if (_currentOpObject == ParaList)
 		{
@@ -1421,14 +1462,20 @@ namespace FastCAEDesigner
 		if (model == nullptr)
 			return type;
 		//QString caseName{};
-		if ((model->GetType() == TreeItemType::ProjectSimulationSettingChild) || (model->GetType() == TreeItemType::ProjectSolverChild))
+		if ((model->GetType() == TreeItemType::ProjectSimulationSettingGrandSon) || (model->GetType() == TreeItemType::ProjectSolverGrandSon))
+
+		{
+			type = model->GetParentModelBase()->GetParentModelBase()->GetParentModelBase()->getTreeType();
+			qDebug() << type;
+		}
+		else if ((model->GetType() == TreeItemType::ProjectSimulationSettingChild) || (model->GetType() == TreeItemType::ProjectSolverChild))
 	
 		{
-			type = model->GetParentModelBase()->GetParentModelBase()->GetType();
+			type = model->GetParentModelBase()->GetParentModelBase()->getTreeType();
 			qDebug() << type;
 		}
 		else
-			type = model->GetParentModelBase()->GetType();
+			type = model->GetParentModelBase()->getTreeType();
 
 		return type;
 	}
@@ -1438,11 +1485,22 @@ namespace FastCAEDesigner
 		//QList<DataProperty::ParameterBase*> list = group->getParaList();
 		for (int i = 0; i < group->getParameterCount();i++)
 		{
+			if (group->getParameterAt(i) == nullptr)
+				continue;
+
 			if (_parameterList.contains(group->getParameterAt(i)))
 				_parameterList.removeOne(group->getParameterAt(i));
+
+			removeNameFromList(group->getParameterAt(i));
 		}
 
 		_parameterGroupList.removeOne(group);
-
+		DataManager::getInstance()->removeParaGroupName(group->getDescribe());
 	}
+
+	void EditorDescripttionSetup::removeNameFromList(DataProperty::ParameterBase* base)
+	{
+		DataManager::getInstance()->removeParameterName(base->getDescribe());
+	}
+
 }

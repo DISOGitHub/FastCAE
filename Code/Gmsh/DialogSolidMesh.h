@@ -2,7 +2,7 @@
 #define DIALOGSOLIDMESH_H_
 
 #include "GmshDialogBase.h"
-#include <QList>
+#include <QMultiHash>
 
 namespace Ui
 {
@@ -12,6 +12,7 @@ namespace Ui
 namespace Geometry
 {
 	class GeometrySet;
+	class GeometryData;
 }
 
 namespace Py
@@ -34,8 +35,14 @@ namespace Gmsh
 
 	private slots:
 		void on_geoSelectSurface_clicked();
-		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+//		void selectActorShape(vtkActor*, int, Geometry::GeometrySet*) override;
+		void shapeSlected(Geometry::GeometrySet* set, int index);
 		void on_localButton_clicked();
+		void addLocalPoints();
+		void addLocalFields();
+		//void on_physicalsPButton_clicked();
+		void on_selectall_clicked();
+		void on_selectvisible_clicked();
 
 	private:
 		void closeEvent(QCloseEvent *) override;
@@ -44,7 +51,9 @@ namespace Gmsh
 
 	private:
 		Ui::SolidMeshDialog* _ui{};
-		QList<Geometry::GeometrySet*> _geosetList{};
+		QMultiHash<Geometry::GeometrySet*, int> _solidHash{};
+
+		Geometry::GeometryData* _geoData;
 
 		bool _selectBody{ false };
 	};

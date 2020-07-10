@@ -13,7 +13,6 @@ namespace Geometry
 		_type = GeometryParaMakeSweep;
 	}
 
-
 	void GeometryParaSweep::setShapeHash(QMultiHash<Geometry::GeometrySet*, int> shapehash)
 	{
 		_shapeHash = shapehash;
@@ -39,6 +38,7 @@ namespace Geometry
 		_issolid = s;
 
 	}
+
 	bool GeometryParaSweep::getSloid()
 	{
 		return _issolid;

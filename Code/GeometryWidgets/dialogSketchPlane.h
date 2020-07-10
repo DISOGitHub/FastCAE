@@ -13,8 +13,6 @@ namespace Geometry
 	class GeometrySet;
 }
 
-class vtkActor;
-
 namespace GeometryWidget
 {
 	class GEOMETRYWIDGETSAPI SketchPlanDialog : public GeoDialogBase
@@ -30,7 +28,7 @@ namespace GeometryWidget
 	private slots:
 	     void selecPlaneClicked();
 		 void on_geoSelectSurface_clicked();
-		 void selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set) override;
+		 void shapeSlected(Geometry::GeometrySet* set, int index) override;
 
 	private:
 		void closeEvent(QCloseEvent *) override;
@@ -43,7 +41,6 @@ namespace GeometryWidget
 
 		Geometry::GeometrySet* _faceBody{};
 		int _faceIndex{ 0 };
-		vtkActor* _faceActor{};
 		
 	};
 }

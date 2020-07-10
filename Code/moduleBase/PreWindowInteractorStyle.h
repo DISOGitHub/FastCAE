@@ -3,12 +3,37 @@
 
 //#include "mainWidgetsAPI.h"
 #include <vtkInteractorStyleRubberBandPick.h>
+#include <vtkDataSetMapper.h>
 #include <QObject>
 #include "moduleBase/ModuleType.h"
 #include <vtkIdTypeArray.h>
 #include <QMultiHash>
 #include <QList>
 #include "moduleBaseAPI.h"
+
+//
+#include <vtkSmartPointer.h>
+#include <vtkPointData.h>
+#include <vtkIdTypeArray.h>
+#include <vtkDataSetSurfaceFilter.h>
+#include <vtkRendererCollection.h>
+#include <vtkProperty.h>
+#include <vtkPlanes.h>
+#include <vtkObjectFactory.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkActor.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderer.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkPolyData.h>
+#include <vtkPointSource.h>
+#include <vtkInteractorStyleRubberBandPick.h>
+#include <vtkAreaPicker.h>
+#include <vtkExtractGeometry.h>
+#include <vtkDataSetMapper.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkVertexGlyphFilter.h>
+#include <vtkIdFilter.h>
 
 class vtkActor;
 class vtkProperty;
@@ -45,12 +70,22 @@ namespace ModuleBase
 	public:
 		static PropPickerInteractionStyle* New();
 		vtkTypeMacro(PropPickerInteractionStyle, vtkInteractorStyleRubberBandPick);
+		PropPickerInteractionStyle();
+		~PropPickerInteractionStyle();
+		//
+		void SetPoints(vtkSmartPointer<vtkPolyData> points) { this->Points = points; }
 		void connectToMainWindow(GUI::MainWindow* mw, QWidget* parent);
 		void setRenderWindow(vtkRenderWindow* w);
 		void setRender(vtkRenderer* r);
+	private:
+		vtkSmartPointer<vtkPolyData> Points;
 
+		vtkSmartPointer<vtkActor> SelectedActor;
+
+		vtkSmartPointer<vtkDataSetMapper> SelectedMapper;
 	signals:
-		void selectGeometry(vtkActor* actor, bool press);
+		void selectGeometry(vtkActor* actor, bool ctrlpress);
+		void preSelectGeometry(vtkActor* actor, QVector<double*> points);
 		void highLight(QMultiHash<vtkDataSet*, int>*);
 		void dispalyInfo(DataProperty::PropertyList* prop);
 		void higtLightActorDisplayPoint(bool on);
@@ -62,7 +97,6 @@ namespace ModuleBase
 		void mouseWhellMove();
 		void rightDownMenu();
 		//还原几何颜色
-		void RestoreGeoColorSig();
 		void clearAllHighLight();
 
 	private:
@@ -81,15 +115,12 @@ namespace ModuleBase
 
 		bool isActorHightLighted(vtkActor* ac);
 
-		public slots:
+     public slots:
 		void setSelectModel(int m);
 		//type  0-press  1-release
 		void keyEvent(int type, QKeyEvent* e);
 
 	protected:
-		PropPickerInteractionStyle();
-		~PropPickerInteractionStyle();
-
 		void clickSelectGeometry();
 		void clickSelectMeshNode();
 		void clickSelectMeshCell();
@@ -125,10 +156,11 @@ namespace ModuleBase
 		vtkCoordinate* _coordinate{};
 
 		QList<vtkActor*> _tempActorContainer{};
+		QMultiHash<vtkActor*, double*> _actorPickedPoints{};
+
 		int _currentTempIndex{ 0 };
 	};
+	//vtkStandardNewMacro(PropPickerInteractionStyle);
 }
-
-//vtkStandardNewMacro(PropPickerInteractionStyle);
 
 #endif

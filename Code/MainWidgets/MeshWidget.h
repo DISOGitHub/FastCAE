@@ -39,8 +39,10 @@ namespace MainWidget
 	signals:
 		//更新显示状态
 		void updateDisplay(int index,bool visable);
+		void updateMeshSetVisible(MeshData::MeshSet*);
 		//移除第index个Kernal
 		void removeMeshData(int index);
+		void removeSetData(int index);
 		//高亮组件
 		void higtLightSet(MeshData::MeshSet* set);
 		//高亮Kernal

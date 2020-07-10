@@ -3,12 +3,8 @@
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandCreateFillet.h"
 #include "GeometryCommand/GeoCommandList.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QString>
 #include "geometry/geometryModelParaBase.h"
@@ -29,6 +25,10 @@ namespace GeometryWidget
 	CreateFiletDialog::CreateFiletDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre, Geometry::GeometrySet* set)
 		: GeoDialogBase(m, pre)
 	{
+		if (_isEdit)
+		{
+			_ui->geoSelectCurve->setEnabled(false);
+		}
 		_ui = new Ui::CreateFilterDialog;
 		_ui->setupUi(this);
 		this->translateButtonBox(_ui->buttonBox);
@@ -49,9 +49,9 @@ namespace GeometryWidget
 		{
 			int index = edges.at(i);
 			_shapeHash.insert(originalSet, index);
-			emit highLightGeometryEdge(originalSet, index, &_actors);
+			emit highLightGeometryEdgeSig(originalSet, index, true);
 		}
-		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
+		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edgelabel->setText(label);
 		_ui->lineEditRadius->setText(QString::number(p->getRadius()));
 	}
@@ -59,26 +59,13 @@ namespace GeometryWidget
 	CreateFiletDialog::~CreateFiletDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
 	}
 
 	void CreateFiletDialog::on_geoSelectCurve_clicked()
 	{
 		emit setSelectMode((int)ModuleBase::GeometryCurve);
-
-		if (_isEdit)
-		{
-			if ((_actors.size() > 0) && (_actors[0] != nullptr))
-			{
-				for(vtkActor* var : _actors)
-				{
-					QColor color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-					var->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-				}
-			}
-			emit _preWindow->reRenderSig();
-		}
+		for (QMultiHash<Geometry::GeometrySet*, int>::iterator iter = _shapeHash.begin(); iter != _shapeHash.end(); ++iter)		{			emit highLightGeometryEdgeSig(iter.key(), iter.value(), true);		}
+		
 	}
 
 	void CreateFiletDialog::closeEvent(QCloseEvent *e)
@@ -156,29 +143,25 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void CreateFiletDialog::selectActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set)
+	void CreateFiletDialog::shapeSlected(Geometry::GeometrySet* set, int shape)
 	{
 		
 		if (_isEdit&&_shapeHash.size()>0)
 		{
 			if (_shapeHash.keys().at(0) != set) return;
 		}
-		QColor color;
-		if (_actors.contains(ac))
+		if (_shapeHash.contains(set, shape))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_actors.removeOne(ac);
 			_shapeHash.remove(set, shape);
+			emit highLightGeometryEdgeSig(set, shape, false);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_actors.append(ac);
 			_shapeHash.insert(set, shape);
+			emit highLightGeometryEdgeSig(set, shape, true);
 		}
 
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-		QString label = QString(tr("Selected edge(%1)")).arg(_actors.size());
+		QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
 		_ui->edgelabel->setText(label);
 	}
 

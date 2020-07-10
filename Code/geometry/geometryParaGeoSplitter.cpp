@@ -22,6 +22,15 @@ namespace Geometry
 		return _name;
 	}
 
+	void GeometryParaGeoSplitter::appendBody(Geometry::GeometrySet* set, int bodyindex)
+	{
+		_solidHash.insert(set, bodyindex);
+	}
+
+	QMultiHash<Geometry::GeometrySet*, int> GeometryParaGeoSplitter::getBodys()
+	{
+		return _solidHash;
+	}
 	void GeometryParaGeoSplitter::setFaceIndex(int i)
 	{
 		_faceindex = i;
@@ -63,6 +72,20 @@ namespace Geometry
 		nameattr.setValue(_name);
 		element.setAttributeNode(nameattr);
 
+		QStringList solidStrList{};
+		if (_solidHash.size() > 0)
+		{
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _solidHash.begin();
+			for (; it != _solidHash.end(); it++)
+			{
+				solidStrList << QString("%1:%2)").arg(it.key()->getID()).arg(it.value());
+			}
+			QDomElement startpointEle = doc->createElement("BodyIDList");
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
+			startpointEle.appendChild(startpointText);
+			element.appendChild(startpointEle);
+		}
+
 		QDomElement faceindexEle = doc->createElement("FaceIndex");
 		QString faceindexStr = QString("%1").arg(_faceindex);
 		QDomText faceindexText = doc->createTextNode(faceindexStr);
@@ -92,8 +115,21 @@ namespace Geometry
 	void GeometryParaGeoSplitter::readDataFromProjectFile(QDomElement* e)
 	{
 		_name = e->attribute("Name");
-
 		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+		QDomNodeList setIdList = e->elementsByTagName("BodyIDList");
+		if (setIdList.size() != 1) return;
+		QDomElement coorele = setIdList.at(0).toElement();
+		QString coorstr = coorele.text();
+		QStringList coorsl = coorstr.split(",");
+		if (coorsl.size() < 1) return;
+		for (int i = 0; i < coorsl.size(); ++i)
+		{
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_solidHash.insert(set, solidindex);
+		}
 		QDomNodeList faceindexList = e->elementsByTagName("FaceIndex");
 		_faceindex = faceindexList.at(0).toElement().text().toInt();
 		QDomNodeList nodeidList = e->elementsByTagName("Oriset");

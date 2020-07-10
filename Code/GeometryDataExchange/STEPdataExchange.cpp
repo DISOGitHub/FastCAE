@@ -1,6 +1,6 @@
 #include "STEPdataExchange.h"
 #include "geometry/geometrySet.h"
-#include "geometry/GeometryData.h"
+#include "geometry/geometryData.h"
 #include <STEPControl_Reader.hxx>
 #include <XSControl_WorkSession.hxx>
 #include <XSControl_TransferReader.hxx>

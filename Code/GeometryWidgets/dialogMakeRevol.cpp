@@ -4,13 +4,9 @@
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandCreateChamfer.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "GeometryCommand/GeoCommandMakeRevol.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QDebug>
 #include <QColor>
@@ -33,7 +29,6 @@ namespace GeometryWidget
 		init();
 		connect(_ui->radioButtonUser, SIGNAL(toggled(bool)), this, SLOT(on_radioButtonUser()));
 		connect(_ui->comboBoxOption, SIGNAL(currentIndexChanged(int)), this, SLOT(on_TypeChanged(int)));
-		
 		on_radioButtonUser();
 		this->translateButtonBox(_ui->buttonBox);
 	}
@@ -58,18 +53,16 @@ namespace GeometryWidget
 		if (p == nullptr) return;
 		emit hideGeometry(_editSet);
 
-		QMultiHash<Geometry::GeometrySet*, int> shapeHash;
-		shapeHash = p->getShapeHash();
-		_shapeHash = shapeHash;
-		QList<Geometry::GeometrySet*> setList = shapeHash.uniqueKeys();
+		_shapeHash = p->getShapeHash();
+		QList<Geometry::GeometrySet*> setList = _shapeHash.uniqueKeys();
 		for (int i = 0; i < setList.size(); ++i)
 		{
-			QList<int> edlist = shapeHash.values(setList[i]);
+			QList<int> edlist = _shapeHash.values(setList[i]);
 			Geometry::GeometrySet* set = setList.at(i);
 			if (set == nullptr) return;
 			for (int var : edlist)
 			{
-				emit highLightGeometryEdge(set, var, &_edgeActors);
+				emit highLightGeometryEdgeSig(set, var,true);
 			}
 
 		}
@@ -79,7 +72,6 @@ namespace GeometryWidget
 		double basicpt[3]{};
 		p->getBasicPoint(basicpt);
 		_baseWidget->setCoordinate(basicpt);
-		
 		double degree = p->getDegree();
 		_ui->lineEditDegree->setText(QString::number(degree));
 		_ui->comboBoxOption->setCurrentIndex(p->getMethod());
@@ -89,8 +81,7 @@ namespace GeometryWidget
 		{
 			_axisSet = p->getAxisEdge().first;
 			_axisIndex = p->getAxisEdge().second;
-			QList<vtkActor*> templist;
-			emit highLightGeometryEdge(_axisSet, _axisIndex, &templist);
+			emit highLightGeometryEdgeSig(_axisSet, _axisIndex, true);
 			if (_axisSet != nullptr)
 				_ui->edgelabel_2->setText(QString("Selected edge(1)"));
 		}
@@ -141,47 +132,38 @@ namespace GeometryWidget
 	CreateRevolDialog::~CreateRevolDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
+
 	}
 
-	void CreateRevolDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void CreateRevolDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 		if (_selectEdge)
 		{
-			QColor color;
-			if (_edgeActors.contains(ac))
+			bool legal{};
+			if (_shapeHash.contains(set, index))
 			{
-				color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-				_edgeActors.removeOne(ac);
+				legal = false;
 				_shapeHash.remove(set, index);
 			}
 			else
 			{
-				color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-				_edgeActors.append(ac);
+				legal = true;
 				_shapeHash.insert(set, index);
 			}
-			int n = _edgeActors.size();
-			QString label = QString(tr("Selected edge(%1)")).arg(_edgeActors.size());
-			_ui->edgelabel->setText(label); 
-			ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+			int n = _shapeHash.size();
+			QString label = QString(tr("Selected edge(%1)")).arg(_shapeHash.size());
+			_ui->edgelabel->setText(label);
+			emit highLightGeometryEdgeSig(set, index, legal);
 		}
 		else if (_selectAxisEdge)
 		{
-			QColor color;
-			if (_axisActor != nullptr)
+			if (_axisSet != nullptr)
 			{
-				color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-				_axisActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
+				emit highLightGeometryEdgeSig(_axisSet, _axisIndex, false);
 			}
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_axisActor = ac;
-			_axisActor->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
 			_axisSet = set;
 			_axisIndex = index;
-
+			emit highLightGeometryEdgeSig(_axisSet, _axisIndex, true);
 			_ui->edgelabel_2->setText(tr("Selected Axis_edge(1)"));
 		}
 	}
@@ -193,15 +175,17 @@ namespace GeometryWidget
 		_selectEdge = true;
 		_selectAxisEdge = false;
 
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-		if (_axisActor != nullptr)
-			_axisActor->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+		if (_axisSet != nullptr)
+			emit highLightGeometryEdgeSig(_axisSet, _axisIndex, false);
 
-		c = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		for (int i = 0; i < _edgeActors.size(); ++i)
+		QList<Geometry::GeometrySet*> setlist = _shapeHash.uniqueKeys();
+		for (int i = 0; i < setlist.size(); i++)
 		{
-			auto ac = _edgeActors.at(i);
-			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+			QList<int> indexlist = _shapeHash.values(setlist[i]);
+			for (int index : indexlist)
+			{
+				emit highLightGeometryEdgeSig(setlist[i], index, true);
+			}
 		}
 
 	}
@@ -211,15 +195,17 @@ namespace GeometryWidget
 		_baseWidget->handleProcess(false);
 		_selectAxisEdge = true;
 
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		if (_axisActor != nullptr)
-			_axisActor->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+		if (_axisSet != nullptr)
+			emit highLightGeometryEdgeSig(_axisSet, _axisIndex, true);
 					 
-		c = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-		for (int i = 0; i < _edgeActors.size(); ++i)
+		QList<Geometry::GeometrySet*> setlist = _shapeHash.uniqueKeys();
+		for (int i = 0; i < setlist.size(); i++)
 		{
-			auto ac = _edgeActors.at(i);
-			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+			QList<int> indexlist = _shapeHash.values(setlist[i]);
+			for (int index : indexlist)
+			{
+				emit highLightGeometryEdgeSig(setlist[i], index, false);
+			}
 		}
 
 		emit setSelectMode((int)ModuleBase::GeometryCurve);

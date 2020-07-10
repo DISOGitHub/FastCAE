@@ -2,12 +2,8 @@
 #include "mainWindow/mainWindow.h"
 #include "moduleBase/ModuleType.h"
 #include "MainWidgets/preWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "GeometryCommand/GeoCommandMakeLoft.h"
-#include <vtkProperty.h>
-#include <vtkActor.h>
 #include <QMessageBox>
 #include <QDebug>
 #include <QColor>
@@ -60,7 +56,6 @@ namespace GeometryWidget
 		
 		for(QMultiHash<Geometry::GeometrySet*, int> var : _allShapes)
 		{
-			QList<vtkActor*> temp;
 			QList<Geometry::GeometrySet*> setList = var.keys();
 			int k = setList.size();
 			for (int i = 0; i < setList.size(); ++i)
@@ -70,10 +65,9 @@ namespace GeometryWidget
 				if (set == nullptr) return;
 				for (int var : edlist)
 				{
-					emit highLightGeometryEdge(set, var, &temp);
+					emit highLightGeometryEdgeSig(set, var, true);
 				}
 			}
-			_allActors.push_back(temp);
 		}
 		bool solid = p->getSloid();
 		_ui->solidCheckBox->setChecked(solid);
@@ -83,84 +77,73 @@ namespace GeometryWidget
 	CreateLoftDialog::~CreateLoftDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit setSelectMode((int)ModuleBase::None);
-		emit updateGraphOptions();
 	}
 
-	void CreateLoftDialog::selectActorShape(vtkActor* ac, int index, Geometry::GeometrySet* set)
+	void CreateLoftDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
 	
-		QColor color;
-		if (_tempActors.contains(ac))
+		if (_tempShapes.contains(set,index))
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-			_tempActors.removeOne(ac);
+			emit highLightGeometryEdgeSig(set, index, false);
 			_tempShapes.remove(set, index);
 		}
 		else
 		{
-			color = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-			_tempActors.append(ac);
+			emit highLightGeometryEdgeSig(set, index, true);
 			_tempShapes.insert(set, index);
 		}
-
-		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempActors.size());
+		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempShapes.size());
 		_ui->topedgelabel->setText(label);
-		ac->GetProperty()->SetColor(color.redF(), color.greenF(), color.blueF());
-
 	}
 
 	void CreateLoftDialog::on_addButton_clicked()
 	{
-		if (_tempActors.size() < 1) return;
-		_allActors.append(_tempActors);
 		_allShapes.append(_tempShapes);
-		
 
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-		for (int i = 0; i < _tempActors.size(); i++)
+		QList<Geometry::GeometrySet*> setlist = _tempShapes.uniqueKeys();
+		for (int i = 0; i < setlist.size(); i++)
 		{
-			auto ac = _tempActors.at(i);
-			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+			QList<int> indexlist = _tempShapes.values(setlist[i]);
+			for (int index : indexlist)
+			{
+				emit highLightGeometryEdgeSig(setlist[i], index, false);
+			}
 		}
-
-		_tempActors.clear();
 		_tempShapes.clear();
-		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempActors.size());
+		QString label = QString(tr("Selected TopEdge(%1)")).arg(_tempShapes.size());
 		_ui->topedgelabel->setText(label);
 		updateTab();
 	}
 
 	void CreateLoftDialog::on_removeButton_clicked()
 	{
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-		const int n = _allActors.size();
+		const int n = _allShapes.size();
 		if (n <= 0)return;
 
-		for (int i = 0; i < _allActors.size(); ++i)
+		for (int j = 0; j < _allShapes.size(); j++)
 		{
-			QList<vtkActor*> acs = _allActors.at(i);
-			for (int j = 0; j < acs.size(); j++)
+			QList<Geometry::GeometrySet*> setlist = _allShapes[j].uniqueKeys();
+			for (int i = 0; i < setlist.size(); i++)
 			{
-				auto ac = acs.at(j);
-				ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+				QList<int> indexlist = _tempShapes.values(setlist[i]);
+				for (int index : indexlist)
+				{
+					emit highLightGeometryEdgeSig(setlist[i], index, false);
+				}
 			}
-
 		}
 		_allShapes.removeLast();
-		_allActors.removeLast();
 		updateTab();
 	}
 
 	void CreateLoftDialog::on_geoSelectCurve_clicked()
 	{
 		emit setSelectMode(int(ModuleBase::GeometryCurve));
-	
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		for (int i = 0; i < _tempActors.size(); i++)
+		QList<Geometry::GeometrySet*> keys = _tempShapes.keys();
+		for (int i = 0; i < keys.size(); i++)
 		{
-			auto ac = _tempActors.at(i);
-			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+			int index = _tempShapes.value(keys[i]);
+			emit highLightGeometryEdgeSig(keys[i], index, true);
 		}
 
 	}
@@ -221,7 +204,6 @@ namespace GeometryWidget
 				auto s = sets.at(j);
 				int id = s->getID();
 				*temp = QString::number(id)+":";
-				//(*temp).append(":");
 				QList<int> indexs = _allShapes[i].values(s);
 				int nmu = indexs.size();
 				for (int k = 0;  k< indexs.size(); k++)
@@ -288,27 +270,32 @@ namespace GeometryWidget
 	void CreateLoftDialog::tableClicked(int row, int col)
 	{
 		Q_UNUSED(col);
-		QColor c = Setting::BusAPI::instance()->getGraphOption()->getGeometryCurveColor();
-
-		for (int i = 0; i < _allActors.size(); ++i)
+		for (int j = 0; j < _allShapes.size(); j++)
 		{
-			QList<vtkActor*> acs = _allActors.at(i);
-			for (int j = 0; j < acs.size(); j++)
+
+			QList<Geometry::GeometrySet*> setlist = _allShapes[j].uniqueKeys();
+			for (int i = 0; i < setlist.size(); i++)
 			{
-				auto ac = acs.at(j);
-				ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+				QList<int> indexlist = _tempShapes.values(setlist[i]);
+				for (int index : indexlist)
+				{
+					emit highLightGeometryEdgeSig(setlist[i], index, false);
+				}
 			}
-
 		}
-		if (row >= _allActors.size()) return;
+		if (row >= _allShapes.size()) return;
 
-		c = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-		QList<vtkActor*> acs = _allActors.at(row);
-		for (int j = 0; j < acs.size(); j++)
+		QMultiHash<Geometry::GeometrySet*, int> rowshape = _allShapes.at(row);
+		QList<Geometry::GeometrySet*> setlist = rowshape.uniqueKeys();
+		for (int i = 0; i < setlist.size(); i++)
 		{
-			auto ac = acs.at(j);
-			ac->GetProperty()->SetColor(c.redF(), c.greenF(), c.blueF());
+			QList<int> indexlist = _tempShapes.values(setlist[i]);
+			for (int index : indexlist)
+			{
+				emit highLightGeometryEdgeSig(setlist[i], index, true);
+			}
 		}
+
 	}
 
 }

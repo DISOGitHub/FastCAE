@@ -10,6 +10,7 @@ HEADERS += \
 	$$PWD/SU2dataExchange.h \
 	$$PWD/KEYdataExchange.h \
 	$$PWD/MeshThreadBase.h \
+	$$PWD/PDBdataExchange.h \
 	
 SOURCES += \
 	$$PWD/CGNSdataExchange.cpp \
@@ -22,3 +23,4 @@ SOURCES += \
 	$$PWD/SU2dataExchange.cpp \
 	$$PWD/KEYdataExchange.cpp \
 	$$PWD/MeshThreadBase.cpp \
+	$$PWD/PDBdataExchange.cpp \

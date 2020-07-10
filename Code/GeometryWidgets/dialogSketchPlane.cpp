@@ -1,14 +1,9 @@
 ﻿#include "dialogSketchPlane.h"
 #include "ui_dialogSketchPlane.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
 #include <TopoDS_Shape.hxx>
-#include <QColor>
 #include <QMessageBox>
-#include <vtkActor.h>
-#include <vtkProperty.h>
 #include <TopExp_Explorer.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS.hxx>
@@ -19,7 +14,7 @@
 namespace GeometryWidget
 {
 	SketchPlanDialog::SketchPlanDialog(GUI::MainWindow* m, MainWidget::PreWindow* p)
-		: GeoDialogBase(m,p, false)
+		: GeoDialogBase(m,p, false, false)
 	{
 		_ui = new Ui::SketchPlaneDialog;
 		_ui->setupUi(this);
@@ -32,7 +27,7 @@ namespace GeometryWidget
 	SketchPlanDialog::~SketchPlanDialog()
 	{
 		if (_ui != nullptr) delete _ui;
-		emit updateGraphOptions();
+		/*emit updateGraphOptions();*/
 	}
 
 	void SketchPlanDialog::selecPlaneClicked()
@@ -80,26 +75,22 @@ namespace GeometryWidget
 		this->close();
 	}
 
-	void SketchPlanDialog::selectActorShape(vtkActor* actor, int index, Geometry::GeometrySet* set)
+	
+	void SketchPlanDialog::shapeSlected(Geometry::GeometrySet* set, int index)
 	{
-		QColor faceColor = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
-		QColor hcolor = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
-	
-		if (_faceActor != nullptr)
+		
+		if (_faceBody != nullptr)
 		{
-			_faceActor->GetProperty()->SetColor(faceColor.redF(), faceColor.greenF(), faceColor.blueF());
-			_faceActor = nullptr; _faceBody = nullptr; _faceIndex = -1;
+			emit highLightGeometryFaceSig(_faceBody, _faceIndex, false);
+			_faceBody = nullptr; _faceIndex = -1;
 		}
-// 		else
-// 		{
-			_faceBody = set;
-			_faceIndex = index;
-			_faceActor = actor;
-			_faceActor->GetProperty()->SetColor(hcolor.redF(), hcolor.greenF(), hcolor.blueF());
-//		}
-			
-	}
+
+		_faceBody = set;
+		_faceIndex = index;
+		emit highLightGeometryFaceSig(_faceBody, _faceIndex, true);
 	
+	}
+
 	bool SketchPlanDialog::getDirection(double* basePt, double* dir)
 	{
 		if (_ui->radioButtonUser->isChecked())

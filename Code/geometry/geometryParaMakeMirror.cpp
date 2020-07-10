@@ -12,8 +12,6 @@ namespace Geometry
 		_type = GeometryParaMakeMirrorFeature;
 	}
 
-
-
 	void GeometryParaMirrorFeature::setCurrentIndex(int index)
 	{
 		_typeindex = index;
@@ -44,16 +42,16 @@ namespace Geometry
 		return _facebody;
 	}
 
-	void GeometryParaMirrorFeature::setBodyList(QList<Geometry::GeometrySet*> bodylist)
+	void GeometryParaMirrorFeature::appendBody(Geometry::GeometrySet* set, int bodyindex)
 	{
-		_bodylist = bodylist;
+		_solidHash.insert(set, bodyindex);
 	}
-			
-	QList<Geometry::GeometrySet*> GeometryParaMirrorFeature::getBodyList()
+
+	QMultiHash<Geometry::GeometrySet*, int> GeometryParaMirrorFeature::getBodys()
 	{
-		return _bodylist;
+		return _solidHash;
 	}
-     
+
 	void GeometryParaMirrorFeature::setSaveOrigion(bool s)
 	{
 		_saveorigion = s;
@@ -73,8 +71,6 @@ namespace Geometry
 	{
 		return _palneindex;
 	}
-
-	
 
 	void GeometryParaMirrorFeature::setDirection(double* dir)
 	{
@@ -132,18 +128,16 @@ namespace Geometry
 		QDomText indexText = doc->createTextNode(indexStr);
 		indexEle.appendChild(indexText);
 		element.appendChild(indexEle);
-
-		if (_bodylist.size() > 0)
+		QStringList solidStrList{};
+		if (_solidHash.size() > 0)
 		{
-			QString setidStr{};
-			for (int i = 0; i < _bodylist.size(); ++i)
+			QMultiHash<Geometry::GeometrySet*, int>::iterator it = _solidHash.begin();
+			for (; it != _solidHash.end(); it++)
 			{
-				setidStr.append(QString::number((_bodylist[i]->getID())));
-				if (i != (_bodylist.size() - 1)) setidStr.append(",");
-
+				 solidStrList << QString("%1:%2)").arg(it.key()->getID()).arg(it.value());
 			}
 			QDomElement startpointEle = doc->createElement("BodyIDList");
-			QDomText startpointText = doc->createTextNode(setidStr);
+			QDomText startpointText = doc->createTextNode(solidStrList.join(","));
 			startpointEle.appendChild(startpointText);
 			element.appendChild(startpointEle);
 		}
@@ -191,7 +185,6 @@ namespace Geometry
 		QDomText randomdirText = doc->createTextNode(randomdirstr);
 		randomdirEle.appendChild(randomdirText);
 		element.appendChild(randomdirEle);
-
 		
 		parent->appendChild(element);
 		return element;
@@ -208,14 +201,16 @@ namespace Geometry
 		if (coorsl.size() < 1) return;
 		for (int i = 0; i < coorsl.size(); ++i)
 		{
-			Geometry::GeometrySet*set = data->getGeometrySetByID((coorsl[i]).toInt());
-			_bodylist.append(set);
+			QStringList solidstr = coorsl[i].split(":");
+			int setid = solidstr.at(0).toInt();
+			int solidindex = solidstr.at(1).toInt();
+			Geometry::GeometrySet *set = data->getGeometrySetByID(setid);
+			_solidHash.insert(set, solidindex);
 		}
 		QDomNodeList rList = e->elementsByTagName("SaveOrigion");
 		QString r = rList.at(0).toElement().text();
 		if (r == "1") _saveorigion = true;
 		else if (r == "0") _saveorigion = false;
-
 
 		QDomNodeList typeindexList = e->elementsByTagName("TypeIndex");
 		_typeindex = typeindexList.at(0).toElement().text().toInt();
@@ -226,7 +221,6 @@ namespace Geometry
 		QDomNodeList planeindexList = e->elementsByTagName("PlaneIndex");
 		_palneindex = planeindexList.at(0).toElement().text().toInt();
 
-
 		QDomNodeList nodeidList = e->elementsByTagName("Oriset");
 		if (nodeidList.size() < 1) return;
 		QDomElement idele = nodeidList.at(0).toElement();
@@ -234,13 +228,10 @@ namespace Geometry
 		int orisetid = sid.toInt();
 		_oriset = _geoData->getGeometrySetByID(orisetid);
 
-		
-		QDomNodeList facebodyidList = e->elementsByTagName("FaceBody");
-		if (facebodyidList.size() < 1) return;
-		QDomElement facebodyidele = facebodyidList.at(0).toElement();
-		QString facebodyid = facebodyidele.text();
-		int faceid = facebodyid.toInt();
-		_facebody = _geoData->getGeometrySetByID(faceid);
+		QDomNodeList facebodyList = e->elementsByTagName("FaceBody");
+		int facebodyId = facebodyList.at(0).toElement().text().toInt();
+		if (facebodyId>=0)
+			_facebody = data->getGeometrySetByID(facebodyId);
 
 		QDomNodeList cList = e->elementsByTagName("BasePoint");
 		if (cList.size() != 1) return;

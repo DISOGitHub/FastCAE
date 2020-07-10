@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <BRepBuilderAPI_MakeSolid.hxx>
 #include <BRepTools_ReShape.hxx>
+#include <BRepBuilderAPI_Copy.hxx>
 #include <ModelRefine.h>
 #include <QDebug>
 
@@ -132,6 +133,10 @@ namespace Command
 
 	TopoDS_Shape GeoCommandCommon::makeFace(std::list<TopoDS_Wire>& wires)
 	{
+		if (wires.size()<1)
+		{
+			return TopoDS_Shape();
+		}
 		BRepBuilderAPI_MakeFace mkFace(wires.front());
 		const TopoDS_Face& face = mkFace.Face();
 		if (face.IsNull())
@@ -247,7 +252,8 @@ namespace Command
 				TopoDS_Face fixedFace = TopoDS::Face(fix.Shape());
 				aChecker.Init(fixedFace);
 				if (!aChecker.IsValid())
-					Standard_Failure::Raise("Failed to validate broken face");
+					return TopoDS_Face();
+					//Standard_Failure::Raise("Failed to validate broken face");
 				return fixedFace;
 			}
 			return mkFace.Face();
@@ -381,6 +387,23 @@ namespace Command
 		for (; faceExp.More(); faceExp.Next()) return false;
 		
 		return true;
+	}
+
+	TopoDS_Shape GeoCommandCommon::removeShape(TopoDS_Shape* inputShape, TopoDS_Shape* component)
+	{
+
+		TopoDS_Shape copyshape = BRepBuilderAPI_Copy(*inputShape);
+
+		Handle(TopoDS_TShape) hand1 = inputShape->TShape();
+		Handle(TopoDS_TShape) hand2 = component->TShape();
+		if (hand1 == hand2)
+		{
+			*inputShape = TopoDS_Shape();
+			return copyshape;
+		}
+		BRep_Builder builder;
+		builder.Remove(*inputShape, *component);
+		return copyshape;
 	}
 
 }

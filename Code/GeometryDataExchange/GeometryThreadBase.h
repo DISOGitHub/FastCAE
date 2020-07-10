@@ -31,6 +31,7 @@ namespace Geometry
 			void updateActionsStates();
 			void ShowSetSig(Geometry::GeometrySet* s, bool r = true);
 			void showGeometryMessageSig(ModuleBase::Message);
+			void updatePreGeometryActor();
 
 		private:
 			QList<Geometry::GeometrySet*>& _result;

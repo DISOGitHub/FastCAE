@@ -400,18 +400,22 @@ class BooLOperation:
     def setBoolType(self,booltype):
         self.booltype=booltype
 		
-    def setBodysId(self,body1,body2):
-          self.body1=body1
-          self.body2=body2
+    def setIndexOfSolid1InGeo(self,set1,body1Index):
+        self.set1=set1
+        self.body1Index=body1Index
+		
+    def setIndexOfSolid2InGeo(self,set2,body2Index):
+        self.set2=set2
+        self.body2Index=body2Index
 		
     def create(self):
         typestr = bytes(self.booltype, encoding='utf-8')
-        command.CreateBooLOperation(typestr,c_int(self.body1),c_int(self.body2))
+        command.CreateBooLOperation(typestr,c_int(self.set1),c_int(self.body1Index),c_int(self.set2),c_int(self.body2Index))
         del self
 
     def edit(self):
         typestr = bytes(self.booltype, encoding='utf-8')
-        command.EditBooLOperation(c_int(self.editID),typestr,c_int(self.body1),c_int(self.body2))
+        command.EditBooLOperation(c_int(self.editID),typestr,c_int(self.set1),c_int(self.body1Index),c_int(self.set2),c_int(self.body2Index))
         del self	
 		
 class MirrorFeature:
@@ -427,12 +431,13 @@ class MirrorFeature:
         self.random1=0
         self.random2=0
         self.save=0
+        self.bodys=dict()
 		
     def setEditID(self, id):
         self.editID = id
 		
-    def setBodys(self,bodys):
-        self.bodys=bodys
+    def appendBody(self, setid, bodyindex):
+        self.bodys.setdefault(setid,set()).add(bodyindex)
 		  
     def SaveOrigin(self, save):
         self.save = save
@@ -441,7 +446,7 @@ class MirrorFeature:
     def setSymmetricPlaneMethod(self, method):
         self.method=method
 	
-    def setFace(self,faceindex,facebody):
+    def setFace(self,facebody,faceindex):
         self.faceindex=faceindex
         self.facebody=facebody
 		
@@ -460,7 +465,17 @@ class MirrorFeature:
         self.basepoint2=basepoint2
     
     def create(self):
-        bodystr = bytes(self.bodys, encoding='utf-8')
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
         methodstr = bytes(self.method, encoding='utf-8')
         savestr=bytes(self.save, encoding='utf-8')
         planemestr=bytes(self.planemethod, encoding='utf-8')
@@ -468,7 +483,17 @@ class MirrorFeature:
         del self
 
     def edit(self):
-        bodystr = bytes(self.bodys, encoding='utf-8')
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
         methodstr = bytes(self.method, encoding='utf-8')
         savestr=bytes(self.save, encoding='utf-8')
         planemestr=bytes(self.planemethod, encoding='utf-8')
@@ -488,12 +513,14 @@ class MoveFeature:
         self.dir1=0
         self.dir2=0
         self.reverse="false"
+        self.bodys=dict()
 		
     def setEditID(self, id):
         self.editID = id
-		
-    def setBodys(self,bodys):
-        self.bodys=bodys
+	
+    def appendBody(self, setid, bodyindex):
+        self.bodys.setdefault(setid,set()).add(bodyindex)	
+   
 		
     def TransformMethod(self,method):
         self.method=method
@@ -523,7 +550,17 @@ class MoveFeature:
         self.dir2=dir2		
 		
     def create(self):
-        bodystr = bytes(self.bodys, encoding='utf-8')
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
         methstr = bytes(self.method, encoding='utf-8')
         saveoristr = bytes(self.saveori, encoding='utf-8')
         reversestr = bytes(self.reverse, encoding='utf-8')
@@ -532,7 +569,17 @@ class MoveFeature:
         del self
 
     def edit(self):
-        bodystr = bytes(self.bodys, encoding='utf-8')
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
         methstr = bytes(self.method, encoding='utf-8')
         saveoristr = bytes(self.saveori, encoding='utf-8')
         reversestr = bytes(self.reverse, encoding='utf-8')
@@ -542,7 +589,6 @@ class MoveFeature:
 
 class RotateFeature:
     def __init__(self):
-        self.objList = list()
         self.saveOri = 0
         self.rever = 0
         self.body = 0
@@ -551,12 +597,13 @@ class RotateFeature:
         self.axisy = 0
         self.axisz = 0
         self.axisMethod = 0
+        self.bodys=dict()
 
     def saveOrigin(self):
         self.saveOri = 1
-
-    def appendObject(self, id):
-        self.objList.append(id)
+        
+    def appendBody(self, setid, bodyindex):
+        self.bodys.setdefault(setid,set()).add(bodyindex)	
 
     def setBasicPoint(self, x, y, z):
         self.basicx = x
@@ -585,12 +632,17 @@ class RotateFeature:
         self.editID = id
 
     def rotate(self):
-        strbody =""
-        for body in self.objList:
-            strbody = strbody + str(body) + ","
-        strbody = strbody[:-1]
-        objstr = bytes(strbody, encoding='utf-8')
-
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        objstr = bytes(strcom, encoding='utf-8')
         command.RotateFeature(objstr, c_double(self.basicx), c_double(self.basicy), c_double(self.basicz), \
                               c_int(self.axisMethod),c_int(self.body),c_int(self.edge), c_double(self.axisx),c_double(self.axisy), c_double(self.axisz), c_int(self.rever), \
                               c_double(self.angle),c_int(self.saveOri))
@@ -598,7 +650,18 @@ class RotateFeature:
 
 
     def edit(self):
-        command.EditRotateFeature(c_int(self.editID), c_double(self.basicx), c_double(self.basicy), c_double(self.basicz), \
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        objstr = bytes(strcom, encoding='utf-8')
+        command.EditRotateFeature(c_int(self.editID), objstr, c_double(self.basicx), c_double(self.basicy), c_double(self.basicz), \
                               c_int(self.axisMethod), c_int(self.body), c_int(self.edge), c_double(self.axisx),
                               c_double(self.axisy), c_double(self.axisz), c_int(self.rever), \
                               c_double(self.angle), c_int(self.saveOri))
@@ -629,13 +692,14 @@ class MakeMatrix:
         self.wirereverse=0
         self.wirecount=2
         self.degree=30
+        self.bodys=dict()
        
 		
     def setEditID(self, id):
         self.editID = id
 		
-    def setBodys(self,bodys):
-        self.bodys=bodys
+    def appendBody(self, setid, bodyindex):
+        self.bodys.setdefault(setid,set()).add(bodyindex)	
 		
     def setOptionMethod(self,optionstr):
         if (optionstr=='Liear Matrix'):
@@ -707,20 +771,40 @@ class MakeMatrix:
         self.degree=degree
 		
     def create(self):
-          bodystr = bytes(self.bodys, encoding='utf-8')
-          command.MakeMatrix(bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
+        command.MakeMatrix(bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
 								c_int(self.showdir2),c_double(self.dir20),c_double(self.dir21),c_double(self.dir22),c_int(self.reverse2),c_double(self.dis2),c_int(self.count2),\
 								c_double(self.basept0),c_double(self.basept1),c_double(self.basept2),c_double(self.axis0),c_double(self.axis1),c_double(self.axis2),\
 								c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree))
-          del self
+        del self
 
     def edit(self):
-          bodystr = bytes(self.bodys, encoding='utf-8')
-          command.EditMatrix(c_int(self.editID),bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
+        command.EditMatrix(c_int(self.editID),bodystr,c_int(self.optionindex),c_double(self.dir10),c_double(self.dir11),c_double(self.dir12),c_int(self.reverse1),c_double(self.dis1),c_int(self.count1),\
 								c_int(self.showdir2),c_double(self.dir20),c_double(self.dir21),c_double(self.dir22),c_int(self.reverse2),c_double(self.dis2),c_int(self.count2),\
 								c_double(self.basept0),c_double(self.basept1),c_double(self.basept2),c_double(self.axis0),c_double(self.axis1),c_double(self.axis2),\
 								c_int(self.wirereverse),c_int(self.wirecount),c_double(self.degree))
-          del self
+        del self
 		  
 class Extrusion:
     def __init__(self):
@@ -920,25 +1004,47 @@ class GeoSplitter:
     def __init__(self):
         self.faceindex = -1
         self.facebody = -1
-        self.body = -1
         self.editID = -1
+        self.bodys=dict()
+	
+    def appendBody(self, setid, bodyindex):
+        self.bodys.setdefault(setid,set()).add(bodyindex)
 		
     def setEditID(self, id):
         self.editID = id
 		
-    def setBody(self,body):
-        self.body=body
-		  
-    def setFace(self,faceindex,facebody):
-        self.faceindex=faceindex
+    def setFace(self,facebody,faceindex):
         self.facebody=facebody
-    
+        self.faceindex=faceindex
+     
     def create(self):
-        command.MakeGeoSplitter(c_int(self.body),c_int(self.faceindex),c_int(self.facebody))
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
+        command.MakeGeoSplitter(bodystr,c_int(self.faceindex),c_int(self.facebody))
         del self
 
     def edit(self):
-        command.EditGeoSplitter(c_int(self.editID),c_int(self.body),c_int(self.faceindex),c_int(self.facebody))
+        keyList = self.bodys.keys()
+        strcom = ""
+        for key in keyList:
+             setstr = ""
+             values = self.bodys.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+        strcom = strcom[:-1]
+        bodystr = bytes(strcom, encoding='utf-8')
+        command.EditGeoSplitter(c_int(self.editID),bodystr,c_int(self.faceindex),c_int(self.facebody))
         del self			
 		
 		
