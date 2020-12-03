@@ -21,9 +21,7 @@ namespace ModuleBase{
 
 	public:
 		ThreadTask(GUI::MainWindow* m/*QString title*/);
-		~ThreadTask();
-
-		void stop();
+		~ThreadTask();	
 
 	signals:
 		void start();
@@ -33,19 +31,25 @@ namespace ModuleBase{
 		void setRange(int, int);
 		void showButton(bool);
 		void showInformation(QString s);
-		void taskFinished(ThreadTask* t);
-		void updateMesh();
+		//void taskFinished(ThreadTask* t);
+
+		void threadFinished();
+		void threadWait(int n);
+
+	public slots:
+		virtual void run() = 0;
+		void stop();
 
 	protected:
-
-		virtual void run() = 0;
+		///virtual void run() = 0;
 		void threadTaskFinished();
 
 	protected:
 		ProcessBar* _process;
 		GUI::MainWindow* _mainwindow;
 		bool _threadRuning{ false };
-		QThread _thread;
+		//QThread _thread;
+		//QThread* _thread;
 	};
 }
 #endif // THREADTASK_H

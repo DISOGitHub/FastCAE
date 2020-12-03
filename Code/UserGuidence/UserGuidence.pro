@@ -2,7 +2,7 @@ TEMPLATE	=   lib
 CONFIG		+=  debug  c++11 
 CONFIG		+=  qt
 TARGET		=   UserGuidence
-QT          +=  core gui widgets network webkitwidgets
+QT          +=  core gui widgets network 
 DEFINES     +=  USERGUIDENCE_API
 
 include(UserGuidence.pri)

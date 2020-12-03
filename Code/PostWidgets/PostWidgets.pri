@@ -9,7 +9,6 @@ HEADERS += \
 	$$PWD/Post3DInterface.h \
 	$$PWD/PostCustomPlot.h \
 #	$$PWD/PostCustomPlotInterface.h \
-	$$PWD/qcustomplot.h \
 
 SOURCES += \
 	$$PWD/Post3DWidget.cpp \
@@ -21,7 +20,6 @@ SOURCES += \
 	$$PWD/Post3DInterface.cpp \
 	$$PWD/PostCustomPlot.cpp \
 #	$$PWD/PostCustomPlotInterface.cpp \
-	$$PWD/qcustomplot.cpp \
 	
 FORMS +=  \
 	$$PWD/Post3DWidget.ui \

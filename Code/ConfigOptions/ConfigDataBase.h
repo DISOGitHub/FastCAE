@@ -15,6 +15,7 @@ namespace ConfigOption
 	class ObserverConfig;
 	class MaterialConfig;
 	class ProjectTreeConfig;
+//	class NodeFormConfig;
 
 	class CONFIGOPTIONSAPI ConfigDataBase
 	{
@@ -32,6 +33,7 @@ namespace ConfigOption
 		virtual ObserverConfig* getObseverConfig() = 0;
 		virtual MaterialConfig* getMaterialConfig() = 0;
 		virtual ProjectTreeConfig* getProjectTreeConfig() = 0;
+//		virtual NodeFormConfig* getNodeFormConfig() = 0;
 
 		virtual void clearAllConfig() = 0;
 	};

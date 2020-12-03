@@ -23,7 +23,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI CGNSdataExchange : public MeshThreadBase
 	{		
 	public:
-		CGNSdataExchange(const QString &filename, MeshOperation operation, GUI::MainWindow *mw, int writeFileKid = -1);
+		CGNSdataExchange(const QString &filename, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~CGNSdataExchange();
 
 		void run();
@@ -46,7 +46,7 @@ namespace MeshData
 		int _cellOffset{ 0 };
 		QVector<Vertex> _verlist{};
 		MeshOperation _operation;
-		int _writeFileKid;
+		int _modelId;
 	};
 }
 #endif

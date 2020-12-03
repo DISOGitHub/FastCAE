@@ -110,7 +110,7 @@ namespace MeshData
         _setList.clear();
 
 		MeshKernal::resetOffset();
-		MeshSet::resetMaxID();
+		DataProperty::ComponentBase::resetMaxID();
     }
     QString MeshData::getMD5()
     {

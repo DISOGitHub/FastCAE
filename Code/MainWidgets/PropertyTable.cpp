@@ -61,7 +61,7 @@ namespace MainWidget
 		_ui->propTable->setHorizontalHeaderLabels(lables);
 	}
 
-	void PropertyTable::iniTable()
+	void PropertyTable::updateTable(DataProperty::DataBase* data)
 	{
 		_ui->propTable->clear();
 		this->clearObserver();
@@ -70,11 +70,6 @@ namespace MainWidget
 		_ui->propTable->setColumnCount(2);
 		QStringList lables; lables << tr("Name") << tr("Value");
 		_ui->propTable->setHorizontalHeaderLabels(lables);
-	}
-
-	void PropertyTable::updateTable(DataProperty::DataBase* data)
-	{
-		iniTable();
 		_data = data;
 		if (data == nullptr)
 		{

@@ -23,7 +23,8 @@ namespace MeshData
 			set = new CgnsBCZone; break;
 		default:
 			CREATEMESHSET fun = _createSetFun.value(type);
-			set = fun(type);
+			if (fun!= nullptr)
+				set = fun(type);
 			break;
 		}
 		return set;

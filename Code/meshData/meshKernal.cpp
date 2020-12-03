@@ -350,5 +350,37 @@ namespace MeshData
 
 		this->setMeshData(ung);
 	}
+
+	void MeshKernal::setGmshSetting(DataProperty::DataBase* data)
+	{
+		_gmshSetting = data;
+	}
+
+	DataProperty::DataBase* MeshKernal::getGmshSetting()
+	{
+		return _gmshSetting;
+	}
+
+	void MeshKernal::setSpecificColor(bool enable, QColor c)
+	{
+		_specificColor.first = enable;
+		_specificColor.second = c;
+	}
+
+	void MeshKernal::setSpecificColor(bool enable, double r, double g, double b, double alpha)
+	{
+		_specificColor.first = enable;
+		_specificColor.second.setRedF(r);
+		_specificColor.second.setGreenF(g);
+		_specificColor.second.setBlueF(b);
+		_specificColor.second.setAlpha(alpha);
+	}
+
+	QColor MeshKernal::getSpecificColor(bool &isEnable)
+	{
+		isEnable = _specificColor.first;
+		return _specificColor.second;
+	}
+
 }
 

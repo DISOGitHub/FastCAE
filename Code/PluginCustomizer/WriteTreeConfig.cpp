@@ -100,7 +100,7 @@ namespace FastCAEDesigner{
 		parentNameDict.insert(TreeItemType::ProjectSolverChild, "Solver Setting");
 
 		QMap<TreeItemType, QString> nodeNameDict;
-		nodeNameDict.insert(TreeItemType::ProjectMesh, "Mesh Set");
+		nodeNameDict.insert(TreeItemType::ProjectComponent, "Mesh Set");
 		nodeNameDict.insert(TreeItemType::ProjectBoundaryCondation, "Boundary Condition");
 		nodeNameDict.insert(TreeItemType::ProjectSimulationSetting, "Simulation Setting");
 		nodeNameDict.insert(TreeItemType::ProjectSolver, "Solver Setting");

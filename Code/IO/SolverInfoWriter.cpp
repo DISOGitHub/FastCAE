@@ -90,15 +90,19 @@ namespace IO
 
 		filename_model = filePath + "/" + "model.xml";
 		this->setFileName(filename_model);
-		qDebug() << filename_model;
+//		qDebug() << filename_model;
 		write_xml_model();
 		//xml2json_model(filename_model);
 
-		_doc = nullptr;
-		filename_mesh = filePath + "/" + "meshdata.xml";
-		this->setFileName(filename_mesh);
-		write_xml_meshdata();
-		//xml2json_meshdata(filename_mesh);
+
+		if (model->getMeshSetList().size() != 0)
+		{
+			_doc = nullptr;
+			filename_mesh = filePath + "/" + "meshdata.xml";
+			this->setFileName(filename_mesh);
+			write_xml_meshdata();
+			//xml2json_meshdata(filename_mesh);
+		}
 
 // 		_doc = nullptr;
 // 		filename_geo = filePath + "/" + "geometry.xml";

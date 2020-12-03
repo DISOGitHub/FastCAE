@@ -56,9 +56,9 @@ namespace ModelData
 		//解除材料与组件的绑定
 		void removeMaterial(int setid);
 		
-		virtual void setMeshSetList(QList<int> ids);
+		virtual void setComponentIDList(QList<int> ids);
 
-		virtual void removeMeshSetAt(int index) override;
+		virtual void removeComponentAt(int index) override;
 
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele) override;
 		virtual void writeToProjectFile1(QDomDocument* doc, QDomElement* ele) override;
@@ -130,10 +130,14 @@ namespace ModelData
 		//获取三维渲染窗口
 		Post::Post3DWindowInterface* getPost3DWindow();
 
+		void bindInpMaterialIds(const QList<int>&);
+		const QList<int>& getInpMaterialIds();
+
 	protected:
 		void registerObserver();
 		
 	protected:
+		QList<int> _inpMaterIds;
 		QHash<int, int> _setMaterial{};
 		QStringList _reportList{};
 		QHash<int, DataProperty::DataBase*> _configData{};
@@ -147,7 +151,6 @@ namespace ModelData
 
 		Post::Post2DWindowInterface* _post2DWindow{};
 		Post::Post3DWindowInterface* _post3DWindow{};
-	
 	};
 
 

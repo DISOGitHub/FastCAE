@@ -13,7 +13,7 @@
 
 #define CHECKINGMEMORY 0
 
-#define FASTCAE_VERSION "0709 Test"
+#define FASTCAE_VERSION "2.5beta"
 
 int main(int argc, char* argv[])
 {
@@ -61,13 +61,13 @@ int main(int argc, char* argv[])
 #ifdef Q_OS_WIN
 #ifdef _DEBUG
 
-	if (CHECKINGMEMORY)
-	{
-		printf("check memory leak ...\n");
-		_CrtDumpMemoryLeaks();
-		printf("check over.\n");
-	}
-	
+// 	if (CHECKINGMEMORY)
+// 	{
+// 		printf("check memory leak ...\n");
+// 		_CrtDumpMemoryLeaks();
+// 		printf("check over.\n");
+// 	}
+// 	
 #endif
 #endif
 

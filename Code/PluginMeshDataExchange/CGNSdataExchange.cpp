@@ -21,12 +21,12 @@
 
 namespace MeshData
 {
-	CGNSdataExchange::CGNSdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int writeFileKid) :
+	CGNSdataExchange::CGNSdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId) :
 		_fileName(fileName),
 		_operation(operation),
 		_meshData(MeshData::getInstance()),
 		MeshThreadBase(fileName, operation, mw),
-		_writeFileKid(writeFileKid)
+		_modelId(modelId)
 	{
 
 	}
@@ -115,7 +115,7 @@ namespace MeshData
 
 	bool CGNSdataExchange::write()
 	{
-		if (_writeFileKid < 1)	return false;
+		if (_modelId < 1)	return false;
 	}
 
 	bool CGNSdataExchange::readZone(int file_index, int base_index, int zone_index)

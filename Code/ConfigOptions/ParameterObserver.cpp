@@ -128,7 +128,7 @@ namespace ConfigOption
 
 	QStringList ParameterObserver::getFollowGroupNames()
 	{
-		qDebug() << _configfollowGroup.keys();
+//		qDebug() << _configfollowGroup.keys();
 		return _configfollowGroup.keys();
 	}
 

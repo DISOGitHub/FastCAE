@@ -3,13 +3,15 @@
 #include "ModelData/modelDataBase.h"
 #include "SolverInfoWriter.h"
 #include "TemplateReplacer.h"
+#include "settings/busAPI.h"
+#include "GenerateMesh.h"
 #include <QFile>
 #include <QDir>
 #include <QDebug>
 
 namespace IO
 {
-
+ 	GenerateMesh SolverIO::gm;
 	bool SolverIO::writeInpFile(QString suffix, ModelData::ModelDataBase* data)
 	{
 		if (suffix.toLower() == "xml")
@@ -70,6 +72,12 @@ namespace IO
 		writer.appendModel(m);
 		bool ok = writer.write();
 
+		if (m->getGeoComponentIDList().size() != 0)
+		{
+			GUI::MainWindow* mw = Setting::BusAPI::instance()->getMainWindow();
+			gm.iniGenerateMesh(mw, m->getPath());
+			gm.startGenerateMesh();
+		}
 		return ok;
 	}
 

@@ -9,8 +9,14 @@
 #include "DataProperty/DataBase.h"
 #include <QTextStream>
 #include <QTime>
+#include <vtkCellType.h>
+#include "GmshModuleAPI.h"
 
 class TopoDS_Compound;
+class TopoDS_Shape;
+class gp_Pnt;
+
+class vtkDataSet;
 
 namespace GUI
 {
@@ -32,10 +38,23 @@ namespace Py
 	class PythonAagent;
 }
 
+namespace MeshData{
+	class MeshKernal;
+}
+
 namespace Gmsh
 {
-	class GmshModule;
+	typedef struct
+	{
+		int geoSetID;
+		int itemIndex;
+		QList<int> cellIndexs;
+	}itemInfo;
 
+	class GmshModule;
+	class FluidMeshPreProcess;
+	class GmshScriptWriter;
+	//class GmshSettingData;
 	class GMshPara
 	{
 	public:
@@ -56,10 +75,13 @@ namespace Gmsh
 	//	QString _physicals{};
 		bool _selectall{ false };
 		bool _selectvisible{ false };
-
+		int _meshID{ -1 };
+		QList<double*> _fluidField{};
+		bool _fluidMesh{ false };
+		QString _cells{};
 	};
 
-	class GmshThread : public DataProperty::DataBase
+	class GMSHAPI GmshThread : public DataProperty::DataBase
 	{
 		Q_OBJECT
 	public:
@@ -99,16 +121,33 @@ namespace Gmsh
 		void setSizeFields(QString fs);
 		//设置物理分组
 		//void setPhysicals(QString ps);
-
+		//设置mesh名称
+		void setMeshID(int id);
+		//设置网格全选
 		void setSelectedAll(bool al);
+		//设置选择网格可见项
 		void setSelectedVisible(bool sv);
+		//设置为流体域网格剖分模式
+		void setFluidMesh(bool fm);
+		//设置流体网格剖分的区域
+//		void setFluidField(QList<double*> coors);
+		//设置指定网格类型（保存）
+		void setCellTypeList(QString cells);
+
 
 		void run();
 		void stop();
 
+		//是否保存vtkData
+		void isSaveDataToKernal(bool save);
+		/*返回节点/单元在几何上的id*/
+		QList<itemInfo> generateGeoIds(vtkDataSet* dataset);
+
 	signals:
 		void threadFinished(GmshThread* t);
 		void sendMessage(QString);
+		void writeToSolveFileSig(vtkDataSet*);
+		void updateMeshActor();
 
 	private slots:
 	   void processFinished(int, QProcess::ExitStatus);
@@ -120,37 +159,33 @@ namespace Gmsh
 		void submitParaToGmsh();
 		void generate();
 		void readMesh();
-		void appendScript(QString path);
-		void generalSetting(QTextStream* out);
-		void gridCoplanar(QTextStream* out);
-		void sizeAtPoints(QTextStream* out);
-		void sizeFields(QTextStream* out);
-		void boxFieldScript(QTextStream* out, QStringList list, int& index);
-		void ballFieldScript(QTextStream* out, QStringList list, int& index);
-		void cylinderFieldScript(QTextStream* out, QStringList list, int& index);
-	//	void physicalsGroup(QTextStream* out);
-	//	void physicalsScript(QTextStream* out,QString type,QMultiHash<QString,int> pHash);
-		//获取在新组合体的索引,返回值大于0， 若返回0则为错误标记
-		//type 1-点 2-线 3-面 4-实体
-		int getShapeIndexInCompound(int setid, int index, int type);
+	
 		void mergeAllGeo();
 		void mergeVisibleGeo();
 		void mergeSelectGeo();
 
-
-		QStringList getGridCoplanarScript();
+		//设置meshkernal网格剖分参数
+		void setGmshSettingData(MeshData::MeshKernal* k);
+		//设置脚本读写数据
+		void setGmshScriptData();
+		//删除指定单元
+		vtkDataSet* deleteSpecifiedCells(vtkDataSet* dataset);
+		//判断是否为指定单元
+		bool isSpecifiedCell(VTKCellType type);
 
 	private:
 		GUI::MainWindow* _mainwindow{};
 		MainWidget::PreWindow* _preWindow{};
 		GmshModule* _gmshModule{};
+		FluidMeshPreProcess* _fluidMeshProcess{};
 
 		QProcess _process{};
 		ModuleBase::ProcessBar* _processBar{};
 
 		int _dim{ -1 };
 		TopoDS_Compound* _compounnd{};
-		
+		//TopoDS_Shape* _faushape{};
+
 		QMultiHash<int, int> _solidHash{};
 		QMultiHash<int, int> _surfaceHash{};
 		QString _elementType{};
@@ -164,9 +199,16 @@ namespace Gmsh
 		bool _isGridCoplanar{ false };
 		QString _sizeAtPoints{};
 		QString _sizeFields{};
-		//QString _physicals{};
 		bool _selectall{ false };
 		bool _selectvisible{ false };
+		bool _isSaveToKernal{ true };
+		int _meshID{ -1 };
+
+		bool _fluidMesh{ false };
+
+		QList<int> _cellTypeList{};
+
+		GmshScriptWriter* _scriptWriter{};
 	};
 
 }

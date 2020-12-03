@@ -44,6 +44,7 @@ namespace MeshData
 namespace Geometry
 {
 	class GeometrySet;
+	class GeoComponent;
 }
 
 namespace MainWidget
@@ -155,7 +156,8 @@ namespace GUI
 		/****网格相关信号***** */
 		void importMeshByNamesSig(QString name);
 		void importMeshDataSetSig(vtkDataSet* dataset);
-		void exportMeshByIDSig(QString fileName, QString suffix, int kID);
+//		void exportMeshByIDSig(QString fileName, QString suffix, int kID);
+		void editMeshSig(int dim, int kindex);
 		void updateMeshTreeSig();
 		void updateSetTreeSig();
 		void updateMeshDispalyStateSig(int index, bool display);
@@ -163,6 +165,7 @@ namespace GUI
 		void removeMeshActorSig(int index);
 		void removeSetDataSig(int index);
 		void highLightSetSig(MeshData::MeshSet* set);
+		void highLightGeoComponentSig(Geometry::GeoComponent*);
 		void highLightKernelSig(MeshData::MeshKernal* k);
 		void highLightDataSetSig(vtkDataSet* dataset);
 		//清空数据
@@ -233,8 +236,6 @@ namespace GUI
 		void updateActionsStatesSig();
 		//关闭主窗口
 		void closeMainWindow();
-		//徐文强 2020/6/5  初始化属性窗口
-		void iniPropertyWidgetSig();
 
 		public slots:
 		/*状态栏显示信息 */
@@ -266,10 +267,10 @@ namespace GUI
 		//打印信息
 		void printMessage(int type, QString m);
 		//导入网格
-		void importMesh(QString fileName, QString s);
+//		void importMesh(QString fileName, QString s, int modelId);
 		//导入几何
 		void importGeometry(QStringList f);
-		//导出网格
+		//导出几何
 		void exportGeometry(QString f);
 		//更新工具栏信息
 		void updateActionsStates();
@@ -312,6 +313,7 @@ namespace GUI
 		void openRencentFile(QString file);
 		//创建组件（Set）
 		void on_CreateSet();
+		void on_CreateGeoComponent();
 		//保存脚本
 		void on_SaveScript();
 		//执行脚本
@@ -322,7 +324,10 @@ namespace GUI
 		void showGraphRange(double, double);
 		//开始草绘
 		void startSketch(bool s);
-
+		//网格过滤
+		void on_FilterMesh();
+		//创建VTK空间变换窗口
+		void on_VTKTranslation();
 
 	private:
 		/*初始化Menu*/
@@ -341,6 +346,8 @@ namespace GUI
 		void keyPressEvent(QKeyEvent *e) override;
 		void keyReleaseEvent(QKeyEvent *e) override;
 		void showEvent(QShowEvent *e) override;
+
+		bool isLoadRecordScripFile();
 	private:
 		Ui::MainWindow* _ui{};
 		Translator* _translator{};

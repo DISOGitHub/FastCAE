@@ -2,7 +2,7 @@ TEMPLATE	=   lib
 CONFIG		+=  debug  c++11 
 CONFIG		+=  qt
 TARGET		=   MainWindow
-QT          +=  core gui widgets network webkitwidgets
+QT          +=  core gui widgets network webenginewidgets webview
 DEFINES     +=  MAINWINDOW_API
 
 include(./mainWindow.pri)

@@ -90,7 +90,7 @@ class vtkProperty;
 class vtkTexture;
 class vtkPOVInternals;
 
-class  disvtkPOVExporter : public QObject, public vtkExporter
+class disvtkPOVExporter : public QObject, public vtkExporter
 {
 public:
 	static disvtkPOVExporter *New();

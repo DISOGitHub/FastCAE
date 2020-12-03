@@ -37,10 +37,10 @@ HEADERS += \
 	$$PWD/GeoCommandSketchSpline.h \
 	$$PWD/GeoCommandMakeMatrix.h \
 	$$PWD/GeoCommandRemoveDatum.h \
-#	$$PWD/GeoCommandCreateCylindricalComplex.h \
-#	$$PWD/GeoCommandCreateBoxComplex.h \
 	$$PWD/GeoCommandGeoSplitter.h \
-
+	$$PWD/GeoCommandMakeFillHole.h \
+	$$PWD/GeoCommandMakeRemoveSurface.h \
+	$$PWD/GeoCommandFillGap.h \
 
 SOURCES += \
     $$PWD/GeoCommandList.cpp \
@@ -80,8 +80,9 @@ SOURCES += \
 	$$PWD/GeoCommandSketchSpline.cpp \
 	$$PWD/GeoCommandMakeMatrix.cpp \
 	$$PWD/GeoCommandRemoveDatum.cpp \
-#	$$PWD/GeoCommandCreateCylindricalComplex.cpp \
-#	$$PWD/GeoCommandCreateBoxComplex.cpp \
 	$$PWD/GeoCommandGeoSplitter.cpp \
+	$$PWD/GeoCommandMakeFillHole.cpp \
+	$$PWD/GeoCommandMakeRemoveSurface.cpp \
+	$$PWD/GeoCommandFillGap.cpp \
 	
 FORMS +=  \

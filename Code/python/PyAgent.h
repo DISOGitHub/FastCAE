@@ -14,6 +14,7 @@ namespace Py
 {
 	class PyInterpreter;
 	class ScriptReader;
+	class RecordThread;
 
 	class PYTHONAPI PythonAagent : public QObject
 	{
@@ -38,6 +39,8 @@ namespace Py
 		QStringList getcodelist();
 		void setNoGUI(bool nogui);
 
+
+
 	signals:
 		void printInfo(int type, QString m);
 		void closeMainWindow();
@@ -46,7 +49,6 @@ namespace Py
 		PythonAagent();
 		~PythonAagent() = default; 
 		void connectSignals();
-	
 
 	private slots:
 		void readerFinished();
@@ -54,6 +56,7 @@ namespace Py
 	private:
 		static PythonAagent* _instance;
 		PyInterpreter* _interpreter{};
+		RecordThread* _recordScript{};
 		GUI::MainWindow* _mainWindow{};
 		ScriptReader* _reader{};
 		bool _islock{ false };

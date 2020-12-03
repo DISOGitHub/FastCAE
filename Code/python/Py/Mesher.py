@@ -39,13 +39,16 @@ class Gmsher:
     self.surfaceList = dict()
     self.pointsSizeList = list()
     self.fieldsList = list()
+    self.fluidfield = list()
+    self.dimensionList = list()
 #    self.physicalsList = list()
     self.method = -1
     self.dim = -1
     self.isGridCoplanar=False
     self.selectall=False
     self.selectvisible=False
-    self.cleanGeome = False    
+    self.cleanGeome = False 
+    self.meshID = -1
 
   def appendSurface(self, geoset, index):
     self.surfaceList.setdefault(geoset, set()).add(index)  
@@ -84,17 +87,25 @@ class Gmsher:
     pointsList = [px,py,pz,pv]
     self.pointsSizeList.append(pointsList)
     
-  def appendBoxFields(self,tp,v1,v2,v3,v4,v5,v6,v7,v8,v9,bg):
-    boxlist = [tp,v1,v2,v3,v4,v5,v6,v7,v8,v9,bg]
+  def appendBoxFields(self,thick,vin,vout,x,y,z,length,width,height,bg):
+    boxlist = [1,thick,vin,vout,x,y,z,length,width,height,bg]
     self.fieldsList.append(boxlist)
     
-  def appendBallFields(self,tp,v1,v2,v3,v4,v5,v6,v7,bg):
-    balllist = [tp,v1,v2,v3,v4,v5,v6,v7,bg]
+  def appendBallFields(self,radius,thick,vin,vout,x,y,z,bg):
+    balllist = [2,radius,thick,vin,vout,x,y,z,bg]
     self.fieldsList.append(balllist)
     
-  def appendCylinderFields(self,tp,v1,v2,v3,v4,v5,v6,v7,v8,v9,bg):
-    cylinderlist = [tp,v1,v2,v3,v4,v5,v6,v7,v8,v9,bg]
+  def appendCylinderFields(self,radius,length,x,y,z,xaxis,yaxis,zaxis,vin,vout,bg):
+    cylinderlist = [3,radius,length,x,y,z,xaxis,yaxis,zaxis,vin,vout,bg]
     self.fieldsList.append(cylinderlist)
+    
+  def appendSolidsFields(self,vi,vo,tn,setid,index,bg):
+    solidsList = [4,vi,vo,tn,setid,index,bg]
+    self.fieldsList.append(solidsList)
+    
+  def appendFrustumFields(self,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,bg):
+    frustumlist = [5,v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,bg]
+    self.fieldsList.append(frustumlist)
     
 #  def appendPhysicals(self,type,name,geoid,index):
 #    physicallist = [type,name,geoid,index]
@@ -108,6 +119,12 @@ class Gmsher:
     
   def setDim(self,dim):
     self.dim = dim
+    
+  def setMeshID(self,id):
+    self.meshID = id
+
+  def appendToDimension(self,dim):
+    self.dimensionList.append(dim)
 
   def startGenerationThread(self):
     eletypestr = bytes(self.elementType,encoding='utf-8')
@@ -131,6 +148,12 @@ class Gmsher:
       fields = fields + fieldstr + ";"
     fields = fields[:-1]
     fieldsStr = bytes(fields, encoding = 'utf-8')
+    
+#    dimension = ""
+ #   for dime in self.dimensionList:
+ #     dimension = dimension + str(dime) + ","
+ #   dimension = dimension[:-1]
+ #   dimensionStr = bytes(dimension, encoding = 'utf-8')
     
     
 #    physicals = ""
@@ -158,7 +181,7 @@ class Gmsher:
       gmshPlugin.GenerateMesh2D(surfacestr, eletypestr, c_int(self.elementOrder), c_int(self.method), \
                                c_int(self.smoothIteration), c_double(self.sizeFactor), \
                                c_double(self.minSize), c_double(self.maxSize), c_bool(self.cleanGeome),c_bool(self.isGridCoplanar),\
-                               pointsizestr,fieldsStr,c_bool(self.selectall),c_bool(self.selectvisible))
+                               pointsizestr,fieldsStr,c_bool(self.selectall),c_bool(self.selectvisible),c_int(self.meshID))
 
     elif self.dim == 3:
       keyList = self.solidList.keys()
@@ -174,7 +197,44 @@ class Gmsher:
       objstr = bytes(strcom, encoding='utf-8')
       gmshPlugin.GenerateMesh3D(objstr, eletypestr, c_int(self.elementOrder), c_int(self.method), c_double(self.sizeFactor), \
                                 c_double(self.minSize), c_double(self.maxSize), c_bool(self.cleanGeome),c_bool(self.isGridCoplanar),\
-                                pointsizestr,fieldsStr,c_bool(self.selectall),c_bool(self.selectvisible))
+                                pointsizestr,fieldsStr,c_bool(self.selectall),c_bool(self.selectvisible),c_int(self.meshID))
 
 
+    del self
+    
+  
+  def setFluidSize(self,size):
+    self.fluidsize = size
+    
+  def setFluidField(self,x,y,z):
+    fluidlist = [x,y,z]
+    self.fluidfield.append(fluidlist)
+    
+  def startGenerationFluidMesh(self):
+    eletypestr = bytes(self.elementType,encoding='utf-8')
+    
+    fluid = ""
+    for coorlist in self.fluidfield:
+      coorstr = ""
+      for coor in coorlist:
+        coorstr = coorstr + str(coor) + ","    
+      coorstr = coorstr[:-1]
+      fluid = fluid + coorstr + ";"
+    fluid = fluid[:-1]
+    fluidStr = bytes(fluid, encoding='utf-8')
+    
+    keyList = self.solidList.keys()
+    strcom = ""
+    for key in keyList:
+      setstr = ""
+      values = self.solidList.get(key)
+      for v in values:
+        setstr = setstr + str(v) + ","
+      setstr = str(key) + ":" + setstr[:-1]
+      strcom = strcom + setstr + ";"
+    strcom = strcom[:-1]
+    objstr = bytes(strcom, encoding='utf-8')
+    gmshPlugin.generateFluidMesh(objstr, eletypestr, fluidStr, c_int(self.elementOrder), c_int(self.method), c_double(self.fluidsize))
+    
+    
     del self

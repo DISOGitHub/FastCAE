@@ -6,7 +6,7 @@
 
 namespace Ui
 {
-	class DialogSetRename;
+	class DialogRename;
 }
 namespace GUI
 {
@@ -35,8 +35,12 @@ namespace MainWidget
 	private:
 		void accept() override;
 
+	signals:
+		//¸üÐÂÊôÐÔ
+		void disPlayProp(DataProperty::DataBase* pops);
+
 	private:
-		Ui::DialogSetRename* _ui{};
+		Ui::DialogRename* _ui{};
 		QTreeWidgetItem* _item{};
 
 		MeshData::MeshData* _meshdata{};

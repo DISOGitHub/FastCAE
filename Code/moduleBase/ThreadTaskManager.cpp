@@ -1,5 +1,6 @@
 #include "ThreadTaskManager.h"
 #include "ThreadTask.h"
+#include "ThreadControl.h"
 #include <QDebug>
 
 namespace ModuleBase
@@ -20,6 +21,23 @@ namespace ModuleBase
 		_threadTaskList.append(t);
 	}
 
+	void ThreadTaskManager::clearThreadControlList()
+	{
+		for (int i=0;i<m_threadContol_list.size();i++)
+		{
+			ThreadControl* tc = m_threadContol_list.at(i);
+			if(tc==nullptr)continue;
+			emit tc->threadStop();
+		}
+
+		m_threadContol_list.clear();
+	}
+
+	void ThreadTaskManager::appendToThreadContolList(ThreadControl* tc)
+	{
+		m_threadContol_list.append(tc);
+	}
+
 	void ThreadTaskManager::clearThreadTaskList()
 	{
 		QList<ThreadTask*> ts = _threadTaskList;
@@ -35,6 +53,11 @@ namespace ModuleBase
 	void ThreadTaskManager::removeTask(ThreadTask* t)
 	{
 		_threadTaskList.removeOne(t);
+	}
+
+	void ThreadTaskManager::removeThread(ThreadControl* tc)
+	{
+		m_threadContol_list.removeOne(tc);
 	}
 
 	int ThreadTaskManager::getThreadTaskCount()

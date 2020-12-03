@@ -9,7 +9,7 @@ namespace BCBase
 {
 	BCUserDef::BCUserDef()
 	{
-		this->setType(UserDef);
+		this->setBCType(UserDef);
 	}
 
 	QString BCUserDef::getName()

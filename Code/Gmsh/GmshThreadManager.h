@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QHash>
+#include "GmshModuleAPI.h"
 
 class QWidget;
 
@@ -16,7 +17,7 @@ namespace Gmsh
 {
 	class GmshThread;
 
-	class GmshThreadManager : public QObject
+	class GMSHAPI GmshThreadManager : public QObject
 	{
 		Q_OBJECT
 	public:

@@ -7,7 +7,7 @@
 #include <QDomElement>
 #include <QDataStream>
 #include "geometryDatum.h"
-
+#include "GeoComponent.h"
 
 namespace Geometry
 {
@@ -121,6 +121,15 @@ namespace Geometry
 			delete _sketchPlan;
 			_sketchPlan = nullptr;
 		}
+
+		const int nc = _geoCpList.size();
+		for (int i = 0; i < nc; ++i)
+		{
+			auto gc = _geoCpList.at(i);
+			delete gc;
+			gc = nullptr;
+		}
+		_geoCpList.clear();
 		GeometrySet::resetMaxID();
 	}
 	QString GeometryData::getMD5()
@@ -143,32 +152,55 @@ namespace Geometry
 	{
 		QDomElement georoot = doc->createElement("Geometry");
 		element->appendChild(georoot);
-		const int n = _geometryList.size();
-		for (int i = 0; i < n; ++i)
+
+		int n = _geometryList.size();
+		if (n > 0)
 		{
-			GeometrySet* set = _geometryList.at(i);
-			set->writeToProjectFile(doc, &georoot,isdiso);
-		}
-		for (auto datum : _geomtretryDatumList)
-		{
-			datum->writeToProjectFile(doc, &georoot, isdiso);
+			QDomElement geoSetsRoot = doc->createElement("GeoSets");
+			georoot.appendChild(geoSetsRoot);
+			for (auto geoSet : _geometryList)
+				geoSet->writeToProjectFile(doc, &geoSetsRoot, isdiso);
 		}
 
+		n = _geomtretryDatumList.size();
+		if (n > 0)
+		{
+			QDomElement geoDatumsRoot = doc->createElement("GeoDatums");
+			georoot.appendChild(geoDatumsRoot);
+			for (auto datum : _geomtretryDatumList)
+				datum->writeToProjectFile(doc, &geoDatumsRoot, isdiso);
+		}
+
+		n = _geoCpList.size();
+		if (n > 0)
+		{
+			QDomElement gcsRoot = doc->createElement("GeoComponents");
+			georoot.appendChild(gcsRoot);
+			for (auto geoComponent : _geoCpList)
+				geoComponent->writeToProjectFile(doc, &gcsRoot);
+		}
 		return georoot;
 	}
 	void GeometryData::readFromProjectFile(QDomNodeList* nodelist, bool isdiso)
 	{
 		QDomElement georoot = nodelist->at(0).toElement();
-		QDomNodeList geolist = georoot.elementsByTagName("GeoSet");
-		const int geoCount = geolist.size();
+		QDomElement geoSetRoot = georoot.elementsByTagName("GeoSets").at(0).toElement();
+		QDomElement datumRoot = georoot.elementsByTagName("GeoDatums").at(0).toElement();
+		QDomElement gcRoot = georoot.elementsByTagName("GeoComponents").at(0).toElement();
+
+		QDomNodeList geoSetList = geoSetRoot.elementsByTagName("GeoSet");
+		QDomNodeList datumList = datumRoot.elementsByTagName("GeoDatum");
+		QDomNodeList gcList = gcRoot.elementsByTagName("GeoComponent");
+
+		const int geoCount = geoSetList.size();
 		for (int i = 0; i < geoCount; ++i)
 		{
- 			QDomElement geoset = geolist.at(i).toElement();
+ 			QDomElement geoset = geoSetList.at(i).toElement();
 			GeometrySet* s = new GeometrySet;
 			_geometryList.append(s);
 			s->readDataFromProjectFile(&geoset,isdiso);
 		}
-		QDomNodeList datumList = georoot.elementsByTagName("GeoDatum");
+
 		const int nd = datumList.size();
 		for (int i = 0; i < nd; ++i)
 		{
@@ -176,6 +208,17 @@ namespace Geometry
 			GeometryDatum* s = new GeometryDatum;
 			_geomtretryDatumList.append(s);
 			s->readDataFromProjectFile(&geoDat, isdiso);
+		}
+
+		const int gcCount = gcList.size();
+		for (int i = 0; i < gcCount; ++i)
+		{
+			QDomElement gcEle = gcList.at(i).toElement();
+			QString gcName = gcEle.attribute("gcName");
+			GeoComponentType gcType = GeoComponent::stringTogcType(gcEle.attribute("gcType"));
+			GeoComponent* gc = new GeoComponent(gcName, gcType);
+			gc->readDataFromProjectFile(&gcEle);
+			_geoCpList.append(gc);
 		}
 	}
 	GeometrySet* GeometryData::getGeometrySetByID(const int id)
@@ -197,6 +240,12 @@ namespace Geometry
 		if (index >=0 && index < _geomtretryDatumList.size())
 			d = _geomtretryDatumList.at(index);
 		return d;
+	}
+
+	GeoComponent* GeometryData::getGeoComponentByIndex(int index)
+	{
+		if (index >= 0 && index < _geoCpList.size())
+			return _geoCpList.at(index);
 	}
 
 	bool GeometryData::isEmpty()
@@ -226,12 +275,82 @@ namespace Geometry
 	}
 
 	void GeometryData::sort()
-	{
+	{	
 		qSort(_geometryList.begin(), _geometryList.end(), compareSet);
 		qSort(_geomtretryDatumList.begin(), _geomtretryDatumList.end(), compareSet);
+		qSort(_geoCpList.begin(), _geoCpList.end(), compareSet);
 	}
 
-	bool compareSet(GeometrySet* s1, GeometrySet* s2)
+	void GeometryData::appendGeoComponent(GeoComponent* gc)
+	{
+		if (!gc)	return;
+		_geoCpList.append(gc);
+	}
+
+	QList<GeoComponent*>& GeometryData::getGeoComponentList()
+	{
+		return _geoCpList;
+	}
+
+	GeoComponent* GeometryData::getGeoComponentByID(int ID)
+	{
+		for (auto aGc : _geoCpList)
+			if (ID == aGc->getID())	return aGc;
+	}
+
+	bool GeometryData::removeGeoComponentByIndex(int index)
+	{
+		if (_geoCpList.size() < index + 1)	return false;
+		GeoComponent* gc = _geoCpList.at(index);
+		if (!_geoCpList.removeOne(gc))	return false;
+		delete gc;
+		gc = nullptr;
+		return true;
+	}
+
+	/*void GeometryData::generateMeshAndWriteToXML(QDomDocument& doc, QDomElement& parent)
+	{
+		QMultiHash<int, int> Surface, Body;
+		for (GeoComponent* gc : _geoCpList)
+		{
+			QMultiHash<Geometry::GeometrySet*, int> items = gc->getSelectedItems();
+			QHashIterator<GeometrySet*, int> it(items);
+			while (it.hasNext())
+			{
+				it.next();
+				int ID = it.key()->getID();
+				int index = it.value();
+				if (gc->getGCType() == GeoComponentType::Surface)
+					Surface.insert(ID, index);
+				else if (gc->getGCType() == GeoComponentType::Body)
+					Body.insert(ID, index);
+			}
+		}
+
+		Gmsh::GMshPara* para = new Gmsh::GMshPara;
+		para->_solidHash = Body;
+		para->_surfaceHash = Surface;
+		para->_elementType = "Tet";
+		para->_method = 1;
+		para->_dim = 3;
+		para->_elementOrder = 1;
+		para->_sizeFactor = 1.00;
+		para->_maxSize = 100.00;
+		para->_minSize = 0.00;
+		para->_isGridCoplanar = true;
+		para->_geoclean = true;
+
+		Setting::BusAPI::instance();
+
+		Gmsh::GmshModule* gModule = Gmsh::GmshModule::getInstance(mw);
+		Gmsh::GmshThread* thread = gModule->iniGmshThread(para);
+		thread->setSolveFileInfo(&doc, &parent, path);
+		auto processBar = new ModuleBase::ProcessBar(mw, QObject::tr("Gmsh Working..."));
+		Gmsh::GmshThreadManager* manager = gModule->getGmshThreadManager();
+		manager->insertThread(processBar, thread);
+	}*/
+
+	bool compareSet(DataProperty::DataBase* s1, DataProperty::DataBase* s2)
 	{
 		int id1 = s1->getID();
 		int id2 = s2->getID();

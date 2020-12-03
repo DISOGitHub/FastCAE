@@ -1,33 +1,30 @@
 #include "preWindow.h"
-#include "meshData/meshSingleton.h"
-#include "meshData/meshKernal.h"
+// #include "meshData/meshSingleton.h"
+// #include "meshData/meshKernal.h"
 #include "geometry/geometryData.h"
-#include "geometry/geometrySet.h"
+//#include "geometry/geometrySet.h"
+#include "geometry/GeoComponent.h"
 #include "ModelData/modelDataSingleton.h"
 #include "mainWindow/mainWindow.h"
-#include "settings/busAPI.h"
-#include "settings/GraphOption.h"
+// #include "settings/busAPI.h"
+// #include "settings/GraphOption.h"
 #include "geometryViewProvider.h"
 #include "meshViewProvider.h"
 #include "sketchViewProvider.h"
 #include "moduleBase/PreWindowInteractorStyle.h"
-#include <vtkActor.h>
-#include <vtkDataSetMapper.h>
-#include <vtkPolyDataMapper.h>
-#include <vtkRenderer.h>
-#include <TopoDS.hxx>
-#include <TopExp_Explorer.hxx>
-#include <IVtkOCC_Shape.hxx>
+// #include <vtkActor.h>
+// #include <vtkDataSetMapper.h>
+// #include <vtkPolyDataMapper.h>
+// #include <vtkRenderer.h>
+// #include <TopoDS.hxx>
+// #include <TopExp_Explorer.hxx>
+// #include <IVtkOCC_Shape.hxx>
 #include <IVtkTools_ShapeDataSource.hxx>
-#include <IVtkTools_DisplayModeFilter.hxx>
-#include <vtkSmoothPolyDataFilter.h>
-#include <vtkPolyDataNormals.h>
-#include <vtkRenderWindow.h>
-#include <QDebug>
-#include <assert.h>
-#include <vtkProperty.h>
 #include <vtkCamera.h>
-#include <vtkCoordinate.h>
+#include <assert.h>
+// #include <vtkPolyDataNormals.h>
+// #include <vtkRenderWindow.h>
+#include <QDebug>
 
 namespace MainWidget
 {
@@ -42,7 +39,6 @@ namespace MainWidget
 		_sketchProvider = new SketchViewProvider(mw, this);
 		this->setWindowTitle(tr("Pre-Window"));
 		connect(this, SIGNAL(closed()), mw, SIGNAL(closePreWindowSig()));
-		//
 		connect(mw, SIGNAL(clearAllHighLight()), this, SIGNAL(clearAllHighLight()));
 		//几何
 		connect(mw, SIGNAL(updateGeoDispalyStateSig(int, bool)), this, SLOT(updateGeoDispaly(int, bool)));
@@ -64,10 +60,11 @@ namespace MainWidget
 		connect(mw, SIGNAL(updateGraphOptionsSig()), this, SLOT(updateGraphOption()));
 		//网格相关的高亮信号槽连接
 		connect(mw, SIGNAL(highLightSetSig(MeshData::MeshSet*)), this, SIGNAL(highLighMeshSet(MeshData::MeshSet*)));
+		connect(mw, SIGNAL(highLightGeoComponentSig(Geometry::GeoComponent*)), this, SLOT(highLightGeoComponentSlot(Geometry::GeoComponent*)));
 		connect(mw, SIGNAL(highLightKernelSig(MeshData::MeshKernal*)), this, SIGNAL(highLighKernel(MeshData::MeshKernal*)));
 		connect(mw, SIGNAL(highLightDataSetSig(vtkDataSet*)), this, SIGNAL(highLighDataSet(vtkDataSet*)));
-		//
 	}
+
 	PreWindow::~PreWindow()
 	{
 		if (_geoProvider != nullptr) delete _geoProvider;
@@ -75,6 +72,7 @@ namespace MainWidget
 		if (_meshProvider != nullptr) delete _meshProvider;
 		emit closed();
 	}
+
 	void PreWindow::updateGeometryActor()
 	{
 		_geoProvider->updateGeoActors();
@@ -151,6 +149,11 @@ namespace MainWidget
 		return  _meshProvider->_selectItems;
 	}
 
+	MainWidget::MeshViewProvider* PreWindow::getMeshViewProvider()
+	{
+		return  _meshProvider;
+	}
+
 	void PreWindow::updateGraphOption()
 	{
 		_meshProvider->updateDisplayModel();
@@ -194,16 +197,38 @@ namespace MainWidget
 		_sketchProvider->setSketchType(t);
 	}
 
-	QMultiHash<Geometry::GeometrySet*, int> PreWindow::getGeoSelectItems()
+	QMultiHash<Geometry::GeometrySet*, int>* PreWindow::getGeoSelectItems()
 	{
 		return _geoProvider->getGeoSelectItems();
 	}
-
-
 
 	void PreWindow::setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items)
 	{
 		_geoProvider->setGeoSelectItems(items);
 	}
 
+	void PreWindow::highLightGeoComponentSlot(Geometry::GeoComponent* aGC)
+	{
+		auto selectedItems = aGC->getSelectedItems();
+		QMutableHashIterator<Geometry::GeometrySet*, int> iterator(selectedItems);
+		while (iterator.hasNext())
+		{
+			iterator.next();
+			switch (aGC->getGCType())
+			{
+			case Geometry::GeoComponentType::Node: 
+				emit highLightGeometryPoint(iterator.key(), iterator.value(), true); 
+				break;
+			case Geometry::GeoComponentType::Line: 
+				emit highLightGeometryEdge(iterator.key(), iterator.value(), true); 
+				break;
+			case Geometry::GeoComponentType::Surface: 
+				emit highLightGeometryFace(iterator.key(), iterator.value(), true); 
+				break;
+			case Geometry::GeoComponentType::Body: 
+				emit highLightGeometrySolid(iterator.key(), iterator.value(), true); 
+				break;
+			}
+		}
+	}
 }

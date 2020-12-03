@@ -54,7 +54,7 @@ namespace FastCAEDesigner{
 		for (int i = 0; i < _paraLinkageDataList.count();i++)
 		{
 			QString name = _paraLinkageDataList.at(i)->getParameterName();
-			qDebug() << name;
+//			qDebug() << name;
 			QListWidgetItem* item = new QListWidgetItem;
 			item->setText(name);
 			ui->linkageListWidget->addItem(item);
@@ -351,7 +351,7 @@ namespace FastCAEDesigner{
 	{
 		QTableWidgetItem* groupName = new QTableWidgetItem;
 		QTableWidgetItem* visiable = new QTableWidgetItem;
-		qDebug() << model->getDescribe();
+//		qDebug() << model->getDescribe();
 		groupName->setText(model->getDescribe());
 
 		if (model->isVisible())

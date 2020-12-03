@@ -1,11 +1,8 @@
 #include "meshViewProvider.h"
-
 #include "mainWindow/mainWindow.h"
 #include "MainWidgets/preWindow.h"
-
 #include "settings/busAPI.h"
 #include "settings/GraphOption.h"
-
 #include <vtkRenderer.h>
 #include <vtkSmoothPolyDataFilter.h>
 #include <vtkPolyDataNormals.h>
@@ -107,6 +104,7 @@ namespace MainWidget
 		{
 		case ModuleBase::None:
 			clearHighLight();
+			_selectItems->clear();
 			break;
 		case ModuleBase::MeshNode:
 		case ModuleBase::BoxMeshNode:
@@ -274,6 +272,12 @@ namespace MainWidget
 		updateDisplayModel();
 	}
 
+	vtkActor* MeshViewProvider::getActorByKernal(MeshData::MeshKernal* k)
+	{
+		auto mapper = _mapperKernalHash.key(k);
+		return _actorMapperHash.key(mapper);
+	}
+
 	/*
 	更新当前kernal网格模型显示方式
 	*/
@@ -286,7 +290,12 @@ namespace MainWidget
 		for (int i = 0; i < n; ++i)
 		{
 			MeshData::MeshKernal* k = _mapperKernalHash.value(_actorMapperHash.value(_meshActors.at(i)));
-			updateDisplayKernal(k);
+			vtkDataSetMapper * mapper = _mapperKernalHash.key(k);
+			vtkDataSet* dataSet = _mapperDataSetHash.value(mapper);
+			if (k->getMeshData() != dataSet)
+			{
+				updateDisplayKernal(k);
+			}
 			auto prop = _meshActors.at(i)->GetProperty();
 			switch (_displayModel)
 			{
@@ -294,7 +303,7 @@ namespace MainWidget
 				prop->SetRepresentationToPoints();
 				c = goptions->getMeshNodeColor();
 				size = goptions->getMeshNodeSize();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
+				prop->SetColor(c.redF(), c.greenF(), c.blueF());
 				prop->SetPointSize(size);
 				prop->EdgeVisibilityOff();
 				break;
@@ -303,7 +312,7 @@ namespace MainWidget
 				prop->EdgeVisibilityOn();
 				c = goptions->getMeshEdgeColor();
 				size = goptions->getMeshEdgeWidth();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
+				prop->SetColor(c.redF(), c.greenF(), c.blueF());
 				prop->SetEdgeColor(c.redF(), c.greenF(), c.blueF());
 				prop->SetLineWidth(size);
 				break;
@@ -311,13 +320,13 @@ namespace MainWidget
 				prop->SetRepresentationToSurface();
 				prop->EdgeVisibilityOff();
 				c = goptions->getMeshFaceColor();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
+				prop->SetColor(c.redF(), c.greenF(), c.blueF());
 				prop->SetEdgeColor(c.redF(), c.greenF(), c.blueF());
 				prop->SetLineWidth(size);
 				break;
 			case MainWidget::SurfaceWithEdge:
 				c = goptions->getMeshFaceColor();
-				prop->SetDiffuseColor(c.redF(), c.greenF(), c.blueF());
+				prop->SetColor(c.redF(), c.greenF(), c.blueF());
 				c = goptions->getMeshEdgeColor();
 				prop->SetRepresentationToSurface();
 				prop->SetEdgeColor(c.redF(), c.greenF(), c.blueF());
@@ -328,6 +337,15 @@ namespace MainWidget
 			default:
 				break;
 			}
+			bool enable = false;
+			QColor spc = k->getSpecificColor(enable);
+			double c[3] = { spc.redF(), spc.greenF(), spc.blueF() };
+			if (enable)
+			{
+				prop->SetColor(spc.redF(), spc.greenF(), spc.blueF());
+				prop->SetEdgeColor(spc.redF(), spc.greenF(), spc.blueF());
+			}
+				
 		}
 		_preWindow->reRender();
 	}
@@ -554,7 +572,7 @@ namespace MainWidget
 		}
 		_highLightActor->GetProperty()->SetRepresentationToSurface();
 		 vtkDataSetMapper * mapper = _mapperKernalHash.key(k);
-		 _highLightMapper->SetInputData(mapper->GetInput());
+		_highLightMapper->SetInputData(mapper->GetInput());
 		_highLightMapper->Update();
 		_preWindow->reRender();
 	}
@@ -581,8 +599,8 @@ namespace MainWidget
 	{
 		Setting::GraphOption* option = Setting::BusAPI::instance()->getGraphOption();
 		QColor hicolor = option->getHighLightColor();
-		_highLightActor->GetProperty()->SetDiffuseColor(hicolor.redF(), hicolor.greenF(), hicolor.blueF());
-		_boxActor->GetProperty()->SetDiffuseColor(hicolor.redF(), hicolor.greenF(), hicolor.blueF());
+		_highLightActor->GetProperty()->SetColor(hicolor.redF(), hicolor.greenF(), hicolor.blueF());
+		_boxActor->GetProperty()->SetColor(hicolor.redF(), hicolor.greenF(), hicolor.blueF());
 	}
 
 	/*
@@ -607,7 +625,7 @@ namespace MainWidget
 		}
 		//找到映射关系所构建的selectItems
 		_selectItems->clear();
-		findMappingItems(items, _selectItems);
+		updateMappingItems(items);
 		if (_selectItems->size() == 0)
 		{
 			return;
@@ -647,7 +665,7 @@ namespace MainWidget
 	/*
 	查找映射后的Items
 	*/
-	void MeshViewProvider::findMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, QMultiHash<vtkDataSet*, int>* newItems)
+	void MeshViewProvider::updateMappingItems(QMultiHash<vtkDataSet*, int>* oldItems)
 	{
 		QList<vtkDataSet*> vtkDataSets = oldItems->uniqueKeys();
 		for (int i = 0; i < vtkDataSets.size(); i++)
@@ -657,134 +675,150 @@ namespace MainWidget
 			{
 				continue;
 			}
-			if (_selectModel == ModuleBase::BoxMeshCell || _selectModel == ModuleBase::BoxMeshNode)
+			switch (_selectModel)
 			{
-				MeshData::MeshKernal* k = _kernalDataSetHash.key(dataSet);
-				//
-				QList<int> *cellIds = _kernalCellIdsHash.value(k);
-				//
-				vtkDataSet* mapperDataSet = _mapperDataSetHash.value(_mapperKernalHash.key(k));
-				//
-				QList<int> ids = oldItems->values(dataSet);
-				for (int j = 0; j < ids.size(); j++)
-				{
-					int id = ids[j];
-					if (_selectModel == ModuleBase::BoxMeshCell)
-					{
-						if (cellIds->contains(id))
-						{
-							newItems->insert(dataSet, id);
-						}
-					}
-					if (_selectModel == ModuleBase::BoxMeshNode)
-					{
-						double pt[3];
-						dataSet->GetPoint(id, pt);
-						int mPtId = (int)mapperDataSet->FindPoint(pt);
-						if (mPtId < 0)
-						{
-							continue;
-						}
-						newItems->insert(dataSet, id);
-					}
-				}
-				continue;
-			}
-			//根据实际拾取到的dataSet数据找对应的mapper
-			vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);
-			//根据mapper找对应的kernal
-			MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);
-			if (k == nullptr)
-			{
-				continue;
-			}
-			//获取当前kernal的dataSet数据
-			vtkDataSet * kernalDataSet = k->getMeshData();
-			if (_selectModel == ModuleBase::MeshCell)
-			{
-				//构建新的Items，换成kernalDataset数据，单元或点序号改变
-				QList<int> ids = oldItems->values(dataSet);
-				for (int j = 0; j < ids.size(); j++)
-				{
-					int id = ids[j];
-					vtkSmartPointer<vtkIdList> ptIds = vtkSmartPointer<vtkIdList>::New();
-					dataSet->GetCellPoints((vtkIdType)id, ptIds);
-					int kId;
-					findCellMappingKCell(dataSet, ptIds, kernalDataSet, kId);
-					if (kId == -1)
-					{
-						continue;
-					}
-					newItems->insert(kernalDataSet, kId);
-				}
-			}
-			if (_selectModel == ModuleBase::MeshNode)
-			{
-				//构建新的Items，换成kernalDataset数据，单元或点序号改变
-				QList<int> ids = oldItems->values(dataSet);
-				for (int j = 0; j < ids.size(); j++)
-				{
-					vtkIdType id = (vtkIdType)ids[j];
-					double pt[3];
-					dataSet->GetPoint(id, pt);
-					int kPtId = (int)kernalDataSet->FindPoint(pt);
-					if (kPtId < 0)
-					{
-						continue;
-					}
-					newItems->insert(kernalDataSet, kPtId);
-				}
+			  case ModuleBase::MeshNode:
+				 updateMeshNodeMappingItems(oldItems, dataSet);
+				 break;
+			  case ModuleBase::MeshCell:
+				 updateMeshCellMappingItems(oldItems, dataSet);
+				 break;
+			  case ModuleBase::BoxMeshNode:
+			  case ModuleBase::BoxMeshCell:
+				 updateBoxMeshMappingItems(oldItems, dataSet);
+				 break;
+			  default:
+				 break;
 			}
 		}
 	}
+
+	void MeshViewProvider::updateMeshNodeMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet)
+	{
+		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//根据实际拾取到的dataSet数据找对应的mapper
+		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//根据mapper找对应的kernal
+		if (k == nullptr)
+		{
+			return;
+		}
+		vtkDataSet * kernalDataSet = k->getMeshData();	//获取当前kernal的dataSet数据
+		//构建新的Items，换成kernalDataset数据，单元或点序号改变
+		QList<int> ids = oldItems->values(dataSet);
+		for (int j = 0; j < ids.size(); j++)
+		{
+			vtkIdType id = (vtkIdType)ids[j];
+			double pt[3];
+			dataSet->GetPoint(id, pt);
+			int kPtId = (int)kernalDataSet->FindPoint(pt);
+			if (kPtId < 0)
+			{
+				continue;
+			}
+			_selectItems->insert(kernalDataSet, kPtId);
+		}
+	}
+
+	void MeshViewProvider::updateMeshCellMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet)
+	{
+		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//根据实际拾取到的dataSet数据找对应的mapper
+		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//根据mapper找对应的kernal
+		if (k == nullptr)
+		{
+			return;
+		}
+		vtkDataSet * kernalDataSet = k->getMeshData();	//获取当前kernal的dataSet数据
+		//构建新的Items，换成kernalDataset数据，单元或点序号改变
+		QList<int> ids = oldItems->values(dataSet);
+		for (int j = 0; j < ids.size(); j++)
+		{
+			int id = ids[j];
+			vtkSmartPointer<vtkIdList> ptIds = vtkSmartPointer<vtkIdList>::New();
+			dataSet->GetCellPoints((vtkIdType)id, ptIds);
+			int kId;
+			findCellMappingKCell(dataSet, ptIds, kernalDataSet, kId);
+			if (kId == -1)
+			{
+				continue;
+			}
+			_selectItems->insert(kernalDataSet, kId);
+		}
+	}
+
+	void MeshViewProvider::updateBoxMeshMappingItems(QMultiHash<vtkDataSet*, int>* oldItems,vtkDataSet * kernaldataSet)
+	{
+		MeshData::MeshKernal* k = _kernalDataSetHash.key(kernaldataSet);
+		QList<int> *kernalCellIds = _kernalCellIdsHash.value(k);
+		vtkDataSet* mapperDataSet = _mapperDataSetHash.value(_mapperKernalHash.key(k));
+		//
+		QList<int> ids = oldItems->values(kernaldataSet);
+		for (int i = 0; i < ids.size(); i++)
+		{
+			int id = ids[i];
+			if (_selectModel == ModuleBase::BoxMeshCell)
+			{
+				if (kernalCellIds->contains(id))
+				  _selectItems->insert(kernaldataSet, id);
+			}
+			if (_selectModel == ModuleBase::BoxMeshNode)
+			{
+				double pt[3];
+				kernaldataSet->GetPoint(id, pt);
+				int mPtId = (int)mapperDataSet->FindPoint(pt);
+				if (mPtId < 0)
+				{
+					continue;
+				}
+				_selectItems->insert(kernaldataSet, id);
+			}
+		}
+	}
+
 
 	void MeshViewProvider::findCellMappingKCell(vtkDataSet * dataSet, vtkIdList *cellPtIds, vtkDataSet * kernalDataSet, int &findCellId)
 	{
-		vtkIdType cellPtId = cellPtIds->GetId(0);
-		double pt[3];
-		dataSet->GetPoint(cellPtId, pt);
-		vtkIdType id = kernalDataSet->FindPoint(pt);
-		vtkSmartPointer<vtkIdList> cellIds = vtkSmartPointer<vtkIdList>::New();
-		kernalDataSet->GetPointCells(id, cellIds);
-		QList<int> currCellIdList;
-		for (vtkIdType i = 0; i < cellIds->GetNumberOfIds(); i++)
+		QList <vtkIdType> findCellKernalPtIdList;
+		for (vtkIdType i = 0; i < cellPtIds->GetNumberOfIds(); i++)
 		{
-			int cellId = (int)cellIds->GetId(i);
-			currCellIdList.append(cellId);
-		}
-		currCellIdList = currCellIdList;
-		for (vtkIdType i = 1; i < cellPtIds->GetNumberOfIds(); i++)
-		{
-			QList<int> cellIdList;
 			vtkIdType cellPtId = cellPtIds->GetId(i);
 			double pt[3];
-			dataSet->GetPoint(cellPtId,pt);
+			dataSet->GetPoint(cellPtId, pt);
 			vtkIdType id = kernalDataSet->FindPoint(pt);
+			if (id < 0)
+			{
+				continue;
+			}
+			findCellKernalPtIdList.append(id);
+		}
+		findCellKernalPtIdList = findCellKernalPtIdList.toSet().toList();
+		for (int i = 0; i < findCellKernalPtIdList.size(); i++)
+		{
+			vtkIdType kernalPtId = findCellKernalPtIdList[i];
 			vtkSmartPointer<vtkIdList> cellIds = vtkSmartPointer<vtkIdList>::New();
-			kernalDataSet->GetPointCells(id, cellIds);
+			kernalDataSet->GetPointCells(kernalPtId, cellIds);
 			for (vtkIdType j = 0; j < cellIds->GetNumberOfIds(); j++)
 			{
-				vtkIdType cellId = (vtkIdType)cellIds->GetId(j);
-				getCellIdList(cellId, currCellIdList, cellIdList);
+				vtkIdType cellId = cellIds->GetId(j);
+				vtkCell * cell = kernalDataSet->GetCell(cellId);
+				bool findCell = true;
+				for (int k = 0; k < findCellKernalPtIdList.size(); k++)
+				{
+					vtkIdType kernalPtId = findCellKernalPtIdList[k];
+					vtkIdType isId = cell->GetPointIds()->IsId(kernalPtId);
+					if (isId < 0)
+					{
+						findCell = false;
+					}
+				}
+				if (findCell == true)
+				{
+					findCellId = cellId;
+					return;
+				}
+				else {
+					findCellId = -1;
+				}
 			}
-			cellIdList = cellIdList;
-			currCellIdList = cellIdList;
 		}
-		if (currCellIdList.size() == 0)
-		{
-			findCellId = -1;
-		}
-		else {
-			findCellId = currCellIdList[0];
-		}
+		
 	}
-
-	void MeshViewProvider::getCellIdList(vtkIdType cellId, QList<int> &orignalCellIdList, QList<int>& cellIdList)
-	{
-		if (orignalCellIdList.contains((int)cellId))
-		{
-			cellIdList.append((int)cellId);
-		}
-	}
-
 }

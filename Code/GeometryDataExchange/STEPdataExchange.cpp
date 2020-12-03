@@ -11,6 +11,7 @@
 #include <TopExp_Explorer.hxx>
 #include <TopoDS.hxx>
 #include <BRep_Builder.hxx>
+#include <QDebug>
 
 namespace Geometry
 {
@@ -24,7 +25,7 @@ namespace Geometry
 
 	STEPdataExchange::~STEPdataExchange()
 	{
-
+	//	qDebug() << "Step Delete!" << endl;
 	}
 
 	void STEPdataExchange::run()

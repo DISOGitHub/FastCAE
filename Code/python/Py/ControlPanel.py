@@ -40,8 +40,8 @@ def caseRename(pid,newname):
   lib.caseRename(pid,newname)
   pass
   
-def updateMeshSubTree(caseid):
-  lib.updateMeshSubTree(caseid)
+def updateComponentSubTree(caseid):
+  lib.updateComponentSubTree(caseid)
   pass
   
 def updateBCSubTree(caseid):

@@ -691,6 +691,8 @@ namespace FastCAEDesigner
 	//20200324
 	void DataManager::setIconNameList(QString iconName)
 	{
+		if (iconName.isEmpty())
+			return;
 		_iconNameList.append(iconName);
 	}
 

@@ -142,11 +142,11 @@
      <item row="1" column="1">
       <widget class="QComboBox" name="FileType">
        <property name="currentText">
-        <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm)</string>
+        <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm *.pre *.hot *.e)</string>
        </property>
        <item>
         <property name="text">
-         <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm)</string>
+         <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm *.pre *.hot *.e)</string>
         </property>
        </item>
        <item>
@@ -166,7 +166,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Dat Files(*.dat)</string>
+         <string>Dat Files(*.dat *.pre *.hot)</string>
         </property>
        </item>
        <item>
@@ -187,6 +187,11 @@
        <item>
         <property name="text">
          <string>Cntm Files(*.cntm)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ExodusII Files(*. e)</string>
         </property>
        </item>
       </widget>

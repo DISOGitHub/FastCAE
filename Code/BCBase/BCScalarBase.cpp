@@ -10,7 +10,7 @@ namespace BCBase
 {
 	BCScalarBase::BCScalarBase(BCType type)
 	{
-		setType(type);
+		setBCType(type);
 		DataProperty::ParameterBase* p = this->appendParameter(DataProperty::Para_Double);
 		_value = (DataProperty::ParameterDouble*)p;
 	}

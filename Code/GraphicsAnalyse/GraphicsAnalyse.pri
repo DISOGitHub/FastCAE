@@ -193,7 +193,7 @@ SOURCES += \
 	$$PWD/exportFileThread.cpp \
 	$$PWD/signalhandlerPy.cpp \
     $$PWD/calfilterpropform.cpp \
-	$$PWD/disvtkPOVExporter.cxx
+	$$PWD/disvtkPOVExporter.cpp
 FORMS += \
     $$PWD/PipelineObjPlotForm.ui \
     $$PWD/aboutdialog.ui \

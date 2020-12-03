@@ -6,14 +6,79 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>369</width>
-    <height>422</height>
+    <width>375</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Solid Mesh</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_5">
+  <layout class="QGridLayout" name="gridLayout_6">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Solid</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QCheckBox" name="selectall">
+          <property name="text">
+           <string>Select All</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="selectvisible">
+          <property name="text">
+           <string>Select Visible</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="planelabel">
+        <property name="text">
+         <string>Selected Solid(0)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="geoSelectSurface">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-image: url(:/QUI/geometry/selectface.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
@@ -266,71 +331,6 @@
       </item>
       <item row="4" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_7"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Solid</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QCheckBox" name="selectall">
-          <property name="text">
-           <string>Select All</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="selectvisible">
-          <property name="text">
-           <string>Select Visible</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="planelabel">
-        <property name="text">
-         <string>Selected Solid(0)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="geoSelectSurface">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-image: url(:/QUI/geometry/selectface.png);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

@@ -17,8 +17,8 @@
 namespace SolverControl
 {
 
-	SolverControlBase::SolverControlBase(GUI::MainWindow* mainwindow, ConfigOption::SolverInfo* solver, ModelData::ModelDataBase* m)
-		:_mainWindow(mainwindow), _solver(solver), _model(m)
+	SolverControlBase::SolverControlBase(GUI::MainWindow* mainwindow, ConfigOption::SolverInfo* solver, ModelData::ModelDataBase* m, bool sonly)
+		:_mainWindow(mainwindow), _solver(solver), _model(m), _solveOnly(sonly)
 	{
 		connect(&_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readSolverOutput()));
 		connect(this, SIGNAL(sendMessage(QString)), _mainWindow, SIGNAL(printMessageToMessageWindow(QString)));
@@ -43,15 +43,19 @@ namespace SolverControl
 	{
 		QString solverPath = _solver->getExePath();
 		QFileInfo info(solverPath);
+		int id = _model->getID();
+		
 		if ((!info.exists()) || (!info.isFile()))
 		{
 			QMessageBox::warning(nullptr, tr("Warning"), tr("Solver Path Error! Solve Path : %1").arg(solverPath));
+			emit processFinish(id);
 			return;
 		}
 		bool ok = preProcess();
 		if (!ok)
 		{
 			QMessageBox::warning(nullptr, tr("Warning"), tr("Input file write failed !"));
+			emit processFinish(id);
 			return;
 		}
 
@@ -83,7 +87,7 @@ namespace SolverControl
 			QString va = variable.remove("%");
 			if (va.toLower() == "modelpath")
 				args.replace(variables.at(i), startPath);
-			qDebug() << args;
+//			qDebug() << args;
 		}
 
 // 		QString startProcess = solverPath + " " + args;
@@ -100,7 +104,7 @@ namespace SolverControl
 		emit solverStarted(_processBar);
 
 		ModelData::ModelDataBaseExtend* extend = dynamic_cast<ModelData::ModelDataBaseExtend*>(_model);
-		if (extend != nullptr)
+		if (extend != nullptr && !_solveOnly)
 		{
 			QList<ConfigOption::PostCurve*> curves = extend->getMonitorCurves();
 			if (curves.size() > 0)
@@ -136,6 +140,11 @@ namespace SolverControl
 	void SolverControlBase::stopSolver(QWidget* w)
 	{
 		if (w != _processBar) return;
+
+		int id = -1;
+		if(_model != nullptr)
+			id = _model->getID();
+		emit removeSolver(id);
 		if (!_processFinished)
 		{
 			_process.kill();
@@ -152,12 +161,113 @@ namespace SolverControl
 		}
 	}
 
+	void SolverControlBase::startMPI(int nprocess)
+	{
+		QString solverPath = _solver->getExePath();
+		QFileInfo info(solverPath);
+		if ((!info.exists()) || (!info.isFile()))
+		{
+			QMessageBox::warning(nullptr, tr("Warning"), tr("Solver Path Error! Solve Path : %1").arg(solverPath));
+			return;
+		}
+		bool ok = preProcess();
+		if (!ok)
+		{
+			QMessageBox::warning(nullptr, tr("Warning"), tr("Input file write failed !"));
+			return;
+		}
+
+		QString oldDir = "";
+
+		QString startPath = _model->getPath();
+
+		if (_solver->getType() == ConfigOption::SelfDevelop)
+		{
+			QDir dir(startPath);
+			if (dir.exists() && (!startPath.isEmpty()))
+			{
+				oldDir = QDir::currentPath();
+				QDir::setCurrent(startPath);
+			}
+
+		}
+
+		_processBar = new ModuleBase::ProcessBar(_mainWindow, _description, false);
+
+		QString args = _solver->getParameter();
+		QRegExp regExp("%.*%");
+		regExp.setMinimal(true);
+		int pos = regExp.indexIn(args);
+		QStringList variables = regExp.capturedTexts();
+		for (int i = 0; i < variables.size(); ++i)
+		{
+			QString variable = variables.at(i);
+			QString va = variable.remove("%");
+			if (va.toLower() == "modelpath")
+				args.replace(variables.at(i), startPath);
+			//			qDebug() << args;
+		}
+
+		// 		QString startProcess = solverPath + " " + args;
+		// 		if (solverPath.contains(" "))
+		// 			startProcess = QString("\"%1\"").arg(startProcess);
+
+		//		qDebug() << startProcess;
+		// 		if (!_args.isEmpty())
+		// 			startProcess = startProcess + " " + _args;
+		//		qDebug() << startProcess;
+
+		QString c = QString("mpiexec -n %1 %2").arg(nprocess).arg(solverPath);
+
+		_process.start(c);
+
+		emit solverStarted(_processBar);
+
+		ModelData::ModelDataBaseExtend* extend = dynamic_cast<ModelData::ModelDataBaseExtend*>(_model);
+		if (extend != nullptr && !_solveOnly)
+		{
+			QList<ConfigOption::PostCurve*> curves = extend->getMonitorCurves();
+			if (curves.size() > 0)
+			{
+				int id = _model->getID();
+				Post::RealTimeWindowBase* w = new Post::RealTimeWindowBase(_mainWindow, id);
+				emit openRealTime(w, id);
+			}
+
+		}
+		if (_solver->getType() == ConfigOption::SelfDevelop)
+		{
+			if (!oldDir.isEmpty())
+				QDir::setCurrent(oldDir);
+		}
+	}
+
+	void SolverControlBase::setSolveArgs(QString arg)
+	{
+		_args = arg;
+	}
+
+	void SolverControlBase::startSolverClear()
+	{
+		_solveOnly = true;
+		_processBar = new ModuleBase::ProcessBar(_mainWindow, _description, false);
+		QString solverPath = _solver->getExePath();
+
+		_process.start(solverPath, QStringList(_args));
+
+		emit solverStarted(_processBar);
+
+	}
+
 	void SolverControlBase::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 	{
 		Q_UNUSED(exitCode);
 
 		_processFinished = true;
-		int id = _model->getID();
+
+		int id = -1;
+		if(_model != nullptr)
+			id = _model->getID();
 		emit processFinish(id);
 		
 
@@ -192,6 +302,7 @@ namespace SolverControl
 
 	bool SolverControlBase::preProcess()
 	{
+		if (_solveOnly) return true;
 		bool istemp = _solver->isWriteTemplate();
 		if (istemp)
 		{
@@ -209,6 +320,7 @@ namespace SolverControl
 
 	bool SolverControlBase::postPorocess()
 	{
+		if (_solveOnly) return true;
 		QString  trans = _solver->getTransfer();
 		QString path = _model->getPath();
 		return IO::SolverIO::transformFile(trans, path);

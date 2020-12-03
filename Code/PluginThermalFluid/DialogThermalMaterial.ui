@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tmDialog</class>
+ <widget class="QDialog" name="tmDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>399</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="labTmID">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>ThermalMaterialID:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmName">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>ThermalMaterialName:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmRHO">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>RHO:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmCPP">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>CPP:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmKTHERM">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>KTHERM:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmE">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>E:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmABSORP">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>ABSORP:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmSPECULARITY">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>SPECULARITY:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmREMISS">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>REMISS:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmRABSOR">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>RABSOR:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labTmRSOLSPE">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>RSOLSPE:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="labTmDisplayID">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextEditable</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_Name">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_RHO">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_CPP">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_KTHERM">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_E">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_ABSORP">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_SPECULARITY">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_REMISS">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_RABSOR">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditTm_RSOLSPE">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

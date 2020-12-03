@@ -27,7 +27,7 @@ SOURCES += \
 	$$PWD/GraphOption.cpp \
 	$$PWD/DialogGraphOption.cpp \
 	$$PWD/MessageSetting.cpp \
-	$$PWD/ecolorcombobox.cxx \
+	$$PWD/ecolorcombobox.cpp \
 	
 FORMS +=  \
 	$$PWD/DialogWorkingDir.ui \

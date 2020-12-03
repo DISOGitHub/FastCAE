@@ -15,6 +15,7 @@
 #include "GeoCommandCommon.h"
 #include <BRepBuilderAPI_Copy.hxx>
 #include <BRepTools.hxx>
+#include <BRepAdaptor_Curve.hxx>
 namespace Command
 {
 	CommandMirrorFeature::CommandMirrorFeature(GUI::MainWindow* m, MainWidget::PreWindow* p)

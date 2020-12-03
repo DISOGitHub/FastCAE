@@ -113,6 +113,7 @@
    </attribute>
    <addaction name="actionSurfaceMesh"/>
    <addaction name="actionSolidMesh"/>
+   <addaction name="actionFluidMesh"/>
    <addaction name="actionGenMesh"/>
   </widget>
   <widget class="QToolBar" name="DisplayToolBar">
@@ -148,7 +149,10 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionChecking"/>
+   <addaction name="actionFilterMesh"/>
    <addaction name="actionCreate_Set"/>
+   <addaction name="actionCreateGeoComponent"/>
+   <addaction name="actionVTKTranslation"/>
   </widget>
   <widget class="QToolBar" name="RedoToolBar">
    <property name="windowTitle">
@@ -241,6 +245,9 @@
    <addaction name="actionLoft"/>
    <addaction name="actionSweep"/>
    <addaction name="actionGeoSplitter"/>
+   <addaction name="actionFillHole"/>
+   <addaction name="actionRemoveSurface"/>
+   <addaction name="actionFillGap"/>
   </widget>
   <widget class="QToolBar" name="SketchToolBar">
    <property name="windowTitle">
@@ -363,9 +370,11 @@
     </widget>
     <addaction name="actionSurfaceMesh"/>
     <addaction name="actionSolidMesh"/>
+    <addaction name="actionFluidMesh"/>
     <addaction name="actionGenMesh"/>
     <addaction name="separator"/>
     <addaction name="actionChecking"/>
+    <addaction name="actionFilterMesh"/>
     <addaction name="actionCreate_Set"/>
     <addaction name="menuView_2"/>
     <addaction name="menuSelect"/>
@@ -941,7 +950,7 @@
    </property>
    <property name="icon">
     <iconset resource="../qrc/qianfan.qrc">
-     <normaloff>:/QUI/icon/createSet.png</normaloff>:/QUI/icon/createSet.png</iconset>
+     <normaloff>:/QUI/icon/meshComponent.png</normaloff>:/QUI/icon/meshComponent.png</iconset>
    </property>
    <property name="text">
     <string>Create Set</string>
@@ -1482,7 +1491,7 @@
   <action name="actionMeasure_Distance">
    <property name="icon">
     <iconset resource="../qrc/qianfan.qrc">
-     <normaloff>:/QUI/icon/ruler.png</normaloff>:/QUI/icon/ruler.png</iconset>
+     <normaloff>:/QUI/geometry/geoMeasure.png</normaloff>:/QUI/geometry/geoMeasure.png</iconset>
    </property>
    <property name="text">
     <string>Measure Distance</string>
@@ -1496,10 +1505,88 @@
   <action name="actionGeoSplitter">
    <property name="icon">
     <iconset resource="../qrc/qianfan.qrc">
-     <normaloff>:/QUI/geometry/split.png</normaloff>:/QUI/geometry/split.png</iconset>
+     <normaloff>:/QUI/geometry/geoSSplit.png</normaloff>:/QUI/geometry/geoSSplit.png</iconset>
    </property>
    <property name="text">
     <string>Split</string>
+   </property>
+  </action>
+  <action name="actionCreateGeoComponent">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/geoComponent.png</normaloff>:/QUI/icon/geoComponent.png</iconset>
+   </property>
+   <property name="text">
+    <string>CreateGeoComponent</string>
+   </property>
+  </action>
+  <action name="actionFluidMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/solidMesh.png</normaloff>:/QUI/icon/solidMesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>FluidMesh</string>
+   </property>
+  </action>
+  <action name="actionFilterMesh">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/meshFilter.png</normaloff>:/QUI/icon/meshFilter.png</iconset>
+   </property>
+   <property name="text">
+    <string>FilterMesh</string>
+   </property>
+  </action>
+  <action name="actionFillHole">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/geoFillHole.png</normaloff>:/QUI/geometry/geoFillHole.png</iconset>
+   </property>
+   <property name="text">
+    <string>FillHole</string>
+   </property>
+  </action>
+  <action name="actionRemoveSurface">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/geoRemoveFace.png</normaloff>:/QUI/geometry/geoRemoveFace.png</iconset>
+   </property>
+   <property name="text">
+    <string>RemoveSurface</string>
+   </property>
+  </action>
+  <action name="actionFillGap">
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/geometry/geoFixSurface.png</normaloff>:/QUI/geometry/geoFixSurface.png</iconset>
+   </property>
+   <property name="text">
+    <string>FillGap</string>
+   </property>
+  </action>
+  <action name="actionVTKTranslation">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../qrc/qianfan.qrc">
+     <normaloff>:/QUI/icon/meshmodeling.png</normaloff>:/QUI/icon/meshmodeling.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mesh Modeling</string>
    </property>
   </action>
  </widget>

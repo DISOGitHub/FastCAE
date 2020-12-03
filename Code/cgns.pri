@@ -1,29 +1,15 @@
 win32{
 
-X64{
+INCLUDEPATH	+=  ../../cgns/include  \
 
-Debug:INCLUDEPATH	+=  ../../cgns/cgns_x64_debug/inc/  \
-
-Debug:LIBS +=  -L../../cgns/cgns_x64_debug/lib/ \
+Debug:LIBS +=  -L../../cgns/libd/ \
 -lcgns   \    
--llibhdf5_D \
--llibszip \ 
--llibzlib \
+-lcgnsdll \
 
 
-Release:INCLUDEPATH	+=  ../../cgns/cgns_x64_release/inc/  \
-
-Release:LIBS +=  -L../../cgns/cgns_x64_release/lib/ \
+Release:LIBS +=  -L../../cgns/lib/ \
 -lcgns   \    
--llibhdf5 \
--llibszip \
--llibzlib \
-
-}
-
-X86{
-	
-}
+-lcgnsdll \
 
 }
 

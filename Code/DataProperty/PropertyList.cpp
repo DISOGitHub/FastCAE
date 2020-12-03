@@ -7,6 +7,7 @@
 #include "PropertyBool.h"
 #include "PropertyPoint.h"
 #include <QString>
+#include <QDebug>
 #include <assert.h>
 
 namespace DataProperty
@@ -84,7 +85,6 @@ namespace DataProperty
 				{
 					double c[3];
 					((DataProperty::PropertyPoint*)p)->getValue(c);
-					((DataProperty::PropertyPoint*)p)->setValue(c);
 				}
 				return false;
 			}
@@ -200,7 +200,8 @@ namespace DataProperty
 			if (prop != nullptr)
 			{
 				prop->setName(name);
-				_propertyList.append(prop);
+                if (!appendProperty(prop))
+                    delete prop;
 			}
 				
 		}

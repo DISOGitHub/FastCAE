@@ -14,9 +14,9 @@ namespace XReport{
 		explicit XGenerateReportBase();
 		~XGenerateReportBase();
 	
-		virtual bool generate(QString & info = QString()) = 0;
+		virtual bool generate(QString  info = QString()) = 0;
 
-		virtual bool generatePicture(const QString & file) = 0;
+		virtual bool generatePicture(const QString  file) = 0;
 	private:
 	};
 }

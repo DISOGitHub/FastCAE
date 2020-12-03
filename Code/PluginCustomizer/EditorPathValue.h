@@ -31,6 +31,8 @@ namespace FastCAEDesigner{
 		int IsFileSuffixSure();
 		int IsFileSuffixSure(QString suffix);
 
+		void setFileSuffixEnable(bool enable);
+
 	private slots:
 		void OnComboxChanged(int);
 		void OnOkPBtnClicked();
@@ -51,7 +53,7 @@ namespace FastCAEDesigner{
 		};
 
 	private:
-		Ui::EditorPathValue *ui;
+		Ui::EditorPathValue *_ui;
 	};
 }
 #endif // EDITORPATHVALUE_H

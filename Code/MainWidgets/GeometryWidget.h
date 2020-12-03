@@ -15,6 +15,7 @@ namespace Geometry
 	class GeometryData;
 	class GeometrySet;
 	class GeometryDatum;
+	class GeoComponent;
 }
 namespace GUI
 {
@@ -57,9 +58,12 @@ namespace MainWidget
 		void showGeoDialog(QDialog*);
 		//高亮几何
 		void highLightGeometrySet(Geometry::GeometrySet*, bool);
- 
 		//清除高亮
 		void clearHighLight();
+		//当删除一个组件时，对应的算例中的组件也应该删除
+		void removeCaseComponentSig(int componentID);
+		//重命名算例中的项(组件item和边界item)
+		void renameCaseComponentSig(int componentID);
 
 	public slots:
 	    //更新树
@@ -81,16 +85,18 @@ namespace MainWidget
 		void showAll();
 		//节点状态改变
 		void itemStatesChanged(QTreeWidgetItem*, int);
+		//移除当前组件
+		void removeCurrComponent();
 
 	private:
 		void contextMenuEvent(QContextMenuEvent *event) override;
 		bool isGeometryEditable();
 
-
 	private:
 		GUI::MainWindow* _mainWindow{};
 		QTreeWidgetItem* _root{};
 		QTreeWidgetItem* _datumroot{};
+		QTreeWidgetItem* _gcroot{};
 		Geometry::GeometryData* _data{};
 		QTreeWidgetItem* _currentItem{};
 	

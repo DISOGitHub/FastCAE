@@ -8,6 +8,8 @@ HEADERS += \
 	$$PWD/TemplateReplacer.h \
 	$$PWD/IOConfig.h \
 	$$PWD/SolverIO.h \
+	$$PWD/GenerateMesh.h \
+	$$PWD/vtkDataRelated.h \
 	
 SOURCES += \
 	$$PWD/SolverInfoWriter.cpp \
@@ -17,4 +19,6 @@ SOURCES += \
 	$$PWD/TemplateReplacer.cpp \
 	$$PWD/IOConfig.cpp \
 	$$PWD/SolverIO.cpp \
+	$$PWD/GenerateMesh.cpp \
+	$$PWD/vtkDataRelated.cpp \
 	

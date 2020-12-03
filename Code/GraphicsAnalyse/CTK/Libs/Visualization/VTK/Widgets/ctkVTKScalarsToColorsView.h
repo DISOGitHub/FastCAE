@@ -27,7 +27,11 @@
 class ctkVTKScalarsToColorsViewPrivate;
 
 // VTK includes
+#if(VTK_MAJOR_VERSION < 9)
 #include <QVTKWidget.h>
+#else
+#include <QVTKOpenGLNativeWidget.h>
+#endif
 #include <vtkChartXY.h>
 
 class vtkColorTransferFunction;

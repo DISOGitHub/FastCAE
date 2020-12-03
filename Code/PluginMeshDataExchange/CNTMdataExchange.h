@@ -16,7 +16,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI CNTMdataExchange : public MeshThreadBase
 	{
 	public:
-		CNTMdataExchange(const QString &filename, MeshOperation operation, GUI::MainWindow *mw, int writeFileKid = -1);
+		CNTMdataExchange(const QString &filename, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~CNTMdataExchange();
 
 		void run();
@@ -39,7 +39,7 @@ namespace MeshData
 
 		MeshData* _meshData{};
 		vtkUnstructuredGrid* _gird{};
-		int _writeFileKid;
+		int _modelId;
 		MeshOperation _operation;
 	};
 }

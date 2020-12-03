@@ -9,7 +9,6 @@ HEADERS += \
 	$$PWD/messageWindow.h \
 	$$PWD/ProcessWindow.h \
 	$$PWD/geometryViewProvider.h \
-	$$PWD/meshViewProvider.h \
 	$$PWD/projectSolveDialog.h \
 	$$PWD/DialogCreateSet.h \
     $$PWD/ReportProcessingDialog.h \
@@ -22,10 +21,14 @@ HEADERS += \
 	$$PWD/DialogSavePicture.h \
 	$$PWD/DialogMeshChecking.h \
 	$$PWD/sketchViewProvider.h \
-	$$PWD/DialogGeometrysetRename.h \
+	$$PWD/DialogGeometryRename.h \
 	$$PWD/ProjectTreeFactory.h \
 	$$PWD/DialogMeshSetMerge.h \
 	$$PWD/DialogMeshRename.h \
+	$$PWD/DialogCreateGeoComponent.h \
+	$$PWD/meshViewProvider.h \
+	$$PWD/DialogFilterMesh.h \
+	$$PWD/DialogVTKTransform.h \
 	
 SOURCES += \
 	$$PWD/ControlPanel.cpp \
@@ -37,7 +40,6 @@ SOURCES += \
 	$$PWD/messageWindow.cpp \
 	$$PWD/ProcessWindow.cpp \
 	$$PWD/geometryViewProvider.cpp \
-	$$PWD/meshViewProvider.cpp \
 	$$PWD/projectSolveDialog.cpp \
 	$$PWD/DialogCreateSet.cpp \
     $$PWD/ReportProcessingDialog.cpp \
@@ -50,10 +52,14 @@ SOURCES += \
 	$$PWD/DialogSavePicture.cpp \
 	$$PWD/DialogMeshChecking.cpp \
 	$$PWD/sketchViewProvider.cpp \
-	$$PWD/DialogGeometrysetRename.cpp \
+	$$PWD/DialogGeometryRename.cpp \
 	$$PWD/ProjectTreeFactory.cpp \
     $$PWD/DialogMeshSetMerge.cpp \
 	$$PWD/DialogMeshRename.cpp \
+	$$PWD/DialogCreateGeoComponent.cpp \
+	$$PWD/meshViewProvider.cpp \
+	$$PWD/DialogFilterMesh.cpp \
+	$$PWD/DialogVTKTransform.cpp \
 	
 FORMS +=  \
 	$$PWD/ControlPanel.ui \
@@ -68,5 +74,9 @@ FORMS +=  \
 	$$PWD/PropertyTable.ui \
 	$$PWD/DialogSavePicture.ui \
 	$$PWD/DialogMeshChecking.ui \
-	$$PWD/DialogGeometrysetRename.ui \
+	$$PWD/DialogGeometryRename.ui \
 	$$PWD/DialogMeshSetMerge.ui \
+	$$PWD/DialogCreateGeoComponent.ui \
+	$$PWD/DialogFilterMesh.ui \
+	$$PWD/DialogVTKTransform.ui \
+	$$PWD/DialogSelectComponents.ui \

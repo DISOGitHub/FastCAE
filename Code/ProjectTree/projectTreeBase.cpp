@@ -192,7 +192,7 @@ namespace ProjectTree
 
 	void ProjectTreeBase::singleClicked()
 	{
-		qDebug() << "parent s";
+		//qDebug() << "parent s";
 	
 	}
 	void ProjectTreeBase::doubleClicked()
@@ -226,7 +226,7 @@ namespace ProjectTree
 					if (0 == i) connect(action, SIGNAL(triggered()), this, SLOT(openPostWindow()));
 
 					break;
-				case ProjectMesh:
+				case ProjectComponent:
 					break;
 				case ProjectSolver:
 					break;

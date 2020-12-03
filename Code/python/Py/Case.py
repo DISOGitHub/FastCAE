@@ -18,10 +18,15 @@ import ControlPanel
 #---------------------------------
 
 #-------定义函数------------------
-def importMeshComponents(caseId,addcomponentsId):
+def setMaterial(modelID, strcpIDs ,mid):
+  strcpIDs = bytes(strcpIDs,encoding='utf-8')
+  md.setMaterial(modelID, strcpIDs ,mid)
+  pass
+
+def importComponents(caseId,addcomponentsId):
   addcomponentsId = bytes(addcomponentsId,encoding='utf-8')
-  md.importMeshComponents(caseId,addcomponentsId)
-  ControlPanel.updateMeshSubTree(caseId)
+  md.importComponents(caseId,addcomponentsId)
+  ControlPanel.updateComponentSubTree(caseId)
   ControlPanel.updateBCSubTree(caseId)
   pass
   

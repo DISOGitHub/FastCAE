@@ -13,6 +13,7 @@
 #include "ModelData/solverSettingBase.h"
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
+#include "geometry/GeoComponent.h"
 #include "DialogAssignMaterial.h"
 #include "DataProperty/PropertyBase.h"
 #include "DataProperty/PropertyString.h"
@@ -28,8 +29,10 @@
 #include "PostWidgets/RealTimeWindowBase.h"
 #include "Material/MaterialSingletion.h"
 #include "Material/Material.h"
-#include <QTreeWidgetItem>
 #include "python/PyAgent.h"
+//#include "NodeParameterDlg.h"
+
+#include <QTreeWidgetItem>
 #include <QAction>
 #include <QMenu>
 #include <QFileInfo>
@@ -44,8 +47,11 @@ namespace ProjectTree
 		:ProjectTreeBase(mainwindow)
 	{
 		connect(this, SIGNAL(highLightSet(MeshData::MeshSet*)), mainwindow, SIGNAL(highLightSetSig(MeshData::MeshSet*)));
+		connect(this, SIGNAL(highLightGeoComponent(Geometry::GeoComponent*)), mainwindow, SIGNAL(highLightGeoComponentSig(Geometry::GeoComponent*)));
 		connect(mainwindow, SIGNAL(closePostWindowSig(Post::PostWindowBase*)), this, SLOT(closePostWindow(Post::PostWindowBase*)));
 		connect(this, SIGNAL(openRealTimeWin(Post::RealTimeWindowBase*, int)), mainwindow, SIGNAL(openRealTimeWindowSig(Post::RealTimeWindowBase*, int)));
+		connect(this, SIGNAL(clearAllHighLightSig()), mainwindow, SIGNAL(clearAllHighLight()));
+		connect(this, SIGNAL(addComponentRootItemSig()), this, SLOT(addComponentRootItemSlot()));
 		_nodeMenu = new QMenu;
 		_cellMeun = new QMenu;
 	}
@@ -77,10 +83,10 @@ namespace ProjectTree
 // 		_geometryRootItem->setIcon(0, QIcon("://QUI/icon/geometry.png"));
 // 		_textItemHash["Geometry"] = _geometryRootItem;
 
-		_meshRootItem = new QTreeWidgetItem(_root, TreeItemType::ProjectMesh);
-		_meshRootItem->setText(0, tr("Mesh Set"));
-		_meshRootItem->setIcon(0, QIcon("://QUI/icon/mesh.png"));
-		_textItemHash["Mesh Set"] = _meshRootItem;
+		_ComponentRootItem = new QTreeWidgetItem(_root, TreeItemType::ProjectComponent);
+		_ComponentRootItem->setText(0, tr("Set"));
+		_ComponentRootItem->setIcon(0, QIcon("://QUI/icon/mesh.png"));
+		_textItemHash["Set"] = _ComponentRootItem;
 
 		_simulationSettingItem = new QTreeWidgetItem(_root, TreeItemType::ProjectSimulationSetting);
 		_simulationSettingItem->setText(0, tr("Simulation Setting"));
@@ -133,11 +139,12 @@ namespace ProjectTree
 		_reportItem->setHidden(true);
 		_textItemHash["Report"] = _reportItem;
 	}
+
 	void ProjectTreeWithBasicNode::reTranslate()
 	{
 		if (_geometryRootItem != nullptr)
 			_geometryRootItem->setText(0, tr("Geometry"));
-		_meshRootItem->setText(0, tr("Mesh Set"));
+		_ComponentRootItem->setText(0, tr("Set"));
 		_simulationSettingItem->setText(0, tr("Simulation Setting"));
 		_boundaryConditionItem->setText(0, tr("Boundary Condition"));
 		_solverSettingItem->setText(0, tr("Solver Setting"));
@@ -169,9 +176,9 @@ namespace ProjectTree
 			action = menu->addAction(tr("Import Geometry"));
 			connect(action, SIGNAL(triggered()), this, SLOT(importGeometry()));
 			break;
-		case ProjectMesh:
-			action = menu->addAction(tr("Import"));
-			connect(action, SIGNAL(triggered()), this, SLOT(importMesh()));
+		case ProjectComponent:
+			action = menu->addAction(tr("Import Set"));
+			connect(action, SIGNAL(triggered()), this, SLOT(importComponents()));
 		
 			if (glo->isMaterialEnabled())
 			{
@@ -179,7 +186,7 @@ namespace ProjectTree
 				connect(action, SIGNAL(triggered()), this, SLOT(assignMaterial()));
 			}
 			break;
-		case ProjectMeshChild:
+		case ProjectComponentChild:
 			action = menu->addAction(tr("Remove"));
 			connect(action, SIGNAL(triggered()), this, SLOT(removeItem()));
 			break;
@@ -231,7 +238,8 @@ namespace ProjectTree
 		}
 		ProjectTreeBase::contextMenu(menu);
 	}
-	void ProjectTreeWithBasicNode::importMesh()
+
+	void ProjectTreeWithBasicNode::importComponents()
 	{
 		ImportDialog dlg(_mainWindow, _modelDataExtend,MeshSet);
 		dlg.exec();
@@ -246,30 +254,86 @@ namespace ProjectTree
 	void ProjectTreeWithBasicNode::updateTree()
 	{
 		updateGeometrySubTree();
-		updateMeshSubTree();
+		updateComponentSubTree();
 		updateBCSubTree();
 		updateMonitorTree();
 		updatePostTree();
 		updateReportTree();
 	}
-	void ProjectTreeWithBasicNode::updateMeshSubTree()
-	{ 
-		if (_meshRootItem == nullptr) return;
-		_meshRootItem->takeChildren();
+	void ProjectTreeWithBasicNode::updateComponentSubTree()
+	{
+		if (_ComponentRootItem == nullptr) return;
+		_ComponentRootItem->takeChildren();
+
+		QList<int> IDs = _modelDataExtend->getComponentIDList();
+		if (IDs.size() == 0)    return;
+		auto meshData = MeshData::MeshData::getInstance();
+		auto geoData = Geometry::GeometryData::getInstance();
+		auto materialData = Material::MaterialSingleton::getInstance();
+		QString name{};
+		QString icon{};
+		for(int id : IDs)
+		{
+			auto type = DataProperty::ComponentBase::getComponentTypeByID(id);
+			if (type == 0)	continue;
+			if (type == DataProperty::ComponentType::MESH)
+			{
+				auto set = meshData->getMeshSetByID(id);
+				name = set->getName();
+				MeshData::SetType type = set->getSetType();
+				if (type == MeshData::Element)
+					icon = "://QUI/icon/eleset.png";
+				else if (type == MeshData::Family)
+					icon = "://QUI/icon/family.png";
+				else
+					icon = "://QUI/icon/nodeset.png";
+			}
+			else if (type == DataProperty::ComponentType::GEOMETRY)
+			{
+				auto gc = geoData->getGeoComponentByID(id);
+				name = gc->getName();
+				icon = "://QUI/icon/geometry.png";
+			}
+
+			if (_modelDataExtend->isMaterialSetted(id))//是否指定材料
+			{
+				int materialid = _modelDataExtend->getMaterialID(id);
+				Material::Material* m = materialData->getMaterialByID(materialid);
+				if (!m)	continue;
+				QString mname = m->getName();
+				name.append(QString("-[%1]").arg(mname));
+			}
+
+			QTreeWidgetItem* temp = new QTreeWidgetItem(/*_ComponentRootItem, */TreeItemType::ProjectComponentChild);
+			temp->setIcon(0, QIcon(icon));
+			temp->setText(0, name);
+			temp->setData(0, Qt::UserRole, id);
+			_ComponentItems.append(temp);
+		}
+		emit addComponentRootItemSig();
+
+		/*_ComponentRootItem->setExpanded(true);
+		emit clearAllHighLightSig();*/
+	}
+
+	/*void ProjectTreeWithBasicNode::updateMeshSetSubTree()
+	{
+		QList<int> setIDs = _modelDataExtend->getMeshSetList();
+		if (setIDs.size() == 0)    return;
+
 		MeshData::MeshData* meshdata = MeshData::MeshData::getInstance();
 		Material::MaterialSingleton* materialData = Material::MaterialSingleton::getInstance();
-		
-		QList<int> compIDs = _modelDataExtend->getMeshSetList();
-		for (int i = 0; i < compIDs.size(); ++i)
+
+		for (int i = 0; i < setIDs.size(); ++i)
 		{
-			int id = compIDs.at(i);
+			int id = setIDs.at(i);
 			MeshData::MeshSet* set = meshdata->getMeshSetByID(id);
-//			assert(set != nullptr);
+			//			assert(set != nullptr);
 			if (set == nullptr) continue;
 			QString name = set->getName();
 			MeshData::SetType type = set->getSetType();
 			QString icon = "://QUI/icon/nodeset.png";
-			if (type == MeshData::Element )
+			if (type == MeshData::Element)
 			{
 				icon = "://QUI/icon/eleset.png";
 				if (_modelDataExtend->isMaterialSetted(id))
@@ -287,15 +351,41 @@ namespace ProjectTree
 			{
 				icon = "://QUI/icon/family.png";
 			}
-				
-			QTreeWidgetItem* temp = new QTreeWidgetItem(_meshRootItem, TreeItemType::ProjectMeshChild);
+
+			QTreeWidgetItem* temp = new QTreeWidgetItem(_ComponentRootItem, TreeItemType::ProjectComponentChild);
 			temp->setIcon(0, QIcon(icon));
 			temp->setText(0, name);
 			temp->setData(0, Qt::UserRole, id);
 		}
-		_meshRootItem->setExpanded(true);
-		emit highLightSet(nullptr);
 	}
+
+	void ProjectTreeWithBasicNode::updateGeoComponentTree()
+	{
+		QList<int> GCIDs = _modelDataExtend->getGeoComponentIDList();
+		if (GCIDs.isEmpty())    return;
+		auto geoData = Geometry::GeometryData::getInstance();
+		auto materialData = Material::MaterialSingleton::getInstance();
+		QString name{};
+		for(int GCID : GCIDs)
+		{
+			auto aGC = geoData->getGeoComponentByID(GCID);
+			if (!aGC)	continue;
+			name = aGC->getName();
+			if (_modelDataExtend->isMaterialSetted(GCID))
+			{
+				int materialid = _modelDataExtend->getMaterialID(GCID);
+				Material::Material* m = materialData->getMaterialByID(materialid);
+				if (!m)	continue;
+				name.append(QString("-[%1]").arg(m->getName()));
+			}
+
+			QTreeWidgetItem* temp = new QTreeWidgetItem(_ComponentRootItem, TreeItemType::ProjectComponentChild);
+			temp->setIcon(0, QIcon("://QUI/icon/geometry.png"));
+			temp->setText(0, name);
+			temp->setData(0, Qt::UserRole, GCID);
+		}
+	}*/
+
 	void ProjectTreeWithBasicNode::updateBCSubTree()
 	{
 		if (_boundaryConditionItem == nullptr) return;
@@ -306,27 +396,27 @@ namespace ProjectTree
 			QString icon;
 			BCBase::BCBase* bc = _modelDataExtend->getBCAt(i);
 			if (bc == nullptr) continue;
-			BCBase::BCType ty = bc->getType();
+			BCBase::BCType ty = bc->getBCType();
 			QString stype;
 			if (ty == BCBase::UserDef)
 			{
 				stype = ((BCBase::BCUserDef*)bc)->getName();
 				QString sicon = ((BCBase::BCUserDef*)bc)->getIcon();
 				icon = qApp->applicationDirPath() + "/../ConfigFiles/Icon/" + sicon;
-//				qDebug() << icon;
+				bc->appendProperty("BCType", stype);
 			}
 			else
 			{
 				stype = BCBase::BCTypeToString(ty);
 				icon = BCBase::BCIconByType(ty);
 			}
-			
-			QString setname = bc->getMeshSetName();
+			QString cpName = bc->getComponentName();
 
 			QTreeWidgetItem* item = new QTreeWidgetItem(_boundaryConditionItem, TreeItemType::ProjectBoundaryCondationChild);
-			QString text = QString("%1 @ %2").arg(stype).arg(setname);
+			QString text = QString("%1 @ %2").arg(stype).arg(cpName);
 			item->setText(0, text);
 			item->setIcon(0, QIcon(icon));
+			item->setData(0, Qt::UserRole, bc->getComponentID());
 		}
 		_boundaryConditionItem->setExpanded(true);
 		emit highLightSet(nullptr);
@@ -390,19 +480,98 @@ namespace ProjectTree
 		_postVectorItem->setExpanded(true);
 	}
 
+	void ProjectTreeWithBasicNode::removeCaseComponentByID(int cpID)
+	{
+		bool res = _modelDataExtend->removeComponentByID(cpID);
+		if (!res)	return;
+		_modelDataExtend->removeBCByComponentID(cpID);
+
+		QTreeWidgetItem* item{};
+		int childCount = _ComponentRootItem->childCount();
+		for (int i = 0; i < childCount; ++i)
+		{
+			QTreeWidgetItem* tmp = _ComponentRootItem->child(i);
+			if (tmp -> data(0, Qt::UserRole).toInt() == cpID)
+			{
+				item = tmp;
+				break;
+			}
+		}
+		if (!item)	return;
+		_ComponentRootItem->removeChild(item);
+
+		QList<QTreeWidgetItem*> items;
+		childCount = _boundaryConditionItem->childCount();
+		for (int i = 0; i < childCount; ++i)
+		{
+			QTreeWidgetItem* item = _boundaryConditionItem->child(i);
+			if (item -> data(0, Qt::UserRole).toInt() == cpID)
+				items << item;
+		}
+		for (QTreeWidgetItem* item : items)
+			_boundaryConditionItem->removeChild(item);
+	}
+
+	void ProjectTreeWithBasicNode::renameCaseComponentByID(int cpID)
+	{
+		auto meshData = MeshData::MeshData::getInstance();
+		auto geoData = Geometry::GeometryData::getInstance();
+		DataProperty::DataBase* component{};
+		component = meshData->getMeshSetByID(cpID);
+		if (!component)    component = geoData->getGeoComponentByID(cpID);
+		if (!component)	   return;
+
+		QTreeWidgetItem* item{};
+		QString cpName = component->getName();
+		int childCount = _ComponentRootItem->childCount();
+		for (int i = 0; i < childCount; ++i)
+		{
+			item = _ComponentRootItem->child(i);
+			if (item->data(0, Qt::UserRole).toInt() != cpID)	continue;
+			QString oldText = item->text(0);
+			if (!oldText.contains("-["))
+				item->setText(0, cpName);
+			else
+			{
+				int index = oldText.lastIndexOf("-[");
+				QString right = oldText.right(oldText.size() - index);
+				QString newText = cpName + right;
+				item->setText(0, newText);
+			}
+			break;
+		}
+
+		childCount = _boundaryConditionItem->childCount();
+		for (int i = 0; i < childCount; ++i)
+		{
+			item = _boundaryConditionItem->child(i);
+			if (item->data(0, Qt::UserRole).toInt() != cpID)	continue;
+			QString oldText = item->text(0);
+			int index = oldText.lastIndexOf(" @");
+			QString left = oldText.left(index + 3);
+			QString newText = left + cpName;
+			item->setText(0, newText);
+		}
+	}
+
+	const QList<int>& ProjectTreeWithBasicNode::getComponentIDList()
+	{
+		return _modelDataExtend->getComponentIDList();
+	}
+
 	void ProjectTreeWithBasicNode::removeItem()
 	{
 		TreeItemType type = (TreeItemType)_currentItem->type();
-		if (_currentItem->type() == ProjectMeshChild)
+		if (_currentItem->type() == ProjectComponentChild)
 		{
-			int index = _meshRootItem->indexOfChild(_currentItem);
+			int index = _ComponentRootItem->indexOfChild(_currentItem);
 			if (_data->isComponentUsed(index))
 			{
 				if (QMessageBox::Yes != QMessageBox::warning(_mainWindow, tr("Warning"), tr("This Set has been used, still remove?"), QMessageBox::Yes, QMessageBox::No))
 					return;
 			}
-			_modelDataExtend->removeMeshSetAt(index);
-			updateMeshSubTree();
+			_modelDataExtend->removeComponentAt(index);
+			updateComponentSubTree();
 			updateBCSubTree();
 		}
 		else if (_currentItem->type() == ProjectBoundaryCondationChild)
@@ -438,7 +607,6 @@ namespace ProjectTree
 				p2d->removeCurve(name);
 			}
 		}
-
 		else if (_currentItem->type() == ProjectPostCounterChild)
 		{
 			const int index = _postCounterItem->indexOfChild(_currentItem);
@@ -469,24 +637,47 @@ namespace ProjectTree
 	void ProjectTreeWithBasicNode::singleClicked()
 	{
 		TreeItemType type = (TreeItemType)_currentItem->type();
-		if (type == ProjectMeshChild)
+		if (type == ProjectComponentChild)
 		{
-			const int index = _meshRootItem->indexOfChild(_currentItem);
+			const int index = _ComponentRootItem->indexOfChild(_currentItem);
 			if (index >= 0)
 			{
-				const int id = _modelDataExtend->getMeshSetList().at(index);
-				MeshData::MeshSet* set = MeshData::MeshData::getInstance()->getMeshSetByID(id);
-				emit highLightSet(set);
+				emit clearAllHighLightSig();
+				int id = _modelDataExtend->getComponentIDList().at(index);
+				auto ms = MeshData::MeshData::getInstance()->getMeshSetByID(id);
+				if (ms)
+				{
+					emit highLightSet(ms);
+					emit disPlayProp(ms);
+				}
+				else
+				{
+					auto gc = Geometry::GeometryData::getInstance()->getGeoComponentByID(id);
+					if (!gc)    return;
+					emit highLightGeoComponent(gc);
+					emit disPlayProp(gc);
+				}
 			}
 		}
 		else if (type == ProjectBoundaryCondationChild)
 		{
+			emit clearAllHighLightSig();
 			const int index = _boundaryConditionItem->indexOfChild(_currentItem);
 			BCBase::BCBase* bc = _modelDataExtend->getBCAt(index);
 			assert(bc != nullptr);
-			MeshData::MeshSet* set = bc->getMeshSet();
-			emit highLightSet(set);
 			emit disPlayProp(bc);
+			DataProperty::ComponentBase* component = bc->getComponent();
+			if (!component)	return;
+			if (component->getComponentType() == DataProperty::ComponentType::MESH)
+			{
+				auto set = dynamic_cast<MeshData::MeshSet*>(component);
+				emit highLightSet(set);
+			}
+			else
+			{
+				auto gc = dynamic_cast<Geometry::GeoComponent*>(component);
+				emit highLightGeoComponent(gc);
+			}
 		}
 		else if (type == ProjectSimulationSetting)
 		{
@@ -507,9 +698,7 @@ namespace ProjectTree
 			{
 				QString name = _currentItem->text(0);
 				_realTimeWin->viewRealTimeWindow(name);
-			}
-			
-			
+			}		
 		}
 		else if (type == ProJectPost2DGraphChild)
 		{
@@ -535,6 +724,7 @@ namespace ProjectTree
 		}
 		else
 		{
+			emit clearAllHighLightSig();
 			emit disPlayProp(nullptr);
 		}
 		const int index = _currentItem->data(0, Qt::UserRole + 1).toInt() - 1;
@@ -544,13 +734,24 @@ namespace ProjectTree
 			const int id = item->getDataID();
 			DataProperty::DataBase* d = _modelDataExtend->getConfigData(id);
 			emit disPlayProp(d);
-		}
-	
+		}	
 		ProjectTreeBase::singleClicked();
 	}
+
 	void ProjectTreeWithBasicNode::doubleClicked()
 	{
-		//qDebug() << "ss";
+		if (_treeType == 1)
+		{
+			TreeItemType itemType = (TreeItemType)_currentItem->type();
+			switch (itemType)
+			{
+			case TreeItemType::ProjectSimulationSettingChild:
+			{
+				//NodeParameterDlg dlg(_treeType, _currentItem->text(0), _mainWindow);
+				break;
+			}
+			}
+		}
 	}
 
 	void ProjectTreeWithBasicNode::updateReportTree()
@@ -573,9 +774,7 @@ namespace ProjectTree
 	{
 		AssignMaterialDialog dlg(_mainWindow, _modelDataExtend);
 		if (dlg.exec() == QDialog::Accepted)
-		{
-			this->updateMeshSubTree();
-		}
+			this->updateComponentSubTree();
 	}
 	void ProjectTreeWithBasicNode::d2PlotContextMenu(QMenu* menu)
 	{
@@ -695,8 +894,8 @@ namespace ProjectTree
 		}
 //		}
 		connect(_postMapper, SIGNAL(mapped(QString)), this, SLOT(viewVector(QString)));
-
 	}
+
 	void ProjectTreeWithBasicNode::closePostWindow(Post::PostWindowBase* w)
 	{
 		auto p2d = _modelDataExtend->getPost2DWindow();
@@ -716,6 +915,16 @@ namespace ProjectTree
 			this->updatePostTree();
 		}
 	}
+
+	void ProjectTreeWithBasicNode::addComponentRootItemSlot()
+	{
+		if (_ComponentItems.size() == 0)	return;
+		_ComponentRootItem->addChildren(_ComponentItems);
+		_ComponentRootItem->setExpanded(true);
+		_ComponentItems.clear();
+		emit clearAllHighLightSig();
+	}
+
 	void ProjectTreeWithBasicNode::viewPlot2D(QString variable)
 	{
 		auto p2d = _modelDataExtend->getPost2DWindow();
@@ -869,7 +1078,36 @@ namespace ProjectTree
 		return nullptr;
 	}
 
-	
+	/*bool ProjectTreeWithBasicNode::readInForm()
+	{
+		QDesignerResource r(this);
+		QScopedPointer<DomUI> ui(r.readUi(dev));
+		if (ui.isNull()) {
+			if (errorMessageIn)
+				*errorMessageIn = r.errorString();
+			return false;
+		}
+
+		UpdateBlocker ub(this);
+		clearSelection();
+		m_selection->clearSelectionPool();
+		m_insertedWidgets.clear();
+		m_widgets.clear();
+		// The main container is cleared as otherwise
+		// the names of the newly loaded objects will be unified.
+		clearMainContainer();
+		m_undoStack.clear();
+		emit changed();
+
+		QWidget *w = r.loadUi(ui.data(), formContainer());
+		if (w) {
+			setMainContainer(w);
+			emit changed();
+		}
+		if (errorMessageIn)
+			*errorMessageIn = r.errorString();
+		return w != nullptr;
+	}*/
 
 	void ProjectTreeWithBasicNode::updateGeometrySubTree()
 	{

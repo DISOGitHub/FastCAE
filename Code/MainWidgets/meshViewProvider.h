@@ -1,18 +1,17 @@
 #ifndef MESHVIEWPROVIDER_H_
 #define MESHYVIEWPROVIDER_H_
 
+#include "mainWidgetsAPI.h"
 #include <QObject>
 #include <QMultiHash>
 #include <QHash>
 #include <QList>
 #include "moduleBase/ModuleType.h"
-#include <vtkPolydata.h>
+#include <vtkPolyData.h>
 #include <vtkActor.h>
 #include <vtkDataSetMapper.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkLookupTable.h>
-#include <TopoDS.hxx>
-//
 #include "meshData/meshSingleton.h"
 #include "meshData/meshKernal.h"
 #include "meshData/meshSet.h"
@@ -42,7 +41,7 @@ namespace MainWidget
 		Surface,
 		SurfaceWithEdge,
 	};
-	class MeshViewProvider: public QObject
+	class MAINWIDGETSAPI MeshViewProvider: public QObject
 	{
 		Q_OBJECT
 	public:
@@ -55,6 +54,9 @@ namespace MainWidget
 		void updateMeshDispaly(int index, bool display);
 		void removeMeshActor(const int index);
 		void setDisplay(QString m);
+
+		vtkActor* getActorByKernal(MeshData::MeshKernal* k);
+
 	public:
 		QMultiHash<vtkDataSet*, int>* _selectItems{};
 	private:
@@ -62,13 +64,15 @@ namespace MainWidget
 		void removeMeshActors();
 		void updateKernalShowIds(MeshData::MeshSet* set, MeshData::MeshKernal* k);
 		void updateDisplayKernal(MeshData::MeshKernal* k);
-		void findMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, QMultiHash<vtkDataSet*, int>* newItems);
+		void updateMappingItems(QMultiHash<vtkDataSet*, int>* oldItems);
+		void updateBoxMeshMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * kernaldataSet);
+		void updateMeshNodeMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet);
+		void updateMeshCellMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet);
 		//
 		void fillKernalCellIds(MeshData::MeshKernal* k);
 		void fillKernalPointIds(MeshData::MeshKernal* k);
 		void updateCellMappingPointIds(MeshData::MeshKernal* k, QHash<int, bool> _cellIdIsExistHash, int cellId, bool isShow);
 		void findCellMappingKCell(vtkDataSet * dataSet, vtkIdList *cellPtIds, vtkDataSet * kernalDataSet, int &findCellId);
-		void getCellIdList(vtkIdType cellId, QList<int> &orignalCellIdList, QList<int>& cellIdList);
 	public slots:
 	    void setMeshSelectMode(int mode);
 		//网格的高亮显示

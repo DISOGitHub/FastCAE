@@ -37,10 +37,11 @@ namespace GeometryWidget
 		void setCoordinate(double *coor);
 
 	signals:
+		void buttonCkicked(GeoPointWidget*);
 		void setSelectMode(int);
 		void clearGeometryHighLightSig();
 		void highLightGeometryPointSig(Geometry::GeometrySet*, int, bool);
-		void buttonCkicked(GeoPointWidget*);
+		
 
 	private slots :
 		void on_geoSelectPoint_clicked();

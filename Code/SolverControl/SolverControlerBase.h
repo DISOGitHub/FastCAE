@@ -39,7 +39,7 @@ namespace SolverControl
 	{
 		Q_OBJECT
 	public:
-		SolverControlBase(GUI::MainWindow* mainwindow, ConfigOption::SolverInfo* solver, ModelData::ModelDataBase* model);
+		SolverControlBase(GUI::MainWindow* mainwindow, ConfigOption::SolverInfo* solver, ModelData::ModelDataBase* model,bool sollveOnly = false);
 		~SolverControlBase();
 		///启动求解
 		void startSolver();
@@ -47,12 +47,20 @@ namespace SolverControl
 		void setSolverDescription(QString des);
 		//结束求解
 		void stopSolver();
+		//启动MPI命令
+		void startMPI(int nprocess);
+		//设置启动参数
+		void setSolveArgs(QString arg);
+		//清爽启动
+		void startSolverClear();
+
 
 	signals:
 		void solverStarted(QWidget* processBar);
 		void sendMessage(QString mess);
 		void processFinish(int pid);
 		void openRealTime(Post::RealTimeWindowBase* w, int proID);
+		void removeSolver(int pid);
 
 	protected slots:
 		virtual void readSolverOutput();
@@ -68,6 +76,7 @@ namespace SolverControl
 		bool postPorocess();
 
 	protected:
+		bool _solveOnly = false;
 		QProcess _process{};
 		GUI::MainWindow* _mainWindow{};
 		QString _description{};

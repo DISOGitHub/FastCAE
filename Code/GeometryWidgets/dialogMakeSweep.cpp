@@ -198,7 +198,6 @@ namespace GeometryWidget
 	{
 		if (_sectionEdgeHash.contains(set,shape)) return;
 
-		QColor color;
 		if (_pathEdge.first != nullptr)
 		{
 			emit highLightGeometryEdgeSig(_pathEdge.first, _pathEdge.second, false);

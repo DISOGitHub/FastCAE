@@ -75,7 +75,6 @@ namespace GUI
 //		_mainWindow->getSubWindowManager()->closeAllSubWindow();
 		auto gloc = ConfigOption::ConfigOption::getInstance()->getGlobalConfig();
 		QString web = gloc->getWebsite();
-		qDebug() << web;
 		_mainWindow->getSubWindowManager()->openUrl(web);
 		_mainWindow->getControlPanel()->setVisible(false);
 		_mainWindow->getMessageWindow()->setEnabled(false);
@@ -212,7 +211,7 @@ namespace GUI
 		const QString logoname = globalConfig->getLogo();
 		QString path = qApp->applicationDirPath();
 		const QString logo = path + "/../ConfigFiles/icon/" + logoname;
-		qDebug() << logo;
+//		qDebug() << logo;
 		_mainWindow->setIcon(logo);
 
 	}

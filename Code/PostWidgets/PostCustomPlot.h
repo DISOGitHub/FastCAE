@@ -3,7 +3,7 @@
 #define _POSTCUSTOMPLOT_H_
 
 #include "PostWidgetsAPI.h"
-#include "qcustomplot.h"
+#include "CurveAnalyse/qcustomplot.h"
 
 namespace Post
 {

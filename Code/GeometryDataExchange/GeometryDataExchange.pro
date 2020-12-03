@@ -52,7 +52,10 @@ unix{
   RCC_DIR         = ./release/rcc
   OBJECTS_DIR     = ./release/obj
   LIBS += \
-  -L../../output/bin -lDataProperty \
+  -L../../output/bin -lModuleBase \
+    -L../../output/bin -lDataProperty \
+	-L../../output/bin -lGeometry \
+	-L../../output/bin -lPythonModule \
 	
   message("Linux GeometryDataExchange build")
   

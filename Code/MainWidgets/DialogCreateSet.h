@@ -3,7 +3,10 @@
 
 #include "mainWidgetsAPI.h"
 #include "SelfDefObject/QFDialog.h"
+#include "moduleBase/ModuleType.h"
 #include <QString>
+
+class vtkDataSet;
 
 namespace GUI
 {
@@ -36,18 +39,32 @@ namespace MainWidget
 	signals:
 		void updateSetTree();
 
+	private slots:
+		void stateChangedSlot(int);
+		void currentIndexChangedSlot(int);
+
 	private:
 		void init();
 		QString getNameFromUi();
 		void accept() override;
 		bool selectFromGeo();
 		QString generateGeoIDs(QString type);
+		void hideFindCondition();
+		void showFindCondition();
+		void createSetAccept();
+		void findConplanarAccept();
 
 	private:
 		Ui::CreateSetDialog* _ui{};
 		GUI::MainWindow* _mainWindow{};
 		PreWindow* _preWindow{};
 		MeshData::MeshData* _meshData{};
+
+		ModuleBase::SelectModel _model;
+		bool _isGeo{ false };
+		vtkDataSet* _data;
+		int _seedId{ -1 };
+		QString _geoIds;
 	};
 }
 

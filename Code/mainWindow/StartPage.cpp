@@ -10,6 +10,8 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QString>
+#include <QtWebView/QtWebView>
+#include <QWebEngineView>
 
 namespace GUI
 {
@@ -17,12 +19,13 @@ namespace GUI
 	StartPage::StartPage()
 	{
 #ifdef Q_OS_WIN32
+		QtWebView::initialize();
 		_ui = new Ui::StartPage;
 		_ui->setupUi(this);
-		_ui->webView->page()->setForwardUnsupportedContent(true);
-		_ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
+//		_ui->webView->page()->setForwardUnsupportedContent(true);
+//		_ui->webView->page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
 
-		connect(_ui->webView->page(), SIGNAL(linkClicked(QUrl)), this, SLOT(linkClicked(QUrl)));
+		//connect(_ui->webView->page(), SIGNAL(linkClicked(QUrl)), this, SLOT(linkClicked(QUrl)));
 
 		QString html = QCoreApplication::applicationDirPath() + "/FastCAE.html";
 		QFile f(html);
@@ -33,7 +36,7 @@ namespace GUI
 		}
 		else
 		{
-			QString web = "http://www.fastcae.com/";
+			QString web = "http://www.diso.cn/";
 			ConfigOption::GlobalConfig* g = ConfigOption::ConfigOption::getInstance()->getGlobalConfig();
 			QString w = g->getWebsite();
 			if (!w.isEmpty())

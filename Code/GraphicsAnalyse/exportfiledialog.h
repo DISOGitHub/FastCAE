@@ -1,5 +1,5 @@
 #ifndef EXPORTFILEDIALOG_H
-#define REPORTFILEDIALOG_H
+#define EXPORTFILEDIALOG_H
 
 #include <QDialog>
 #include <QMovie>

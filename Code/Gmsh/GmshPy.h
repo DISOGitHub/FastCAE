@@ -30,9 +30,12 @@ namespace Gmsh
 		static void setPreWindow(MainWidget::PreWindow* pre);
 	 
 		static void GenerateMesh3D(char* solids, char* type, int order, int method, double factor, double sizemin, 
-			double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible);
-		static void GenerateMesh2D(char* solids, char* type, int order, int method, int smooth,	double factor, double sizemin, 
-			double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible);
+			double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, 
+			bool selectall, bool selectvisible, int meshID/*, char* cells*/);
+		static void GenerateMesh2D(char* solids, char* type, int order, int method, int smooth,	double factor, 
+			double sizemin,	double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, 
+			bool selectall, bool selectvisible, int meshID/*, char* cells*/);
+		static void generateFluidMesh(char* solids, char* type, char* fluids, int order, int method, double size);
 
 	private:
 		static vtkDataSet* meshFilter(vtkDataSet* dataset, int dim);
@@ -47,8 +50,14 @@ namespace Gmsh
 
 extern "C"
 {
-	void GMSHAPI GenerateMesh3D(char* solids, char* type, int order, int method, double factor, double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/,bool selectall, bool selectvisible);
-	void GMSHAPI GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points, char* fields/*, char* physicals*/, bool selectall, bool selectvisible);
+	void GMSHAPI GenerateMesh3D(char* solids, char* type, int order, int method, double factor, 
+		double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points, 
+		char* fields/*, char* physicals*/,bool selectall, bool selectvisible, int meshID
+		/*char* cells*/);
+	void GMSHAPI GenerateMesh2D(char* solids, char* type, int order, int method, int smooth, double factor, 
+		double sizemin, double sizemax, bool clean, bool isGridCoplanar, char* points, 
+		char* fields/*, char* physicals*/, bool selectall, bool selectvisible, int meshID/*, char* cells*/);
+	void GMSHAPI generateFluidMesh(char* solids, char* type, char* fluids, int order, int method, double size);
 }
 
 #endif // !GMSH_PY_H__

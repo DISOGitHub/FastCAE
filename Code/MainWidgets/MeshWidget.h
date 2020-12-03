@@ -21,11 +21,11 @@ namespace DataProperty
 	class DataBase;
 }
 
-
 class QTreeWidgetItem;
 
 namespace MainWidget
 {
+	class PreWindow;
 
 	class MeshWidget : public QTreeWidget
 	{
@@ -57,6 +57,14 @@ namespace MainWidget
 		void startMesherPySig(QString mesher);
 		//清除高亮
 		void clearHighLight();
+		//回滚编辑
+		void editMesh(int, int);
+		//当删除一个组件时，对应的算例中的组件也应该删除
+		void removeCaseComponentSig(int componentID);
+		//重命名算例中的项(组件item和边界item)
+		void renameCaseComponentSig(int componentID);
+
+	//	void showDialog(QDialog*);
 
 	public slots :
 		//更新树
@@ -70,7 +78,11 @@ namespace MainWidget
 		//移除当前Kernal
 		void removeMeshData();
 		///移除当前组件
-		void removeSetData();
+		void removeCurrSetData();
+		//编辑当前kernal
+		void editMeshData();
+		//
+		void preWindowOpened(MainWidget::PreWindow* p);
 
 	private slots:
 		void startMesher(QString mesher);
@@ -87,6 +99,7 @@ namespace MainWidget
 
 	private:
 		void contextMenuEvent(QContextMenuEvent *event) override;
+		bool isMeshEditable();
 
 	private:
 		GUI::MainWindow* _mainWindow{};
@@ -94,6 +107,8 @@ namespace MainWidget
 		QTreeWidgetItem* _meshRoot{};
 		QTreeWidgetItem* _setRoot{};
 		QTreeWidgetItem* _currentItem{};
+
+		PreWindow* _preWindow{};
 	};
 
 }

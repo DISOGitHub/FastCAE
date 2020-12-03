@@ -4,7 +4,7 @@
 1. 源码绝对路径中不要出现中文字符;
 2. 源码文件夹中不要出现空格(){}*/?|\等特殊字符
 3. 要求Windows7以上的64位系统
-4. 要求自行安装Visual Studio 2013（with update5）和Qt5.4.2 
+4. 要求自行安装Visual Studio 2017和Qt5.14.2 
 
 #源码下载：
 两种方式可以下载源码，直接下载和使用git克隆
@@ -13,15 +13,20 @@
 
 #文件夹结构
 1. Code    FastCAE源码
-2. OCC     OpenCASCADE7.2.0编译的第三方库，适用于windows平台
-3. VTK     VTK7.1.0编译的第三方库，适用于windows平台
+2. OCC     OpenCASCADE7.4.0编译的第三方库，适用于windows平台
+3. VTK     VTK9.0.1编译的第三方库，适用于windows平台
 4. output  程序的编译输出
 5. cgns     cgns第三方库，适用于windows平台
 6. quazip   压缩文件的第三方库
 
 #编译过程
+源码编译支持两种形式，分别是通过FastCAE提供的编译脚本，以及Cmake生成编译文件
+
+使用FastCAE提供的编译脚本过程如下：
 1. 第一次编译需要运行 Run.bat，生成适应于本机环境的批处理脚本
 2. 以后启动Visual Studio IDE运行Code文件夹下的Run_MSVC.bat
+
+使用Cmake生成编译文件的过程详见《CMake编译过程.docx》
 
 #重要批处理说明：
 1. Run.bat                 下载完源码之后在本机配置生成开发环境，在一台机器上正确运行一次即可，若中间出现错误可重复运行

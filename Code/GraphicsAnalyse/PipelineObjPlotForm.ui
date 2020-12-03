@@ -35,7 +35,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QVTKWidget" name="qvtkWidget" native="true"/>
+      <widget class="QVTKOpenGLNativeWidget" name="qvtkWidget" native="true"/>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -50,9 +50,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QVTKWidget</class>
+   <class>QVTKOpenGLNativeWidget</class>
    <extends>QWidget</extends>
-   <header>QVTKWidget.h</header>
+   <header location="global">QVTKOpenGLNativeWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

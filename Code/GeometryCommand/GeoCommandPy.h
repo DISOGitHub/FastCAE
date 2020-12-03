@@ -66,8 +66,12 @@ namespace Command
 		static void CreateRevol(int editid, QString name, QMultiHash<Geometry::GeometrySet*, int> hash, double* basept, double degree, int optionindex, QPair<Geometry::GeometrySet*, int> axisetedge, double* coor, bool reverse, bool solid);
 		static void CreateLoft(int id, QString name, bool solid, QList< QMultiHash<Geometry::GeometrySet*, int>> shapelist);
 		static void CreateSweep(int id, QMultiHash<Geometry::GeometrySet*, int> hash, QPair<Geometry::GeometrySet*, int> path, bool solid);
-		static void MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody);
-		static void EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody);
+		static void MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
+		static void EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base);
+		static void MakeFillHole(QMultiHash<Geometry::GeometrySet*, int> faces,  int editID);
+		static void MakeRemoveSurface(QMultiHash<Geometry::GeometrySet*, int> faces, int editID);
+		static void MakeFillGap(int type, int set1, int body1, int set2, int body2);
+		static void EditFillGap(Geometry::GeometrySet* set, int type, int set1, int body1, int set2, int body2);
 
     private:
         static void warning();
@@ -124,8 +128,11 @@ extern "C"
 	void GEOMETRYCOMMANDAPI CreateRevol(int id, char* name, char *edges, double basept0, double basept1, double basept2, double degree, char* optionindex, int axissetid, int edgeindex, double coor0, double coor1, double coor2, char* reverse, char* solid);
 	void GEOMETRYCOMMANDAPI CreateLoft(int id, char* name, char* solid, char* sec);
 	void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset,int pathedge);
-	void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, int facebody, int faceid);
-	void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, int facebody, int faceid);
-
+	void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, char* method, int facebody, int faceid, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2);
+	void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, char* method, int facebody, int faceid, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2);
+	void GEOMETRYCOMMANDAPI MakeFillHole(char* faces, int editID);
+	void GEOMETRYCOMMANDAPI MakeRemoveSurface(char* faces, int editID);
+	void GEOMETRYCOMMANDAPI CreateFillGap(char* type, int set1, int body1, int set2, int body2);
+	void GEOMETRYCOMMANDAPI EditFillGap(int id, char*type, int set1, int body1, int set2, int body2);
 }
 #endif

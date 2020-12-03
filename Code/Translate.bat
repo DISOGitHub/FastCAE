@@ -14,6 +14,7 @@ lupdate -verbose PluginManager/PluginManager.pro
 lupdate -verbose Gmsh/GmshModule.pro
 lupdate -verbose SolverControl/solverControl.pro
 lupdate -verbose UserGuidence/UserGuidence.pro
+lupdate -verbose SelfDefObject/SelfDefObject.pro
 
 lupdate -no-obsolete mainWindow/mainWindow.pro
 lupdate -no-obsolete MainWidgets/mainwidgets.pro
@@ -28,6 +29,7 @@ lupdate -no-obsolete PluginManager/PluginManager.pro
 lupdate -no-obsolete Gmsh/GmshModule.pro
 lupdate -no-obsolete SolverControl/solverControl.pro
 lupdate -no-obsolete UserGuidence/UserGuidence.pro
+lupdate -no-obsolete SelfDefObject/SelfDefObject.pro
 
 cd  qrc/translations/
 lrelease MainWindow_zh_CN.ts
@@ -43,5 +45,6 @@ lrelease PluginManager_zh_CN.ts
 lrelease GmshModule_zh_CN.ts
 lrelease SolverControl_Zh_CN.ts
 lrelease UserGuidence_zh_CN.ts
+lrelease SelfDefObject_zh_CN.ts
 
 pause

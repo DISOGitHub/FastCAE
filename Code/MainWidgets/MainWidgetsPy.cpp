@@ -90,13 +90,13 @@ namespace MainWidget
 		emit _meshWidget->startMesherPySig(mesher);
 	}
 
-	void MainWidgetPy::updateMeshSubTree(int id)
+	void MainWidgetPy::updateComponentSubTree(int id)
 	{
 		ProjectTree::ProjectTreeBase* tree = _physicsWidget->getProjectByID(id);
 		if (tree == nullptr) return;
 		ProjectTree::ProjectTreeWithBasicNode* nodetree = dynamic_cast<ProjectTree::ProjectTreeWithBasicNode*>(tree);
 		if (nodetree == nullptr) return;
-		nodetree->updateMeshSubTree();
+		nodetree->updateComponentSubTree();
 		_pyAgent->unLock();
 	}
 	void MainWidgetPy::updateBCSubTree(int id)
@@ -327,9 +327,9 @@ void caseRename(int pid, char* newname)
 	MainWidget::MainWidgetPy::caseRename(pid,newname);
 }
 
-void updateMeshSubTree(int id)
+void updateComponentSubTree(int id)
 {
-	MainWidget::MainWidgetPy::updateMeshSubTree(id);
+	MainWidget::MainWidgetPy::updateComponentSubTree(id);
 }
 void updateBCSubTree(int id)
 {

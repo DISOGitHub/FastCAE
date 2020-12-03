@@ -8,6 +8,7 @@
 namespace ModuleBase
 {
 	class ThreadTask;
+	class ThreadControl;
 
 	class MODULEBASEAPI ThreadTaskManager : public QObject
 	{
@@ -18,9 +19,17 @@ namespace ModuleBase
 
 		void clearThreadTaskList();
 		void appendToThreadTaskList(ThreadTask* t);
-		
+
+
+		void clearThreadControlList();
+		void appendToThreadContolList(ThreadControl* tc);
+// 	signals:
+// 		void stopThread();
+		void removeThread(ThreadControl* tc);
+
 	public slots:
 		void removeTask(ThreadTask* t);
+		
 
 	private:
 		ThreadTaskManager() = default;
@@ -33,6 +42,7 @@ namespace ModuleBase
 		static ThreadTaskManager* _instance;
 
 		QList<ThreadTask*> _threadTaskList{};
+		QList<ThreadControl*> m_threadContol_list{};
 	};
 }
 #endif // THREADTASKMANAGER_H

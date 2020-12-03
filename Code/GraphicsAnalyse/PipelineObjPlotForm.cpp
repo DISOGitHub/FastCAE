@@ -7,6 +7,7 @@
 #include "vtkCoordinate.h"
 #include "myInteractorStyle.h"
 #include "qmath.h"
+#include <vtkVersionMacros.h>
 
 #ifdef Q_OS_WIN
 #include "vtkAVIWriter.h"
@@ -23,6 +24,14 @@ PipelineObjPlotForm::PipelineObjPlotForm(QWidget *parent,QToolBar* toolBar) :
     QWidget(parent), ui(new Ui::PipelineObjPlotForm)
 {
     ui->setupUi(this);
+#if(VTK_MAJOR_VERSION < 9)
+	renderWindow = ui->qvtkWidget->GetRenderWindow();
+#else
+	renderWindow = ui->qvtkWidget->renderWindow();
+#endif
+
+
+
 	flag_selfAdaptation = false;
 	flag_render = false;
 	flag_script_running = false;
@@ -65,9 +74,10 @@ PipelineObjPlotForm::PipelineObjPlotForm(QWidget *parent,QToolBar* toolBar) :
 	cgns_thread = NULL;
 	vtk_mousePicker_connector = NULL;
     renderer = vtkSmartPointer<vtkRenderer>::New();
-    ui->qvtkWidget->GetRenderWindow()->AddRenderer(renderer);
 
+	renderWindow->AddRenderer(renderer);
 	renderer->GlobalWarningDisplayOff();
+//	renderWindow->Render();
 
 	if (m_orientationAxesActor == NULL)
 	{
@@ -79,9 +89,9 @@ PipelineObjPlotForm::PipelineObjPlotForm(QWidget *parent,QToolBar* toolBar) :
 		m_orientationMarkerWidget = vtkSmartPointer<vtkOrientationMarkerWidget>::New();
 	}
 	
-	renderWindowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
-	renderWindowInteractor->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
-	renderWindowInteractor->Initialize();
+	renderWindowInteractor = renderWindow->GetInteractor();
+// 	renderWindowInteractor->SetRenderWindow(renderWindow);
+// 	renderWindowInteractor->Initialize();
 	mouse_style = MyInteractorStyle::New();//mouse_style = vtkInteractorStyleTrackballCamera::New();
 	mouse_style->SetDefaultRenderer(renderer);
 	renderWindowInteractor->SetInteractorStyle(mouse_style);
@@ -89,13 +99,13 @@ PipelineObjPlotForm::PipelineObjPlotForm(QWidget *parent,QToolBar* toolBar) :
 
 	m_orientationMarkerWidget->SetDefaultRenderer(renderer);
 	m_orientationMarkerWidget->SetOrientationMarker(m_orientationAxesActor);
-	m_orientationMarkerWidget->SetInteractor(renderer->GetRenderWindow()->GetInteractor());
+	m_orientationMarkerWidget->SetInteractor(renderWindow->GetInteractor());
 	m_orientationMarkerWidget->SetEnabled(1);
 	m_orientationMarkerWidget->SetInteractive(0);
 	m_orientationMarkerWidget->SetViewport(0.0, 0.0, 0.2, 0.2);
 	m_orientationMarkerWidget->On();
 	//renderWindowInteractor->Start();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	//renderWindow->Render();
 	//add for pick
 	pick_Data.flag_pickMode = -1;
 	//pick_Data.frustum = NULL;
@@ -121,6 +131,13 @@ PipelineObjPlotForm::PipelineObjPlotForm(QWidget *parent,QToolBar* toolBar) :
 		pov_propData.pos[i] = 0;
 	connect(this, SIGNAL(sig_saveImage()), this, SLOT(slot_saveImage()));
 	connect(this, SIGNAL(sig_saveAnimate()), this, SLOT(slot_saveAnimate()));
+	
+	renderer->SetGradientBackground(false);
+	renderer->SetBackground(0.278, 0.533, 0.478);
+ 
+
+	renderWindow->Render();
+	renderWindowInteractor->Start();
 }
 
 void PipelineObjPlotForm::set_consoleWidget(consoleCmdDockWidget *tep_wid)
@@ -157,7 +174,8 @@ void PipelineObjPlotForm::slot_update_remark(bool flag)
 	{
 		m_remarkWidget = vtkSmartPointer<vtkTextWidget>::New();
 		m_remarkWidget->SetRepresentation(m_remarkPresentation);
-		m_remarkWidget->SetInteractor(renderer->GetRenderWindow()->GetInteractor());
+
+		m_remarkWidget->SetInteractor(renderWindow->GetInteractor());
 		m_remarkWidget->SetTextActor(m_remarkActor);
 		m_remarkWidget->SelectableOff();
 	}
@@ -166,7 +184,7 @@ void PipelineObjPlotForm::slot_update_remark(bool flag)
 	else
 		m_remarkWidget->Off();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::func_saveRemarkPosition()
 {
@@ -184,14 +202,14 @@ void PipelineObjPlotForm::slot_update_remark_fontColor()
 		m_renderViewPara->remark_para.fontColor.green() / 255.0,
 		m_renderViewPara->remark_para.fontColor.blue() / 255.0);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_remark_text()
 {
 	m_remarkActor->SetInput(m_renderViewPara->remark_para.text.toStdString().c_str());
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_change_global_view_prop()
@@ -212,10 +230,11 @@ void PipelineObjPlotForm::slot_change_global_view_prop()
 	else
 		m_orientationMarkerWidget->Off();
 	if (m_renderViewPara->flag_camera_parallel)
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOn();
+		renderWindow ->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOn();
 	else
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOff();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOff();
 	slot_update_remark(m_renderViewPara->remark_para.flag_remark);
+	renderWindow->Render();
 }
 
 PipelineObjPlotForm::~PipelineObjPlotForm()
@@ -405,18 +424,18 @@ void PipelineObjPlotForm::AddActors(PipelineObject* pipeObject)
 
 void PipelineObjPlotForm::slot_init_sliceFilter_plotForm(FilterSlice *pipeObj)
 {
-	pipeObj->set_plane_interactor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+	pipeObj->set_plane_interactor(renderWindow->GetInteractor());
 	pipeObj->init_plane();
 	//if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_init_clipFilter_plotForm(FilterClip *pipeObj)
 {
-	pipeObj->set_plane_interactor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+	pipeObj->set_plane_interactor(renderWindow->GetInteractor());
 	pipeObj->init_plane();
 	//if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_refreshViewAni(int tep_cur_frame_xh)
@@ -446,8 +465,8 @@ void PipelineObjPlotForm::init_saveImage_prop_data()
 {
 	/*saveImage_prop_data.image_wid =ui->qvtkWidget->width();
 	saveImage_prop_data.image_hei = ui->qvtkWidget->height();*/
-	saveImage_prop_data.image_wid = ui->qvtkWidget->GetRenderWindow()->GetScreenSize()[0];
-	saveImage_prop_data.image_hei = ui->qvtkWidget->GetRenderWindow()->GetScreenSize()[1];
+	saveImage_prop_data.image_wid = renderWindow->GetScreenSize()[0];
+	saveImage_prop_data.image_hei = renderWindow->GetScreenSize()[1];
 	saveImage_prop_data.flag_saveImage = false;
 	saveImage_prop_data.saveImage_fileName = "";
 	saveImage_prop_data.flag_savePov = false;
@@ -463,7 +482,7 @@ void PipelineObjPlotForm::set_saveImage_prop_data(saveImage_prop tep_prop)
 
 void PipelineObjPlotForm::slot_saveImage()
 {
-	while (ui->qvtkWidget->GetRenderWindow()->CheckInRenderStatus());
+	while (renderWindow->CheckInRenderStatus());
 	QThread::msleep(100);
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
 	QFileInfo tep_info(saveImage_prop_data.saveImage_fileName);
@@ -477,7 +496,7 @@ void PipelineObjPlotForm::slot_saveImage()
 	if (saveImage_prop_data.flag_saveImage && (saveImage_prop_data.saveImage_fileName != ""))
 	{
 		vtkSmartPointer<vtkWindowToImageFilter> filter = vtkSmartPointer<vtkWindowToImageFilter>::New();
-		filter->SetInput(ui->qvtkWidget->GetRenderWindow());
+		filter->SetInput(renderWindow);
 		filter->Modified();
 		if (tep_info.suffix() == "png")
 		{
@@ -534,7 +553,7 @@ void PipelineObjPlotForm::slot_saveImage()
 			//resize->SetOutputDimensions(saveImage_prop_data.image_wid, saveImage_prop_data.image_hei, -1);
 			resize->Update();
 			vtkSmartPointer<vtkGL2PSExporter> exp = vtkSmartPointer<vtkGL2PSExporter>::New();
-			exp->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
+			exp->SetRenderWindow(renderWindow);
 			exp->SetFileFormatToEPS();
 			exp->SetSortToSimple();
 			exp->DrawBackgroundOn();
@@ -551,7 +570,7 @@ void PipelineObjPlotForm::slot_saveImage()
 	if (saveImage_prop_data.flag_savePov && (saveImage_prop_data.savePov_fileName != ""))
 	{
 		vtkSmartPointer<disvtkPOVExporter> povexp =vtkSmartPointer<disvtkPOVExporter>::New();
-		povexp->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
+		povexp->SetRenderWindow(renderWindow);
 		povexp->set_origin(pov_propData.mOrigin);
 		povexp->set_disPosition(pov_propData.pos);
 		povexp->set_disAndangle(pov_propData.disAndang);
@@ -648,7 +667,7 @@ void PipelineObjPlotForm::slot_delPipelineObj(PipelineObject* pipeObj)
 		}
 	}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_refreshView(QList<PipelineObject*> mPipelineObjs)
@@ -760,11 +779,11 @@ void PipelineObjPlotForm::slot_refreshView(QList<PipelineObject*> mPipelineObjs)
 		flag_refresh_forAni = false;
 	if (flag_selfAdaptation)
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		flag_selfAdaptation = false;
 	}
-	ui->qvtkWidget->GetRenderWindow()->Render();
-	while (ui->qvtkWidget->GetRenderWindow()->CheckInRenderStatus());
+	renderWindow->Render();
+	while (renderWindow->CheckInRenderStatus());
 	//script add for user refresh custom tree
 	sig_script_user_custom_refresh_pipelineTree();
 	//script add for user refresh custom tree
@@ -936,7 +955,7 @@ void PipelineObjPlotForm::slot_saveAnimate()
 				avi_writer->SetFileName(avi_name.toLocal8Bit().data());
 				avi_writer->SetRate(aniSetting_data->frame_rate);
 				vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter = vtkSmartPointer<vtkWindowToImageFilter>::New();
-				windowToImageFilter->SetInput(ui->qvtkWidget->GetRenderWindow());
+				windowToImageFilter->SetInput(renderWindow);
 				windowToImageFilter->Modified();
 				vtkSmartPointer<vtkImageResize> resize = vtkSmartPointer<vtkImageResize>::New();
 				resize->SetInputConnection(windowToImageFilter->GetOutputPort());
@@ -950,7 +969,7 @@ void PipelineObjPlotForm::slot_saveAnimate()
 			else
 			{
 				vtkSmartPointer<vtkWindowToImageFilter> windowToImageFilter = vtkSmartPointer<vtkWindowToImageFilter>::New();
-				windowToImageFilter->SetInput(ui->qvtkWidget->GetRenderWindow());
+				windowToImageFilter->SetInput(renderWindow);
 				windowToImageFilter->Modified();
 				vtkSmartPointer<vtkImageResize> resize = vtkSmartPointer<vtkImageResize>::New();
 				resize->SetInputConnection(windowToImageFilter->GetOutputPort());
@@ -987,7 +1006,7 @@ void PipelineObjPlotForm::savePicutreForAvi(QString img_name)
 	tep_name += aniSetting_data->saveImage_format;
 
 	vtkSmartPointer<vtkWindowToImageFilter> filter = vtkSmartPointer<vtkWindowToImageFilter>::New();
-	filter->SetInput(ui->qvtkWidget->GetRenderWindow());
+	filter->SetInput(renderWindow);
 	filter->Modified();
 	if (aniSetting_data->saveImage_format == "png")
 	{
@@ -1031,7 +1050,7 @@ void PipelineObjPlotForm::savePicutreForAvi(QString img_name)
 		//resize->SetOutputDimensions(aniSetting_data->image_wid, aniSetting_data->image_hei, -1);
 		resize->Update();
 		vtkSmartPointer<vtkGL2PSExporter> exp =vtkSmartPointer<vtkGL2PSExporter>::New();
-		exp->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
+		exp->SetRenderWindow(renderWindow);
 		exp->SetFileFormatToEPS();
 		exp->SetSortToSimple();
 		exp->DrawBackgroundOn();
@@ -1053,7 +1072,7 @@ void PipelineObjPlotForm::savePovForAvi(QString pov_name)
 	tep_name += pov_name;
 	tep_name += ".pov";
 	vtkSmartPointer<vtkWindowToImageFilter> filter = vtkSmartPointer<vtkWindowToImageFilter>::New();
-	filter->SetInput(ui->qvtkWidget->GetRenderWindow());
+	filter->SetInput(renderWindow);
 	filter->Modified();
 	vtkSmartPointer<vtkImageResize> resize = vtkSmartPointer<vtkImageResize>::New();
 	resize->SetInputConnection(filter->GetOutputPort());
@@ -1061,7 +1080,7 @@ void PipelineObjPlotForm::savePovForAvi(QString pov_name)
 	vtkSmartPointer<disvtkPOVExporter> povexp =
 		vtkSmartPointer<disvtkPOVExporter>::New();
 	povexp->SetFileName(tep_name.toLocal8Bit().data());
-	povexp->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
+	povexp->SetRenderWindow(renderWindow);
 	povexp->set_origin(pov_propData.mOrigin);
 	povexp->set_disPosition(pov_propData.pos);
 	povexp->set_disAndangle(pov_propData.disAndang);
@@ -1084,7 +1103,7 @@ void PipelineObjPlotForm::savePovForAvi(QString pov_name)
 void PipelineObjPlotForm::slot_update_opacity(PipelineObject * tep_pipelineObj)
 {
     tep_pipelineObj->SetOpacity();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
@@ -1098,7 +1117,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dSlice_DataSource)
@@ -1110,7 +1129,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dClip_DataSource)
@@ -1122,7 +1141,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dContour_DataSource)
@@ -1134,7 +1153,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dVector_DataSource)
@@ -1146,7 +1165,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dReflection_DataSource)
@@ -1158,7 +1177,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dCalculator_DataSource)
@@ -1170,7 +1189,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dSmooth_DataSource)
@@ -1182,7 +1201,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else if (tep_pipelineObj->GetObjectType() == dStreamLine_DataSource)
@@ -1194,7 +1213,7 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 		else
 		{
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 }
@@ -1202,44 +1221,44 @@ void PipelineObjPlotForm::slot_update_color(PipelineObject * tep_pipelineObj)
 void PipelineObjPlotForm::slot_update_lineWidth(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetLineWidth();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_pointSize(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetPointSize(); 
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_translate(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetTranslate();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_origin(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetOrigin();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_scale(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetScale();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_orientation(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetOrientation();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_representation(PipelineObject * tep_pipelineObj)
 {
 	tep_pipelineObj->SetRenderMode();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_axes_visible(bool checked)
@@ -1249,68 +1268,68 @@ void PipelineObjPlotForm::slot_update_axes_visible(bool checked)
 	else
 		m_orientationMarkerWidget->Off();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::slot_update_camera_parallel(bool checked)
 {
 	if (checked)
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOn();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOn();
 	else
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOff();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->ParallelProjectionOff();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_specular(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingSpecular();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_diffuse(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingDiffuse();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_ambient(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingAmbient();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_specularPower(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingSpecularPower();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_specularColor(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingSpecularCorlor();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_solidColor(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetSolidCorlor();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_edgeColor(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetEdgeCorlor();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_interpolation(PipelineObject *tep_pipelineObj)
 {
 	tep_pipelineObj->SetLightingInterpolation();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_actor_visible_plotForm(PipelineObject* pipeObj,bool flag_change)
@@ -1370,7 +1389,7 @@ void PipelineObjPlotForm::slot_update_actor_visible_plotForm(PipelineObject* pip
 		((FilterClip*)pipeObj)->plane_visible(pipeObj->mPipeLineObjProp.plane_propData.flag_plane);
 	}
 	if (flag_change)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	flag_render = true;
 }
 
@@ -1381,7 +1400,7 @@ void PipelineObjPlotForm::slot_update_planeOrigin(PipelineObject *tep_pipelineOb
 	else if (tep_pipelineObj->GetObjectType() == dClip_DataSource)
 		((FilterClip*)tep_pipelineObj)->slot_changeOrigins();	
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_planeNormal(PipelineObject *tep_pipelineObj)
@@ -1391,7 +1410,7 @@ void PipelineObjPlotForm::slot_update_planeNormal(PipelineObject *tep_pipelineOb
 	else if (tep_pipelineObj->GetObjectType() == dClip_DataSource)
 		((FilterClip*)tep_pipelineObj)->slot_changeNormals();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_planeVis(PipelineObject *tep_pipelineObj)
@@ -1401,7 +1420,7 @@ void PipelineObjPlotForm::slot_update_planeVis(PipelineObject *tep_pipelineObj)
 	else if (tep_pipelineObj->GetObjectType() == dClip_DataSource)
 		((FilterClip*)tep_pipelineObj)->plane_visible(tep_pipelineObj->mPipeLineObjProp.plane_propData.flag_plane);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_update_planeCameraNormal(PipelineObject *tep_pipelineObj)
@@ -1411,7 +1430,7 @@ void PipelineObjPlotForm::slot_update_planeCameraNormal(PipelineObject *tep_pipe
 	else if (tep_pipelineObj->GetObjectType() == dClip_DataSource)
 		((FilterClip*)tep_pipelineObj)->slot_changeCameraNormals();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_finish_aniThread(bool flag)
@@ -1535,10 +1554,10 @@ void PipelineObjPlotForm::slot_update_cgns_plot(PipelineObject* pipeObj,int cgns
 	}
 	
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	tepStr = QString("%1 cgns render times---%2").arg(pipeObj->GetName()).arg(cgns_times);
 	emit sig_cgns_animnate_times(tepStr);
-	while (ui->qvtkWidget->GetRenderWindow()->CheckInRenderStatus());
+	while (renderWindow->CheckInRenderStatus());
 	g_aniThread_mutex.unlock();
 }
 
@@ -1791,7 +1810,7 @@ void PipelineObjPlotForm::generate_scalarBarWidget(NumericSrcObject *tep_obj)
 			tep_scalarBarWidget->GetBorderRepresentation()->SetPosition(0.05, 0.05);
 			tep_scalarBarWidget->GetBorderRepresentation()->SetPosition2(0.08, 0.45);
 			tep_scalarBarWidget->GetScalarBarActor()->SetLookupTable(tep_lookupTable);
-			tep_scalarBarWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+			tep_scalarBarWidget->SetInteractor(renderWindow->GetInteractor());
 			tep_scalarBarWidget->Off();
 			tep_obj->scalarBar_widgetMap.insert(tep_colorColumn, tep_scalarBarWidget);
 			//tep_obj->mPipeLineObjProp.pipelineObj_base_propData.scalarBar_showMap.insert(tep_colorColumn, false);
@@ -1826,7 +1845,7 @@ void PipelineObjPlotForm::generate_scalarBarWidget_GlyphVector(NumericSrcObject 
 	tep_scalarBarWidget->GetBorderRepresentation()->SetPosition(0.05, 0.05);
 	tep_scalarBarWidget->GetBorderRepresentation()->SetPosition2(0.08, 0.45);
 	//tep_scalarBarWidget->GetScalarBarActor()->SetLookupTable(tep_lookupTable);
-	tep_scalarBarWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+	tep_scalarBarWidget->SetInteractor(renderWindow->GetInteractor());
 	tep_scalarBarWidget->Off();
 	tep_obj->scalarBar_widgetMap.insert("GlyphVector", tep_scalarBarWidget);
 	if (!tep_obj->mPipeLineObjProp.pipelineObj_base_propData.scalarBar_showMap.contains("GlyphVector"))
@@ -1865,7 +1884,7 @@ void PipelineObjPlotForm::generate_scalarBarWidget_calculatorResult(NumericSrcOb
 	tep_scalarBarWidget->GetBorderRepresentation()->SetPosition(0.05, 0.05);
 	tep_scalarBarWidget->GetBorderRepresentation()->SetPosition2(0.08, 0.45);
 	//tep_scalarBarWidget->GetScalarBarActor()->SetLookupTable(tep_lookupTable);
-	tep_scalarBarWidget->SetInteractor(ui->qvtkWidget->GetRenderWindow()->GetInteractor());
+	tep_scalarBarWidget->SetInteractor(renderWindow->GetInteractor());
 	tep_scalarBarWidget->Off();
 	tep_obj->scalarBar_widgetMap.insert("CalculatorResult", tep_scalarBarWidget);
 	if (!tep_obj->mPipeLineObjProp.pipelineObj_base_propData.scalarBar_showMap.contains("CalculatorResult"))
@@ -1978,7 +1997,7 @@ void PipelineObjPlotForm::slot_update_scalarBar(PipelineObject *tep_pipelineObj)
 		}
 	}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::del_obj_scalarBarWidget(PipelineObject *pipeObj)
 {
@@ -2008,7 +2027,7 @@ void PipelineObjPlotForm::del_obj_scalarBarWidget(PipelineObject *pipeObj)
 	}
 	
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_offPlaneWidget(PipelineObject *pipeObj)
@@ -2054,7 +2073,7 @@ void PipelineObjPlotForm::setCameraPara_Position(double pos[3])
 		return;
 	tep_camera->SetPosition(pos[0], pos[1], pos[2]);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::setCameraPara_FocalPoint(double focalPoint[3])
@@ -2064,7 +2083,7 @@ void PipelineObjPlotForm::setCameraPara_FocalPoint(double focalPoint[3])
 		return;
 	tep_camera->SetFocalPoint(focalPoint[0], focalPoint[1], focalPoint[2]);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::setCameraPara_ClippingRange(double clippingRange[2])
@@ -2074,7 +2093,7 @@ void PipelineObjPlotForm::setCameraPara_ClippingRange(double clippingRange[2])
 		return;
 	tep_camera->SetClippingRange(clippingRange[0], clippingRange[1]);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::setCameraPara_ViewUp(double viewup[3])
@@ -2084,7 +2103,7 @@ void PipelineObjPlotForm::setCameraPara_ViewUp(double viewup[3])
 		return;
 	tep_camera->SetViewUp(viewup[0], viewup[1], viewup[2]);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::setCameraPara_ViewAngle(double angle)
@@ -2094,7 +2113,7 @@ void PipelineObjPlotForm::setCameraPara_ViewAngle(double angle)
 		return;
 	tep_camera->SetViewAngle(angle);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::setCameraPara_ParalellScale(double scale)
 {
@@ -2103,7 +2122,7 @@ void PipelineObjPlotForm::setCameraPara_ParalellScale(double scale)
 		return;
 	tep_camera->SetParallelScale(scale);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::setCameraPara_Reset()
 {
@@ -2112,7 +2131,7 @@ void PipelineObjPlotForm::setCameraPara_Reset()
 		return;
 	renderer->ResetCamera();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::setCameraPara_Zoom(double zoom)
 {
@@ -2121,7 +2140,7 @@ void PipelineObjPlotForm::setCameraPara_Zoom(double zoom)
 		return;
 	tep_camera->Zoom(zoom); 
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::setCameraPara_SelfAdaptation(bool flag)
 {
@@ -2129,94 +2148,94 @@ void PipelineObjPlotForm::setCameraPara_SelfAdaptation(bool flag)
 }
 void PipelineObjPlotForm::resetView()
 {
-	ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
-	ui->qvtkWidget->GetRenderWindow()->Render();
+	renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
+	renderWindow->Render();
 }
 void PipelineObjPlotForm::setViewValueDirection(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3)
 {
-	ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(x1, x2, x3);
-	ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(y1, y2, y3);
-	ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(z1, z2, z3);
-	ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+	renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(x1, x2, x3);
+	renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(y1, y2, y3);
+	renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(z1, z2, z3);
+	renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::setViewDirection(QString val)
 {
 	if (val.toLower() == "xplus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(5000, 0, 0);                               
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(5000, 0, 0);                               
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	else if (val.toLower() == "xminus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(-5000, 0, 0);                               
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(-5000, 0, 0);                               
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	else if (val.toLower() == "yplus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 5000, 0);                               
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 5000, 0);                               
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	else if (val.toLower() == "yminus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, -5000, 0);                               
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 0, 1);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, -5000, 0);                               
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	else if (val.toLower() == "zplus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 1, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 0, 5000);                               
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 1, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 0, 5000);                               
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	else if (val.toLower() == "zminus")
 	{
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 1, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 0, -5000);                             
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
-		ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetViewUp(0, 1, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetPosition(0, 0, -5000);                             
+		renderWindow->GetRenderers()->GetFirstRenderer()->GetActiveCamera()->SetFocalPoint(0, 0, 0);
+		renderWindow->GetRenderers()->GetFirstRenderer()->ResetCamera();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 }
 
 bool PipelineObjPlotForm::load_objFile(NumericSrcObject* NumericSrcObj, QString obj_fileName)
 {
-	int num_actors1 = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors()->GetNumberOfItems();
+	int num_actors1 = renderWindow->GetRenderers()->GetFirstRenderer()->GetActors()->GetNumberOfItems();
 	QString mtl_fileName = obj_fileName;mtl_fileName.replace(".obj", ".mtl");
 	if (NumericSrcObj->model_ptr==NULL)
 		NumericSrcObj->model_ptr = vtkAssembly::New();
 	vtkSmartPointer<vtkOBJImporter> model_importer = vtkSmartPointer<vtkOBJImporter>::New();
 	model_importer->SetFileName(obj_fileName.toStdString().data());
 	model_importer->SetFileNameMTL(mtl_fileName.toStdString().data());
-	model_importer->SetRenderWindow(ui->qvtkWidget->GetRenderWindow());
+	model_importer->SetRenderWindow(renderWindow);
 	model_importer->Update();
-	ui->qvtkWidget->GetRenderWindow()->Render();
-	vtkSmartPointer<vtkActorCollection> cur_actor_list = ui->qvtkWidget->GetRenderWindow()->GetRenderers()->GetFirstRenderer()->GetActors();
+	renderWindow->Render();
+	vtkSmartPointer<vtkActorCollection> cur_actor_list = renderWindow->GetRenderers()->GetFirstRenderer()->GetActors();
 	cur_actor_list->InitTraversal();
 	int num_actors2 = cur_actor_list->GetNumberOfItems();
 	int num_actors_for_obj = num_actors2 - num_actors1;
@@ -2231,7 +2250,7 @@ bool PipelineObjPlotForm::load_objFile(NumericSrcObject* NumericSrcObj, QString 
 		renderer->RemoveActor(tep_actor);
 	}
 	//renderer->AddActor(NumericSrcObj->model_ptr);
-	//ui->qvtkWidget->GetRenderWindow()->Render();
+	//renderWindow->Render();
 	//NumericSrcObj->flag_exist_actors = true;
 	return true;
 }
@@ -2275,7 +2294,7 @@ void PipelineObjPlotForm::disconnect_pick()
 		}
 	}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::set_pickPointMode()
@@ -2288,7 +2307,7 @@ void PipelineObjPlotForm::set_pickPointMode()
 	vtk_mousePicker_connector->Connect(renderWindowInteractor, vtkCommand::LeftButtonPressEvent, this, SLOT(slot_pointPicker()), 0, 1.0);
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::set_pickCellMode()
@@ -2301,7 +2320,7 @@ void PipelineObjPlotForm::set_pickCellMode()
 	vtk_mousePicker_connector->Connect(renderWindowInteractor, vtkCommand::LeftButtonPressEvent, this, SLOT(slot_cellPicker()), 0, 1.0);
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::set_pickCurvePointMode()
@@ -2314,7 +2333,7 @@ void PipelineObjPlotForm::set_pickCurvePointMode()
 	vtk_mousePicker_connector->Connect(renderWindowInteractor, vtkCommand::LeftButtonPressEvent, this, SLOT(slot_curvePointPicker()), 0, 1.0);
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::set_pickCurveCellMode()
@@ -2327,7 +2346,7 @@ void PipelineObjPlotForm::set_pickCurveCellMode()
 	vtk_mousePicker_connector->Connect(renderWindowInteractor, vtkCommand::LeftButtonPressEvent, this, SLOT(slot_curveCellPicker()), 0, 1.0);
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::set_pickAreaMode(int flag, bool flag_viewInteraction)
@@ -2365,7 +2384,7 @@ void PipelineObjPlotForm::set_pickAreaMode(int flag, bool flag_viewInteraction)
 	}
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	pick_Data.pick_pipelineObj = NULL;
 	if (pick_Data.pick_areaCell == NULL)
 		pick_Data.pick_areaCell = vtkIdList::New();
@@ -2578,7 +2597,7 @@ void PipelineObjPlotForm::draw_PickPoint(PipelineObject * tep_pipelineObj, vtkId
 	//pick_Data.pick_actor = selectedActor;
 	renderer->AddActor(pick_Data.pick_actor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	emit sig_script_refresh_pickData(pick_Data);
 }
 
@@ -2671,11 +2690,11 @@ void PipelineObjPlotForm::draw_PickCell(PipelineObject * tep_pipelineObj, vtkIdT
 	}
 	//pick_Data.pick_actor = selectedActor;
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	emit sig_script_refresh_pickData(pick_Data);
 }
 
-QVTKWidget *PipelineObjPlotForm::get_vtkWidget()
+QWidget *PipelineObjPlotForm::get_vtkWidget()
 {
 	return ui->qvtkWidget;
 }
@@ -2757,7 +2776,7 @@ void PipelineObjPlotForm::draw_PickArea(PipelineObject * tep_pipelineObj, int fl
 	}
 	renderer->AddActor(pick_Data.pick_actor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::del_pipelineObj_pickPlot(PipelineObject* pipeObj)
@@ -2829,7 +2848,7 @@ void PipelineObjPlotForm::clear_pickPlot()
 	pick_Data.pick_pipelineObj = NULL;	
 	ui->qvtkWidget->setCursor(Qt::ArrowCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::update_consoleWidget(QString str)
@@ -2932,7 +2951,7 @@ void PipelineObjPlotForm::slot_volume_scalarBarEdit(PipelineObject* tep_pipeObj,
 	//	}
 	//}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 bool PipelineObjPlotForm::updatePipelineObjeDataSet(PipelineObject* tep_pipeObj,QString tep_filename)
@@ -2962,7 +2981,7 @@ bool PipelineObjPlotForm::updatePipelineObjeDataSet(PipelineObject* tep_pipeObj,
 	{
 		((NumericSrcObject*)tep_pipeObj)->generate_actors();
 		if (flag_render)
-			ui->qvtkWidget->GetRenderWindow()->Render();
+			renderWindow->Render();
 	}
 	return flag;
 }
@@ -2985,7 +3004,7 @@ void PipelineObjPlotForm::func_set_rubberZoom(bool flag_viewInteraction)
 	ui->qvtkWidget->setCursor(Qt::CrossCursor);
 	connect(rubberZoom_style, SIGNAL(sig_restoreInteractor()), this, SLOT(slot_restoreInteractor()));
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::func_set_actorOperate(ActorOperateType type, bool flag_viewInteraction)
@@ -3033,7 +3052,7 @@ void PipelineObjPlotForm::func_set_actorOperate(ActorOperateType type, bool flag
 
 	}	
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 void PipelineObjPlotForm::slot_movePosition(double *pos)
 {
@@ -3069,7 +3088,7 @@ void PipelineObjPlotForm::slot_restoreInteractor()
 		areaPick_style = NULL;
 	}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::func_viewInteraction(bool checked)
@@ -3080,7 +3099,7 @@ void PipelineObjPlotForm::func_viewInteraction(bool checked)
 		renderWindowInteractor->Disable();
 	ui->qvtkWidget->setCursor(Qt::ArrowCursor);
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 
 void PipelineObjPlotForm::slot_cameraDo(int pos)
@@ -3109,7 +3128,7 @@ void PipelineObjPlotForm::slot_cameraDo(int pos)
 		tep_camera->ParallelProjectionOff();
 	}
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	mouse_style->set_cur_pos(pos);
 	slot_update_UndoReDoButton(pos);
 }
@@ -3149,7 +3168,7 @@ void PipelineObjPlotForm::slot_update_cubeAxes(PipelineObject *tep_pipelineObj)
 			renderer->AddActor(tep_pipelineObj->get_axesActor());
 			tep_pipelineObj->get_axesActor()->SetCamera(renderer->GetActiveCamera());
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 	else
@@ -3158,7 +3177,7 @@ void PipelineObjPlotForm::slot_update_cubeAxes(PipelineObject *tep_pipelineObj)
 		{
 			renderer->RemoveActor(tep_pipelineObj->get_axesActor());
 			if (flag_render)
-				ui->qvtkWidget->GetRenderWindow()->Render();
+				renderWindow->Render();
 		}
 	}
 }
@@ -3207,7 +3226,7 @@ void PipelineObjPlotForm::slot_update_glyphVector(PipelineObject *tep_pipeObj)
 	if (tep_pipeObj->mPipeLineObjProp.pipelineObj_base_propData.mScalarBarVisible)
 		slot_update_scalarBar(tep_obj);
 	else
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 	
 }
 void PipelineObjPlotForm::func_update_scalarBarPosition(QList<PipelineObject*> mPipelineObjs)
@@ -3241,6 +3260,6 @@ void PipelineObjPlotForm::func_update_scalarBarPosition(QList<PipelineObject*> m
 		}
 	}	
 	if (flag_render)
-		ui->qvtkWidget->GetRenderWindow()->Render();
+		renderWindow->Render();
 }
 

@@ -43,6 +43,7 @@ namespace DataProperty
 		ParameterBase::copy(ori, valueOnly);
 
 		ParameterString* p = dynamic_cast<ParameterString*>(ori);
+		if (p == nullptr) return;
 		QString value = p->getValue();
 		this->setValue(value);
 	}

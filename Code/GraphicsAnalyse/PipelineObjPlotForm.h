@@ -4,15 +4,14 @@
 VTK_MODULE_INIT(vtkRenderingOpenGL2);
 VTK_MODULE_INIT(vtkInteractionStyle);
 VTK_MODULE_INIT(vtkRenderingFreeType);
-VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
+//VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
 VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
 VTK_MODULE_INIT(vtkRenderingGL2PSOpenGL2);
 //VTK_MODULE_INIT(vtkIOExportOpenGL2);
-
+//vtkRender
 #include "qobject.h"
 #include <QWidget>
 #include "global.h"
-#include <QVTKWidget.h>
 #include <QDir>
 #include <qvector.h>
 #include <qmenu.h>
@@ -131,6 +130,12 @@ VTK_MODULE_INIT(vtkRenderingGL2PSOpenGL2);
 #include "LoadActionFile.h"//20180516
 #include "exportfiledialog.h"
 #include "exportFileThread.h"
+#include <vtkVersionMacros.h>
+#if(VTK_MAJOR_VERSION < 9)
+#include <QVTKWidget.h>
+#else
+#include <QVTKOpenGLNativeWidget.h>
+#endif
 class vtkAVIWriter;
 
 //#include "PipelineActor.h"
@@ -187,7 +192,7 @@ public:
 	void del_pipelineObj_pickPlot(PipelineObject* pipeObj);
 	void update_consoleWidget(QString str);
 	void set_consoleWidget(consoleCmdDockWidget *tep_wid);
-	QVTKWidget *get_vtkWidget();
+	QWidget *get_vtkWidget();
 	void clear_pickPlot();
 	void draw_PickPoint(PipelineObject * tep_pipelineObj, vtkIdType pick_Id);
 	void draw_PickCell(PipelineObject * tep_pipelineObj, vtkIdType pick_Id);
@@ -326,6 +331,7 @@ private:
 	QMutex plot_mutex;
 	Ui::PipelineObjPlotForm *ui;
 
+	vtkRenderWindow* renderWindow{};
 	vtkSmartPointer<vtkRenderer> renderer;
 	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor;
 	MyInteractorStyle* mouse_style; //vtkInteractorStyleTrackballCamera* mouse_style;

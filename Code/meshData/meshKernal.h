@@ -8,6 +8,8 @@
 #include "DataProperty/DataBase.h"
 #include <vtkSmartPointer.h>
 #include <QString>
+#include <QColor>
+#include <QPair>
 
 class vtkDataSet;
 class vtkCell;
@@ -59,6 +61,16 @@ namespace MeshData
 		void writeBinaryFile(QDataStream* dataStream);
 		//读入二进制文件
 		void readBinaryFile(QDataStream* dataStream);
+		//设置gmsh网格划分属性
+		void setGmshSetting(DataProperty::DataBase* data);
+		//获取gmsh网格划分属性
+		DataProperty::DataBase* getGmshSetting();
+		//设置特有颜色
+		void setSpecificColor(bool enable ,QColor color);
+		void setSpecificColor(bool enable, double r,double g,double b,double alpha = 1.0);
+
+		//获取特有颜色
+		QColor getSpecificColor(bool& enable);
 
 	private:
 		///设置节点ID偏移量，为读入工程文件调用，谨慎修改
@@ -73,6 +85,9 @@ namespace MeshData
 		int _cellIDOffset{ -1 };
 		vtkSmartPointer<vtkDataSet> _mesh{};
 		int _dimension{ 3 };
+		QPair<bool, QColor> _specificColor = QPair<bool, QColor>(false,QColor());
+		DataProperty::DataBase* _gmshSetting{};//gmsh网格划分的属性
+
 
 	private:
 		static int idOffset;

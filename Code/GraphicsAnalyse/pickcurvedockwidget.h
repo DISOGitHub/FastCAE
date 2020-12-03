@@ -1,7 +1,7 @@
 #ifndef PICKCURVEDOCKWIDGET_H
 #define PICKCURVEDOCKWIDGET_H
 #include <QDockWidget>
-#include "curve_mainwindow.h"
+#include "CurveAnalyse/curve_mainwindow.h"
 class pickCurveDockWidget : public QDockWidget
 {
     Q_OBJECT

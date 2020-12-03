@@ -16,12 +16,12 @@
 
 namespace MeshData
 {
-	VTKdataExchange::VTKdataExchange(const QString& fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId) :
+	VTKdataExchange::VTKdataExchange(const QString& fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId) :
 		MeshThreadBase(fileName, operation, mw),
 		_fileName(fileName),
 		_meshData(MeshData::getInstance()),
 		_operation(operation),
-		_writeFileKid(KernalId)
+		_modelId(modelId)
 	{
 
 	}
@@ -74,7 +74,7 @@ namespace MeshData
 
 	vtkDataSet* VTKdataExchange::readVTK()
 	{
-		if (!_threadRuning) return false;
+		if (!_threadRuning) return nullptr;
 		QTextCodec *codec = QTextCodec::codecForName("GB18030");
 		QByteArray ba = codec->fromUnicode(_fileName);
 		_vtkReader = vtkSmartPointer<vtkDataSetReader>::New();
@@ -86,7 +86,7 @@ namespace MeshData
 
 	vtkDataSet* VTKdataExchange::readSTL()
 	{
-		if (!_threadRuning) return false;
+		if (!_threadRuning) return nullptr;
 		QTextCodec *codec = QTextCodec::codecForName("GB18030");
 		QByteArray ba = codec->fromUnicode(_fileName);
 		_stlReader = vtkSmartPointer<vtkSTLReader>::New();
@@ -98,7 +98,7 @@ namespace MeshData
 
 	vtkDataSet* VTKdataExchange::readTecplot()
 	{
-		if (!_threadRuning) return false;
+		if (!_threadRuning) return nullptr;
 		QTextCodec *codec = QTextCodec::codecForName("GB18030");
 		QByteArray ba = codec->fromUnicode(_fileName);
 		_tecplotReader = vtkSmartPointer<vtkTecplotReader>::New();
@@ -125,9 +125,9 @@ namespace MeshData
 		QByteArray ba = codec->fromUnicode(_fileName);
 		vtkUnstructuredGrid* ungird = nullptr;
 		vtkSmartPointer<vtkAppendFilter> filter = vtkSmartPointer<vtkAppendFilter>::New();
-		if (_writeFileKid > 0)
+		if (_modelId > 0)
 		{
-			MeshKernal* kernal = _meshData->getKernalByID(_writeFileKid);
+			MeshKernal* kernal = _meshData->getKernalByID(_modelId);
 			if (kernal != nullptr)
 			{
 				vtkDataSet* dataset = kernal->getMeshData();

@@ -135,7 +135,17 @@
         <file>QUI/icon/FastCAEFrame.png</file>
         <file>QUI/icon/ruler.png</file>
         <file>QUI/geometry/split.png</file>
-		<file>QUI/geometry/select.png</file>
+        <file>QUI/geometry/select.png</file>
+        <file>QUI/geometry/geoFillHole.png</file>
+        <file>QUI/geometry/geoFixSurface.png</file>
+        <file>QUI/geometry/geoRemoveFace.png</file>
+        <file>QUI/geometry/geoSSplit.png</file>
+        <file>QUI/geometry/geoMeasure.png</file>
+        <file>QUI/icon/geoComponent.png</file>
+        <file>QUI/icon/meshComponent.png</file>
+        <file>QUI/icon/meshFilter.png</file>
+        <file>QUI/icon/meshFluid.png</file>
+        <file>QUI/icon/meshmodeling.png</file>
     </qresource>
     <qresource prefix="/Beauty">
         <file>QUI/beauty/radio_selected.png</file>
@@ -157,6 +167,6 @@
         <file>QUI/beauty/checked.png</file>
         <file>QUI/beauty/tree_item_checked.png</file>
         <file>QUI/beauty/tree_item_unchecked.png</file>
-        <file>QUI/beauty/Sticker_Star.png</file> 
+        <file>QUI/beauty/Sticker_Star.png</file>
     </qresource>
 </RCC>

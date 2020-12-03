@@ -47,10 +47,11 @@ namespace ParaClassFactory
 			{
 			case BCBase::Pressure:
 				bc = new BCBase::BCPressure;
+				bc->setBCType(BCBase::Pressure);
 				break;
 			case BCBase::Velocity:
 				bc = new BCBase::BCVectorBase;
-				bc->setType(BCBase::Velocity);
+				bc->setBCType(BCBase::Velocity);
 				(dynamic_cast<BCBase::BCVectorBase*>(bc))->setVariableName("VelocityX", "VelocityY", "VelocityZ");
 				break;
 			case BCBase::Temperature:
@@ -58,45 +59,46 @@ namespace ParaClassFactory
 				break;
 			case BCBase::Displacement:
 				bc = new BCBase::BCDisplacement;
+				bc->setBCType(BCBase::Displacement);
 				break;
 			case BCBase::FixSupport:
 				bc = new BCBase::BCBase;
-				bc->setType(BCBase::FixSupport);
+				bc->setBCType(BCBase::FixSupport);
 				break;
 			case BCBase::Inlet:
 				bc = new BCBase::BCBase;
-				bc->setType(BCBase::Inlet);
+				bc->setBCType(BCBase::Inlet);
 				break;
 			case BCBase::Outlet:
 				bc = new BCBase::BCBase;
-				bc->setType(BCBase::Outlet);
+				bc->setBCType(BCBase::Outlet);
 				break;
 			case BCBase::Symmetry:
 				bc = new BCBase::BCBase;
-				bc->setType(BCBase::Symmetry);
+				bc->setBCType(BCBase::Symmetry);
 				break;
 			case  BCBase::Wall:
 				bc = new BCBase::BCBase;
-				bc->setType(BCBase::Wall);
+				bc->setBCType(BCBase::Wall);
 				break;;
 			case  BCBase::Rotation:
 				bc = new BCBase::BCScalarBase;
-				bc->setType(BCBase::Rotation);
+				bc->setBCType(BCBase::Rotation);
 				(dynamic_cast<BCBase::BCScalarBase*>(bc))->setVariableName("Rotation");
 				break;
 			case  BCBase::AngleVelocity:
 				bc = new BCBase::BCScalarBase;
-				bc->setType(BCBase::AngleVelocity);
+				bc->setBCType(BCBase::AngleVelocity);
 				(dynamic_cast<BCBase::BCScalarBase*>(bc))->setVariableName("AngleVelocity");
 				break;
 			case  BCBase::AngleAcceleration:
 				bc = new BCBase::BCScalarBase;
-				bc->setType(BCBase::AngleAcceleration);
+				bc->setBCType(BCBase::AngleAcceleration);
 				(dynamic_cast<BCBase::BCScalarBase*>(bc))->setVariableName("AngleAcceleration");
 				break;
 			case  BCBase::Acceleration:
 				bc = new BCBase::BCVectorBase;
-				bc->setType(BCBase::Acceleration);
+				bc->setBCType(BCBase::Acceleration);
 				(dynamic_cast<BCBase::BCVectorBase*>(bc))->setVariableName("AccelerationX", "AccelerationY", "AccelerationZ");
 				break;
 			default:

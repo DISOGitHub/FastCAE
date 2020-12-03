@@ -6,6 +6,7 @@
 #include <BRepTools.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <QFileInfo>
+#include <QDebug>
 
 namespace Geometry
 {
@@ -19,7 +20,7 @@ namespace Geometry
 
 	BREPdataExchange::~BREPdataExchange()
 	{
-
+		//qDebug() << "Brep Delete!" << endl;
 	}
 
 	void BREPdataExchange::run()

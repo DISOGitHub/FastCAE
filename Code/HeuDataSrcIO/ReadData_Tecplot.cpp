@@ -16,7 +16,7 @@
 
 bool ReadData_Tecplot::Read(QString tep_filename)
 {
-	TecPreProcessing(tep_filename);
+//	TecPreProcessing(tep_filename);
 	reader = vtkTecplotReader::New();
 	qDebug() << tep_filename;
 	//ÖÐÎÄÂ·¾¶

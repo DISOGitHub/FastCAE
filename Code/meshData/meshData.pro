@@ -21,7 +21,7 @@ win32{
   Release:OBJECTS_DIR     = ./release/obj
   Release:LIBS +=  \
 	-L../../output/bin -lDataProperty \
- 
+	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 
@@ -30,7 +30,7 @@ win32{
   Debug:OBJECTS_DIR     = ./debug/obj 
   Debug:LIBS +=  \
 	-L../../output/bin_d -lDataProperty \
-   
+	
   message("Windows meshdata build")
   
 }

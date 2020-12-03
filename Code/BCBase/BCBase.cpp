@@ -1,77 +1,97 @@
 #include "BCBase.h"
 #include "meshData/meshSingleton.h"
 #include "meshData/meshSet.h"
+#include "geometry/GeoComponent.h"
+#include "geometry/geometryData.h"
 #include <QDomElement>
 #include <QDomDocument>
 #include <QDomAttr>
 #include <QObject>
+#include <QDebug>
 
 namespace BCBase
 {
 	BCBase::BCBase()
 	{
+//		setID(++BCID);
 		_mesh = MeshData::MeshData::getInstance();
 		this->setModuleType(DataProperty::Module_BC);
 	}
-	void BCBase::setMeshSetID(int id)
+	void BCBase::bingdingComponentID(int id)
 	{
-		_meshSetID = id;
-		_set = _mesh->getMeshSetByID(id);
-		appendProperty(QObject::tr("Set"), id);
+		QString qType{};
+		auto set = _mesh->getMeshSetByID(id);
+		if (set)
+		{			
+			_component = set;
+			qType = MeshData::MeshSet::setTypeToString(set->getSetType());
+			appendProperty("MeshSetID", id);
+			appendProperty("MeshSetType", qType);
+		}
+		else
+		{
+			auto gc = Geometry::GeometryData::getInstance()->getGeoComponentByID(id);
+			if (!gc)	return;
+			_component = gc;
+			qType = Geometry::GeoComponent::gcTypeToString(gc->getGCType());
+			appendProperty("GeoComponentID", id);
+			appendProperty("GeoComponentType", qType);
+		}
+		_ComponentID = id;
 	}
-	int BCBase::getMeshSetID()
+	int BCBase::getComponentID()
 	{
-		return _meshSetID;
+		return _ComponentID;
 	}
-	MeshData::MeshSet* BCBase::getMeshSet()
+	DataProperty::ComponentBase* BCBase::getComponent()
 	{
-		return _set;
+		return _component;
 	}
-	QString BCBase::getMeshSetName()
+	QString BCBase::getComponentName()
 	{
-		if (_set == nullptr)
+		if (_component == nullptr)
 			return "FFFFFF";
 		else
-			return _set->getName();
+			return _component->getName();
 	}
-	void BCBase::setType(BCType t)
+	void BCBase::setBCType(BCType t)
 	{
-		_type = t;
-		appendProperty(QObject::tr("Type"), BCTypeToString(t));
+		_BCtype = t;
+		appendProperty(QObject::tr("BCType"), BCTypeToString(t));
 	}
-	BCType BCBase::getType()
+	BCType BCBase::getBCType()
 	{
-		return _type;
+		return _BCtype;
 	}
 	QDomElement& BCBase::writeToProjectFile(QDomDocument* doc, QDomElement* parent)
 	{
-//		QDomElement bcele = doc->createElement("BC");
-		QDomAttr setidattr = doc->createAttribute("SetID");
-		setidattr.setValue(QString("%1").arg(_meshSetID));
-		QDomAttr typeattr = doc->createAttribute("Type");
-		QString st = BCTypeToString(_type);
-		typeattr.setValue(st);
-
-		parent->setAttributeNode(setidattr);
-		parent->setAttributeNode(typeattr);
-
-//		parent->appendChild(bcele);
+		QString st = BCTypeToString(_BCtype);
+		parent->setAttribute("BCType", st);
+		QDomElement cpIDEle = doc->createElement("BCComponentInfo");
+		cpIDEle.setAttribute("ComponentID", _ComponentID);
+		parent->appendChild(cpIDEle);
 		return *parent;
 	}
 	void BCBase::readDataFromProjectFile(QDomElement* bcele)
 	{
-		QString sid = bcele->attribute("SetID");
-		this->setMeshSetID(sid.toInt());
-		QString stype = bcele->attribute("Type");
+		QString stype = bcele->attribute("BCType");
 		BCType type = StringToBCType(stype);
-		this->setType(type);
+		setBCType(type);
+		QDomElement cpInfoEle = bcele->elementsByTagName("BCComponentInfo").at(0).toElement();
+		QString sID = cpInfoEle.attribute("ComponentID");
+		bingdingComponentID(sID.toInt());
 	}
 	void BCBase::copy(DataBase* d)
 	{
 		BCBase* data = (BCBase*)d;
-		this->setType(data->getType());
-		this->setMeshSetID(data->getMeshSetID());
-		DataBase::copy(d);
+		this->setBCType(data->getBCType());
+		this->bingdingComponentID(data->getComponentID());
+        DataBase::copy(d);
+		
 	}
-	
+
+	void BCBase::setComponent(DataProperty::ComponentBase* cp)
+	{
+		_component = cp;
+	}
 }

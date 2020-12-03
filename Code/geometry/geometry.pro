@@ -20,7 +20,7 @@ win32{
   Release:OBJECTS_DIR     = ./release/obj
   Release:LIBS	+=	\
 	-L../../output/bin -lDataProperty \
-  
+	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 

@@ -6,7 +6,7 @@
 #include <QHash>
 #include <QList>
 #include "moduleBase/ModuleType.h"
-#include <vtkPolydata.h>
+#include <vtkPolyData.h>
 #include <TopoDS.hxx>
 
 class TopoDS_Shape;
@@ -41,7 +41,7 @@ namespace MainWidget
 		void updateGeoActors();
 		void updateGraphOption();
 		void updateDiaplayStates(Geometry::GeometrySet* s, bool visibility);
-		QMultiHash<Geometry::GeometrySet*, int> getGeoSelectItems();
+		QMultiHash<Geometry::GeometrySet*, int>* getGeoSelectItems();
 		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
 		//
 		bool  findSelectPolydata(vtkActor * ac, QVector<double*> points, vtkPolyData* &findPolydata);
@@ -77,9 +77,13 @@ namespace MainWidget
 	    //高亮显示函数
 	    void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//高亮显示主体
 		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//高亮显示实体
+		vtkPolyData* getSolidPolyData(Geometry::GeometrySet* s, int id);
 		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//高亮显示点
+		vtkPolyData* getPointPolyData(Geometry::GeometrySet* s, int id);
 		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//高亮显示边
+		vtkPolyData* getEdgePolyData(Geometry::GeometrySet* s, int id);
 		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//高亮显示面
+		vtkPolyData* getFacePolyData(Geometry::GeometrySet* s, int id);
 		void clearGeometryHighLight();//清空高亮对象
 		void clearAllHighLight();//清空所有高亮对象
 		void clearSelectActors(Geometry::GeometrySet* s);//清空主体高亮选择的actor
@@ -96,7 +100,7 @@ namespace MainWidget
 		void clearAllSet();
 		void setPickable(QList<vtkActor*> acs, bool visibility);
 		void removeAllSetActors(Geometry::GeometrySet* set, vtkActor* ac);
-		//
+
 	private:
 		PreWindow* _preWindow{};
 		GUI::MainWindow* _mainWindow{};

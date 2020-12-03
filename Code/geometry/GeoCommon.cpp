@@ -10,11 +10,19 @@
 #include <BRepClass_FaceClassifier.hxx>
 #include <TopExp.hxx>
 #include <TopoDS.hxx>
+#include <Bnd_Box.hxx>
+#include <BRepBndLib.hxx>
 #include <QDebug>
 
 QList<int> GeoCommon::getD2ElementsInShape(vtkDataSet* d, TopoDS_Shape* sh)
 {
 	QList<int> ids;
+
+	Bnd_Box box;
+	BRepBndLib::Add(*sh, box);
+	gp_Pnt max = box.CornerMax();
+	gp_Pnt min = box.CornerMin();
+	const double tol = max.Distance(min) / 10000.0;
 
 	vtkCell *cell = nullptr;
 	const int nc = d->GetNumberOfCells();
@@ -32,7 +40,7 @@ QList<int> GeoCommon::getD2ElementsInShape(vtkDataSet* d, TopoDS_Shape* sh)
 			int pointid = points->GetId(pi);
 			double* c = d->GetPoint(pointid);
 			gp_Pnt pt(c[0], c[1], c[2]);
-			if (!IsPointOnFace(sh, &pt, 1e-5))
+			if (!IsPointOnFace(sh, &pt, tol))
 			{
 				inface = false;
 				break;
@@ -53,14 +61,20 @@ QList<int> GeoCommon::getNodesInShape(vtkDataSet* d, TopoDS_Shape* sh)
 {
 	QList<int> ids;
 
-//	vtkCell *cell = nullptr;
+	Bnd_Box box;
+	BRepBndLib::Add(*sh, box);
+	gp_Pnt max = box.CornerMax();
+	gp_Pnt min = box.CornerMin();
+	const double tol = max.Distance(min) / 10000.0;
+
+
 	const int nc = d->GetNumberOfPoints();
 	for (int i = 0; i < nc; i++)
 	{
 		double *coor = d->GetPoint(i);
 	
 		gp_Pnt pt(coor[0], coor[1], coor[2]);
-		if (IsPointOnFace(sh, &pt, 1e-5))
+		if (IsPointOnFace(sh, &pt, tol))
 			ids.append(i);
 
 	}

@@ -60,6 +60,8 @@ namespace Setting
 		QString getLicensePath() const;
 		void setLicensePath(const QString & licensePath);
 
+		GUI::MainWindow* getMainWindow();
+
 		void setMainWindow(GUI::MainWindow* mw);
 		///<MG
 		int getMessageShowMode() const;

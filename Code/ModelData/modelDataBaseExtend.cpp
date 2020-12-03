@@ -88,7 +88,7 @@ namespace ModelData
 			int setid = setidlist.at(i);
 			int materialid = _setMaterial.value(setid);
 			QDomElement mc = doc->createElement("MaterialInfo");
-			QDomAttr setattr = doc->createAttribute("SetID");
+			QDomAttr setattr = doc->createAttribute("ComponentID");
 			QDomAttr materialattr = doc->createAttribute("MaterialID");
 			setattr.setValue(QString::number(setid));
 			materialattr.setValue(QString::number(materialid));
@@ -138,7 +138,7 @@ namespace ModelData
 			int setid = setidlist.at(i);
 			int materialid = _setMaterial.value(setid);
 			QDomElement mc = doc->createElement("MaterialInfo");
-			QDomAttr setattr = doc->createAttribute("SetID");
+			QDomAttr setattr = doc->createAttribute("ComponentID");
 			QDomAttr materialattr = doc->createAttribute("MaterialID");
 			setattr.setValue(QString::number(setid));
 			materialattr.setValue(QString::number(materialid));
@@ -180,7 +180,7 @@ namespace ModelData
 		for (int i = 0; i < materialList.size(); ++i)
 		{
 			QDomElement ele = materialList.at(i).toElement();
-			QString ssetid = ele.attribute("SetID");
+			QString ssetid = ele.attribute("ComponentID");
 			QString smaterialID = ele.attribute("MaterialID");
 			int setid = ssetid.toInt();
 			int maid = smaterialID.toInt();
@@ -233,8 +233,9 @@ namespace ModelData
 		this->writeToProjectFile(doc, e);
 	}
 
-	void ModelDataBaseExtend::setMaterial(int setID, int materialID)	{
-		if ((!_componentIDList.contains(setID)) || materialID <= 0) return;
+	void ModelDataBaseExtend::setMaterial(int setID, int materialID)	
+	{
+		if (!_ComponentIDList.contains(setID) || materialID <= 0) return;
 		_setMaterial[setID] = materialID;
 	}
 
@@ -267,9 +268,9 @@ namespace ModelData
 		}
 	}
 
-	void ModelDataBaseExtend::setMeshSetList(QList<int> ids)
+	void ModelDataBaseExtend::setComponentIDList(QList<int> ids)
 	{
-		QList<int> old = _componentIDList;
+		QList<int> old = _ComponentIDList;
 		QList<int> removeid;
 		for (auto id : old)
 			if (!ids.contains(id)) removeid.append(id);
@@ -280,7 +281,7 @@ namespace ModelData
 				_setMaterial.remove(id);
 			for (auto bc : _bcList)
 			{
-				if (bc->getMeshSetID() == id)
+				if (bc->getComponentID() == id)
 				{
 					_bcList.removeOne(bc);
 					delete bc;
@@ -288,19 +289,18 @@ namespace ModelData
 				}
 			}
 		}
-
-		ModelDataBase::setMeshSetList(ids);
+		ModelDataBase::setComponentIDList(ids);
 	}
 
-	void ModelDataBaseExtend::removeMeshSetAt(int index)
+	void ModelDataBaseExtend::removeComponentAt(int index)
 	{
-		assert(index >= 0 && index < _componentIDList.size());
-		int id = _componentIDList.at(index);
+		assert(index >= 0 && index < _ComponentIDList.size());
+		int id = _ComponentIDList.at(index);
 		if (isMaterialSetted(id))
 		{
 			removeMaterial(id);
 		}
-		ModelDataBase::removeMeshSetAt(index);
+		ModelDataBase::removeComponentAt(index);
 	}
 
 	void ModelDataBaseExtend::copyFormConfig()
@@ -595,7 +595,7 @@ namespace ModelData
 			for (int i = 0; i < activePara.size(); ++i)
 			{
 				QString name = activePara.at(i);
-				qDebug() << name;
+//				qDebug() << name;
 				auto para = this->getParameterByName(name);
 				if (para == nullptr)
 				{
@@ -677,5 +677,15 @@ namespace ModelData
 	Post::Post3DWindowInterface* ModelDataBaseExtend::getPost3DWindow()
 	{
 		return _post3DWindow;
+	}
+
+	void ModelDataBaseExtend::bindInpMaterialIds(const QList<int>& inpMaterIds)
+	{
+		_inpMaterIds = inpMaterIds;
+	}
+
+	const QList<int>& ModelDataBaseExtend::getInpMaterialIds()
+	{
+		return _inpMaterIds;
 	}
 }

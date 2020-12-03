@@ -7,6 +7,7 @@
 #include "geometry/geometryParaCone.h"
 #include <QMessageBox>
 #include "python/PyAgent.h"
+#include <math.h>
 
 
 namespace GeometryWidget

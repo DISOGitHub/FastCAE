@@ -1,18 +1,19 @@
 #include "DialogMeshRename.h"
-#include <QTreeWidgetItem>
-#include <ui_DialogGeometrysetRename.h>
+#include "ui_DialogGeometryRename.h"
 #include "meshData/meshSingleton.h"
 #include "meshData/meshKernal.h"
 #include "meshData/meshSet.h"
+#include "mainWindow/mainWindow.h"
 #include "DataProperty/DataBase.h"
 #include <QMessageBox>
+#include <QTreeWidgetItem>
 
 namespace MainWidget
 {
 	MeshRenameDialog::MeshRenameDialog(GUI::MainWindow* mw, QTreeWidgetItem* item)
 		:QFDialog(mw), _item(item)
 	{
-		_ui = new Ui::DialogSetRename;
+		_ui = new Ui::DialogRename;
 		_ui->setupUi(this);
 		_meshdata = MeshData::MeshData::getInstance();
 
@@ -26,6 +27,7 @@ namespace MainWidget
 
 		QString name = _data->getName();
 		_ui->newNamelineEdit->setText(name);
+		connect(this, SIGNAL(disPlayProp(DataProperty::DataBase*)), mw, SIGNAL(updateProperty(DataProperty::DataBase*)));
 	}
 
 	MeshRenameDialog::~MeshRenameDialog()
@@ -48,6 +50,7 @@ namespace MainWidget
 			_data->setName(strNew);
 			_item->setText(0, strNew);
 		}
+		emit disPlayProp(_data);
 		QDialog::accept();
 	}
 

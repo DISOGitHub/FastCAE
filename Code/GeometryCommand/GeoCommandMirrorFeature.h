@@ -35,6 +35,8 @@ namespace Command
 		void setreverse(bool reverse);
 		void setRandomDir(double* randomdir);
 		void setBasePt(double* basepoint);
+	private:
+		void getDirection();
 
 	private:
 		//´ýÉ¾
@@ -45,7 +47,7 @@ namespace Command
 		double _planeLocation[3]{};
 		double _planeDirection[3]{};
 		bool _saveOrigin{ false };
-		void getDirection();
+	
 
 		QHash<Geometry::GeometrySet*, Geometry::GeometrySet*> _resultOriginHash{};
 		int _planeindex;

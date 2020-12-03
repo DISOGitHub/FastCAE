@@ -28,8 +28,26 @@
 #include "DataProperty/ParameterString.h"
 #include "DataProperty/ParameterInt.h"
 #include "DataProperty/ParameterDouble.h"
-#include "IO/TemplateReplacer.h"
+//#include "IO/TemplateReplacer.h"
 #include "MeshReader.h"
+#include "geometry/GeoCommon.h"
+
+#include "GmshSettingData.h"
+#include <Bnd_Box.hxx>
+#include <BRepBndLib.hxx>
+#include <BRepPrimAPI_MakeBox.hxx>
+#include <BRepAlgoAPI_Cut.hxx>
+#include <string>
+#include <GeomAPI_ProjectPointOnSurf.hxx>
+#include <TopoDS.hxx>
+#include <TopExp.hxx>
+#include <BRepAlgoAPI_Fuse.hxx>
+#include <vtkUnstructuredGrid.h>
+#include <vtkPoints.h>
+#include <vtkIdList.h>
+#include "GeometryCommand/GeoCommandCommon.h"
+#include "FluidMeshPreProcess.h"
+#include "GmshScriptWriter.h"
 
 namespace Gmsh
 {
@@ -40,34 +58,34 @@ namespace Gmsh
 		connect(&_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readProcessOutput()));
 		connect(this, SIGNAL(sendMessage(QString)), mw, SIGNAL(printMessageToMessageWindow(QString)));
 		connect(&_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
-		
-		_compounnd = new TopoDS_Compound;
+		connect(this, SIGNAL(updateMeshActor()), _preWindow, SIGNAL(updateMeshActorSig()));
 
+		_compounnd = new TopoDS_Compound;
+		_fluidMeshProcess = new FluidMeshPreProcess();
+		_scriptWriter = new GmshScriptWriter;
 		//临时文件夹路径
-		QString exelPath = QCoreApplication::applicationDirPath();
-		const QString tempDir = exelPath + "/../temp/";
-		DataProperty::ParameterString* s = new DataProperty::ParameterString();
-		s->setDescribe("TempPath");
-		s->setValue(tempDir);
-		this->appendParameter(s);
+// 		QString exelPath = QCoreApplication::applicationDirPath();
+// 		const QString tempDir = exelPath + "/../temp/";
+// 		DataProperty::ParameterString* s = new DataProperty::ParameterString();
+// 		s->setDescribe("TempPath");
+// 		s->setValue(tempDir);
+// 		this->appendParameter(s);
 
 		if (dim == 3) //三维补充光顺参数
 		{
-			DataProperty::ParameterInt* sm = new DataProperty::ParameterInt();
-			sm->setDescribe("Smooth");
-			sm->setValue(20);
-			this->appendParameter(sm);
+			_smoothIteration = 20;
+// 			DataProperty::ParameterInt* sm = new DataProperty::ParameterInt();
+// 			sm->setDescribe("Smooth");
+// 			sm->setValue(20);
+// 			this->appendParameter(sm);
 		}
-
-
-		connect(this, SIGNAL(finished()), this, SLOT(processFinished()));
-
-		
 	}
 
 	GmshThread::~GmshThread()
 	{
 		if (_compounnd != nullptr) delete _compounnd;
+		if (_fluidMeshProcess != nullptr) delete _fluidMeshProcess;
+		if (_scriptWriter != nullptr) delete _scriptWriter;
 	}
 	void GmshThread::appendSolid(int id, int index)
 	{
@@ -86,10 +104,10 @@ namespace Gmsh
 		if (t.toLower() == "quad") type = 1;
 		else if (t.toLower() == "hex") type = 2;
 
-		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
-		pi->setDescribe("ElementType");
-		pi->setValue(type);
-		this->appendParameter(pi);
+// 		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
+// 		pi->setDescribe("ElementType");
+// 		pi->setValue(type);
+// 		this->appendParameter(pi);
 
 	}
 
@@ -97,20 +115,20 @@ namespace Gmsh
 	{
 		_elementOrder = order;
 
-		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
-		pi->setDescribe("ElementOrder");
-		pi->setValue(order);
-		this->appendParameter(pi);
+// 		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
+// 		pi->setDescribe("ElementOrder");
+// 		pi->setValue(order);
+// 		this->appendParameter(pi);
 	}
 
 	void GmshThread::setMethod(int m)
 	{
 		_method = m;
 
-		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
-		pi->setDescribe("Method");
-		pi->setValue(m);
-		this->appendParameter(pi);
+// 		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
+// 		pi->setDescribe("Method");
+// 		pi->setValue(m);
+// 		this->appendParameter(pi);
 	}
 
 	void GmshThread::setSizeFactor(double f)
@@ -125,40 +143,40 @@ namespace Gmsh
 	void GmshThread::setMinSize(double min)
 	{
 		_minSize = min;
-		DataProperty::ParameterDouble* pd = new DataProperty::ParameterDouble();
-		pd->setDescribe("SizeMin");
-		pd->setValue(min);
-		this->appendParameter(pd);
+// 		DataProperty::ParameterDouble* pd = new DataProperty::ParameterDouble();
+// 		pd->setDescribe("SizeMin");
+// 		pd->setValue(min);
+// 		this->appendParameter(pd);
 	}
 
 	void GmshThread::setMaxSize(double max)
 	{
 		_maxSize = max;
-		DataProperty::ParameterDouble* pd = new DataProperty::ParameterDouble();
-		pd->setDescribe("SizeMax");
-		pd->setValue(max);
-		this->appendParameter(pd);
+// 		DataProperty::ParameterDouble* pd = new DataProperty::ParameterDouble();
+// 		pd->setDescribe("SizeMax");
+// 		pd->setValue(max);
+// 		this->appendParameter(pd);
 	}
 
 	void GmshThread::isCleanGeo(bool c)
 	{
 		_geoclean = c;
-		int gc = 0;
-		if (_geoclean)  gc = 1;
+// 		int gc = 0;
+// 		if (_geoclean)  gc = 1;
 
-		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
-		pi->setDescribe("GeoClean");
-		pi->setValue(gc);
-		this->appendParameter(pi);
+// 		DataProperty::ParameterInt* pi = new DataProperty::ParameterInt();
+// 		pi->setDescribe("GeoClean");
+// 		pi->setValue(gc);
+// 		this->appendParameter(pi);
 	}
 
 	void GmshThread::setSmoothIteration(int it)
 	{
 		_smoothIteration = it;
-		DataProperty::ParameterInt* sm = new DataProperty::ParameterInt();
-		sm->setDescribe("Smooth");
-		sm->setValue(it);
-		this->appendParameter(sm);
+// 		DataProperty::ParameterInt* sm = new DataProperty::ParameterInt();
+// 		sm->setDescribe("Smooth");
+// 		sm->setValue(it);
+// 		this->appendParameter(sm);
 	}
 
 	void GmshThread::run()
@@ -188,12 +206,13 @@ namespace Gmsh
 
 		const QString tempPath = tempDir + QString("geometry.brep");
 
-		if (_selectall) mergeAllGeo();
+		if (_fluidMesh) _fluidMeshProcess->mergeFluidField(_compounnd,_solidHash);
+		else if (_selectall) mergeAllGeo();
 		else if (_selectvisible) mergeVisibleGeo();
-		else mergeSelectGeo(); 
-
+		else mergeSelectGeo();
 		QByteArray arr = tempPath.toLatin1();
 		BRepTools::Write(*_compounnd, arr.data());
+
 	}
 
 	void GmshThread::readMesh()
@@ -210,19 +229,34 @@ namespace Gmsh
 		vtkDataSet* dataset = vtkReader->GetOutput();
 		if (dataset == nullptr) return;
 
-		auto k = new MeshData::MeshKernal();
-		k->setName(QString("Mesh_%1").arg(k->getID()));
-		k->setMeshData(dataset);
-		data->appendMeshKernal(k);
+		if (!_isSaveToKernal)
+			emit writeToSolveFileSig(dataset);
+		else
+		{
+// 			vtkDataSet* vtkset = nullptr;
+// 			if (_cellTypeList.size() > 0)
+// 				vtkset = deleteSpecifiedCells(dataset);
 
-// 		MeshReader reader(fileName);
-// 		bool ok = reader.read();
-// 		if (!ok) return;
+			auto k = new MeshData::MeshKernal();
+			k->setName(QString("Mesh_%1").arg(k->getID()));
 
-		emit _gmshModule->updateMeshTree();
-		emit _gmshModule->updateSetTree();
-		emit _preWindow->updateMeshActorSig();
-		emit _gmshModule->updateActions();
+// 			if (vtkset != nullptr)
+// 				k->setMeshData(vtkset);
+// 			else
+				k->setMeshData(dataset);
+
+			data->appendMeshKernal(k);
+
+			if (!_fluidMesh)
+				setGmshSettingData(k);
+
+			emit _gmshModule->updateMeshTree();
+			emit _gmshModule->updateSetTree();
+//			emit _preWindow->updateMeshActorSig();
+			emit _gmshModule->updateActions();
+			emit updateMeshActor();
+		}
+
 	}
 
 	void GmshThread::initGmshEnvoirment()
@@ -239,8 +273,23 @@ namespace Gmsh
 // 		IO::TempalteReplacer replacer(this);
 // 		replacer.appendFile(tempDir + "gmsh.Geo");
 // 		replacer.replace();
-
-		appendScript(tempDir);
+// 		if (_fluidMesh)
+// 			writeFluidMeshScript(tempDir);
+// 		else
+// 			appendScript(tempDir);
+		_scriptWriter->setCompound(_compounnd);
+		setGmshScriptData();
+		
+		if (_fluidMesh)
+		{
+			QList<int> curve = _fluidMeshProcess->getInerMember(1);
+			QList<int> surface = _fluidMeshProcess->getInerMember(2);
+			_scriptWriter->writeFluidMeshScript(tempDir, _solidHash, curve, surface);
+		}
+		else
+			_scriptWriter->writeGmshScript(tempDir);
+				
+			
 
 	}
 
@@ -269,7 +318,7 @@ namespace Gmsh
 // 		QString oldDir = QDir::currentPath();
 // 		QDir::setCurrent(gmshDir);
 
-		QString startProcess = QString("%1 %2 -format vtk -bin -o %3 -%4 ").arg(gmshexe).arg(tempDir + "gmsh.Geo").arg(tempDir + "mesh.vtk").arg(_dim);
+		QString startProcess = QString("%1 %2 -format vtk -bin -o %3 -%4").arg(gmshexe).arg(tempDir + "gmsh.Geo").arg(tempDir + "mesh.vtk").arg(_dim);
 
 		if (gmshexe.contains(" "))  startProcess = QString("\"%1\"").arg(startProcess);
 		qDebug() << startProcess;
@@ -339,9 +388,18 @@ namespace Gmsh
 		this->setSizeAtPoint(para->_sizeAtPoints);
 		this->setSizeFields(para->_sizeFields);
 		//this->setPhysicals(para->_physicals);
-		this->setSelectedAll(para->_selectall);
-		this->setSelectedVisible(para->_selectvisible);
+ 		this->setSelectedAll(para->_selectall);
+ 		this->setSelectedVisible(para->_selectvisible);
+ 		this->setMeshID(para->_meshID);
+ 		this->setFluidMesh(para->_fluidMesh);
+		//this->setCellTypeList(para->_cells);
+	//	this->setFluidField(para->_fluidField);
 
+		_fluidMeshProcess->setFluidField(para->_fluidField);
+		
+		//this->setPhysicals(para->_physicals);
+		
+		//_scriptWriter->setFluidField(para->_fluidField);
 	}
 
 	void GmshThread::setSolid(QMultiHash<int, int> s)
@@ -352,231 +410,6 @@ namespace Gmsh
 	void GmshThread::setSurface(QMultiHash<int, int> s)
 	{
 		_surfaceHash = s;
-	}
-
-	void GmshThread::gridCoplanar(QTextStream* out)
-	{
-		if (!_isGridCoplanar)
-			return;
-
-// 		*out << "//+" << endl;
-// 		*out << "BooleanFragments{ }{ }" << endl;
-		if (_surfaceHash.size() != 0 || _solidHash.size() != 0)
-		{
-			QString script = getGridCoplanarScript().join("; ");
-			*out << "//+" << endl;
-			*out << "BooleanFragments{ " << script << "; Delete; }{ }" << endl;
-		}
-		*out << "//+" << endl;
-		*out << "Coherence;" << endl;
-
-	}
-
-	void GmshThread::appendScript(QString dir)
-	{
-		QString path = dir + "gmsh.Geo";
-		QString geo = dir + "geometry.brep";
-
-		QFile file(path);
-		if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
-		{
-			qDebug() << path << "open failed.";
-			return;
-		}
-		QTextStream out(&file);
-
-		
-		out << QString("Merge \"%1\";").arg(geo) << endl;
-
-		generalSetting(&out);
-
-		out << "//+" << endl;
-		out << "SetFactory(\"OpenCASCADE\");" << endl;
-
-		sizeAtPoints(&out);
-		sizeFields(&out);
-		//physicalsGroup(&out);
-		gridCoplanar(&out);
-
-		file.close();
-	}
-
-	void GmshThread::generalSetting(QTextStream* out)
-	{
-		int type = 0;
-		if (_elementType.toLower() == "quad") type = 1;
-		else if (_elementType.toLower() == "hex") type = 2;
-
-		*out << QString("Geometry.OCCFixDegenerated = %1;").arg(_geoclean) << endl;
-		*out << QString("Geometry.OCCFixSmallEdges = %1;").arg(_geoclean) << endl;
-		*out << QString("Geometry.OCCFixSmallFaces = %1;").arg(_geoclean) << endl;
-		*out << QString("Geometry.OCCSewFaces = %1;").arg(_geoclean) << endl;
-
-		*out << QString("Mesh.Algorithm = %1;").arg(_method) << endl;
-		*out << QString("Mesh.Algorithm3D = %1;").arg(_method) << endl;
-		*out << QString("Mesh.CharacteristicLengthFactor = %1;").arg(_sizeFactor) << endl;
-		*out << QString("Mesh.CharacteristicLengthMin = %1;").arg(_minSize) << endl;
-		*out << QString("Mesh.CharacteristicLengthMax = %1;").arg(_maxSize) << endl;
-		*out << QString("Mesh.ElementOrder = %1;").arg(_elementOrder) << endl;
-		*out << QString("Mesh.RecombineAll = %1;").arg(type) << endl;
-		*out << QString("Mesh.Smoothing = %1;").arg(_smoothIteration) << endl;
-		*out << QString("Mesh.SubdivisionAlgorithm = %1;").arg(type) << endl;
-
-	}												  
-
-	void GmshThread::sizeAtPoints(QTextStream* out)
-	{
-		if (_sizeAtPoints.isEmpty())
-			return;
-
-		int d = 100000;
-
-		QStringList points = _sizeAtPoints.split(";");
-		for (QString s : points)
-		{
-			QStringList coors = s.split(",");
-			if (coors.size() != 4) continue;
-
-			bool ok = false;
-			for (QString c : coors)
-			{
-				c.toDouble(&ok);
-				if (!ok) break;
-			}
-
-			if (ok)
-			{
-				*out << "//+" << endl;
-				QString temp = QString("Point(%1) = {").arg(d);
-				*out << temp << coors.join(",") << "};" << endl;
-				d++;
-			}
-			
-		}
-
-	}
-
-	void GmshThread::sizeFields(QTextStream* out)
-	{
-		if (_sizeFields.isEmpty())
-			return;
-		QStringList slist = _sizeFields.split(";");
-		int index = 1;
-		for (QString s : slist)
-		{
-			QStringList field = s.split(",");
-
-			if (field.size() <=0) continue;
-
-			bool ok = false;
-			int t = field.at(0).toInt(&ok);
-			if (!ok) continue;
-
-			switch (t)
-			{
-			case 1:
-				boxFieldScript(out, field,index);
-				break;
-			case 2:
-				ballFieldScript(out, field,index);
-				break;
-			case 3:
-				cylinderFieldScript(out, field,index);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-
-	void GmshThread::boxFieldScript(QTextStream* out, QStringList list, int& index)
-	{
-		const int n = list.size();
-		if (n != 11)return;
-
-		double val[9] = { 0 };
-		bool ok = false;
-		for (int i = 1; i < 10;i++)
-		{
-			double v = list.at(i).toDouble(&ok);
-			if (!ok) return;
-			val[i - 1] = v;
-		}
-
-		*out << "//+" << endl << QString("Field[%1] = Box;").arg(index) << endl;
-		*out << "//+" << endl << QString("Field[%1].Thickness = %2;").arg(index).arg(val[0]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VIn = %2;").arg(index).arg(val[1]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VOut = %2;").arg(index).arg(val[2]) << endl;
-		*out << "//+" << endl << QString("Field[%1].XMax = %2;").arg(index).arg(val[3]) << endl;
-		*out << "//+" << endl << QString("Field[%1].XMin = %2;").arg(index).arg(val[4]) << endl;
-		*out << "//+" << endl << QString("Field[%1].YMax = %2;").arg(index).arg(val[5]) << endl;
-		*out << "//+" << endl << QString("Field[%1].YMin = %2;").arg(index).arg(val[6]) << endl;
-		*out << "//+" << endl << QString("Field[%1].ZMax = %2;").arg(index).arg(val[7]) << endl;
-		*out << "//+" << endl << QString("Field[%1].ZMin = %2;").arg(index).arg(val[8]) << endl;
-		if (list.at(10).toInt() == 1)
-			*out << "//+" << endl << QString("Background Field = %1;").arg(index) << endl;
-
-		index++;
-	}
-
-	void GmshThread::ballFieldScript(QTextStream* out, QStringList list, int& index)
-	{
-		const int n = list.size();
-		if (n != 9)return;
-
-		double val[7] = { 0 };
-		bool ok = false;
-		for (int i = 1; i < 8; i++)
-		{
-			double v = list.at(i).toDouble(&ok);
-			if (!ok) return;
-			val[i - 1] = v;
-		}
-
-		*out << "//+" << endl << QString("Field[%1] = Ball;").arg(index) << endl;
-		*out << "//+" << endl << QString("Field[%1].Radius = %2;").arg(index).arg(val[0]) << endl;
-		*out << "//+" << endl << QString("Field[%1].Thickness = %2;").arg(index).arg(val[1]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VIn = %2;").arg(index).arg(val[2]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VOut = %2;").arg(index).arg(val[3]) << endl;
-		*out << "//+" << endl << QString("Field[%1].XCenter = %2;").arg(index).arg(val[4]) << endl;
-		*out << "//+" << endl << QString("Field[%1].YCenter = %2;").arg(index).arg(val[5]) << endl;
-		*out << "//+" << endl << QString("Field[%1].ZCenter = %2;").arg(index).arg(val[6]) << endl;
-
-		if (list.at(8).toInt() == 1)
-			*out << "//+" << endl << QString("Background Field = %1;").arg(index) << endl;
-
-		index++;
-	}
-
-	void GmshThread::cylinderFieldScript(QTextStream* out, QStringList list, int& index)
-	{
-		const int n = list.size();
-		if (n != 11)return;
-
-		double val[9] = { 0 };
-		bool ok = false;
-		for (int i = 1; i < 10; i++)
-		{
-			double v = list.at(i).toDouble(&ok);
-			if (!ok) return;
-			val[i - 1] = v;
-		}
-
-		*out << "//+" << endl << QString("Field[%1] = Cylinder;").arg(index) << endl;
-		*out << "//+" << endl << QString("Field[%1].Radius = %2;").arg(index).arg(val[0]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VIn = %2;").arg(index).arg(val[1]) << endl;
-		*out << "//+" << endl << QString("Field[%1].VOut = %2;").arg(index).arg(val[2]) << endl;
-		*out << "//+" << endl << QString("Field[%1].XAxis = %2;").arg(index).arg(val[3]) << endl;
-		*out << "//+" << endl << QString("Field[%1].XCenter = %2;").arg(index).arg(val[4]) << endl;
-		*out << "//+" << endl << QString("Field[%1].YAxis = %2;").arg(index).arg(val[5]) << endl;
-		*out << "//+" << endl << QString("Field[%1].YCenter = %2;").arg(index).arg(val[6]) << endl;
-		*out << "//+" << endl << QString("Field[%1].ZAxis = %2;").arg(index).arg(val[7]) << endl;
-		*out << "//+" << endl << QString("Field[%1].ZCenter = %2;").arg(index).arg(val[8]) << endl;
-
-		if (list.at(10).toInt() == 1)
-			*out << "//+" << endl << QString("Background Field = %1;").arg(index) << endl;
-
-		index++;
 	}
 
 // 	void GmshThread::physicalsGroup(QTextStream* out)
@@ -671,6 +504,11 @@ namespace Gmsh
 		_sizeFields = fs;
 	}
 
+	void GmshThread::setMeshID(int id)
+	{
+		_meshID = id;
+	}
+
 // 	void GmshThread::setPhysicals(QString ps)
 // 	{
 // 		_physicals = ps;
@@ -686,27 +524,22 @@ namespace Gmsh
 		_selectvisible = sv;
 	}
 
-	int GmshThread::getShapeIndexInCompound(int setid, int index, int itype)
+	void GmshThread::setFluidMesh(bool fm)
 	{
-		int resindex = 0;
-		TopAbs_ShapeEnum type;
-		switch (itype)
-		{
-		case 1: type = TopAbs_VERTEX; break;
-		case 2: type = TopAbs_EDGE; break;
-		case 3: type = TopAbs_FACE; break;
-		case 4: type = TopAbs_SOLID; break;
-		default: break;
-		}
-		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-		auto set = data->getGeometrySetByID(setid);
-		if (set == nullptr) return resindex;
-		TopoDS_Shape* shape = set->getShape(itype, index);
-		TopTools_IndexedMapOfShape mapper;
-		TopExp::MapShapes(*_compounnd, type, mapper);
-		resindex = mapper.FindIndex(*shape);
+		_fluidMesh = fm;
+	}
 
-		return resindex;
+
+	void GmshThread::setCellTypeList(QString cells)
+	{
+		QStringList celllist = cells.split(",");
+		for (QString cell : celllist)
+		{
+			bool ok = false;
+			int type = cell.toInt(&ok);
+			if (!ok)continue;
+			_cellTypeList.append(type);
+		}
 	}
 
 	void GmshThread::mergeAllGeo()
@@ -787,40 +620,285 @@ namespace Gmsh
 		}
 	}
 
-	QStringList GmshThread::getGridCoplanarScript()
+	
+
+// 	QList<int> GmshThread::getShapeIndexListInFluidField(int itype)
+// 	{
+// 		QList<int> indexList{};
+// 
+// 		QList<gp_Pnt> pntlist{};
+// 		//gp_Pnt pt0(-50, -50, -50); gp_Pnt pt1(50, 50, 50);
+// 		gp_Pnt pt0(_fluidField[0][0], _fluidField[0][1], _fluidField[0][2]); gp_Pnt pt1(_fluidField[1][0], _fluidField[1][1], _fluidField[1][2]);
+// 		TopoDS_Shape bigBox = BRepPrimAPI_MakeBox(pt0, pt1).Shape();
+// 		if (bigBox.IsNull()) return indexList;
+// 		QList<Handle(TopoDS_TShape)> tshapelist;
+// 		TopExp_Explorer explor(bigBox, TopAbs_VERTEX);
+// 		for (; explor.More(); explor.Next())
+// 		{
+// 			const TopoDS_Shape& oneshape = explor.Current();
+// 			Handle(TopoDS_TShape) ts = oneshape.TShape();
+// 			if (tshapelist.contains(ts)) continue;
+// 			tshapelist.append(ts);
+// 			const TopoDS_Vertex& vertex = TopoDS::Vertex(oneshape);
+// 			gp_Pnt pt = BRep_Tool::Pnt(vertex);
+// 			pntlist.append(pt);
+// 		}
+// 
+// 		TopAbs_ShapeEnum type;
+// 		switch (itype)
+// 		{
+// 		case 1: type = TopAbs_VERTEX; break;
+// 		case 2: type = TopAbs_EDGE; 
+// 			return indexList = getInerEdgeIndexs(pntlist);
+// 			break;
+// 		case 3: type = TopAbs_FACE; 
+// 			return indexList = getInerFaceIndexs(pntlist);
+// 			break;
+// 		case 4: type = TopAbs_SOLID; break;
+// 		default: break;
+// 		}
+// 
+// 		
+// 	}
+// 
+// 	QList<int> GmshThread::getInerFaceIndexs(QList<gp_Pnt> pntlist)
+// 	{
+// 		QList<int> indexList{};
+// 		TopExp_Explorer exp(*_compounnd, TopAbs_FACE);
+// 		for (; exp.More(); exp.Next())
+// 		{
+// 			const TopoDS_Shape& faceShape = exp.Current();
+// 			TopoDS_Face face = TopoDS::Face(faceShape);
+// 			const Handle(Geom_Surface) geosurface = BRep_Tool::Surface(face);
+// 			bool isOnBox{ false };
+// 			for (gp_Pnt pt : pntlist)
+// 			{
+// 				GeomAPI_ProjectPointOnSurf project(pt, geosurface);
+// 				double distance = project.LowerDistance();
+// 				if (distance < 1e-6) { isOnBox = true; break; }
+// 			}
+// 			if (!isOnBox)
+// 			{
+// 				TopTools_IndexedMapOfShape mapper;
+// 				TopExp::MapShapes(*_compounnd, TopAbs_FACE, mapper);
+// 				int resindex = mapper.FindIndex(faceShape);
+// 				indexList.push_back(resindex);
+// 			}
+// 		}
+// 		return indexList;
+// 	}
+
+// 	QList<int> GmshThread::getInerEdgeIndexs(QList<gp_Pnt> pntlist)
+// 	{
+// 		QList<int> indexList{};
+// 		TopExp_Explorer exp(*_setCompound, TopAbs_SOLID);
+// 		TopoDS_Shape fauShape{};
+// 		for (; exp.More();exp.Next())
+// 		{
+// 			BRepAlgoAPI_Fuse fau(fauShape, exp.Current());
+// 
+// 			if (!fau.IsDone()) return indexList;
+// 			const TopoDS_Shape& aFusedShape = fau.Shape();
+// 
+// 			if (aFusedShape.IsNull()) return indexList;
+// 			//TopoDS_Shape shape = Command::GeoCommandCommon::removeSplitter(aFusedShape);
+// 			fauShape = aFusedShape;
+// 		}
+// 		const char* ch = "D://FusedShape.brep";
+// 		BRepTools::Write(fauShape, ch);
+// 
+// 
+// 		return indexList;
+// 	}
+
+
+
+	QList<itemInfo> GmshThread::generateGeoIds(vtkDataSet* dataset)
 	{
-		QStringList script;
+		QList<itemInfo> infoList{};
+		//QMultiHash<int, QList<int>> elementHash{};
+		if (_surfaceHash.size() < 1 || dataset == nullptr) return infoList;
+
 		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
-		QList<int> setList = _surfaceHash.uniqueKeys();
-		for (int setid : setList)
+		QMultiHash<int, int>::iterator it = _surfaceHash.begin();
+		for (; it != _surfaceHash.end(); it++)
 		{
-			Geometry::GeometrySet* set = data->getGeometrySetByID(setid);
-			if (set == nullptr) continue;
-			
+			if (it.key() < 0||it.value() < 0) continue;
+			TopoDS_Compound aRes;
+			BRep_Builder aBuilder;
+			aBuilder.MakeCompound(aRes);
+			Geometry::GeometrySet* set = data->getGeometrySetByID(it.key());
+			TopoDS_Shape* body = set->getShape();
 
-			QList<int> indexList = _surfaceHash.values(setid);
-			for (int faceindex : indexList)
+			TopExp_Explorer exper(*body, TopAbs_FACE);
+			for (int index = 0; index < it.value() && exper.More(); exper.Next(), ++index);
+			const TopoDS_Shape& s = exper.Current();
+			aBuilder.Add(aRes, s);
+			QList<int> inids{};
+			if (!aRes.IsNull())	inids = GeoCommon::getD2ElementsInShape(dataset, &aRes);
+
+			infoList.append(itemInfo{ it.key(), it.value(), inids });
+			//elementHash.insert(it.key(), inids);
+		}
+		return infoList;
+
+
+		/*QList<int> geoList = _surfaceHash.uniqueKeys();
+		for (int setid : geoList)
+		{
+			if (setid < 0) continue;
+			TopoDS_Compound aRes;
+			BRep_Builder aBuilder;
+			aBuilder.MakeCompound(aRes);
+			Geometry::GeometrySet* set = data->getGeometrySetByID(setid);
+			TopoDS_Shape* body = set->getShape();
+			QList<int> member = _surfaceHash.values(setid);
+			for (int m : member)
 			{
-				script.append(QString("Surface{%1}").arg(getShapeIndexInCompound(setid, faceindex, 3)));
+				if (m < 0) continue;
+				TopExp_Explorer exper(*body, TopAbs_FACE);
+				for (int index = 0; index < m && exper.More(); exper.Next(), ++index);
+				const TopoDS_Shape& s = exper.Current();
+				aBuilder.Add(aRes, s);
 			}
+			QList<int> inids;
+			if (!aRes.IsNull())	inids = GeoCommon::getD2ElementsInShape(dataset, &aRes);
+			elementHash.insert(setid, inids);
+		}*/
+		
+	}
+
+
+
+	void GmshThread::isSaveDataToKernal(bool save)
+	{
+		_isSaveToKernal = save;
+	}
+
+	void GmshThread::setGmshSettingData(MeshData::MeshKernal* k)
+	{
+		GmshSettingData* setting = new GmshSettingData;
+		setting->setID(_dim);
+		setting->setSolidHash(_solidHash);
+		setting->setSurfaceHash(_surfaceHash);
+		setting->setElementOrder(_elementOrder);
+		setting->setElementType(_elementType);
+		setting->setGeoClean(_geoclean);
+		setting->setGridCoplanar(_isGridCoplanar);
+		setting->setMaxSize(_maxSize);
+		setting->setMinSize(_minSize);
+		setting->setSizeFactor(_sizeFactor);
+		setting->setSelectAll(_selectall);
+		setting->setSelectVisiable(_selectvisible);
+		setting->setSmoothIteration(_smoothIteration);
+		setting->setMethod(_method);
+		setting->setSizeAtPoints(_sizeAtPoints);
+		setting->setSizeFields(_sizeFields);
+		setting->setMeshID(_meshID);
+		setting->setCells(_cellTypeList);
+
+		k->setGmshSetting(setting);
+	}
+
+
+	void GmshThread::setGmshScriptData()
+	{
+		_scriptWriter->setSmooth(_smoothIteration);
+		_scriptWriter->setElementType(_elementType);
+		_scriptWriter->setElementOrder(_elementOrder);
+		_scriptWriter->setMethod(_method);
+		_scriptWriter->setMinSize(_minSize);
+		_scriptWriter->setMaxSize(_maxSize);
+		_scriptWriter->setFactor(_sizeFactor);
+		_scriptWriter->setGeoClean(_geoclean);
+		_scriptWriter->setGridCoplanar(_isGridCoplanar);
+		_scriptWriter->setSizePoints(_sizeAtPoints);
+		_scriptWriter->setSizeFields(_sizeFields);
+	}
+
+	vtkDataSet* GmshThread::deleteSpecifiedCells(vtkDataSet* dataset)
+	{
+		if (dataset == nullptr)return dataset;
+		int index = 0;
+		vtkUnstructuredGrid* ung = vtkUnstructuredGrid::New();
+		vtkPoints* points = vtkPoints::New();
+
+		const int nNode = dataset->GetNumberOfPoints();
+		for (int i = 0; i < nNode;i++)
+		{
+			double* coor = dataset->GetPoint(i);
+			points->InsertNextPoint(coor);
+		}
+		ung->SetPoints(points);
+
+		const int ncell = dataset->GetNumberOfCells();
+		for (int i = 0; i < ncell; i++)
+		{
+			vtkCell* cell = dataset->GetCell(i);
+			if (cell == nullptr) continue;
+			VTKCellType type = (VTKCellType)cell->GetCellType();
+			vtkIdList* idlist = vtkIdList::New();
+			if (isSpecifiedCell(type))
+			{
+				idlist = cell->GetPointIds();
+				ung->InsertNextCell(type, idlist);
+			}			
 		}
 
-		setList = _solidHash.uniqueKeys();
-		for (int setid : setList)
-		{
-			Geometry::GeometrySet* set = data->getGeometrySetByID(setid);
-			if (set == nullptr) continue;
-			
+		return ung;
+	}
 
-			QList<int> indexList = _solidHash.values(setid);
-			for (int solidIndex : indexList)
-			{
-				script.append(QString("Volume{%1}").arg(getShapeIndexInCompound(setid, solidIndex, 4)));
-			}
+
+	bool GmshThread::isSpecifiedCell(VTKCellType type)
+	{
+		int flag = -1;
+		switch (type)
+		{
+		case VTKCellType::VTK_VERTEX:
+		case VTKCellType::VTK_POLY_VERTEX:
+			flag = 0;
+			break;
+		case VTKCellType::VTK_LINE:
+		case VTKCellType::VTK_POLY_LINE:
+		case VTKCellType::VTK_QUADRATIC_EDGE:
+			flag = 1;
+			break;
+		case VTKCellType::VTK_TRIANGLE:
+		case VTKCellType::VTK_QUAD:
+		case VTKCellType::VTK_TRIANGLE_STRIP:
+		case VTKCellType::VTK_PIXEL:
+		case VTKCellType::VTK_POLYGON:
+		case VTKCellType::VTK_QUADRATIC_TRIANGLE:
+		case VTKCellType::VTK_QUADRATIC_LINEAR_QUAD:
+		case VTKCellType::VTK_QUADRATIC_QUAD:
+		case VTKCellType::VTK_BIQUADRATIC_QUAD:
+			flag = 2;
+			break;
+		case VTKCellType::VTK_TETRA:
+		case VTKCellType::VTK_HEXAHEDRON:
+		case VTKCellType::VTK_VOXEL:
+		case VTKCellType::VTK_WEDGE:
+		case VTKCellType::VTK_PYRAMID:
+		case VTKCellType::VTK_PENTAGONAL_PRISM:
+		case VTKCellType::VTK_HEXAGONAL_PRISM:
+		case VTKCellType::VTK_QUADRATIC_TETRA:
+		case VTKCellType::VTK_QUADRATIC_PYRAMID:
+		case VTKCellType::VTK_QUADRATIC_HEXAHEDRON:
+		case VTKCellType::VTK_BIQUADRATIC_QUADRATIC_HEXAHEDRON:
+		case VTKCellType::VTK_TRIQUADRATIC_HEXAHEDRON:
+		case VTKCellType::VTK_QUADRATIC_LINEAR_WEDGE:
+		case VTKCellType::VTK_QUADRATIC_WEDGE:
+		case VTKCellType::VTK_BIQUADRATIC_QUADRATIC_WEDGE:
+			flag = 3;
+			break;
+		default:
+			break;
 		}
 
+		if (_cellTypeList.contains(flag))
+			return true;
 
-		return script;
+		return false;
 	}
 
 }

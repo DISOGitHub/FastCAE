@@ -276,7 +276,7 @@ namespace FastCAEDesigner
 	{
 		QMap<QString, TreeItemType> disableItem;
 		
-		disableItem.insert("Mesh Set", TreeItemType::ProjectMesh);
+		disableItem.insert("Mesh Set", TreeItemType::ProjectComponent);
 		disableItem.insert("Boundary Condition", TreeItemType::ProjectBoundaryCondation);
 		disableItem.insert("Simulation Setting", TreeItemType::ProjectSimulationSetting);
 		disableItem.insert("Solver Setting", TreeItemType::ProjectSolver);
@@ -851,7 +851,7 @@ namespace FastCAEDesigner
 		{
 			intParent = 1;
 		}
-		else if ((model->GetType() == TreeItemType::ProjectMesh) || (model->GetType() == TreeItemType::ProjectMonitor) 
+		else if ((model->GetType() == TreeItemType::ProjectComponent) || (model->GetType() == TreeItemType::ProjectMonitor)
 			|| (model->GetType() == TreeItemType::ProjectBoundaryCondation) /*|| (model->GetType() == TreeItemType::ProjectSolver) */
 			/*|| (model->GetType() == TreeItemType::ProjectSimulationSetting)*/ || (model->GetType() == TreeItemType::ProJectPost2DGraph)			  
 			|| (model->GetType() == TreeItemType::ProjectPost3DGraph) || (model->GetType() == TreeItemType::ProjectSimulationSettingChild)
@@ -1128,7 +1128,7 @@ namespace FastCAEDesigner
 			menu->addAction(insertchild);
 			connect(insertchild, SIGNAL(triggered()), this, SLOT(OnInsertChild()));
 		}
-		else if ((childModel->GetType() == TreeItemType::ProjectMesh) || 
+		else if ((childModel->GetType() == TreeItemType::ProjectComponent) ||
 			(((childModel->GetType() == TreeItemType::ProjectPost3DGraph) && (childModel->GetChildList().count() >= 1))))
 		{
 			// 					QAction* insertchild = new QAction(tr("insert child"), this);

@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/TF">
+        <file>icon/bc.png</file>
+        <file>icon/eleset.png</file>
+        <file>icon/fulid.png</file>
+        <file>icon/tempure.png</file>
+        <file>TFCoupling_zh_CN.qm</file>
+    </qresource>
+</RCC>

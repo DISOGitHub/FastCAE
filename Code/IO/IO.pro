@@ -2,7 +2,7 @@ TEMPLATE	=   lib
 CONFIG		+=  debug  c++11 
 CONFIG		+=  qt
 TARGET		=   IO
-QT          +=  core xml widgets
+QT          +=  core xml widgets 
 DEFINES     +=  IO_API
 
 include(./IO.pri)
@@ -30,6 +30,7 @@ win32{
   -L../../output/bin -lSettings \
   -L../../output/bin -lMaterial \
   -L../../quazip/lib -lquazip \
+  -L../../output/bin -lGmshModule \
  
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
@@ -46,7 +47,8 @@ win32{
   -L../../output/bin_d -lPluginManager \
   -L../../output/bin_d -lSettings \
   -L../../output/bin_d -lMaterial \
-  -L../../quazip/libd -lquazip  \
+  -L../../quazip/libd -lquazipd  \
+  -L../../output/bin_d -lGmshModule \
   
   message("Windows IO build")
   
@@ -56,7 +58,7 @@ win32{
 unix{
     INCLUDEPATH	+=   ./ \
 		             ../ \
-					 ../../quazip/include/ \
+					 ../../quazip/include/quazip \
   CONFIG          += plugin
   DESTDIR         = ../../output/bin
   MOC_DIR         = ./release/moc

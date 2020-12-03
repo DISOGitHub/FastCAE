@@ -59,6 +59,7 @@ unix{
   -L../../output/bin -lDataProperty \
   -L../../output/bin -lGeometry \
   -L../../output/bin -lModuleBase \
+  -L../../output/bin -lGeometryDataExchange \
 	
   message("Linux geometryCommand build")
   

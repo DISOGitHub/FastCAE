@@ -42,11 +42,11 @@
     </message>
 </context>
 <context>
-    <name>CreateSetDialog</name>
+    <name>CreateGeoComponentDialog</name>
     <message>
-        <location filename="../../MainWidgets/DialogCreateSet.ui" line="+14"/>
-        <source>Create Set</source>
-        <translation>创建组件</translation>
+        <location filename="../../MainWidgets/DialogCreateGeoComponent.ui" line="+26"/>
+        <source>Dialog</source>
+        <translation>创建几何组件</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -58,15 +58,53 @@
         <source>Type:</source>
         <translation>类型：</translation>
     </message>
+</context>
+<context>
+    <name>CreateSetDialog</name>
     <message>
-        <location line="+8"/>
+        <location filename="../../MainWidgets/DialogCreateSet.ui" line="+26"/>
+        <source>Create Set</source>
+        <translation>创建组件</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Set Name : </source>
+        <translation>组件名称 : </translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Set Type : </source>
+        <translation>组件类型 : </translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>Element</source>
         <translation>单元</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+23"/>
+        <source>Find Conplanar Points or Cells</source>
+        <translation>寻找共面的点或者单元</translation>
+    </message>
+    <message>
+        <location line="-28"/>
         <source>Node</source>
         <translation>节点</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Find Condition</source>
+        <translation>寻找条件</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Id : </source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>minAngle : </source>
+        <translation>最小角度 : </translation>
     </message>
 </context>
 <context>
@@ -106,9 +144,9 @@
     </message>
 </context>
 <context>
-    <name>DialogSetRename</name>
+    <name>DialogRename</name>
     <message>
-        <location filename="../../MainWidgets/DialogGeometrysetRename.ui" line="+14"/>
+        <location filename="../../MainWidgets/DialogGeometryRename.ui" line="+14"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
@@ -116,6 +154,213 @@
         <location line="+8"/>
         <source>New name:</source>
         <translation>新名称：</translation>
+    </message>
+</context>
+<context>
+    <name>DialogSelectComponents</name>
+    <message>
+        <location filename="../../MainWidgets/DialogSelectComponents.ui" line="+20"/>
+        <source>Dialog</source>
+        <translation>创建几何组件</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>OK</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>DialogVTKTransform</name>
+    <message>
+        <location filename="../../MainWidgets/DialogVTKTransform.ui" line="+26"/>
+        <source>Dialog</source>
+        <translation>创建几何组件</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Selected Component</source>
+        <translation>选择组件</translation>
+    </message>
+    <message>
+        <location line="+91"/>
+        <source>Rotate</source>
+        <translation>旋转</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Rotate Angle : </source>
+        <translation>旋转角度：</translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>X Axis</source>
+        <translation>X轴</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Y Axis</source>
+        <translation>Y轴</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Z Axis</source>
+        <translation>Z轴</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Custom Axis</source>
+        <translation>自定义轴</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Rotate Axis : </source>
+        <translation>旋转轴：</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Custom Rotate Axis</source>
+        <translation>自定义旋转轴</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Custom X Axis : </source>
+        <translation>自定义X轴：</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Custom Y Axis : </source>
+        <translation>自定义Y轴：</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Custom Z Axis : </source>
+        <translation>自定义Z轴：</translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Move Location</source>
+        <translation>移动</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Direction Of X Axis : </source>
+        <translation>沿X轴移动距离：</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Direction Of Y Axis : </source>
+        <translation>沿Y轴移动距离：</translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>Direction Of Z Axis : </source>
+        <translation>沿Z轴移动距离：</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Scale</source>
+        <translation>缩放</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Scale Of X Axis : </source>
+        <translation>X轴缩放比例：</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Scale Of Y Axis : </source>
+        <translation>Y轴缩放比例：</translation>
+    </message>
+    <message>
+        <location line="+41"/>
+        <source>Scale Of Z Axis : </source>
+        <translation>Z轴缩放比例：</translation>
+    </message>
+</context>
+<context>
+    <name>FilterMeshDialog</name>
+    <message>
+        <location filename="../../MainWidgets/DialogFilterMesh.ui" line="+14"/>
+        <source>FilterMesh</source>
+        <translation>网格过滤</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Remove Dimesion</source>
+        <translation>维度移除</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>0 D</source>
+        <translation>零维</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>1 D</source>
+        <translation>一维</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>2 D</source>
+        <translation>二维</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>3 D</source>
+        <translation>三维</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Mesh</source>
+        <translation>网格</translation>
+    </message>
+</context>
+<context>
+    <name>MainWidget::CreateGeoComponentDialog</name>
+    <message>
+        <location filename="../../MainWidgets/DialogCreateGeoComponent.cpp" line="+21"/>
+        <source>Ok</source>
+        <translation>确定</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Point</source>
+        <translation>点</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Line</source>
+        <translation>线</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Surface</source>
+        <translation>面</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Body</source>
+        <translation>体</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>No Point or Line Surface Body selected !</source>
+        <translation>没有点、线、面、体被选择！</translation>
     </message>
 </context>
 <context>
@@ -197,51 +442,109 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location line="+33"/>
         <location line="+24"/>
-        <location line="+43"/>
+        <source>PointId : </source>
+        <translation>节点Id : </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>CellId : </source>
+        <translation>单元Id : </translation>
+    </message>
+    <message>
+        <location line="+168"/>
+        <location line="+12"/>
+        <location line="+16"/>
+        <location line="+30"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-67"/>
+        <location line="-46"/>
         <source>Open window first !</source>
         <translation>前处理窗口未开启！</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location line="+43"/>
+        <location line="-12"/>
+        <location line="+28"/>
+        <location line="+30"/>
         <source>No Node or Element selected !</source>
         <translation>当前没有选中的节点或单元！</translation>
     </message>
 </context>
 <context>
+    <name>MainWidget::DialogSelectComponents</name>
+    <message>
+        <location filename="../../MainWidgets/DialogVTKTransform.cpp" line="+118"/>
+        <source>Select Components</source>
+        <translation>选择组件</translation>
+    </message>
+</context>
+<context>
+    <name>MainWidget::DialogVTKTransform</name>
+    <message>
+        <location line="-99"/>
+        <source>Clicked Button Selected Components</source>
+        <translation>点击按钮选择组件</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mesh Modeling</source>
+        <translation>网格建模</translation>
+    </message>
+    <message>
+        <location line="+78"/>
+        <source>delete this item</source>
+        <translation>删除此项</translation>
+    </message>
+</context>
+<context>
+    <name>MainWidget::GeometryRenameDialog</name>
+    <message>
+        <location filename="../../MainWidgets/DialogGeometryRename.cpp" line="+33"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The Same Name!</source>
+        <translation>相同的名称！</translation>
+    </message>
+</context>
+<context>
     <name>MainWidget::GeometryTreeWidget</name>
     <message>
-        <location filename="../../MainWidgets/GeometryWidget.cpp" line="+33"/>
-        <location line="+44"/>
+        <location filename="../../MainWidgets/GeometryWidget.cpp" line="+34"/>
+        <location line="+48"/>
         <source>Geometry</source>
         <translation>几何</translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+63"/>
+        <location line="-42"/>
+        <location line="+67"/>
         <source>Datum</source>
         <translation>基准</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="-61"/>
+        <location line="+87"/>
+        <source>GeoComponent</source>
+        <translation>几何组件</translation>
+    </message>
+    <message>
+        <location line="+72"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
         <location line="+4"/>
         <location line="+42"/>
+        <location line="+12"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="-51"/>
         <location line="+41"/>
         <source>Delete</source>
         <translation>删除</translation>
@@ -261,18 +564,10 @@
         <source>Show All</source>
         <translation>显示全部</translation>
     </message>
-</context>
-<context>
-    <name>MainWidget::GeometrysetRenameDialog</name>
     <message>
-        <location filename="../../MainWidgets/DialogGeometrysetRename.cpp" line="+30"/>
-        <source>Warning</source>
-        <translation>警告</translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>The Same Name!</source>
-        <translation>相同的名称！</translation>
+        <location line="+30"/>
+        <source>Remove</source>
+        <translation>移除</translation>
     </message>
 </context>
 <context>
@@ -287,7 +582,7 @@
 <context>
     <name>MainWidget::MeshRenameDialog</name>
     <message>
-        <location filename="../../MainWidgets/DialogMeshRename.cpp" line="+43"/>
+        <location filename="../../MainWidgets/DialogMeshRename.cpp" line="+45"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -323,25 +618,30 @@
 <context>
     <name>MainWidget::MeshWidget</name>
     <message>
-        <location filename="../../MainWidgets/MeshWidget.cpp" line="+28"/>
-        <location line="+40"/>
+        <location filename="../../MainWidgets/MeshWidget.cpp" line="+33"/>
+        <location line="+42"/>
         <source>Mesh</source>
         <translation>网格</translation>
     </message>
     <message>
-        <location line="-36"/>
-        <location line="+59"/>
+        <location line="-38"/>
+        <location line="+61"/>
         <source>Set</source>
         <translation>组件</translation>
     </message>
     <message>
         <location line="+81"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
@@ -370,25 +670,25 @@
     <name>MainWidget::PhysicsWidget</name>
     <message>
         <location filename="../../MainWidgets/PhysicsWidget.cpp" line="+39"/>
-        <location line="+251"/>
-        <location line="+261"/>
+        <location line="+259"/>
+        <location line="+283"/>
         <source>Materials</source>
         <translation>材料</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-346"/>
         <source>Load From Material Lib</source>
         <translation>从材料库导入</translation>
     </message>
     <message>
         <location line="-193"/>
-        <location line="+267"/>
-        <location line="+243"/>
+        <location line="+275"/>
+        <location line="+265"/>
         <source>Case</source>
         <translation>算例</translation>
     </message>
     <message>
-        <location line="-315"/>
+        <location line="-345"/>
         <source>Create Material</source>
         <translation>创建材料</translation>
     </message>
@@ -438,7 +738,17 @@
         <translation>打开目录</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+2"/>
+        <source>Import INP File</source>
+        <translation>导入INP文件</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Export INP File</source>
+        <translation>导出INP文件</translation>
+    </message>
+    <message>
+        <location line="+109"/>
         <location line="+157"/>
         <location line="+6"/>
         <location line="+27"/>
@@ -474,7 +784,7 @@
 <context>
     <name>MainWidget::PreWindow</name>
     <message>
-        <location filename="../../MainWidgets/preWindow.cpp" line="+43"/>
+        <location filename="../../MainWidgets/preWindow.cpp" line="+40"/>
         <source>Pre-Window</source>
         <translation>前处理窗口</translation>
     </message>
@@ -496,7 +806,7 @@
         <translation>值</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+39"/>
         <source>Basic Info</source>
         <translation>基础信息</translation>
     </message>

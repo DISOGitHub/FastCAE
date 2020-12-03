@@ -30,7 +30,7 @@ namespace ProjectTree
 		void init();
 
 		virtual void initBCType();
-		virtual void initMeshSet();
+		virtual void initComponents();
 		virtual void accept() override;
 
 	private:

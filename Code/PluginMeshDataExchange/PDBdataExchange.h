@@ -13,7 +13,7 @@ namespace MeshData{
 	class MESHDATAEXCHANGEPLUGINAPI PDBdataExchange :public MeshThreadBase
 	{
 	public:
-		PDBdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+		PDBdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~PDBdataExchange();
 
 		void run() override;
@@ -33,7 +33,7 @@ namespace MeshData{
 
 		MeshData* _meshData{};
 		//vtkUnstructuredGrid* _gird{};
-		int _writeFileKid;
+		int _modelId;
 		MeshOperation _operation;
 
 	};

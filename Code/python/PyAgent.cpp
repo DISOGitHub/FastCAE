@@ -7,6 +7,7 @@
 #include "moduleBase/messageWindowBase.h"
 #include "mainWindow/mainWindow.h"
 #include "PyInterpreter.h"
+#include "RecordScript.h"
 #include "ScriptReader.h"
 #include <QFile>
 #include <QDebug>
@@ -47,6 +48,7 @@ namespace Py
 	PythonAagent::PythonAagent()
 	{
 		_interpreter = new PyInterpreter;
+	
 	}
 
 	void PythonAagent::initialize(GUI::MainWindow* m)
@@ -86,6 +88,9 @@ namespace Py
 			else
 				emit printInfo((int)ModuleBase::Normal_Message, tr("Python Initialized"));
 		}
+		
+		_recordScript = new RecordThread;
+		_recordScript->start();
 	}
 
 	void PythonAagent::finalize()
@@ -95,15 +100,25 @@ namespace Py
 			if (_reader->isRunning())
 			{
 				_reader->stop();
+				_reader->quit();
+				_reader->wait();
 			}
+			while (_reader->isRunning());
 			delete _reader;
 			_reader = nullptr;
 		}
+
+		_recordScript->stop();
+		_recordScript->quit();
+		_recordScript->wait();
+		delete _recordScript;
+
 		if (_interpreter != nullptr) delete _interpreter;
 
 		if (Py_IsInitialized())
 			Py_Finalize();
-
+		
+		
 	}
 
 	void PythonAagent::submit(QString code, bool s)
@@ -152,6 +167,7 @@ namespace Py
 	{
 		if (_reader != nullptr) return false;
 		_reader = new ScriptReader(fileName, this);
+		_recordScript->pause();
 		connect(_reader, SIGNAL(finished()), this, SLOT(readerFinished()));
 		_reader->start();
 		return true;
@@ -162,6 +178,7 @@ namespace Py
 		if (_reader != nullptr)
 			delete _reader;
 		_reader = nullptr;
+		_recordScript->reStart();
 		if (_noGUI) emit closeMainWindow();
 	}
 
@@ -184,7 +201,9 @@ namespace Py
 
 	QStringList PythonAagent::getcodelist()
 	{
-		return _interpreter->getCode();
+		if(_interpreter != nullptr)
+			return _interpreter->getCode();
+		return QStringList();
 	}
 
 

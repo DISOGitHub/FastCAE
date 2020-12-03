@@ -9,12 +9,12 @@ TreeItemType getTreeItemTypeByString(const QString& typeString)
 	else if (typeString == "SimulationSettingChild") type = ProjectSimulationSettingChild;
 	else if (typeString == "SimulationSettingGrandSon") type = ProjectSimulationSettingGrandSon;
 	else if (typeString == "Geometry") type = ProjectGeometry;
-	else if (typeString == "Mesh") type = ProjectMesh;
+	else if (typeString == "Mesh") type = ProjectComponent;
 	else if (typeString == "Solver") type = ProjectSolver;
 	else if (typeString == "PostSetting") type = ProjectPostSetting;
 
 	else if (typeString == "GeometryChild") type = ProjectGeometryChild;
-	else if (typeString == "MeshChild") type = ProjectMeshChild;
+	else if (typeString == "MeshChild") type = ProjectComponentChild;
 	else if (typeString == "SolverChild") type = ProjectSolverChild;
 	else if (typeString == "SolverSettingGrandSon") type = ProjectSolverGrandSon;
 	else if (typeString == "PostSettingChild") type = ProjectPostSettingChild;

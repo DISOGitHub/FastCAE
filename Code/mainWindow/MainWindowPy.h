@@ -23,8 +23,8 @@ namespace GUI
 		static void redo();
 		static void init(GUI::MainWindow* m,GUI::SignalHandler* sg);
 		static void clearData();
-		static void importMesh(char* f,char* s);
-		static void exportMesh(char* f,char* s);
+		static void importMesh(char* f, char* s, int modelId);
+		static void exportMesh(char* f,char* s, int modelId);
 		static void importGeometry(char* f);
 		static void exportGeometry(char* f);
 		static void openProjectFile(char* f);
@@ -37,7 +37,10 @@ namespace GUI
 		static void setViewRandValue(int id, char*win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);
 		static void quit();
 		static void solveProject(int projectIndex, int solverIndex);
-		static void createSet(char* name, char* type, char*  idstring);
+		static void createSet(const char* name, const char* type, const char* idstring);
+		static void createGeoComponent(char* name, char* type, char* strgIDs, char* striIDs);
+		static void createVTKTransform(const char* componentIds, const char* rotate, const char* moveLocation, const char* scale);
+		static void findConplanarPorC(const char* seedType, int seedId, double minAngle, int kernalId, const char* setName);		
 		static void updateInterface();
 
 		static void script_openFile(int id, char* type, char* file);
@@ -159,8 +162,8 @@ extern "C"
 	void MAINWINDOWAPI undo();
 	void MAINWINDOWAPI redo();
 	void MAINWINDOWAPI clearData();
-	void MAINWINDOWAPI importMesh(char* f, char* s);
-	void MAINWINDOWAPI exportMesh(char* f, char* s);
+	void MAINWINDOWAPI importMesh(char* f, char* s, int modelId);
+	void MAINWINDOWAPI exportMesh(char* f, char* s, int modelId);
 	void MAINWINDOWAPI importGeometry(char* f);
 	void MAINWINDOWAPI exportGeometry(char* f);
 	void MAINWINDOWAPI openProjectFile(char* f);
@@ -176,6 +179,9 @@ extern "C"
 	void MAINWINDOWAPI openPreWindow();//打开前处理窗口
 	void MAINWINDOWAPI solveProject(int projectIndex, int solverIndex);//求解
 	void MAINWINDOWAPI createSet(char* name, char* type, char* idstring);
+	void MAINWINDOWAPI createGeoComponent(char* name, char* type, char* strgIDs, char* striIDs);
+	void MAINWINDOWAPI createVTKTransform(char* componentIds, char* rotate, char* moveLocation, char* scale);	
+	void MAINWINDOWAPI findConplanarPorC(const char* seedType, int seedId, double minAngle, int kernalId, const char* setName);
 	void MAINWINDOWAPI script_openFile(int id, char* type, char* file);
 	void MAINWINDOWAPI script_applyClicked(int id, char* type);
 	void MAINWINDOWAPI script_Properties_Opacity(int id, char* type, int obj_id, double mOpacity);

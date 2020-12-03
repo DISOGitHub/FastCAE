@@ -31,7 +31,7 @@ namespace BCBase
 		_valueX->setAccuracy(4);
 		_valueY->setAccuracy(4);
 		_valueZ->setAccuracy(4);
-		setType(type);
+		setBCType(type);
 		setValue(x, y, z);
 	}
 	BCVectorBase::BCVectorBase(BCType type, double* v)
@@ -45,7 +45,7 @@ namespace BCBase
 		_valueX->setAccuracy(4);
 		_valueY->setAccuracy(4);
 		_valueZ->setAccuracy(4);
-		setType(type);
+		setBCType(type);
 		setValue(v);
 	}
 	void BCVectorBase::setVariableName(QString x, QString y, QString z)

@@ -45,7 +45,7 @@ namespace FastCAEDesigner{
 
 	void ParametersLinkage::init()
 	{
-		qDebug() << _type;
+//		qDebug() << _type;
 
 		ui->parameterTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 		ui->parameterTableWidget->setWindowFlags(Qt::FramelessWindowHint);
@@ -663,6 +663,10 @@ namespace FastCAEDesigner{
 		{
 			dynamic_cast<DataProperty::ParameterTable*>(o)->setData(dynamic_cast<DataProperty::ParameterTable*>(n)->getData());
 		}
+		else if (o->getParaType() == DataProperty::Para_Selectable)
+		{
+			dynamic_cast<DataProperty::ParameterSelectable*>(o)->setCurrentIndex(dynamic_cast<DataProperty::ParameterSelectable*>(n)->getCurrentIndex());
+		}
 		else
 			o->setValueFromString(n->valueToString());
 
@@ -779,7 +783,7 @@ namespace FastCAEDesigner{
 		{
 			QWidget* widget = ui->parameterTableWidget->cellWidget(row, 3);
 			QComboBox* comboBox = (QComboBox*)widget;
-			qDebug() << comboBox->currentText();
+//			qDebug() << comboBox->currentText();
 			/*if (model->valueToString() != comboBox->currentText())*/
 			_allParameterList.at(row)->setValueFromString(comboBox->currentText());
 		}
@@ -809,7 +813,7 @@ namespace FastCAEDesigner{
 		{
 			QWidget* widget = ui->parameterTableWidget->cellWidget(row, 3);
 			QComboBox* comboBox = (QComboBox*)widget;
-			qDebug() << comboBox->currentText();
+//			qDebug() << comboBox->currentText();
 			/*if (model->valueToString() != comboBox->currentText())*/
 			_remainParameterList.at(row)->setValueFromString(comboBox->currentText());
 		}
@@ -850,7 +854,7 @@ namespace FastCAEDesigner{
 		_paraLinkData->setDrivenList(_drivenList);
 		_paraLinkData->setDrivenGroupList(_drivenGroupList);
 
-		qDebug() << _paraLinkData->getParameterName();
+//		qDebug() << _paraLinkData->getParameterName();
 	}
 
 	void ParametersLinkage::updateDataToUi()
@@ -1000,6 +1004,7 @@ namespace FastCAEDesigner{
 			else if (_allParameterList.at(index)->getParaType() == DataProperty::Para_Path)
 			{
 				EditorPathValue dlg(((DataProperty::ParameterPath*)_allParameterList.at(index)));
+				dlg.setFileSuffixEnable(false);
 				dlg.exec();
 			}
 			
@@ -1014,6 +1019,7 @@ namespace FastCAEDesigner{
 			else if (_remainParameterList.at(index)->getParaType() == DataProperty::Para_Path)
 			{
 				EditorPathValue dlg(((DataProperty::ParameterPath*)_remainParameterList.at(index)));
+				dlg.setFileSuffixEnable(false);
 				dlg.exec();
 			}
 		}

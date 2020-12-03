@@ -16,18 +16,22 @@
 #include <vtkRenderer.h>
 #include <vtkSphereSource.h>
 #include <vtkTubeFilter.h>
+#include <QDebug>
 
 namespace MeshData{
-	PDBdataExchange::PDBdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId) :
-		MeshThreadBase(fileName, operation, mw), _fileName(fileName), _operation(operation), _writeFileKid(KernalId), 
+	PDBdataExchange::PDBdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId) :
+		MeshThreadBase(fileName, operation, mw), 
+		_fileName(fileName), 
+		_operation(operation), 
+		_modelId(modelId),
 		_meshData(MeshData::getInstance())
 	{
 	}
 
-
 	PDBdataExchange::~PDBdataExchange()
 	{
 		//if (_stream != nullptr) delete _stream;
+		//qDebug() << "PDB Delete!" << endl;
 	}
 
 	void PDBdataExchange::run()

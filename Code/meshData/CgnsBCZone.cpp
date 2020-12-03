@@ -5,6 +5,7 @@
 #include <vtkStructuredGrid.h>
 #include <QDomElement>
 #include <QDomAttr>
+#include <QDataStream>
 #include <QDebug>
 
 namespace MeshData

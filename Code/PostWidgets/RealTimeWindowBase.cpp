@@ -125,6 +125,7 @@ namespace Post
 		while (!_stream->atEnd())
 		{
 			line = this->readLine();
+			if (line.startsWith("#")) continue;
 			QStringList sdata = line.split(" ");
 			if (sdata.size() != variableName.size()) continue;
 			for (int i = 0; i < sdata.size(); ++i)

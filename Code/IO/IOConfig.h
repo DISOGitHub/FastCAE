@@ -16,7 +16,7 @@ typedef bool(*WRITEINPFILE)(QString, ModelData::ModelDataBase*);
 //转换原文件路径
 typedef bool(*TRANSFEROUTFILE)(QString);
 //导入网格  文件名称
-typedef bool(*IMPORTMESHFUN)(QString);
+typedef bool(*IMPORTMESHFUN)(QString, int);
 //导出网格  文件名称  id
 typedef bool(*EXPORTMESHFUN)(QString, int);
 

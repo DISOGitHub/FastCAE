@@ -43,7 +43,7 @@ namespace DataProperty
 		bool appendProperty(PropertyBase* p);
 		void clearPropertyList();
 
-	protected:
+    private:
 		QList<PropertyBase*> _propertyList;
 	};
 }

@@ -38,16 +38,16 @@ def updateInterface():
     mw.updateInterface()
     pass
 
-def importMesh(filename,suffix):
+def importMesh(filename,suffix,modelID):
   str = bytes(filename,encoding='utf-8')
   suf = bytes(suffix,encoding='utf-8')
-  mw.importMesh(str,suf)
+  mw.importMesh(str,suf,modelID)
   pass
   
-def exportMesh(filename,suffix):
+def exportMesh(filename,suffix,modelID):
   str = bytes(filename,encoding='utf-8')
   suf = bytes(suffix,encoding='utf-8')
-  mw.exportMesh(str,suf)
+  mw.exportMesh(str,suf,modelID)
   pass
 
 def importGeometry(filename):
@@ -119,6 +119,29 @@ def createSet(name, type, idstring):
   idstring = bytes(idstring,encoding='utf-8') 
   type = bytes(type,encoding='utf-8')
   mw.createSet(name,type,idstring)
+  pass
+  
+def createGeoComponent(name, type, strgIDs, strItemIDs):
+  name = bytes(name,encoding='utf-8')
+  type = bytes(type,encoding='utf-8') 
+  strgIDs = bytes(strgIDs,encoding='utf-8')
+  strItemIDs = bytes(strItemIDs,encoding='utf-8')
+  mw.createGeoComponent(name, type, strgIDs, strItemIDs)
+  pass
+  
+def createVTKTransform(componentIds, rotate, moveLocation, scale):  
+  componentIds = bytes(componentIds,encoding='utf-8')
+  rotate = bytes(rotate,encoding='utf-8')
+  moveLocation = bytes(moveLocation,encoding='utf-8') 
+  scale = bytes(scale,encoding='utf-8')
+  mw.createVTKTransform(componentIds, rotate, moveLocation, scale)
+  pass
+  
+def findConplanarPorC(seedType, seedId, minAngle, kernalId, setName):  
+  seedType = bytes(seedType, encoding='utf-8')
+  setName = bytes(setName, encoding='utf-8')
+  minAngle = c_double(minAngle)
+  mw.findConplanarPorC(seedType, seedId, minAngle, kernalId, setName)
   pass
   
 def script_Properties_Opacity(id, type, obj_id, mOpacity):

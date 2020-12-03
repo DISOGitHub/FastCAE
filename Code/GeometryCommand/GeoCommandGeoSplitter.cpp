@@ -26,7 +26,11 @@ namespace Command
 
 	bool CommandGeoSplitter::execute()
 	{
-		if (_solidhash.size() < 1 || _faceBody == nullptr || _faceIndex < 0)
+		this->getDirection();
+		gp_Pnt p(_planeLocation[0], _planeLocation[1], _planeLocation[2]);
+		gp_Dir dir(_planeDirection[0], _planeDirection[1], _planeDirection[2]);
+
+		if (_solidhash.size() < 1 )
 			return false;
 		if (_isEdit) //编辑模式下将原来的模型压进列表
 		{
@@ -61,7 +65,7 @@ namespace Command
 				if (shape.IsNull()) return false;
 
 
-				TopoDS_Shape* faceshape = _faceBody->getShape();
+				/*TopoDS_Shape* faceshape = _faceBody->getShape();
 				TopExp_Explorer faceExp(*faceshape, TopAbs_FACE);
 				for (int index = 0; index < _faceIndex && faceExp.More(); faceExp.Next(), ++index);
 				const TopoDS_Shape& faceLimiteShape = faceExp.Current();
@@ -71,12 +75,12 @@ namespace Command
 				const TopoDS_Face &face = TopoDS::Face(faceLimiteShape);
 				if (face.IsNull()) return false;
 				BRepAdaptor_Surface adapt(face);
-				if (adapt.GetType() != GeomAbs_Plane) return false;
-				gp_Pln plane = adapt.Plane();
+				if (adapt.GetType() != GeomAbs_Plane) return false;*/
+				gp_Pln plane(p,dir);
 
 				BRepBuilderAPI_MakeFace mkFace(plane);
 				const TopoDS_Face& faceShape = mkFace.Face();
-				if (face.IsNull()) return false;
+				if (faceShape.IsNull()) return false;
 				BOPAlgo_Splitter splitter;
 				splitter.AddArgument(shape);
 				splitter.AddTool(faceShape);
@@ -130,8 +134,13 @@ namespace Command
 			{
 				para->appendBody(set, indexList[k]);
 			}
+			para->setCurrentIndex(_typeindex);
 			para->setFaceIndex(_faceIndex);
 			para->setFaceBody(_faceBody);
+			para->setPlaneIndex(_planeindex);
+			para->setDirection(_randomdir);
+			para->setbasepoint(_basepoint);
+
 			newset->setParameter(para);
 			GeoCommandBase::execute();
 
@@ -281,4 +290,86 @@ namespace Command
 		_faceBody = faceBody;
 	}
 
+	void CommandGeoSplitter::setTypeIndex(int i)
+	{
+		_typeindex = i;
+	}
+
+
+	void CommandGeoSplitter::setPlaneIndex(int planeindex)
+	{
+		_planeindex = planeindex;
+	}
+
+	void CommandGeoSplitter::setreverse(bool reverse)
+	{
+		_reverse = reverse;
+	}
+
+	void CommandGeoSplitter::setRandomDir(double* randomdir)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			_randomdir[i] = randomdir[i];
+		}
+	}
+
+	void CommandGeoSplitter::setBasePt(double* basepoint)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			_basepoint[i] = basepoint[i];
+		}
+	}
+	void CommandGeoSplitter::getDirection()
+	{
+		if (_typeindex == 0)
+		{
+			if (_faceBody == nullptr) return;
+			TopoDS_Shape* shape = _faceBody->getShape();
+			TopExp_Explorer faceExp(*shape, TopAbs_FACE);
+			for (int index = 0; index < _faceIndex && faceExp.More(); faceExp.Next(), ++index);
+
+			const TopoDS_Shape& faceShape = faceExp.Current();
+			if (faceShape.IsNull()) return;
+
+			/*	std::string filestr = "D:/IGS/edgeone.brep";
+			const char* ch = filestr.c_str();
+			BRepTools::Write(faceShape, ch);*/
+
+			const TopoDS_Face &face = TopoDS::Face(faceShape);
+			if (face.IsNull()) return;
+
+			BRepAdaptor_Surface adapt(face);
+			if (adapt.GetType() != GeomAbs_Plane) return;
+			gp_Pln plane = adapt.Plane();
+			gp_Ax1 normal = plane.Axis();
+
+			gp_Pnt loca = normal.Location();
+			gp_Dir dirt = normal.Direction();
+
+			_planeLocation[0] = loca.X(); _planeLocation[1] = loca.Y(); _planeLocation[2] = loca.Z();
+			_planeDirection[0] = dirt.X(); _planeDirection[1] = dirt.Y(); _planeDirection[2] = dirt.Z();
+
+		}
+		else if (_typeindex == 1)
+		{
+			switch (_planeindex)
+			{
+			case 0: _planeDirection[2] = 1.0; break;
+			case 1: _planeDirection[1] = 1.0; break;
+			case 2: _planeDirection[0] = 1.0; break;
+			default: break;
+			}
+		}
+		else if (_typeindex == 2)
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				_planeLocation[i] = _basepoint[i];
+				_planeDirection[i] = _randomdir[i];
+			}
+		}
+		if (_planeDirection[0] * _planeDirection[0] + _planeDirection[1] * _planeDirection[1] + _planeDirection[2] * _planeDirection[2] < 1e-6) return;
+	}
 }

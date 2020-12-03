@@ -4,7 +4,6 @@
 #include "mainWidgetsAPI.h"
 #include "moduleBase/graph3DWindow.h"
 #include "moduleBase/ModuleType.h"
-#include <QList>
 
 namespace MeshData
 {
@@ -15,6 +14,7 @@ namespace Geometry
 	class GeometryData;
 	class GeometrySet;
 	class GeometryDatum;
+	class GeoComponent;
 }
 
 namespace ModelData
@@ -45,10 +45,12 @@ namespace MainWidget
 		
 		Geometry::GeometrySet* getSelectedGeoSet();
 		//获取选择的几何
-		QMultiHash<Geometry::GeometrySet*, int> getGeoSelectItems();
+		QMultiHash<Geometry::GeometrySet*, int>* getGeoSelectItems();
 		//设置已经选择的几何
 		ModuleBase::SelectModel getSelectModel();
 		QMultiHash<vtkDataSet*, int>* getSelectItems();
+
+		MeshViewProvider* getMeshViewProvider();
 	signals:
 		//关闭
 		void closed();
@@ -79,7 +81,10 @@ namespace MainWidget
 		void highLighMeshSet(MeshData::MeshSet* set);
 		void setMeshSelectMode(int model);
 		void highLighDataSet(vtkDataSet* dataset);
-		void clearMeshSetHighLight();
+		void clearMeshSetHighLight();		
+		
+		void highLightGeoComponentSig(Geometry::GeoComponent* aGC);
+		
 	public slots:
 	    //设置选择模式
 	    void setSelectModel(int mode) override;
@@ -94,7 +99,9 @@ namespace MainWidget
 		void highLighSet(QMultiHash<vtkDataSet*, int>* items);
 		//更新几何渲染
 		void updateGeometryActor();
-		//
+		//高亮一个几何组件;
+		void highLightGeoComponentSlot(Geometry::GeoComponent*);
+		
 	private slots:
 		void updateGraphOption() override;
 		//几何

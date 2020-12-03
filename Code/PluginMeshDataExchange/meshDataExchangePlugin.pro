@@ -34,6 +34,9 @@ win32{
 	-L../../output/bin -lPluginManager \
 	-L../../output/bin -lMeshData \
 	-L../../output/bin -lIO \
+	-L../../output/bin -lBCBase \
+	-L../../output/bin -lMaterial \
+	-L../../output/bin -lConfigOptions \
 	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d/plugins
@@ -56,7 +59,10 @@ win32{
 	-L../../output/bin_d -lPluginManager \
 	-L../../output/bin_d -lMeshData \
 	-L../../output/bin_d -lIO \
-   
+    -L../../output/bin_d -lBCBase \
+	-L../../output/bin_d -lMaterial \
+	-L../../output/bin_d -lConfigOptions \
+	
   message("Windows MeshDataExchangePlugin build")
   
 }
@@ -88,6 +94,8 @@ unix{
 	-L../../output/bin -lPluginManager \
 	-L../../output/bin -lMeshData \
 	-L../../output/bin -lIO \
+	-L../../output/bin -lBCBase \
+	-L../../output/bin -lMaterial \
 	
   message("Linux MeshDataExchangePlugin build")
   

@@ -38,5 +38,10 @@
         <source>The format of the file that you import is wrong!</source>
         <translation>导入的模板格式有误！</translation>
     </message>
+    <message>
+        <location filename="../../IO/GenerateMesh.cpp" line="+70"/>
+        <source>Gmsh Working...</source>
+        <translation>Gmsh工作中…</translation>
+    </message>
 </context>
 </TS>

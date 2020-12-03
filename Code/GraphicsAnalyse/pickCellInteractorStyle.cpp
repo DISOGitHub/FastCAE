@@ -1,4 +1,8 @@
 #include "pickCellInteractorStyle.h"
+#include <vtkRenderWindowInteractor.h>
+#include <vtkProperty.h>
+#include <vtkRenderWindow.h>
+#include <vtkRendererCollection.h>
 
 void pickCellInteractorStyle::OnLeftButtonDown()
 {

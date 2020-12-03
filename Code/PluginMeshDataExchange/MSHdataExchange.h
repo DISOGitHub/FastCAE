@@ -43,7 +43,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI MSHdataExchange : public MeshThreadBase
 	{
 	public:
-		MSHdataExchange(const QString& fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+		MSHdataExchange(const QString& fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~MSHdataExchange();
 
 		bool read();
@@ -87,7 +87,7 @@ namespace MeshData
 		QString _describe{};
 		int _ND{ 3 };
 		int _staticid{ 0 };
-		int _writeFileKid;
+		int _modelId;
 		MeshOperation _operation;	
 	};
 }

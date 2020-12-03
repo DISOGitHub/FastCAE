@@ -5,6 +5,7 @@
 #include "GeometryDataExchange/BREPdataExchange.h"
 #include "GeometryDataExchange/STEPdataExchange.h"
 #include "GeometryDataExchange/GeometryThreadBase.h"
+#include "moduleBase/ThreadControl.h"
 #include <QFileInfo>
 
 namespace Command
@@ -32,20 +33,23 @@ namespace Command
 			if (suffix == "iges" || suffix == "igs")
 			{
 				auto igesReader = new Geometry::IGESdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				ModuleBase::ThreadControl* tc = new ModuleBase::ThreadControl(igesReader);
 				connect(igesReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
-				emit igesReader->start();
+				emit tc->threadStart(); //emit igesReader->start();
 			}				
 			else if (suffix == "step" || suffix == "stp")
 			{
 				auto stepReader = new Geometry::STEPdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				ModuleBase::ThreadControl* tc = new ModuleBase::ThreadControl(stepReader);
 				connect(stepReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
-				emit stepReader->start();
+				emit tc->threadStart(); //emit stepReader->start();
 			}
 			else if (suffix == "brep")
 			{
 				auto brepReader = new Geometry::BREPdataExchange(fileName, Geometry::GEOMETRY_READ, _mw, _resSet);
+				ModuleBase::ThreadControl* tc = new ModuleBase::ThreadControl(brepReader);
 				connect(brepReader, SIGNAL(ShowSetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(showSet(Geometry::GeometrySet*, bool)));
-				emit brepReader->start();
+				emit tc->threadStart(); //emit brepReader->start();
 			}
 		}
 		return true;

@@ -16,6 +16,11 @@
 #include "SolverControl/MesherControlerBase.h"
 #include "DialogMeshSetMerge.h"
 #include "DialogMeshRename.h"
+#include "Gmsh/GmshSettingData.h"
+#include "Gmsh/DialogSolidMesh.h"
+#include "Gmsh/DialogSurfaceMesh.h"
+#include "DataProperty/DataBase.h"
+#include <QDebug>
 
 namespace MainWidget
 {
@@ -51,6 +56,8 @@ namespace MainWidget
 		connect(this, SIGNAL(startMesherPySig(QString)), this, SLOT(startMesher(QString)));
 
 		connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(itemStatesChanged(QTreeWidgetItem*, int)));
+		connect(_mainWindow, SIGNAL(preWindowOpenedSig(MainWidget::PreWindow*)), this, SLOT(preWindowOpened(MainWidget::PreWindow*)));
+		connect(this, SIGNAL(editMesh(int, int)), _mainWindow, SIGNAL(editMeshSig(int,int)));
 	}
 	MeshWidget::~MeshWidget()
 	{
@@ -169,18 +176,20 @@ namespace MainWidget
 		if ((_currentItem->type() == MeshChild) || (_currentItem->type() == MeshSetChild))
 		{
 //			action = pop_menu.addAction(QIcon(), tr("Delete"));
+			QAction* edit = pop_menu.addAction(QIcon(), tr("Edit"));
+			connect(edit, SIGNAL(triggered()), this, SLOT(editMeshData()));
+			edit->setVisible(isMeshEditable());
 			action = pop_menu.addAction(QIcon(), tr("Rename"));
 			connect(action, SIGNAL(triggered()), this, SLOT(rename()));
 			if (_currentItem->type() == MeshChild)
 			{
 				action = pop_menu.addAction(QIcon(), tr("Remove"));
 				connect(action, SIGNAL(triggered()), this, SLOT(removeMeshData()));
-				
 			}
 			else if (_currentItem->type() == MeshSetChild)
 			{
 				action = pop_menu.addAction(QIcon(), tr("Remove"));
-				connect(action, SIGNAL(triggered()), this, SLOT(removeSetData()));
+				connect(action, SIGNAL(triggered()), this, SLOT(removeCurrSetData()));
 			}
 
 				
@@ -207,6 +216,21 @@ namespace MainWidget
 		pop_menu.exec(QCursor::pos());
 		
 	}
+
+	bool MeshWidget::isMeshEditable()
+	{
+		const int index = _meshRoot->indexOfChild(_currentItem);
+		if (index < 0) return false;
+
+		MeshData::MeshKernal* k = _data->getKernalAt(index);
+		if (k == nullptr)return false;
+
+		DataProperty::DataBase* data = k->getGmshSetting();
+		if (data == nullptr) return false;
+
+		return true;
+	}
+
 	void MeshWidget::removeMeshData()
 	{
 		///<MG temp 
@@ -222,15 +246,38 @@ namespace MainWidget
 		emit updateActionStates();
 		emit clearHighLight();
 	}
-	void MeshWidget::removeSetData()
+	void MeshWidget::removeCurrSetData()
 	{
 		const int index = _setRoot->indexOfChild(_currentItem);
 		if (index < 0) return;
+		int msID = _currentItem->data(0, Qt::UserRole).toInt();
 		emit removeSetData(index);
 		_data->removeMeshSetAt(index);
 		updateMeshSetTree();
 		emit disPlayProp(nullptr);
 		emit clearHighLight();
+		emit removeCaseComponentSig(msID);
+	}
+
+	void MeshWidget::editMeshData()
+	{
+		const int index = _meshRoot->indexOfChild(_currentItem);
+		if (index < 0) return;
+
+		MeshData::MeshKernal* k = _data->getKernalAt(index);
+		if (k == nullptr)return;
+
+		DataProperty::DataBase* data = k->getGmshSetting();
+		if (data == nullptr) return;
+
+		int d = data->getID();
+		emit editMesh(d, index);	
+		
+	}
+
+	void MeshWidget::preWindowOpened(MainWidget::PreWindow* p)
+	{
+		_preWindow = p;
 	}
 
 	void MeshWidget::startMesher(QString mesher)
@@ -305,8 +352,15 @@ namespace MainWidget
 
 	void MeshWidget::rename()
 	{
+		DataProperty::DataBase* data = nullptr;
+		if (_currentItem->type() == MeshSetChild)
+		{
+			int index = _setRoot->indexOfChild(_currentItem);
+			data = _data->getMeshSetAt(index);
+		}
 		MeshRenameDialog dlg(_mainWindow, _currentItem);
-		dlg.exec();
+		if (dlg.exec() == QDialog::Accepted && _currentItem->type() == MeshSetChild && data)
+			emit renameCaseComponentSig(data->getID());
 	}
 
 	void MeshWidget::itemStatesChanged(QTreeWidgetItem* item, int)

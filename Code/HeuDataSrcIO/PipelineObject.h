@@ -50,7 +50,7 @@
 
 class PipelineObjProp;
 
-class  HEUDATASRCIOSHARED_EXPORT PipelineObject : public QObject
+class HEUDATASRCIOSHARED_EXPORT PipelineObject : public QObject
 {
 	Q_OBJECT
 public:

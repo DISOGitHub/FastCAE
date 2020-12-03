@@ -12,12 +12,12 @@
 
 namespace MeshData
 {
-	SU2dataExchange::SU2dataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId) :
+	SU2dataExchange::SU2dataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId) :
 		MeshThreadBase(fileName, operation, mw),
 		_fileName(fileName),
 		_meshData(MeshData::getInstance()),
 		_operation(operation),
-		_writeFileKid(KernalId)
+		_modelId(modelId)
 	{
 
 	}
@@ -33,7 +33,7 @@ namespace MeshData
 		{
 			if (_stream->atEnd())
 			{
-				_threadRuning = false;
+				//_threadRuning = false;
 				return QString();;
 			}
 			QString line = _stream->readLine().toLower().simplified();
@@ -216,6 +216,6 @@ namespace MeshData
 
 	bool SU2dataExchange::write()
 	{
-		if (_writeFileKid < 1)	return false;
+		if (_modelId < 1)	return false;
 	}
 }

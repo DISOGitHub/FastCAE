@@ -24,7 +24,7 @@ namespace Geometry
 			GeometryThreadBase(GUI::MainWindow *mw, QList<Geometry::GeometrySet*>& res);
 			virtual ~GeometryThreadBase();
 			void defaultGeometryFinished();
-			QList<GeometrySet*>& GeometryThreadBase::getResult();
+			QList<GeometrySet*>& getResult();
 
 		signals:
 			void updateGeometryTree();

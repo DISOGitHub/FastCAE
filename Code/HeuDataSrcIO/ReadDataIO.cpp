@@ -10,7 +10,31 @@
 #include "ReadData_Neu.h"
 #include "ReadData_Stl.h"
 #include "ReadData_Cntm.h"
+#include "ReadData_ExodusII.h"
 #include "vtkAppendFilter.h"
+
+void getDataObject(vtkMultiBlockDataSet* md, QList<vtkDataObject*>& dataList)
+{
+    if (md == nullptr) return;
+    const int n = md->GetNumberOfBlocks();
+    for (int i = 0; i < n; ++i)
+    {
+        vtkDataObject*obj = md->GetBlock(i);
+        if (obj == nullptr) continue;
+        if (obj->IsA("vtkMultiBlockDataSet"))
+        {
+            vtkMultiBlockDataSet* mublock = vtkMultiBlockDataSet::SafeDownCast(obj);
+            if (mublock != nullptr)
+                getDataObject(mublock, dataList);
+        }
+        else
+        {
+            dataList.append(obj);
+        }
+    }
+}
+
+
 ReadDataIO::ReadDataIO()
 {
 	mVtkReader = NULL;
@@ -36,25 +60,39 @@ vtkDataSet* ReadDataIO::getDataSet()
 	{
 		if (mVtkReader->blockDataSet != NULL)
 		{
-			int nblock = mVtkReader->blockDataSet->GetNumberOfBlocks();
-			if (nblock > 0)
-			{
-				vtkAppendFilter* filter = vtkAppendFilter::New();
-				for (int i = 0; i < nblock; ++i)
-				{
-					vtkDataSet* tep_dataset = vtkDataSet::SafeDownCast(mVtkReader->blockDataSet->GetBlock(i));
-					filter->AddInputData(tep_dataset);
-				}
-				filter->Update();
-				mVtkReader->set_GridType(dUNSTRUCTURED_GRID);
-				vtkUnstructuredGrid* tep_grid = vtkUnstructuredGrid::New();
-				tep_grid->DeepCopy(filter->GetOutput());
-				mVtkReader->dataSet = tep_grid;
-				filter->Delete();
-				filter = NULL;			 
-				mVtkReader->set_numPoints(mVtkReader->dataSet->GetNumberOfPoints());
-				mVtkReader->set_numCells(mVtkReader->dataSet->GetNumberOfCells());
-			}
+// 			int nblock = mVtkReader->blockDataSet->GetNumberOfBlocks();
+// 			if (nblock > 0)
+// 			{
+// 				vtkAppendFilter* filter = vtkAppendFilter::New();
+// 				for (int i = 0; i < nblock; ++i)
+// 				{
+// 					vtkDataSet* tep_dataset = vtkDataSet::SafeDownCast(mVtkReader->blockDataSet->GetBlock(i));
+// 					filter->AddInputData(tep_dataset);
+// 				}
+// 				filter->Update();
+// 				mVtkReader->set_GridType(dUNSTRUCTURED_GRID);
+// 				vtkUnstructuredGrid* tep_grid = vtkUnstructuredGrid::New();
+// 				tep_grid->DeepCopy(filter->GetOutput());
+// 				mVtkReader->dataSet = tep_grid;
+// 				filter->Delete();
+// 				filter = NULL;			 
+// 				mVtkReader->set_numPoints(mVtkReader->dataSet->GetNumberOfPoints());
+// 				mVtkReader->set_numCells(mVtkReader->dataSet->GetNumberOfCells());
+//			}
+            QList<vtkDataObject*> objs;
+            getDataObject(mVtkReader->blockDataSet, objs);
+            vtkAppendFilter* filter = vtkAppendFilter::New();
+            for (auto obj : objs)
+                filter->AddInputData(obj);
+            filter->Update();
+            mVtkReader->set_GridType(dUNSTRUCTURED_GRID);
+            vtkUnstructuredGrid* tep_grid = vtkUnstructuredGrid::New();
+            tep_grid->DeepCopy(filter->GetOutput());
+            mVtkReader->dataSet = tep_grid;
+            filter->Delete();
+            filter = NULL;
+            mVtkReader->set_numPoints(mVtkReader->dataSet->GetNumberOfPoints());
+            mVtkReader->set_numCells(mVtkReader->dataSet->GetNumberOfCells());
 		}
 		else if (getDataSetMap().count() >= 1)
 		{
@@ -120,7 +158,7 @@ bool ReadDataIO::LoadFile(QString tep_filename)
 		mVtkReader = new ReadData_Vtk;
 		((ReadData_Vtk*)mVtkReader)->setSuffixName(suffix);
 	}
-	else if (suffix == "dat")
+	else if (suffix == "dat" || suffix == "pre" || suffix == "hot")
 	{
 		QFile file(tep_filename);
 		if (!file.exists())
@@ -179,8 +217,10 @@ bool ReadDataIO::LoadFile(QString tep_filename)
 		mVtkReader = new ReadData_Neu;
 	else if (suffix == "stl")
 		mVtkReader = new ReadData_Stl;
-	else if (suffix == "cntm")
-		mVtkReader = new ReadeData_Cntm;
+    else if (suffix == "cntm")
+        mVtkReader = new ReadeData_Cntm;
+    else if (suffix == "e")
+        mVtkReader = new ReadData_ExodusII;
 	else
 		return false;
 	bool flag_read = mVtkReader->Read(tep_filename);

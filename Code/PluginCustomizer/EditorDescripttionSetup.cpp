@@ -52,12 +52,6 @@ namespace FastCAEDesigner
  			//qDebug() << caseName;
 			_parameterList = DataManager::getInstance()->getAllParameterList(_treeType);
 			_parameterGroupList = DataManager::getInstance()->getAllParameterGroupList(_treeType);
-
-			if (_parameterList.isEmpty())
- 				qDebug() << "list empty";
-			else
-				qDebug() << _parameterList.count();
-
 			ui->parameterLinkagePBtn->setVisible(false);
 // 		}
 			_currentType = model->GetType();

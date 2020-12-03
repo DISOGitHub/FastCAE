@@ -9,6 +9,7 @@
 #include <QFileInfo>
 #include <QImage>
 #include <QDebug>
+#include <QAction>
 
 namespace Guidence
 {

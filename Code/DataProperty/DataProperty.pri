@@ -21,7 +21,8 @@ HEADERS += \
 	$$PWD/ParameterTable.h \
 	$$PWD/ParameterGroup.h \
 	$$PWD/modelTreeItemType.h \
-
+	$$PWD/ComponentBase.h \
+	
 SOURCES += \
 	$$PWD/PropertyBase.cpp \
 	$$PWD/PropertyInt.cpp \
@@ -44,4 +45,5 @@ SOURCES += \
 	$$PWD/ParameterTable.cpp \
 	$$PWD/ParameterGroup.cpp \
 	$$PWD/modelTreeItemType.cpp \
+	$$PWD/ComponentBase.cpp \
 	

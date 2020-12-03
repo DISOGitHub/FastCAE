@@ -1,861 +1,412 @@
 win32{
 
-X64{
+INCLUDEPATH	+=  ../../VTK/include/vtk-9.0/  \
 
-Release:INCLUDEPATH	+=  ../../VTK/vtk_7.1.1_x64_Release/include/vtk-7.1/  \
 
-Release:LIBS +=  -L../../VTK/vtk_7.1.1_x64_Release/lib/  \
--lvtkalglib-7.1   \                                                     
--lvtkChartsCore-7.1   \                                                 
--lvtkChartsCorePython26D-7.1   \                                        
--lvtkCommonColor-7.1   \                                                
--lvtkCommonColorPython26D-7.1   \                                       
--lvtkCommonComputationalGeometry-7.1   \                                
--lvtkCommonComputationalGeometryPython26D-7.1   \                       
--lvtkCommonCore-7.1   \                                                 
--lvtkCommonCorePython26D-7.1   \                                        
--lvtkCommonDataModel-7.1   \                                            
--lvtkCommonDataModelPython26D-7.1   \                                   
--lvtkCommonExecutionModel-7.1   \                                       
--lvtkCommonExecutionModelPython26D-7.1   \                              
--lvtkCommonMath-7.1   \                                                 
--lvtkCommonMathPython26D-7.1   \                                        
--lvtkCommonMisc-7.1   \                                                 
--lvtkCommonMiscPython26D-7.1   \                                        
--lvtkCommonSystem-7.1   \                                               
--lvtkCommonSystemPython26D-7.1   \                                      
--lvtkCommonTransforms-7.1   \                                           
--lvtkCommonTransformsPython26D-7.1   \                                  
--lvtkDICOMParser-7.1   \                                                
--lvtkDomainsChemistry-7.1   \                                           
--lvtkDomainsChemistryOpenGL2-7.1   \                                    
--lvtkDomainsChemistryOpenGL2Python26D-7.1   \                           
--lvtkDomainsChemistryPython26D-7.1   \                                  
--lvtkexoIIc-7.1   \                                                     
--lvtkexpat-7.1   \                                                      
--lvtkFiltersAMR-7.1   \                                                 
--lvtkFiltersAMRPython26D-7.1   \                                        
--lvtkFiltersCore-7.1   \                                                
--lvtkFiltersCorePython26D-7.1   \                                       
--lvtkFiltersExtraction-7.1   \                                          
--lvtkFiltersExtractionPython26D-7.1   \                                 
--lvtkFiltersFlowPaths-7.1   \                                           
--lvtkFiltersFlowPathsPython26D-7.1   \                                  
--lvtkFiltersGeneral-7.1   \                                             
--lvtkFiltersGeneralPython26D-7.1   \                                    
--lvtkFiltersGeneric-7.1   \                                             
--lvtkFiltersGenericPython26D-7.1   \                                    
--lvtkFiltersGeometry-7.1   \                                            
--lvtkFiltersGeometryPython26D-7.1   \                                   
--lvtkFiltersHybrid-7.1   \                                              
--lvtkFiltersHybridPython26D-7.1   \                                     
--lvtkFiltersHyperTree-7.1   \                                           
--lvtkFiltersHyperTreePython26D-7.1   \                                  
--lvtkFiltersImaging-7.1   \                                             
--lvtkFiltersImagingPython26D-7.1   \                                    
--lvtkFiltersModeling-7.1   \                                            
--lvtkFiltersModelingPython26D-7.1   \                                   
--lvtkFiltersParallel-7.1   \                                            
--lvtkFiltersParallelImaging-7.1   \                                     
--lvtkFiltersParallelImagingPython26D-7.1   \                            
--lvtkFiltersParallelPython26D-7.1   \                                   
--lvtkFiltersPoints-7.1   \                                              
--lvtkFiltersPointsPython26D-7.1   \                                     
--lvtkFiltersProgrammable-7.1   \                                        
--lvtkFiltersProgrammablePython26D-7.1   \                               
--lvtkFiltersPython-7.1   \                                              
--lvtkFiltersPythonPython26D-7.1   \                                     
--lvtkFiltersSelection-7.1   \                                           
--lvtkFiltersSelectionPython26D-7.1   \                                  
--lvtkFiltersSMP-7.1   \                                                 
--lvtkFiltersSMPPython26D-7.1   \                                        
--lvtkFiltersSources-7.1   \                                             
--lvtkFiltersSourcesPython26D-7.1   \                                    
--lvtkFiltersStatistics-7.1   \                                          
--lvtkFiltersStatisticsPython26D-7.1   \                                 
--lvtkFiltersTexture-7.1   \                                             
--lvtkFiltersTexturePython26D-7.1   \                                    
--lvtkFiltersVerdict-7.1   \                                             
--lvtkFiltersVerdictPython26D-7.1   \                                    
--lvtkfreetype-7.1   \                                                   
--lvtkGeovisCore-7.1   \                                                 
--lvtkGeovisCorePython26D-7.1   \                                        
--lvtkgl2ps-7.1   \                                                      
--lvtkglew-7.1   \                                                       
--lvtkGUISupportMFC-7.1   \                                              
--lvtkGUISupportQt-7.1   \                                               
--lvtkGUISupportQtOpenGL-7.1   \                                         
--lvtkGUISupportQtSQL-7.1   \                                            
--lvtkGUISupportQtWebkit-7.1   \                                         
--lvtkhdf5-7.1   \                                                       
--lvtkhdf5_hl-7.1   \                                                    
--lvtkImagingColor-7.1   \                                               
--lvtkImagingColorPython26D-7.1   \                                      
--lvtkImagingCore-7.1   \                                                
--lvtkImagingCorePython26D-7.1   \                                       
--lvtkImagingFourier-7.1   \                                             
--lvtkImagingFourierPython26D-7.1   \                                    
--lvtkImagingGeneral-7.1   \                                             
--lvtkImagingGeneralPython26D-7.1   \                                    
--lvtkImagingHybrid-7.1   \                                              
--lvtkImagingHybridPython26D-7.1   \                                     
--lvtkImagingMath-7.1   \                                                
--lvtkImagingMathPython26D-7.1   \                                       
--lvtkImagingMorphological-7.1   \                                       
--lvtkImagingMorphologicalPython26D-7.1   \                              
--lvtkImagingOpenGL2-7.1   \                                             
--lvtkImagingOpenGL2Python26D-7.1   \                                    
--lvtkImagingSources-7.1   \                                             
--lvtkImagingSourcesPython26D-7.1   \                                    
--lvtkImagingStatistics-7.1   \                                          
--lvtkImagingStatisticsPython26D-7.1   \                                 
--lvtkImagingStencil-7.1   \                                             
--lvtkImagingStencilPython26D-7.1   \                                    
--lvtkInfovisCore-7.1   \                                                
--lvtkInfovisCorePython26D-7.1   \                                       
--lvtkInfovisLayout-7.1   \                                              
--lvtkInfovisLayoutPython26D-7.1   \                                     
--lvtkInteractionImage-7.1   \                                           
--lvtkInteractionImagePython26D-7.1   \                                  
--lvtkInteractionStyle-7.1   \                                           
--lvtkInteractionStylePython26D-7.1   \                                  
--lvtkInteractionWidgets-7.1   \                                         
--lvtkInteractionWidgetsPython26D-7.1   \                                
--lvtkIOAMR-7.1   \                                                      
--lvtkIOAMRPython26D-7.1   \                                             
--lvtkIOCore-7.1   \                                                     
--lvtkIOCorePython26D-7.1   \                                            
--lvtkIOEnSight-7.1   \                                                  
--lvtkIOEnSightPython26D-7.1   \                                         
--lvtkIOExodus-7.1   \                                                   
--lvtkIOExodusPython26D-7.1   \                                          
--lvtkIOExport-7.1   \                                                   
--lvtkIOExportOpenGL2-7.1   \                                            
--lvtkIOExportOpenGL2Python26D-7.1   \                                   
--lvtkIOExportPython26D-7.1   \                                          
--lvtkIOFFMPEG-7.1   \                                                   
--lvtkIOFFMPEGPython26D-7.1   \                                          
--lvtkIOGeometry-7.1   \                                                 
--lvtkIOGeometryPython26D-7.1   \                                        
--lvtkIOImage-7.1   \                                                    
--lvtkIOImagePython26D-7.1   \                                           
--lvtkIOImport-7.1   \                                                   
--lvtkIOImportPython26D-7.1   \                                          
--lvtkIOInfovis-7.1   \                                                  
--lvtkIOInfovisPython26D-7.1   \                                         
--lvtkIOLegacy-7.1   \                                                   
--lvtkIOLegacyPython26D-7.1   \                                          
--lvtkIOLSDyna-7.1   \                                                   
--lvtkIOLSDynaPython26D-7.1   \                                          
--lvtkIOMINC-7.1   \                                                     
--lvtkIOMINCPython26D-7.1   \                                            
--lvtkIOMovie-7.1   \                                                    
--lvtkIOMoviePython26D-7.1   \                                           
--lvtkIONetCDF-7.1   \                                                   
--lvtkIONetCDFPython26D-7.1   \                                          
--lvtkIOParallel-7.1   \                                                 
--lvtkIOParallelPython26D-7.1   \                                        
--lvtkIOParallelXML-7.1   \                                              
--lvtkIOParallelXMLPython26D-7.1   \                                     
--lvtkIOPLY-7.1   \                                                      
--lvtkIOPLYPython26D-7.1   \                                             
--lvtkIOSQL-7.1   \                                                      
--lvtkIOSQLPython26D-7.1   \                                             
--lvtkIOTecplotTable-7.1   \                                             
--lvtkIOTecplotTablePython26D-7.1   \                                    
--lvtkIOVideo-7.1   \                                                    
--lvtkIOVideoPython26D-7.1   \                                           
--lvtkIOXML-7.1   \                                                      
--lvtkIOXMLParser-7.1   \                                                
--lvtkIOXMLParserPython26D-7.1   \                                       
--lvtkIOXMLPython26D-7.1   \                                             
--lvtkjpeg-7.1   \                                                       
--lvtkjsoncpp-7.1   \                                                    
--lvtklibxml2-7.1   \                                                    
--lvtkmetaio-7.1   \                                                     
--lvtkNetCDF-7.1   \                                                     
--lvtkNetCDF_cxx-7.1   \                                                 
--lvtkoggtheora-7.1   \                                                  
--lvtkParallelCore-7.1   \                                               
--lvtkParallelCorePython26D-7.1   \                                      
--lvtkpng-7.1   \                                                        
--lvtkproj4-7.1   \                                                      
--lvtkPythonInterpreter-7.1   \                                          
--lvtkPythonInterpreterPython26D-7.1   \                                 
--lvtkRenderingAnnotation-7.1   \                                        
--lvtkRenderingAnnotationPython26D-7.1   \                               
--lvtkRenderingContext2D-7.1   \                                         
--lvtkRenderingContext2DPython26D-7.1   \                                
--lvtkRenderingContextOpenGL2-7.1   \                                    
--lvtkRenderingContextOpenGL2Python26D-7.1   \                           
--lvtkRenderingCore-7.1   \                                              
--lvtkRenderingCorePython26D-7.1   \                                     
--lvtkRenderingFreeType-7.1   \                                          
--lvtkRenderingFreeTypePython26D-7.1   \                                 
--lvtkRenderingGL2PSOpenGL2-7.1   \                                      
--lvtkRenderingGL2PSOpenGL2Python26D-7.1   \                             
--lvtkRenderingImage-7.1   \                                             
--lvtkRenderingImagePython26D-7.1   \                                    
--lvtkRenderingLabel-7.1   \                                             
--lvtkRenderingLabelPython26D-7.1   \                                    
--lvtkRenderingLICOpenGL2-7.1   \                                        
--lvtkRenderingLICOpenGL2Python26D-7.1   \                               
--lvtkRenderingLOD-7.1   \                                               
--lvtkRenderingLODPython26D-7.1   \                                      
--lvtkRenderingOpenGL2-7.1   \                                           
--lvtkRenderingOpenGL2Python26D-7.1   \                                  
--lvtkRenderingOpenVR-7.1   \                                            
--lvtkRenderingOpenVRPython26D-7.1   \                                   
--lvtkRenderingQt-7.1   \                                                
--lvtkRenderingQtPython26D-7.1   \                                       
--lvtkRenderingSceneGraph-7.1   \                                        
--lvtkRenderingSceneGraphPython26D-7.1   \                               
--lvtkRenderingVolume-7.1   \                                            
--lvtkRenderingVolumeOpenGL2-7.1   \                                     
--lvtkRenderingVolumeOpenGL2Python26D-7.1   \                            
--lvtkRenderingVolumePython26D-7.1   \                                   
--lvtksqlite-7.1   \                                                     
--lvtksys-7.1   \                                                        
--lvtkTestingGenericBridge-7.1   \                                       
--lvtkTestingIOSQL-7.1   \                                               
--lvtkTestingRendering-7.1   \                                           
--lvtkTestingRenderingPython26D-7.1   \                                  
--lvtktiff-7.1   \                                                       
--lvtkverdict-7.1   \                                                    
--lvtkViewsContext2D-7.1   \                                             
--lvtkViewsContext2DPython26D-7.1   \                                    
--lvtkViewsCore-7.1   \                                                  
--lvtkViewsCorePython26D-7.1   \                                         
--lvtkViewsInfovis-7.1   \                                               
--lvtkViewsInfovisPython26D-7.1   \                                      
--lvtkViewsQt-7.1   \                                                    
--lvtkWebCore-7.1   \                                                    
--lvtkWebCorePython26D-7.1   \                                           
--lvtkWebGLExporter-7.1   \                                              
--lvtkWebGLExporterPython26D-7.1   \                                     
--lvtkWrappingPython26Core-7.1   \                                       
--lvtkWrappingTools-7.1   \                                              
--lvtkzlib-7.1   \       
-                                                
-Debug:INCLUDEPATH	+=  ../../VTK/vtk_7.1.1_x64_Debug/include/vtk-7.1/  \
+Debug:LIBS +=  -L../../VTK/libd/  \                                  
+			   -lvtkChartsCore-9.0d  \
+			   -lvtkCommonColor-9.0d  \
+			   -lvtkCommonComputationalGeometry-9.0d  \
+			   -lvtkCommonCore-9.0d  \
+			   -lvtkCommonDataModel-9.0d  \
+			   -lvtkCommonExecutionModel-9.0d  \
+			   -lvtkCommonMath-9.0d  \
+			   -lvtkCommonMisc-9.0d  \
+			   -lvtkCommonSystem-9.0d  \
+			   -lvtkCommonTransforms-9.0d  \
+			   -lvtkDICOMParser-9.0d  \
+			   -lvtkDomainsChemistry-9.0d  \
+			   -lvtkFiltersAMR-9.0d  \
+			   -lvtkFiltersCore-9.0d  \
+			   -lvtkFiltersExtraction-9.0d  \
+			   -lvtkFiltersFlowPaths-9.0d  \
+			   -lvtkFiltersGeneral-9.0d  \
+			   -lvtkFiltersGeneric-9.0d  \
+			   -lvtkFiltersGeometry-9.0d  \
+			   -lvtkFiltersHybrid-9.0d  \
+			   -lvtkFiltersHyperTree-9.0d  \
+			   -lvtkFiltersImaging-9.0d  \
+			   -lvtkFiltersModeling-9.0d  \
+			   -lvtkFiltersParallel-9.0d  \
+			   -lvtkFiltersParallelImaging-9.0d  \
+			   -lvtkFiltersPoints-9.0d  \
+			   -lvtkFiltersProgrammable-9.0d  \
+			   -lvtkFiltersSMP-9.0d  \
+			   -lvtkFiltersSelection-9.0d  \
+			   -lvtkFiltersSources-9.0d  \
+			   -lvtkFiltersStatistics-9.0d  \
+			   -lvtkFiltersTexture-9.0d  \
+			   -lvtkFiltersTopology-9.0d  \
+			   -lvtkFiltersVerdict-9.0d  \
+			   -lvtkGUISupportQt-9.0d  \
+			   -lvtkGUISupportQtSQL-9.0d  \
+			   -lvtkGeovisCore-9.0d  \
+			   -lvtkIOAMR-9.0d  \
+			   -lvtkIOAsynchronous-9.0d  \
+			   -lvtkIOCityGML-9.0d  \
+			   -lvtkIOCore-9.0d  \
+			   -lvtkIOEnSight-9.0d  \
+			   -lvtkIOExodus-9.0d  \
+			   -lvtkIOExport-9.0d  \
+			   -lvtkIOExportGL2PS-9.0d  \
+			   -lvtkIOExportPDF-9.0d  \
+			   -lvtkIOGeometry-9.0d  \
+			   -lvtkIOImage-9.0d  \
+			   -lvtkIOImport-9.0d  \
+			   -lvtkIOInfovis-9.0d  \
+			   -lvtkIOLSDyna-9.0d  \
+			   -lvtkIOLegacy-9.0d  \
+			   -lvtkIOMINC-9.0d  \
+			   -lvtkIOMotionFX-9.0d  \
+			   -lvtkIOMovie-9.0d  \
+			   -lvtkIONetCDF-9.0d  \
+			   -lvtkIOOggTheora-9.0d  \
+			   -lvtkIOPLY-9.0d  \
+			   -lvtkIOParallel-9.0d  \
+			   -lvtkIOParallelXML-9.0d  \
+			   -lvtkIOSQL-9.0d  \
+			   -lvtkIOSegY-9.0d  \
+			   -lvtkIOTecplotTable-9.0d  \
+			   -lvtkIOVeraOut-9.0d  \
+			   -lvtkIOVideo-9.0d  \
+			   -lvtkIOXML-9.0d  \
+			   -lvtkIOXMLParser-9.0d  \
+			   -lvtkImagingColor-9.0d  \
+			   -lvtkImagingCore-9.0d  \
+			   -lvtkImagingFourier-9.0d  \
+			   -lvtkImagingGeneral-9.0d  \
+			   -lvtkImagingHybrid-9.0d  \
+			   -lvtkImagingMath-9.0d  \
+			   -lvtkImagingMorphological-9.0d  \
+			   -lvtkImagingSources-9.0d  \
+			   -lvtkImagingStatistics-9.0d  \
+			   -lvtkImagingStencil-9.0d  \
+			   -lvtkInfovisCore-9.0d  \
+			   -lvtkInfovisLayout-9.0d  \
+			   -lvtkInteractionImage-9.0d  \
+			   -lvtkInteractionStyle-9.0d  \
+			   -lvtkInteractionWidgets-9.0d  \
+			   -lvtkParallelCore-9.0d  \
+			   -lvtkParallelDIY-9.0d  \
+			   -lvtkRenderingAnnotation-9.0d  \
+			   -lvtkRenderingContext2D-9.0d  \
+			   -lvtkRenderingCore-9.0d  \
+			   -lvtkRenderingFreeType-9.0d  \
+			   -lvtkRenderingGL2PSOpenGL2-9.0d  \
+			   -lvtkRenderingImage-9.0d  \
+			   -lvtkRenderingLOD-9.0d  \
+			   -lvtkRenderingLabel-9.0d  \
+			   -lvtkRenderingOpenGL2-9.0d  \
+			   -lvtkRenderingQt-9.0d  \
+			   -lvtkRenderingSceneGraph-9.0d  \
+			   -lvtkRenderingUI-9.0d  \
+			   -lvtkRenderingVolume-9.0d  \
+			   -lvtkRenderingVolumeOpenGL2-9.0d  \
+			   -lvtkRenderingVtkJS-9.0d  \
+			   -lvtkTestingRendering-9.0d  \
+			   -lvtkViewsContext2D-9.0d  \
+			   -lvtkViewsCore-9.0d  \
+			   -lvtkViewsInfovis-9.0d  \
+			   -lvtkViewsQt-9.0d  \
+			   -lvtkWrappingTools-9.0d  \
+			   -lvtkdoubleconversion-9.0d  \
+			   -lvtkexodusII-9.0d  \
+			   -lvtkexpat-9.0d  \
+			   -lvtkfreetype-9.0d  \
+			   -lvtkgl2ps-9.0d  \
+			   -lvtkglew-9.0d  \
+			   -lvtkhdf5-9.0d  \
+			   -lvtkhdf5_hl-9.0d  \
+			   -lvtkjpeg-9.0d  \
+			   -lvtkjsoncpp-9.0d  \
+			   -lvtklibharu-9.0d  \
+			   -lvtklibproj-9.0d  \
+			   -lvtklibxml2-9.0d  \
+			   -lvtkloguru-9.0d  \
+			   -lvtklz4-9.0d  \
+			   -lvtklzma-9.0d  \
+			   -lvtkmetaio-9.0d  \
+			   -lvtknetcdf-9.0d  \
+			   -lvtkogg-9.0d  \
+			   -lvtkpng-9.0d  \
+			   -lvtkpugixml-9.0d  \
+			   -lvtksqlite-9.0d  \
+			   -lvtksys-9.0d  \
+			   -lvtktheora-9.0d  \
+			   -lvtktiff-9.0d  \
+			   -lvtkverdict-9.0d  \
+			   -lvtkzlib-9.0d  \
 
-Debug:LIBS +=  -L../../VTK/vtk_7.1.1_x64_Debug/lib/  \
--lvtkalglib-7.1  \
--lvtkChartsCore-7.1  \
--lvtkChartsCorePython27D-7.1  \
--lvtkCommonColor-7.1  \
--lvtkCommonColorPython27D-7.1  \
--lvtkCommonComputationalGeometry-7.1  \
--lvtkCommonComputationalGeometryPython27D-7.1  \
--lvtkCommonCore-7.1  \
--lvtkCommonCorePython27D-7.1  \
--lvtkCommonDataModel-7.1  \
--lvtkCommonDataModelPython27D-7.1  \
--lvtkCommonExecutionModel-7.1  \
--lvtkCommonExecutionModelPython27D-7.1  \
--lvtkCommonMath-7.1  \
--lvtkCommonMathPython27D-7.1  \
--lvtkCommonMisc-7.1  \
--lvtkCommonMiscPython27D-7.1  \
--lvtkCommonSystem-7.1  \
--lvtkCommonSystemPython27D-7.1  \
--lvtkCommonTransforms-7.1  \
--lvtkCommonTransformsPython27D-7.1  \
--lvtkDICOMParser-7.1  \
--lvtkDomainsChemistry-7.1  \
--lvtkDomainsChemistryOpenGL2-7.1  \
--lvtkDomainsChemistryOpenGL2Python27D-7.1  \
--lvtkDomainsChemistryPython27D-7.1  \
--lvtkexoIIc-7.1  \
--lvtkexpat-7.1  \
--lvtkFiltersAMR-7.1  \
--lvtkFiltersAMRPython27D-7.1  \
--lvtkFiltersCore-7.1  \
--lvtkFiltersCorePython27D-7.1  \
--lvtkFiltersExtraction-7.1  \
--lvtkFiltersExtractionPython27D-7.1  \
--lvtkFiltersFlowPaths-7.1  \
--lvtkFiltersFlowPathsPython27D-7.1  \
--lvtkFiltersGeneral-7.1  \
--lvtkFiltersGeneralPython27D-7.1  \
--lvtkFiltersGeneric-7.1  \
--lvtkFiltersGenericPython27D-7.1  \
--lvtkFiltersGeometry-7.1  \
--lvtkFiltersGeometryPython27D-7.1  \
--lvtkFiltersHybrid-7.1  \
--lvtkFiltersHybridPython27D-7.1  \
--lvtkFiltersHyperTree-7.1  \
--lvtkFiltersHyperTreePython27D-7.1  \
--lvtkFiltersImaging-7.1  \
--lvtkFiltersImagingPython27D-7.1  \
--lvtkFiltersModeling-7.1  \
--lvtkFiltersModelingPython27D-7.1  \
--lvtkFiltersParallel-7.1  \
--lvtkFiltersParallelImaging-7.1  \
--lvtkFiltersParallelImagingPython27D-7.1  \
--lvtkFiltersParallelPython27D-7.1  \
--lvtkFiltersPoints-7.1  \
--lvtkFiltersPointsPython27D-7.1  \
--lvtkFiltersProgrammable-7.1  \
--lvtkFiltersProgrammablePython27D-7.1  \
--lvtkFiltersPython-7.1  \
--lvtkFiltersPythonPython27D-7.1  \
--lvtkFiltersSelection-7.1  \
--lvtkFiltersSelectionPython27D-7.1  \
--lvtkFiltersSMP-7.1  \
--lvtkFiltersSMPPython27D-7.1  \
--lvtkFiltersSources-7.1  \
--lvtkFiltersSourcesPython27D-7.1  \
--lvtkFiltersStatistics-7.1  \
--lvtkFiltersStatisticsPython27D-7.1  \
--lvtkFiltersTexture-7.1  \
--lvtkFiltersTexturePython27D-7.1  \
--lvtkFiltersVerdict-7.1  \
--lvtkFiltersVerdictPython27D-7.1  \
--lvtkfreetype-7.1  \
--lvtkGeovisCore-7.1  \
--lvtkGeovisCorePython27D-7.1  \
--lvtkgl2ps-7.1  \
--lvtkglew-7.1  \
--lvtkGUISupportMFC-7.1  \
--lvtkGUISupportQt-7.1  \
--lvtkGUISupportQtOpenGL-7.1  \
--lvtkGUISupportQtSQL-7.1  \
--lvtkGUISupportQtWebkit-7.1  \
--lvtkhdf5-7.1  \
--lvtkhdf5_hl-7.1  \
--lvtkImagingColor-7.1  \
--lvtkImagingColorPython27D-7.1  \
--lvtkImagingCore-7.1  \
--lvtkImagingCorePython27D-7.1  \
--lvtkImagingFourier-7.1  \
--lvtkImagingFourierPython27D-7.1  \
--lvtkImagingGeneral-7.1  \
--lvtkImagingGeneralPython27D-7.1  \
--lvtkImagingHybrid-7.1  \
--lvtkImagingHybridPython27D-7.1  \
--lvtkImagingMath-7.1  \
--lvtkImagingMathPython27D-7.1  \
--lvtkImagingMorphological-7.1  \
--lvtkImagingMorphologicalPython27D-7.1  \
--lvtkImagingOpenGL2-7.1  \
--lvtkImagingOpenGL2Python27D-7.1  \
--lvtkImagingSources-7.1  \
--lvtkImagingSourcesPython27D-7.1  \
--lvtkImagingStatistics-7.1  \
--lvtkImagingStatisticsPython27D-7.1  \
--lvtkImagingStencil-7.1  \
--lvtkImagingStencilPython27D-7.1  \
--lvtkInfovisCore-7.1  \
--lvtkInfovisCorePython27D-7.1  \
--lvtkInfovisLayout-7.1  \
--lvtkInfovisLayoutPython27D-7.1  \
--lvtkInteractionImage-7.1  \
--lvtkInteractionImagePython27D-7.1  \
--lvtkInteractionStyle-7.1  \
--lvtkInteractionStylePython27D-7.1  \
--lvtkInteractionWidgets-7.1  \
--lvtkInteractionWidgetsPython27D-7.1  \
--lvtkIOAMR-7.1  \
--lvtkIOAMRPython27D-7.1  \
--lvtkIOCore-7.1  \
--lvtkIOCorePython27D-7.1  \
--lvtkIOEnSight-7.1  \
--lvtkIOEnSightPython27D-7.1  \
--lvtkIOExodus-7.1  \
--lvtkIOExodusPython27D-7.1  \
--lvtkIOExport-7.1  \
--lvtkIOExportOpenGL2-7.1  \
--lvtkIOExportOpenGL2Python27D-7.1  \
--lvtkIOExportPython27D-7.1  \
--lvtkIOFFMPEG-7.1  \
--lvtkIOFFMPEGPython27D-7.1  \
--lvtkIOGeometry-7.1  \
--lvtkIOGeometryPython27D-7.1  \
--lvtkIOImage-7.1  \
--lvtkIOImagePython27D-7.1  \
--lvtkIOImport-7.1  \
--lvtkIOImportPython27D-7.1  \
--lvtkIOInfovis-7.1  \
--lvtkIOInfovisPython27D-7.1  \
--lvtkIOLegacy-7.1  \
--lvtkIOLegacyPython27D-7.1  \
--lvtkIOLSDyna-7.1  \
--lvtkIOLSDynaPython27D-7.1  \
--lvtkIOMINC-7.1  \
--lvtkIOMINCPython27D-7.1  \
--lvtkIOMovie-7.1  \
--lvtkIOMoviePython27D-7.1  \
--lvtkIONetCDF-7.1  \
--lvtkIONetCDFPython27D-7.1  \
--lvtkIOParallel-7.1  \
--lvtkIOParallelPython27D-7.1  \
--lvtkIOParallelXML-7.1  \
--lvtkIOParallelXMLPython27D-7.1  \
--lvtkIOPLY-7.1  \
--lvtkIOPLYPython27D-7.1  \
--lvtkIOSQL-7.1  \
--lvtkIOSQLPython27D-7.1  \
--lvtkIOTecplotTable-7.1  \
--lvtkIOTecplotTablePython27D-7.1  \
--lvtkIOVideo-7.1  \
--lvtkIOVideoPython27D-7.1  \
--lvtkIOXML-7.1  \
--lvtkIOXMLParser-7.1  \
--lvtkIOXMLParserPython27D-7.1  \
--lvtkIOXMLPython27D-7.1  \
--lvtkjpeg-7.1  \
--lvtkjsoncpp-7.1  \
--lvtklibxml2-7.1  \
--lvtkmetaio-7.1  \
--lvtkNetCDF-7.1  \
--lvtkNetCDF_cxx-7.1  \
--lvtkoggtheora-7.1  \
--lvtkParallelCore-7.1  \
--lvtkParallelCorePython27D-7.1  \
--lvtkpng-7.1  \
--lvtkproj4-7.1_d  \
--lvtkPythonInterpreter-7.1  \
--lvtkPythonInterpreterPython27D-7.1  \
--lvtkRenderingAnnotation-7.1  \
--lvtkRenderingAnnotationPython27D-7.1  \
--lvtkRenderingContext2D-7.1  \
--lvtkRenderingContext2DPython27D-7.1  \
--lvtkRenderingContextOpenGL2-7.1  \
--lvtkRenderingContextOpenGL2Python27D-7.1  \
--lvtkRenderingCore-7.1  \
--lvtkRenderingCorePython27D-7.1  \
--lvtkRenderingFreeType-7.1  \
--lvtkRenderingFreeTypePython27D-7.1  \
--lvtkRenderingGL2PSOpenGL2-7.1  \
--lvtkRenderingGL2PSOpenGL2Python27D-7.1  \
--lvtkRenderingImage-7.1  \
--lvtkRenderingImagePython27D-7.1  \
--lvtkRenderingLabel-7.1  \
--lvtkRenderingLabelPython27D-7.1  \
--lvtkRenderingLICOpenGL2-7.1  \
--lvtkRenderingLICOpenGL2Python27D-7.1  \
--lvtkRenderingLOD-7.1  \
--lvtkRenderingLODPython27D-7.1  \
--lvtkRenderingOpenGL2-7.1  \
--lvtkRenderingOpenGL2Python27D-7.1  \
--lvtkRenderingOpenVR-7.1  \
--lvtkRenderingOpenVRPython27D-7.1  \
--lvtkRenderingQt-7.1  \
--lvtkRenderingQtPython27D-7.1  \
--lvtkRenderingSceneGraph-7.1  \
--lvtkRenderingSceneGraphPython27D-7.1  \
--lvtkRenderingVolume-7.1  \
--lvtkRenderingVolumeOpenGL2-7.1  \
--lvtkRenderingVolumeOpenGL2Python27D-7.1  \
--lvtkRenderingVolumePython27D-7.1  \
--lvtksqlite-7.1  \
--lvtksys-7.1  \
--lvtkTestingGenericBridge-7.1  \
--lvtkTestingIOSQL-7.1  \
--lvtkTestingRendering-7.1  \
--lvtkTestingRenderingPython27D-7.1  \
--lvtktiff-7.1  \
--lvtkverdict-7.1  \
--lvtkViewsContext2D-7.1  \
--lvtkViewsContext2DPython27D-7.1  \
--lvtkViewsCore-7.1  \
--lvtkViewsCorePython27D-7.1  \
--lvtkViewsInfovis-7.1  \
--lvtkViewsInfovisPython27D-7.1  \
--lvtkViewsQt-7.1  \
--lvtkWebCore-7.1  \
--lvtkWebCorePython27D-7.1  \
--lvtkWebGLExporter-7.1  \
--lvtkWebGLExporterPython27D-7.1  \
--lvtkWrappingPython27Core-7.1  \
--lvtkWrappingTools-7.1  \
--lvtkzlib-7.1  \
-
-}
-  
-X86{
-
-Release:INCLUDEPATH	+=  ../../VTK/vtk_7.1.1_x86_Release/include/vtk-7.1/ \
-
-Release:LIBS +=  -L../../VTK/vtk_7.1.1_x86_Release/lib/   \
--lvtkalglib-7.1  \  
--lvtkChartsCore-7.1  \ 
--lvtkCommonColor-7.1  \
--lvtkCommonComputationalGeometry-7.1  \  
--lvtkCommonCore-7.1  \ 
--lvtkCommonDataModel-7.1  \  
--lvtkCommonExecutionModel-7.1  \
--lvtkCommonMath-7.1  \ 
--lvtkCommonMisc-7.1  \ 
--lvtkCommonSystem-7.1  \  
--lvtkCommonTransforms-7.1  \ 
--lvtkDICOMParser-7.1  \
--lvtkDomainsChemistry-7.1  \ 
--lvtkDomainsChemistryOpenGL2-7.1  \
--lvtkexoIIc-7.1  \  
--lvtkexpat-7.1  \
--lvtkFiltersAMR-7.1  \ 
--lvtkFiltersCore-7.1  \
--lvtkFiltersExtraction-7.1  \
--lvtkFiltersFlowPaths-7.1  \ 
--lvtkFiltersGeneral-7.1  \
--lvtkFiltersGeneric-7.1  \
--lvtkFiltersGeometry-7.1  \  
--lvtkFiltersHybrid-7.1  \ 
--lvtkFiltersHyperTree-7.1  \ 
--lvtkFiltersImaging-7.1  \
--lvtkFiltersModeling-7.1  \  
--lvtkFiltersParallel-7.1  \  
--lvtkFiltersParallelImaging-7.1  \ 
--lvtkFiltersPoints-7.1  \ 
--lvtkFiltersProgrammable-7.1  \ 
--lvtkFiltersSelection-7.1  \ 
--lvtkFiltersSMP-7.1  \ 
--lvtkFiltersSources-7.1  \
--lvtkFiltersStatistics-7.1  \
--lvtkFiltersTexture-7.1  \
--lvtkFiltersVerdict-7.1  \
--lvtkfreetype-7.1  \
--lvtkGeovisCore-7.1  \ 
--lvtkgl2ps-7.1  \
--lvtkglew-7.1  \ 
--lvtkGUISupportQt-7.1  \  
--lvtkGUISupportQtOpenGL-7.1  \  
--lvtkGUISupportQtSQL-7.1  \  
--lvtkGUISupportQtWebkit-7.1  \  
--lvtkhdf5-7.1  \ 
--lvtkhdf5_hl-7.1  \ 
--lvtkImagingColor-7.1  \  
--lvtkImagingCore-7.1  \
--lvtkImagingFourier-7.1  \
--lvtkImagingGeneral-7.1  \
--lvtkImagingHybrid-7.1  \ 
--lvtkImagingMath-7.1  \
--lvtkImagingMorphological-7.1  \
--lvtkImagingSources-7.1  \
--lvtkImagingStatistics-7.1  \
--lvtkImagingStencil-7.1  \
--lvtkInfovisCore-7.1  \
--lvtkInfovisLayout-7.1  \ 
--lvtkInteractionImage-7.1  \ 
--lvtkInteractionStyle-7.1  \ 
--lvtkInteractionWidgets-7.1  \  
--lvtkIOAMR-7.1  \
--lvtkIOCore-7.1  \  
--lvtkIOEnSight-7.1  \  
--lvtkIOExodus-7.1  \
--lvtkIOExport-7.1  \
--lvtkIOGeometry-7.1  \ 
--lvtkIOImage-7.1  \ 
--lvtkIOImport-7.1  \
--lvtkIOInfovis-7.1  \  
--lvtkIOLegacy-7.1  \
--lvtkIOLSDyna-7.1  \
--lvtkIOMINC-7.1  \  
--lvtkIOMovie-7.1  \ 
--lvtkIONetCDF-7.1  \
--lvtkIOParallel-7.1  \ 
--lvtkIOParallelXML-7.1  \ 
--lvtkIOPLY-7.1  \
--lvtkIOSQL-7.1  \
--lvtkIOTecplotTable-7.1  \
--lvtkIOVideo-7.1  \ 
--lvtkIOXML-7.1  \
--lvtkIOXMLParser-7.1  \
--lvtkjpeg-7.1  \ 
--lvtkjsoncpp-7.1  \ 
--lvtklibxml2-7.1  \ 
--lvtkLocalExample-7.1  \  
--lvtkmetaio-7.1  \  
--lvtkNetCDF-7.1  \  
--lvtkNetCDF_cxx-7.1  \ 
--lvtkoggtheora-7.1  \  
--lvtkParallelCore-7.1  \  
--lvtkpng-7.1  \  
--lvtkproj4-7.1  \
--lvtkRenderingAnnotation-7.1  \ 
--lvtkRenderingContext2D-7.1  \  
--lvtkRenderingContextOpenGL2-7.1  \
--lvtkRenderingCore-7.1  \ 
--lvtkRenderingFreeType-7.1  \
--lvtkRenderingGL2PSOpenGL2-7.1  \  
--lvtkRenderingImage-7.1  \
--lvtkRenderingLabel-7.1  \
--lvtkRenderingLOD-7.1  \  
--lvtkRenderingOpenGL2-7.1  \ 
--lvtkRenderingQt-7.1  \
--lvtkRenderingSceneGraph-7.1  \ 
--lvtkRenderingVolume-7.1  \  
--lvtkRenderingVolumeOpenGL2-7.1  \ 
--lvtksqlite-7.1  \  
--lvtksys-7.1  \  
--lvtkTestingGenericBridge-7.1  \
--lvtkTestingIOSQL-7.1  \  
--lvtkTestingRendering-7.1  \ 
--lvtktiff-7.1  \ 
--lvtkverdict-7.1  \ 
--lvtkViewsContext2D-7.1  \
--lvtkViewsCore-7.1  \  
--lvtkViewsInfovis-7.1  \  
--lvtkViewsQt-7.1  \ 
--lvtkzlib-7.1  \ 
-
-Debug:INCLUDEPATH	+=  ../../VTK/vtk_7.1.1_x86_Debug/include/vtk-7.1/  \
-
-Debug:LIBS +=  -L../../VTK/vtk_7.1.1_x86_Debug/lib/ \
--lvtkalglib-7.1  \
--lvtkChartsCore-7.1  \
--lvtkCommonColor-7.1  \
--lvtkCommonComputationalGeometry-7.1  \
--lvtkCommonCore-7.1  \
--lvtkCommonDataModel-7.1  \
--lvtkCommonExecutionModel-7.1  \
--lvtkCommonMath-7.1  \
--lvtkCommonMisc-7.1  \
--lvtkCommonSystem-7.1  \
--lvtkCommonTransforms-7.1  \
--lvtkDICOMParser-7.1  \
--lvtkDomainsChemistry-7.1  \
--lvtkDomainsChemistryOpenGL2-7.1  \
--lvtkexoIIc-7.1  \
--lvtkexpat-7.1  \
--lvtkFiltersAMR-7.1  \
--lvtkFiltersCore-7.1  \
--lvtkFiltersExtraction-7.1  \
--lvtkFiltersFlowPaths-7.1  \
--lvtkFiltersGeneral-7.1  \
--lvtkFiltersGeneric-7.1  \
--lvtkFiltersGeometry-7.1  \
--lvtkFiltersHybrid-7.1  \
--lvtkFiltersHyperTree-7.1  \
--lvtkFiltersImaging-7.1  \
--lvtkFiltersModeling-7.1  \
--lvtkFiltersParallel-7.1  \
--lvtkFiltersParallelImaging-7.1  \
--lvtkFiltersPoints-7.1  \
--lvtkFiltersProgrammable-7.1  \
--lvtkFiltersSelection-7.1  \
--lvtkFiltersSMP-7.1  \
--lvtkFiltersSources-7.1  \
--lvtkFiltersStatistics-7.1  \
--lvtkFiltersTexture-7.1  \
--lvtkFiltersVerdict-7.1  \
--lvtkfreetype-7.1  \
--lvtkGeovisCore-7.1  \
--lvtkgl2ps-7.1  \
--lvtkglew-7.1  \
--lvtkGUISupportQt-7.1  \
--lvtkGUISupportQtOpenGL-7.1  \
--lvtkGUISupportQtSQL-7.1  \
--lvtkGUISupportQtWebkit-7.1  \
--lvtkhdf5-7.1  \
--lvtkhdf5_hl-7.1  \
--lvtkImagingColor-7.1  \
--lvtkImagingCore-7.1  \
--lvtkImagingFourier-7.1  \
--lvtkImagingGeneral-7.1  \
--lvtkImagingHybrid-7.1  \
--lvtkImagingMath-7.1  \
--lvtkImagingMorphological-7.1  \
--lvtkImagingSources-7.1  \
--lvtkImagingStatistics-7.1  \
--lvtkImagingStencil-7.1  \
--lvtkInfovisCore-7.1  \
--lvtkInfovisLayout-7.1  \
--lvtkInteractionImage-7.1  \
--lvtkInteractionStyle-7.1  \
--lvtkInteractionWidgets-7.1  \
--lvtkIOAMR-7.1  \
--lvtkIOCore-7.1  \
--lvtkIOEnSight-7.1  \
--lvtkIOExodus-7.1  \
--lvtkIOExport-7.1  \
--lvtkIOGeometry-7.1  \
--lvtkIOImage-7.1  \
--lvtkIOImport-7.1  \
--lvtkIOInfovis-7.1  \
--lvtkIOLegacy-7.1  \
--lvtkIOLSDyna-7.1  \
--lvtkIOMINC-7.1  \
--lvtkIOMovie-7.1  \
--lvtkIONetCDF-7.1  \
--lvtkIOParallel-7.1  \
--lvtkIOParallelXML-7.1  \
--lvtkIOPLY-7.1  \
--lvtkIOSQL-7.1  \
--lvtkIOTecplotTable-7.1  \
--lvtkIOVideo-7.1  \
--lvtkIOXML-7.1  \
--lvtkIOXMLParser-7.1  \
--lvtkjpeg-7.1  \
--lvtkjsoncpp-7.1  \
--lvtklibxml2-7.1  \
--lvtkLocalExample-7.1  \
--lvtkmetaio-7.1  \
--lvtkNetCDF-7.1  \
--lvtkNetCDF_cxx-7.1  \
--lvtkoggtheora-7.1  \
--lvtkParallelCore-7.1  \
--lvtkpng-7.1  \
--lvtkproj4-7.1_d  \
--lvtkRenderingAnnotation-7.1  \
--lvtkRenderingContext2D-7.1  \
--lvtkRenderingContextOpenGL2-7.1  \
--lvtkRenderingCore-7.1  \
--lvtkRenderingFreeType-7.1  \
--lvtkRenderingGL2PSOpenGL2-7.1  \
--lvtkRenderingImage-7.1  \
--lvtkRenderingLabel-7.1  \
--lvtkRenderingLOD-7.1  \
--lvtkRenderingOpenGL2-7.1  \
--lvtkRenderingQt-7.1  \
--lvtkRenderingSceneGraph-7.1  \
--lvtkRenderingVolume-7.1  \
--lvtkRenderingVolumeOpenGL2-7.1  \
--lvtksqlite-7.1  \
--lvtksys-7.1  \
--lvtkTestingGenericBridge-7.1  \
--lvtkTestingIOSQL-7.1  \
--lvtkTestingRendering-7.1  \
--lvtktiff-7.1  \
--lvtkverdict-7.1  \
--lvtkViewsContext2D-7.1  \
--lvtkViewsCore-7.1  \
--lvtkViewsInfovis-7.1  \
--lvtkViewsQt-7.1  \
--lvtkzlib-7.1  \
-
-}
-    
+Release:LIBS +=  -L../../VTK/lib/  \
+   				 -lvtkChartsCore-9.0  \
+   				 -lvtkCommonColor-9.0  \
+   				 -lvtkCommonComputationalGeometry-9.0  \
+   				 -lvtkCommonCore-9.0  \
+   				 -lvtkCommonDataModel-9.0  \
+   				 -lvtkCommonExecutionModel-9.0  \
+   				 -lvtkCommonMath-9.0  \
+   				 -lvtkCommonMisc-9.0  \
+   				 -lvtkCommonSystem-9.0  \
+   				 -lvtkCommonTransforms-9.0  \
+   				 -lvtkDICOMParser-9.0  \
+   				 -lvtkDomainsChemistry-9.0  \
+   				 -lvtkFiltersAMR-9.0  \
+   				 -lvtkFiltersCore-9.0  \
+   				 -lvtkFiltersExtraction-9.0  \
+   				 -lvtkFiltersFlowPaths-9.0  \
+   				 -lvtkFiltersGeneral-9.0  \
+   				 -lvtkFiltersGeneric-9.0  \
+   				 -lvtkFiltersGeometry-9.0  \
+   				 -lvtkFiltersHybrid-9.0  \
+   				 -lvtkFiltersHyperTree-9.0  \
+   				 -lvtkFiltersImaging-9.0  \
+   				 -lvtkFiltersModeling-9.0  \
+   				 -lvtkFiltersParallel-9.0  \
+   				 -lvtkFiltersParallelImaging-9.0  \
+   				 -lvtkFiltersPoints-9.0  \
+   				 -lvtkFiltersProgrammable-9.0  \
+   				 -lvtkFiltersSMP-9.0  \
+   				 -lvtkFiltersSelection-9.0  \
+   				 -lvtkFiltersSources-9.0  \
+   				 -lvtkFiltersStatistics-9.0  \
+   				 -lvtkFiltersTexture-9.0  \
+   				 -lvtkFiltersTopology-9.0  \
+   				 -lvtkFiltersVerdict-9.0  \
+   				 -lvtkGUISupportQt-9.0  \
+   				 -lvtkGUISupportQtSQL-9.0  \
+   				 -lvtkGeovisCore-9.0  \
+   				 -lvtkIOAMR-9.0  \
+   				 -lvtkIOAsynchronous-9.0  \
+   				 -lvtkIOCityGML-9.0  \
+   				 -lvtkIOCore-9.0  \
+   				 -lvtkIOEnSight-9.0  \
+   				 -lvtkIOExodus-9.0  \
+   				 -lvtkIOExport-9.0  \
+   				 -lvtkIOExportGL2PS-9.0  \
+   				 -lvtkIOExportPDF-9.0  \
+   				 -lvtkIOGeometry-9.0  \
+   				 -lvtkIOImage-9.0  \
+   				 -lvtkIOImport-9.0  \
+   				 -lvtkIOInfovis-9.0  \
+   				 -lvtkIOLSDyna-9.0  \
+   				 -lvtkIOLegacy-9.0  \
+   				 -lvtkIOMINC-9.0  \
+   				 -lvtkIOMotionFX-9.0  \
+   				 -lvtkIOMovie-9.0  \
+   				 -lvtkIONetCDF-9.0  \
+   				 -lvtkIOOggTheora-9.0  \
+   				 -lvtkIOPLY-9.0  \
+   				 -lvtkIOParallel-9.0  \
+   				 -lvtkIOParallelXML-9.0  \
+   				 -lvtkIOSQL-9.0  \
+   				 -lvtkIOSegY-9.0  \
+   				 -lvtkIOTecplotTable-9.0  \
+   				 -lvtkIOVeraOut-9.0  \
+   				 -lvtkIOVideo-9.0  \
+   				 -lvtkIOXML-9.0  \
+   				 -lvtkIOXMLParser-9.0  \
+   				 -lvtkImagingColor-9.0  \
+   				 -lvtkImagingCore-9.0  \
+   				 -lvtkImagingFourier-9.0  \
+   				 -lvtkImagingGeneral-9.0  \
+   				 -lvtkImagingHybrid-9.0  \
+   				 -lvtkImagingMath-9.0  \
+   				 -lvtkImagingMorphological-9.0  \
+   				 -lvtkImagingSources-9.0  \
+   				 -lvtkImagingStatistics-9.0  \
+   				 -lvtkImagingStencil-9.0  \
+   				 -lvtkInfovisCore-9.0  \
+   				 -lvtkInfovisLayout-9.0  \
+   				 -lvtkInteractionImage-9.0  \
+   				 -lvtkInteractionStyle-9.0  \
+   				 -lvtkInteractionWidgets-9.0  \
+   				 -lvtkParallelCore-9.0  \
+   				 -lvtkParallelDIY-9.0  \
+   				 -lvtkRenderingAnnotation-9.0  \
+   				 -lvtkRenderingContext2D-9.0  \
+   				 -lvtkRenderingCore-9.0  \
+   				 -lvtkRenderingFreeType-9.0  \
+   				 -lvtkRenderingGL2PSOpenGL2-9.0  \
+   				 -lvtkRenderingImage-9.0  \
+   				 -lvtkRenderingLOD-9.0  \
+   				 -lvtkRenderingLabel-9.0  \
+   				 -lvtkRenderingOpenGL2-9.0  \
+   				 -lvtkRenderingQt-9.0  \
+   				 -lvtkRenderingSceneGraph-9.0  \
+   				 -lvtkRenderingUI-9.0  \
+   				 -lvtkRenderingVolume-9.0  \
+   				 -lvtkRenderingVolumeOpenGL2-9.0  \
+   				 -lvtkRenderingVtkJS-9.0  \
+   				 -lvtkTestingRendering-9.0  \
+   				 -lvtkViewsContext2D-9.0  \
+   				 -lvtkViewsCore-9.0  \
+   				 -lvtkViewsInfovis-9.0  \
+   				 -lvtkViewsQt-9.0  \
+   				 -lvtkWrappingTools-9.0  \
+   				 -lvtkdoubleconversion-9.0  \
+   				 -lvtkexodusII-9.0  \
+   				 -lvtkexpat-9.0  \
+   				 -lvtkfreetype-9.0  \
+   				 -lvtkgl2ps-9.0  \
+   				 -lvtkglew-9.0  \
+   				 -lvtkhdf5-9.0  \
+   				 -lvtkhdf5_hl-9.0  \
+   				 -lvtkjpeg-9.0  \
+   				 -lvtkjsoncpp-9.0  \
+   				 -lvtklibharu-9.0  \
+   				 -lvtklibproj-9.0  \
+   				 -lvtklibxml2-9.0  \
+   				 -lvtkloguru-9.0  \
+   				 -lvtklz4-9.0  \
+   				 -lvtklzma-9.0  \
+   				 -lvtkmetaio-9.0  \
+   				 -lvtknetcdf-9.0  \
+   				 -lvtkogg-9.0  \
+   				 -lvtkpng-9.0  \
+   				 -lvtkpugixml-9.0  \
+   				 -lvtksqlite-9.0  \
+   				 -lvtksys-9.0  \
+   				 -lvtktheora-9.0  \
+   				 -lvtktiff-9.0  \
+   				 -lvtkverdict-9.0  \
+   				 -lvtkzlib-9.0  \                        
 }
 
 unix{
+INCLUDEPATH	+=  ../../VTK/include/vtk-9.0/  \
 
-INCLUDEPATH	+=  ../../VTK/include/vtk-7.1/  \
 
-LIBS +=  -L../../VTK/lib/ \
--lvtkalglib-7.1  \  
--lvtkChartsCore-7.1  \ 
--lvtkCommonColor-7.1  \
--lvtkCommonComputationalGeometry-7.1  \  
--lvtkCommonCore-7.1  \ 
--lvtkCommonDataModel-7.1  \  
--lvtkCommonExecutionModel-7.1  \
--lvtkCommonMath-7.1  \ 
--lvtkCommonMisc-7.1  \ 
--lvtkCommonSystem-7.1  \  
--lvtkCommonTransforms-7.1  \ 
--lvtkDICOMParser-7.1  \
--lvtkDomainsChemistry-7.1  \ 
--lvtkDomainsChemistryOpenGL2-7.1  \
--lvtkexoIIc-7.1  \  
--lvtkexpat-7.1  \
--lvtkFiltersAMR-7.1  \ 
--lvtkFiltersCore-7.1  \
--lvtkFiltersExtraction-7.1  \
--lvtkFiltersFlowPaths-7.1  \ 
--lvtkFiltersGeneral-7.1  \
--lvtkFiltersGeneric-7.1  \
--lvtkFiltersGeometry-7.1  \  
--lvtkFiltersHybrid-7.1  \ 
--lvtkFiltersHyperTree-7.1  \ 
--lvtkFiltersImaging-7.1  \
--lvtkFiltersModeling-7.1  \  
--lvtkFiltersParallel-7.1  \  
--lvtkFiltersParallelImaging-7.1  \ 
--lvtkFiltersPoints-7.1  \ 
--lvtkFiltersProgrammable-7.1  \ 
--lvtkFiltersSelection-7.1  \ 
--lvtkFiltersSMP-7.1  \ 
--lvtkFiltersSources-7.1  \
--lvtkFiltersStatistics-7.1  \
--lvtkFiltersTexture-7.1  \
--lvtkFiltersVerdict-7.1  \
--lvtkfreetype-7.1  \
--lvtkGeovisCore-7.1  \ 
--lvtkgl2ps-7.1  \
--lvtkglew-7.1  \ 
--lvtkGUISupportQt-7.1  \  
-#-lvtkGUISupportQtOpenGL-7.1  \  
--lvtkGUISupportQtSQL-7.1  \  
-#-lvtkGUISupportQtWebkit-7.1  \  
--lvtkhdf5-7.1  \ 
--lvtkhdf5_hl-7.1  \ 
--lvtkImagingColor-7.1  \  
--lvtkImagingCore-7.1  \
--lvtkImagingFourier-7.1  \
--lvtkImagingGeneral-7.1  \
--lvtkImagingHybrid-7.1  \ 
--lvtkImagingMath-7.1  \
--lvtkImagingMorphological-7.1  \
--lvtkImagingSources-7.1  \
--lvtkImagingStatistics-7.1  \
--lvtkImagingStencil-7.1  \
--lvtkInfovisCore-7.1  \
--lvtkInfovisLayout-7.1  \ 
--lvtkInteractionImage-7.1  \ 
--lvtkInteractionStyle-7.1  \ 
--lvtkInteractionWidgets-7.1  \  
--lvtkIOAMR-7.1  \
--lvtkIOCore-7.1  \  
--lvtkIOEnSight-7.1  \  
--lvtkIOExodus-7.1  \
--lvtkIOExport-7.1  \
--lvtkIOGeometry-7.1  \ 
--lvtkIOImage-7.1  \ 
--lvtkIOImport-7.1  \
--lvtkIOInfovis-7.1  \  
--lvtkIOLegacy-7.1  \
--lvtkIOLSDyna-7.1  \
--lvtkIOMINC-7.1  \  
--lvtkIOMovie-7.1  \ 
--lvtkIONetCDF-7.1  \
--lvtkIOParallel-7.1  \ 
--lvtkIOParallelXML-7.1  \ 
--lvtkIOPLY-7.1  \
--lvtkIOSQL-7.1  \
--lvtkIOTecplotTable-7.1  \
--lvtkIOVideo-7.1  \ 
--lvtkIOXML-7.1  \
--lvtkIOXMLParser-7.1  \
--lvtkjpeg-7.1  \ 
--lvtkjsoncpp-7.1  \ 
--lvtklibxml2-7.1  \ 
-#-lvtkLocalExample-7.1  \  
--lvtkmetaio-7.1  \  
--lvtkNetCDF-7.1  \  
--lvtkNetCDF_cxx-7.1  \ 
--lvtkoggtheora-7.1  \  
--lvtkParallelCore-7.1  \  
--lvtkpng-7.1  \  
--lvtkproj4-7.1  \
--lvtkRenderingAnnotation-7.1  \ 
--lvtkRenderingContext2D-7.1  \  
--lvtkRenderingContextOpenGL2-7.1  \
--lvtkRenderingCore-7.1  \ 
--lvtkRenderingFreeType-7.1  \
--lvtkRenderingGL2PSOpenGL2-7.1  \  
--lvtkRenderingImage-7.1  \
--lvtkRenderingLabel-7.1  \
--lvtkRenderingLOD-7.1  \  
--lvtkRenderingOpenGL2-7.1  \ 
--lvtkRenderingQt-7.1  \
-#-lvtkRenderingSceneGraph-7.1  \ 
--lvtkRenderingVolume-7.1  \  
--lvtkRenderingVolumeOpenGL2-7.1  \ 
--lvtksqlite-7.1  \  
--lvtksys-7.1  \  
-#-lvtkTestingGenericBridge-7.1  \
-#-lvtkTestingIOSQL-7.1  \  
-#-lvtkTestingRendering-7.1  \ 
--lvtktiff-7.1  \ 
--lvtkverdict-7.1  \ 
--lvtkViewsContext2D-7.1  \
--lvtkViewsCore-7.1  \  
--lvtkViewsInfovis-7.1  \  
--lvtkViewsQt-7.1  \ 
--lvtkzlib-7.1  \ 
--lvtkIOExportOpenGL2-7.1 \ 
-
+LIBS +=  -L../../VTK/lib/  \  
+   				 -lvtkChartsCore-9.0  \
+   				 -lvtkCommonColor-9.0  \
+   				 -lvtkCommonComputationalGeometry-9.0  \
+   				 -lvtkCommonCore-9.0  \
+   				 -lvtkCommonDataModel-9.0  \
+   				 -lvtkCommonExecutionModel-9.0  \
+   				 -lvtkCommonMath-9.0  \
+   				 -lvtkCommonMisc-9.0  \
+   				 -lvtkCommonSystem-9.0  \
+   				 -lvtkCommonTransforms-9.0  \
+   				 -lvtkDICOMParser-9.0  \
+   				 -lvtkDomainsChemistry-9.0  \
+   				 -lvtkFiltersAMR-9.0  \
+   				 -lvtkFiltersCore-9.0  \
+   				 -lvtkFiltersExtraction-9.0  \
+   				 -lvtkFiltersFlowPaths-9.0  \
+   				 -lvtkFiltersGeneral-9.0  \
+   				 -lvtkFiltersGeneric-9.0  \
+   				 -lvtkFiltersGeometry-9.0  \
+   				 -lvtkFiltersHybrid-9.0  \
+   				 -lvtkFiltersHyperTree-9.0  \
+   				 -lvtkFiltersImaging-9.0  \
+   				 -lvtkFiltersModeling-9.0  \
+   				 -lvtkFiltersParallel-9.0  \
+   				 -lvtkFiltersParallelImaging-9.0  \
+   				 -lvtkFiltersPoints-9.0  \
+   				 -lvtkFiltersProgrammable-9.0  \
+   				 -lvtkFiltersSMP-9.0  \
+   				 -lvtkFiltersSelection-9.0  \
+   				 -lvtkFiltersSources-9.0  \
+   				 -lvtkFiltersStatistics-9.0  \
+   				 -lvtkFiltersTexture-9.0  \
+   				 -lvtkFiltersTopology-9.0  \
+   				 -lvtkFiltersVerdict-9.0  \
+   				 -lvtkGUISupportQt-9.0  \
+   				 -lvtkGUISupportQtSQL-9.0  \
+   				 -lvtkGeovisCore-9.0  \
+   				 -lvtkIOAMR-9.0  \
+   				 -lvtkIOAsynchronous-9.0  \
+   				 -lvtkIOCityGML-9.0  \
+   				 -lvtkIOCore-9.0  \
+   				 -lvtkIOEnSight-9.0  \
+   				 -lvtkIOExodus-9.0  \
+   				 -lvtkIOExport-9.0  \
+   				 -lvtkIOExportGL2PS-9.0  \
+   				 -lvtkIOExportPDF-9.0  \
+   				 -lvtkIOGeometry-9.0  \
+   				 -lvtkIOImage-9.0  \
+   				 -lvtkIOImport-9.0  \
+   				 -lvtkIOInfovis-9.0  \
+   				 -lvtkIOLSDyna-9.0  \
+   				 -lvtkIOLegacy-9.0  \
+   				 -lvtkIOMINC-9.0  \
+   				 -lvtkIOMotionFX-9.0  \
+   				 -lvtkIOMovie-9.0  \
+   				 -lvtkIONetCDF-9.0  \
+   				 -lvtkIOOggTheora-9.0  \
+   				 -lvtkIOPLY-9.0  \
+   				 -lvtkIOParallel-9.0  \
+   				 -lvtkIOParallelXML-9.0  \
+   				 -lvtkIOSQL-9.0  \
+   				 -lvtkIOSegY-9.0  \
+   				 -lvtkIOTecplotTable-9.0  \
+   				 -lvtkIOVeraOut-9.0  \
+   				 -lvtkIOVideo-9.0  \
+   				 -lvtkIOXML-9.0  \
+   				 -lvtkIOXMLParser-9.0  \
+   				 -lvtkImagingColor-9.0  \
+   				 -lvtkImagingCore-9.0  \
+   				 -lvtkImagingFourier-9.0  \
+   				 -lvtkImagingGeneral-9.0  \
+   				 -lvtkImagingHybrid-9.0  \
+   				 -lvtkImagingMath-9.0  \
+   				 -lvtkImagingMorphological-9.0  \
+   				 -lvtkImagingSources-9.0  \
+   				 -lvtkImagingStatistics-9.0  \
+   				 -lvtkImagingStencil-9.0  \
+   				 -lvtkInfovisCore-9.0  \
+   				 -lvtkInfovisLayout-9.0  \
+   				 -lvtkInteractionImage-9.0  \
+   				 -lvtkInteractionStyle-9.0  \
+   				 -lvtkInteractionWidgets-9.0  \
+   				 -lvtkParallelCore-9.0  \
+   				 -lvtkParallelDIY-9.0  \
+   				 -lvtkRenderingAnnotation-9.0  \
+   				 -lvtkRenderingContext2D-9.0  \
+   				 -lvtkRenderingCore-9.0  \
+   				 -lvtkRenderingFreeType-9.0  \
+   				 -lvtkRenderingGL2PSOpenGL2-9.0  \
+   				 -lvtkRenderingImage-9.0  \
+   				 -lvtkRenderingLOD-9.0  \
+   				 -lvtkRenderingLabel-9.0  \
+   				 -lvtkRenderingOpenGL2-9.0  \
+   				 -lvtkRenderingQt-9.0  \
+   				 -lvtkRenderingSceneGraph-9.0  \
+   				 -lvtkRenderingUI-9.0  \
+   				 -lvtkRenderingVolume-9.0  \
+   				 -lvtkRenderingVolumeOpenGL2-9.0  \
+   				 -lvtkRenderingVtkJS-9.0  \
+   				 -lvtkTestingRendering-9.0  \
+   				 -lvtkViewsContext2D-9.0  \
+   				 -lvtkViewsCore-9.0  \
+   				 -lvtkViewsInfovis-9.0  \
+   				 -lvtkViewsQt-9.0  \
+   				 -lvtkWrappingTools-9.0  \
+   				 -lvtkdoubleconversion-9.0  \
+   				 -lvtkexodusII-9.0  \
+   				 -lvtkexpat-9.0  \
+   				 -lvtkfreetype-9.0  \
+   				 -lvtkgl2ps-9.0  \
+   				 -lvtkglew-9.0  \
+   				 -lvtkhdf5-9.0  \
+   				 -lvtkhdf5_hl-9.0  \
+   				 -lvtkjpeg-9.0  \
+   				 -lvtkjsoncpp-9.0  \
+   				 -lvtklibharu-9.0  \
+   				 -lvtklibproj-9.0  \
+   				 -lvtklibxml2-9.0  \
+   				 -lvtkloguru-9.0  \
+   				 -lvtklz4-9.0  \
+   				 -lvtklzma-9.0  \
+   				 -lvtkmetaio-9.0  \
+   				 -lvtknetcdf-9.0  \
+   				 -lvtkogg-9.0  \
+   				 -lvtkpng-9.0  \
+   				 -lvtkpugixml-9.0  \
+   				 -lvtksqlite-9.0  \
+   				 -lvtksys-9.0  \
+   				 -lvtktheora-9.0  \
+   				 -lvtktiff-9.0  \
+   				 -lvtkverdict-9.0  \
+   				 -lvtkzlib-9.0  \ 
 }

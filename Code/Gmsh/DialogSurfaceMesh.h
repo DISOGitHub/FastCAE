@@ -2,6 +2,7 @@
 #define DIALOGDURFACEMESH_H__
 
 #include "GmshDialogBase.h"
+/*#include "GmshModuleAPI.h"*/
 #include <QList>
 #include <QMultiHash>
 
@@ -15,6 +16,16 @@ namespace Geometry
 	class GeometrySet;
 }
 
+namespace DataProperty
+{
+	class DataBase;
+}
+
+namespace MeshData{
+	class MeshKernal;
+	class MeshData;
+}
+
 namespace Py
 {
 	class PythonAagent;
@@ -24,11 +35,13 @@ namespace Py
 
 namespace Gmsh
 {
-	class SurfaceMeshDialog : public GmshDialogBase
+	class GmshSettingData;
+
+	class GMSHAPI SurfaceMeshDialog : public GmshDialogBase
 	{
 		Q_OBJECT
 	public:
-		SurfaceMeshDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre);
+		SurfaceMeshDialog(GUI::MainWindow* m, MainWidget::PreWindow* pre, int index = -1);
 		~SurfaceMeshDialog();
 
 	private slots:
@@ -44,6 +57,10 @@ namespace Gmsh
 		void closeEvent(QCloseEvent *) override;
 		void accept() override;
 		void reject() override;
+		void init();
+		void highLightSurface();
+		void initLocals();
+		
 
 	private:
 		Ui::SurfaceMeshDialog* _ui{};
@@ -51,6 +68,10 @@ namespace Gmsh
 //		QList<vtkActor*> _actorList{};
 		QMultiHash<Geometry::GeometrySet*, int> _geoHash{};
 		bool _selectFace{ false };
+
+		GmshSettingData* _settingData{};
+		MeshData::MeshData* _meshData{};
+		MeshData::MeshKernal* _kernalData{};
 	};
 
 }

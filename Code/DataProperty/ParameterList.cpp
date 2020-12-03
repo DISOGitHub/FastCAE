@@ -11,6 +11,8 @@
 #include "ParameterPath.h"
 #include "DataBase.h"
 #include <QDebug>
+#include <QDataStream>
+
 namespace DataProperty
 {
 	ParameterList::~ParameterList()
@@ -195,14 +197,14 @@ namespace DataProperty
 			{
 				DataProperty::ParameterInt *para_int = dynamic_cast<DataProperty::ParameterInt*>(getParameterAt(i));
 				*datas << QString::number(para_int->getValue());
-				qDebug() << para_int->getDescribe() << para_int->getValue();
+//				qDebug() << para_int->getDescribe() << para_int->getValue();
 				break;
 			}
 			case DataProperty::Para_Double:
 			{
 				DataProperty::ParameterDouble *para_double = dynamic_cast<DataProperty::ParameterDouble*>(getParameterAt(i));
 				*datas << QString::number(para_double->getValue());
-				qDebug() << para_double->getDescribe() << para_double->getValue();
+//				qDebug() << para_double->getDescribe() << para_double->getValue();
 				break;
 			}
 			case DataProperty::Para_Bool:
@@ -210,7 +212,7 @@ namespace DataProperty
 				DataProperty::ParameterBool *para_bool = dynamic_cast<DataProperty::ParameterBool*>(_paraList[i]);
 				//*datas << QString::number(para_bool->getValue());
 				*datas << para_bool->getValue();
-				qDebug() << para_bool->getDescribe() << QString::number(para_bool->getValue());
+//				qDebug() << para_bool->getDescribe() << QString::number(para_bool->getValue());
 				break;
 			}
 			case DataProperty::Para_Selectable:
@@ -218,21 +220,21 @@ namespace DataProperty
 				DataProperty::ParameterSelectable *para_selectable = dynamic_cast<DataProperty::ParameterSelectable*>(_paraList[i]);
 				//*datas << QString::number(para_selectable->getCurrentIndex());
 				*datas << para_selectable->getCurrentIndex();
-				qDebug() << para_selectable->getDescribe() << para_selectable->getCurrentIndex();
+//				qDebug() << para_selectable->getDescribe() << para_selectable->getCurrentIndex();
 				break;
 			}
 			case DataProperty::Para_String:
 			{
 				DataProperty::ParameterString *para_string = dynamic_cast<DataProperty::ParameterString*>(_paraList[i]);
 				*datas << para_string->getValue();
-				qDebug() << para_string->getDescribe() << para_string->getValue();
+//				qDebug() << para_string->getDescribe() << para_string->getValue();
 				break;
 			}
 			case DataProperty::Para_Path:
 			{
 				DataProperty::ParameterPath *para_path = dynamic_cast<DataProperty::ParameterPath*>(_paraList[i]);
 				*datas << para_path->getFile();
-				qDebug() << para_path->getDescribe() << para_path->getFile();
+//				qDebug() << para_path->getDescribe() << para_path->getFile();
 				break;
 			}
 			case DataProperty::Para_Table:

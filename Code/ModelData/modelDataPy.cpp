@@ -10,24 +10,18 @@
 
 
 namespace ModelData
-{
-	
-	void ModelDataPy::importMeshComponents(int caseId, char* addcomponentsId)
+{	
+	void ModelDataPy::importComponents(int caseId, const char* addcomponentsId)
 	{
 		QString scomponentIds(addcomponentsId);
 		QStringList scomponentIdsList = scomponentIds.simplified().split(" ");
 		QList<int> ids;
-		for (int i = 0; i < scomponentIdsList.size();++i)
-		{
-//			qDebug()<<scomponentIdsList[i];
-			ids.append(scomponentIdsList[i].toInt());
-		}
+		for(QString id : scomponentIdsList)
+			ids.append(id.toInt());
 		ModelDataBase* model = ModelDataSingleton::getinstance()->getModelByID(caseId);
 		if (model == nullptr) return;
-
-		model->setMeshSetList(ids);
+		model->setComponentIDList(ids);
 		Py::PythonAagent::getInstance()->unLock();
-		
 	}
 
 	void ModelDataPy::importGeometry(int caseId, char* addcomponentsId)
@@ -37,7 +31,7 @@ namespace ModelData
 		QList<int> ids;
 		for (int i = 0; i < scomponentIdsList.size(); ++i)
 		{
-			qDebug() << scomponentIdsList[i];
+//			qDebug() << scomponentIdsList[i];
 			ids.append(scomponentIdsList[i].toInt());
 		}
 		ModelDataBase* model = ModelDataSingleton::getinstance()->getModelByID(caseId);
@@ -53,14 +47,15 @@ namespace ModelData
 		
 		QString bctyst(bctypetostring);
 		BCBase::BCType bctype = BCBase::StringToBCType(bctyst);
+//		bctyst = BCBase::BCTypeToString(bctype);
 		if (bctype == BCBase::None) bctype = BCBase::UserDef;
 		ModelDataBase* model = ModelDataSingleton::getinstance()->getModelByID(caseId);
 		if (model == nullptr) return;
 		ModelDataBaseExtend *_data = dynamic_cast<ModelDataBaseExtend*>(model);
 		BCBase::BCBase* bc = ParaClassFactory::BCFactory::createBCByType(bctype, bctyst, _data->getTreeType());
 		if (bc == nullptr) return;
-		bc->setType(bctype);
-		bc->setMeshSetID(id);
+//		bc->setBCType(bctype);
+		bc->bingdingComponentID(id);
 		_data->appeendBC(bc);
 		bc->generateParaInfo();
 		Py::PythonAagent::getInstance()->unLock();
@@ -97,12 +92,22 @@ namespace ModelData
 		Py::PythonAagent::getInstance()->unLock();
 	}
 
-
+	void ModelDataPy::setMaterial(int caseID, char* componentIDs, int materialID)
+	{
+		ModelData::ModelDataSingleton *modelData = ModelData::ModelDataSingleton::getinstance();
+		ModelData::ModelDataBaseExtend* model = dynamic_cast<ModelData::ModelDataBaseExtend*>(modelData->getModelByID(caseID));
+		if (!model)    return;
+		QString cpIDs(componentIDs);
+		QStringList cpIDList = cpIDs.split(';');
+		for (QString cpID : cpIDList)
+			model->setMaterial(cpID.toInt(), materialID);
+		Py::PythonAagent::getInstance()->unLock();
+	}
 }
 
-void MODELDATAAPI importMeshComponents(int caseId, char* addcomponentsId)
+void MODELDATAAPI importComponents(int caseId, const char* addcomponentsId)
 {
-	ModelData::ModelDataPy::importMeshComponents(caseId, addcomponentsId);
+	ModelData::ModelDataPy::importComponents(caseId, addcomponentsId);
 }
 
 void MODELDATAAPI addBC(int caseId, int id, char* bctypetostring)
@@ -121,4 +126,9 @@ void MODELDATAAPI setValue(int caseID, char* variable, char* stype, char* svalue
 void MODELDATAAPI setBCValue(int caseID, int index ,char* variable, char* stype, char* svalue)
 {
 	ModelData::ModelDataPy::setBCValue(caseID, index,variable, stype, svalue);
+}
+
+void MODELDATAAPI setMaterial(int caseID, char* componentIDs, int materialID)
+{
+	ModelData::ModelDataPy::setMaterial(caseID, componentIDs, materialID);
 }

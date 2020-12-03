@@ -2,6 +2,7 @@
 #include "ProjectTreeExtendAPI.h"
 
 class QMenu;
+class QSignalMapper;
 
 namespace ProjectTree
 {
@@ -22,8 +23,15 @@ namespace ProjectTree
 		//创建树
 		virtual void createTree(QTreeWidgetItem* root, GUI::MainWindow* mainwindow) override;
 		//更新网格子树
-		virtual void updateMeshSubTree() override;
+		virtual void updateComponentSubTree() override;
 
+	private slots:
+     	void rootConMenu(QString );
+		void itemConMenu(QString);
+
+	private:
+		QSignalMapper* _rootMapper{};
+		QSignalMapper* _conMapper{};
 	};
 
 

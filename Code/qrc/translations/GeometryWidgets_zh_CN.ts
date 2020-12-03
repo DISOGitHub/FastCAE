@@ -739,6 +739,88 @@
     </message>
 </context>
 <context>
+    <name>DialogFillGap</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeFillGap.ui" line="+14"/>
+        <source>DialogFillGap</source>
+        <translation>填补缝隙</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Edge</source>
+        <translation>曲线</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Surface</source>
+        <translation>曲面</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Solid</source>
+        <translation>实体</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Please Select</source>
+        <translation>选取类型</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Tab 2</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+58"/>
+        <location line="+60"/>
+        <source>Selected Object(0)</source>
+        <translation>已选取对象(0)</translation>
+    </message>
+    <message>
+        <location line="-66"/>
+        <location line="+58"/>
+        <source>页</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>DialogRemoveSurface</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeRemoveSurface.ui" line="+14"/>
+        <source>DialogRemoveSurface</source>
+        <translation>移除曲面</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Surfaces</source>
+        <translation>曲面</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Selected Surface(0)</source>
+        <translation>已选择曲面(0)</translation>
+    </message>
+</context>
+<context>
+    <name>FillHoleDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeFillHole.ui" line="+14"/>
+        <source>DialogFillHole</source>
+        <translation>填补孔洞</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Hole</source>
+        <translation>孔洞</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Selected Hole(0)</source>
+        <translation>选择孔洞</translation>
+    </message>
+</context>
+<context>
     <name>GeoSplitterDialog</name>
     <message>
         <location filename="../../GeometryWidgets/dialogGeoSplitter.ui" line="+14"/>
@@ -751,17 +833,102 @@
         <translation>实体</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+37"/>
         <source>Selected Body(0)</source>
         <translation>已选择实体(0)</translation>
     </message>
     <message>
-        <location line="+51"/>
-        <source>Plane</source>
-        <translation>平面</translation>
+        <location line="+20"/>
+        <source>Select Plane</source>
+        <translation>选取平面</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Method</source>
+        <translation>方法</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Select plane on geometry</source>
+        <translation>选取几何平面</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Coordinate</source>
+        <translation>坐标系</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Random</source>
+        <translation>任意</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Tab 1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Tab 2</source>
+        <translation></translation>
     </message>
     <message>
         <location line="+6"/>
+        <source>Plane:</source>
+        <translation>平面：</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>XOY</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>XOZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>YOZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Tab 3</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Basic Point</source>
+        <translation>基准点</translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Axis</source>
+        <translation>轴线</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>X axis</source>
+        <translation>X轴</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Y axis</source>
+        <translation>Y轴</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Z axis</source>
+        <translation>Z轴</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>User define</source>
+        <translation>自定义</translation>
+    </message>
+    <message>
+        <location line="-130"/>
         <source>Selected Plane(0)</source>
         <translation>已选择平面(0)</translation>
     </message>
@@ -883,7 +1050,7 @@
     <name>GeometryWidget::CreateExtrusionDialog</name>
     <message>
         <location filename="../../GeometryWidgets/dialogMakeExtrusion.cpp" line="+65"/>
-        <location line="+39"/>
+        <location line="+36"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -901,7 +1068,7 @@
 <context>
     <name>GeometryWidget::CreateFaceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="+120"/>
+        <location filename="../../GeometryWidgets/dialogCreateFace.cpp" line="+116"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -911,8 +1078,8 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-57"/>
-        <location line="+118"/>
+        <location line="-56"/>
+        <location line="+117"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -957,13 +1124,13 @@
 <context>
     <name>GeometryWidget::CreateLoftDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="+96"/>
+        <location filename="../../GeometryWidgets/dialogMakeLoft.cpp" line="+95"/>
         <location line="+18"/>
         <source>Selected TopEdge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+63"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -989,7 +1156,7 @@
 <context>
     <name>GeometryWidget::CreateRevolDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="+157"/>
+        <location filename="../../GeometryWidgets/dialogMakeRevol.cpp" line="+154"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
@@ -1025,7 +1192,7 @@
 <context>
     <name>GeometryWidget::GeoDialogBase</name>
     <message>
-        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="+66"/>
+        <location filename="../../GeometryWidgets/geoDialogBase.cpp" line="+67"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
@@ -1038,13 +1205,13 @@
 <context>
     <name>GeometryWidget::GeoSplitterDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogGeoSplitter.cpp" line="+63"/>
+        <location filename="../../GeometryWidgets/dialogGeoSplitter.cpp" line="+75"/>
         <source>Selected body(1)</source>
         <translation>已选择体(1)</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <location line="+157"/>
+        <location line="+15"/>
+        <location line="+240"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
     </message>
@@ -1055,9 +1222,46 @@
     </message>
 </context>
 <context>
+    <name>GeometryWidget::MakeFillGapDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeFillGap.cpp" line="+54"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+156"/>
+        <location line="+18"/>
+        <location line="+18"/>
+        <source>Selected Object(%1)</source>
+        <translation>已选取对象(%1)</translation>
+    </message>
+</context>
+<context>
+    <name>GeometryWidget::MakeFillHoleDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeFillHole.cpp" line="+37"/>
+        <source>Edit Hole</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <location line="+122"/>
+        <source>Selected Hole(%1)</source>
+        <translation>已选择孔洞(%1)</translation>
+    </message>
+    <message>
+        <location line="-71"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Input Wrong !</source>
+        <translation>输入错误！</translation>
+    </message>
+</context>
+<context>
     <name>GeometryWidget::MakeMatrixDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="+323"/>
+        <location filename="../../GeometryWidgets/dialogMakeMatrix.cpp" line="+321"/>
         <location line="+25"/>
         <source>Warning</source>
         <translation>警告</translation>
@@ -1069,24 +1273,55 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-262"/>
-        <location line="+331"/>
+        <location line="-261"/>
+        <location line="+330"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
 </context>
 <context>
+    <name>GeometryWidget::MakeRemoveSurfaceDialog</name>
+    <message>
+        <location filename="../../GeometryWidgets/dialogMakeRemoveSurface.cpp" line="+37"/>
+        <source>Edit RemoveSurface</source>
+        <translation>编辑移除曲面</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <location line="+109"/>
+        <source>Selected Surface(%1)</source>
+        <translation>已选择曲面(%1)</translation>
+    </message>
+    <message>
+        <location line="-58"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Input Wrong !</source>
+        <translation>输入错误！</translation>
+    </message>
+</context>
+<context>
     <name>GeometryWidget::MeasureDistanceDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="+56"/>
+        <location filename="../../GeometryWidgets/dialogMeasureDistance.cpp" line="+112"/>
         <source>Selected Object(%1)</source>
         <translation>已选取对象(%1)</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <location line="+28"/>
+        <location line="+29"/>
+        <source>Selected Object(1)</source>
+        <translation>已选取对象(1)</translation>
     </message>
 </context>
 <context>
     <name>GeometryWidget::MirorFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="+173"/>
+        <location filename="../../GeometryWidgets/dialogMirrorFeature.cpp" line="+172"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1096,14 +1331,14 @@
         <translation>输入错误！</translation>
     </message>
     <message>
-        <location line="-62"/>
-        <location line="+233"/>
+        <location line="-63"/>
+        <location line="+237"/>
         <source>Selected body(%1)</source>
         <translation>已选择体(%1)</translation>
     </message>
     <message>
-        <location line="-225"/>
-        <location line="+238"/>
+        <location line="-228"/>
+        <location line="+241"/>
         <source>Selected Plane(1)</source>
         <translation>已选择平面(1)</translation>
     </message>
@@ -1111,7 +1346,7 @@
 <context>
     <name>GeometryWidget::MoveFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="+172"/>
+        <location filename="../../GeometryWidgets/dialogMoveFeature.cpp" line="+167"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1130,7 +1365,7 @@
 <context>
     <name>GeometryWidget::RotateFeatureDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="+180"/>
+        <location filename="../../GeometryWidgets/dialogRotateFeature.cpp" line="+181"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1171,12 +1406,12 @@
         <location filename="../../GeometryWidgets/dialogMakeSweep.cpp" line="+61"/>
         <location line="+4"/>
         <location line="+131"/>
-        <location line="+19"/>
+        <location line="+18"/>
         <source>Selected edge(%1)</source>
         <translation>已选择边(%1)</translation>
     </message>
     <message>
-        <location line="-129"/>
+        <location line="-128"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
@@ -1189,7 +1424,7 @@
 <context>
     <name>GeometryWidget::VariableFilletDialog</name>
     <message>
-        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="+72"/>
+        <location filename="../../GeometryWidgets/dialogVariableFillet.cpp" line="+71"/>
         <location line="+93"/>
         <source>Selected edge(1)</source>
         <translation>已选择边(1)</translation>
@@ -1355,12 +1590,42 @@
     <name>MeasureaDistanceDialog</name>
     <message>
         <location filename="../../GeometryWidgets/dialogMeasureDistance.ui" line="+14"/>
-        <location line="+229"/>
+        <location line="+274"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location line="-143"/>
+        <location line="-252"/>
+        <source>Calculate</source>
+        <translation>计算</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>MeasureDistance</source>
+        <translation>测量距离</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The Length Of Curve</source>
+        <translation>曲线长度</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The Area Of Surface</source>
+        <translation>曲面面积</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The Volume Of Solid</source>
+        <translation>实体体积</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Tab 1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+66"/>
         <source>Location</source>
         <translation>位置</translation>
     </message>
@@ -1399,26 +1664,87 @@
     </message>
     <message>
         <location line="+7"/>
+        <location line="+109"/>
+        <location line="+109"/>
+        <location line="+109"/>
         <source>0.00</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="-308"/>
+        <location line="+109"/>
         <source>mm</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-255"/>
+        <location line="-98"/>
+        <source>Tab 2</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Length</source>
+        <translation>长度</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The Length is:</source>
+        <translation>长度为：</translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <location line="+109"/>
+        <source>页</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="-43"/>
+        <source>Area</source>
+        <translation>面积</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The Area is:</source>
+        <translation>面积是：</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>mm^2</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Volume</source>
+        <translation>体积</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The Volume is:</source>
+        <translation>体积是：</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>mm^3</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-593"/>
+        <location line="+252"/>
+        <location line="+109"/>
+        <location line="+109"/>
         <source>Object</source>
         <translation>对象</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-464"/>
+        <location line="+252"/>
+        <location line="+109"/>
+        <location line="+109"/>
         <source>Selected Object(0)</source>
         <translation>已选取对象(0)</translation>
     </message>

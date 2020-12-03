@@ -16,7 +16,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI SU2dataExchange :public MeshThreadBase
 	{
 	public:
-		SU2dataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+		SU2dataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~SU2dataExchange();
 	
 		void run();
@@ -39,7 +39,7 @@ namespace MeshData
 
 		MeshData* _meshData{};
 		//vtkUnstructuredGrid* _gird{};
-		int _writeFileKid;
+		int _modelId;
 		MeshOperation _operation;
 		QList<vtkUnstructuredGrid*> _gridList{};
 		int _gridCount{ 0 };

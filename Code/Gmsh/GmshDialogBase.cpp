@@ -11,27 +11,23 @@ namespace Gmsh
 	{
 		_pyAgent = Py::PythonAagent::getInstance();
 		connect(this, SIGNAL(showDialog(QDialog*)), m, SIGNAL(showDialogSig(QDialog*)));
+		connect(this, SIGNAL(highLightMeshKernal(MeshData::MeshKernal*)), m, SIGNAL(highLightKernelSig(MeshData::MeshKernal*)));
 	}
 
 	GmshDialogBase::~GmshDialogBase()
 	{
 		emit setSelectMode((int)ModuleBase::None);
-		for (LocalPoint* l : _localPoints)
+
+		for (LocalDensity* l : _localDensities)
 			delete l;
-		_localPoints.clear();
-		for (LocalField* l : _localFields)
-			delete l;
-		_localFields.clear();
+		_localDensities.clear();
+		
 	}
 
-	QList<LocalPoint*>* GmshDialogBase::getLocalPoints()
-	{
-		return &_localPoints;
-	}
 
-	QList<LocalField*>* GmshDialogBase::getLocalFields()
+	QList<LocalDensity*>* GmshDialogBase::getLocalDesities()
 	{
-		return &_localFields;
+		return &_localDensities;
 	}
 
 // 	QList<PhysicalsGroups*>* GmshDialogBase::getPhysicalsGroups()
@@ -39,23 +35,13 @@ namespace Gmsh
 // 		return &_physicalsGroups;
 // 	}
 
-	void GmshDialogBase::appendPointSizeFiled()
+
+	void GmshDialogBase::appendLocalDesities()
 	{
-		for (LocalPoint* p : _localPoints)
+		for (LocalDensity* f : _localDensities)
 		{
-			QString  code = QString("gmsher.appendSizeFiled(%1,%2,%3,%4)").arg(p->x).arg(p->y).arg(p->z).arg(p->value);
-			_pyAgent->submit(code);
+			f->appendLocals(_pyAgent);
 		}
-
-	}
-
-	void GmshDialogBase::appendSizeFields()
-	{
-		for (LocalField* f : _localFields)
-		{
-			f->appendFields(_pyAgent);
-		}
-
 	}
 
 // 	void GmshDialogBase::appendPhysicals()

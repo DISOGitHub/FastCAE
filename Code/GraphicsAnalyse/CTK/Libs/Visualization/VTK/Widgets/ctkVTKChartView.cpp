@@ -33,7 +33,7 @@
 #include <vtkContextMouseEvent.h>
 #include <vtkContextScene.h>
 #include <vtkContextView.h>
-#include <vtkOpenGLContextDevice2D.h>
+//#include <vtkOpenGLContextDevice2D.h>
 #include <vtkPlot.h>
 #include <vtkRenderWindow.h>
 

@@ -55,11 +55,13 @@ namespace MainWidget
 	    void importProjectSig(int id);
 		void caseRenameSig(int pid, QString newname);
 		void showMessage(ModuleBase::Message);
+
 	public slots:
 		virtual void updateTree();
 		void updateMaterialTree();
 		void updatePhysicsTree();
-	
+		void removeCaseComponentSlot(int);
+		void renameCaseComponentSlot(int);
 
 
 	protected slots:

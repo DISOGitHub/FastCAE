@@ -13,7 +13,7 @@ namespace FastCAEDesigner
 		if (parentModelType == TreeItemType::ProjectRoot)
 			return nullptr;
 
-		if (parentModelType == TreeItemType::ProjectMesh)
+		if (parentModelType == TreeItemType::ProjectComponent)
 			return nullptr;
 		
 		if (parentModelType == TreeItemType::ProjectSimulationSetting)

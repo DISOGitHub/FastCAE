@@ -36,9 +36,10 @@ namespace ProjectTree
 	private:
 		void initGeo();
 		void initMeshSet();
+		void initGeoComponent();
 
 		void acceptGeo();
-		void acceptMeshSet();
+//		void acceptComponents();
 
 	private:
 		ImportType _type{ None };

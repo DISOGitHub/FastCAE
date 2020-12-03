@@ -9,6 +9,11 @@ include(./GraphicsAnalyse.pri)
 include(./../vtk.pri)
 
 win32{
+
+LIBS += -lOpenGL32  \
+
+LIBS += -lGlU32  \
+
   INCLUDEPATH	+=  ./ \
                     ../ \
 					./CTK \

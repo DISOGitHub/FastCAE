@@ -57,12 +57,16 @@ namespace MainWidget
 		void clearWidget();
 		//根据配置信息更新开放接口
 		void registerEnabledModule();
+		//添加窗口
+		void addTabWidgetPlugin(QWidget* w, QString name);
+		//移除窗口
+		void removeTabWidgetPlugin(QWidget* w);
+		//设置当前窗口
+		void setCurrentWidget(QWidget* w);
 
-		public slots :
+	public slots :
 		//鼠标点击事件，包括左键单击双击及右键菜单
 		virtual void on_TreeMouseEvent(int evevntType, QTreeWidgetItem* item, int proID);
-		//徐文强2020/6/5 初始化属性框
-		void iniPropertyWidgetSlot();
 		//更新属性框
 		void updataPropertyTab(DataProperty::DataBase* popList);
 		//设置属性窗当前页
@@ -88,6 +92,8 @@ namespace MainWidget
 		DataProperty::DataBase* _data{};
 
 		QWidget* _paraWidget{};
+
+		QHash<QWidget*, QString>  _addinWidget{};
 
 	};
 

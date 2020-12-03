@@ -24,6 +24,6 @@ SOURCES += \
 	$$PWD/solveProcessManager.cpp \
 	
 FORMS +=  \
-	$$PWD/MainWindow.ui \
+	$$PWD/mainWindow.ui \
 	$$PWD/DialogAbout.ui \
 	$$PWD/StartPage.ui \

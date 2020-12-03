@@ -67,8 +67,8 @@ void FilterCalculator::func_generate_actors()
 		calMap = vtkSmartPointer<vtkDataSetMapper>::New();
 	}
 	setCalculator();
-	calMap->SetInputData(arrCalculator->GetOutput());
-	mPipelineDataSet = arrCalculator->GetOutput();
+	calMap->SetInputData(vtkDataSet::SafeDownCast(arrCalculator->GetOutput()));
+	mPipelineDataSet = vtkDataSet::SafeDownCast(arrCalculator->GetOutput());
 	if (selectActor == NULL)
 	{
 		selectActor = vtkSmartPointer<vtkActor>::New();
@@ -102,7 +102,8 @@ void FilterCalculator::setCalculator()
 	arrCalculator->SetResultArrayName(mPipeLineObjProp.calculatorFilter_propData.resultName.toStdString().data());
 	arrCalculator->Update();
 
-	vtkFloatArray* tep_arr = (vtkFloatArray*)arrCalculator->GetOutput()->GetPointData()->GetArray(mPipeLineObjProp.calculatorFilter_propData.resultName.toStdString().data());
+	vtkDataSet* data = vtkDataSet::SafeDownCast(arrCalculator->GetOutput());
+	vtkFloatArray* tep_arr = (vtkFloatArray*)data->GetPointData()->GetArray(mPipeLineObjProp.calculatorFilter_propData.resultName.toStdString().data());
 	if (tep_arr != NULL)
 	{
 		if (tep_arr->GetNumberOfTuples() == mBaseGrid->GetNumberOfPoints())

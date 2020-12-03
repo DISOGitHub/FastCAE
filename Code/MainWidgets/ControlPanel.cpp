@@ -61,13 +61,15 @@ namespace MainWidget
 		_ui->propTabWidget->setTabPosition(QTabWidget::South);
 
 		//		registerEnabledModule();
-		//ÐìÎÄÇ¿,2020/06/05
-		connect(_mainWindow, SIGNAL(iniPropertyWidgetSig()), this, SLOT(iniPropertyWidgetSlot()));
 		connect(_mainWindow, SIGNAL(updateProperty(DataProperty::DataBase*)), this, SLOT(updataPropertyTab(DataProperty::DataBase*)));
 		connect(_ui->projectTab, SIGNAL(currentChanged(int)), this, SLOT(changePropTabByProjectPage(int)));
 		connect(_mainWindow, SIGNAL(updateParaWidget(QWidget*)), this, SLOT(updataParaWidget(QWidget*)));
 		connect(this, SIGNAL(updateActionStates()), _mainWindow, SIGNAL(updateActionStatesSig()));
 		connect(_physicsWidget, SIGNAL(updatePropertyTableTree()), _propTable, SLOT(updateTable()));
+		connect(_meshWidget, SIGNAL(removeCaseComponentSig(int)), _physicsWidget, SLOT(removeCaseComponentSlot(int)));
+		connect(_meshWidget, SIGNAL(renameCaseComponentSig(int)), _physicsWidget, SLOT(renameCaseComponentSlot(int)));
+		connect(_geometryWidget, SIGNAL(removeCaseComponentSig(int)), _physicsWidget, SLOT(removeCaseComponentSlot(int)));
+		connect(_geometryWidget, SIGNAL(renameCaseComponentSig(int)), _physicsWidget, SLOT(renameCaseComponentSlot(int)));
 	}
 	void ControlPanel::resizeEvent(QResizeEvent *e)
 	{
@@ -103,11 +105,6 @@ namespace MainWidget
 		Q_UNUSED(evevntType);
 		Q_UNUSED(item);
 		Q_UNUSED(proID);
-	}
-
-	void ControlPanel::iniPropertyWidgetSlot()
-	{
-		_propTable->iniTable();
 	}
 
 	void ControlPanel::updataPropertyTab(DataProperty::DataBase* data)
@@ -204,8 +201,32 @@ namespace MainWidget
 		_physicsWidget->updateMaterialStatus();
 		_ui->projectTab->setCurrentWidget(_ui->physics_tab);
 
+		QList<QWidget*> addinWidgets = _addinWidget.keys();
+		for (QWidget* w : addinWidgets)
+		{
+			_ui->projectTab->addTab(w, _addinWidget.value(w));
+			_ui->projectTab->setCurrentWidget(w);
+		}
+
 		_ui->retranslateUi(this);
 	}
+
+	void ControlPanel::addTabWidgetPlugin(QWidget* w, QString name)
+	{   
+		_addinWidget.insert(w, name);
+	}
+	
+
+	void ControlPanel::removeTabWidgetPlugin(QWidget* w)
+	{
+		_addinWidget.remove(w);
+	}
+
+	void ControlPanel::setCurrentWidget(QWidget* w)
+	{
+		_ui->projectTab->setCornerWidget(w);
+	}
+
 
 	void ControlPanel::clearWidget()
 	{

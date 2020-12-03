@@ -267,7 +267,15 @@ namespace MainWidget
 			connect(action, SIGNAL(triggered()), this, SLOT(importProjectPy()));
 			action = pop_menu.addAction(tr("Open Dir"));
 			connect(action, SIGNAL(triggered()), this, SLOT(openProjectPath()));
+			action = pop_menu.addAction(tr("Import INP File"));
+			
+			connect(action, SIGNAL(triggered()), _mainWindow, SLOT(on_importMesh()));
+			const int modelId = _curretnItem->data(0, Qt::UserRole).toInt();
+			action->setObjectName(QString("Only INP_%1").arg(modelId));
 
+			action = pop_menu.addAction(tr("Export INP File"));
+			connect(action, SIGNAL(triggered()), _mainWindow, SLOT(on_exportMesh()));
+			action->setObjectName(QString("Only INP_%1").arg(modelId));
 			int id = item->data(0, Qt::UserRole).toInt();
 			auto tree = _idTreeHash.value(id);
 			if (tree != nullptr)
@@ -334,6 +342,28 @@ namespace MainWidget
 		_physicsModelRoot->setExpanded(true);
 	}
 	
+	void PhysicsWidget::removeCaseComponentSlot(int cpID)
+	{
+		QHash<int, ProjectTree::ProjectTreeBase*>::iterator it;
+		for (it = _idTreeHash.begin(); it != _idTreeHash.end(); ++it)
+		{
+			auto tree = dynamic_cast<ProjectTree::ProjectTreeWithBasicNode*> (it.value());
+			if(!tree->getComponentIDList().contains(cpID))	continue;
+			tree->removeCaseComponentByID(cpID);
+		}
+	}
+
+	void PhysicsWidget::renameCaseComponentSlot(int cpID)
+	{
+		QHash<int, ProjectTree::ProjectTreeBase*>::iterator it;
+		for (it = _idTreeHash.begin(); it != _idTreeHash.end(); ++it)
+		{
+			auto tree = dynamic_cast<ProjectTree::ProjectTreeWithBasicNode*> (it.value());
+			if (!tree->getComponentIDList().contains(cpID))	continue;
+			tree->renameCaseComponentByID(cpID);
+		}
+	}
+
 	void PhysicsWidget::updateTree()
 	{
 		updateMaterialTree();

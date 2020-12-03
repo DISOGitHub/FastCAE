@@ -13,9 +13,9 @@
 VTK_MODULE_INIT(vtkRenderingOpenGL2);
 VTK_MODULE_INIT(vtkInteractionStyle);
 VTK_MODULE_INIT(vtkRenderingFreeType);
-VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
+//VTK_MODULE_INIT(vtkRenderingContextOpenGL2);
 VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
-VTK_MODULE_INIT(vtkRenderingGL2PSOpenGL2);
+//VTK_MODULE_INIT(vtkRenderingGL2PSOpenGL2);
 //VTK_MODULE_INIT(vtkIOExportOpenGL2);
 
 class vtkActor;
@@ -122,8 +122,9 @@ namespace ModuleBase
 
 		void keyPressEvent(QKeyEvent *e) override;
 		void keyReleaseEvent(QKeyEvent *e) override;
-		void resizeEvent(QResizeEvent * e);
-		
+		void resizeEvent(QResizeEvent * e) override;
+		void leaveEvent(QEvent *event) override;
+		void enterEvent(QEvent *event) override;
 // 
 	signals:
 		//type  0-press  1-release

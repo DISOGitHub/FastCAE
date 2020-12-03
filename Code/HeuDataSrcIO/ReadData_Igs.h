@@ -22,7 +22,7 @@
 
 #include <BRep_Tool.hxx>
 #include <BRepMesh_IncrementalMesh.hxx>
-#include <BRepMesh.hxx>
+//#include <BRepMesh.hxx>
 #include <BRepBuilderAPI_MakeEdge.hxx>
 #include <BRepBuilderAPI_MakeFace.hxx>
 

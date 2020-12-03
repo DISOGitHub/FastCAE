@@ -20,6 +20,10 @@
 #include "geometryParaSweep.h"
 #include "geometryParaRevol.h"
 #include "geometryParaGeoSplitter.h"
+#include "geometryParaMakeFillHole.h"
+#include "geometryParaMakeRemoveSurface.h"
+#include "geometryParaMakeFillGap.h"
+
 
 namespace Geometry
 {
@@ -62,6 +66,9 @@ namespace Geometry
 			case GeometryParaMakeSweep:stype = "MakeSweep"; break;
 			case GeometryParaMakeRevol:stype = "MakeRevol"; break;
 			case GeometryParaSplitter:stype = "GeoSplitter"; break;
+			case GeometryParaFillHole:stype = "FillHole"; break;
+			case GeometryParaRemoveSurface:stype = "RemoveSurface"; break;
+			case GeometryParaFillGap:stype = "FillGap"; break;
 			default: 
 				break;
 
@@ -91,11 +98,14 @@ namespace Geometry
 		else if (s == "MakeMatrix") p = new GeometryParaMatrix;
 		else if (s == "MakeExtrusion") p = new GeometryParaExtrusion;
 		else if (s == "MakeLoft") p = new GeometryParaLoft;
-		else if (s == "MakeSweep") p = new GeometryParaSweep;
+		else if (s == "MakeSweep") p = new GeometryParaSweep; 
 		else if (s == "MakeRevol") p = new GeometryParaRevol;
 		else if (s == "GeoSplitter") p = new GeometryParaGeoSplitter;
+		else if (s == "FillHole") p = new GeometryParaMakeFillHole;
+		else if (s == "RemoveSurface") p = new GeometryParaMakeRemoveSurface;
+		else if (s == "FillGap") p = new GeometryParaMakeFillGap;
 		return p;
 	}
 
-
+	
 }

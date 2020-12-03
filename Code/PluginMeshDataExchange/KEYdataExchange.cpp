@@ -10,13 +10,13 @@
 
 namespace MeshData
 {
-	KEYdataExchange::KEYdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId) :
+	KEYdataExchange::KEYdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId) :
 		_meshData(MeshData::getInstance()),
 		_operation(operation),
 		_fileName(fileName),
 		_stream(nullptr),
 		MeshThreadBase(fileName, operation, mw),
-		_writeFileKid(KernalId)
+		_modelId(modelId)
 	{
 		
 	}
@@ -77,6 +77,8 @@ namespace MeshData
 			return false;
 		
 		mk->setName(QString("KEY_%1").arg(mkID));
+		mk->appendProperty("Points", (int)grid->GetNumberOfPoints());
+		mk->appendProperty("Cells", (int)grid->GetNumberOfCells());
 		_meshData->appendMeshKernal(mk);
 		_meshData->generateDisplayDataSet();
 		file.close();
@@ -125,7 +127,7 @@ namespace MeshData
 	bool KEYdataExchange::readMeshGroups(const int mkID, QString& aLine)
 	{
 		_preLine.clear();
-		QString setName = aLine.split('#').at(1);
+		QString setName = aLine.split('#').at(1).trimmed();
 		MeshSet* ms = new MeshSet(setName, Element);
 		if (ms == nullptr)	return false;
 		_meshData->appendMeshSet(ms);
@@ -203,7 +205,7 @@ namespace MeshData
 		{
 			if (_stream->atEnd())
 			{
-				_threadRuning = false;
+				//_threadRuning = false;
 				break;
 			}
 			aLine = _stream->readLine().simplified();
@@ -214,13 +216,13 @@ namespace MeshData
 
 	bool KEYdataExchange::write()
 	{
-		//if (_writeFileKid < 1)	return false;
+		//if (_modelId < 1)	return false;
 		QFile file(_fileName);
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))	return false;
 		_stream = new QTextStream(&file);
 		int a = _meshData->getKernalCount();
 
-		auto mk = _meshData->getKernalByID(_writeFileKid);
+		auto mk = _meshData->getKernalByID(_modelId);
 		//_meshData->
 		auto grid = mk->getMeshData();
 		//vtkUnstructuredGrid* grid = dynamic_cast<vtkUnstructuredGrid*>(mk->getMeshData());
@@ -262,13 +264,14 @@ namespace MeshData
 				vtkIdList* PointIdIndexs = cell->GetPointIds();
 				*_stream << QString("   %1   %2   %3   %4   %5   %6   %7   %8   %9").arg(hexahedronCount).arg(PointIdIndexs->GetId(0) + 1).arg(PointIdIndexs->GetId(1) + 1).arg(PointIdIndexs->GetId(2) + 1).arg(PointIdIndexs->GetId(3) + 1).arg(PointIdIndexs->GetId(4) + 1).arg(PointIdIndexs->GetId(5) + 1).arg(PointIdIndexs->GetId(6) + 1).arg(PointIdIndexs->GetId(7) + 1) << endl;
 			}
+			index++;
 		}
 		return false;
 	}
 
 	bool KEYdataExchange::writeMeshPart()
 	{
-		QList<int> setIds = _meshData->getSetIDFromKernal(_writeFileKid);
+		QList<int> setIds = _meshData->getSetIDFromKernal(_modelId);
 		for (int setId : setIds)
 		{
 			auto ms = _meshData->getMeshSetByID(setId);

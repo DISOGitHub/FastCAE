@@ -2,6 +2,7 @@
 #define _GMSHDIALOG_BASE__H_
 
 #include "GeometryWidgets/geoDialogBase.h"
+#include "GmshModuleAPI.h"
 #include <QList>
 
 namespace Py
@@ -9,49 +10,42 @@ namespace Py
 	class PythonAagent;
 }
 
+namespace MeshData{
+	class MeshKernal;
+}
+
 
 namespace Gmsh
 {
-	class LocalField;
 //	class PhysicalsGroups;
+	class LocalDensity;
+	
 
-	class LocalPoint
-	{
-	public:
-		LocalPoint() = default;
-		~LocalPoint() = default;
-
-		double x{ 0 };
-		double y{ 0 };
-		double z{ 0 };
-		double value{ 0 };
-
-	};
-
-	class GmshDialogBase :public GeometryWidget::GeoDialogBase
+	class /*GMSHAPI*/ GmshDialogBase :public GeometryWidget::GeoDialogBase
 	{
 		Q_OBJECT
 	public:
 		GmshDialogBase(GUI::MainWindow* m, MainWidget::PreWindow* pre);
 		~GmshDialogBase();
 
-		QList<LocalPoint*>* getLocalPoints();
-		QList<LocalField*>* getLocalFields();
+
 //		QList<PhysicalsGroups*>* getPhysicalsGroups();
+		QList<LocalDensity*>* getLocalDesities();
 
 	signals:
 		void showDialog(QDialog*);
+		void highLightMeshKernal(MeshData::MeshKernal*);
 
 	protected:
-		void appendPointSizeFiled();
-		void appendSizeFields();
+
 		//void appendPhysicals();
+		void appendLocalDesities();
 
 	protected:
 		Py::PythonAagent* _pyAgent{};
-		QList <LocalPoint*> _localPoints{};
-		QList<LocalField*> _localFields{};
 //		QList<PhysicalsGroups*> _physicalsGroups{};
+		QList<LocalDensity*> _localDensities;
+
 	};
 
 }

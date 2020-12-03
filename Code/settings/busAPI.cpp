@@ -114,6 +114,12 @@ namespace Setting
 	{
 		_mainSetting->setLicensePath(licensePath);
 	}
+
+	GUI::MainWindow* BusAPI::getMainWindow()
+	{
+		return _mainWindow;
+	}
+
 	GraphOption* BusAPI::getGraphOption()
 	{
 		return _graphOption;

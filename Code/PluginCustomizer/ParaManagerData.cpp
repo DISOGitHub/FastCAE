@@ -433,9 +433,10 @@ namespace FastCAEDesigner{
 			{
 				for (int j = 0; j < columns;j++)
 				{
-					double v = ((DataProperty::ParameterTable*)data)->getValue(i, j);
-					QString vs = QString("%1").arg(v);
-					dataList.append(vs);
+// 					double v = ((DataProperty::ParameterTable*)data)->getValue(i, j);
+// 					QString vs = QString("%1").arg(v);
+// 					dataList.append(vs);
+ 					dataList.append(((DataProperty::ParameterTable*)data)->getValue(i, j));
 				}
 			}
 			QString dataValue = dataList.join("-");
@@ -626,57 +627,42 @@ namespace FastCAEDesigner{
 		if (followlist.size() != 1) return;
 		domelement = followlist.at(0).toElement();
 
-		QDomNodeList followgroupList = domelement.elementsByTagName("ParameterGroup");
-		npara = followgroupList.size();
+		QDomNodeList followchildList = domelement.childNodes();
+		npara = followchildList.size();
 		for (int i = 0; i < npara; ++i)
 		{
-			QDomElement paragroupele = followgroupList.at(i).toElement();
-			DataProperty::ParameterGroup* g = new DataProperty::ParameterGroup;
-			g->readParameters(&paragroupele);
-
-			drivenGroupList.append(g);
-		}
-		QDomElement groupParameter = followgroupList.at(0).toElement();
-		QDomNodeList groupList = groupParameter.elementsByTagName("Parameter");
-		npara = groupList.size();
-		for (int i = 0; i < npara; ++i)
-		{
-			groupParameter.removeChild(groupList.at(i));
-		}
-
-
-		QDomNodeList followParaList = domelement.elementsByTagName("Parameter");
-		npara = followParaList.size();
-		for (int i = 0; i < npara; ++i)
-		{
-			QDomElement paraele = followParaList.at(i).toElement();
-			QString stype = paraele.attribute("Type");
-			DataProperty::ParameterBase* p = DataProperty::ParameterList::createParameterByType(stype);
-			if (p == nullptr) continue;
-			p->readParameter(&paraele);
-			//setDrivenData(&paraele, p);
-
-			QString dsc = p->getDescribe();
-			QStringList dscList = dsc.split("/");
-			if (dscList.size() > 1)
+			QDomElement followchildele = followchildList.at(i).toElement();
+			QString tagname = followchildele.tagName();
+			if (tagname == "Parameter")
 			{
-				p->setGroupName(dscList.at(0));
-				p->setDescribe(dscList.at(1));
+				QString stype = followchildele.attribute("Type");
+				DataProperty::ParameterBase* p = DataProperty::ParameterList::createParameterByType(stype);
+				if (p == nullptr) continue;
+				p->readParameter(&followchildele);
+
+				QString dsc = p->getDescribe();
+				QStringList dscList = dsc.split("/");
+				if (dscList.size() > 1)
+				{
+					p->setGroupName(dscList.at(0));
+					p->setDescribe(dscList.at(1));
+				}
+
+				drivenList.append(p);
+			}
+			else if(tagname == "ParameterGroup")
+			{
+				DataProperty::ParameterGroup* g = new DataProperty::ParameterGroup;
+				g->readParameters(&followchildele);
+
+				drivenGroupList.append(g);
 			}
 
-			drivenList.append(p);
-			
 		}
 
-
-		//qDebug() << drivenList.size();
 		data->setActiveList(activeList);
 		data->setDrivenList(drivenList);
 		data->setDrivenGroupList(drivenGroupList);
-		//qDebug() << data->getDrivenList().size();
-		
-		
-
 	}
 
 	void ParaManagerData::setActiveData(QDomElement* ele, DataProperty::ParameterBase* p)

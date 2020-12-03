@@ -27,6 +27,8 @@ HEADERS += \
 	$$PWD/ConfigDataReader.h \
 	$$PWD/ConfigDataBase.h \
 	$$PWD/MesherPy.h \
+#	$$PWD/NodeFormConfig.h \
+#	$$PWD/NodeFormConfigReader.h \
 	
 SOURCES += \
 	$$PWD/ConfigOptions.cpp \
@@ -56,4 +58,5 @@ SOURCES += \
 	$$PWD/ConfigDataReader.cpp \
 	$$PWD/ConfigDataBase.cpp \
 	$$PWD/MesherPy.cpp \
-	
+#	$$PWD/NodeFormConfig.cpp \
+#	$$PWD/NodeFormConfigReader.cpp \	

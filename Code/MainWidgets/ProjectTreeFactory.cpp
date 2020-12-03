@@ -31,6 +31,7 @@ namespace MainWidget
 		else
 		{
 			auto FUN = _typeFunHash.value(treeType);
+			if (FUN == nullptr) return nullptr;
 			QPair<int, ProjectTree::ProjectTreeBase*> ptree{};
 			bool ok = FUN(treeType, m, &ptree);
 			if (!ok) return nullptr;

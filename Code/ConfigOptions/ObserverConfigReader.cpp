@@ -77,13 +77,14 @@ namespace ConfigOption
 		domelement = followlist.at(0).toElement();
 		QDomNodeList followgroupList = domelement.elementsByTagName("ParameterGroup");
 		npara = followgroupList.size();
-		for (int i = 0; i < npara; ++i)
+
+		for (int j = 0; j < npara; j++)
 		{
-			QDomElement paragroupele = followgroupList.at(i).toElement();
+			QDomElement paragroupele = followgroupList.at(j).toElement();
 			DataProperty::ParameterGroup* g = new DataProperty::ParameterGroup;
 			g->readParameters(&paragroupele);
 			obs->appendConfigFollowGroup(g->getDescribe(), g);
-			domelement.removeChild(paragroupele);
+//			domelement.removeChild(paragroupele);
 		}
 
 		QDomNodeList followParaList = domelement.elementsByTagName("Parameter");

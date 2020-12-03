@@ -36,6 +36,10 @@
 #include <vtkSmoothPolyDataFilter.h>
 #include <vtkPolyDataNormals.h>
 #include <vtkIdTypeArray.h>
+#include <vtkRemoveDuplicatePolys.h>
+#include <BRepAdaptor_Surface.hxx>
+#include <IVtkOCC_ShapeMesher.hxx>
+#include <vtkTriangle.h>
 #include <QDebug>
 #include <TopExp.hxx>
 #include <QMenu>
@@ -53,7 +57,8 @@ namespace MainWidget
 		connect(_preWindow, SIGNAL(removeGeoDatumActors(Geometry::GeometryDatum*)), this, SLOT(removeDatumActors(Geometry::GeometryDatum*)));
 		connect(_preWindow, SIGNAL(selectGeometry(vtkActor*, bool)), this, SLOT(selectGeometry(vtkActor*,bool)));
 		connect(_preWindow, SIGNAL(preSelectGeometry(vtkActor*, QVector<double*>)), this, SLOT(preSelectGeometry(vtkActor*, QVector<double*>)));
-		connect(_preWindow, SIGNAL(rightDownMenuSig()), this, SLOT(rightDownCreateMenu()));
+		//connect(_preWindow, SIGNAL(rightDownMenuSig()), this, SLOT(rightDownCreateMenu()));
+		connect(_preWindow, SIGNAL(setGeoSelectMode(int)), this, SLOT(setGeoSelectMode(int)));
 		//
 		connect(_mainWindow, SIGNAL(selectModelChangedSig(int)), this, SLOT(setGeoSelectMode(int)));
 		connect(_mainWindow, SIGNAL(selectGeometryDisplay(bool, bool, bool)), this, SLOT(setGeometryDisplay(bool, bool, bool)));
@@ -129,7 +134,6 @@ namespace MainWidget
 			if (shape == nullptr) continue;
 			showShape(*shape, set, false);
 			_preWindow->resetCamera();
-
 		}
 		QList<Geometry::GeometryDatum*> dl = _geoData->getGeometryDatum();
 		for (auto da : dl)
@@ -307,24 +311,50 @@ namespace MainWidget
 			Handle(TopoDS_TShape) ts = s.TShape();
 			if (tshapelist.contains(ts)) continue;
 			tshapelist.append(ts);
+
+			vtkPolyData* polyData = vtkPolyData::New();
 			IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(s);
 			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
 			DS->SetShape(aShapeImpl);
-
-			vtkSmartPointer<IVtkTools_DisplayModeFilter> DMFilter = vtkSmartPointer<IVtkTools_DisplayModeFilter>::New();
-			DMFilter->SetInputConnection(DS->GetOutputPort());
-			DMFilter->SetDisplayMode(DM_Shading);
-
-			vtkSmartPointer<vtkPolyDataNormals> normals = vtkSmartPointer<vtkPolyDataNormals>::New();
-			normals->SetInputConnection(DMFilter->GetOutputPort());
-			normals->FlipNormalsOn();
-			//
 			//删除重复点
 			vtkSmartPointer<vtkCleanPolyData> cleanFilter = vtkSmartPointer<vtkCleanPolyData>::New();
-			cleanFilter->SetInputConnection(normals->GetOutputPort());
+			cleanFilter->SetInputConnection(DS->GetOutputPort());
 			cleanFilter->Update();
-			//单面数据获取
-			vtkPolyData * polyData = cleanFilter->GetOutput();
+		 
+			vtkPolyData* tpolydata = cleanFilter->GetOutput();
+			const int np = tpolydata->GetNumberOfPoints();
+			const int nc = tpolydata->GetNumberOfCells();
+
+			vtkPoints* points = vtkPoints::New();
+			for (int i = 0; i < np; i++)
+			{
+				double* coor = tpolydata->GetPoint(i);
+				points->InsertNextPoint(coor);
+			}
+			polyData->SetPoints(points);
+
+			polyData->SetPoints(tpolydata->GetPoints());
+
+			vtkCellArray* cells = vtkCellArray::New();
+			for (int i = 0; i < nc; ++i)
+			{
+				vtkCell* cell = tpolydata->GetCell(i);
+				vtkIdList* ceid = cell->GetPointIds();
+				if (ceid->GetNumberOfIds() == 3)
+				{
+					vtkTriangle*  triangle = vtkTriangle::New();
+					triangle->DeepCopy(cell);
+					cells->InsertNextCell(triangle);
+				}
+			}
+			polyData->SetPolys(cells);
+
+			vtkSmartPointer<vtkPolyDataNormals> normals = vtkSmartPointer<vtkPolyDataNormals>::New();
+			normals->SetInputData(polyData);
+			normals->FlipNormalsOn();
+			normals->Update();
+			polyData->DeepCopy(normals->GetOutput());
+			
 			//合体actor对应的单面数据
 			_actorPolydataHash.insert(Actor, polyData);
 			//单对象的对应的id序号
@@ -509,6 +539,77 @@ namespace MainWidget
 		_solidPolyDatas.remove(set);
 		_actorPolydataHash.remove(ac);
 	}
+
+/*
+	void GeometryViewProvider::transferFaceToPolyData(const TopoDS_Shape & s, vtkPolyData* polys)
+	{
+		TopoDS_Face theFace = TopoDS::Face(s);
+		BRepAdaptor_Surface aFaceAdaptor(theFace);
+		GeomAbs_SurfaceType aType = aFaceAdaptor.GetType();
+
+		IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(s);
+
+		if (aType == GeomAbs_Plane)
+		{
+			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
+			DS->SetShape(aShapeImpl);
+			
+			vtkSmartPointer<vtkCleanPolyData> cleanFilter = vtkSmartPointer<vtkCleanPolyData>::New();
+			cleanFilter->SetInputConnection(DS->GetOutputPort());
+			cleanFilter->Update();
+
+			vtkPolyData* tpolydata = cleanFilter->GetOutput();
+			const int np = tpolydata->GetNumberOfPoints();
+			const int nc = tpolydata->GetNumberOfCells();
+
+			vtkPoints* points = vtkPoints::New();
+			for (int i = 0; i < np; i++)
+			{
+				double* coor = tpolydata->GetPoint(i);
+				points->InsertNextPoint(coor);
+			}
+			polys->SetPoints(points);
+
+			polys->SetPoints(tpolydata->GetPoints());
+
+			vtkCellArray* cells = vtkCellArray::New();
+			for (int i = 0; i < nc; ++i)
+			{
+				vtkCell* cell = tpolydata->GetCell(i);
+				vtkIdList* ceid = cell->GetPointIds();
+				if (ceid->GetNumberOfIds() == 3)
+				{
+					vtkTriangle*  triangle = vtkTriangle::New();
+					triangle->DeepCopy(cell);
+					cells->InsertNextCell(triangle);
+				}
+			}
+			polys->SetPolys(cells);
+
+			vtkSmartPointer<vtkPolyDataNormals> normals = vtkSmartPointer<vtkPolyDataNormals>::New();
+			normals->SetInputData(polys);
+			normals->FlipNormalsOn();
+			normals->Update();
+			polys->DeepCopy(normals->GetOutput());
+		}
+		else
+		{
+			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
+			DS->SetShape(aShapeImpl);
+
+			vtkSmartPointer<IVtkTools_DisplayModeFilter> DMFilter = vtkSmartPointer<IVtkTools_DisplayModeFilter>::New();
+			DMFilter->SetInputConnection(DS->GetOutputPort());
+			DMFilter->SetDisplayMode(DM_Shading);
+
+			vtkSmartPointer<vtkPolyDataNormals> normals = vtkSmartPointer<vtkPolyDataNormals>::New();
+			normals->SetInputConnection(DMFilter->GetOutputPort());
+			normals->FlipNormalsOn();
+			normals->Update();
+			polys->DeepCopy(normals->GetOutput());
+		}
+ 
+	}
+*/
 
 	/*
 	设置选取模式
@@ -1002,19 +1103,7 @@ namespace MainWidget
 	//实体的高亮显示
 	void GeometryViewProvider::highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on)
 	{
-		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//根据id找polydata的集合
-		QList<vtkPolyData*> setPolydatas = _solidPolyDatas.values(s);//根据set找到actor的集合
-		vtkPolyData* pd = nullptr;
-		for (int i = 0; i < setPolydatas.size(); ++i)
-		{
-			vtkPolyData * p = setPolydatas.at(i);
-			bool ok = idPlolydata.contains(p);//判断是否属于实体actor
-			if (ok)
-			{
-				pd = p;
-				break;
-			}
-		}
+		vtkPolyData* pd = getSolidPolyData(s, id);
 		if (pd == nullptr) return;
 		if (on)
 		{
@@ -1028,10 +1117,43 @@ namespace MainWidget
 		clearPre_();
 	}
 
+	vtkPolyData* GeometryViewProvider::getSolidPolyData(Geometry::GeometrySet* s, int id)
+	{
+		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//根据id找polydata的集合
+		QList<vtkPolyData*> setPolydatas = _solidPolyDatas.values(s);//根据set找到actor的集合
+		vtkPolyData* pd = nullptr;
+		for (int i = 0; i < setPolydatas.size(); ++i)
+		{
+			vtkPolyData * p = setPolydatas.at(i);
+			bool ok = idPlolydata.contains(p);//判断是否属于实体actor
+			if (ok)
+			{
+				pd = p;
+				break;
+			}
+		}
+		return pd;
+	}
 	/*
 	点的高亮显示
 	*/
 	void GeometryViewProvider::highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on)
+	{
+		vtkPolyData* pd = getPointPolyData(s, id);
+		if (pd == nullptr) return;
+		if (on)
+		{
+			_selectItems.insert(s, id);
+		}
+		else {
+			_selectItems.remove(s, id);
+		}
+		showActor(pd, on);
+		//清理预选择对象
+		clearPre_();
+	}
+
+	vtkPolyData* GeometryViewProvider::getPointPolyData(Geometry::GeometrySet* s, int id)
 	{
 		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//根据id找polydata的集合
 		QList<vtkActor*> setActors = _setActors.values(s);//根据set找到actor的集合
@@ -1053,7 +1175,15 @@ namespace MainWidget
 					}
 				}
 			}
-		 }
+		}
+		return pd;
+	}
+	/*
+	边的高亮显示
+	*/
+	void GeometryViewProvider::highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on)
+	{
+		vtkPolyData* pd = getEdgePolyData(s, id);
 		if (pd == nullptr) return;
 		if (on)
 		{
@@ -1067,10 +1197,7 @@ namespace MainWidget
 		clearPre_();
 	}
 
-	/*
-	边的高亮显示
-	*/
-	void GeometryViewProvider::highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on)
+	vtkPolyData* GeometryViewProvider::getEdgePolyData(Geometry::GeometrySet* s, int id)
 	{
 		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//根据id找polydata的集合
 		QList<vtkActor*> setActors = _setActors.values(s);//根据set找到actor的集合
@@ -1093,6 +1220,15 @@ namespace MainWidget
 				}
 			}
 		}
+		return pd;
+	}
+
+	/*
+	面的高亮显示
+	*/
+	void GeometryViewProvider::highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on)
+	{
+		vtkPolyData* pd  = getFacePolyData(s, id);
 		if (pd == nullptr) return;
 		if (on)
 		{
@@ -1106,10 +1242,7 @@ namespace MainWidget
 		clearPre_();
 	}
 
-	/*
-	面的高亮显示
-	*/
-	void GeometryViewProvider::highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on)
+	vtkPolyData* GeometryViewProvider::getFacePolyData(Geometry::GeometrySet* s, int id)
 	{
 		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//根据id找polydata的集合
 		QList<vtkActor*> setActors = _setActors.values(s);//根据set找到actor的集合
@@ -1132,17 +1265,7 @@ namespace MainWidget
 				}
 			}
 		}
-		if (pd == nullptr) return;
-		if (on)
-		{
-			_selectItems.insert(s, id);
-		}
-		else {
-			_selectItems.remove(s, id);
-		}
-		showActor(pd, on);
-		//清理预选择对象
-		clearPre_();
+		return pd;
 	}
 
 	/*
@@ -1548,9 +1671,9 @@ namespace MainWidget
 		_preWindow->reRender();
 	}
 
-	QMultiHash<Geometry::GeometrySet*, int> GeometryViewProvider::getGeoSelectItems()
+	QMultiHash<Geometry::GeometrySet*, int>* GeometryViewProvider::getGeoSelectItems()
 	{
-		return _selectItems;
+		return &_selectItems;
 	}
 
 	void GeometryViewProvider::setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items)

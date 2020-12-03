@@ -3,6 +3,7 @@
 
 #include <QHash>
 #include <QObject>
+#include "mainWindowAPI.h"
 
 namespace SolverControl
 {
@@ -11,7 +12,7 @@ namespace SolverControl
 
 namespace  GUI
 {
-	class SolveProcessManager : public QObject
+	class MAINWINDOWAPI SolveProcessManager : public QObject
 	{
 		Q_OBJECT
 	public:
@@ -23,6 +24,7 @@ namespace  GUI
 
 	private slots:
 	   void solveFinished(int id);
+	   void removeSolve(int id);
 
 	private:
 		QHash<int, SolverControl::SolverControlBase*> _solvingProcess{};

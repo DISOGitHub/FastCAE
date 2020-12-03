@@ -17,7 +17,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI VTKdataExchange :public MeshThreadBase
 	{
 	public:
-		VTKdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+		VTKdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~VTKdataExchange() = default;				
 
 		void run();
@@ -36,7 +36,7 @@ namespace MeshData
 		vtkSmartPointer<vtkSTLReader> _stlReader{};
 		vtkSmartPointer<vtkTecplotReader> _tecplotReader{};
 		MeshOperation _operation;
-		int _writeFileKid;
+		int _modelId;
 	};
 }
 #endif

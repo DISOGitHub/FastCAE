@@ -49,7 +49,7 @@ namespace ModelData
 		double getSolveTime();
 		//设置写出给求解器的文件名称
 		void setOutputFileName(QString name);
-		QString getOutputFileName();
+		QString& getOutputFileName();
 		/*获取MD5的stream*/
 		virtual void dataToStream(QDataStream* datas) override;
 		//数据写出到工程文件 子类必须重写该函数
@@ -76,18 +76,37 @@ namespace ModelData
 		BCBase::BCBase* getBCAt(const int index);
 		//移除边界条件
 		void removeBCAt(const int index);
+		//通过组件ID删除BC，每个BC都会绑定一个组件
+		void removeBCByComponentID(int);
+		//设置需要关联的组件ID(包括网格组件和几何组件)
+		void setComponentIDList(const QList<int>& ids);
+		//添加一个组件ID
+		void addComponentID(int cpId);
+		//获取关联的组件ID(包括网格组件和几何组件)
+		const QList<int>& getComponentIDList();
+		//通过ID删除组件
+		bool removeComponentByID(int);
+
 		//获取关联的网格组件ID
 		QList<int> getMeshSetList();
-		//设置需要关联的组件ID
-		virtual void setMeshSetList(QList<int> ids);
+		//获取关联的几何组件ID
+		QList<int> getGeoComponentIDList();
+
+		//设置需要关联的网格组件ID
+		//virtual void setMeshSetList(QList<int> ids);
+		//设置需要关联的几何组件ID
+		//void setGeoComponentIDList(QList<int> ids);
+		
 		//移除第index个组件
-		virtual void removeMeshSetAt(int index);
+		virtual void removeComponentAt(int index);
 		//获取关联的Kernal ID
-		QList<int> getMeshKernalList();
+		QList<int>& getMeshKernalList();
 		//设置关联的Kernal ID
-		void setMeshKernelList(QList<int> k);
+		void setMeshKernelList(const QList<int>& kids);
+		//添加关联的Kernal ID
+		void addMeshKernalId(const int);
 		//获取关联的几何形状
-		QList<int> getGeometryList();
+		QList<int>& getGeometryList();
 		//设置关联的几何形状
 		void setGeometryList(QList<int> geo);
 		//获取仿真参数
@@ -114,7 +133,8 @@ namespace ModelData
 		QString _outputFileName{};
 
 		QList<BCBase::BCBase*> _bcList{};
-		QList<int> _componentIDList{};
+//		QMultiHash<int, QString> _ComponentIDType{};
+		QList<int> _ComponentIDList{};
 		QList<int> _meshKernalIDList{};
 		QList<int> _geometryList{};
 

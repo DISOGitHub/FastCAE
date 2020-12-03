@@ -24,7 +24,9 @@ win32{
 	-L../../output/bin -lConfigOptions \
 	-L../../output/bin -lParaClassFactory \
 	-L../../output/bin -lPythonModule \
- 
+	-L../../output/bin -lGeometry \
+	-L../../output/bin -lMeshData \
+	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 
@@ -38,7 +40,9 @@ win32{
 	-L../../output/bin_d -lConfigOptions \
 	-L../../output/bin_d -lParaClassFactory \
 	-L../../output/bin_d -lPythonModule \
-   
+    -L../../output/bin_d -lGeometry \
+	-L../../output/bin_d -lMeshData \
+	
   message("Windows modelData build")
   
 }

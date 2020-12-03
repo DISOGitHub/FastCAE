@@ -42,7 +42,7 @@
 <context>
     <name>GUI::MainWindow</name>
     <message>
-        <location filename="../../mainWindow/mainWindow.cpp" line="+313"/>
+        <location filename="../../mainWindow/mainWindow.cpp" line="+320"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
@@ -69,23 +69,24 @@
     <message>
         <location line="+85"/>
         <location line="+43"/>
-        <location line="+19"/>
-        <location line="+49"/>
-        <location line="+183"/>
+        <location line="+18"/>
+        <location line="+56"/>
+        <location line="+6"/>
+        <location line="+190"/>
         <location line="+110"/>
         <location line="+8"/>
-        <location line="+74"/>
+        <location line="+104"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-486"/>
-        <location line="+412"/>
+        <location line="-535"/>
+        <location line="+431"/>
         <source>Do you want to save current data ?</source>
         <translation>是否保存当前数据？</translation>
     </message>
     <message>
-        <location line="-405"/>
+        <location line="-424"/>
         <location line="+28"/>
         <source>Project file(*.diso);;Project file(*.xml)</source>
         <translation>工程文件(*.diso);;工程文件(*.xml)</translation>
@@ -106,13 +107,13 @@
         <translation>几何信息将会丢失，是否继续？</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <location line="+49"/>
+        <location line="+18"/>
+        <location line="+56"/>
         <source>The MeshPlugin is not installed !</source>
         <translation>没有安装网格插件!</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-41"/>
         <source>Import Mesh</source>
         <translation>导入网格</translation>
     </message>
@@ -122,12 +123,17 @@
         <translation>导出几何</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+19"/>
+        <source>No one has any grid!</source>
+        <translation>没有网格！</translation>
+    </message>
+    <message>
+        <location line="+14"/>
         <source>Export Mesh</source>
         <translation>导出网格</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+42"/>
         <source>Import Geometry</source>
         <translation>导入几何</translation>
     </message>
@@ -137,8 +143,13 @@
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location line="-326"/>
-        <location line="+403"/>
+        <location line="+169"/>
+        <source>The program quit with an exception before, do you want to reload the contents?</source>
+        <translation>程序退出前出现异常，是否要重新加载内容?</translation>
+    </message>
+    <message>
+        <location line="-514"/>
+        <location line="+422"/>
         <source>Recent</source>
         <translation>最近文件</translation>
     </message>
@@ -153,7 +164,12 @@
         <translation>文件“%1”不存在！</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+50"/>
+        <source>Do you need to load?</source>
+        <translation>是否需要重新加载？</translation>
+    </message>
+    <message>
+        <location line="+47"/>
         <source>Save Script</source>
         <translation>保存脚本</translation>
     </message>
@@ -165,10 +181,10 @@
     <message>
         <location line="+6"/>
         <source>%1 execute failed !</source>
-        <translation type="unfinished"></translation>
+        <translation>%1执行失败！</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+57"/>
         <source>Canvas %1mm * %2mm  </source>
         <translation>画布 %1mm * %2mm  </translation>
     </message>
@@ -176,8 +192,8 @@
 <context>
     <name>GUI::SignalHandler</name>
     <message>
-        <location filename="../../mainWindow/signalHandler.cpp" line="+339"/>
-        <location line="+343"/>
+        <location filename="../../mainWindow/signalHandler.cpp" line="+371"/>
+        <location line="+342"/>
         <location line="+13"/>
         <location line="+13"/>
         <location line="+14"/>
@@ -194,11 +210,14 @@
         <location line="+21"/>
         <location line="+13"/>
         <location line="+14"/>
+        <location line="+13"/>
+        <location line="+13"/>
+        <location line="+12"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-682"/>
+        <location line="-719"/>
         <source>%1 is Solving , Please wait...</source>
         <translation>%1正在求解，请等待…</translation>
     </message>
@@ -208,12 +227,12 @@
         <translation>正在求解-%1</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+46"/>
         <source>Mesh Generated &quot;%1&quot;</source>
         <translation>网格已生成“%1”</translation>
     </message>
     <message>
-        <location line="+285"/>
+        <location line="+278"/>
         <location line="+13"/>
         <location line="+13"/>
         <location line="+14"/>
@@ -230,6 +249,9 @@
         <location line="+21"/>
         <location line="+13"/>
         <location line="+14"/>
+        <location line="+13"/>
+        <location line="+13"/>
+        <location line="+12"/>
         <source>Open PreWindow First!</source>
         <translation>请先打开前处理窗口！</translation>
     </message>
@@ -245,17 +267,17 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../mainWindow/MainWindow.ui" line="+641"/>
+        <location filename="../../mainWindow/mainWindow.ui" line="+650"/>
         <source>Solve</source>
         <translation>求解</translation>
     </message>
     <message>
-        <location line="-309"/>
+        <location line="-311"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+176"/>
         <location line="+3"/>
         <source>New</source>
         <translation>新建</translation>
@@ -288,12 +310,12 @@
         <translation>保存</translation>
     </message>
     <message>
-        <location line="-522"/>
+        <location line="-531"/>
         <source>FastCAE</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+263"/>
         <source>&amp;File</source>
         <translation>&amp;文件</translation>
     </message>
@@ -318,12 +340,12 @@
         <translation>&amp;设置</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+49"/>
         <source>Post</source>
         <translation>后处理</translation>
     </message>
     <message>
-        <location line="-346"/>
+        <location line="-355"/>
         <source>FileToolBar</source>
         <translation>文件工具栏</translation>
     </message>
@@ -348,7 +370,7 @@
         <translation>网格工具栏</translation>
     </message>
     <message>
-        <location line="+436"/>
+        <location line="+445"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
@@ -363,19 +385,19 @@
         <translation>另存为</translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location line="-228"/>
         <source>&amp;Mesh</source>
         <translation>&amp;网格</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+60"/>
+        <location line="+62"/>
         <source>View</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location line="-51"/>
-        <location line="+82"/>
+        <location line="-53"/>
+        <location line="+84"/>
         <source>Select</source>
         <translation>选择</translation>
     </message>
@@ -405,7 +427,7 @@
         <translation>草图</translation>
     </message>
     <message>
-        <location line="-329"/>
+        <location line="-337"/>
         <source>DisplayToolBar</source>
         <translation></translation>
     </message>
@@ -415,7 +437,7 @@
         <translation></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+16"/>
         <source>toolBar_4</source>
         <translation>撤销重做</translation>
     </message>
@@ -423,13 +445,13 @@
         <location line="+13"/>
         <location line="+12"/>
         <location line="+47"/>
-        <location line="+20"/>
-        <location line="+243"/>
+        <location line="+23"/>
+        <location line="+245"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-291"/>
+        <location line="-296"/>
         <source>toolBar_2</source>
         <translation></translation>
     </message>
@@ -439,7 +461,7 @@
         <translation></translation>
     </message>
     <message>
-        <location line="+260"/>
+        <location line="+265"/>
         <source>Plugins</source>
         <translation>插件</translation>
     </message>
@@ -593,7 +615,7 @@
     <message>
         <location line="+12"/>
         <source>Create Set</source>
-        <translation>创建组件</translation>
+        <translation>创建组件&amp;&amp;寻找共面点或单元</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -888,7 +910,42 @@
         <translation>分割</translation>
     </message>
     <message>
-        <location line="-930"/>
+        <location line="+12"/>
+        <source>CreateGeoComponent</source>
+        <translation>创建几何组件</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>FluidMesh</source>
+        <translation>流体网格</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>FilterMesh</source>
+        <translation>网格过滤</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>FillHole</source>
+        <translation>填补孔洞</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>RemoveSurface</source>
+        <translation>移除曲面</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>FillGap</source>
+        <translation>填补孔洞</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Mesh Modeling</source>
+        <translation>网格建模</translation>
+    </message>
+    <message>
+        <location line="-1008"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>

@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QByteArray>
 #include <string>
-
+#include <QReadWriteLock>
 
 namespace Py
 {
@@ -42,6 +42,8 @@ namespace Py
 
 	int PyInterpreter::execCode(QString code, bool save)
 	{
+		QReadWriteLock lock;
+		lock.lockForRead();
 		std::string s = code.toStdString();
 		const char* c = s.c_str();
 		qDebug() << "exec: " << code;
@@ -56,6 +58,7 @@ namespace Py
 	
 		if (save)
 			_codelist.append(code);
+		lock.unlock();
 		return ok;
 	}
 

@@ -1005,10 +1005,21 @@ class GeoSplitter:
         self.faceindex = -1
         self.facebody = -1
         self.editID = -1
+        self.method = 0
+        self.planemethod='"XOY"'
+        self.basepoint0=0
+        self.basepoint1=0
+        self.basepoint2=0
+        self.random0=0
+        self.random1=0
+        self.random2=0
         self.bodys=dict()
 	
     def appendBody(self, setid, bodyindex):
         self.bodys.setdefault(setid,set()).add(bodyindex)
+
+    def setSymmetricPlaneMethod(self, method):
+        self.method=method
 		
     def setEditID(self, id):
         self.editID = id
@@ -1016,6 +1027,20 @@ class GeoSplitter:
     def setFace(self,facebody,faceindex):
         self.facebody=facebody
         self.faceindex=faceindex
+		
+    def setPlaneMethod(self,planemethod):
+        self.planemethod=planemethod		
+	
+	
+    def setDir(self,random0,random1,random2):
+        self.random0=random0
+        self.random1=random1
+        self.random2=random2
+		
+    def setBasePt(self,basepoint0,basepoint1,basepoint2):
+        self.basepoint0=basepoint0
+        self.basepoint1=basepoint1
+        self.basepoint2=basepoint2
      
     def create(self):
         keyList = self.bodys.keys()
@@ -1029,7 +1054,9 @@ class GeoSplitter:
              strcom = strcom + setstr+";"
         strcom = strcom[:-1]
         bodystr = bytes(strcom, encoding='utf-8')
-        command.MakeGeoSplitter(bodystr,c_int(self.faceindex),c_int(self.facebody))
+        methodstr = bytes(self.method, encoding='utf-8')
+        planemestr=bytes(self.planemethod, encoding='utf-8')
+        command.MakeGeoSplitter(bodystr,methodstr,c_int(self.faceindex),c_int(self.facebody),planemestr,c_double(self.random0),c_double(self.random1),c_double(self.random2),c_double(self.basepoint0),c_double(self.basepoint1),c_double(self.basepoint2))
         del self
 
     def edit(self):
@@ -1044,12 +1071,91 @@ class GeoSplitter:
              strcom = strcom + setstr+";"
         strcom = strcom[:-1]
         bodystr = bytes(strcom, encoding='utf-8')
-        command.EditGeoSplitter(c_int(self.editID),bodystr,c_int(self.faceindex),c_int(self.facebody))
+        methodstr = bytes(self.method, encoding='utf-8')
+        planemestr=bytes(self.planemethod, encoding='utf-8')
+        command.EditGeoSplitter(c_int(self.editID),bodystr,methodstr,c_int(self.faceindex),c_int(self.facebody),planemestr,c_double(self.random0),c_double(self.random1),c_double(self.random2),c_double(self.basepoint0),c_double(self.basepoint1),c_double(self.basepoint2))
         del self			
 		
+class FillHole:
+    def __init__(self):
+        self.faces=dict()
+        self.editID = -1
+
+    def appendFace(self, geoset, index):
+        self.faces.setdefault(geoset, set()).add(index)
+
+    def setEditID(self,id):
+        self.editID = id
+
+    def create(self):
+         keyList = self.faces.keys()
+         strcom = ""
+         for key in keyList:
+             setstr = ""
+             values = self.faces.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+         strcom = strcom[:-1]
+         facestr = bytes(strcom, encoding='utf-8')
+         command.MakeFillHole(facestr, c_int(self.editID))
+
+    def edit(self):
+        self.create()				
+class RemoveSurface:
+    def __init__(self):
+        self.faces=dict()
+        self.editID = -1
+
+    def appendFace(self, geoset, index):
+        self.faces.setdefault(geoset, set()).add(index)
+
+    def setEditID(self,id):
+        self.editID = id
+
+    def create(self):
+         keyList = self.faces.keys()
+         strcom = ""
+         for key in keyList:
+             setstr = ""
+             values = self.faces.get(key)
+             for v in values:
+                 setstr = setstr + str(v) + ","
+             setstr =  str(key) +  ":" + setstr[:-1]
+             strcom = strcom + setstr+";"
+         strcom = strcom[:-1]
+         facestr = bytes(strcom, encoding='utf-8')
+         command.MakeRemoveSurface(facestr, c_int(self.editID))
+
+    def edit(self):
+        self.create()				
+				
+class FillGap:
+
+    def setEditID(self, id):
+        self.editID = id
 		
+    def setFillGapType(self,type):
+        self.fillgaptype=type
 		
+    def setIndexOfShape1(self,set1,body1Index):
+        self.set1=set1
+        self.body1Index=body1Index
 		
+    def setIndexOfShape2(self,set2,body2Index):
+        self.set2=set2
+        self.body2Index=body2Index
+		
+    def create(self):
+        typestr = bytes(self.fillgaptype, encoding='utf-8')
+        command.CreateFillGap(typestr,c_int(self.set1),c_int(self.body1Index),c_int(self.set2),c_int(self.body2Index))
+        del self
+
+    def edit(self):
+        typestr = bytes(self.fillgaptype, encoding='utf-8')
+        command.EditFillGap(c_int(self.editID),typestr,c_int(self.set1),c_int(self.body1Index),c_int(self.set2),c_int(self.body2Index))
+        del self		
 		
 		
 		

@@ -35,6 +35,7 @@ HEADERS += \
 	$$PWD/ReadData_Neu.h \
 	$$PWD/ReadData_Stl.h \
 	$$PWD/ReadData_Cntm.h \
+	$$PWD/ReadData_ExodusII.h \
 	$$PWD/FilterCalculator.h \
 
 SOURCES += \
@@ -71,5 +72,6 @@ SOURCES += \
 	$$PWD/ReadData_Neu.cpp \
 	$$PWD/ReadData_Stl.cpp \
 	$$PWD/ReadData_Cntm.cpp \
+	$$PWD/ReadData_ExodusII.cpp \
 	$$PWD/FilterCalculator.cpp \	
 	

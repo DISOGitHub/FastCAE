@@ -5,6 +5,7 @@
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"
 #include "geometry/geometryDatum.h"
+#include "geometry/GeoComponent.h"
 #include "MainWidgets/preWindow.h"
 #include <QMenu>
 #include <QAction>
@@ -18,7 +19,7 @@
 #include "GeometryWidgets/geometryDialogFactory.h"
 #include "GeometryCommand/GeoCommandList.h"
 #include "GeometryCommand/GeoCommandRemove.h"
-#include "DialogGeometrysetRename.h"
+#include "DialogGeometryRename.h"
 #include "GeometryCommand/GeoCommandRemoveDatum.h"
 #include <QMessageBox>
 
@@ -41,6 +42,11 @@ namespace MainWidget
 		this->addTopLevelItem(_datumroot);
 		_datumroot->setExpanded(true);
 
+		_gcroot = new QTreeWidgetItem(this, TreeItemType::GeoComponentRoot);
+		_gcroot->setText(0, tr("GeoComponent"));
+		_gcroot->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
+		this->addTopLevelItem(_gcroot);
+		_gcroot->setExpanded(true);
 
 		connect(_mainWindow, SIGNAL(updateGeometryTreeSig()), this, SLOT(updateTree()));
 //		connect(_mainWindow, SIGNAL(updateGeometryTreeSig()), this, SLOT(updateTree()));
@@ -59,7 +65,6 @@ namespace MainWidget
 		connect(this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), _mainWindow, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)));
 
 		connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(itemStatesChanged(QTreeWidgetItem*, int)));
-		
 	}
 
 	GeometryTreeWidget::~GeometryTreeWidget()
@@ -121,33 +126,71 @@ namespace MainWidget
 		}
 		blockSignals(false);
 
+		_gcroot->takeChildren();
+		removeItemWidget(_gcroot, 0);
+		delete _gcroot;
+		_gcroot = new QTreeWidgetItem(this, TreeItemType::GeoComponentRoot);
+		_gcroot->setText(0, tr("GeoComponent"));
+		_gcroot->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
+		this->addTopLevelItem(_gcroot);
+		_gcroot->setExpanded(true);
+		blockSignals(true);
+
+		for(auto gc : _data->getGeoComponentList())
+		{
+			int id = gc->getID();
+			QString name = gc->getName();
+			name += QString("(%1)").arg(id);
+			QTreeWidgetItem* item = new QTreeWidgetItem(_gcroot, GeoComponentChild);
+			item->setText(0, name);
+			item->setIcon(0, QIcon(":/QUI/icon/geometry.png"));
+			item->setData(0, Qt::UserRole + 1, id);
+		}
+		blockSignals(false);
 	}
-	
+
 	void GeometryTreeWidget::singleClicked(QTreeWidgetItem* item, int i)
 	{
-		_currentItem = currentItem();
-		int index = _root->indexOfChild(item);
-		if (index < 0)
+		int index{ -1 };
+		switch (item->type())
 		{
-			emit disPlayProp(nullptr); //清空属性框
-
-			index = _datumroot->indexOfChild(item);
-			if (index < 0) return;
-			auto datum = _data->getDatumByIndex(index);
-			emit highLightGeometrySet(datum, true);
-			emit disPlayProp(datum);
-
-			return;
+		case GeometryChild:
+		{			
+			bool visable = true;
+			Qt::CheckState isvisable = item->checkState(0);
+			if (isvisable == Qt::Unchecked) visable = false;
+			index = _root->indexOfChild(item);
+			auto geoset = _data->getGeometrySetAt(index);
+			emit clearHighLight();
+			if (!visable || geoset == nullptr) return;
+			emit disPlayProp(geoset);
+			emit highLightGeometrySet(geoset, true);
+			break;
 		}
-		bool visable = true;
-		Qt::CheckState isvisable = item->checkState(0);
-		if (isvisable == Qt::Unchecked) visable = false;
-		auto geoset = _data->getGeometrySetAt(index);
-		emit clearHighLight();
-		if (!visable || geoset == nullptr) return;
-		
-		emit highLightGeometrySet(geoset, true);
-		emit disPlayProp(geoset);
+		case DatumPlane:
+		{
+			index = _datumroot->indexOfChild(item);
+			auto datum = _data->getDatumByIndex(index);
+			emit disPlayProp(datum);
+			emit highLightGeometrySet(datum, true);
+			break;
+		}			
+		case GeoComponentChild:
+		{
+			emit _preWindow->clearAllHighLight();
+			index = _gcroot->indexOfChild(item);
+			auto aGc = _data->getGeoComponentByIndex(index);
+			if (!aGc)	return;
+			emit disPlayProp(aGc);
+			_preWindow->highLightGeoComponentSlot(aGc);
+			break;
+		}
+		case GeoComponentRoot:emit disPlayProp(nullptr); break;
+		case GeometryRoot:emit disPlayProp(nullptr); break;
+		case Datum:emit disPlayProp(nullptr); break;
+		default:
+			break;
+		}
 	}
 
 	void GeometryTreeWidget::contextMenuEvent(QContextMenuEvent *event)
@@ -213,6 +256,16 @@ namespace MainWidget
 
 			pop_menu.exec(QCursor::pos());
 		}
+		else if (_currentItem->type() == GeoComponentChild)
+		{
+			QMenu pop_menu;
+			QAction* action = nullptr;
+			action = pop_menu.addAction(QIcon(), tr("Rename"));
+			connect(action, SIGNAL(triggered()), this, SLOT(changeName()));
+			action = pop_menu.addAction(QIcon(), tr("Remove"));
+			connect(action, SIGNAL(triggered()), this, SLOT(removeCurrComponent()));
+			pop_menu.exec(QCursor::pos());
+		}
 	}
 
 	void GeometryTreeWidget::removeData()
@@ -229,12 +282,24 @@ namespace MainWidget
 
 	void GeometryTreeWidget::changeName()
 	{
-		const int index = _root->indexOfChild(_currentItem);
-		if (index < 0) return;
-		Geometry::GeometrySet* gset = _data->getGeometrySetAt(index);
-		GeometrysetRenameDialog dlg(_mainWindow, gset, _currentItem);
-		dlg.exec();
-		
+		DataProperty::DataBase* data = nullptr;
+		int index = -4396;
+		switch (_currentItem->type())
+		{
+		case GeometryChild:
+			index = _root->indexOfChild(_currentItem);
+			data = _data->getGeometrySetAt(index);
+			break;
+		case GeoComponentChild:
+			index = _gcroot->indexOfChild(_currentItem);
+			data = _data->getGeoComponentByIndex(index);
+			break;
+		case DatumPlane: break;
+		}
+		if (!data)	return;
+		GeometryRenameDialog dlg(_mainWindow, data, _currentItem);
+		if (dlg.exec() == QDialog::Accepted && _currentItem->type() == GeoComponentChild)
+			emit renameCaseComponentSig(data->getID());
 	}
 
 	void GeometryTreeWidget::slot_datumPlaneRename()
@@ -242,7 +307,7 @@ namespace MainWidget
 		const int index = _datumroot->indexOfChild(_currentItem);
 		if (index < 0) return;
 		Geometry::GeometryDatum* datum=_data->getDatumByIndex(index);
-		GeometrysetRenameDialog dlg(_mainWindow, datum, _currentItem);
+		GeometryRenameDialog dlg(_mainWindow, datum, _currentItem);
 		dlg.exec();
 	}
 
@@ -350,9 +415,21 @@ namespace MainWidget
 		Qt::CheckState isvisable = item->checkState(0);
 		if (isvisable == Qt::Unchecked) visable = false;
 
-		auto geoset = _data->getGeometrySetAt(index);
 		_data->setVisable(index, visable);
 		emit updateDisplay(index, visable);
 	
+	}
+
+	void GeometryTreeWidget::removeCurrComponent()
+	{
+		const int index = _gcroot->indexOfChild(_currentItem);
+		if (index < 0) return;
+		bool res = _data->removeGeoComponentByIndex(index);
+		if (!res)	return;
+		int gcID = _currentItem->data(0, Qt::UserRole + 1).toInt();
+		_gcroot->removeChild(_currentItem);
+		emit disPlayProp(nullptr);
+		emit _preWindow->clearAllHighLight();
+		emit removeCaseComponentSig(gcID);
 	}
 }

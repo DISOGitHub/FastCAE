@@ -15,7 +15,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI NEUdataExchange :public MeshThreadBase
 	{
 	public:
-		NEUdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+		NEUdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 		~NEUdataExchange();
 
 		void run();
@@ -38,7 +38,7 @@ namespace MeshData
 		QTextStream *_stream{};
 		int _pointNum{ -1 };
 		int _eleNum{ -1 };
-		int _writeFileKid;
+		int _modelId;
 		MeshOperation _operation;
 	};
 }

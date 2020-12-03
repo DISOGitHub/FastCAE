@@ -10,7 +10,7 @@ include(../occ.pri)
 
 win32{
 
-QMAKE_LFLAGS += /MANIFESTUAC:"level='requireAdministrator'uiAccess='false'"
+Release:QMAKE_LFLAGS += /MANIFESTUAC:"level='requireAdministrator'uiAccess='false'"
 
   INCLUDEPATH	+=  ./ \
 					../ \

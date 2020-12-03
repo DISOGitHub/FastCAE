@@ -24,6 +24,9 @@
 #include "GeometryCommand/GeoCommandMakeLoft.h"
 #include "GeometryCommand/GeoCommandMakeSweep.h"
 #include "GeometryCommand/GeoCommandGeoSplitter.h"
+#include "GeometryCommand/GeoCommandMakeFillHole.h"
+#include "GeometryCommand/GeoCommandMakeRemoveSurface.h"
+#include "GeometryCommand/GeoCommandFillGap.h"
 #include <QMap>
 #include <QPair>
 namespace Command
@@ -162,8 +165,7 @@ namespace Command
     {
         Command::GeoCommandCreateLine* c = new Command::GeoCommandCreateLine(_mainWindow, _preWindow);
 		
-		if(name!="")	
-			c->setName(name);
+		if(name!="") c->setName(name);
         c->setPoints(startpoint);
         c->setOptionIndex(index);
         c->setCoor(coor);
@@ -192,8 +194,7 @@ namespace Command
     void GeometryCommandPy::createFace(QString name, int editid, QMultiHash<Geometry::GeometrySet*, int> hash)
     {
         Command::CommandCreateFace* c = new Command::CommandCreateFace(_mainWindow, _preWindow);
-		if (name != "")
-			c->setName(name);
+		if (name != "") c->setName(name);
         c->setShapeList(hash);
 		if (editid>0)
 		{
@@ -207,7 +208,7 @@ namespace Command
 
 	void GeometryCommandPy::createChamfer(int editid, QMultiHash<Geometry::GeometrySet*, int> hash, double d1, double d2, int s)
     {
-		bool sym{true};
+		bool sym{ true };
 		if (s == 0)
 			sym = true;
 		else
@@ -251,7 +252,9 @@ namespace Command
         if (!success) warning();
     }
 
-    void GeometryCommandPy::CreateVariableFillet(QMap<double, double> rad, double b, int editid,int setid, int edginex)
+
+
+	void GeometryCommandPy::CreateVariableFillet(QMap<double, double> rad, double b, int editid, int setid, int edginex)
     {
         Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
         Command::CommandCreateVariableFillet* c = new Command::CommandCreateVariableFillet(_mainWindow, _preWindow);
@@ -279,7 +282,6 @@ namespace Command
 		QPair <Geometry::GeometrySet*, int> solid1{ geo1, body1 };
 		QPair <Geometry::GeometrySet*, int> solid2{ geo2, body2 };
 
-
         Command::CommandBool* c = new Command::CommandBool(_mainWindow, _preWindow);
         c->setType(t);
         c->setSolid1(solid1);
@@ -302,7 +304,6 @@ namespace Command
         c->setType(t);
 		c->setSolid1(solid1);
 		c->setSolid2(solid2);
-        //c->setInputBody(set1, set2);
         bool success = Command::GeoComandList::getInstance()->executeCommand(c);
         if (!success) warning();
     }
@@ -318,11 +319,11 @@ namespace Command
 			c->setFaceIndex(faceindex);
 			c->setFaceBody(facebody);
 		}
-		if (typeindex == 1)
+		else if (typeindex == 1)
 		{
 			c->setPlaneIndex(planeindex);
 		}
-		if (typeindex == 2)
+		else if (typeindex == 2)
 		{
 			c->setRandomDir(random);
 			c->setBasePt(base);
@@ -343,11 +344,11 @@ namespace Command
 			c->setFaceIndex(faceindex);
 			c->setFaceBody(facebody);
 		}
-		if (typeindex == 1)
+		else if (typeindex == 1)
 		{
 			c->setPlaneIndex(planeindex);
 		}
-		if (typeindex == 2)
+		else if (typeindex == 2)
 		{
 			c->setRandomDir(random);
 			c->setBasePt(base);
@@ -565,24 +566,131 @@ namespace Command
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody)
+	void GeometryCommandPy::MakeGeoSplitter(QMultiHash<Geometry::GeometrySet*, int> bodyhash, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
 	{
 		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
 		command->setBodys(bodyhash);
-		command->setFaceIndex(faceindex);
-		command->setFaceBody(facebody);
+		command->setTypeIndex(typeindex);
+		if (typeindex == 0)
+		{
+			command->setFaceIndex(faceindex);
+			command->setFaceBody(facebody);
+		}
+		else if (typeindex == 1)
+		{
+			command->setPlaneIndex(planeindex);
+		}
+		else if (typeindex == 2)
+		{
+			command->setRandomDir(random);
+			command->setBasePt(base);
+		}
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
 		if (!success) warning();
 	}
 
-	void GeometryCommandPy::EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int faceindex, Geometry::GeometrySet* facebody)
+	void GeometryCommandPy::EditGeoSplitter(Geometry::GeometrySet* editset, QMultiHash<Geometry::GeometrySet*, int> bodyhash, int typeindex, int faceindex, Geometry::GeometrySet* facebody, int planeindex, double * random, double* base)
 	{
 		Command::CommandGeoSplitter* command = new Command::CommandGeoSplitter(_mainWindow, _preWindow);
 		command->setEditData(editset);
 		command->setBodys(bodyhash);
-		command->setFaceIndex(faceindex);
-		command->setFaceBody(facebody);
+		command->setTypeIndex(typeindex);
+
+		if (typeindex == 0)
+		{
+			command->setFaceIndex(faceindex);
+			command->setFaceBody(facebody);
+		}
+		else if (typeindex == 1)
+		{
+			command->setPlaneIndex(planeindex);
+		}
+		else if (typeindex == 2)
+		{
+			command->setRandomDir(random);
+			command->setBasePt(base);
+		}
+
 		bool success = Command::GeoComandList::getInstance()->executeCommand(command);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::MakeFillHole(QMultiHash<Geometry::GeometrySet*, int> faces, int editID)
+	{
+		Command::CommandMakeFillHole* c = new Command::CommandMakeFillHole(_mainWindow, _preWindow);
+		c->setShapeList(faces);
+		if (editID > 0)
+		{
+			Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(editID);
+			if (set != nullptr) c->setEditData(set);
+		}
+
+		bool success = Command::GeoComandList::getInstance()->executeCommand(c);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::MakeRemoveSurface(QMultiHash<Geometry::GeometrySet*, int> faces, int editID)
+	{
+		Command::CommandMakeRemoveSurface* c = new Command::CommandMakeRemoveSurface(_mainWindow, _preWindow);
+		c->setShapeList(faces);
+		if (editID > 0) 
+		{
+			Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(editID);
+			if (set != nullptr) c->setEditData(set);
+		}
+		
+		bool success = Command::GeoComandList::getInstance()->executeCommand(c);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::MakeFillGap(int type, int set1, int body1, int set2, int body2)
+	{
+		Geometry::GeometrySet* geo1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set1);
+		if (geo1 == nullptr) return;
+		Geometry::GeometrySet* geo2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set2);
+		if (geo2 == nullptr) return;
+		QPair <Geometry::GeometrySet*, int> solid1{ geo1, body1 };
+		QPair <Geometry::GeometrySet*, int> solid2{ geo2, body2 };
+		QList <	QPair <Geometry::GeometrySet*, int>> shapelist{};
+		shapelist.append(solid1); shapelist.append(solid2);
+
+		Command::CommandFillGap* c = new Command::CommandFillGap(_mainWindow, _preWindow);
+		c->setGapType(type);
+		switch (type)
+		{
+		case 0:c->setEdges(shapelist); break;
+		case 1:c->setFaces(shapelist); break;
+		case 2:c->setSolids(shapelist); break;
+		default:
+			break;
+		}
+		bool success = Command::GeoComandList::getInstance()->executeCommand(c);
+		if (!success) warning();
+	}
+
+	void GeometryCommandPy::EditFillGap(Geometry::GeometrySet* set, int type, int set1, int body1, int set2, int body2)
+	{
+		Geometry::GeometrySet* geo1 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set1);
+		if (geo1 == nullptr) return;
+		Geometry::GeometrySet* geo2 = Geometry::GeometryData::getInstance()->getGeometrySetByID(set2);
+		if (geo2 == nullptr) return;
+		QPair <Geometry::GeometrySet*, int> solid1{ geo1, body1 };
+		QPair <Geometry::GeometrySet*, int> solid2{ geo2, body2 };
+		QList <	QPair <Geometry::GeometrySet*, int>> shapelist{};
+		shapelist.append(solid1); shapelist.append(solid2);
+
+		Command::CommandFillGap* c = new Command::CommandFillGap(_mainWindow, _preWindow);
+		c->setEditData(set);
+		c->setGapType(type);
+		switch (type)
+		{
+		case 0:c->setEdges(shapelist); break;
+		case 1:c->setFaces(shapelist); break;
+		case 2:c->setSolids(shapelist); break;
+		default:
+			break;
+		}
+		bool success = Command::GeoComandList::getInstance()->executeCommand(c);
 		if (!success) warning();
 	}
 
@@ -834,18 +942,6 @@ void GEOMETRYCOMMANDAPI CreateVariableFillet(char*edges, double basicrad, int ed
 	Command::GeometryCommandPy::CreateVariableFillet(radmap, basicrad, editId, setid, edgeindex);
 }
 
-/*
-void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int body1id, int body2id)
-{
-	QString str = QString(booltype);
-    BoolType sbooltype{};
-	if (str == "None") return;
-	else if (str == "Cut") sbooltype = BoolCut;
-	else if (str == "Fause") sbooltype = BoolFause;
-	else if (str == "Common") sbooltype = BoolCommon;
-  
-    Command::GeometryCommandPy::CreateBooLOperation(sbooltype, body1id, body2id);
-}*/
 
 void GEOMETRYCOMMANDAPI CreateBooLOperation(char* booltype, int set1, int body1, int set2, int body2)
 {
@@ -1311,7 +1407,7 @@ void GEOMETRYCOMMANDAPI CreateSweep(int id, char*edges, char* solid, int pathset
 	
 }
 
-void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, int faceid, int facebody)
+void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, char* method, int faceid, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2)
 {
 
 	QString cedge = QString(bodystr);
@@ -1331,12 +1427,27 @@ void GEOMETRYCOMMANDAPI MakeGeoSplitter(char* bodystr, int faceid, int facebody)
 			shapeHash.insert(set, index);
 		} 
 	}
+
+	int typeindex{};
+	QString methodstr = QString(method);
+	if (methodstr == "SelectPlaneOnGeo") typeindex = 0;
+	else if (methodstr == "Coordinate") typeindex = 1;
+	else if (methodstr == "Random")typeindex = 2;
+
+	int planeindex{};
+	QString planemethodstr = QString(planemethod);
+	if (planemethodstr == "XOY") planeindex = 0;
+	else if (planemethodstr == "XOZ") planeindex = 1;
+	else if (planemethodstr == "YOZ")planeindex = 2;
+
 	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
-	Command::GeometryCommandPy::MakeGeoSplitter(shapeHash, faceid, faceset);
+	double random[3] = { random0, random1, random2 };
+	double basept[3] = { base0, base1, base2 };
+	Command::GeometryCommandPy::MakeGeoSplitter(shapeHash, typeindex, faceid, faceset, planeindex, random, basept);
 
 }
 
-void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, int faceid, int facebody)
+void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, char* method, int faceid, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2)
 {
 
 	QString cedge = QString(bodystr);
@@ -1356,9 +1467,92 @@ void GEOMETRYCOMMANDAPI EditGeoSplitter(int editid, char* bodystr, int faceid, i
 			shapeHash.insert(set, index);
 		}
 	}
+	int typeindex{};
+	QString methodstr = QString(method);
+	if (methodstr == "SelectPlaneOnGeo") typeindex = 0;
+	else if (methodstr == "Coordinate") typeindex = 1;
+	else if (methodstr == "Random")typeindex = 2;
+
+	int planeindex{};
+	QString planemethodstr = QString(planemethod);
+	if (planemethodstr == "XOY") planeindex = 0;
+	else if (planemethodstr == "XOZ") planeindex = 1;
+	else if (planemethodstr == "YOZ")planeindex = 2;
 	Geometry::GeometrySet* editset = data->getGeometrySetByID(editid);
 	Geometry::GeometrySet* faceset = data->getGeometrySetByID(facebody);
-	Command::GeometryCommandPy::EditGeoSplitter(editset, shapeHash, faceid, faceset);
+	double random[3] = { random0, random1, random2 };
+	double basept[3] = { base0, base1, base2 };
+	Command::GeometryCommandPy::EditGeoSplitter(editset, shapeHash, typeindex, faceid, faceset, planeindex, random, basept);
 
+}
+
+void GEOMETRYCOMMANDAPI MakeFillHole(char* faces, int editID)
+{
+	QString cface = QString(faces);
+
+	QStringList setInfos = cface.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
+
+	Command::GeometryCommandPy::MakeFillHole(shapeHash, editID);
+}
+
+void GEOMETRYCOMMANDAPI MakeRemoveSurface(char* faces, int editID)
+{
+	QString cface = QString(faces);
+
+	QStringList setInfos = cface.split(";");
+	QMultiHash<Geometry::GeometrySet*, int> shapeHash;
+	Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
+	for (QString setinfo : setInfos)
+	{
+		QStringList setin = setinfo.split(":");
+		int setid = setin.at(0).toInt();
+		auto set = data->getGeometrySetByID(setid);
+		if (set == nullptr) continue;
+		QStringList edges = setin.at(1).split(",");
+		for (QString e : edges)
+		{
+			int index = e.toInt();
+			shapeHash.insert(set, index);
+		}
+	}
+
+	Command::GeometryCommandPy::MakeRemoveSurface(shapeHash, editID);
+}
+
+void GEOMETRYCOMMANDAPI CreateFillGap(char* type, int set1, int body1, int set2, int body2)
+{
+	QString str = QString(type);
+	int indextype{};
+	if (str == "Edge") indextype = 0;
+	else if (str == "Surface") indextype = 1;
+	else if (str == "Solid") indextype = 2;
+
+	Command::GeometryCommandPy::MakeFillGap(indextype, set1, body1, set2, body2);
+}
+
+void GEOMETRYCOMMANDAPI EditFillGap(int id, char*type, int set1, int body1, int set2, int body2)
+{
+	Geometry::GeometrySet* set = Geometry::GeometryData::getInstance()->getGeometrySetByID(id);
+	QString str = QString(type);
+	int indextype{};
+	if (str == "Edge") indextype = 0;
+	else if (str == "Surface") indextype = 1;
+	else if (str == "Solid") indextype = 2;
+	Command::GeometryCommandPy::EditFillGap(set, indextype, set1, body1, set2, body2);
 }
 

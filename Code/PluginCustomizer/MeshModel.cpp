@@ -9,7 +9,7 @@
 namespace FastCAEDesigner
 {
 	MeshModel::MeshModel(QString nameEng, QString nameChn, QString iconName, QObject *parent)
-		:ModelBase(nameEng, nameChn, iconName, TreeItemType::ProjectMesh, parent)
+		:ModelBase(nameEng, nameChn, iconName, TreeItemType::ProjectComponent, parent)
 	{
 
 	}

@@ -6,8 +6,7 @@ HEADERS += \
 	$$PWD/DialogRemoveReport.h \
 	$$PWD/DialogAssignMaterial.h \
 	$$PWD/projectTreeBase.h \
-#	$$PWD/ProjectTreeConfig.h \
-#	$$PWD/TreeConfigReader.h \
+#	$$PWD/NodeParameterDlg.h \
 	
 SOURCES += \
 	$$PWD/ProjectTreeWithBasicNode.cpp \
@@ -16,10 +15,10 @@ SOURCES += \
 	$$PWD/DialogRemoveReport.cpp \
 	$$PWD/DialogAssignMaterial.cpp \
 	$$PWD/projectTreeBase.cpp \
-#	$$PWD/ProjectTreeConfig.cpp \
-#	$$PWD/TreeConfigReader.cpp \
+#	$$PWD/NodeParameterDlg.cpp \
 	
 FORMS +=  \
 	$$PWD/DialogAddBC.ui \
 	$$PWD/DialogRemoveReport.ui \
+#	$$PWD/NodeParameterDlg.ui \
 	

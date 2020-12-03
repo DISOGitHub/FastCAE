@@ -23,10 +23,10 @@ namespace ConfigOption
 		}
 		_bcList.clear();
 		_enableType.clear();
-		
+
 	}
 
-	BCBase::BCUserDef* BCConfig::getBCByName(QString name,  ProjectTreeType t)
+	BCBase::BCUserDef* BCConfig::getBCByName(QString name, ProjectTreeType t)
 	{
 
 		BCBase::BCUserDef* bc = nullptr;
@@ -77,9 +77,9 @@ namespace ConfigOption
 	}
 	void BCConfig::appendEnableType(QString s, ProjectTreeType t)
 	{
-		if (this->isEnable(s,t)) return;
+		if (this->isEnable(s, t)) return;
 		_enableType[t].append(s.toLower());
-//		qDebug() << t << " , " << s;
+		//		qDebug() << t << " , " << s;
 	}
 
 	QStringList BCConfig::getEnabledType(ProjectTreeType t)

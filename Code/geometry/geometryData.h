@@ -12,11 +12,13 @@ class QDomDocument;
 class QDomElement;
 class QDomNodeList;
 class gp_Ax3;
+class vtkPolyData;
 
 namespace Geometry
 {
 	class GeometrySet;
 	class GeometryDatum;
+	class GeoComponent;
 
 	class GEOMETRYAPI GeometryData : public DataProperty::DataBase 
 	{
@@ -61,12 +63,24 @@ namespace Geometry
 		void sort();
 		///文件写出至工程文件
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* element, bool isdiso = false);
-		///从工程文件读入数据
+		//从工程文件读入数据
 		void readFromProjectFile(QDomNodeList* nodelist , bool isdiso = false);
 		//设置曹绘平面
 		void setSketchPlane(double* loc, double* dir);
 		//获取
 		gp_Ax3* getSketchPlane();
+		//添加一个几何组件
+		void appendGeoComponent(GeoComponent*);
+		//获取所有几何组件
+		QList<GeoComponent*>& getGeoComponentList();
+		//根据几何组件索引获取几何组件
+		GeoComponent* getGeoComponentByIndex(int);
+		//根据几何组件ID获取几何组件
+		GeoComponent* getGeoComponentByID(int);
+		//通过索引删除几何组件
+		bool removeGeoComponentByIndex(int);
+		//对所有几何组件进行剖分，然后生成网格并写入XML中
+		//void generateMeshAndWriteToXML(QDomDocument& doc, QDomElement& parent);
 
 	private:
 		GeometryData() = default;
@@ -77,9 +91,11 @@ namespace Geometry
 		QList<GeometrySet*> _geometryList{};
 		QList<GeometryDatum*> _geomtretryDatumList{};
 		gp_Ax3* _sketchPlan{};
+		QList<GeoComponent*> _geoCpList;
+//		QHash<int, vtkPolyData*> _geoCp
 	};
 
-	bool compareSet(GeometrySet* s1, GeometrySet* s2);
+	bool compareSet(DataProperty::DataBase* s1, DataProperty::DataBase* s2);
 
 }
 

@@ -14,7 +14,7 @@ namespace MeshData
 	class MESHDATAEXCHANGEPLUGINAPI KEYdataExchange : public MeshThreadBase
 	{
 		public:		
-			KEYdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int KernalId = -1);
+			KEYdataExchange(const QString &fileName, MeshOperation operation, GUI::MainWindow *mw, int modelId = -1);
 			~KEYdataExchange();
 
 			void run();
@@ -38,7 +38,7 @@ namespace MeshData
 			MeshData* _meshData{};
 			QTextStream* _stream{};
 			QString _preLine{};
-			int _writeFileKid;
+			int _modelId;
 	};
 }
 

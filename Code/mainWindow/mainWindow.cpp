@@ -21,6 +21,8 @@
 #include "MainWidgets/ProcessWindow.h"
 #include "MainWidgets/projectSolveDialog.h"
 #include "MainWidgets/DialogCreateSet.h"
+#include "MainWidgets/DialogCreateGeoComponent.h"
+#include "MainWidgets/DialogVTKTransform.h"
 #include "MainWidgets/preWindow.h"
 #include "GeometryWidgets/dialogSketchPlane.h"
 #include "meshData/meshSingleton.h"
@@ -46,7 +48,7 @@
 #include "SolverControl/DialogSolverManager.h"
 #include "Gmsh/GmshModule.h"
 #include "moduleBase/ThreadTaskManager.h"
-
+#include "MainWidgets/DialogFilterMesh.h"
 
 namespace GUI
 {
@@ -98,7 +100,9 @@ namespace GUI
 
 		_customizerHelper = new CustomizerHelper(this, _ui);
 		_customizerHelper->registerInterface();
+
 		_subWindowManager->openStartPage();
+		isLoadRecordScripFile();
 	}
 
 	MainWindow::~MainWindow()
@@ -150,9 +154,12 @@ namespace GUI
 		connect(_ui->actionAbout, SIGNAL(triggered()), this, SLOT(on_about()));
 		connect(_ui->actionUser_Manual, SIGNAL(triggered()), this, SLOT(on_userManual()));
 		connect(_ui->actionCreate_Set, SIGNAL(triggered()), this, SLOT(on_CreateSet()));
+		connect(_ui->actionCreateGeoComponent, SIGNAL(triggered()), this, SLOT(on_CreateGeoComponent()));
 		connect(_ui->actionSave_Script, SIGNAL(triggered()), this, SLOT(on_SaveScript()));
 		connect(_ui->actionExecute_Script, SIGNAL(triggered()), this, SLOT(on_ExecuateScript()));
 		connect(_ui->actionPluginManager, SIGNAL(triggered()), Plugins::PluginManager::getInstance(), SLOT(manage()));
+		connect(_ui->actionFilterMesh, SIGNAL(triggered()), this, SLOT(on_FilterMesh()));
+		connect(_ui->actionVTKTranslation, SIGNAL(triggered()), this, SLOT(on_VTKTranslation()));
 
 		//设置视角
 		_viewSignalMapper = new QSignalMapper(this);
@@ -453,7 +460,6 @@ namespace GUI
 
 	void MainWindow::on_importMesh()
 	{
-		QString workDir = Setting::BusAPI::instance()->getWorkingDir();	
 		QStringList list = IO::IOConfigure::getMeshImporters();
 		if (list.isEmpty())
 		{
@@ -463,7 +469,15 @@ namespace GUI
 
 		qSort(list.begin(), list.end());
 		QString suffixes = list.join(";;");
+		QString senderName = sender()->objectName();
+		int modelID = -1;
+		if (senderName.contains("Only INP_"))
+		{
+			suffixes = list.at(0);
+			modelID = senderName.right(1).toInt();
+		}
 
+		QString workDir = Setting::BusAPI::instance()->getWorkingDir();
 		QFileDialog dlg(this, tr("Import Mesh"), workDir, suffixes);
 		dlg.setAcceptMode(QFileDialog::AcceptOpen);
 		dlg.setFileMode(QFileDialog::ExistingFile);		
@@ -472,7 +486,7 @@ namespace GUI
 		QString aSuffix = dlg.selectedNameFilter();
 		QString fileName = dlg.selectedFiles().join(",");
 		if (fileName.isEmpty())	return;
-		QString pyCode = QString("MainWindow.importMesh(\"%1\",\"%2\")").arg(fileName).arg(aSuffix);
+		QString pyCode = QString("MainWindow.importMesh(\"%1\",\"%2\",%3)").arg(fileName).arg(aSuffix).arg(modelID);
 		Py::PythonAagent::getInstance()->submit(pyCode);
 	}
 
@@ -502,32 +516,44 @@ namespace GUI
 
 	void MainWindow::on_exportMesh()
 	{	
-		QString workDir = Setting::BusAPI::instance()->getWorkingDir();
-		QStringList list = IO::IOConfigure::getMeshExporters();
+		QStringList list = IO::IOConfigure::getMeshImporters();
 		if (list.isEmpty())
 		{
 			QMessageBox::warning(this, tr("Warning"), tr("The MeshPlugin is not installed !"));
 			return;
 		}
+
+		if (MeshData::MeshData::getInstance()->getKernalCount() == 0)
+		{
+			QMessageBox::warning(this, tr("Warning"), tr("No one has any grid!"));
+			return;
+		}
+
 		qSort(list.begin(), list.end());
 		QString suffixes = list.join(";;");
-
-		QFileDialog dlg(this, tr("Export Mesh"), workDir ,suffixes);
+		QString senderName = sender()->objectName();
+		int modelID = -1;
+		if (senderName.contains("Only INP_"))
+		{
+			suffixes = list.at(0);
+			modelID = senderName.right(1).toInt();
+		}
+		QString workDir = Setting::BusAPI::instance()->getWorkingDir();
+		QFileDialog dlg(this, tr("Export Mesh"), workDir, suffixes);
 		dlg.setAcceptMode(QFileDialog::AcceptSave);
 		if (dlg.exec() != QFileDialog::FileName)    return;
 
 		QString aSuffix = dlg.selectedNameFilter();
 		QString aFileName = dlg.selectedFiles().join(",");
 		if (aFileName.isEmpty())	return;
-		
-		QString pyCode = QString("MainWindow.exportMesh(\"%1\",\"%2\")").arg(aFileName).arg(aSuffix);		
+		QString pyCode = QString("MainWindow.exportMesh(\"%1\",\"%2\",%3)").arg(aFileName).arg(aSuffix).arg(modelID);
 		Py::PythonAagent::getInstance()->submit(pyCode);
 	}
 
-	void MainWindow::importMesh(QString fileName ,QString suffix)
-	{
-		_signalHandler->importMesh(fileName, suffix);	
-	}
+// 	void MainWindow::importMesh(QString fileName ,QString suffix, int modelId)
+// 	{
+// 		_signalHandler->importMesh(fileName, suffix, modelId);
+// 	}
 
 	void MainWindow::importMeshDataset(vtkDataSet* dataset)
 	{
@@ -842,12 +868,42 @@ namespace GUI
 		_signalHandler->showUserGuidence(true);
 	}
 
+	bool MainWindow::isLoadRecordScripFile()
+	{
+		QFile file(qApp->applicationDirPath() + "/../temp/RecordScript.py");
+		if (!file.exists() || file.size() == 0)
+			return false;
+
+		QMessageBox::StandardButton result =
+			QMessageBox::warning(this, tr("Do you need to load?"),
+			tr("The program quit with an exception before, do you want to reload the contents?"),
+			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+		switch (result)
+		{
+		case QMessageBox::Yes:
+			Py::PythonAagent::getInstance()->execScript(file.fileName());
+			break;
+		case QMessageBox::No:
+			QFile::remove(qApp->applicationDirPath() + "/../temp/RecordScript.py");
+			break;
+		default:
+			break;
+		}
+		return true;
+	}
+
 	void MainWindow::on_CreateSet()
 	{
 		MainWidget::CreateSetDialog dlg(this,_subWindowManager->getPreWindow());
 		dlg.exec();
 	}
 	
+	void MainWindow::on_CreateGeoComponent()
+	{
+		MainWidget::CreateGeoComponentDialog dlg(this, _subWindowManager->getPreWindow());
+		dlg.exec();
+	}
 
 	void MainWindow::clearWidgets()
 	{
@@ -917,6 +973,18 @@ namespace GUI
 		_ui->FeatureOpertionToolBar->setVisible(!s);
 
 		_ui->SketchToolBar->setVisible(s);
+	}
+
+	void MainWindow::on_FilterMesh()
+	{
+		MainWidget::FilterMeshDialog dlg(this, _subWindowManager->getPreWindow());
+		dlg.exec();
+	}
+
+	void MainWindow::on_VTKTranslation()
+	{
+		MainWidget::DialogVTKTransform dlg(this);
+		dlg.exec();
 	}
 
 	void MainWindow::showGraphRange(double w, double h)

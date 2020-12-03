@@ -3,6 +3,7 @@
 #include "meshSingleton.h"
 #include "meshKernal.h"
 #include <QDomElement>
+#include <QDataStream>
 #include <vtkIdTypeArray.h>
 #include <vtkAppendFilter.h>
 #include <vtkUnstructuredGrid.h>
@@ -16,21 +17,21 @@
 
 namespace MeshData
 {
-	int MeshSet::maxID = 0;
+	//int MeshSet::maxID = 0;
 
-	MeshSet::MeshSet(QString name, SetType t)
+	MeshSet::MeshSet(QString name, SetType t) : ComponentBase(DataProperty::ComponentType::MESH)
 	{
-		maxID++;
-		setID(maxID);
+//		maxID++;
+//		setID(maxID);
 		setName(name);
 		setType(t);
 //		_member = new SetMember;
 	}
 
-	MeshSet::MeshSet()
+	MeshSet::MeshSet() : ComponentBase(DataProperty::ComponentType::MESH)
 	{
-		maxID++;
-		setID(maxID);
+//		maxID++;
+//		setID(maxID);
 //		setName(name);
 //		_member = new SetMember;
 	}
@@ -41,12 +42,12 @@ namespace MeshData
 		if (_displayDataSet != nullptr) _displayDataSet->Delete();
 	}
 
-	void MeshSet::setID(int id)
-	{
-		DataBase::setID(id);
-		if (maxID < id)
-			maxID = id;
-	}
+// 	void MeshSet::setID(int id)
+// 	{
+// 		DataBase::setID(id);
+// 		if (maxID < id)
+// 			maxID = id;
+// 	}
 
 	void MeshSet::setType(SetType t)
 	{
@@ -67,15 +68,15 @@ namespace MeshData
 		return _type;
 	}
 
-	int MeshSet::getMaxID()
-	{
-		return maxID;
-	}
-
-	void MeshSet::resetMaxID()
-	{
-		maxID = 0;
-	}
+// 	int MeshSet::getMaxID()
+// 	{
+// 		return maxID;
+// 	}
+// 
+// 	void MeshSet::resetMaxID()
+// 	{
+// 		maxID = 0;
+// 	}
 
 	void MeshSet::appendMember(int ker, int id)
 	{
@@ -124,7 +125,8 @@ namespace MeshData
 			QDomElement memle = doc->createElement("Member");
 			QList<int> memids = _members.values(kid);
 			QStringList text;
-			for (int id : memids) text.append(QString::number(id));
+			for (int id : memids) 
+				text.append(QString::number(id));
 			QDomText memText = doc->createTextNode(text.join(","));
 			memle.appendChild(memText);
 
@@ -176,7 +178,7 @@ namespace MeshData
 	{
 		if (_displayDataSet != nullptr) return;
 		if (_members.isEmpty()) return;
-		this->appendProperty("Count", _members.values().size());
+		appendProperty("Count", _members.values().size());
 
 		MeshData* meshdata = MeshData::getInstance();
 		QList<int> kids = _members.uniqueKeys();
@@ -331,5 +333,19 @@ namespace MeshData
 			for (int m : mem)
 				_members.remove(k, m);
 		}
+	}
+
+	QString MeshSet::setTypeToString(SetType type)
+	{
+		QString qtype{};
+		switch (type)
+		{
+			case Node : qtype = "Node"; break;
+			case Element : qtype = "Element"; break;
+			case Family : qtype = "Family"; break;
+			case BCZone : qtype = "BCZone"; break;
+			default : break;
+		}
+		return qtype;
 	}
 }

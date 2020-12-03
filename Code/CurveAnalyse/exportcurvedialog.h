@@ -1,5 +1,5 @@
 #ifndef EXPORTCURVEDIALOG_H
-#define REPORTCURVEDIALOG_H
+#define EXPORTCURVEDIALOG_H
 
 #include <QDialog>
 #include <QMovie>

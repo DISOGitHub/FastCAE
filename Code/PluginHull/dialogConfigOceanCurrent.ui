@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigOceanCurrentDialog</class>
+ <widget class="QWidget" name="ConfigOceanCurrentDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>939</width>
+    <height>621</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ocean Current</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <widget class="QGroupBox" name="groupBox_88">
+     <property name="title">
+      <string>MeasuringPoint</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_61">
+        <item>
+         <widget class="QLabel" name="label_181">
+          <property name="text">
+           <string>MaxMeasuringPointValue</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="maxncrzpSpinBox"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+        <item>
+         <widget class="QTableWidget" name="measureTableWidget">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>200</number>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>MeasuringPointName</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>MeasuringPointDeep(m)</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>FlowVelocity(m/s)</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>test1</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>-10.0000</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>5.0000</string>
+           </property>
+          </item>
+          <item row="1" column="0">
+           <property name="text">
+            <string>test2</string>
+           </property>
+          </item>
+          <item row="1" column="1">
+           <property name="text">
+            <string>-50.0000</string>
+           </property>
+          </item>
+          <item row="1" column="2">
+           <property name="text">
+            <string>0.7000</string>
+           </property>
+          </item>
+          <item row="2" column="0">
+           <property name="text">
+            <string>test3</string>
+           </property>
+          </item>
+          <item row="2" column="1">
+           <property name="text">
+            <string>-100.0000</string>
+           </property>
+          </item>
+          <item row="2" column="2">
+           <property name="text">
+            <string>0.4000</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="addmeasureBtn">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="edtmeasureBtn">
+            <property name="text">
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delmeasureBtn">
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clearmeasureBtn">
+            <property name="text">
+             <string>ClearAll</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_51" stretch="2,4,2,4,2,4">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>MeasuringPointName</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="measureNameLineEdit">
+          <property name="text">
+           <string>test1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_177">
+          <property name="text">
+           <string>MeasuringPointDeep(m)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="pointdeepLineEdit">
+          <property name="text">
+           <string>-10</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_179">
+          <property name="text">
+           <string>FlowVelocity(m/s)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="pointrateLineEdit">
+          <property name="text">
+           <string>5</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>FlowProfile</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0">
+        <item>
+         <widget class="QTableWidget" name="watercrhdTableWidget">
+          <property name="font">
+           <font>
+            <family>宋体</family>
+           </font>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="columnCount">
+           <number>4</number>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>260</number>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>100</number>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <row>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>BindMeasurePoint</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>StaticSurfaceFlowVelocity(m/s)</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>FlowProfileDirection(°)</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>MeasuringPointName</string>
+           </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+          </column>
+          <item row="0" column="0">
+           <property name="text">
+            <string>..</string>
+           </property>
+          </item>
+          <item row="0" column="1">
+           <property name="text">
+            <string>10.0000</string>
+           </property>
+          </item>
+          <item row="0" column="2">
+           <property name="text">
+            <string>20.0000</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="addmeasureprofileBtn">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="edtmeasureprofileBtn">
+            <property name="text">
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delmeasureprofileBtn">
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="clearmeasureprofileBtn">
+            <property name="text">
+             <string>ClearAll</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,4,2,4">
+        <item>
+         <widget class="QLabel" name="label_81">
+          <property name="text">
+           <string>StaticSurfaceFlowVelocity(m/s)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="vczfLineEdit">
+          <property name="text">
+           <string>10</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_172">
+          <property name="text">
+           <string>FlowProfileDirection(°)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="crhdLineEdit">
+          <property name="text">
+           <string>20</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

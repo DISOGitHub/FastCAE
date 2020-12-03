@@ -2,7 +2,7 @@
 #define MESHSET_H_
 
 #include "meshDataAPI.h"
-#include "DataProperty/DataBase.h"
+#include "DataProperty/ComponentBase.h"
 #include <QString>
 #include <QMultiHash>
 
@@ -25,7 +25,7 @@ namespace MeshData
 	
 	class SetMember;
 
-	class MESHDATAAPI MeshSet : public DataProperty::DataBase
+	class MESHDATAAPI MeshSet : public DataProperty::ComponentBase
 	{
 	public :
 		//构造函数
@@ -33,11 +33,11 @@ namespace MeshData
 		MeshSet();
 		~MeshSet();
 		//获取最大ID
-		int static getMaxID();
+		//int static getMaxID();
 		//重置最大ID
-		void static resetMaxID();
+		//void static resetMaxID();
 		///设置ID，谨慎调用
-		void setID(int id) override;
+		//void setID(int id) override;
 		///设置类型 
 		void setType(SetType t);
 		///获取类型
@@ -80,6 +80,8 @@ namespace MeshData
 		virtual vtkDataSet* getDisplayDataSet();
 		//字符串转化为枚举
 		static SetType stringToSettype(QString s);
+		//枚举转字符串
+		static	QString setTypeToString(SetType);
 
 
 
@@ -94,7 +96,7 @@ namespace MeshData
 		vtkDataSet* _displayDataSet{};
 
 	private:
-		static int maxID;
+	//	static int maxID;
 	};
 
 

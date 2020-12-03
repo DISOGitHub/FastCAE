@@ -17,7 +17,7 @@
 <context>
     <name>EColorComboBox</name>
     <message>
-        <location filename="../../settings/ecolorcombobox.cxx" line="+19"/>
+        <location filename="../../settings/ecolorcombobox.cpp" line="+19"/>
         <location line="+205"/>
         <source>More ...</source>
         <translation>更多...</translation>

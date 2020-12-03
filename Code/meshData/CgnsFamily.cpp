@@ -7,6 +7,7 @@
 #include <vtkUnstructuredGrid.h>
 #include "meshSingleton.h"
 #include <QDomElement>
+#include <QDataStream>
 #include <QDomAttr>
 #include <QDomText>
 #include <QDebug>

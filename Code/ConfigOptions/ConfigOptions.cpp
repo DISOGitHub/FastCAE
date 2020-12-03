@@ -13,7 +13,9 @@
 #include "ObserverConfigReader.h"
 #include "MaterialConfig.h"
 #include "ProjectTreeConfig.h"
+//#include "NodeFormConfig.h"
 #include "TreeConfigReader.h"
+
 #include <QCoreApplication>
 
 namespace ConfigOption
@@ -42,6 +44,7 @@ namespace ConfigOption
 		_observerConfig = new ObserverConfig;
 		_materialConfig = new MaterialConfig;
 		_projectTreeConfig = new ProjectTreeConfig;
+//		_nodeFormConfig = new NodeFormConfig;
 	}
 
 	ConfigOption::~ConfigOption()
@@ -56,7 +59,7 @@ namespace ConfigOption
 		if (_solverOption != nullptr) delete _solverOption;
 		if (_materialConfig != nullptr) delete _materialConfig;
 		if (_projectTreeConfig != nullptr) delete _projectTreeConfig;
-		
+//		if (_nodeFormConfig != nullptr) delete _nodeFormConfig;
 	}
 	
 	void ConfigOption::clearAllConfig()
@@ -72,6 +75,7 @@ namespace ConfigOption
 		_observerConfig->clearData();
 		_materialConfig->clearData();
 		_projectTreeConfig->clearData();
+		//_nodeFormConfig->clearData();
 	}
 
 	BCConfig* ConfigOption::getBCConfig()
@@ -138,4 +142,9 @@ namespace ConfigOption
 	{
 		return _projectTreeConfig;
 	}
+
+// 	NodeFormConfig* ConfigOption::getNodeFormConfig()
+// 	{
+// 		return _nodeFormConfig;
+// 	}
 }

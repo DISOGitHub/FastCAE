@@ -130,18 +130,22 @@
 <context>
     <name>SolverControl::SolverControlBase</name>
     <message>
-        <location filename="../../SolverControl/SolverControlerBase.cpp" line="+48"/>
+        <location filename="../../SolverControl/SolverControlerBase.cpp" line="+50"/>
+        <location line="+7"/>
+        <location line="+113"/>
         <location line="+6"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-126"/>
+        <location line="+120"/>
         <source>Solver Path Error! Solve Path : %1</source>
         <translation>求解器路径错误！路径：%1</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-113"/>
+        <location line="+119"/>
         <source>Input file write failed !</source>
         <translation>输入文件写出失败！</translation>
     </message>

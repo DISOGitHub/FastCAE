@@ -19,7 +19,8 @@ win32{
   Release:LIBS	+=	\
 	-L../../output/bin -lDataProperty \
 	-L../../output/bin -lMeshData \
-  
+	-L../../output/bin -lGeometry \
+	
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d 
   Debug:MOC_DIR         = ./debug/moc 
@@ -29,6 +30,7 @@ win32{
   Debug:LIBS +=  \
 	-L../../output/bin_d -lDataProperty \
 	-L../../output/bin_d -lMeshData \
+	-L../../output/bin_d -lGeometry \
 	
   message("Windows BCBase build")
                                                

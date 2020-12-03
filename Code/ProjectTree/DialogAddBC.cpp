@@ -11,6 +11,8 @@
 #include "ModelData/modelDataBaseExtend.h"
 #include "meshData/meshSingleton.h"
 #include "meshData/meshSet.h"
+#include "geometry/geometryData.h"
+#include "geometry/GeoComponent.h"
 #include "ConfigOptions/ConfigOptions.h"
 #include "ConfigOptions/BCConfig.h"
 #include <assert.h>
@@ -35,19 +37,32 @@ namespace ProjectTree
 	void AddBCDialog::init()
 	{
 		initBCType();
-		initMeshSet();
+		initComponents();
 	}
-	void AddBCDialog::initMeshSet()
+	void AddBCDialog::initComponents()
 	{
 		MeshData::MeshData* mesh = MeshData::MeshData::getInstance();
-		QList<int> comList = _data->getMeshSetList();
-		for (int i = 0; i < comList.size(); ++i)
+		QList<int> mshList = _data->getMeshSetList();
+		for (int i = 0; i < mshList.size(); ++i)
 		{
-			int setID = comList.at(i);
+			int setID = mshList.at(i);
 			MeshData::MeshSet* set = mesh->getMeshSetByID(setID);
 			assert(set != nullptr);
 			QString name = set->getName();
-			_ui->setComboBox->addItem(name, setID);
+			_ui->setComboBox->addItem(name, Qt::UserRole + 1);
+			_ui->setComboBox->setItemData(_ui->setComboBox->count() - 1, setID, Qt::UserRole + 1);
+		}
+
+		auto geoData = Geometry::GeometryData::getInstance();
+		QList<int> gcList = _data->getGeoComponentIDList();
+		for (int i = 0; i < gcList.size(); ++i)
+		{
+			int gcID = gcList.at(i);
+			auto* aGC = geoData->getGeoComponentByID(gcID);
+			assert(aGC != nullptr);
+			QString name = aGC->getName();
+			_ui->setComboBox->addItem(name, Qt::UserRole + 1);
+			_ui->setComboBox->setItemData(_ui->setComboBox->count() - 1, gcID, Qt::UserRole + 1);
 		}
 	}
 	void AddBCDialog::initBCType()
@@ -101,12 +116,12 @@ namespace ProjectTree
 	{
 //		const int index = _ui->typeComboBox->currentIndex();
 //		BCBase::BCType bcType = (BCBase::BCType)(_ui->typeComboBox->itemData(index).toInt());  //Commented-Out By Baojun 
+		int cpID = _ui->setComboBox->itemData(_ui->setComboBox->currentIndex(), Qt::UserRole + 1).toInt();
+		if (cpID < 0) return;
+		QString typeName = _ui->typeComboBox->currentText();
+//		QList<int> setidlist = _data->getMeshSetList();
 		int caseid = _data->getID();
-		QString name = _ui->typeComboBox->currentText();
-		int setindex = _ui->setComboBox->currentIndex();
-		QList<int> setidlist = _data->getMeshSetList();
-		if (setindex < 0) return;
-		const int id = setidlist.at(setindex);
+
 //		MeshData::MeshSet* set = MeshData::MeshData::getInstance()->getMeshSetByID(id); //Commented-Out By Baojun
 //		if (set == nullptr) return;
 //		int caseid = _data->getID();
@@ -114,7 +129,7 @@ namespace ProjectTree
 //		QString bctypetostring = BCBase::BCTypeToString(bcType);//liu
 	
 		//submit py code
-		QString code = QString("Case.addBC(%1,%2,\"%3\")").arg(caseid).arg(id).arg(name);//
+		QString code = QString("Case.addBC(%1,%2,\"%3\")").arg(caseid).arg(cpID).arg(typeName);
 		qDebug() << code;
 		Py::PythonAagent::getInstance()->submit(code);
 		 

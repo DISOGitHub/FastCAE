@@ -260,6 +260,8 @@ namespace IO
 // 			_file.close();
 // //			return false;
 // 		}
+		readGeoData(&geoNodeList,true);
+//		readMeshData(&meshNodeList);
 
 		QFile mhFile(tempPath + "mesh.mh");
 		if (mhFile.open(QIODevice::ReadOnly))
@@ -270,8 +272,6 @@ namespace IO
 			mhFile.close();
 		}
 
-		readGeoData(&geoNodeList,true);
-//		readMeshData(&meshNodeList);
 		readMaterialData(&materialList);
 		readModelData(&modelNodeList);
 		readPluginData(&pluginList);
@@ -323,8 +323,10 @@ namespace IO
 			ProjectTreeType type = getTreeTypeByString(stype);
 			ModelData::ModelDataBase *modelData = nullptr;
 			modelData = ModelData::ModelDataFactory::createModel(type);
-
 			if (modelData == nullptr) continue;
+
+			modelData->setID(model.attribute("ID").toInt());
+			modelData->setName(model.attribute("Name"));
 			modelData->readDataFromProjectFile(&model);
 			modelData->generateParaInfo();
 			_modelData->appendModel(modelData);

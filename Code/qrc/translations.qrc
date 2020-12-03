@@ -13,5 +13,6 @@
         <file>translations/GmshModule_zh_CN.qm</file>
         <file>translations/SolverControl_Zh_CN.qm</file>
         <file>translations/UserGuidence_zh_CN.qm</file>
+        <file>translations/SelfDefObject_zh_CN.qm</file>
     </qresource>
 </RCC>

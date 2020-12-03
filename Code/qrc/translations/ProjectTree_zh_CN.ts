@@ -10,8 +10,8 @@
     </message>
     <message>
         <location line="+6"/>
-        <source>Mesh Set</source>
-        <translation>网格组件</translation>
+        <source>Set</source>
+        <translation>组件</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -35,62 +35,62 @@
 <context>
     <name>ProjectTree::ProjectTreeWithBasicNode</name>
     <message>
-        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="+81"/>
-        <location line="+59"/>
-        <source>Mesh Set</source>
-        <translation>网格组件</translation>
+        <location filename="../../ProjectTree/ProjectTreeWithBasicNode.cpp" line="+87"/>
+        <location line="+60"/>
+        <source>Set</source>
+        <translation>组件</translation>
     </message>
     <message>
-        <location line="-54"/>
-        <location line="+55"/>
+        <location line="-55"/>
+        <location line="+56"/>
         <source>Simulation Setting</source>
         <translation>仿真参数设置</translation>
     </message>
     <message>
-        <location line="-50"/>
-        <location line="+51"/>
+        <location line="-51"/>
+        <location line="+52"/>
         <source>Boundary Condition</source>
         <translation>边界条件</translation>
     </message>
     <message>
-        <location line="-46"/>
-        <location line="+47"/>
+        <location line="-47"/>
+        <location line="+48"/>
         <source>Solver Setting</source>
         <translation>求解设置</translation>
     </message>
     <message>
-        <location line="-42"/>
-        <location line="+43"/>
+        <location line="-43"/>
+        <location line="+44"/>
         <source>Monitor</source>
         <translation>监视器</translation>
     </message>
     <message>
-        <location line="-38"/>
-        <location line="+39"/>
+        <location line="-39"/>
+        <location line="+40"/>
         <source>Post</source>
         <translation>后处理</translation>
     </message>
     <message>
-        <location line="-34"/>
-        <location line="+35"/>
+        <location line="-35"/>
+        <location line="+36"/>
         <source>2D Plot</source>
         <translation>二维绘图</translation>
     </message>
     <message>
-        <location line="-30"/>
-        <location line="+31"/>
+        <location line="-31"/>
+        <location line="+32"/>
         <source>Counter</source>
         <translation>云图</translation>
     </message>
     <message>
-        <location line="-26"/>
-        <location line="+27"/>
+        <location line="-27"/>
+        <location line="+28"/>
         <source>Vector</source>
         <translation>矢量</translation>
     </message>
     <message>
-        <location line="-22"/>
-        <location line="+23"/>
+        <location line="-23"/>
+        <location line="+24"/>
         <source>Stream Line</source>
         <translation>流线</translation>
     </message>
@@ -105,18 +105,23 @@
         <translation>导入几何</translation>
     </message>
     <message>
-        <location line="+232"/>
-        <location line="+442"/>
+        <location line="+4"/>
+        <source>Import Set</source>
+        <translation>导入组件</translation>
+    </message>
+    <message>
+        <location line="+390"/>
+        <location line="+482"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location line="-442"/>
+        <location line="-482"/>
         <source>This Set has been used, still remove?</source>
         <translation>网格组件正在被使用，确认移除？</translation>
     </message>
     <message>
-        <location line="+215"/>
+        <location line="+245"/>
         <source>Node Scalar</source>
         <translation>节点标量</translation>
     </message>
@@ -136,23 +141,18 @@
         <translation>单元矢量</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+188"/>
         <source>File %1 is not exist</source>
         <translation>文件 %1 不存在</translation>
     </message>
     <message>
-        <location line="-711"/>
-        <location line="+19"/>
+        <location line="-914"/>
+        <location line="+20"/>
         <source>Report</source>
         <translation>报告</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <source>Import</source>
-        <translation>导入</translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+27"/>
         <source>Assign Material</source>
         <translation>指定材料</translation>
     </message>
