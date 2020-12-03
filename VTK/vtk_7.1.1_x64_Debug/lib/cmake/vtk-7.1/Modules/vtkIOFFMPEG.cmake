@@ -1,9 +1,0 @@
-set(vtkIOFFMPEG_LOADED 1)
-set(vtkIOFFMPEG_DEPENDS "vtkCommonCore;vtkCommonDataModel;vtkCommonMisc;vtkIOMovie")
-set(vtkIOFFMPEG_LIBRARIES "vtkIOFFMPEG")
-set(vtkIOFFMPEG_INCLUDE_DIRS "${VTK_INSTALL_PREFIX}/include/vtk-7.1")
-set(vtkIOFFMPEG_LIBRARY_DIRS "")
-set(vtkIOFFMPEG_RUNTIME_LIBRARY_DIRS "${VTK_INSTALL_PREFIX}/bin")
-set(vtkIOFFMPEG_WRAP_HIERARCHY_FILE "${CMAKE_CURRENT_LIST_DIR}/vtkIOFFMPEGHierarchy.txt")
-set(vtkIOFFMPEG_KIT "vtkIO")
-
