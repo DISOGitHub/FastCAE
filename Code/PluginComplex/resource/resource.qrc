@@ -1,9 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file>icons/liangan1.png</file>
-    <file>icons/futi1.png</file>
-    <file>translation/transtrations_zh_CN.qm</file>
-    <file>icons/futi.png</file>
-    <file>icons/liangan.png</file>
-  </qresource>
-</RCC>
