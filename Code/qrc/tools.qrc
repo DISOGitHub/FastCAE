@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/tools">
+        <file>QUI/tools/XMaterial.ico</file>
+    </qresource>
+</RCC>
