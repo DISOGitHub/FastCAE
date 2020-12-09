@@ -22,6 +22,7 @@ QFDialog::~QFDialog()
 
 int QFDialog::exec()
 {
+	this->setAttribute(Qt::WA_DeleteOnClose, false);
 	if (_keySig)
 		emit endaleGraphWinKey(false);
 	return QDialog::exec();
