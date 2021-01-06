@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>translations/MainWidgets_zh_CN.qm</file>
+        <file>translations/MainWindow_zh_CN.qm</file>
+        <file>translations/ModuleBase_zh_CN.qm</file>
+        <file>translations/Setting_zh_CN.qm</file>
+        <file>translations/ProjectTree_zh_CN.qm</file>
+        <file>translations/PostWidgets_zh_CN.qm</file>
+        <file>translations/Material_zh_CN.qm</file>
+        <file>translations/IO_zh_CN.qm</file>
+        <file>translations/GeometryWidgets_zh_CN.qm</file>
+        <file>translations/PluginManager_zh_CN.qm</file>
+        <file>translations/GmshModule_zh_CN.qm</file>
+        <file>translations/SolverControl_Zh_CN.qm</file>
+        <file>translations/UserGuidence_zh_CN.qm</file>
+        <file>translations/SelfDefObject_zh_CN.qm</file>
+    </qresource>
+</RCC>

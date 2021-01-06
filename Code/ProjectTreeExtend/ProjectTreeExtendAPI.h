@@ -1,0 +1,13 @@
+#ifndef _PROJECTTREEEXTENDAPI_H_
+#define _PROJECTTREEEXTENDAPI_H_
+
+#include <QtCore/QtGlobal>
+
+
+#if defined(PROJECTTREEEXTEND_API)
+#define PROJECTTREEEXTENDAPI Q_DECL_EXPORT
+#else
+#define PROJECTTREEEXTENDAPI Q_DECL_IMPORT
+#endif
+ 
+#endif

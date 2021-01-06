@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileDialogDirectory</class>
+ <widget class="QDialog" name="FileDialogDirectory">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>764</width>
+    <height>407</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>607</width>
+    <height>397</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Open file</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>File path</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="FilePath"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="up_pushButton">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/images/arrow_up.png</normaloff>:/images/arrow_up.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cmbFilePath">
+       <property name="text">
+        <string>Open</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTreeView" name="mTreeView">
+      <property name="minimumSize">
+       <size>
+        <width>500</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="textElideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <property name="rootIsDecorated">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QTreeWidget" name="mPipelineTree">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="indentation">
+       <number>10</number>
+      </property>
+      <property name="expandsOnDoubleClick">
+       <bool>false</bool>
+      </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string notr="true">FileName</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="_2">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="FileType">
+       <property name="currentText">
+        <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm *.pre *.hot *.e)</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Data Files (*.vtk  *.vtu *.vtr *.vts *.vtp *.dat *.moor *.cgns *.msh *.sol *.obj *.igs *.iges *.neu *.stl *.cntm *.pre *.hot *.e)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Vtk Files(*.vtk *.vtu *.vtr *.vts *.vtp)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Neu Files(*.neu)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Stl Files(*.stl)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Dat Files(*.dat *.pre *.hot)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sol Files(*.sol)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Cgns Files(*.cgns)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Igs Files(*.iges *.igs)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Cntm Files(*.cntm)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ExodusII Files(*. e)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="FileName">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>File type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="Cancel">
+       <property name="text">
+        <string>cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="OKChoice">
+       <property name="text">
+        <string>ok</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>File name</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+  <zorder></zorder>
+  <zorder>splitter</zorder>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resource.qrc"/>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

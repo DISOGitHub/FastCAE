@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/about.png</file>
+        <file>images/help.png</file>
+        <file>images/langue.png</file>
+        <file>images/open.png</file>
+        <file>images/exit.png</file>
+        <file>images/saveimage.png</file>
+        <file>images/script_edit.png</file>
+        <file>images/script_start.png</file>
+        <file>font/arial.ttf</file>
+        <file>images/chinese_language.png</file>
+        <file>images/english_language.png</file>
+        <file>images/curve.png</file>
+        <file>images/run.png</file>
+        <file>images/stop.png</file>
+        <file>translations/CurveAnalyse_zh_CN.qm</file>
+	      <file>images/delAniPoint.png</file>
+        <file>images/zoomX.png</file>
+        <file>images/zoomY.png</file>
+		<file>images/exportfile.gif</file>
+    </qresource>
+</RCC>
