@@ -3,9 +3,9 @@ echo  --------------------------------------------------------------
 echo  FastCAE Development environment Configuration For Windows10
 echo.
 echo      This procedure will complete the following work:
-echo      1. Confirm the installation of necessary development tools;
+echo      1. Confirm the installation of essential development tools;
 echo      2. Copy third party libraries;
-echo      3. Generate necessary Debug environment;
+echo      3. Generate essential Debug environment;
 echo      4. Open Visual Studio IDE.
 echo.
 echo   Please make sure that QT and Visual Studio are installed correctly in the current operating system!
@@ -14,14 +14,14 @@ echo   In case of installation problems, please contact FastCAE development team
 echo.
 echo  -----------------------------------------------------------------
 echo.  
-echo  Please make sure that QT 5.4.2 and Visual Studio 2013 are installed correctly! 
+echo  Please make sure that QT 5.14.2 and Visual Studio 2017 are installed correctly! 
 echo.
 
 cd /d "%~dp0"
 
 set currentPath=%cd%
 
-echo Please input the path of qmake.exe, For example: C:\Qt\Qt5.4.2\5.4\msvc2013_64_opengl\bin\
+echo Please input the path of qmake.exe, For example: C:\Qt\Qt5.14.2\5.14.2\msvc2017_64\bin\
 echo.
 set /p qmakeDir=Waitting for input: 
 echo.
@@ -29,10 +29,14 @@ set qmakePath=%qmakeDir%\qmake.exe
 echo.
 
 
-echo Please input the path of Visual Studio 2013, For example: C:\Program Files (x86)\Microsoft Visual Studio 12.0\
+echo Please input the path of Visual Studio 2017, For example: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\
 echo (There are VC, common7 and other folders in this directory)
 echo.
 set /p VSDir=Waitting for input: 
+echo.
+echo Please input Version of Windows SDK, For example: 10.0.17763
+echo.
+set /p WSDK=Waitting for input: 
 echo.
 echo Generating batch script...
 echo.
@@ -45,10 +49,10 @@ cd %%d
 for /f "delims=" %%a in ('dir /b *.pro') do (
 rem 各工程的qmake脚本
 echo. > %%d\_Create_project.bat
-echo call "%VSDir%\VC\bin\amd64\vcvars64.bat" >> %%d\_Create_project.bat
+echo call "%VSDir%\VC\Auxiliary\Build\vcvarsall.bat"  x64 %WSDK%>> %%d\_Create_project.bat
 
 echo. >> %%d\_Create_project.bat
-echo SET "PATH=%qmakeDir%;%%PATH%%" >> %%d\_Create_project.bat 
+echo SET "PATH=%qmakeDir%;%VSDir%\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64;%%PATH%%" >> %%d\_Create_project.bat 
 echo. >> %%d\_Create_project.bat
 echo qmake CONFIG+=X64 -tp vc %%a >> %%d\_Create_project.bat
 echo. >> %%d\_Create_project.bat
@@ -59,19 +63,22 @@ echo pause >> %%d\_Create_project.bat
 
 rem 总体的工程脚本
 echo. >%codePath%\Create_X64_Project.bat
-echo call "%VSDir%\VC\bin\amd64\vcvars64.bat" >> %codePath%\Create_X64_Project.bat
+echo call "%VSDir%\VC\Auxiliary\Build\vcvarsall.bat"  x64 %WSDK%>>%codePath%\Create_X64_Project.bat 
 echo. >> %codePath%\Create_X64_Project.bat 
-echo SET "PATH=%qmakeDir%;%%PATH%%" >> %codePath%\Create_X64_Project.bat 
+echo SET "PATH=%qmakeDir%;%VSDir%\VC\Tools\MSVC\14.16.27023\bin\Hostx64\x64;%%PATH%%" >> %codePath%\Create_X64_Project.bat 
 echo. >> %codePath%\Create_X64_Project.bat 
 for /d  %%d in ("%currentPath%\Code\*") do (
 if exist "%%d\_Create_project.bat" (
 for /f "delims=" %%a in ('dir /b %%d\*.pro') do (
 echo cd %%d >> %codePath%\Create_X64_Project.bat
-echo qmake CONFIG+=X64 -tp vc %%a >> %codePath%\Create_X64_Project.bat
+echo qmake CONFIG+=X64 -tp vc %%a >> %codePath%\Create_X64_Project.bat 
 echo. >> %codePath%\Create_X64_Project.bat 
 )
 )
 )
+echo cd %codePath% >> %codePath%\Create_X64_Project.bat
+echo qmake CONFIG+=X64 -tp vc FastCAE.pro >> %codePath%\Create_X64_Project.bat 
+echo. >> %codePath%\Create_X64_Project.bat 
 echo pause >> %codePath%\Create_X64_Project.bat 
 
 :VS
@@ -163,7 +170,7 @@ copy /y "%codePath%\Gmsh\gmsh454\gmsh.exe" "%currentPath%\output\bin\gmsh"
 copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin_d\gmsh"
 copy /y "%codePath%\Gmsh\gmsh454\gmsh.Geo" "%currentPath%\output\bin\gmsh"
 
-echo Visual studio 2013 will be launched next!
+echo Visual studio 2017 will be launched next!
 echo.
 pause
 call "%codePath%\Run_MSVC.bat"
