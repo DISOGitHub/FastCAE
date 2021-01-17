@@ -24,7 +24,7 @@ CurveTreeDockWidget::~CurveTreeDockWidget()
 
 void CurveTreeDockWidget::initPopMenu()
 {
-//	curve_add_popMenu = new QMenu(this);//¶¨ÒåÒ»¸öÓÒ¼üµ¯³ö²Ëµ¥
+//	curve_add_popMenu = new QMenu(this);//å®šä¹‰ä¸€ä¸ªå³é”®å¼¹å‡ºèœå•
 //	curve_add_action = new QAction(tr("add curve"), this);
 //	curve_add_action->setStatusTip(tr("add a curve"));
 //	curve_add_popMenu->addAction(curve_add_action);
@@ -52,7 +52,7 @@ void CurveTreeDockWidget::initWidget()
 	curveTree = new CurveDropTreeWidget(this);
 	curveTree->setHeaderHidden(true);
 //	curveTree->setColumnCount(5);
-//	curveTree->resizeColumnToContents(0);·ñ
+//	curveTree->resizeColumnToContents(0);å¦
 //	curveTree->setSizeAdjustPolicy(QTreeWidget::AdjustToContents);
 //	curveTree->adjustSize();
 //	curveTree->setSizeAdjustPolicy(QTreeWidget::AdjustToContentsOnFirstShow);

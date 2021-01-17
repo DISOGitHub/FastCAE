@@ -39,13 +39,13 @@ namespace ProjectTree
 	public:
 		ProjectTreeWithBasicNode(GUI::MainWindow* mainwindow);
 		~ProjectTreeWithBasicNode();
-		//²é¿´ÔÆÍ¼
+		//æŸ¥çœ‹äº‘å›¾
 		void viewCounterPost(QString variable);
-		//²é¿´ÏòÁ¿
+		//æŸ¥çœ‹å‘é‡
 		void viewVectorPost(QString variable);
 		virtual void reTranslate() override;
 		virtual void updateTree() override;
-		//¸üĞÂ×ÓÊ÷½Úµã
+		//æ›´æ–°å­æ ‘èŠ‚ç‚¹
 		virtual void updateGeometrySubTree();
 		virtual void updateComponentSubTree();
 //		virtual void updateMeshSetSubTree();
@@ -54,11 +54,11 @@ namespace ProjectTree
 		virtual void updateReportTree();
 		virtual void updateMonitorTree();
 		virtual void updatePostTree();
-		//»ñÈ¡¹ØÁªµÄ×é¼şID(°üÀ¨Íø¸ñ×é¼şºÍ¼¸ºÎ×é¼ş)
+		//è·å–å…³è”çš„ç»„ä»¶ID(åŒ…æ‹¬ç½‘æ ¼ç»„ä»¶å’Œå‡ ä½•ç»„ä»¶)
 		const QList<int>& getComponentIDList();
-		//Í¨¹ı×é¼şIDÉ¾³ıËãÀıÖĞµÄÏî£¬²¢¸üĞÂÊ÷
+		//é€šè¿‡ç»„ä»¶IDåˆ é™¤ç®—ä¾‹ä¸­çš„é¡¹ï¼Œå¹¶æ›´æ–°æ ‘
 		void removeCaseComponentByID(int);
-		//Í¨¹ı×é¼şIDÖØÃüÃûËãÀıÖĞµÄÏî£¬²¢¸üĞÂÊ÷
+		//é€šè¿‡ç»„ä»¶IDé‡å‘½åç®—ä¾‹ä¸­çš„é¡¹ï¼Œå¹¶æ›´æ–°æ ‘
 		void renameCaseComponentByID(int);
 
 	signals:

@@ -33,19 +33,19 @@ namespace XMG{
 
 	QString Global::runCommand(const QString & cmd) const
 	{
-		char buf[2048] = { 0 };    //»º³åÇø
+		char buf[2048] = { 0 };    //ç¼“å†²åŒº
 		DWORD len;
-		HANDLE hRead, hWrite;    // ¹ÜµÀ¶ÁĞ´¾ä±ú
+		HANDLE hRead, hWrite;    // ç®¡é“è¯»å†™å¥æŸ„
 		STARTUPINFO si;
 		PROCESS_INFORMATION pi;
 		SECURITY_ATTRIBUTES sa;
 
 		//ZeroMemory( buf, 2047 );
 		sa.nLength = sizeof(sa);
-		sa.bInheritHandle = TRUE;    // ¹ÜµÀ¾ä±úÊÇ¿É±»¼Ì³ĞµÄ
+		sa.bInheritHandle = TRUE;    // ç®¡é“å¥æŸ„æ˜¯å¯è¢«ç»§æ‰¿çš„
 		sa.lpSecurityDescriptor = NULL;
 
-		// ´´½¨ÄäÃû¹ÜµÀ£¬¹ÜµÀ¾ä±úÊÇ¿É±»¼Ì³ĞµÄ
+		// åˆ›å»ºåŒ¿åç®¡é“ï¼Œç®¡é“å¥æŸ„æ˜¯å¯è¢«ç»§æ‰¿çš„
 		if (!CreatePipe(&hRead, &hWrite, &sa, 2048))
 		{
 			return QString("");
@@ -58,17 +58,17 @@ namespace XMG{
 		si.hStdError = hWrite;
 		si.hStdOutput = hWrite;
 
-		// ´´½¨×Ó½ø³Ì,ÔËĞĞÃüÁî,×Ó½ø³ÌÊÇ¿É¼Ì³ĞµÄ
+		// åˆ›å»ºå­è¿›ç¨‹,è¿è¡Œå‘½ä»¤,å­è¿›ç¨‹æ˜¯å¯ç»§æ‰¿çš„
 		if (!CreateProcess(NULL, (LPWSTR)cmd.toStdWString().c_str(), NULL, NULL, TRUE, 0, NULL, NULL, &si, &pi))
 		{
-			printf("´´½¨½ø³ÌÊ§°Ü!(%#x)\n", (unsigned int)GetLastError());
+			printf("åˆ›å»ºè¿›ç¨‹å¤±è´¥!(%#x)\n", (unsigned int)GetLastError());
 			CloseHandle(hRead);
 			CloseHandle(hWrite);
 			return QString("");
 		}
-		// Ğ´¶Ë¾ä±úÒÑ±»¼Ì³Ğ,±¾µØĞèÒª¹Ø±Õ,²»È»¶Á¹ÜµÀÊ±½«±»×èÈû
+		// å†™ç«¯å¥æŸ„å·²è¢«ç»§æ‰¿,æœ¬åœ°éœ€è¦å…³é—­,ä¸ç„¶è¯»ç®¡é“æ—¶å°†è¢«é˜»å¡
 		CloseHandle(hWrite);
-		// ¶Á¹ÜµÀÄÚÈİ,²¢ÏÔÊ¾
+		// è¯»ç®¡é“å†…å®¹,å¹¶æ˜¾ç¤º
 		QString result;
 		while (ReadFile(hRead, buf, 2047, &len, NULL))
 		{

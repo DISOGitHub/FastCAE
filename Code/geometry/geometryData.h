@@ -23,63 +23,63 @@ namespace Geometry
 	class GEOMETRYAPI GeometryData : public DataProperty::DataBase 
 	{
 	public:
-		//»ñÈ¡µ¥ÀıÖ¸Õë
+		//è·å–å•ä¾‹æŒ‡é’ˆ
 		static GeometryData* getInstance();
-		//Ìí¼ÓĞÎ×´
+		//æ·»åŠ å½¢çŠ¶
 		void appendGeometrySet(GeometrySet* set);
-		//Ìí¼Ó»ù×¼
+		//æ·»åŠ åŸºå‡†
 		void appendGeometryDatum(GeometryDatum* datum);
-		//»ñÈ¡È«²¿»ù×¼
+		//è·å–å…¨éƒ¨åŸºå‡†
 		QList<GeometryDatum*> getGeometryDatum();
-		//»ñÈ¡ĞÎ×´ÊıÁ¿
+		//è·å–å½¢çŠ¶æ•°é‡
 		int getGeometrySetCount();
-		//¼¸ºÎÊı¾İÊÇ·ñÎª¿Õ
+		//å‡ ä½•æ•°æ®æ˜¯å¦ä¸ºç©º
 		bool isEmpty();
-		//»ñÈ¡µÚindex¸öĞÎ×´
+		//è·å–ç¬¬indexä¸ªå½¢çŠ¶
 		GeometrySet* getGeometrySetAt(const int index);
-		//¸ù¾İĞÎ×´»ñÈ¡Ë÷Òı
+		//æ ¹æ®å½¢çŠ¶è·å–ç´¢å¼•
 		int getIndexByGeoometrySet(GeometrySet* s);
-		//ÒÆ³ıµÚindex¸öĞÎ×´
+		//ç§»é™¤ç¬¬indexä¸ªå½¢çŠ¶
 		void removeGeometrySet(const int index);
-		//Ìæ»»ĞÎ×´
+		//æ›¿æ¢å½¢çŠ¶
 		void replaceSet(GeometrySet* newset, GeometrySet* oldset);
-		//ÒÆ³ı×î¶¥²ãµÄĞÎ×´£¬Çø±ğÓÚµİ¹é°üº¬µÄ×ÓĞÎ×´
+		//ç§»é™¤æœ€é¡¶å±‚çš„å½¢çŠ¶ï¼ŒåŒºåˆ«äºé€’å½’åŒ…å«çš„å­å½¢çŠ¶
 		void removeTopGeometrySet(GeometrySet* set);
-		//ÊÇ·ñ´æÔÚÕâ¸öĞÎ×´£¬µİ¹é×ÓĞÎ×´È«²¿²éÕÒ
+		//æ˜¯å¦å­˜åœ¨è¿™ä¸ªå½¢çŠ¶ï¼Œé€’å½’å­å½¢çŠ¶å…¨éƒ¨æŸ¥æ‰¾
 		bool hasGeometrySet(GeometrySet* set);
 //		void removeDatumPlaneByIndex(int index);
-		//ÒÆ³ı»ù×¼
+		//ç§»é™¤åŸºå‡†
 		void removeGeometryDatum(GeometryDatum* datum);
-		//ÉèÖÃ¿É¼ûĞÔ£¬²»Éæ¼°×ÓĞÎ×´
+		//è®¾ç½®å¯è§æ€§ï¼Œä¸æ¶‰åŠå­å½¢çŠ¶
 		void setVisable(int index, bool visable);
-		//Çå¿ÕÈ«²¿Êı¾İ
+		//æ¸…ç©ºå…¨éƒ¨æ•°æ®
 		void clear();
-		//¸ù¾İID²éÕÒĞÎ×´£¬µİ¹é×ÓĞÎ×´²éÕÒ
+		//æ ¹æ®IDæŸ¥æ‰¾å½¢çŠ¶ï¼Œé€’å½’å­å½¢çŠ¶æŸ¥æ‰¾
 		GeometrySet* getGeometrySetByID(const int id);
-		//»ñÈ¡µÚindex¸ö×ÓĞÎ×´
+		//è·å–ç¬¬indexä¸ªå­å½¢çŠ¶
 		GeometryDatum* getDatumByIndex(const int index);
 		QString getMD5();
-		//¸ù¾İIDÅÅĞò
+		//æ ¹æ®IDæ’åº
 		void sort();
-		///ÎÄ¼şĞ´³öÖÁ¹¤³ÌÎÄ¼ş
+		///æ–‡ä»¶å†™å‡ºè‡³å·¥ç¨‹æ–‡ä»¶
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* element, bool isdiso = false);
-		//´Ó¹¤³ÌÎÄ¼ş¶ÁÈëÊı¾İ
+		//ä»å·¥ç¨‹æ–‡ä»¶è¯»å…¥æ•°æ®
 		void readFromProjectFile(QDomNodeList* nodelist , bool isdiso = false);
-		//ÉèÖÃ²Ü»æÆ½Ãæ
+		//è®¾ç½®æ›¹ç»˜å¹³é¢
 		void setSketchPlane(double* loc, double* dir);
-		//»ñÈ¡
+		//è·å–
 		gp_Ax3* getSketchPlane();
-		//Ìí¼ÓÒ»¸ö¼¸ºÎ×é¼ş
+		//æ·»åŠ ä¸€ä¸ªå‡ ä½•ç»„ä»¶
 		void appendGeoComponent(GeoComponent*);
-		//»ñÈ¡ËùÓĞ¼¸ºÎ×é¼ş
+		//è·å–æ‰€æœ‰å‡ ä½•ç»„ä»¶
 		QList<GeoComponent*>& getGeoComponentList();
-		//¸ù¾İ¼¸ºÎ×é¼şË÷Òı»ñÈ¡¼¸ºÎ×é¼ş
+		//æ ¹æ®å‡ ä½•ç»„ä»¶ç´¢å¼•è·å–å‡ ä½•ç»„ä»¶
 		GeoComponent* getGeoComponentByIndex(int);
-		//¸ù¾İ¼¸ºÎ×é¼şID»ñÈ¡¼¸ºÎ×é¼ş
+		//æ ¹æ®å‡ ä½•ç»„ä»¶IDè·å–å‡ ä½•ç»„ä»¶
 		GeoComponent* getGeoComponentByID(int);
-		//Í¨¹ıË÷ÒıÉ¾³ı¼¸ºÎ×é¼ş
+		//é€šè¿‡ç´¢å¼•åˆ é™¤å‡ ä½•ç»„ä»¶
 		bool removeGeoComponentByIndex(int);
-		//¶ÔËùÓĞ¼¸ºÎ×é¼ş½øĞĞÆÊ·Ö£¬È»ºóÉú³ÉÍø¸ñ²¢Ğ´ÈëXMLÖĞ
+		//å¯¹æ‰€æœ‰å‡ ä½•ç»„ä»¶è¿›è¡Œå‰–åˆ†ï¼Œç„¶åç”Ÿæˆç½‘æ ¼å¹¶å†™å…¥XMLä¸­
 		//void generateMeshAndWriteToXML(QDomDocument& doc, QDomElement& parent);
 
 	private:

@@ -26,13 +26,13 @@ namespace Post
 		Post2DWindowInterface(GUI::MainWindow* m, int proid);
 		~Post2DWindowInterface();
 		void reTranslate() override;
-		//获取二维绘图窗口
+		//鑾峰彇浜岀淮缁樺浘绐楀彛
 		Post2DWindow* getWindow();
-		//打开文件
+		//鎵撳紑鏂囦欢
 		void openfile(QString fileName);
-		//添加曲线
+		//娣诲姞鏇茬嚎
 		void addCurve(QString name, QString f, QString x, QString y);
-		//移除曲线
+		//绉婚櫎鏇茬嚎
 		void removeCurve(QString name);
 		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
 		

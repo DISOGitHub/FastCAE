@@ -52,13 +52,13 @@ namespace GeometryWidget
 		void hideGeometry(Geometry::GeometrySet* set);
 		void updateGeoTree();
 
-		//ĞÂÔö½Ó¿Ú
-		void highLightGeometrySetSig(Geometry::GeometrySet*, bool);//¸ßÁÁÏÔÊ¾Ö÷Ìå
-		void highLightGeometryPointSig(Geometry::GeometrySet*, int, bool);//¸ßÁÁÏÔÊ¾µã
-		void highLightGeometryEdgeSig(Geometry::GeometrySet*, int, bool);//¸ßÁÁÏÔÊ¾±ß
-		void highLightGeometryFaceSig(Geometry::GeometrySet*, int, bool );//¸ßÁÁÏÔÊ¾Ãæ
-		void highLightGeometrySolidSig(Geometry::GeometrySet*, int, bool);//¸ßÁÁÏÔÊ¾ÊµÌå
-		void clearGeometryHighLightSig();//Çå¿ÕËùÓĞ¸ßÁÁ¶ÔÏó
+		//æ–°å¢æ¥å£
+		void highLightGeometrySetSig(Geometry::GeometrySet*, bool);//é«˜äº®æ˜¾ç¤ºä¸»ä½“
+		void highLightGeometryPointSig(Geometry::GeometrySet*, int, bool);//é«˜äº®æ˜¾ç¤ºç‚¹
+		void highLightGeometryEdgeSig(Geometry::GeometrySet*, int, bool);//é«˜äº®æ˜¾ç¤ºè¾¹
+		void highLightGeometryFaceSig(Geometry::GeometrySet*, int, bool );//é«˜äº®æ˜¾ç¤ºé¢
+		void highLightGeometrySolidSig(Geometry::GeometrySet*, int, bool);//é«˜äº®æ˜¾ç¤ºå®ä½“
+		void clearGeometryHighLightSig();//æ¸…ç©ºæ‰€æœ‰é«˜äº®å¯¹è±¡
 
 	protected:
 		void translateButtonBox(QDialogButtonBox *b);
@@ -73,7 +73,7 @@ namespace GeometryWidget
 		Geometry::GeometryData* _geoData{};
 		MainWidget::PreWindow* _preWindow{};
 
-		//±à¼­Ä£Ê½
+		//ç¼–è¾‘æ¨¡å¼
 		bool _isEdit{ false };
 		Geometry::GeometrySet* _editSet{};
 

@@ -18,23 +18,23 @@ namespace ConfigOption
 		bool isImportGeometryEnabled();
 		bool isExportGeometryEnabled();
 		//Geometry modeling operations sketch
-		void enableGeometryModeling(bool on);	//设置Geometry modeling是否可用
-		bool isGeometryModelingEnabled();		//获取Geometry modeling是否可用
-		void enableGeometryOperations(bool on);	//设置Geometry operations是否可用
-		bool isGeometryOperationsEnabled();		//获取Geometry operations是否可用
-		void enableCreateSketch(bool on);		//设置Geometry sketch是否可用
-		bool isCreateSketchEnabled();			//获取Geometry sketch是否可用
-		void setImportSuffix(QString s);		//设置导入几何格式
-		QString getImportSuffix();				//获取导入几何格式
-		void setExportSuffix(QString s);		//设置导出几何格式
-		QString getExportSuffix();				//获取导出几何格式
+		void enableGeometryModeling(bool on);	//璁剧疆Geometry modeling鏄惁鍙敤
+		bool isGeometryModelingEnabled();		//鑾峰彇Geometry modeling鏄惁鍙敤
+		void enableGeometryOperations(bool on);	//璁剧疆Geometry operations鏄惁鍙敤
+		bool isGeometryOperationsEnabled();		//鑾峰彇Geometry operations鏄惁鍙敤
+		void enableCreateSketch(bool on);		//璁剧疆Geometry sketch鏄惁鍙敤
+		bool isCreateSketchEnabled();			//鑾峰彇Geometry sketch鏄惁鍙敤
+		void setImportSuffix(QString s);		//璁剧疆瀵煎叆鍑犱綍鏍煎紡
+		QString getImportSuffix();				//鑾峰彇瀵煎叆鍑犱綍鏍煎紡
+		void setExportSuffix(QString s);		//璁剧疆瀵煎嚭鍑犱綍鏍煎紡
+		QString getExportSuffix();				//鑾峰彇瀵煎嚭鍑犱綍鏍煎紡
 
-		void enableGeometryEdit(bool on);		//设置geometry edit是否可用
-		bool isGeometryEditEnabled();			//获取geometry edit是否可用
-		void enableGeometryCreateSet(bool on);	//设置geometry create set是否可用
-		bool isGeometryCreateSetEnabled();		//获取geometry create set是否可用
-		void enableMeasureDsitance(bool on);	//设置measure distance是否可用
-		bool isMeasureDistanceEnabled();		//获取measure distance是否可用
+		void enableGeometryEdit(bool on);		//璁剧疆geometry edit鏄惁鍙敤
+		bool isGeometryEditEnabled();			//鑾峰彇geometry edit鏄惁鍙敤
+		void enableGeometryCreateSet(bool on);	//璁剧疆geometry create set鏄惁鍙敤
+		bool isGeometryCreateSetEnabled();		//鑾峰彇geometry create set鏄惁鍙敤
+		void enableMeasureDsitance(bool on);	//璁剧疆measure distance鏄惁鍙敤
+		bool isMeasureDistanceEnabled();		//鑾峰彇measure distance鏄惁鍙敤
 
 	protected:
 	private:

@@ -15,7 +15,7 @@ QSize XDockTitleBarWidget::minimumSizeHint() const
 	return QSize(256, 23);
 }
 
-//»æÖÆtitleBar
+//ç»˜åˆ¶titleBar
 void XDockTitleBarWidget::paintEvent(QPaintEvent*)
 {
 
@@ -48,7 +48,7 @@ void XDockTitleBarWidget::drawHat(QPainter & painter)
 
 void XDockTitleBarWidget::drawTitle(const QString & name, QPainter & painter)
 {
-	///<MG¡¡color way
+	///<MGã€€color way
 	QRect rect = this->rect();
 	int radius = rect.height() / 5;
 	QLinearGradient linear(QPoint(rect.left(), rect.top()), QPoint(rect.left(), rect.bottom()));

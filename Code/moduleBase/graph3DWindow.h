@@ -66,36 +66,36 @@ namespace ModuleBase
 	public:
 		Graph3DWindow(GUI::MainWindow* mainwindow, int id, GraphWindowType type,bool connectToMainwindow = false);
 		virtual ~Graph3DWindow() =0 ;
-		//Ìí¼ÓäÖÈ¾¶ÔÏó
+		//æ·»åŠ æ¸²æŸ“å¯¹è±¡
 		void AppendActor(vtkProp* actor, ActorType type = ActorType::D3, bool reRender = true, bool reset = true);
-		//ÒÆ³ıäÖÈ¾¶ÔÏó
+		//ç§»é™¤æ¸²æŸ“å¯¹è±¡
 		void RemoveActor(vtkProp* actor);
-		//ÆôÓÃ/½ûÓÃäÖÈ¾¶ÁÒ»ÏÂ
+		//å¯ç”¨/ç¦ç”¨æ¸²æŸ“è¯»ä¸€ä¸‹
 		void enableActor(vtkActor* actor, bool show = true);
 		void saveImage(QString fileName, int w, int h, bool showdlg) override;
 		void setViewValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3) override;
 		void updateScalarBar(vtkLookupTable* lookuptable, QString title = QString(""));
 		void updateScalarBarLecel(const int n);
 		int getScalarBarLevel();
-		//ÖØÖÃÊÓ½Ç
+		//é‡ç½®è§†è§’
 		void resetCamera();
-		//¸ù¾İÉèÖÃÖØ»æ
+		//æ ¹æ®è®¾ç½®é‡ç»˜
 		void updateGraphOption() override;
 		void reTranslate() override;
 		void addCaption(double* pos, QString cap);
-		//»ñÈ¡½»»¥Æ÷
+		//è·å–äº¤äº’å™¨
 		PropPickerInteractionStyle* getInteractionStyle();
-		//»ñÈ¡äÖÈ¾Æ÷
+		//è·å–æ¸²æŸ“å™¨
 		vtkRenderer* getRenderer();
-		//»ñÈ¡Ñ¡ÔñÄ£Ê½
+		//è·å–é€‰æ‹©æ¨¡å¼
 		SelectModel getSelectModel();
-		//»ñÈ¡´°ÌåÊÀ½ç×ø±êÏµÏÂ¸ß¶È
+		//è·å–çª—ä½“ä¸–ç•Œåæ ‡ç³»ä¸‹é«˜åº¦
 		double getWorldHight();
-		//»ñÈ¡´°ÌåÊÀ½ç×ø±êÏµÏÂ¿í¶È
+		//è·å–çª—ä½“ä¸–ç•Œåæ ‡ç³»ä¸‹å®½åº¦
 		double getWorldWidth();
 
 	public slots:
-	     //ÖØ»æ
+	     //é‡ç»˜
 		void reRender();
 
 	protected slots :
@@ -133,9 +133,9 @@ namespace ModuleBase
 		void preSelectGeometry(vtkActor* actor, QVector<double*> points);
 		void reRenderSig();
 		void clearAllHighLight();
-		//»¹Ô­¼¸ºÎÑÕÉ«
+		//è¿˜åŸå‡ ä½•é¢œè‰²
 		void rightDownMenuSig();
-		//Íø¸ñ
+		//ç½‘æ ¼
 		void highLighSet(QMultiHash<vtkDataSet*, int>* items);
 		void highLightActorDispalyPoint(bool on);
 
@@ -153,7 +153,7 @@ namespace ModuleBase
 		vtkLookupTable* _lookupTable{};
 		QList<vtkSmartPointer<vtkCaptionWidget>> _captionList{};
 
-		//Ê°È¡Ïà¹Ø
+		//æ‹¾å–ç›¸å…³
 		PropPickerInteractionStyle* _interactionStyle{};
 		SelectModel _selectModel{ None };
  

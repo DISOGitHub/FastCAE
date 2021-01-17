@@ -60,9 +60,9 @@ namespace Gmsh
 
 	signals:
 		void setSelectMode(int);
-		//¸ßÁÁÏÔÊ¾ÊµÌå
+		//é«˜äº®æ˜¾ç¤ºå®ä½“
 		void highLightGeometrySolidSig(Geometry::GeometrySet*, int, bool);
-		//Çå¿ÕËùÓĞ¸ßÁÁ¶ÔÏó
+		//æ¸…ç©ºæ‰€æœ‰é«˜äº®å¯¹è±¡
 		void clearGeometryHighLightSig();
 
 	private slots:
@@ -77,7 +77,7 @@ namespace Gmsh
 	private:
 		void showEvent(QShowEvent * e) override;
 
-		/*¸üĞÂ²»Í¬ÀàĞÍµÄ¾Ö²¿ÃÜ¶È½çÃæ*/
+		/*æ›´æ–°ä¸åŒç±»å‹çš„å±€éƒ¨å¯†åº¦ç•Œé¢*/
 		void updatePointsInterface();
 		void updateBoxInterface();
 		void updateBallInterface();
@@ -91,23 +91,23 @@ namespace Gmsh
 		void clearInterfaceData();
 		void cylinderSelectVisiable(bool b = false);
 		void cylinderAxisVisiable(bool b = false);
-		/*¸üĞÂ²»Í¬ÀàĞÍµÄ¾Ö²¿ÃÜ¶È½çÃæ*/
+		/*æ›´æ–°ä¸åŒç±»å‹çš„å±€éƒ¨å¯†åº¦ç•Œé¢*/
 
-		/*Ìí¼Ó¾Ö²¿ÃÜ¶ÈÊı¾İ£¬ĞŞ¸Ä¾Ö²¿ÃÜ¶ÈÊı¾İ*/
+		/*æ·»åŠ å±€éƒ¨å¯†åº¦æ•°æ®ï¼Œä¿®æ”¹å±€éƒ¨å¯†åº¦æ•°æ®*/
 		void addPointsData();
 		void addBoxData();
 		void addBallData();
 		void addCylinderData();
 		void addSolidFieldsData();
 		void addFrustumFieldData();
-		/*Ìí¼Ó¾Ö²¿ÃÜ¶ÈÊı¾İ£¬ĞŞ¸Ä¾Ö²¿ÃÜ¶ÈÊı¾İ*/
+		/*æ·»åŠ å±€éƒ¨å¯†åº¦æ•°æ®ï¼Œä¿®æ”¹å±€éƒ¨å¯†åº¦æ•°æ®*/
 
-		/*Êı¾İĞÅÏ¢Õ¹Ê¾*/
+		/*æ•°æ®ä¿¡æ¯å±•ç¤º*/
 		void updateTab();
 		void updateLocals(int n);
 		void deleteItem(int row);		
 		void operateLocalData(int row);
-		/*Êı¾İĞÅÏ¢Õ¹Ê¾*/
+		/*æ•°æ®ä¿¡æ¯å±•ç¤º*/
 
 	private:
 		Ui::LocalSettingDialog* _ui{};

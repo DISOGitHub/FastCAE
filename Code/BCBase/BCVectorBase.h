@@ -18,12 +18,12 @@ namespace BCBase
 		BCVectorBase(BCType type, double* v);
 		BCVectorBase(BCType type, double x, double y, double z);
 		~BCVectorBase() = default;
-		//ÉèÖÃÈı¸ö±äÁ¿Ãû³Æ
+		//è®¾ç½®ä¸‰ä¸ªå˜é‡åç§°
 		void setVariableName(QString x, QString y, QString z);
-		//ÉèÖÃÖµ
+		//è®¾ç½®å€¼
 		void setValue(double* v);
 		void setValue(double x, double y, double z);
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		void getValue(double* v);
 
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;

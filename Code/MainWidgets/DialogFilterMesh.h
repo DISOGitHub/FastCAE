@@ -42,15 +42,15 @@ namespace MainWidget{
 
 	private:
 		void accept() override;
-		//³õÊ¼»¯
+		//åˆå§‹åŒ–
 		void init();
-		//¹ıÂËÍø¸ñ
+		//è¿‡æ»¤ç½‘æ ¼
 		vtkDataSet* filterMesh(vtkDataSet* dataset);
-		//ÊÇ·ñÎªÖ¸¶¨ÀàĞÍ
+		//æ˜¯å¦ä¸ºæŒ‡å®šç±»å‹
 		bool isSpecifiedCell(VTKCellType type);
-		//ÉèÖÃ¹ıÂËÀàĞÍ
+		//è®¾ç½®è¿‡æ»¤ç±»å‹
 		void setCellFilters();
-		//ÉèÖÃ¹ıÂËÍø¸ñ
+		//è®¾ç½®è¿‡æ»¤ç½‘æ ¼
 		void setFilterMeshs();
 
 	private:

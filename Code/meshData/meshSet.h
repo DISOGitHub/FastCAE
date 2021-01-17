@@ -28,59 +28,59 @@ namespace MeshData
 	class MESHDATAAPI MeshSet : public DataProperty::ComponentBase
 	{
 	public :
-		//¹¹Ôìº¯Êı
+		//æ„é€ å‡½æ•°
 		MeshSet(QString name, SetType type);
 		MeshSet();
 		~MeshSet();
-		//»ñÈ¡×î´óID
+		//è·å–æœ€å¤§ID
 		//int static getMaxID();
-		//ÖØÖÃ×î´óID
+		//é‡ç½®æœ€å¤§ID
 		//void static resetMaxID();
-		///ÉèÖÃID£¬½÷É÷µ÷ÓÃ
+		///è®¾ç½®IDï¼Œè°¨æ…è°ƒç”¨
 		//void setID(int id) override;
-		///ÉèÖÃÀàĞÍ 
+		///è®¾ç½®ç±»å‹ 
 		void setType(SetType t);
-		///»ñÈ¡ÀàĞÍ
+		///è·å–ç±»å‹
 		SetType getSetType();
-		//Ìí¼Ó³ÉÔ±
+		//æ·»åŠ æˆå‘˜
 		void appendMember(int ker, int id);
-		//»ñÈ¡Kernal IDÁĞ±í
+		//è·å–Kernal IDåˆ—è¡¨
 		QList<int> getKernals();
-		//¸ù¾İkernal ID»ñÈ¡³ÉÔ±
+		//æ ¹æ®kernal IDè·å–æˆå‘˜
 		QList<int> getKernalMembers(int k);
-		//»ñÈ¡ÊıÁ¿
+		//è·å–æ•°é‡
 		int getAllCount();
-		//ÁÙÊ±±£´æMemberID£¬µ±void setKeneralID(int id)Ê±Çå¿Õ£¬Ö¸¶¨ÎªKeneralÎªidµÄµÄ×Ó¼¯
+		//ä¸´æ—¶ä¿å­˜MemberIDï¼Œå½“void setKeneralID(int id)æ—¶æ¸…ç©ºï¼ŒæŒ‡å®šä¸ºKeneralä¸ºidçš„çš„å­é›†
 		void appendTempMem(int m);
-		//ÉèÖÃKenenal£¬ Óë void appendTempMem(int m)ÅäºÏÊ¹ÓÃ
+		//è®¾ç½®Kenenalï¼Œ ä¸ void appendTempMem(int m)é…åˆä½¿ç”¨
 		void setKeneralID(int id);
-		//ÊÇ·ñ°üº¬kernal
+		//æ˜¯å¦åŒ…å«kernal
 		bool isContainsKernal(int id);
-		//ÉèÖÃ¿É¼ûĞÔ
+		//è®¾ç½®å¯è§æ€§
 		void  isVisible(bool v);
-		//»ñÈ¡¿É¼ûĞÔ
+		//è·å–å¯è§æ€§
 		bool isVisible();
-		//ºÏ²¢×é¼ş
+		//åˆå¹¶ç»„ä»¶
 		void merge(MeshSet* set);
-		//¼õÈ¥×é¼ş
+		//å‡å»ç»„ä»¶
 		void cut(MeshSet* set);
 		//md5
 		void dataToStream(QDataStream* s) override;	
-		//Ğ´³öµ½XMLÎÄ¼ş
+		//å†™å‡ºåˆ°XMLæ–‡ä»¶
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
-		//´ÓXMLÎÄ¼ş¶ÁÈ¡Êı¾İ
+		//ä»XMLæ–‡ä»¶è¯»å–æ•°æ®
 		virtual void readDataFromProjectFile(QDomElement* e) override;
-		//Ğ´³ö¶ş½øÖÆÎÄ¼ş
+		//å†™å‡ºäºŒè¿›åˆ¶æ–‡ä»¶
 		virtual void writeBinaryFile(QDataStream* dataStream);
-		//¶ÁÈë¶ş½øÖÆÎÄ¼ş
+		//è¯»å…¥äºŒè¿›åˆ¶æ–‡ä»¶
 		virtual void readBinaryFile(QDataStream* dataStream);
-		//Éú³É¿ÉÒÔÏÔÊ¾µÄÄ£ĞÍ, Ã¿¸öÊµÀıÖ»ÄÜµ÷ÓÃÒ»´Î
+		//ç”Ÿæˆå¯ä»¥æ˜¾ç¤ºçš„æ¨¡å‹, æ¯ä¸ªå®ä¾‹åªèƒ½è°ƒç”¨ä¸€æ¬¡
 		virtual void generateDisplayDataSet();
-		//»ñÈ¡ÏÔÊ¾Ä£ĞÍ
+		//è·å–æ˜¾ç¤ºæ¨¡å‹
 		virtual vtkDataSet* getDisplayDataSet();
-		//×Ö·û´®×ª»¯ÎªÃ¶¾Ù
+		//å­—ç¬¦ä¸²è½¬åŒ–ä¸ºæšä¸¾
 		static SetType stringToSettype(QString s);
-		//Ã¶¾Ù×ª×Ö·û´®
+		//æšä¸¾è½¬å­—ç¬¦ä¸²
 		static	QString setTypeToString(SetType);
 
 

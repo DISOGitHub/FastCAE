@@ -19,7 +19,7 @@ void pickCellInteractorStyle::OnLeftButtonDown()
 	double* worldPosition = picker->GetPickPosition();
 	std::cout << "Cell id is: " << picker->GetCellId() << std::endl;
 
-	//on Actor£¿
+	//on Actorï¼Ÿ
 	vtkActor* tep_actor = picker->GetActor();
 	if (tep_actor == NULL)
 		return;

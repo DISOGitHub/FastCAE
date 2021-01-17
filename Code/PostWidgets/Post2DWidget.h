@@ -25,83 +25,83 @@ namespace Post
 	public:
 		Post2DWindow(GUI::MainWindow* mw, int proID);
 		~Post2DWindow();
-		//´°¿Ú»æÖÆ
+		//çª—å£ç»˜åˆ¶
 		void replot();
-		//´ò¿ªÎÄ¼ş
+		//æ‰“å¼€æ–‡ä»¶
 		bool openFile(QString file);
-		//´ÓÎÄ¼şÌí¼ÓÇúÏß
+		//ä»æ–‡ä»¶æ·»åŠ æ›²çº¿
 		void addCurve(QString tep_filename, int tep_column_index);
-		//²»µ÷ÓÃÎÄ¼ş£¬Ö±½ÓÓÃ2×é¸¡µãÊı»­ÇúÏß
+		//ä¸è°ƒç”¨æ–‡ä»¶ï¼Œç›´æ¥ç”¨2ç»„æµ®ç‚¹æ•°ç”»æ›²çº¿
 		void addCurve(QVector<double> data_x, QVector<double> data_y, QString tep_filename);
-		//Ìí¼ÓÇúÏß xÄ¬ÈÏÎªË÷ÒıÖµ£¨0£¬1£¬2£©
+		//æ·»åŠ æ›²çº¿ xé»˜è®¤ä¸ºç´¢å¼•å€¼ï¼ˆ0ï¼Œ1ï¼Œ2ï¼‰
 		void addCurve(QVector<double> data_y, QString fileName);
-		//¸üĞÂÇúÏß
+		//æ›´æ–°æ›²çº¿
 		void updateCurve(QVector<double> data_x, QVector<double> data_y, QString tep_filename);
-		//¸üĞÂÇúÏß
+		//æ›´æ–°æ›²çº¿
 		void updateCurve(QVector<double> data_y, QString tep_filename);
-		//É¾³ıÇúÏß
+		//åˆ é™¤æ›²çº¿
 		void delCurve(QString fileName, int colum_index);
-		//Çå³ıÈ«²¿ÇúÏß
+		//æ¸…é™¤å…¨éƒ¨æ›²çº¿
 		void delAllCurves();
-		//ÉèÖÃ±êÌâÃû³Æ
+		//è®¾ç½®æ ‡é¢˜åç§°
 		void setTitle(QString title);
-		//ÉèÖÃ±êÌâ×ÖÌåÑÕÉ« 0-ËÎÌå 1-ºÚÌå 2-Arial
+		//è®¾ç½®æ ‡é¢˜å­—ä½“é¢œè‰² 0-å®‹ä½“ 1-é»‘ä½“ 2-Arial
 		void setTitleFont(int font);
-		//ÉèÖÃ±êÌâ×ÖÌå´óĞ¡
+		//è®¾ç½®æ ‡é¢˜å­—ä½“å¤§å°
 		void setTitleFontSize(int size);
-		//ÉèÖÃ±êÌâ×ÖÌåÑÕÉ«
+		//è®¾ç½®æ ‡é¢˜å­—ä½“é¢œè‰²
 		void setTitleFontColor(QColor color);
-		//ÉèÖÃ»æÍ¼ÇøµÄ±³¾°ÑÕÉ«
+		//è®¾ç½®ç»˜å›¾åŒºçš„èƒŒæ™¯é¢œè‰²
 		void setBackGround(QColor color);
-		//ÉèÖÃ»æÍ¼ÇøÓòÍø¸ñ»¯
+		//è®¾ç½®ç»˜å›¾åŒºåŸŸç½‘æ ¼åŒ–
 		void setPlotGrid(bool isgrid);
-		//ÉèÖÃLegendÎ»ÖÃ 0-none 1-ÓÒÉÏ 2-ÓÒÏÂ 3-×óÉÏ 4-×óÏÂ
+		//è®¾ç½®Legendä½ç½® 0-none 1-å³ä¸Š 2-å³ä¸‹ 3-å·¦ä¸Š 4-å·¦ä¸‹
 		void setLegendPosition(int p);
-		//ÉèÖÃ×ø±êÖá¸öÊı
+		//è®¾ç½®åæ ‡è½´ä¸ªæ•°
 		void setAxisNum(int num);
-		//ÉèÖÃ×ø±êÖáÃû³Æ
+		//è®¾ç½®åæ ‡è½´åç§°
 		void setAxisName(QString axis, QString name);
-		//ÉèÖÃ×ø±êÖá×ÖÌåÑÕÉ«
+		//è®¾ç½®åæ ‡è½´å­—ä½“é¢œè‰²
 		void setAxisFontColor(QString axis, QColor color);
-		//ÉèÖÃ×ø±êÖá×ÖÌå´óĞ¡
+		//è®¾ç½®åæ ‡è½´å­—ä½“å¤§å°
 		void setAxisFontSize(QString axis, int size);
-		//ÉèÖÃ×ø±êÖá×ÖÌå 0-ËÎÌå 1-ºÚÌå 2-Arial
+		//è®¾ç½®åæ ‡è½´å­—ä½“ 0-å®‹ä½“ 1-é»‘ä½“ 2-Arial
 		void setAxisFont(QString axis, int font);
-		//ÉèÖÃÇúÏßÑÕÉ«
+		//è®¾ç½®æ›²çº¿é¢œè‰²
 		void setCurveColor(QString fileName, int colIndex, QColor color);
-		//ÉèÖÃÏßĞÍ
+		//è®¾ç½®çº¿å‹
 		void setCurveStyle(QString fileName, int colIndex, Qt::PenStyle style);
-		//ÉèÖÃÏß¿í
+		//è®¾ç½®çº¿å®½
 		void setCurveWidth(QString fileName, int colindex, int width);
-		//ÊÇ·ñÏÔÊ¾Êı¾İµã
+		//æ˜¯å¦æ˜¾ç¤ºæ•°æ®ç‚¹
 		void setCurveShowPoint(QString fileName, int colindex, bool show);
-		//ÉèÖÃÇúÏßÃû³Æ
+		//è®¾ç½®æ›²çº¿åç§°
 		void setCurveName(QString fileName, int colindex, QString name);
-		//ÉèÖÃÇúÏß×ø±êÖáË÷Òı
+		//è®¾ç½®æ›²çº¿åæ ‡è½´ç´¢å¼•
 		void setCurveAxisIndex(QString fileName, int colindex, int axisIndex);
-		//»ñÈ¡Ä£ĞÍÊ÷´°¿Ú
+		//è·å–æ¨¡å‹æ ‘çª—å£
 		QWidget* getTreeWidget();
-		//»ñÈ¡ÊôĞÔ´°¿Ú
+		//è·å–å±æ€§çª—å£
 		QWidget* getPropWidget();
-		///ÉèÖÃ±³¾°ÑÕÉ«
+		///è®¾ç½®èƒŒæ™¯é¢œè‰²
 		void setBackGround(QColor color1, QColor color2) override;
-		///±£´æÍ¼Æ¬
+		///ä¿å­˜å›¾ç‰‡
 		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
-		///ÉèÖÃ×ø±êÖá·¶Î§  axis-x y x2 y2  reange[0]-min range[1]-max
+		///è®¾ç½®åæ ‡è½´èŒƒå›´  axis-x y x2 y2  reange[0]-min range[1]-max
 		void setAxisRange(QString axis, double range[2]);
-		///»ñÈ¡ÊôĞÔÁĞÃû³Æ
+		///è·å–å±æ€§åˆ—åç§°
 		QStringList getColumnNameList(QString fileName);
-		//ÓïÑÔÇĞ»»
+		//è¯­è¨€åˆ‡æ¢
 		void reTranslate() override;
-		//»ñÈ¡ÇúÏßÊôĞÔ½Ó¿Ú
+		//è·å–æ›²çº¿å±æ€§æ¥å£
 		curve_line_data getCurveProp(QString tepFileName, int colIndex);
-		//¿ªÊ¼¶¯»­
+		//å¼€å§‹åŠ¨ç”»
 		bool startAnimate();
-		//½áÊø¶¯»­
+		//ç»“æŸåŠ¨ç”»
 		bool stopAnimate();
-		//ÉèÖÃ¶¯µãÑÕÉ«
+		//è®¾ç½®åŠ¨ç‚¹é¢œè‰²
 		void setAniPointColor(QString fileName, int colum, QColor color);
-		//ÉèÖÃ¶¯µãĞÎ×´
+		//è®¾ç½®åŠ¨ç‚¹å½¢çŠ¶
 		void setAniPointType(QString fileName, int colum, aniPointType type);
 
 

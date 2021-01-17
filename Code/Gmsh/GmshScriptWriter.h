@@ -14,75 +14,75 @@ namespace Gmsh{
 		GmshScriptWriter();
 		~GmshScriptWriter();
 
-		//Ğ´gmsh½Å±¾
+		//å†™gmshè„šæœ¬
 		void writeGmshScript(QString path);
-		//Á÷ÌåÓòÍø¸ñÆÊ·Ö
+		//æµä½“åŸŸç½‘æ ¼å‰–åˆ†
 		void writeFluidMeshScript(QString dir, QMultiHash<int,int> solid,QList<int> curve, QList<int> surface);
 		
-		//ÉèÖÃ×éºÏÌå
+		//è®¾ç½®ç»„åˆä½“
 		void setCompound(TopoDS_Compound* compound);
-		//ÉèÖÃÍø¸ñÆÊ·ÖÀàĞÍ
+		//è®¾ç½®ç½‘æ ¼å‰–åˆ†ç±»å‹
 		void setElementType(QString type);
-		//ÉèÖÃÍø¸ñÆÊ·Ö½×´Î
+		//è®¾ç½®ç½‘æ ¼å‰–åˆ†é˜¶æ¬¡
 		void setElementOrder(int order);
-		//ÉèÖÃÍø¸ñÆÊ·Ö·½·¨
+		//è®¾ç½®ç½‘æ ¼å‰–åˆ†æ–¹æ³•
 		void setMethod(int method);
-		//ÉèÖÃÍø¸ñÆÊ·Ö³ß´çÒò×Ó
+		//è®¾ç½®ç½‘æ ¼å‰–åˆ†å°ºå¯¸å› å­
 		void setFactor(int factor);
-		//ÉèÖÃ×îĞ¡³ß´ç
+		//è®¾ç½®æœ€å°å°ºå¯¸
 		void setMinSize(double min);
-		//ÉèÖÃ×î´ó³ß´ç
+		//è®¾ç½®æœ€å¤§å°ºå¯¸
 		void setMaxSize(double max);
-		//ÉèÖÃ¹â»¬ÏµÊı
+		//è®¾ç½®å…‰æ»‘ç³»æ•°
 		void setSmooth(int smooth);
-		//¼¸ºÎÇåÀí
+		//å‡ ä½•æ¸…ç†
 		void setGeoClean(bool clean);
-		//Íø¸ñÁ¬¹áĞÔ
+		//ç½‘æ ¼è¿è´¯æ€§
 		void setGridCoplanar(bool cop);
-		//ÉèÖÃ¾Ö²¿ÃÜ¶È-µã
+		//è®¾ç½®å±€éƒ¨å¯†åº¦-ç‚¹
 		void setSizePoints(QString points);
-		//ÉèÖÃ¾Ö²¿ÃÜ¶È-ÇøÓò
+		//è®¾ç½®å±€éƒ¨å¯†åº¦-åŒºåŸŸ
 		void setSizeFields(QString fields);
-		//ÉèÖÃÁ÷ÌåÓò·¶Î§
+		//è®¾ç½®æµä½“åŸŸèŒƒå›´
 		//void setFluidField(QList<double*> field);
 
 	private:
-		//gmsh»ù±¾ÉèÖÃ
+		//gmshåŸºæœ¬è®¾ç½®
 		void writeGeneralSetting(QTextStream* out);
-		//gmshÍø¸ñÁ¬¹áĞÔ
+		//gmshç½‘æ ¼è¿è´¯æ€§
 		void writeGridCoplanar(QTextStream* out);
-		//¾Ö²¿ÃÜ¶È---µã
+		//å±€éƒ¨å¯†åº¦---ç‚¹
 		void writeSizeAtPoints(QTextStream* out);
-		//¾Ö²¿ÃÜ¶È---ÇøÓò
+		//å±€éƒ¨å¯†åº¦---åŒºåŸŸ
 		void writeSizeFields(QTextStream* out);
-		//¾Ö²¿ÃÜ¶È---Á¢·½Ìå
+		//å±€éƒ¨å¯†åº¦---ç«‹æ–¹ä½“
 		void writeBoxFieldScript(QTextStream* out, QStringList list, int& index);
-		//¾Ö²¿ÃÜ¶È---Çò
+		//å±€éƒ¨å¯†åº¦---çƒ
 		void writeBallFieldScript(QTextStream* out, QStringList list, int& index);
-		//¾Ö²¿ÃÜ¶È---Ô²Öù
+		//å±€éƒ¨å¯†åº¦---åœ†æŸ±
 		void writeCylinderFieldScript(QTextStream* out, QStringList list, int& index);
-		//¾Ö²¿ÃÜ¶È---ÊµÌå
+		//å±€éƒ¨å¯†åº¦---å®ä½“
 		void writeSolidsFieldScript(QTextStream* out, QStringList list, int& index);
 		void writeSolidFieldScript(QTextStream* out, int& index, QMultiHash<int, int> solidHash, double* val, bool back);
-		//¾Ö²¿ÃÜ¶È---½ØÍ·×¶Ìå
+		//å±€éƒ¨å¯†åº¦---æˆªå¤´é”¥ä½“
 		void writeSolidFrustumScript(QTextStream* out, QStringList list, int& index);
-		//È¥³ıµãÏßÃæÌå
+		//å»é™¤ç‚¹çº¿é¢ä½“
 		void writeSpecifiedMeshScript(QTextStream* out);
 		
-		//Á÷ÌåÓòÍø¸ñÆÊ·Ö
+		//æµä½“åŸŸç½‘æ ¼å‰–åˆ†
 		void writeFluidFieldScript(QTextStream* out, QList<double> banbox, QList<int> curve, QList<int> surface);
 
 
 		//	void physicalsGroup(QTextStream* out);
 		//	void physicalsScript(QTextStream* out,QString type,QMultiHash<QString,int> pHash);
 
-		//»ñÈ¡ÔÚĞÂ×éºÏÌåµÄË÷Òı,·µ»ØÖµ´óÓÚ0£¬ Èô·µ»Ø0ÔòÎª´íÎó±ê¼Ç
-		//type 1-µã 2-Ïß 3-Ãæ 4-ÊµÌå
+		//è·å–åœ¨æ–°ç»„åˆä½“çš„ç´¢å¼•,è¿”å›å€¼å¤§äº0ï¼Œ è‹¥è¿”å›0åˆ™ä¸ºé”™è¯¯æ ‡è®°
+		//type 1-ç‚¹ 2-çº¿ 3-é¢ 4-å®ä½“
 		int getShapeIndexInCompound(int setid, int index, int itype);
 		QList<int> getShapeIndexListInSolid(QMultiHash<int, int> setHash, int itype);
-		//»ñÈ¡ÊµÌå°üÎ§ºĞ
-		//·µ»ØÖµ Xmin Xmax Ymin Ymax Zmin Zmax
-		//´íÎóÖµ Á´±íÎª¿Õ
+		//è·å–å®ä½“åŒ…å›´ç›’
+		//è¿”å›å€¼ Xmin Xmax Ymin Ymax Zmin Zmax
+		//é”™è¯¯å€¼ é“¾è¡¨ä¸ºç©º
 		QList<double> getSolidBndBox(QMultiHash<int, int> setHash);
 
 		double getFluidMeshSize(double xl, double yl, double zl);

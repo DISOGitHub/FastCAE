@@ -82,7 +82,7 @@ namespace MeshData
 
 		for (int ibase = 1; ibase <= m_currentBaseIndex; ++ibase)
 		{
-			///¶ÁÈ¡×å
+			///è¯»å–æ—
 			int nfamily = 0;
 			cg_nfamilies(m_currentFileIndex, m_currentBaseIndex, &nfamily);
 			for (int i = 1; i <= nfamily; ++i)
@@ -434,7 +434,7 @@ namespace MeshData
 		vtkDataSet* dataset = kernal->getMeshData();
 		vtkUnstructuredGrid* ungird = dynamic_cast<vtkUnstructuredGrid*>(dataset);
 
-		if (CGNS_ENUMT(TRI_3) == type)  //Èı½ÇĞÎ
+		if (CGNS_ENUMT(TRI_3) == type)  //ä¸‰è§’å½¢
 		{
 			int cell_number = element_data_size / 3;
 			assert(0 == element_data_size % 3);
@@ -450,7 +450,7 @@ namespace MeshData
 			}
 
 		}
-		else if (CGNS_ENUMT(BAR_2) == type) //¶ş½ÚµãÁºµ¥Ôª
+		else if (CGNS_ENUMT(BAR_2) == type) //äºŒèŠ‚ç‚¹æ¢å•å…ƒ
 		{
 			int cell_number = element_data_size / 2;
 			assert(0 == element_data_size % 2);
@@ -464,7 +464,7 @@ namespace MeshData
 				ungird->InsertNextCell(VTK_LINE, idlist);
 			}
 		}
-		else if (CGNS_ENUMT(TETRA_4) == type) //ËÄ½ÚµãËÄÃæÌå
+		else if (CGNS_ENUMT(TETRA_4) == type) //å››èŠ‚ç‚¹å››é¢ä½“
 		{
 			int cell_number = element_data_size / 4;
 			assert(0 == element_data_size % 4);
@@ -481,7 +481,7 @@ namespace MeshData
 				ungird->InsertNextCell(VTK_TETRA, idlist);
 			}
 		}
-		else if (CGNS_ENUMT(QUAD_4) == type)  //ËÄ½ÚµãËÄ±ßĞÎ
+		else if (CGNS_ENUMT(QUAD_4) == type)  //å››èŠ‚ç‚¹å››è¾¹å½¢
 		{
 			int cell_number = element_data_size / 4;
 			assert(0 == element_data_size % 4);
@@ -498,7 +498,7 @@ namespace MeshData
 				ungird->InsertNextCell(VTK_QUAD, idlist);
 			}
 		}
-		else if (CGNS_ENUMT(HEXA_8) == type) //°Ë½ÚµãÁùÃæÌå
+		else if (CGNS_ENUMT(HEXA_8) == type) //å…«èŠ‚ç‚¹å…­é¢ä½“
 		{
 			int cell_number = element_data_size / 8;
 			assert(0 == element_data_size % 8);
@@ -518,7 +518,7 @@ namespace MeshData
 				ungird->InsertNextCell(VTK_HEXAHEDRON, idlist);
 			}
 		}
-		else if (CGNS_ENUMT(PENTA_6)== type)  //Áù½ÚµãÈıÀâÖù
+		else if (CGNS_ENUMT(PENTA_6)== type)  //å…­èŠ‚ç‚¹ä¸‰æ£±æŸ±
 		{
 			int cell_number = element_data_size / 6;
 			assert(0 == element_data_size % 6);
@@ -598,7 +598,7 @@ namespace MeshData
 					ungird->InsertNextCell(VTK_TETRA, idlist);
 					index += 5;
 				}
-				else if (eleType == CGNS_ENUMT(BAR_2)) //¶ş½ÚµãÁºµ¥Ôª
+				else if (eleType == CGNS_ENUMT(BAR_2)) //äºŒèŠ‚ç‚¹æ¢å•å…ƒ
 				{
 					vtkSmartPointer<vtkIdList> idlist = vtkSmartPointer<vtkIdList>::New();
 					idlist->InsertNextId(elements[index + 1] - 1);

@@ -36,7 +36,7 @@ typedef struct tag_MG_CGNS_FlowSolution
 
 typedef QVector<MG_CGNS_FlowSolution> MG_CGNS_FlowSolutions;
 
-///<MG µ¥Ò»ÇøÓò²»Í¬Ê±¿ÌÁ÷³¡½â
+///<MG å•ä¸€åŒºåŸŸä¸åŒæ—¶åˆ»æµåœºè§£
 typedef struct tag_MG_CGNS_Zone_FlowSolution
 {
 	MG_CGNS_FlowSolutions flows;
@@ -61,7 +61,7 @@ typedef struct tag_MG_CGNS_FAMILY_TOTAL
 
 typedef QVector<MG_CGNS_FAMILY_TOTAL> MG_CGNS_FAMILY_TOTALS;
 
-///<MG ËùÓÐÇøÓò²»Í¬Ê±¿ÌÁ÷³¡½â
+///<MG æ‰€æœ‰åŒºåŸŸä¸åŒæ—¶åˆ»æµåœºè§£
 typedef QVector<MG_CGNS_Zone_FlowSolution> tag_MG_CGNS_Zone_FlowSolutions;
 
 class HEUDATASRCIOSHARED_EXPORT ReadData_Cgns : public ReadData_Base
@@ -79,10 +79,10 @@ private:
 	int m_currentBaseIndex{ -1 };
 	tag_MG_CGNS_Zone_FlowSolutions  m_flowSolutions;
 
-	///<MG Keyµ±Ç°ÇøÓò¡¢×ÓÇøÓòÃû³Æ¡¢Value ÇøÓò ÀàÐÍ¡¢ÇøÓòµÄ×åÃû³Æ  ÓÃÓÚ¼ÇÂ¼ ÇøÓò ÊôÓÚÄÄ¸ö×å
+	///<MG Keyå½“å‰åŒºåŸŸã€å­åŒºåŸŸåç§°ã€Value åŒºåŸŸ ç±»åž‹ã€åŒºåŸŸçš„æ—åç§°  ç”¨äºŽè®°å½• åŒºåŸŸ å±žäºŽå“ªä¸ªæ—
 	QMap<QString, MG_CGNS_FAMILY> zone_families;
 	MG_CGNS_FAMILY_TOTALS all_zones;
-	///<MG ÓÃÓÚ¼ÇÂ¼ÏîÄ¿ÖÐµÄ×åÐÅÏ¢
+	///<MG ç”¨äºŽè®°å½•é¡¹ç›®ä¸­çš„æ—ä¿¡æ¯
 
 private:
 	bool ReadZone(int file_index, int base_index, int zone_index);

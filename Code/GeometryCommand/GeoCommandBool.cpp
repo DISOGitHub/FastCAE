@@ -59,7 +59,7 @@ namespace Command
 		BRep_Builder aBuilder;
 		aBuilder.MakeCompound(aRes);
 		aBuilder.Add(aRes, *shape);
-		//½«set1ÖÐÊ£ÓàshapeºÍset2Ê£Óàshape×é³Écompound£¬È»ºóÓëÐÂshape×éºÏ¡£
+		//å°†set1ä¸­å‰©ä½™shapeå’Œset2å‰©ä½™shapeç»„æˆcompoundï¼Œç„¶åŽä¸Žæ–°shapeç»„åˆã€‚
 		TopoDS_Shape* setShape1 = _solid1.first->getShape();
 		TopoDS_Shape* setShape2 = _solid2.first->getShape();
 		if (setShape1 == nullptr || setShape2 == nullptr) return false;
@@ -150,7 +150,7 @@ namespace Command
 			_geoData->replaceSet(_editSet, _result);
 			emit removeDisplayActor(_result);//c2
 
-			const int n = _result->getSubSetCount();//Ìí¼Ób2,b3
+			const int n = _result->getSubSetCount();//æ·»åŠ b2,b3
 			for (int i = 0; i < n; ++i)
 			{
 				Geometry::GeometrySet* subset = _result->getSubSetAt(i);
@@ -159,7 +159,7 @@ namespace Command
 			}
 
 
-			const int m = _editSet->getSubSetCount();//É¾³ýb1,b2.
+			const int m = _editSet->getSubSetCount();//åˆ é™¤b1,b2.
 			for (int i = 0; i < m; ++i)
 			{
 				Geometry::GeometrySet* subset = _editSet->getSubSetAt(i);

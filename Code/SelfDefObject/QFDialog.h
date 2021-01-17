@@ -1,5 +1,5 @@
 /*************
-所有对话框基类
+鎵�鏈夊璇濇鍩虹被
 **************/
 #ifndef _QFDIALOG_H_
 #define _QFDIALOG_H_

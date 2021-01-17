@@ -1,4 +1,4 @@
-﻿#include "EditorIntValue.h"
+#include "EditorIntValue.h"
 #include "ui_EditorIntValue.h"
 #include "DataProperty/ParameterInt.h"
 #include <QValidator>

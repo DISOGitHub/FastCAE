@@ -47,7 +47,7 @@ namespace MainWidget
 	public:
 		MeshViewProvider(GUI::MainWindow* mainwindow, PreWindow* preWin);
 		~MeshViewProvider();
-		//¸üĞÂÍø¸ñäÖÈ¾
+		//æ›´æ–°ç½‘æ ¼æ¸²æŸ“
 		void updateDisplayModel();
 		void updateMeshActor();
 		void updateKernalActor();
@@ -75,17 +75,17 @@ namespace MainWidget
 		void findCellMappingKCell(vtkDataSet * dataSet, vtkIdList *cellPtIds, vtkDataSet * kernalDataSet, int &findCellId);
 	public slots:
 	    void setMeshSelectMode(int mode);
-		//Íø¸ñµÄ¸ßÁÁÏÔÊ¾
+		//ç½‘æ ¼çš„é«˜äº®æ˜¾ç¤º
 		void clearHighLight();
 		void highLighDataSet(vtkDataSet* dataset);
 		void highLighSet(QMultiHash<vtkDataSet*, int>* items);
-		void highLighMeshSet(MeshData::MeshSet* set); // ×é¼şmeshSetµÄ¸ßÁÁÏÔÊ¾
-		void highLighKernel(MeshData::MeshKernal* k); // Íø¸ñÄ£ĞÍkernelµÄ¸ßÁÁÏÔÊ¾
+		void highLighMeshSet(MeshData::MeshSet* set); // ç»„ä»¶meshSetçš„é«˜äº®æ˜¾ç¤º
+		void highLighKernel(MeshData::MeshKernal* k); // ç½‘æ ¼æ¨¡å‹kernelçš„é«˜äº®æ˜¾ç¤º
 		//
 		void highLightActorDispalyPoint(bool on);
 		void updateGraphOption();
 		void updateMeshSetDisplay();
-		//meshSetµÄÏÔÊ¾ºÍÒş²Ø
+		//meshSetçš„æ˜¾ç¤ºå’Œéšè—
 		void updateMeshSetVisibily(MeshData::MeshSet* set);
 		void removeSetData(const int index);
 	private:
@@ -97,7 +97,7 @@ namespace MainWidget
 		//
 		QList<vtkActor*> _meshActors{};
 		MeshData::MeshData* _meshData{};
-		//ĞÂÔö¼¯ºÏ
+		//æ–°å¢é›†åˆ
 		QHash<MeshData::MeshKernal*, vtkDataSet*> _kernalDataSetHash{};
 		QHash<vtkDataSetMapper *, MeshData::MeshKernal*> _mapperKernalHash{};
 		QHash<vtkDataSetMapper *, vtkDataSet*> _mapperDataSetHash{};

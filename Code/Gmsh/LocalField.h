@@ -24,11 +24,11 @@ namespace Gmsh{
 	class LocalDensity
 	{
 	public:
-		//python提交信息
+		//python鎻愪氦淇℃伅
 		virtual void appendLocals(Py::PythonAagent* py) = 0;
-		//获取区域信息
+		//鑾峰彇鍖哄煙淇℃伅
 		virtual QStringList getInformation() = 0;
-		//数据拷贝
+		//鏁版嵁鎷疯礉
 		virtual void copy(LocalDensity* data);
 
 		LocalType _type{ UnDefine };

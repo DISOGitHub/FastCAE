@@ -19,37 +19,37 @@ class IOAPI vtkDataRelated
 		vtkDataRelated(vtkDataSet* data);
 		virtual ~vtkDataRelated() = default;
 
-		//ÉèÖÃÊı¾İ
+		//è®¾ç½®æ•°æ®
 		void SetData(vtkDataSet* data);
-		//xyz{1, 0, 0}´ú±íÈÆXÖáĞı×ª£¬{0, 1, 0}´ú±íÈÆYÖáĞı×ª£¬{0, 0, 1}´ú±íÈÆZÖáĞı×ª
+		//xyz{1, 0, 0}ä»£è¡¨ç»•Xè½´æ—‹è½¬ï¼Œ{0, 1, 0}ä»£è¡¨ç»•Yè½´æ—‹è½¬ï¼Œ{0, 0, 1}ä»£è¡¨ç»•Zè½´æ—‹è½¬
 		void SetRotateWXYZ(double angle, double x, double y, double z);
-		//ÉèÖÃĞèÒª×ª»»µÄµ¥ÔªIDs
+		//è®¾ç½®éœ€è¦è½¬æ¢çš„å•å…ƒIDs
 		void SetTransCellIDs(vtkIdTypeArray* cellIDs);
-		//ÑØxyz·½ÏòÒÆ¶¯
+		//æ²¿xyzæ–¹å‘ç§»åŠ¨
 		void Translate(double x, double y, double z);
-		//ÉèÖÃËõ·Å±ÈÀı£¬x = 0 || y = 0 || z = 0Ê±ÎŞÒâÒå
+		//è®¾ç½®ç¼©æ”¾æ¯”ä¾‹ï¼Œx = 0 || y = 0 || z = 0æ—¶æ— æ„ä¹‰
 		void Scale(double x, double y, double z);
-		//¿ªÊ¼±äĞÎ
+		//å¼€å§‹å˜å½¢
 		vtkDataSet* StartTransform();
-		//normalsType: 0´ú±íµã·¨ÏòÁ¿£¬1´ú±íµ¥Ôª·¨ÏòÁ¿£¬µ¥Ôª·¨ÏòÖĞÒ²°üÀ¨µã·¨Ïò
+		//normalsType: 0ä»£è¡¨ç‚¹æ³•å‘é‡ï¼Œ1ä»£è¡¨å•å…ƒæ³•å‘é‡ï¼Œå•å…ƒæ³•å‘ä¸­ä¹ŸåŒ…æ‹¬ç‚¹æ³•å‘
 		static vtkPolyData* GetVTKDataNormals(vtkPolyData* data, int normalsType);
-		//»ñÈ¡¹²Ãæµãid£»data±íÊ¾×ÜÊı¾İ¼¯£¬seed±íÊ¾µ¥Ôªid£¬minAngleĞ¡ÓÚÕâ¸ö½Ç¶È±íÊ¾ÔÚÒ»¸öÆ½Ãæ
+		//è·å–å…±é¢ç‚¹idï¼›dataè¡¨ç¤ºæ€»æ•°æ®é›†ï¼Œseedè¡¨ç¤ºå•å…ƒidï¼ŒminAngleå°äºè¿™ä¸ªè§’åº¦è¡¨ç¤ºåœ¨ä¸€ä¸ªå¹³é¢
 		std::set<vtkIdType> GetCoplanarPointId(vtkDataSet* data, vtkIdType seedId, int minAngle);
-		//»ñÈ¡¹²Ãæµ¥Ôªid£»data±íÊ¾×ÜÊı¾İ¼¯£¬seed±íÊ¾µãid£¬minAngleĞ¡ÓÚÕâ¸ö½Ç¶È±íÊ¾ÔÚÒ»¸öÆ½Ãæ
+		//è·å–å…±é¢å•å…ƒidï¼›dataè¡¨ç¤ºæ€»æ•°æ®é›†ï¼Œseedè¡¨ç¤ºç‚¹idï¼ŒminAngleå°äºè¿™ä¸ªè§’åº¦è¡¨ç¤ºåœ¨ä¸€ä¸ªå¹³é¢
 		std::set<vtkIdType> GetCoplanarCellId(vtkDataSet* data, vtkIdType seedId, int minAngle);
 
 	private:
-		//¸ù¾İÖ¸¶¨µÄcellid»ñÈ¡ÖÜÎ§cellidĞÅÏ¢
+		//æ ¹æ®æŒ‡å®šçš„cellidè·å–å‘¨å›´cellidä¿¡æ¯
 		std::set<VTKIDPAIR> GetNeighborCellID(vtkPolyData* data, int cellId);
-		//¸ù¾İÖ¸¶¨µÄptid»ñÈ¡ÖÜÎ§ptidĞÅÏ¢
+		//æ ¹æ®æŒ‡å®šçš„ptidè·å–å‘¨å›´ptidä¿¡æ¯
 		std::set<vtkIdType> GetNeighborPointID(vtkPolyData* data, int ptId, int minAngle);
-		//¸ù¾İnormalÊı×é»ñÈ¡Á½¸ö·¨Ïò¼Ğ½Ç£¬idsÎª·¨Ïòid
+		//æ ¹æ®normalæ•°ç»„è·å–ä¸¤ä¸ªæ³•å‘å¤¹è§’ï¼Œidsä¸ºæ³•å‘id
 		double GetNormalAngle(vtkDataArray* pointNormals, const VTKIDPAIR& ids);
-		//ÌáÈ¡dataset±íÃæÊı¾İ
+		//æå–datasetè¡¨é¢æ•°æ®
 		vtkPolyData* GetSurfaceData(vtkDataSet* data);
-		//½«vtkDataSetµÄid×ª»»Îª±íÃæÊı¾İµÄid
+		//å°†vtkDataSetçš„idè½¬æ¢ä¸ºè¡¨é¢æ•°æ®çš„id
 		vtkIdType ConvertToPolyDataId(vtkIdType seedId, vtkDataSet* data, vtkPolyData* polyData);
-		//½«±íÃæÊı¾İµÄid×ªÎªvtkDataSetµÄid
+		//å°†è¡¨é¢æ•°æ®çš„idè½¬ä¸ºvtkDataSetçš„id
 		std::set<vtkIdType> ConvertToDataSetId(vtkDataSet* data, vtkPolyData* polyData, const std::set<vtkIdType>& coplanarPointIds);
 
 	private:

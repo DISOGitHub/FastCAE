@@ -63,7 +63,7 @@ namespace Gmsh
 		_compounnd = new TopoDS_Compound;
 		_fluidMeshProcess = new FluidMeshPreProcess();
 		_scriptWriter = new GmshScriptWriter;
-		//ÁÙÊ±ÎÄ¼ş¼ĞÂ·¾¶
+		//ä¸´æ—¶æ–‡ä»¶å¤¹è·¯å¾„
 // 		QString exelPath = QCoreApplication::applicationDirPath();
 // 		const QString tempDir = exelPath + "/../temp/";
 // 		DataProperty::ParameterString* s = new DataProperty::ParameterString();
@@ -71,7 +71,7 @@ namespace Gmsh
 // 		s->setValue(tempDir);
 // 		this->appendParameter(s);
 
-		if (dim == 3) //ÈıÎ¬²¹³ä¹âË³²ÎÊı
+		if (dim == 3) //ä¸‰ç»´è¡¥å……å…‰é¡ºå‚æ•°
 		{
 			_smoothIteration = 20;
 // 			DataProperty::ParameterInt* sm = new DataProperty::ParameterInt();

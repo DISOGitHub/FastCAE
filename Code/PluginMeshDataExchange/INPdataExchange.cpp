@@ -183,13 +183,13 @@ namespace MeshData
 
 		if (_modelId == -1)
 		{
-			//µã»÷×´Ì¬À¸°´Å¥µ¼³ö, ÈÚºÏËùÓÐkernal²¢µ¼³öÎªINPÎÄ¼þ
+			//ç‚¹å‡»çŠ¶æ€æ æŒ‰é’®å¯¼å‡º, èžåˆæ‰€æœ‰kernalå¹¶å¯¼å‡ºä¸ºINPæ–‡ä»¶
 			file.close();
 			return false;
 		}
 		else
 		{	
-			//µã»÷CaseÖÐ²Ëµ¥µ¼³ö, ½öµ¼³öÓëModel°ó¶¨µÄÒ»¸ökernalÎªINPÎÄ¼þ
+			//ç‚¹å‡»Caseä¸­èœå•å¯¼å‡º, ä»…å¯¼å‡ºä¸ŽModelç»‘å®šçš„ä¸€ä¸ªkernalä¸ºINPæ–‡ä»¶
 			if (_Case->getMeshKernalList().size() != 1)
 			{
 				file.close();
@@ -1001,9 +1001,9 @@ namespace MeshData
 
 	void INPdataExchange::writeBoundary()
 	{
-		//Ã¿¸ösetÖ»ÄÜÓÉÒ»ÖÖkernal¹¹³É, ²»ÄÜÊÇÁ½¸ö»ò¶à¸ö
-		//µ¼³ö±ß½çÊ±Èç¹û±ß½ç°ó¶¨µÄ×é¼þÃÇËù¶ÔÓ¦µÄkernalId±ØÐëÒ»Ñù,
-		//ÒòÎª±ß½çÖÐ¼ÇÂ¼µÄÊÇµã»òµ¥ÔªµÄId, Á½¸ö²»Í¬µÄkernalµã»òµ¥ÔªµÄid»áÖØ¸´
+		//æ¯ä¸ªsetåªèƒ½ç”±ä¸€ç§kernalæž„æˆ, ä¸èƒ½æ˜¯ä¸¤ä¸ªæˆ–å¤šä¸ª
+		//å¯¼å‡ºè¾¹ç•Œæ—¶å¦‚æžœè¾¹ç•Œç»‘å®šçš„ç»„ä»¶ä»¬æ‰€å¯¹åº”çš„kernalIdå¿…é¡»ä¸€æ ·,
+		//å› ä¸ºè¾¹ç•Œä¸­è®°å½•çš„æ˜¯ç‚¹æˆ–å•å…ƒçš„Id, ä¸¤ä¸ªä¸åŒçš„kernalç‚¹æˆ–å•å…ƒçš„idä¼šé‡å¤
 		int nBC = _Case->getBCCount();
 		if (nBC <= 0)    return;
 		*_stream << "** BOUNDARY CONDITIONS" << endl;

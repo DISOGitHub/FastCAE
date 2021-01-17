@@ -26,14 +26,14 @@ namespace FastCAEDesigner
 	}
 
 
-	//ÏÔÊ¾vectorÏà¹ØĞÅÏ¢
+	//æ˜¾ç¤ºvectorç›¸å…³ä¿¡æ¯
 	int Post3DFileModel::ShowEditor(QTreeWidgetItem* treeItem, QWidget* parent)
 	{
 		EditorCurveModel info(treeItem,this);
 
 		return info.exec();
 	}
-	//»ñÈ¡ËÄÖÖ²»Í¬ÀàĞÍµÄÁĞ±í
+	//è·å–å››ç§ä¸åŒç±»å‹çš„åˆ—è¡¨
 	QStringList Post3DFileModel::getNodeScalarList()
 	{
 		return _nodeScalarList;
@@ -51,7 +51,7 @@ namespace FastCAEDesigner
 		return _cellVectorList;
 	}
 
-	//ÉèÖÃ4ÖÖ²»Í¬ÀàĞÍµÄÁĞ±íĞÅÏ¢
+	//è®¾ç½®4ç§ä¸åŒç±»å‹çš„åˆ—è¡¨ä¿¡æ¯
 	void Post3DFileModel::setDataList(QStringList ns, QStringList nv, QStringList cs, QStringList cv)
 	{
 		_nodeScalarList = ns;
@@ -59,12 +59,12 @@ namespace FastCAEDesigner
 		_cellScalarList = cs;
 		_cellVectorList = cv;
 	}
-	//ÉèÖÃÎÄ¼şÃû
+	//è®¾ç½®æ–‡ä»¶å
 	void Post3DFileModel::setFileName(QString name)
 	{
 		_fileName = name;
 	}
-	//»ñÈ¡ÎÄ¼şÃû
+	//è·å–æ–‡ä»¶å
 	QString Post3DFileModel::getFileName()
 	{
 		return _fileName;

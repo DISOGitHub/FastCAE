@@ -1,9 +1,9 @@
 /**********************************************************************************
 
-¹¦ÄÜ£º»ù±¾ÐÅÏ¢±£´æ
-½¨Á¢£ºxvdongming
-ÈÕÆÚ£º2019-11
-ÐÞ¸ÄºÍÎ¬»¤£ºxvdongming
+åŠŸèƒ½ï¼šåŸºæœ¬ä¿¡æ¯ä¿å­˜
+å»ºç«‹ï¼šxvdongming
+æ—¥æœŸï¼š2019-11
+ä¿®æ”¹å’Œç»´æŠ¤ï¼šxvdongming
 
 **********************************************************************************/
 #include "WriterGlobalConfig.h"
@@ -33,12 +33,12 @@ namespace FastCAEDesigner
 
 	/*************************************************************************************
 
-	¹¦ÄÜ£º±£´æGlobalConfigÎÄ¼þµÄÐÅÏ¢
-	²ÎÊý£º1¡¢globalInfo£º»ù±¾ÐÅÏ¢        
-	·µ»ØÖµ£ºxml½Úµã
-	ÈÕÆÚ£º2019-11-15
-	±à¼­£ºxvdongming
-	±¸×¢£º                 
+	åŠŸèƒ½ï¼šä¿å­˜GlobalConfigæ–‡ä»¶çš„ä¿¡æ¯
+	å‚æ•°ï¼š1ã€globalInfoï¼šåŸºæœ¬ä¿¡æ¯        
+	è¿”å›žå€¼ï¼šxmlèŠ‚ç‚¹
+	æ—¥æœŸï¼š2019-11-15
+	ç¼–è¾‘ï¼šxvdongming
+	å¤‡æ³¨ï¼š                 
 
 	**************************************************************************************/
 	bool WriterGlobalConfig::Write(ConfigOption::GlobalConfig* globalInfo, ConfigOption::GeometryConfig* geometryInfo, ConfigOption::MeshConfig* meshInfo)
@@ -59,14 +59,14 @@ namespace FastCAEDesigner
 
 	/*************************************************************************************
 
-	¹¦ÄÜ£º±£´æ»ù±¾ÐÅÏ¢
-	²ÎÊý£º1¡¢doc£ºxmlÎÄµµ
-	      2¡¢root£ºxmlÎÄ¼þ¸ù½Úµã
-		  3¡¢basic£º»ù±¾ÐÅÏ¢
-	·µ»ØÖµ£ºxml½Úµã
-	ÈÕÆÚ£º2019-11-15
-	±à¼­£ºxvdongming
-	±¸×¢£º                  
+	åŠŸèƒ½ï¼šä¿å­˜åŸºæœ¬ä¿¡æ¯
+	å‚æ•°ï¼š1ã€docï¼šxmlæ–‡æ¡£
+	      2ã€rootï¼šxmlæ–‡ä»¶æ ¹èŠ‚ç‚¹
+		  3ã€basicï¼šåŸºæœ¬ä¿¡æ¯
+	è¿”å›žå€¼ï¼šxmlèŠ‚ç‚¹
+	æ—¥æœŸï¼š2019-11-15
+	ç¼–è¾‘ï¼šxvdongming
+	å¤‡æ³¨ï¼š                  
 
 	**************************************************************************************/
 	bool WriterGlobalConfig::WriteBasicPara(QDomDocument &doc, QDomElement &root, ConfigOption::GlobalConfig* globalConfig)
@@ -103,14 +103,14 @@ namespace FastCAEDesigner
 	}
 	/*************************************************************************************
 
-	¹¦ÄÜ£º±£´æ¼¸ºÎÐÅÏ¢
-	²ÎÊý£º1¡¢doc£ºxmlÎÄµµ
-	      2¡¢root£ºxmlÎÄ¼þ¸ù½Úµã
-	      3¡¢basic£º»ù±¾ÐÅÏ¢
-	·µ»ØÖµ£ºxml½Úµã
-	ÈÕÆÚ£º2019-11-15
-	±à¼­£ºxvdongming
-	±¸×¢£º
+	åŠŸèƒ½ï¼šä¿å­˜å‡ ä½•ä¿¡æ¯
+	å‚æ•°ï¼š1ã€docï¼šxmlæ–‡æ¡£
+	      2ã€rootï¼šxmlæ–‡ä»¶æ ¹èŠ‚ç‚¹
+	      3ã€basicï¼šåŸºæœ¬ä¿¡æ¯
+	è¿”å›žå€¼ï¼šxmlèŠ‚ç‚¹
+	æ—¥æœŸï¼š2019-11-15
+	ç¼–è¾‘ï¼šxvdongming
+	å¤‡æ³¨ï¼š
 
 	**************************************************************************************/
 	bool WriterGlobalConfig::WriteGeometryPara(QDomDocument &doc, QDomElement &root, ConfigOption::GeometryConfig* geometryConfig)
@@ -146,14 +146,14 @@ namespace FastCAEDesigner
 
 	/*************************************************************************************
 
-	¹¦ÄÜ£º±£´æÍø¸ñÐÅÏ¢
-	²ÎÊý£º1¡¢doc£ºxmlÎÄµµ
-	      2¡¢root£ºxmlÎÄ¼þ¸ù½Úµã
-	      3¡¢basic£º»ù±¾ÐÅÏ¢
-	·µ»ØÖµ£ºxml½Úµã
-	ÈÕÆÚ£º2019-11-15
-	±à¼­£ºxvdongming
-	±¸×¢£º
+	åŠŸèƒ½ï¼šä¿å­˜ç½‘æ ¼ä¿¡æ¯
+	å‚æ•°ï¼š1ã€docï¼šxmlæ–‡æ¡£
+	      2ã€rootï¼šxmlæ–‡ä»¶æ ¹èŠ‚ç‚¹
+	      3ã€basicï¼šåŸºæœ¬ä¿¡æ¯
+	è¿”å›žå€¼ï¼šxmlèŠ‚ç‚¹
+	æ—¥æœŸï¼š2019-11-15
+	ç¼–è¾‘ï¼šxvdongming
+	å¤‡æ³¨ï¼š
 
 	**************************************************************************************/
 	bool WriterGlobalConfig::WriteMeshPara(QDomDocument &doc, QDomElement &root, ConfigOption::MeshConfig* meshConfig)
@@ -195,14 +195,14 @@ namespace FastCAEDesigner
 
 	/*************************************************************************************
 
-	¹¦ÄÜ£º±£´æºó´¦ÀíÐÅÏ¢
-	²ÎÊý£º1¡¢doc£ºxmlÎÄµµ
-	      2¡¢root£ºxmlÎÄ¼þ¸ù½Úµã
-	      3¡¢basic£º»ù±¾ÐÅÏ¢
-	·µ»ØÖµ£ºxml½Úµã
-	ÈÕÆÚ£º2019-11-15
-	±à¼­£ºxvdongming
-	±¸×¢£º
+	åŠŸèƒ½ï¼šä¿å­˜åŽå¤„ç†ä¿¡æ¯
+	å‚æ•°ï¼š1ã€docï¼šxmlæ–‡æ¡£
+	      2ã€rootï¼šxmlæ–‡ä»¶æ ¹èŠ‚ç‚¹
+	      3ã€basicï¼šåŸºæœ¬ä¿¡æ¯
+	è¿”å›žå€¼ï¼šxmlèŠ‚ç‚¹
+	æ—¥æœŸï¼š2019-11-15
+	ç¼–è¾‘ï¼šxvdongming
+	å¤‡æ³¨ï¼š
 
 	**************************************************************************************/
 	bool WriterGlobalConfig::WritePostPara(QDomDocument &doc, QDomElement &root)

@@ -238,7 +238,7 @@ namespace MeshData
 		
 		return t;
 	}
-	//写set部分的二进制
+	//鍐檚et閮ㄥ垎鐨勪簩杩涘埗
 	void MeshSet::writeBinaryFile(QDataStream* dataStream)
 	{
 		QList<int> kids = _members.uniqueKeys();
@@ -255,7 +255,7 @@ namespace MeshData
 		}
 		
 	}
-	//读取set部分的二进制
+	//璇诲彇set閮ㄥ垎鐨勪簩杩涘埗
 	void MeshSet::readBinaryFile(QDataStream* dataStream)
 	{
 		int SetID{ 0 }, nKernal{ 0 }, nMember{0};         //setID,KernalID,MemberNumber

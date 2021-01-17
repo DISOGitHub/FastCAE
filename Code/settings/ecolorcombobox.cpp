@@ -32,14 +32,14 @@ bool EColorComboBox::hasColor(const QColor &c)
 void EColorComboBox::appendColor(const QColor &c, const QString &n)
 {
 	if(!c.isValid()||hasColor(c)) return;
-	// ׼��λͼ
+	// 准备位图
 	QPixmap pix(16, 16);
 	pix.fill(Qt::transparent);
 	QPainter painter(&pix);
 	painter.setPen(Qt::gray);
 	painter.setBrush(QBrush(c));
 	painter.drawRect(1, 1, 13, 13);
-	// ���ӵ��б�ĩβ
+	// 添加到列表末尾
 	int i=count();
 	QString tn=n.isEmpty()?c.name().toUpper():n;
 	if(!_colorDialogEnabled) addItem(tn, QVariant(c.name()));

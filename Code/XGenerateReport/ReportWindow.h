@@ -1,5 +1,5 @@
 //*******************************
-//报告显示窗口
+//鎶ュ憡鏄剧ず绐楀彛
 //libaojun
 //*******************************
 #ifndef REPORTWINDOW_H_
@@ -27,7 +27,7 @@ namespace XReport
 	public:
 		ReportWindow(GUI::MainWindow* mainwindow, QString file);
 		~ReportWindow();
-		//语言切换
+		//璇█鍒囨崲
 		virtual void reTranslate();
 
 	signals:

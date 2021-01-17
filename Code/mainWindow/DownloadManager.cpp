@@ -172,7 +172,7 @@ void DownloadManager::downloadFinished()
     currentDownload->deleteLater();
     startNextDownload();
 
-	///ºóÆÚĞŞ¸Ä
+	///åæœŸä¿®æ”¹
 	delete this;
 }
 

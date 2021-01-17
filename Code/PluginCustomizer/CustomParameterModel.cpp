@@ -30,8 +30,8 @@ namespace FastCAEDesigner
 // 		process->waitForFinished();
 // 
 // 		qDebug() << process->readAll();
-// 		qDebug() << process->exitCode();//ÍË³öÂë
-// 		qDebug() << process->exitStatus();//ÍË³ö×´Ì¬
+// 		qDebug() << process->exitCode();//é€€å‡ºç 
+// 		qDebug() << process->exitStatus();//é€€å‡ºçŠ¶æ€
 
 		FastCAEDesigner::EditorDescripttionSetup dlg(treeItem, this, parent);
 		return dlg.exec();

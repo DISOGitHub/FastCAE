@@ -15,7 +15,7 @@
 struct HEUDATASRCIOSHARED_EXPORT pipelineObj_propData
 {
 	int obj_id;
-	bool flag_rectilinear = false;//是否是线性网格，如是可做等值面
+	bool flag_rectilinear = false;//鏄惁鏄嚎鎬х綉鏍硷紝濡傛槸鍙仛绛夊�奸潰
 	QStringList fileList;
 	QStringList fileListBak;
 	QString fileName;
@@ -43,7 +43,7 @@ struct HEUDATASRCIOSHARED_EXPORT pipelineObj_propData
 	int mPointSize;
 	int mLineWidth;
 	//Lighting
-	//颜色相关
+	//棰滆壊鐩稿叧
 	scolor mSolidColor;
 	double mSpecular;
 	scolor mSpecularColor;
@@ -79,7 +79,7 @@ struct HEUDATASRCIOSHARED_EXPORT pipelineObj_propData
 struct HEUDATASRCIOSHARED_EXPORT aniDisplace_pipelineObj_propData
 {
 	QVector<FrameDisplace> m_aniDisplaceList;
-	bool flag_AniDisplaceFile;//是否使用动画位移文件
+	bool flag_AniDisplaceFile;//鏄惁浣跨敤鍔ㄧ敾浣嶇Щ鏂囦欢
 	bool flag_exeDisplace;
 	QString path_AniDisplaceFile;
 	FrameDisplace m_pre_displace;

@@ -695,7 +695,7 @@ bool NumericSrcObject::MakeGlyphs()
 	//glyphFilter->SetScaleModeToDataScalingOff();
 	glyphFilter->SetInputData(pointData);
 	glyphFilter->SetVectorModeToUseNormal();
-	glyphFilter->SetScaleFactor(mPipeLineObjProp.mooringLine_propData.glyph_data.scaleFactor);//ÉèÖÃÉìËõ±ÈÀý
+	glyphFilter->SetScaleFactor(mPipeLineObjProp.mooringLine_propData.glyph_data.scaleFactor);//è®¾ç½®ä¼¸ç¼©æ¯”ä¾‹
 	glyphFilter->ScalingOn();
 	glyphFilter->OrientOn();
 	glyphFilter->Update();
@@ -763,7 +763,7 @@ bool NumericSrcObject::MakeParticles()
 		//glyphFilter->SetScaleModeToDataScalingOff();
 		vtkPolyData* tep_polyData = static_cast<vtkPolyData*>(mBaseGrid);
 		glyphFilter->SetInputData(tep_polyData);
-		//glyphFilter->SetScaleFactor(mPipeLineObjProp.mooringLine_propData.glyph_data.scaleFactor);//ÉèÖÃÉìËõ±ÈÀý
+		//glyphFilter->SetScaleFactor(mPipeLineObjProp.mooringLine_propData.glyph_data.scaleFactor);//è®¾ç½®ä¼¸ç¼©æ¯”ä¾‹
 		//glyphFilter->ScalingOn();
 		glyphFilter->Update();
 		if (glyph_map == NULL)

@@ -22,7 +22,7 @@ namespace ModuleBase
 		IOBase();
 		~IOBase();
 		void setFileName(const QString &name);
-		///读取实时曲线数据
+		///璇诲彇瀹炴椂鏇茬嚎鏁版嵁
 		void readRealTimeData(QList<QVector<double>> &x, QList<QVector<double>> &y, QString fileName);
 
 	public:

@@ -12,11 +12,11 @@ namespace FastCAEDesigner
 		~FileHelper();
 
 	public:
-		//¿½±´ÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+		//æ‹·è´æ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
 		static bool CopyFileToPath(QString sourceDir, QString destDir, bool coverFileIfExist);
-		//¿½±´Ö¸¶¨Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+		//æ‹·è´æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
 		static bool CopyDirectoryFiles(const QString &fromDir, const QString &destDir, bool coverFileIfExist);
-		//»ñÈ¡ÏµÍ³ÅäÖÃÎÄ¼şÄ¿Â¼
+		//è·å–ç³»ç»Ÿé…ç½®æ–‡ä»¶ç›®å½•
 		static QString GetSystemConfigPath();
 	};
 }

@@ -17,12 +17,12 @@ class ReadData_Base
 {
 public:
 	vtkDataSet* dataSet;  
-	vtkMultiBlockDataSet* blockDataSet{};//tecplot ¶àÇøÓò
-	//QMap<QString, vtkSmartPointer<vtkIdTypeArray>> cgnsBlockDataSet;//Ò»¸öÍø¸ñËù¶ÔÓ¦µÄ¶àÇøÓò
-	QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkIdTypeArray>>> dataSetMap;//cgnsµÄ¶à¸öÍø¸ñÎÄ¼ş;,µÚÒ»¸öÊ±¿ÌµÄÖµÖ±½Ó´æÔÚÍø¸ñÀï
-	QMap<vtkDataSet*, QString> dataSetNameMap;//cgnsµÄ¶à¸öÍø¸ñ±êÊ¶
-	int numberOfCgnsTimes;//cgnsÊı¾İÖµÓĞ¶àÉÙ¸öÊ±¿Ì
-	virtual QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkFloatArray>>> getCgnsValue(int time);//»ñÈ¡µÚ¼¸¸öÊ±¿ÌµÄÊı¾İ,µÚÒ»¸öÊ±¿ÌÎª0
+	vtkMultiBlockDataSet* blockDataSet{};//tecplot å¤šåŒºåŸŸ
+	//QMap<QString, vtkSmartPointer<vtkIdTypeArray>> cgnsBlockDataSet;//ä¸€ä¸ªç½‘æ ¼æ‰€å¯¹åº”çš„å¤šåŒºåŸŸ
+	QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkIdTypeArray>>> dataSetMap;//cgnsçš„å¤šä¸ªç½‘æ ¼æ–‡ä»¶;,ç¬¬ä¸€ä¸ªæ—¶åˆ»çš„å€¼ç›´æ¥å­˜åœ¨ç½‘æ ¼é‡Œ
+	QMap<vtkDataSet*, QString> dataSetNameMap;//cgnsçš„å¤šä¸ªç½‘æ ¼æ ‡è¯†
+	int numberOfCgnsTimes;//cgnsæ•°æ®å€¼æœ‰å¤šå°‘ä¸ªæ—¶åˆ»
+	virtual QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkFloatArray>>> getCgnsValue(int time);//è·å–ç¬¬å‡ ä¸ªæ—¶åˆ»çš„æ•°æ®,ç¬¬ä¸€ä¸ªæ—¶åˆ»ä¸º0
 	ReadData_Base();
 	~ReadData_Base();
 	virtual bool Read(QString);// lobaojun add QString as a parameter in order to override in subclass
@@ -36,8 +36,8 @@ private:
 	
 protected:	
 	QString fileName;
-	int mNodeCount;//½ÚµãÊı	
-	int mCellCount;//µ¥ÔªÊı
+	int mNodeCount;//èŠ‚ç‚¹æ•°	
+	int mCellCount;//å•å…ƒæ•°
 	void OutMessageFile(QString Msg);
 };
 

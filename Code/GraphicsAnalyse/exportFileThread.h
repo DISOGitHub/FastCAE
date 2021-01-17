@@ -1,4 +1,4 @@
-﻿#ifndef EXPORTFILETHREAD_H
+#ifndef EXPORTFILETHREAD_H
 #define EXPORTFILETHREAD_H
 
 #include <QThread>

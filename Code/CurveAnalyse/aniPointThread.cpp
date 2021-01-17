@@ -1,4 +1,4 @@
-﻿#include "aniPointThread.h"
+#include "aniPointThread.h"
 #include <QTime>
 #include <QMessageBox>
 #include <QString>

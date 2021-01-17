@@ -35,7 +35,7 @@ namespace FastCAEDesigner
 		}
 
 		QTextStream out_stream(&file);
-		doc.save(out_stream, 4); //Ëõ½ø1¸ñ
+		doc.save(out_stream, 4); //ç¼©è¿›1æ ¼
 		file.close();
 		return true;
 	}
@@ -51,7 +51,7 @@ namespace FastCAEDesigner
 		return map;
 	}
 
-	//±£´æÍ¼±êµ½ÏµÍ³iconÄ¿Â¼ÏÂ£¬²¢·µ»Ø²»°üº¬Ä¿Â¼µÄÎÄ¼şÃû³Æ¡£
+	//ä¿å­˜å›¾æ ‡åˆ°ç³»ç»Ÿiconç›®å½•ä¸‹ï¼Œå¹¶è¿”å›ä¸åŒ…å«ç›®å½•çš„æ–‡ä»¶åç§°ã€‚
 	QString WriterBase::SaveIconToSystem(QString fileName)
 	{
 		QString destPath = FileHelper::GetSystemConfigPath() + "icon/";

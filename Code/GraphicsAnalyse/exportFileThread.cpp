@@ -1,4 +1,4 @@
-﻿#include "exportFileThread.h"
+#include "exportFileThread.h"
 #include <QTime>
 #include <QMessageBox>
 #include <QString>

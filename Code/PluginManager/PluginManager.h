@@ -21,27 +21,27 @@ namespace Plugins
 	public:
 		static PluginManager* getInstance();
 
-		//»ñÈ¡¼ÓÔØµÄ²å¼ş¸öÊı
+		//è·å–åŠ è½½çš„æ’ä»¶ä¸ªæ•°
 		int getPluginsCount();
-		//¼ÓÔØ²å¼ş
+		//åŠ è½½æ’ä»¶
 		void loadPlugs(GUI::MainWindow* m);
-		//¼ÓÔØµ¥¸ö²å¼ş
+		//åŠ è½½å•ä¸ªæ’ä»¶
 		bool loadPlugin(QString name);
-		//Ğ¶ÔØ²å¼ş
+		//å¸è½½æ’ä»¶
 		bool releasePlugin(QString name);
-		//Ğ¶ÔØ²å¼ş
+		//å¸è½½æ’ä»¶
 		void releasePlugs();
-		//·­Òë
+		//ç¿»è¯‘
 		void reTranslate(QString lang);
-		//»ñÈ¡²å¼ş
+		//è·å–æ’ä»¶
 		PluginBase* getPluginByDescribe(QString des);
-		//¸ù¾İÀàĞÍ»ñÈ¡²å¼ş
+		//æ ¹æ®ç±»å‹è·å–æ’ä»¶
 		QList<PluginBase*> getPluginsByType(PluginType t);
-		//Ğ´³ö¹¤³ÌÎÄ¼ş
+		//å†™å‡ºå·¥ç¨‹æ–‡ä»¶
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
-		//´Ó¹¤³ÌÎÄ¼ş¶ÁÈë
+		//ä»å·¥ç¨‹æ–‡ä»¶è¯»å…¥
 		void readDataFromProjectFile(QDomElement* e) override;
-		//ÊÇ·ñÓĞÊı¾İĞèÒª±£´æµ½¹¤³ÌÎÄ¼ş
+		//æ˜¯å¦æœ‰æ•°æ®éœ€è¦ä¿å­˜åˆ°å·¥ç¨‹æ–‡ä»¶
 		bool hasInfoToSave();
 
 	signals:

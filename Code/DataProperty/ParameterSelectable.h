@@ -13,13 +13,13 @@ namespace DataProperty
 		~ParameterSelectable() = default;
 
 		void copy(ParameterBase* ori, bool valueOnly= false) override;
-		//设置可选项
+		//璁剧疆鍙�夐」
 		void setOption(QStringList s);
-		//获取可选项
+		//鑾峰彇鍙�夐」
 		QStringList getOption();
-		//设置当前索引
+		//璁剧疆褰撳墠绱㈠紩
 		void setCurrentIndex(const int index);
-		//设置当前索引
+		//璁剧疆褰撳墠绱㈠紩
 		int getCurrentIndex();
 		QStringList getChinese();
 		bool isSameValueWith(ParameterBase* p) override;

@@ -20,71 +20,71 @@ namespace Gmsh{
 		
 		void copy(DataBase* data) override;
 
-		//ÉèÖÃÊµÌåHash
+		//è®¾ç½®å®ä½“Hash
 		void setSolidHash(QMultiHash<int, int> sh);
-		//»ñÈ¡ÊµÌåHash
+		//è·å–å®ä½“Hash
 		QMultiHash<int, int> getSolidHash();
-		//ÉèÖÃÃæÆÊ·ÖHash
+		//è®¾ç½®é¢å‰–åˆ†Hash
 		void setSurfaceHash(QMultiHash<int, int> sh);
-		//»ñÈ¡ÃæÆÊ·ÖHash
+		//è·å–é¢å‰–åˆ†Hash
 		QMultiHash<int, int> getSurfaceHash();
-		//ÉèÖÃÆÊ·ÖÀàĞÍ
+		//è®¾ç½®å‰–åˆ†ç±»å‹
 		void setElementType(QString type);
-		//»ñÈ¡ÆÊ·ÖÀàĞÍ
+		//è·å–å‰–åˆ†ç±»å‹
 		QString getElementType();
-		//ÉèÖÃÆÊ·Ö½×´Î
+		//è®¾ç½®å‰–åˆ†é˜¶æ¬¡
 		void setElementOrder(int order);
-		//»ñÈ¡ÆÊ·Ö½×´Î
+		//è·å–å‰–åˆ†é˜¶æ¬¡
 		int getElementOrder();
-		//ÉèÖÃÆÊ·Ö·½·¨
+		//è®¾ç½®å‰–åˆ†æ–¹æ³•
 		void setMethod(int m);
-		//»ñÈ¡ÆÊ·Ö·½·¨
+		//è·å–å‰–åˆ†æ–¹æ³•
 		int getMethod();
-		//ÉèÖÃ³ß´çÒò×Ó
+		//è®¾ç½®å°ºå¯¸å› å­
 		void setSizeFactor(double sf);
-		//»ñÈ¡³ß´çÒò×Ó
+		//è·å–å°ºå¯¸å› å­
 		double getSizeFactor();
-		//ÉèÖÃ×îĞ¡³ß´ç
+		//è®¾ç½®æœ€å°å°ºå¯¸
 		void setMinSize(double min);
-		//»ñÈ¡×îĞ¡³ß´ç
+		//è·å–æœ€å°å°ºå¯¸
 		double getMinSize();
-		//ÉèÖÃ×î´ó³ß´ç
+		//è®¾ç½®æœ€å¤§å°ºå¯¸
 		void setMaxSize(double max);
-		//»ñÈ¡×î´ó³ß´ç
+		//è·å–æœ€å¤§å°ºå¯¸
 		double getMaxSize();
-		//ÉèÖÃÍø¸ñÇåÀí
+		//è®¾ç½®ç½‘æ ¼æ¸…ç†
 		void setGeoClean(bool c);
-		//»ñÈ¡Íø¸ñÇåÀí
+		//è·å–ç½‘æ ¼æ¸…ç†
 		bool getGeoClean();
-		//ÉèÖÃ¹â»¬¶È
+		//è®¾ç½®å…‰æ»‘åº¦
 		void setSmoothIteration(int smooth);
-		//»ñÈ¡¹â»¬¶È
+		//è·å–å…‰æ»‘åº¦
 		int getSmoothIteration();
-		//ÉèÖÃÍø¸ñÁ¬¹áĞÔ
+		//è®¾ç½®ç½‘æ ¼è¿è´¯æ€§
 		void setGridCoplanar(bool gc);
-		//»ñÈ¡Íø¸ñÁ¬¹áĞÔ 
+		//è·å–ç½‘æ ¼è¿è´¯æ€§ 
 		bool getGridCoplanar();
-		//ÉèÖÃ¾Ö²¿ÃÜ¶È
+		//è®¾ç½®å±€éƒ¨å¯†åº¦
 		void setSizeAtPoints(QString ps);
 		void setSizeFields(QString fs);
 		void setLocalDesities(QList<LocalDensity*> list);
-		//»ñÈ¡¾Ö²¿ÃÜ¶È
+		//è·å–å±€éƒ¨å¯†åº¦
 		QList<LocalDensity*> getLocalDesities();
-		//ÉèÖÃÈ«Ñ¡×´Ì¬
+		//è®¾ç½®å…¨é€‰çŠ¶æ€
 		void setSelectAll(bool b);
-		//»ñÈ¡È«Ñ¡×´Ì¬
+		//è·å–å…¨é€‰çŠ¶æ€
 		bool getSelectAll();
-		//ÉèÖÃÑ¡Ôñ¿É¼ûÏî×´Ì¬
+		//è®¾ç½®é€‰æ‹©å¯è§é¡¹çŠ¶æ€
 		void setSelectVisiable(bool b);
-		//»ñÈ¡Ñ¡Ôñ¿É¼ûÏî×´Ì¬
+		//è·å–é€‰æ‹©å¯è§é¡¹çŠ¶æ€
 		bool getSelectVisiable();
-		//ÉèÖÃÍø¸ñ±àºÅ
+		//è®¾ç½®ç½‘æ ¼ç¼–å·
 		void setMeshID(int id);
-		//»ñÈ¡Íø¸ñ±àºÅ
+		//è·å–ç½‘æ ¼ç¼–å·
 		int getMeshID();
-		//ÉèÖÃÖ¸¶¨µ¥ÔªÀàĞÍ
+		//è®¾ç½®æŒ‡å®šå•å…ƒç±»å‹
 		void setCells(QList<int> cells);
-		//»ñÈ¡Ö¸¶¨µ¥ÔªÀàĞÍ
+		//è·å–æŒ‡å®šå•å…ƒç±»å‹
 		QList<int> getCells();
 
 	private:

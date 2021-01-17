@@ -1,4 +1,4 @@
-﻿#include "exportCurveThread.h"
+#include "exportCurveThread.h"
 #include <QTime>
 #include <QMessageBox>
 #include <QString>

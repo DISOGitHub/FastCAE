@@ -58,9 +58,9 @@ namespace ModuleBase
 		_process->setAutoClose(false);
 		emit setFinishedStatus(100);
 
-		QThread::sleep(5);		//¸ÃÏß³Ìsleep²»¶ÂÈûÖ÷Ïß³Ì
+		QThread::sleep(5);		//è¯¥çº¿ç¨‹sleepä¸å µå¡žä¸»çº¿ç¨‹
 		//threadDelay(2);		
-		//emit threadWait(5);		//¶ÂÈûÖ÷Ïß³Ì
+		//emit threadWait(5);		//å µå¡žä¸»çº¿ç¨‹
 
 		_process->setAutoClose(true);
 		emit setFinishedStatus(100);

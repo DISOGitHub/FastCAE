@@ -1,4 +1,4 @@
-﻿#ifndef UPDATECGNSTHREAD_H
+#ifndef UPDATECGNSTHREAD_H
 #define UPDATECGNSTHREAD_H
 
 #include <QThread>

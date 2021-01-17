@@ -173,7 +173,7 @@ namespace GeometryWidget
 		emit highLightGeometryEdgeSig(_curve.first, _curve.second, true);
 		_ui->topedgelabel_2->setText(QString(tr("Selected Object(1)")));
 
-		//计算曲线长度
+		//璁＄畻鏇茬嚎闀垮害
 		if (_curve.first == nullptr&&_curve.second < 0) return;
 		TopoDS_Shape* shape = _curve.first->getShape();
 		TopExp_Explorer edgeExp(*shape, TopAbs_EDGE);
@@ -201,7 +201,7 @@ namespace GeometryWidget
 		emit highLightGeometryFaceSig(_surface.first, _surface.second, true);
 		_ui->topedgelabel_3->setText(QString(tr("Selected Object(1)")));
 
-		//计算曲面面积
+		//璁＄畻鏇查潰闈㈢Н
 		if (_surface.first == nullptr&&_surface.second < 0) return;
 		TopoDS_Shape* shape = _surface.first->getShape();
 		TopExp_Explorer edgeExp(*shape, TopAbs_FACE);
@@ -230,7 +230,7 @@ namespace GeometryWidget
 		emit highLightGeometrySolidSig(_solid.first, _solid.second, true);
 		_ui->topedgelabel_4->setText(QString(tr("Selected Object(1)")));
 
-		//计算实体体积
+		//璁＄畻瀹炰綋浣撶Н
 		if (_solid.first == nullptr&&_solid.second < 0) return;
 		TopoDS_Shape* shape = _solid.first->getShape();
 		TopExp_Explorer solidExp(*shape, TopAbs_SOLID);

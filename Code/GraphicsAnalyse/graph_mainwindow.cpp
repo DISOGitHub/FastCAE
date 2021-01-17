@@ -1745,7 +1745,7 @@ void graph_MainWindow::slot_showHelpPDF()
     QFile bfilePath(helpPath);
     if (!bfilePath.exists())
         return;
-    QString filePath = "file:///" + helpPath;   //¥Úø™Œƒº˛º–”√file:///,¥Úø™Õ¯“≥”√http://
+    QString filePath = "file:///" + helpPath;   //ÊâìÂºÄÊñá‰ª∂Â§πÁî®file:///,ÊâìÂºÄÁΩëÈ°µÁî®http://
     QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
 }
 
@@ -1883,7 +1883,7 @@ void graph_MainWindow::slot_reflectionFilter()
 	}
 	/*if (pipelineobj->GetObjectType() != dNumeric_DataSource)
 	{
-		QMessageBox box(QMessageBox::Warning, QStringLiteral("warning"), QStringLiteral("This current pipeline object is not dataSource object£°"));
+		QMessageBox box(QMessageBox::Warning, QStringLiteral("warning"), QStringLiteral("This current pipeline object is not dataSource objectÔºÅ"));
 		box.setStandardButtons(QMessageBox::Yes);
 		box.setButtonText(QMessageBox::Yes, QStringLiteral("ok"));
 		box.exec();

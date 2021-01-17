@@ -24,25 +24,25 @@ namespace Geometry
 	public:
 		GeoComponent(QString name, GeoComponentType type);
 		~GeoComponent();
-		//ÉèÖÃ¼¸ºÎ×é¼şÀàĞÍ
+		//è®¾ç½®å‡ ä½•ç»„ä»¶ç±»å‹
 		void setType(GeoComponentType type);
-		//»ñÈ¡¼¸ºÎ×é¼şÀàĞÍ
+		//è·å–å‡ ä½•ç»„ä»¶ç±»å‹
 		GeoComponentType getGCType();
-		//Ìí¼ÓÑ¡È¡µÄÏî(Ç°´¦Àí´°¿Ú´«½øÀ´£¬¼üÎª¼¸ºÎ£¬ÖµÎªµã¡¢Ïß¡¢Ãæ¡¢ÌåµÄid)
+		//æ·»åŠ é€‰å–çš„é¡¹(å‰å¤„ç†çª—å£ä¼ è¿›æ¥ï¼Œé”®ä¸ºå‡ ä½•ï¼Œå€¼ä¸ºç‚¹ã€çº¿ã€é¢ã€ä½“çš„id)
 		void appendSelectedItem(QMultiHash<GeometrySet*, int>& items);
 		void appendSelectedItem(GeometrySet* geoSet, int itemIndex);
 		void appendSelectedItem(GeometrySet* geoSet, QList<int>& itemIndexs);
-		//ÉèÖÃÑ¡È¡Ïî
+		//è®¾ç½®é€‰å–é¡¹
 		void setSelectedItems(QMultiHash<GeometrySet*, int>& items);
-		//»ñÈ¡Ñ¡È¡Ïî
+		//è·å–é€‰å–é¡¹
 		QMultiHash<GeometrySet*, int>& getSelectedItems();
-		//×Ö·û´®×ª»¯ÎªÃ¶¾Ù
+		//å­—ç¬¦ä¸²è½¬åŒ–ä¸ºæšä¸¾
 		static GeoComponentType stringTogcType(QString stype);
-		//Ã¶¾Ù×ª×Ö·û´®
+		//æšä¸¾è½¬å­—ç¬¦ä¸²
 		static QString gcTypeToString(GeoComponentType type);
-		//Êı¾İĞ´Èë¹¤³ÌÎÄ¼ş
+		//æ•°æ®å†™å…¥å·¥ç¨‹æ–‡ä»¶
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* root);
-		//´Ó¹¤³ÌÎÄ¼ş¶ÁÈëÊı¾İ
+		//ä»å·¥ç¨‹æ–‡ä»¶è¯»å…¥æ•°æ®
 		virtual void readDataFromProjectFile(QDomElement* root);
 
 	private:

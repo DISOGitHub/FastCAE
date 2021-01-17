@@ -140,7 +140,7 @@ typedef struct Camera_Para1
 
 struct pick_pipelineObj_propData
 {
-	int flag_pickMode;//-1ÎŞÊ°È¡£¬0µã£¬1µ¥Ôª£¬2ÇøÓòµã£¬3ÇøÓòµ¥Ôª
+	int flag_pickMode;//-1æ— æ‹¾å–ï¼Œ0ç‚¹ï¼Œ1å•å…ƒï¼Œ2åŒºåŸŸç‚¹ï¼Œ3åŒºåŸŸå•å…ƒ
 	vtkActor *pick_actor;
 	vtkIdType pick_id;
 	//vtkPlanes *frustum;

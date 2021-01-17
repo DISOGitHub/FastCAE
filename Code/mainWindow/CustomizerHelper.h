@@ -28,7 +28,7 @@ namespace GUI
 		void finishCustomizer();
 
 	public slots:
-		/*¸ù¾İÅäÖÃÎÄ¼ş¿ª·Å½Ó¿Ú */
+		/*æ ¹æ®é…ç½®æ–‡ä»¶å¼€æ”¾æ¥å£ */
 		void registerInterface();
 
 	private:

@@ -45,7 +45,7 @@ namespace ModuleBase{
 		void threadTaskFinished();
 
 	private:
-		//ÑÓÊ±º¯Êý
+		//å»¶æ—¶å‡½æ•°
 		void threadDelay(int sec);
 
 	protected:

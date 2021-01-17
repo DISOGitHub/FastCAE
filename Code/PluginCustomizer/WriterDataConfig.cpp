@@ -24,7 +24,7 @@ namespace FastCAEDesigner
 	{
 	}
 
-	//bcModelLlist:边界参数列表
+	//bcModelLlist:杈圭晫鍙傛暟鍒楄〃
 	bool WriteDataConfig::Write(QList<ModelBase*> list)
 	{
 		QDomDocument doc;
@@ -123,7 +123,7 @@ namespace FastCAEDesigner
 		root.appendChild(dataBlock);
 		return true;
 	}
-	//监视器相关信息写入xml
+	//鐩戣鍣ㄧ浉鍏充俊鎭啓鍏ml
 	bool WriteDataConfig::WriteMonitorDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list, int number)
 	{
 		QString nodeTypeName = QString("Type%1").arg(number);
@@ -147,7 +147,7 @@ namespace FastCAEDesigner
 		root.appendChild(dataRootNode);
 		return true;
 	}
-	//post相关信息写入xml
+	//post鐩稿叧淇℃伅鍐欏叆xml
 	bool WriteDataConfig::WritePostDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list, int number)
 	{
 		QString nodeTypeName = QString("Type%1").arg(number);
@@ -173,7 +173,7 @@ namespace FastCAEDesigner
 		root.appendChild(dataRootNode);
 		return true;
 	}
-	//curve信息写入
+	//curve淇℃伅鍐欏叆
 	bool WriteDataConfig::WritePost2DDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list)
 	{
 		for (int i = 0; i < list.count(); i++)
@@ -193,7 +193,7 @@ namespace FastCAEDesigner
 
 		return true;
 	}
-	//vector信息写入
+	//vector淇℃伅鍐欏叆
 	bool WriteDataConfig::WritePost3DDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list)
 	{
 		QList<ModelBase*> childList;
@@ -268,7 +268,7 @@ namespace FastCAEDesigner
 
 		return true;
 	}
-	//曲线详细信息写入
+	//鏇茬嚎璇︾粏淇℃伅鍐欏叆
 	bool WriteDataConfig::WriteCurveDataPara(QDomDocument &doc, QDomElement &root, QList<ModelBase*> list)
 	{
 		QMap<TreeItemType, QString> useModelDict;

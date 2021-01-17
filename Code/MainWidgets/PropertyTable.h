@@ -42,11 +42,11 @@ namespace MainWidget
 	public:
 		PropertyTable(GUI::MainWindow* m, QWidget* parent = 0);
 		~PropertyTable();
-		//ÖØÖÃ¿í¶È
+		//é‡ç½®å®½åº¦
 		void resize(int w = -1);
-		//¸üĞÂÊôĞÔ´°
+		//æ›´æ–°å±æ€§çª—
 		void updateTable(DataProperty::DataBase* data);
-		//·­Òë
+		//ç¿»è¯‘
 		void retranslate();
 
 

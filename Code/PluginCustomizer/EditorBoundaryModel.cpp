@@ -23,10 +23,10 @@ namespace FastCAEDesigner
 		delete ui;
 	}
 
-	//ÏµÍ³³õÊ¼»¯º¯Êı
+	//ç³»ç»Ÿåˆå§‹åŒ–å‡½æ•°
 	void EditorBoundaryModel::Init()
 	{
-		//Òş²Ø¸ù½ÚµãµÄ»ù±¾ĞÅÏ¢
+		//éšè—æ ¹èŠ‚ç‚¹çš„åŸºæœ¬ä¿¡æ¯
 		ui->groupBox->setHidden(true);
 
 		_commonConditionChkboxList.append(ui->chk_vt);
@@ -91,7 +91,7 @@ namespace FastCAEDesigner
 		connect(ui->chk_commonboundary, SIGNAL(clicked(bool)), this, SLOT(OnChkCommonBoundaryClicked(bool)));
 	}
 
-	//³õÊ¼»¯ËùÓĞ¸´Ñ¡¿ò¿Ø¼şµã»÷µÄ²Ûº¯Êı
+	//åˆå§‹åŒ–æ‰€æœ‰å¤é€‰æ¡†æ§ä»¶ç‚¹å‡»çš„æ§½å‡½æ•°
 	void EditorBoundaryModel::InitCheckBoxSlot()
 	{
 		QSignalMapper *signalMapper = new QSignalMapper(this);
@@ -100,7 +100,7 @@ namespace FastCAEDesigner
 		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(OnCheckboxGroupItemClicked(int)));
 	}
 	
-	//°ó¶¨Ö¸¶¨×é¸´Ñ¡¿òµÄ²ÛÏìÓ¦º¯Êıµ½ÊÕ·¢Æ÷¡£1¡¢groupIndex£º×éµÄËùÓĞ¡£2¡¢itemList£º¸´Ñ¡¿òÁĞ±í¡£3¡¢signalMapper£ºÊÕ·¢Æ÷Ö¸Õë¡£
+	//ç»‘å®šæŒ‡å®šç»„å¤é€‰æ¡†çš„æ§½å“åº”å‡½æ•°åˆ°æ”¶å‘å™¨ã€‚1ã€groupIndexï¼šç»„çš„æ‰€æœ‰ã€‚2ã€itemListï¼šå¤é€‰æ¡†åˆ—è¡¨ã€‚3ã€signalMapperï¼šæ”¶å‘å™¨æŒ‡é’ˆã€‚
 	void EditorBoundaryModel::ConnectCheckBoxGroupSlot(int groupIndex, QList<QCheckBox*> itemList, QSignalMapper *signalMapper)
 	{
 		foreach(QCheckBox* item, itemList)
@@ -113,7 +113,7 @@ namespace FastCAEDesigner
 		}
 	}
 
-	//ËùÓĞ¸´Ñ¡¿ò¿Ø¼şÏìÓ¦µÄ²Ûº¯Êı£ºindexÎª×éµÄË÷Òı£¬1Îª»ù±¾Ìõ¼ş¡£2Îª±ß½çÌõ¼ş
+	//æ‰€æœ‰å¤é€‰æ¡†æ§ä»¶å“åº”çš„æ§½å‡½æ•°ï¼šindexä¸ºç»„çš„ç´¢å¼•ï¼Œ1ä¸ºåŸºæœ¬æ¡ä»¶ã€‚2ä¸ºè¾¹ç•Œæ¡ä»¶
 	void EditorBoundaryModel::OnCheckboxGroupItemClicked(int index)
 	{
 		bool b = GetCheckBoxGroupState(index);
@@ -124,7 +124,7 @@ namespace FastCAEDesigner
 			ui->chk_commonboundary->setChecked(b);
 	}
 
-	//²Ûº¯Êı---Ok°´Å¥
+	//æ§½å‡½æ•°---OkæŒ‰é’®
 	void EditorBoundaryModel::OnBtnOkClicked()
 	{
 		UpdateUiToData();
@@ -141,7 +141,7 @@ namespace FastCAEDesigner
 		close();
 	}
 
-	//Ë¢ĞÂÊı¾İµ½UI
+	//åˆ·æ–°æ•°æ®åˆ°UI
 	void EditorBoundaryModel::UpdateDataToUi()
 	{
 		if (nullptr == _model)
@@ -152,7 +152,7 @@ namespace FastCAEDesigner
 		ui->txtIcon->setText(_model->GetIconName());
 	}
 
-	//Ë¢ĞÂUIĞÅÏ¢µ½Êı¾İ
+	//åˆ·æ–°UIä¿¡æ¯åˆ°æ•°æ®
 	void EditorBoundaryModel::UpdateUiToData()
 	{
 		if (nullptr == _model)
@@ -163,7 +163,7 @@ namespace FastCAEDesigner
 		_model->SetIconName(ui->txtIcon->text());
 	}
 
-	//³õÊ¼»¯¸÷¸ö¸´Ñ¡¿ò¿Ø¼şÑ¡ÖĞ×´Ì¬
+	//åˆå§‹åŒ–å„ä¸ªå¤é€‰æ¡†æ§ä»¶é€‰ä¸­çŠ¶æ€
 	void EditorBoundaryModel::InitCheckBoxGroup()
 	{
 		if (nullptr == _model)
@@ -176,7 +176,7 @@ namespace FastCAEDesigner
 		ui->chk_commonboundary->setChecked(b2);
 	}
 
-	//³õÊ¼»¯¸ø¶¨²ÎÊı²ÎÊıÁĞ±í¸´Ñ¡¿òÑ¡ÖĞ×´Ì¬£¬Ö»ÒªÓĞÒ»¸ö¸´Ñ¡¿òÎªÑ¡ÖĞ×´Ì¬£¬·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	//åˆå§‹åŒ–ç»™å®šå‚æ•°å‚æ•°åˆ—è¡¨å¤é€‰æ¡†é€‰ä¸­çŠ¶æ€ï¼Œåªè¦æœ‰ä¸€ä¸ªå¤é€‰æ¡†ä¸ºé€‰ä¸­çŠ¶æ€ï¼Œè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	bool EditorBoundaryModel::InitCheckboxState(QStringList list, QList<QCheckBox*> chkList)
 	{
 		bool b = false;
@@ -204,7 +204,7 @@ namespace FastCAEDesigner
 		return b;
 	}
 
-	//Éè¶¨»ù±¾²ÎÊıÊÇ·ñ¿ÉÒÔ±à¼­×´Ì¬
+	//è®¾å®šåŸºæœ¬å‚æ•°æ˜¯å¦å¯ä»¥ç¼–è¾‘çŠ¶æ€
 	void EditorBoundaryModel::SetIsEdit(bool b)
 	{
 		ui->txtChineseName->setEnabled(b);
@@ -213,7 +213,7 @@ namespace FastCAEDesigner
 		ui->btnLoadIcon->setEnabled(b);
 	}
 
-	//½¨Á¢ËùÓĞ²ÎÊıÁĞ±íµÄ×Ö·û´®Êı×é
+	//å»ºç«‹æ‰€æœ‰å‚æ•°åˆ—è¡¨çš„å­—ç¬¦ä¸²æ•°ç»„
 	QString EditorBoundaryModel::CreateBoundaryConditionParameter()
 	{
 		QStringList list;
@@ -223,7 +223,7 @@ namespace FastCAEDesigner
 		return list.join(',');
 	}
 
-	//½¨Á¢¸ø¶¨²ÎÊı×éÌõ¼şÑ¡ÖĞµÄ×Ö·û´®ÁĞ±í
+	//å»ºç«‹ç»™å®šå‚æ•°ç»„æ¡ä»¶é€‰ä¸­çš„å­—ç¬¦ä¸²åˆ—è¡¨
 	void EditorBoundaryModel::CreateConditionParameterQStringList(QStringList &pList, QList<QCheckBox*> chkList)
 	{
 		for (int i = 0; i < chkList.count(); i++)
@@ -245,19 +245,19 @@ namespace FastCAEDesigner
 		}
 	}
 
-	//²Ûº¯Êı-Í¨ÓÃÌõ¼şcheckbox±»µã»÷
+	//æ§½å‡½æ•°-é€šç”¨æ¡ä»¶checkboxè¢«ç‚¹å‡»
 	void EditorBoundaryModel::OnChkCommonConditionClicked(bool b)
 	{
 		SetCheckBoxListState(_commonConditionChkboxList, b);
 	}
 
-	//²Ûº¯Êı-±ß½çÌõ¼şcheckbox±»µã»÷
+	//æ§½å‡½æ•°-è¾¹ç•Œæ¡ä»¶checkboxè¢«ç‚¹å‡»
 	void EditorBoundaryModel::OnChkCommonBoundaryClicked(bool b)
 	{
 		SetCheckBoxListState(_commonBoundaryChkboxList, b);
 	}
 
-	//Éè¶¨Ö¸¶¨×é¸´Ñ¡¿ò¿Ø¼şµÄÑ¡ÖĞ×´Ì¬
+	//è®¾å®šæŒ‡å®šç»„å¤é€‰æ¡†æ§ä»¶çš„é€‰ä¸­çŠ¶æ€
 	void EditorBoundaryModel::SetCheckBoxListState(QList<QCheckBox*> itemList, bool b)
 	{
 		int num = itemList.count();
@@ -273,7 +273,7 @@ namespace FastCAEDesigner
 		}
 	}
 
-	//µÃµ½Ö¸¶¨×éÊÇ·ñÓĞ¿Ø¼ş¸´Ñ¡¿ò±»ÉèÖÃÑ¡ÖĞ×´Ì¬
+	//å¾—åˆ°æŒ‡å®šç»„æ˜¯å¦æœ‰æ§ä»¶å¤é€‰æ¡†è¢«è®¾ç½®é€‰ä¸­çŠ¶æ€
 	bool EditorBoundaryModel::GetCheckBoxGroupState(int groupIndex)
 	{
 		if (1 == groupIndex)
@@ -282,7 +282,7 @@ namespace FastCAEDesigner
 			return GetCheckBoxGroupState(_commonBoundaryChkboxList);
 	}
 
-	//Ö¸¶¨×éµÄ¸´Ñ¡¿ò¿Ø¼şÖ»ÒªÓĞÒ»¸ö±»Ñ¡ÖĞ£¬Ôò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	//æŒ‡å®šç»„çš„å¤é€‰æ¡†æ§ä»¶åªè¦æœ‰ä¸€ä¸ªè¢«é€‰ä¸­ï¼Œåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	bool EditorBoundaryModel::GetCheckBoxGroupState(QList<QCheckBox*> itemList)
 	{
 		bool b = false;

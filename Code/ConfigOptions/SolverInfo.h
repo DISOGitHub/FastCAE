@@ -47,7 +47,7 @@ namespace ConfigOption
 		QStringList getDependences();
 
 
-		//¶ÁÈ¡ÅäÖÃÎÄ¼şxml
+		//è¯»å–é…ç½®æ–‡ä»¶xml
 		void readXML(QDomElement *ele);
 		void writeXML(QDomDocument* doc, QDomElement *parent);
 

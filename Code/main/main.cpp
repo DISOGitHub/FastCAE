@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	XBeautyUI::instance()->autoSetStyle();
 	QString qssFileName = XBeautyUI::instance()->qssFilePath();
 
-	//**************加载qss****************** 
+	//**************鍔犺浇qss****************** 
 	QFile qssFile(qssFileName);
 	if (qssFile.exists())
 	{
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 	}
 	//*****************************************
 
-	//***************正版验证******************
+	//***************姝ｇ増楠岃瘉******************
 #ifdef Q_OS_WIN
 	// 	Confirmation confirm;
 	// 	confirm.setParent(&mainwindow);

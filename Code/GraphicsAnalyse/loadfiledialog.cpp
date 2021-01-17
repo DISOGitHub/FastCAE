@@ -24,8 +24,8 @@ void LoadFileDialog::DisplayMovie(QString MovieMsg)
 	ui->label->setMovie(movie);
 	movie->start();
 
-	//	ui->label_2->setText(QStringLiteral("º£Ñó×÷ÒµÆ½Ì¨ÊýÖµÊÔÑé±¨¸æÉú³ÉÖÐ......"));
-	//	ui->label_2->setText(glo_ship_name + QStringLiteral("ÊýÖµÊÔÑé±¨¸æÉú³ÉÖÐ......"));
+	//	ui->label_2->setText(QStringLiteral("æµ·æ´‹ä½œä¸šå¹³å°æ•°å€¼è¯•éªŒæŠ¥å‘Šç”Ÿæˆä¸­......"));
+	//	ui->label_2->setText(glo_ship_name + QStringLiteral("æ•°å€¼è¯•éªŒæŠ¥å‘Šç”Ÿæˆä¸­......"));
 	this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
 }
 LoadFileDialog::~LoadFileDialog()
@@ -38,7 +38,7 @@ LoadFileDialog::~LoadFileDialog()
 /*
 void LoadFileDialog::stopMovie()
 {
-	ui->label_2->setText(glo_ship_name+QStringLiteral("ÊýÖµÊÔÑé±¨¸æÉú³ÉÍê±Ï!"));
+	ui->label_2->setText(glo_ship_name+QStringLiteral("æ•°å€¼è¯•éªŒæŠ¥å‘Šç”Ÿæˆå®Œæ¯•!"));
 	movie->stop();
 }
 */

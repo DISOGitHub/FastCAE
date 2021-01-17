@@ -31,7 +31,7 @@ namespace FastCAEDesigner{
 
 	private:
 
-		//¶Ô²ÎÊıÁª¶¯½çÃæ½øĞĞ³õÊ¼»¯
+		//å¯¹å‚æ•°è”åŠ¨ç•Œé¢è¿›è¡Œåˆå§‹åŒ–
 		void init();
 		//void initTreeComboBox();
 		void initActiveTableWidget();
@@ -43,18 +43,18 @@ namespace FastCAEDesigner{
 
 		//20200326 xuxinwei
 		//void createTableWidget(int row, int column);
-		//½«Ïà¹Ø²ÎÊıĞÅÏ¢²åÈëTableWidgetÖĞ
+		//å°†ç›¸å…³å‚æ•°ä¿¡æ¯æ’å…¥TableWidgetä¸­
 		void insertActiveTableWidget(int row, DataProperty::ParameterBase* model);
 		void insertDrivenTableWidget(int row, DataProperty::ParameterBase* model);
 		void insertDrivenGroupTableWidget(int row, DataProperty::ParameterGroup* model);
 
 		//20200330  xuxinwei
-		//¶Ôui½çÃæµÄÏÔÊ¾½øĞĞ²Ù×÷
+		//å¯¹uiç•Œé¢çš„æ˜¾ç¤ºè¿›è¡Œæ“ä½œ
 		void setLinkageVisable(bool b);
 		void setParameterTableVisable(bool b);
 
 		//QList<DataProperty::ParameterBase*> getDrivenParameterList();
-		//»ñÈ¡ÅäÖÃÍêÖ÷¶¯²ÎÊıÁĞ±íºóÊ£ÏÂµÄËùÓĞ²ÎÊı
+		//è·å–é…ç½®å®Œä¸»åŠ¨å‚æ•°åˆ—è¡¨åå‰©ä¸‹çš„æ‰€æœ‰å‚æ•°
 		void getDrivenParameterList();
 		void getDrivenParameterGroupList();
 		//void refreshTableWidget(int row, int column, QList<DataProperty::ParameterBase*> list);
@@ -62,31 +62,31 @@ namespace FastCAEDesigner{
 		QWidget* getGroupNameWidget(int row, DataProperty::ParameterBase* model);
 		QWidget* getParameterValue(int row, DataProperty::ParameterBase* model);
 
-		//ÉèÖÃÖ÷´Ó¶¯²ÎÊıÁĞ±í
+		//è®¾ç½®ä¸»ä»åŠ¨å‚æ•°åˆ—è¡¨
 		void setActiveList();
 		void setDrivenList();
 		void setDrivenGroupList();
-		//ÉèÖÃÖ÷´Ó¶¯²ÎÊıÖµ£¬ÒÔ¼°¿É¼ûĞÔ
+		//è®¾ç½®ä¸»ä»åŠ¨å‚æ•°å€¼ï¼Œä»¥åŠå¯è§æ€§
 		void setActiveParameterValue(int row,DataProperty::ParameterBase* model);
 		void setDrivenParameterValue(int row, DataProperty::ParameterBase* model);
 		void setDrivenParameterEditAndVisible(int row, DataProperty::ParameterBase* model);
 
-		//²ÎÊıÁª¶¯µÄ·Ö²½²Ù×÷
+		//å‚æ•°è”åŠ¨çš„åˆ†æ­¥æ“ä½œ
 		void completeNameAndTypeConfiguration();
 		void completeActiveConfiguration();
 		void completeDrivenConfiguration();
 		void completeDrivenGrouopConfiguration();	
 
-		//½çÃæÊı¾İºÍdata½øĞĞ½»»¥
+		//ç•Œé¢æ•°æ®å’Œdataè¿›è¡Œäº¤äº’
 		void updateUiToData();
 		void updateDataToUi();
 
-		//¶ÔËùÓĞ²ÎÊıÒÔ¼°²ÎÊı×é½øĞĞ±¸·İ
+		//å¯¹æ‰€æœ‰å‚æ•°ä»¥åŠå‚æ•°ç»„è¿›è¡Œå¤‡ä»½
 		void setAllParameterList();
 		void setAllGroupList();
 		void copyData(DataProperty::ParameterBase* base);
 
-		//²ÎÊıÑ¡Ôñ½çÃæÓÅ»¯
+		//å‚æ•°é€‰æ‹©ç•Œé¢ä¼˜åŒ–
 		bool getParameterState(QList<DataProperty::ParameterBase*> list, DataProperty::ParameterBase* data);
 		void repalceDataValue(DataProperty::ParameterBase* o, DataProperty::ParameterBase* n);
 		bool getParameterGroupState(QList<DataProperty::ParameterGroup*> list, DataProperty::ParameterGroup* data);
@@ -97,7 +97,7 @@ namespace FastCAEDesigner{
 		
 
 	private slots:
-		//ÉÏÒ»²½ÏÂÒ»²½²Ù×÷
+		//ä¸Šä¸€æ­¥ä¸‹ä¸€æ­¥æ“ä½œ
 		void onLastStepQPBClicked();
 		void onNextStepQPBClicked();
 		//void setParameterList(DataProperty::ParameterBase* model);

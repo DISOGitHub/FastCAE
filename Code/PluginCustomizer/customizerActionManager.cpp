@@ -40,14 +40,14 @@ namespace Plugins
 
 	}
 
-	//³õÊ¼»¯ÔËĞĞ»·¾³
+	//åˆå§‹åŒ–è¿è¡Œç¯å¢ƒ
 	void CustomActionManager::init()
 	{
 		FillCustomMenu();
 		
 	}
 
-	//¿ªÊ¼¶¨ÖÆ
+	//å¼€å§‹å®šåˆ¶
 	void CustomActionManager::on_startCustom_slot()
 	{
 		_plugin->isUsing(true);
@@ -62,7 +62,7 @@ namespace Plugins
 		_mainWindow->getCustomizerHelper()->startCustomizer();
 
 		//Added xvdongming
-		//¸ø³öÕıÔÚ¶¨ÖÆµÄ±êÊ¶
+		//ç»™å‡ºæ­£åœ¨å®šåˆ¶çš„æ ‡è¯†
 		QString title = _mainWindow->windowTitle();
 		_mainWindow->setWindowTitle(title + " ---- " + tr("Customizing"));
 
@@ -84,31 +84,31 @@ namespace Plugins
 		CreateTopMenu(tr("Plugin"), false);
 		FillHelpMenu();
 
-		FillFileToolBar();					//½¨Á¢ÎÄ¼ş¹¤¾ßÀ¸
-		FillSolveToolBar();					//½¨Á¢Çó½â¹¤¾ßÀ¸
-		FillViewerToolBar();				//½¨Á¢ÊÓÍ¼¹¤¾ßÀ¸
-		FillSelectToolBar();				//½¨Á¢Ñ¡Ôñ¹¤¾ßÀ¸
-		FillSplitMeshToolBar();				//½¨Á¢Íø¸ñÆÊ·Ö¹¤¾ßÀ¸
-		FillViewToolBar();					//½¨Á¢²é¿´Íø¸ñ¼¸ºÎ¹¤¾ßÀ¸
-		FillCheckCreatToolBar();			//½¨Á¢Íø¸ñ¼ì²â´´½¨×é¼ş¹¤¾ßÀ¸
-		FillURDoToolBar();					//½¨Á¢³·Ïú»Ö¸´¹¤¾ßÀ¸
+		FillFileToolBar();					//å»ºç«‹æ–‡ä»¶å·¥å…·æ 
+		FillSolveToolBar();					//å»ºç«‹æ±‚è§£å·¥å…·æ 
+		FillViewerToolBar();				//å»ºç«‹è§†å›¾å·¥å…·æ 
+		FillSelectToolBar();				//å»ºç«‹é€‰æ‹©å·¥å…·æ 
+		FillSplitMeshToolBar();				//å»ºç«‹ç½‘æ ¼å‰–åˆ†å·¥å…·æ 
+		FillViewToolBar();					//å»ºç«‹æŸ¥çœ‹ç½‘æ ¼å‡ ä½•å·¥å…·æ 
+		FillCheckCreatToolBar();			//å»ºç«‹ç½‘æ ¼æ£€æµ‹åˆ›å»ºç»„ä»¶å·¥å…·æ 
+		FillURDoToolBar();					//å»ºç«‹æ’¤é”€æ¢å¤å·¥å…·æ 
 		_mainWindow->addToolBarBreak();
-		FillCreateSketchToolBar();			//½¨Á¢²İ»æ¹¤¾ßÀ¸
-		FillFeatureModingToolBar();			//½¨Á¢¼¸ºÎ½¨Ä£¹¤¾ßÀ¸
-		FillFeatureOperations1ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸1
-		FillFeatureOperations2ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸2
-		FillFeatureOperations3ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸3
+		FillCreateSketchToolBar();			//å»ºç«‹è‰ç»˜å·¥å…·æ 
+		FillFeatureModingToolBar();			//å»ºç«‹å‡ ä½•å»ºæ¨¡å·¥å…·æ 
+		FillFeatureOperations1ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 1
+		FillFeatureOperations2ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 2
+		FillFeatureOperations3ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 3
 		fillGeometryEditToolBar();
 		fillMeasuredDistanceToolBar();
 
 		//Added xvdongming
-		initMenuAndToolBar();	//³õÊ¼»¯²Ëµ¥¹¤¾ßÀ¸
+		initMenuAndToolBar();	//åˆå§‹åŒ–èœå•å·¥å…·æ 
 
 		//libaojun
 		OnParaFunctionParaSetup();
 	}
 
-	//Ğ¶ÔØ²å¼ş
+	//å¸è½½æ’ä»¶
 	void CustomActionManager::release()
 	{
 		_menu->removeAction(_startAction);
@@ -122,7 +122,7 @@ namespace Plugins
 		_menu = nullptr;
 	}
 
-	//Íê³É¶¨ÖÆ
+	//å®Œæˆå®šåˆ¶
 	void CustomActionManager::on_finishCustom_slot()
 	{
 		FastCAEDesigner::DataManager::getInstance()->SetPhysicsList(_functionTreeSetup->GetPhysicsList());
@@ -144,7 +144,7 @@ namespace Plugins
 		this->quitCustomizer();		
 	}
 
-	//³·Ïú¶¨ÖÆ
+	//æ’¤é”€å®šåˆ¶
 	void CustomActionManager::on_cancelCustom_slot()
 	{
 		//QMessageBox::StandardButton b = QMessageBox::warning(_mainWindow, QString(tr("Warning")), QString(tr("Quit customizer without saving options?")), QMessageBox::Yes|QMessageBox::No);
@@ -160,7 +160,7 @@ namespace Plugins
 		FastCAEDesigner::ParaManagerData::getInstance()->setReadFlag(true);
 	}
 
-	//·¢²¼°æ±¾
+	//å‘å¸ƒç‰ˆæœ¬
 	void CustomActionManager::on_share_slot()
 	{
 #ifdef Q_OS_WIN
@@ -178,7 +178,7 @@ namespace Plugins
 #endif
 	}
 
-	//»ù±¾²ÎÊıÉè¶¨
+	//åŸºæœ¬å‚æ•°è®¾å®š
 	void CustomActionManager::OnParaBaseSetup()
 	{
 		//xuxinwei 20200305
@@ -196,7 +196,7 @@ namespace Plugins
 		}
 	}
 
-	//Éè¶¨ÓÃ»§ÊÖ²á
+	//è®¾å®šç”¨æˆ·æ‰‹å†Œ
 	void CustomActionManager::OnParaUserManualSetup()
 	{
 		FastCAEDesigner::ParaUserManualSetup dlg(FastCAEDesigner::DataManager::getInstance()->getGlobalConfig(), _mainWindow);
@@ -211,7 +211,7 @@ namespace Plugins
 	}
 
 
-	//ÊäÈë¼¸ºÎ²ÎÊıÉè¶¨
+	//è¾“å…¥å‡ ä½•å‚æ•°è®¾å®š
 	void CustomActionManager::OnParaImportGeometrySetup()
 	{
 		FastCAEDesigner::ParaImportGeometrySetup dlg(true,_mainWindow);
@@ -232,7 +232,7 @@ namespace Plugins
 
 	}
 
-	//Êä³ö¼¸ºÎ²ÎÊıÉè¶¨
+	//è¾“å‡ºå‡ ä½•å‚æ•°è®¾å®š
 	void CustomActionManager::OnParaExportGeometrySetup()
 	{
 		FastCAEDesigner::ParaImportGeometrySetup dlg(false, _mainWindow);
@@ -252,7 +252,7 @@ namespace Plugins
 		}
 	}
 
-	//ÊäÈëÍø¸ñÎÄ¼şÀàĞÍÉè¶¨
+	//è¾“å…¥ç½‘æ ¼æ–‡ä»¶ç±»å‹è®¾å®š
 	void CustomActionManager::OnParaImportMeshSetup()
 	{
 		FastCAEDesigner::ParaImportMeshSetup dlg(_mainWindow);
@@ -272,7 +272,7 @@ namespace Plugins
 			updateMeshSelectAndView();
 		}
 	}
-	//Êä³öÍø¸ñÎÄ¼şÀàĞÍÉè¶¨
+	//è¾“å‡ºç½‘æ ¼æ–‡ä»¶ç±»å‹è®¾å®š
 	void CustomActionManager::OnParaExportMeshSetup()
 	{
 		FastCAEDesigner::ParaExportMeshSetup dlg(_mainWindow);
@@ -293,25 +293,25 @@ namespace Plugins
 	}
 
 
-	//½¨Á¢¶¨ÖÆ²Ëµ¥
+	//å»ºç«‹å®šåˆ¶èœå•
 	void CustomActionManager::FillCustomMenu()
 	{
 		QString des = _plugin->getDescribe();
 		_menu = new QMenu(des);
 		_cusAction = _mainWindow->menuBar()->insertMenu(nullptr, _menu);
-		//¿ªÊ¼¶¨ÖÆ²Ëµ¥
+		//å¼€å§‹å®šåˆ¶èœå•
 		_startAction = new QAction(tr("Start Customizer"), _mainWindow);
 		_menu->addAction(_startAction);
 
-		//Íê³É¶¨ÖÆ²Ëµ¥
+		//å®Œæˆå®šåˆ¶èœå•
 		_finishAction = new QAction(tr("Finish Customizer"), _mainWindow);
 		_menu->addAction(_finishAction);
 
-		//È¡Ïû¶¨ÖÆ²Ëµ¥
+		//å–æ¶ˆå®šåˆ¶èœå•
 		_cancelAction = new QAction(tr("Cancel Customizer"), _mainWindow);
 		_menu->addAction(_cancelAction);
 
-		//·¢²¼Èí¼ş
+		//å‘å¸ƒè½¯ä»¶
 		_shareAction = new QAction(tr("Share & Release"), _mainWindow);
 		_menu->addAction(_shareAction);
 
@@ -325,7 +325,7 @@ namespace Plugins
 		_cancelAction->setEnabled(false);
 	}
 
-	//½¨Á¢°ïÖú²Ëµ¥
+	//å»ºç«‹å¸®åŠ©èœå•
 	void CustomActionManager::FillHelpMenu()
 	{
 		_menuHelp = CreateTopMenu(tr("Help"));
@@ -338,7 +338,7 @@ namespace Plugins
 //		connect(designer, SIGNAL(triggered()), this, SLOT(OnParaFunctionParaSetup()));
 	}
 
-	//½¨Á¢ÎÄ¼ş²Ëµ¥
+	//å»ºç«‹æ–‡ä»¶èœå•
 	void CustomActionManager::FillFileMenu()
 	{
 		_menuFile = CreateTopMenu(tr("File"));
@@ -369,7 +369,7 @@ namespace Plugins
 		connect(_exportMesh, SIGNAL(triggered()), this, SLOT(OnParaExportMeshSetup()));
 	}
 
-	//½¨Á¢¼¸ºÎ²Ëµ¥
+	//å»ºç«‹å‡ ä½•èœå•
 	void CustomActionManager::FillGeometryMenu()
 	{
 		_menuGeometry = CreateTopMenu(tr("Geometry"));
@@ -400,7 +400,7 @@ namespace Plugins
 
 		CreateActionSeparator(_menuGeometry);
 
-		//±£´æ×Ó²Ëµ¥Ïî£¬ÔÚÍË³ö¶¨ÖÆÊ±Çå³ı²Ëµ¥Ïî¡£
+		//ä¿å­˜å­èœå•é¡¹ï¼Œåœ¨é€€å‡ºå®šåˆ¶æ—¶æ¸…é™¤èœå•é¡¹ã€‚
 		_actionList.append(_geoFeatureModelingCheckbox);
 		_actionList.append(_geoFeatureOperationCheckbox);
 		_actionList.append(_geoDraftCheckbox);
@@ -446,7 +446,7 @@ namespace Plugins
 		
 	}
 
-	//½¨Á¢Íø¸ñ²Ëµ¥
+	//å»ºç«‹ç½‘æ ¼èœå•
 	void CustomActionManager::FillMeshMenu()
 	{
 		_menuMesh = CreateTopMenu(tr("Mesh"));
@@ -497,7 +497,7 @@ namespace Plugins
 		//connect(_importGeometry, SIGNAL(triggered()), this, SLOT(OnParaImportGeometrySetup()));
 		//connect(_exportGeometry, SIGNAL(triggered()), this, SLOT(OnParaExportGeometrySetup()));
 
-		//±£´æ×Ó²Ëµ¥Ïî£¬ÔÚÍË³ö¶¨ÖÆÊ±Çå³ı²Ëµ¥Ïî¡£
+		//ä¿å­˜å­èœå•é¡¹ï¼Œåœ¨é€€å‡ºå®šåˆ¶æ—¶æ¸…é™¤èœå•é¡¹ã€‚
 		_actionList.append(_meshSurfaceCheckbox);
 		_actionList.append(_meshSolidCheckbox);
 		_actionList.append(_meshCheckingCheckbox);
@@ -524,7 +524,7 @@ namespace Plugins
 
 	}
 
-	//½¨Á¢Çó½â²Ëµ¥
+	//å»ºç«‹æ±‚è§£èœå•
 	void CustomActionManager::FillSolveMenu()
 	{
 		_menuSolve = CreateTopMenu(tr("Solve"));
@@ -535,15 +535,15 @@ namespace Plugins
 		connect(_solverManager, SIGNAL(triggered()), this, SLOT(OnParaSolverManager()));
 	}
 
-	//½¨Á¢²Ëµ¥·Ö¸ô·û
+	//å»ºç«‹èœå•åˆ†éš”ç¬¦
 	QAction* CustomActionManager::CreateActionSeparator(QMenu *menu)
 	{
-		QAction* action = menu->addSeparator();   //Ìí¼Ó·Ö¸îÏß
+		QAction* action = menu->addSeparator();   //æ·»åŠ åˆ†å‰²çº¿
 		_actionList.append(action);
 		return action;
 	}
 
-	//½¨Á¢×Ó²Ëµ¥Ïî
+	//å»ºç«‹å­èœå•é¡¹
 	QAction* CustomActionManager::CreateAction(QString text, QObject* parent, bool enable)
 	{
 		QAction*  action = new QAction(text, parent);
@@ -552,7 +552,7 @@ namespace Plugins
 		return action;
 	}
 
-	//½¨Á¢×Ó²Ëµ¥£¬²¢½«×ÓÏî²åÈëÖµ¶¥²ã²Ëµ¥ÖĞ
+	//å»ºç«‹å­èœå•ï¼Œå¹¶å°†å­é¡¹æ’å…¥å€¼é¡¶å±‚èœå•ä¸­
 	QAction* CustomActionManager::CreateAction(QString text, QMenu* parentMenu, QObject* parent, bool enable)
 	{
 		QAction*  action = new QAction(text, parent);
@@ -562,7 +562,7 @@ namespace Plugins
 		return action;
 	}
 
-	//½¨Á¢×Ó²Ëµ¥£¬²¢½«×ÓÏî²åÈëÖµ¶¥²ã²Ëµ¥ÖĞ.´øÍ¼±êºÍ¿ì½İ¼ü
+	//å»ºç«‹å­èœå•ï¼Œå¹¶å°†å­é¡¹æ’å…¥å€¼é¡¶å±‚èœå•ä¸­.å¸¦å›¾æ ‡å’Œå¿«æ·é”®
 	QAction* CustomActionManager::CreateAction(QString text, QString icon, QString ShortcutKey, QMenu* parentMenu, QObject* parent, bool enable)
 	{
 		QAction*  action = new QAction(text, parent);
@@ -574,7 +574,7 @@ namespace Plugins
 		return action;
 	}
 
-	//½¨Á¢¶¥²ã²Ëµ¥
+	//å»ºç«‹é¡¶å±‚èœå•
 	QMenu* CustomActionManager::CreateTopMenu(QString text, bool enable)
 	{
 		if (nullptr == _mainWindow || nullptr == _mainWindow->menuBar())
@@ -594,7 +594,7 @@ namespace Plugins
 		return menu;
 	}
 
-	//Ğ¶ÔØ²å¼şÊ±£¬É¾³ı×Ó²Ëµ¥ºÍ¶¥²ã²Ëµ¥ÒÔ¼°¹¤¾ßÀ¸
+	//å¸è½½æ’ä»¶æ—¶ï¼Œåˆ é™¤å­èœå•å’Œé¡¶å±‚èœå•ä»¥åŠå·¥å…·æ 
 	template <typename T>
 	void CustomActionManager::RemoveList(QList<T> list)
 	{
@@ -611,7 +611,7 @@ namespace Plugins
 	}
 
 
-	//½¨Á¢×ÓÏî£¬²¢½«Æä²åÈë¹¤¾ßÀ¸£¬´øÍ¼±ê
+	//å»ºç«‹å­é¡¹ï¼Œå¹¶å°†å…¶æ’å…¥å·¥å…·æ ï¼Œå¸¦å›¾æ ‡
 	QAction* CustomActionManager::CreateAction(QString text, QString icon, QToolBar* parentTool, QObject* parent)
 	{
 		QAction*  action = new QAction(text, parent);
@@ -624,7 +624,7 @@ namespace Plugins
 		return action;
 	}
 
-	//´´½¨¹¤¾ßÀ¸
+	//åˆ›å»ºå·¥å…·æ 
 	QToolBar* CustomActionManager::CreateToolBar(QString text)
 	{
 		QToolBar* toolbar = _mainWindow->addToolBar(text);
@@ -633,7 +633,7 @@ namespace Plugins
 		return toolbar;
 	}
 
-	//½¨Á¢ÎÄ¼ş¹¤¾ßÀ¸
+	//å»ºç«‹æ–‡ä»¶å·¥å…·æ 
 	void CustomActionManager::FillFileToolBar()
 	{
 		_fileToolBar = CreateToolBar("file");
@@ -648,7 +648,7 @@ namespace Plugins
 
 	}
 
-	//½¨Á¢Íø¸ñÆÊ·Ö¹¤¾ßÀ¸
+	//å»ºç«‹ç½‘æ ¼å‰–åˆ†å·¥å…·æ 
 	void CustomActionManager::FillSplitMeshToolBar()
 	{
 		_splitMeshToolBar = CreateToolBar("SplitMesh");
@@ -661,7 +661,7 @@ namespace Plugins
 		CreateAction(tr("GenMesh"), ":/QUI/icon/solumationsetting.png", _splitMeshToolBar, _mainWindow);
 	}
 
-	//½¨Á¢Ñ¡Ôñ¹¤¾ßÀ¸
+	//å»ºç«‹é€‰æ‹©å·¥å…·æ 
 	void CustomActionManager::FillSelectToolBar()
 	{
 		_selectToolBar = CreateToolBar("Select");
@@ -680,7 +680,7 @@ namespace Plugins
 		_geoSelect4 = CreateAction(tr("SelectGeometryBody"), ":/QUI/geometry/selectbody.png", _selectToolBar, _mainWindow);
 	}
 
-	//½¨Á¢²é¿´Íø¸ñ¼¸ºÎ¹¤¾ßÀ¸
+	//å»ºç«‹æŸ¥çœ‹ç½‘æ ¼å‡ ä½•å·¥å…·æ 
 	void CustomActionManager::FillViewToolBar()
 	{
 		_viewToolBar = CreateToolBar("View");
@@ -697,7 +697,7 @@ namespace Plugins
 		_geoDisplay3 = CreateAction(tr("DisplayFace"), ":/QUI/geometry/facedisplay.png", _viewToolBar, _mainWindow);
 	}
 
-	//½¨Á¢Çó½â¹¤¾ßÀ¸
+	//å»ºç«‹æ±‚è§£å·¥å…·æ 
 	void CustomActionManager::FillSolveToolBar()
 	{
 		_solveToolBar = CreateToolBar("Solve");
@@ -707,7 +707,7 @@ namespace Plugins
 		CreateAction(tr("Solve"), ":/QUI/icon/solve.png", _solveToolBar, _mainWindow);
 	}
 
-	//½¨Á¢ÊÓÍ¼¹¤¾ßÀ¸
+	//å»ºç«‹è§†å›¾å·¥å…·æ 
 	void CustomActionManager::FillViewerToolBar()
 	{
 		_viewerToolBar = CreateToolBar("Viewer");
@@ -724,7 +724,7 @@ namespace Plugins
 		_viewerToolBar->addSeparator();
 	}
 
-	//½¨Á¢Íø¸ñ¼ì²â´´½¨×é¼ş¹¤¾ßÀ¸
+	//å»ºç«‹ç½‘æ ¼æ£€æµ‹åˆ›å»ºç»„ä»¶å·¥å…·æ 
 	void CustomActionManager::FillCheckCreatToolBar()
 	{
 		_checkCreatToolBar = CreateToolBar("CheckCreate");
@@ -738,7 +738,7 @@ namespace Plugins
 		_meshModeling = CreateAction(tr("Mesh Modeling"), ":/QUI/icon/meshmodeling.png", _checkCreatToolBar, _mainWindow);
 	}
 
-	//½¨Á¢³·Ïú»Ö¸´¹¤¾ßÀ¸
+	//å»ºç«‹æ’¤é”€æ¢å¤å·¥å…·æ 
 	void CustomActionManager::FillURDoToolBar()
 	{
 		_URDoToolBar = CreateToolBar("URDo");
@@ -749,7 +749,7 @@ namespace Plugins
 		_geoRedo = CreateAction(tr("redo"), ":/QUI/geometry/redo.png", _URDoToolBar, _mainWindow);
 	}
 
-	//½¨Á¢²İ»æ¹¤¾ßÀ¸
+	//å»ºç«‹è‰ç»˜å·¥å…·æ 
 	void CustomActionManager::FillCreateSketchToolBar()
 	{
 		_createSketchToolBar = CreateToolBar("CreateSketch");
@@ -759,7 +759,7 @@ namespace Plugins
 		CreateAction(tr("Create Sketch"), ":/QUI/icon/createSketch.png", _createSketchToolBar, _mainWindow);
 	}
 
-	//½¨Á¢¼¸ºÎ½¨Ä£¹¤¾ßÀ¸
+	//å»ºç«‹å‡ ä½•å»ºæ¨¡å·¥å…·æ 
 	void CustomActionManager::FillFeatureModingToolBar()
 	{
 		_featureModingToolBar = CreateToolBar("FeatureModing");
@@ -776,7 +776,7 @@ namespace Plugins
 		CreateAction(tr("Create Datum Plane"), ":/QUI/icon/datumPlane.png", _featureModingToolBar, _mainWindow);
 	}
 
-	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸1
+	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 1
 	void CustomActionManager::FillFeatureOperations1ToolBar()
 	{
 		_featureOperations1ToolBar = CreateToolBar("FeatureOperations1");
@@ -788,7 +788,7 @@ namespace Plugins
 		CreateAction(tr("Variable Fillet"), ":/QUI/geometry/variableFillet.png", _featureOperations1ToolBar, _mainWindow);
 	}
 
-	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸2
+	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 2
 	void CustomActionManager::FillFeatureOperations2ToolBar()
 	{
 		_featureOperations2ToolBar = CreateToolBar("FeatureOperations2");
@@ -800,7 +800,7 @@ namespace Plugins
 		CreateAction(tr("BoolCommon"), ":/QUI/geometry/common.png", _featureOperations2ToolBar, _mainWindow);
 	}
 
-	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸3
+	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 3
 	void CustomActionManager::FillFeatureOperations3ToolBar()
 	{
 		_featureOperations3ToolBar = CreateToolBar("FeatureOperations3");
@@ -842,7 +842,7 @@ namespace Plugins
 		_geoFeatureOperationCheckbox->setChecked(geoConfig->isGeometryOperationsEnabled());
 		_geoDraftCheckbox->setChecked(geoConfig->isCreateSketchEnabled());
 	}*/
-	//¸üĞÂ´´½¨²İÍ¼¹¤¾ßÀ¸
+	//æ›´æ–°åˆ›å»ºè‰å›¾å·¥å…·æ 
 	void CustomActionManager::UpdateCreateSketchToolBar(int status)
 	{
 		bool b = (status > 0) ? true : false;
@@ -857,7 +857,7 @@ namespace Plugins
 		
 		updateGeometrySelectAndView();
 	}
-	//¸üĞÂÌØÕ÷½¨Ä£¹¤¾ßÀ¸
+	//æ›´æ–°ç‰¹å¾å»ºæ¨¡å·¥å…·æ 
 	void CustomActionManager::UpdateFeatureModingToolBar(int status)
 	{
 		bool b = (status > 0) ? true : false;
@@ -872,7 +872,7 @@ namespace Plugins
 
 		updateGeometrySelectAndView();
 	}
-	//¸üĞÂÌØÕ÷²Ù×÷¹¤¾ßÀ¸
+	//æ›´æ–°ç‰¹å¾æ“ä½œå·¥å…·æ 
 	void CustomActionManager::UpdateFeatureOperationsToolBar(int status)
 	{
 		bool b = (status > 0) ? true : false;
@@ -919,7 +919,7 @@ namespace Plugins
 		_geoSetCreate->setVisible(b);
 	}
 
-	//¸üĞÂMeshÏà¹Ø²Ù×÷¶ÔÓ¦¹¤¾ßÀ¸
+	//æ›´æ–°Meshç›¸å…³æ“ä½œå¯¹åº”å·¥å…·æ 
 	void CustomActionManager::UpdateSurfaceAction(int status)
 	{
 		bool b = (status > 0) ? true : false;
@@ -1001,7 +1001,7 @@ namespace Plugins
 		_meshModeling->setVisible(b);
 	}
 
-	//³õÊ¼»¯²Ëµ¥¹¤¾ßÀ¸
+	//åˆå§‹åŒ–èœå•å·¥å…·æ 
 	void CustomActionManager::initActionstatus(FastCAEDesigner::QFWidgetAction* action,bool on)
 	{
 		if (action == nullptr)
@@ -1010,7 +1010,7 @@ namespace Plugins
 	}
 	void CustomActionManager::initMenuAndToolBar()
 	{
-		//³õÊ¼»¯²Ëµ¥¹¤¾ßÀ¸
+		//åˆå§‹åŒ–èœå•å·¥å…·æ 
 		bool isGeoModeling = FastCAEDesigner::DataManager::getInstance()->GetGeometryFeatureModeling();
 		bool isGeoOperations = FastCAEDesigner::DataManager::getInstance()->GetGeometryFeatureOperatins();
 		bool isCreateSketch = FastCAEDesigner::DataManager::getInstance()->GetGeometryCreateSketch();

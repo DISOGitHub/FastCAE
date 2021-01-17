@@ -23,13 +23,13 @@ namespace FastCAEDesigner{
 	public:
 		static ParaManagerData* getInstance();
 
-		//ÉèÖÃlinkageDataÁĞ±í
+		//è®¾ç½®linkageDataåˆ—è¡¨
 		void setParameterLinkageList(int type, ParaLinkageData* data);
-		//»ñÈ¡Ö¸¶¨ÁĞ±íÖĞµÄÈ·¶¨linkagData
+		//è·å–æŒ‡å®šåˆ—è¡¨ä¸­çš„ç¡®å®šlinkagData
 		ParaLinkageData* getParameterLinkageData(int type, int index);
-		//»ñÈ¡linkageDataµÄÁĞ±í
+		//è·å–linkageDataçš„åˆ—è¡¨
 		QList<ParaLinkageData*> getParameterLinkageList(int type);
-		//½«Ò»¸ölinkageDataµÄÊı¾İ´ÓÖ¸¶¨ÁĞ±íÖĞÒÆ³ı
+		//å°†ä¸€ä¸ªlinkageDataçš„æ•°æ®ä»æŒ‡å®šåˆ—è¡¨ä¸­ç§»é™¤
 		void removeParameterLinkageDataFromList(int type, int index);
 		void removeParameterLinkageDataFromList(ParaLinkageData* data);
 
@@ -40,33 +40,33 @@ namespace FastCAEDesigner{
 		void setReadFlag(bool b);
 
 	private:
-		//Ğ´observerconfigÎÄ¼ş
+		//å†™observerconfigæ–‡ä»¶
 		void writexml(QDomDocument doc, QDomElement root, int type, QList<ParaLinkageData*> list);
 		void writeActiveData(QDomDocument doc, QDomElement root, ParaLinkageData* data);
 		void writeFollowData(QDomDocument doc, QDomElement root, ParaLinkageData* data);
 		void writeDrivenData(QDomDocument doc, QDomElement driven, ParaLinkageData* data);
 		void writeDrivenGroupData(QDomDocument doc, QDomElement root, ParaLinkageData* data);
-		//µ÷ÓÃÖ÷º¯ÊıÖĞµÄĞ´xml
+		//è°ƒç”¨ä¸»å‡½æ•°ä¸­çš„å†™xml
 		void writeActieParamters(QDomDocument doc, QDomElement root, ParaLinkageData* data);
 		void writeFollowParamters(QDomDocument doc, QDomElement root, ParaLinkageData* data);
 
-		//¶ÁÈ¡observerconfig²¢ÉèÖÃÊı¾İ
+		//è¯»å–observerconfigå¹¶è®¾ç½®æ•°æ®
 		QList<ParaLinkageData*> readObserverList(QDomElement* ele, ProjectTreeType type);
 		void readObserver(QDomElement* ele, ProjectTreeType type, ParaLinkageData* data);
 
 		void setActiveData(QDomElement* ele, DataProperty::ParameterBase* p);
 		void setDrivenData(QDomElement* ele, DataProperty::ParameterBase* p);
 
-		//boolÀàĞÍºÍQStringÀàĞÍ×ª»¯
+		//boolç±»å‹å’ŒQStringç±»å‹è½¬åŒ–
 		QString dataBoolToQString(bool l);
 		bool dataQStringToBool(QString s);
 
-		//»ñÈ¡²ÎÊıµÄ²ÎÊıÖµ
+		//è·å–å‚æ•°çš„å‚æ•°å€¼
 		QString getDataValue(DataProperty::ParameterBase* data);
-		//½«Ïà¹ØĞÅÏ¢²åÈëmapÖĞ
+		//å°†ç›¸å…³ä¿¡æ¯æ’å…¥mapä¸­
 		QMap<QString, QString> insertValueToMap(QStringList var, QStringList val);
 
-		//»ñÈ¡observerconfigµÄµØÖ·
+		//è·å–observerconfigçš„åœ°å€
 		QString getFileName();
 
 	private:

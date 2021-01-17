@@ -1,4 +1,4 @@
-﻿#ifndef ANIPOINTTHREAD_H
+#ifndef ANIPOINTTHREAD_H
 #define ANIPOINTTHREAD_H
 
 #include <QThread>

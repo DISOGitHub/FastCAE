@@ -22,37 +22,37 @@ namespace Setting
 	class SETTINGAPI BusAPI
 	{
 	public:
-		//»ñÈ¡µ¥ÀıÖ¸Õë
+		//è·å–å•ä¾‹æŒ‡é’ˆ
 		static BusAPI* instance();
-		//Ğ´³öini
+		//å†™å‡ºini
 		void writeINI();
-		//ÉèÖÃ¹¤×÷Â·¾¶
+		//è®¾ç½®å·¥ä½œè·¯å¾„
 		void setWorkingDir();
 // 		void setDesignModel(bool m);
 // 		bool isDesignModel();
-		//»ñÈ¡¹¤×÷Â·¾¶
+		//è·å–å·¥ä½œè·¯å¾„
 		QString getWorkingDir();
 //		void setSolver();
-		//ÉèÖÃÓïÑÔ ¡°Chinese¡±  ¡°English¡±
+		//è®¾ç½®è¯­è¨€ â€œChineseâ€  â€œEnglishâ€
 		void setLanguage(const QString lang);
-		//»ñÈ¡µ±Ç°ÓïÑÔ
+		//è·å–å½“å‰è¯­è¨€
 		QString getLanguage();
 // 		SolverManager* getSolverManager();
 // 		void setSolverOptions();
 // 		SolveOption* getSolveOptions();
-		//ÉèÖÃ»æÍ¼Ñ¡Ïî
+		//è®¾ç½®ç»˜å›¾é€‰é¡¹
 		void setGraphOptions();
-		//»ñÈ¡»æÍ¼Ñ¡Ïî
+		//è·å–ç»˜å›¾é€‰é¡¹
 		GraphOption* getGraphOption();
-		//»ñÈ¡×î½üÎÄ¼ş
+		//è·å–æœ€è¿‘æ–‡ä»¶
 		QStringList getRencetFiles();
-		//Ìí¼Ó×î½üÎÄ¼ş
+		//æ·»åŠ æœ€è¿‘æ–‡ä»¶
 		void appendRecentFile(QString f);
-		//ÉèÖÃÒÑ¾­¼ÓÔØµÄ²å¼ş
+		//è®¾ç½®å·²ç»åŠ è½½çš„æ’ä»¶
 		void setPlugins(QStringList p);
-		//»ñÈ¡ÒÑ¾­¼ÓÔØµÄ²å¼ş
+		//è·å–å·²ç»åŠ è½½çš„æ’ä»¶
 		QStringList getPlugins();
-		//ÉèÖÃÊÇ·ñĞèÒªÓÃ»§Ïòµ¼
+		//è®¾ç½®æ˜¯å¦éœ€è¦ç”¨æˆ·å‘å¯¼
 		void isEnableUserGuidence(bool s);
 		bool isEnableUserGuidence();
 

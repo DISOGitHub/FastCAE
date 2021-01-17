@@ -30,36 +30,36 @@ namespace Post
 	public:
 		PostWindowBase(GUI::MainWindow* mainwindow, int proID, ModuleBase::GraphWindowType gt, PostWindowType type);
 		~PostWindowBase();
-		//ÉèÖÃÀàĞÍ
+		//è®¾ç½®ç±»å‹
 		void setWindowType(PostWindowType type);
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		PostWindowType getPostWindowType();
-		//Ìí¼Ó»æÍ¼´°¿Ú
+		//æ·»åŠ ç»˜å›¾çª—å£
 		void appendGraphWindow(ModuleBase::GraphWindowBase* g);
-		//ÒÆ³ı´°¿Ú
+		//ç§»é™¤çª—å£
 		void removeGraphWindow(ModuleBase::GraphWindowBase* g);
-		//ÒÆ³ıµÚindex¸ö»æÍ¼´°¿Ú
+		//ç§»é™¤ç¬¬indexä¸ªç»˜å›¾çª—å£
 		void removeGraphWindow(int index);
-		//Çå¿ÕÈ«²¿»æÍ¼´°¿Ú
+		//æ¸…ç©ºå…¨éƒ¨ç»˜å›¾çª—å£
 		void removeAllGraphWindow();
-		//ÉèÖÃÊ÷ĞÎ´°¿Ú
+		//è®¾ç½®æ ‘å½¢çª—å£
 		void setTreeWidget(QWidget* w);
-		//»ñÈ¡Ê÷ĞÎ´°¿Ú
+		//è·å–æ ‘å½¢çª—å£
 		QWidget* getTreeWidget();
-		//ÉèÖÃÊôĞÔ´°¿Ú
+		//è®¾ç½®å±æ€§çª—å£
 		void setPropWidget(QWidget* w);
-		//»ñÈ¡ÊôĞÔ´°¿Ú
+		//è·å–å±æ€§çª—å£
 		QWidget* getPropWidget();
-		//Ìí¼Ó¹¤¾ßÌõ
+		//æ·»åŠ å·¥å…·æ¡
 		void appendToolBar(QToolBar* toolbar);
-		//ÒÆ³ı¹¤¾ßÌõ
+		//ç§»é™¤å·¥å…·æ¡
 		void removeToolBar(QToolBar* toolbar);
-		//»ñÈ¡È«²¿¹¤¾ßÌõ
+		//è·å–å…¨éƒ¨å·¥å…·æ¡
 		QList<QToolBar*> getToolBarList();
 		virtual void setView(QString view) override;
 		virtual void setViewValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3) override;
 	signals:
-		//¹Ø±Õ´°¿ÚĞÅºÅ
+		//å…³é—­çª—å£ä¿¡å·
 		void closeWindowSignal(Post::PostWindowBase* w);
 
 	protected:

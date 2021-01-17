@@ -15,18 +15,18 @@ namespace Material
 	public:
 		Material(bool IDplus = true);
 		~Material() = default;
-		//»ñÈ¡×î´óID
+		//è·å–æœ€å¤§ID
 		static int getMaxID();
 		void enableID(bool on);
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		QString getType();
-		//ÉèÖÃÀàĞÍ
+		//è®¾ç½®ç±»å‹
 		void setType(QString type);
-		//¿½±´Êı¾İ
+		//æ‹·è´æ•°æ®
 		void copy(DataBase* data) override;
-		//´Ó¹¤³ÌÎÄ¼ş¶ÁÈë
+		//ä»å·¥ç¨‹æ–‡ä»¶è¯»å…¥
 		void readDataFromProjectFile(QDomElement* e) override;
-		//Ğ´³öµ½¹¤³ÌÎÄ¼ş
+		//å†™å‡ºåˆ°å·¥ç¨‹æ–‡ä»¶
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
 		
 	private:

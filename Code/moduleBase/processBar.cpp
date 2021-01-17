@@ -14,7 +14,7 @@ namespace ModuleBase
 		_ui->setupUi(this);
 		_ui->closeButton->setVisible(false);
 		_ui->autoCloseQCB->setText("Automatically close when finished");
-		this->setBusy();  //Ĭ�Ϸ�æģʽ
+		this->setBusy();  //默认繁忙模式
 		setProcess(0);
 		if (_autoClose)
 		{
@@ -35,7 +35,7 @@ namespace ModuleBase
 	{
 		_ui->setupUi(this);
 		_ui->name->setText(name);
-		this->setBusy();  //Ĭ�Ϸ�æģʽ
+		this->setBusy();  //默认繁忙模式
 		setProcess(0);
 //		if (_autoClose) _ui->closeButton->setVisible(false);
 		_ui->autoCloseQCB->setVisible(false);

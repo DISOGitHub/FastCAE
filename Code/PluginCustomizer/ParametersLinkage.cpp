@@ -909,7 +909,7 @@ namespace FastCAEDesigner{
 		_usedNameList = list;
 	}
 
-	//20200326 xuxinwei 创建参数信息列表
+	//20200326 xuxinwei 鍒涘缓鍙傛暟淇℃伅鍒楄〃
 // 	void ParametersLinkage::createTableWidget(int row, int column)
 // 	{
 // 		ui->parameterTableWidget->reset();

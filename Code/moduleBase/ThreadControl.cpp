@@ -42,7 +42,7 @@ namespace ModuleBase {
 
 	void ThreadControl::sleepThread(int n)
 	{
- 		m_thread->sleep(n);//Ïß³Ìsleep  Ö÷Ïß³Ì¶ÂÈû
+ 		m_thread->sleep(n);//çº¿ç¨‹sleep  ä¸»çº¿ç¨‹å µå¡ž
 
 	}
 

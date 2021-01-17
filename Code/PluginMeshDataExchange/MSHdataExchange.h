@@ -19,7 +19,7 @@ namespace MeshData
 		typeNone = 0,
 		typeGambit, typeFluent,
 	};
-	//ÃæµÄĞÅÏ¢
+	//é¢çš„ä¿¡æ¯
 	typedef struct
 	{
 		int *vertics;
@@ -38,7 +38,7 @@ namespace MeshData
 		int type;
 		int element_type;
 		QList<FaceData> facedatas;
-	}MshFaces;//13£¬ÃæÁĞ±í
+	}MshFaces;//13ï¼Œé¢åˆ—è¡¨
 
 	class MESHDATAEXCHANGEPLUGINAPI MSHdataExchange : public MeshThreadBase
 	{
@@ -48,7 +48,7 @@ namespace MeshData
 
 		bool read();
 		QString readLine();
-		//¶ÁÈ¡ÎÄ¼şÍ·ÅĞ¶ÏÊÇGAMBIT to FlentÎÄ¼ş»¹ÊÇFlentÉú³ÉÎÄ¼ş
+		//è¯»å–æ–‡ä»¶å¤´åˆ¤æ–­æ˜¯GAMBIT to Flentæ–‡ä»¶è¿˜æ˜¯Flentç”Ÿæˆæ–‡ä»¶
 		bool readHeader();
 		bool write();
 		void run() ;
@@ -56,23 +56,23 @@ namespace MeshData
 	private:
 		meshType mMeshType{ typeNone };
 		int _totalNumber;
-		//¶ÁÈ¡16½øÖÆµã
+		//è¯»å–16è¿›åˆ¶ç‚¹
 		void readPoints10(vtkUnstructuredGrid* dataset, QString info);		
 		void readPoints130(vtkUnstructuredGrid* dataset, QString info);
 		void readCells120(vtkUnstructuredGrid* dataset, QString info);
 		void readFluentCells12(vtkUnstructuredGrid* dataset, QString info);
 		void readZone45(QString zone);
-		//wzyÌí¼ÓÓÃÓÚ¶ÁÈ¡Ãæ
+		//wzyæ·»åŠ ç”¨äºè¯»å–é¢
 		bool readFace13(vtkUnstructuredGrid* dataset, QString info);
-		//È¥µôÍ·±êÖ¾ÏÂÒ»´¦ÖĞµÄÀ¨ºÅµÈĞÅÏ¢
+		//å»æ‰å¤´æ ‡å¿—ä¸‹ä¸€å¤„ä¸­çš„æ‹¬å·ç­‰ä¿¡æ¯
 		QString getNextLineInfo(QString line);
-		//ÅĞ¶ÏÍ·ĞÅÏ¢ÖĞÊÇ·ñÓĞ16½øÖÆ×Ö·û´®
+		//åˆ¤æ–­å¤´ä¿¡æ¯ä¸­æ˜¯å¦æœ‰16è¿›åˆ¶å­—ç¬¦ä¸²
 		bool isHex(QString line);
-		//ÅĞ¶ÏÊäÈë×Ö·û´®£¬ÊÇ16½øÖÆ»¹ÊÇ10½øÖÆ£¬µ÷ÓÃ²»Í¬×ª»»·½·¨
+		//åˆ¤æ–­è¾“å…¥å­—ç¬¦ä¸²ï¼Œæ˜¯16è¿›åˆ¶è¿˜æ˜¯10è¿›åˆ¶ï¼Œè°ƒç”¨ä¸åŒè½¬æ¢æ–¹æ³•
 		int  strToInt(QString line,bool isHex=false);
-		//½âÎöGambitÉú³ÉfluentÎÄ¼ş
+		//è§£æGambitç”Ÿæˆfluentæ–‡ä»¶
 		bool readGambitFile(vtkUnstructuredGrid* dataset);
-		//½âÎöFlentÎÄ¼ş
+		//è§£æFlentæ–‡ä»¶
 		bool readFluentFile(vtkUnstructuredGrid* dataset);
 
 	private:

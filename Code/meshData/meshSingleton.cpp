@@ -292,7 +292,7 @@ namespace MeshData
 
 	void MeshData::writeBinaryFile(QDataStream* dataStream)
 	{
-		//Ð´³ö¶þ½øÖÆÎÄ¼þ
+		//å†™å‡ºäºŒè¿›åˆ¶æ–‡ä»¶
 		const int nk = _meshList.size();
 		*dataStream << nk;
 		for (int i = 0; i < nk; ++i)
@@ -312,7 +312,7 @@ namespace MeshData
 
 	void MeshData::readBinaryFile(QDataStream* dataStream)
 	{
-		//¶ÁÈë¶þ½øÖÆÎÄ¼þ
+		//è¯»å…¥äºŒè¿›åˆ¶æ–‡ä»¶
 		int nk = 0;
 		int ns = 0;
 		*dataStream >> nk;

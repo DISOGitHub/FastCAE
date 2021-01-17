@@ -42,50 +42,50 @@ namespace MainWidget
 	public:
 		GeometryTreeWidget(GUI::MainWindow* m, QWidget* parent = nullptr);
 		~GeometryTreeWidget();
-		//×¢²á¿ª·Å¿ÉÓÃ½Ó¿Ú
+		//æ³¨å†Œå¼€æ”¾å¯ç”¨æ¥å£
 		void registerEnabledModule();
 
 	signals:
-		//¸üĞÂÏÔÊ¾×´Ì¬
+		//æ›´æ–°æ˜¾ç¤ºçŠ¶æ€
 		void updateDisplay(int index, bool visable);
-		//ÒÆ³ıµÚindex¸öÊı¾İ
+		//ç§»é™¤ç¬¬indexä¸ªæ•°æ®
 		void removeGeoData(int index);
-		//ÏÔÊ¾ÊôĞÔ
+		//æ˜¾ç¤ºå±æ€§
 		void disPlayProp(DataProperty::DataBase* pops);
-		//¸üĞÂaction×´Ì¬
+		//æ›´æ–°actionçŠ¶æ€
 		void updateActionStates();
-		//Í¨¹ıÖ÷´°¿ÚÍ³Ò»½Ó¿ÚÏÔÊ¾·ÇÄ£Ì¬¶Ô»°¿ò
+		//é€šè¿‡ä¸»çª—å£ç»Ÿä¸€æ¥å£æ˜¾ç¤ºéæ¨¡æ€å¯¹è¯æ¡†
 		void showGeoDialog(QDialog*);
-		//¸ßÁÁ¼¸ºÎ
+		//é«˜äº®å‡ ä½•
 		void highLightGeometrySet(Geometry::GeometrySet*, bool);
-		//Çå³ı¸ßÁÁ
+		//æ¸…é™¤é«˜äº®
 		void clearHighLight();
-		//µ±É¾³ıÒ»¸ö×é¼şÊ±£¬¶ÔÓ¦µÄËãÀıÖĞµÄ×é¼şÒ²Ó¦¸ÃÉ¾³ı
+		//å½“åˆ é™¤ä¸€ä¸ªç»„ä»¶æ—¶ï¼Œå¯¹åº”çš„ç®—ä¾‹ä¸­çš„ç»„ä»¶ä¹Ÿåº”è¯¥åˆ é™¤
 		void removeCaseComponentSig(int componentID);
-		//ÖØÃüÃûËãÀıÖĞµÄÏî(×é¼şitemºÍ±ß½çitem)
+		//é‡å‘½åç®—ä¾‹ä¸­çš„é¡¹(ç»„ä»¶itemå’Œè¾¹ç•Œitem)
 		void renameCaseComponentSig(int componentID);
 
 	public slots:
-	    //¸üĞÂÊ÷
+	    //æ›´æ–°æ ‘
 		void updateTree();
-		//Êó±êµ¥»÷ÊÂ¼ş
+		//é¼ æ ‡å•å‡»äº‹ä»¶
 		void singleClicked(QTreeWidgetItem*, int);
-		//Çå³ıµ±Ç°Êı¾İ
+		//æ¸…é™¤å½“å‰æ•°æ®
 		void removeData();
 		void changeName();
 		void slot_datumPlaneRename();
 		void slot_removeDatum();
 		void preWindowOpened(MainWidget::PreWindow* p);
 		void preWindowClosed();
-		//±à¼­µ±Ç°ĞÎ×´
+		//ç¼–è¾‘å½“å‰å½¢çŠ¶
 		void editGeometry();
-		//Òş²ØÈ«²¿
+		//éšè—å…¨éƒ¨
 		void hideAll();
-		//ÏÔÊ¾È«²¿
+		//æ˜¾ç¤ºå…¨éƒ¨
 		void showAll();
-		//½Úµã×´Ì¬¸Ä±ä
+		//èŠ‚ç‚¹çŠ¶æ€æ”¹å˜
 		void itemStatesChanged(QTreeWidgetItem*, int);
-		//ÒÆ³ıµ±Ç°×é¼ş
+		//ç§»é™¤å½“å‰ç»„ä»¶
 		void removeCurrComponent();
 
 	private:

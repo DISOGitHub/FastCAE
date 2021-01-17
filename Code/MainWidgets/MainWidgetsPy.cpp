@@ -224,7 +224,7 @@ namespace MainWidget
 		QStringList nlist = namestr.simplified().split(",");
 		if (nlist.size() < 1) return;
 
-		//¶ÁÈ¡xml
+		//è¯»å–xml
 		QHash<QString, Material::Material*> malib;
 		QString path = qApp->applicationDirPath() + "/MaterialLib.xml";
 		QFile lib(path);
@@ -251,7 +251,7 @@ namespace MainWidget
 			malib.remove(name);
 			delete ma;
 		}
-		//Ð´Èëxml
+		//å†™å…¥xml
 		QFile writelib(path);
 		if (!writelib.open(QIODevice::Text | QIODevice::WriteOnly)) return;
 		QDomDocument wdoc;

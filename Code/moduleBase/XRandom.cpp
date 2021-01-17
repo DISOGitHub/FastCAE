@@ -20,12 +20,12 @@ double XRandom::GaussRand(const double & mean, const double & stdc)
 	return mean + GaussRand_NORMAL() * stdc;
 }
 
-///<MG lambda×ÜÌåÆ½¾ù´ÎÊý
+///<MG lambdaæ€»ä½“å¹³å‡æ¬¡æ•°
 int XRandom::Possion(const double & lambda)
 {
 	long double Lambda = lambda, k = 0;
 	long double p = 1.0;
-	long double l = exp(-Lambda);  /* ÎªÁË¾«¶È£¬²Å¶¨ÒåÎªlong doubleµÄ£¬exp(-Lambda)ÊÇ½Ó½ü0µÄÐ¡Êý*/
+	long double l = exp(-Lambda);  /* ä¸ºäº†ç²¾åº¦ï¼Œæ‰å®šä¹‰ä¸ºlong doubleçš„ï¼Œexp(-Lambda)æ˜¯æŽ¥è¿‘0çš„å°æ•°*/
 	while (p >= l)
 	{
 		double u = U_Random();

@@ -38,9 +38,9 @@ namespace Command
 		bool generateDir(double* d);
 
 	private:
-		//´ýÉ¾
+		//å¾…åˆ 
 		QList<Geometry::GeometrySet*> _bodys{};
-		//ÐÂ¼Ó
+		//æ–°åŠ 
 		QMultiHash<Geometry::GeometrySet*, int> _solidHash{};
 		double _basicPoint[3];
 		double _degree{ 0.0 };

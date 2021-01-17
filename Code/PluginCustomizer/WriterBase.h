@@ -14,11 +14,11 @@ namespace FastCAEDesigner
 		~WriterBase();
 
 	protected:
-		//»ñÈ¡´æ´¢µÄÎÄ¼şÍêÕûÄ¿Â¼Ãû³Æ
+		//è·å–å­˜å‚¨çš„æ–‡ä»¶å®Œæ•´ç›®å½•åç§°
 		QString GetFileName();
-		//±£´æÎÄ¼ş
+		//ä¿å­˜æ–‡ä»¶
 		bool SaveFile(QDomDocument &doc);
-		//ÎÄ¼şÃû³Æ--²»°üº¬Ä¿Â¼Ãû
+		//æ–‡ä»¶åç§°--ä¸åŒ…å«ç›®å½•å
 		QString _fileName;
 		QMap<QString, QString> insertQString(QStringList var, QStringList val);
 		QString SaveIconToSystem(QString fileName);

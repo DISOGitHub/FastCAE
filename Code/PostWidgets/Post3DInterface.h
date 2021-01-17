@@ -22,7 +22,7 @@ namespace Post
 	public:
 		Post3DWindowInterface(GUI::MainWindow* m, int proid);
 		~Post3DWindowInterface();
-		//获取三维绘图窗口
+		//鑾峰彇涓夌淮缁樺浘绐楀彛
 		Post3DWindow* getWindow();
 		virtual void reTranslate() override;
 		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;

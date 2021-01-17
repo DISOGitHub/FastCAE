@@ -29,7 +29,7 @@ namespace Command
 		BRep_Builder aBuilder;
 		TopoDS_Compound aRes;
 		aBuilder.MakeCompound(aRes);
-		//Ô²Öù
+		//åœ†æŸ±
 		gp_Ax2 cy1Axis;
 		cy1Axis.SetLocation(gp_Pnt(_location[0], _location[1], _location[2]));
 		cy1Axis.SetDirection(gp_Dir(0, 0, 1));
@@ -98,7 +98,7 @@ namespace Command
 		TopoDS_Shape aTopoBox2 = BRepPrimAPI_MakeBox(pt1, _box2_w, 2 * _cyr1, _box2_h).Shape();
 		aBuilder.Add(aRes, aTopoBox2);
 
-		//box3¡£
+		//box3ã€‚
 		double ptx2, pty2, ptz2;
 		ptx2 = ptx1 - _box1_w;
 		pty2 = pty1;
@@ -164,7 +164,7 @@ namespace Command
 		if (!MF1.IsDone()) return false;
 		aBuilder.Add(aRes, MF1.Shape());
 
-		//¾µÏñ²Ù×÷
+		//é•œåƒæ“ä½œ
 		gp_Pnt p(ptx3, pty3, ptz3);
 		gp_Dir dir(1,0,0);
 		gp_Ax2 plane(p, dir);

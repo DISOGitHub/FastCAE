@@ -14,9 +14,9 @@ namespace DataProperty
 		~ParameterString() = default;
 
 		void copy(ParameterBase* ori, bool valueOnly = false) override;
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		QString getValue();
-		//ÉèÖÃÖµ
+		//è®¾ç½®å€¼
 		void setValue(QString s);
 		bool isSameValueWith(ParameterBase* p) override;
 

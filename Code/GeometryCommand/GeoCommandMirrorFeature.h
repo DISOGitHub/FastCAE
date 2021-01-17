@@ -39,9 +39,9 @@ namespace Command
 		void getDirection();
 
 	private:
-		//´ýÉ¾
+		//å¾…åˆ 
 		QList<Geometry::GeometrySet*> _bodys{};
-		//ÐÂ¼Ó
+		//æ–°åŠ 
 		QMultiHash<Geometry::GeometrySet*, int> _solidhash{};
 
 		double _planeLocation[3]{};

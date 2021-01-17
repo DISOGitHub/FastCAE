@@ -1,4 +1,4 @@
-///ÊµÊ±ÇúÏß´°¿Ú
+///å®æ—¶æ›²çº¿çª—å£
 #ifndef REALTIMECURVES_H
 #define REALTIMECURVES_H
 
@@ -37,17 +37,17 @@ namespace Post
 	public:
 		RealTimeWindowBase(GUI::MainWindow* mainwindow, int proID);
 		~RealTimeWindowBase();
-		///¸ù¾İÉèÖÃÏî×Ô¶¯Ìî³ä¼à¿ØÎÄ¼ş
+		///æ ¹æ®è®¾ç½®é¡¹è‡ªåŠ¨å¡«å……ç›‘æ§æ–‡ä»¶
 //		void autoFillFiles();
-		///Ìí¼Ó¼à¿ØÎÄ¼ş£¬¾ø¶ÔÂ·¾¶
+		///æ·»åŠ ç›‘æ§æ–‡ä»¶ï¼Œç»å¯¹è·¯å¾„
 		void appendFileName(QString name);
-		///ÉèÖÃË¢ĞÂÊ±¼ä¼ä¸ô ±ØĞëÔÚstartrefreshÖ®Ç°µ÷ÓÃ µ¥Î»ÎªºÁÃë
+		///è®¾ç½®åˆ·æ–°æ—¶é—´é—´éš” å¿…é¡»åœ¨startrefreshä¹‹å‰è°ƒç”¨ å•ä½ä¸ºæ¯«ç§’
 		void setRefreshTime(int msc);
-		///¿ªÊ¼Ë¢ĞÂ£¬ÎÄ¼ş±ä¸ü¼´µ÷ÓÃupdateplot
+		///å¼€å§‹åˆ·æ–°ï¼Œæ–‡ä»¶å˜æ›´å³è°ƒç”¨updateplot
 		void startRefresh();
-		//ÓïÑÔÇĞ»»
+		//è¯­è¨€åˆ‡æ¢
 		void reTranslate() override;
-		//¸ù¾İÃû³ÆÇĞ»»´°¿Ú
+		//æ ¹æ®åç§°åˆ‡æ¢çª—å£
 		void viewRealTimeWindow(QString name);
 
 	private:

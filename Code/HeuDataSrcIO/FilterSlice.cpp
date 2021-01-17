@@ -122,7 +122,7 @@ void FilterSlice::func_init_plane()
 	if (sliceRep == NULL)
 	{
 		sliceRep = vtkSmartPointer<vtkImplicitPlaneRepresentation>::New();
-		sliceRep->SetPlaceFactor(1.0);//±ÈÀýÏµÊý
+		sliceRep->SetPlaceFactor(1.0);//æ¯”ä¾‹ç³»æ•°
 		sliceRep->SetOutlineTranslation(0);
 		sliceRep->GetPlaneProperty()->SetOpacity(0.4);
 	}

@@ -57,7 +57,7 @@ signals:
 	void sig_setGrid();
 	void sig_setLegend();
 	void sig_setAxisNum();
-	void sig_update_curve_name(int,int);//ÎÄ¼þË÷Òý£¬ÇúÏßË÷Òý
+	void sig_update_curve_name(int,int);//æ–‡ä»¶ç´¢å¼•ï¼Œæ›²çº¿ç´¢å¼•
 	void sig_update_curve_pen(int, int);
 	void sig_update_curve_linePoint(int, int);
 	void sig_update_curve_axis(int, int);

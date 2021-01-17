@@ -63,7 +63,7 @@ namespace FastCAEDesigner{
 
 	private:
 		//Added xvdongming 2020-02-12
-		//¶¨ÒåÇúÏßÀàĞÍµÄÃ¶¾Ù±äÁ¿
+		//å®šä¹‰æ›²çº¿ç±»å‹çš„æšä¸¾å˜é‡
 		enum EDataType 
 		{
 			ScalarNode = 1,

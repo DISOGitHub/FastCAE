@@ -108,7 +108,7 @@ void XRandomWidget::slot_clicked_btn_random()
 {
 	ui.listWidget->clear();
 	//m_randomValues.clear();
-	///<MG µ¥Öµ²¿·Ö
+	///<MG å•å€¼éƒ¨åˆ†
 	if (ui.radio_Fixed->isChecked())
 	{
 		double singleValue = 0.0;
@@ -119,7 +119,7 @@ void XRandomWidget::slot_clicked_btn_random()
 	}
 	else
 	{
-		///<MG ¶àÖµ²¿·Ö
+		///<MG å¤šå€¼éƒ¨åˆ†
 		int iRandNum = ui.spin_paraNum->value();
 
 		double fromValue = 0.0, toValue = 0.0;
@@ -128,7 +128,7 @@ void XRandomWidget::slot_clicked_btn_random()
 		toValue = ui.line_paraTo->text().toDouble(&bConvertTo);
 
 		if (bConvertFrom && bConvertTo)
-		{	///<MG °´ÕÕ·¶Î§Éú³ÉËæ»úÊý
+		{	///<MG æŒ‰ç…§èŒƒå›´ç”Ÿæˆéšæœºæ•°
 			double from = fromValue <= toValue ? fromValue : toValue;
 			double to = fromValue <= toValue ? toValue : fromValue;
 
@@ -140,14 +140,14 @@ void XRandomWidget::slot_clicked_btn_random()
 				}
 			}
 			else if (ui.radio_Normal->isChecked())
-			{///<MG ÍêÈ«Ëæ»ú
+			{///<MG å®Œå…¨éšæœº
 				for (int iCnt = 0; iCnt < iRandNum; ++iCnt)
 				{
 					m_randomValues.push_back(XRandom::instance()->Rand(from, to));
 				}
 			}
 			else if (ui.radio_Linearity->isChecked())
-			{///<MG ÏßÐÔËæ»ú
+			{///<MG çº¿æ€§éšæœº
 				double range = to - from;
 				{
 					if (iRandNum == 1)
@@ -171,7 +171,7 @@ void XRandomWidget::slot_clicked_btn_random()
 				}
 			}
 			else if (ui.radio_Gauss->isChecked())
-			{///<MG Ëæ»úÊý·ûºÏ¸ßË¹·Ö²¼ 
+			{///<MG éšæœºæ•°ç¬¦åˆé«˜æ–¯åˆ†å¸ƒ 
 				double mesh = 0.0, stdc = 1.0;
 				if (!ui.line_Para1->text().isEmpty())
 				{
@@ -201,7 +201,7 @@ void XRandomWidget::slot_clicked_btn_random()
 				}
 			}
 			else if (ui.radio_Possion->isChecked())
-			{///<MG Ëæ»úÊý·ûºÏ²´ËÉ·Ö²¼
+			{///<MG éšæœºæ•°ç¬¦åˆæ³Šæ¾åˆ†å¸ƒ
 				double lamdma = 20.0;
 				if (!ui.line_Para1->text().isEmpty())
 				{
@@ -226,7 +226,7 @@ void XRandomWidget::slot_clicked_btn_random()
 			}
 		}
 		else
-		{	///<MG Éú³É´¿Ëæ»úÊý
+		{	///<MG ç”Ÿæˆçº¯éšæœºæ•°
 			if (ui.radio_Normal->isChecked())
 			{
 				for (int iCnt = 0; iCnt < iRandNum; ++iCnt)
@@ -361,7 +361,7 @@ void XRandomWidget::slot_clicked_radio_btn(bool bCheck)
 			ui.line_Para1->show();
 			ui.line_Para2->hide();
 
-			///<MG µ¥Î»Ê±¼ä»òµ¥Î»Ãæ»ýÄÚËæ»úÊ±¼äµÄÆ½¾ù·¢ÉúÂÊ
+			///<MG å•ä½æ—¶é—´æˆ–å•ä½é¢ç§¯å†…éšæœºæ—¶é—´çš„å¹³å‡å‘ç”ŸçŽ‡
 			ui.label_Para1->setText(tr("Lambda"));
 		}
 		else if (radio == ui.radio_Exponential)
@@ -373,7 +373,7 @@ void XRandomWidget::slot_clicked_radio_btn(bool bCheck)
 			ui.line_Para1->show();
 			ui.line_Para2->hide();
 
-			///<MG µ¥Î»Ê±¼ä»òµ¥Î»Ãæ»ýÄÚËæ»úÊ±¼äµÄÆ½¾ù·¢ÉúÂÊ
+			///<MG å•ä½æ—¶é—´æˆ–å•ä½é¢ç§¯å†…éšæœºæ—¶é—´çš„å¹³å‡å‘ç”ŸçŽ‡
 			ui.label_Para1->setText(tr("Lambda"));
 			ui.group_randomPara->show();
 		}

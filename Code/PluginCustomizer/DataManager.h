@@ -1,9 +1,9 @@
 /**********************************************************************************
 
-¹¦ÄÜ£ºÊı¾İ¹ÜÀíÀà£¬ÏµÍ³ÖĞĞèÒªÉè¶¨µÄËùÓĞ²ÎÊı¶¼ÓÉ´ËÀà¹ÜÀí
-½¨Á¢£ºxvdongming
-ÈÕÆÚ£º2019-11
-ĞŞ¸ÄºÍÎ¬»¤£ºxvdongming
+åŠŸèƒ½ï¼šæ•°æ®ç®¡ç†ç±»ï¼Œç³»ç»Ÿä¸­éœ€è¦è®¾å®šçš„æ‰€æœ‰å‚æ•°éƒ½ç”±æ­¤ç±»ç®¡ç†
+å»ºç«‹ï¼šxvdongming
+æ—¥æœŸï¼š2019-11
+ä¿®æ”¹å’Œç»´æŠ¤ï¼šxvdongming
 
 **********************************************************************************/
 
@@ -56,23 +56,23 @@ namespace FastCAEDesigner
 	public:
 
 		static DataManager* getInstance();
-		bool ReadInfoFromServerToLocal();              //´ÓÏµÍ³¶ÁÈ¡ÅäÖÃĞÅÏ¢µ½±¾µØ
-		bool WriteInfoToServerPath();                  //Ğ´ÅäÖÃĞÅÏ¢µ½ÏµÍ³
+		bool ReadInfoFromServerToLocal();              //ä»ç³»ç»Ÿè¯»å–é…ç½®ä¿¡æ¯åˆ°æœ¬åœ°
+		bool WriteInfoToServerPath();                  //å†™é…ç½®ä¿¡æ¯åˆ°ç³»ç»Ÿ
 		void SetPhysicsList(QList<ModelBase*> list);
 		void SetMaterialList(QList<ModelBase*> list);
 
-		ConfigOption::GlobalConfig* getGlobalConfig(); //»ñÈ¡»ù´¡ÅäÖÃĞÅÏ¢ 
+		ConfigOption::GlobalConfig* getGlobalConfig(); //è·å–åŸºç¡€é…ç½®ä¿¡æ¯ 
 		ConfigOption::GeometryConfig* getGeoConfig();
 		ConfigOption::MeshConfig* getMeshConfig();
 		ConfigOption::ProjectTreeConfig* GetProjectTreeConfig();
-		//ÊôĞÔ²Ù×÷º¯Êı
-		QString GetLogoFileName();                     //»ñÈ¡LogoÎÄ¼şÃû³Æ
-		void SetLogoFileName(QString fileName);        //ÉèÖÃLogoÎÄ¼şÃû³Æ  
-		QString GetWelcomeFileName();                  //»ñÈ¡welcomeÎÄ¼şÃû³Æ
-		void SetWelcomeFileName(QString fileName);     //ÉèÖÃwelcomeÎÄ¼şÃû³Æ
+		//å±æ€§æ“ä½œå‡½æ•°
+		QString GetLogoFileName();                     //è·å–Logoæ–‡ä»¶åç§°
+		void SetLogoFileName(QString fileName);        //è®¾ç½®Logoæ–‡ä»¶åç§°  
+		QString GetWelcomeFileName();                  //è·å–welcomeæ–‡ä»¶åç§°
+		void SetWelcomeFileName(QString fileName);     //è®¾ç½®welcomeæ–‡ä»¶åç§°
 		QString GetUserManual();
 		void SetUserManual(QString userManual);
-		//ÊôĞÔ²Ù×÷º¯Êı
+		//å±æ€§æ“ä½œå‡½æ•°
 
 		void SetGeometryFeatureModeling(bool on);
 		void SetGeometryFeatureOperatins(bool on);
@@ -96,7 +96,7 @@ namespace FastCAEDesigner
 		QString GetGeoSuffix();
 		void SetGeoSuffix(QString suffix);
 
-		//·µ»ØgeometryºÍmeshÏà¹ØĞÅÏ¢
+		//è¿”å›geometryå’Œmeshç›¸å…³ä¿¡æ¯
 		bool GetGeometryFeatureModeling();
 		bool GetGeometryFeatureOperatins();
 		bool GetGeometryCreateSketch();
@@ -154,16 +154,16 @@ namespace FastCAEDesigner
 		void removeParaGroupName(QString name);
 
 	private:
-		bool ReadGlobalConfig();                       //¶ÁÈ¡»ù´¡ÅäÖÃĞÅÏ¢
+		bool ReadGlobalConfig();                       //è¯»å–åŸºç¡€é…ç½®ä¿¡æ¯
 		bool ReadGeometryConfig();
 
-		void Init();                                   //³õÊ¼»¯
-		void CopyLogoAndWelcomImageToSystem();         //¿½±´logo¡¢welcomeÎÄ¼şµ½ÏµÍ³ÅäÖÃÄ¿Â¼ÏÂ
+		void Init();                                   //åˆå§‹åŒ–
+		void CopyLogoAndWelcomImageToSystem();         //æ‹·è´logoã€welcomeæ–‡ä»¶åˆ°ç³»ç»Ÿé…ç½®ç›®å½•ä¸‹
 		void CopyUserManualToSystem();
 		void CopyFileToSystem(QString fileName, QString path, QString destFileName);
 
-		bool ReadGeoConfig();		//¶ÁÈ¡¼¸ºÎĞÅÏ¢
-		bool ReadMeshConfig();		//¶ÁÈ¡Íø¸ñĞÅÏ¢
+		bool ReadGeoConfig();		//è¯»å–å‡ ä½•ä¿¡æ¯
+		bool ReadMeshConfig();		//è¯»å–ç½‘æ ¼ä¿¡æ¯
 		bool ReadProjectTreeConfig();
 		//bool ReadProjectTreeInfo();
 		QList<ModelBase*> GetSpecifiedTypeModelList(QList<ModelBase*> modelList, TreeItemType type);
@@ -189,9 +189,9 @@ namespace FastCAEDesigner
 		bool _isGeometryEdit{ false };		//geometry edit
 		bool _isMeasureDistance{ false };	//measure distance
 
-		QString _logoFileName{};     //logoÎÄ¼şÃû³Æ
-		QString _welcomeFileName{};  //welcomeÎÄ¼şÃû³Æ
-		QString _userManual{};       //ÓÃ»§ÊÖ²á
+		QString _logoFileName{};     //logoæ–‡ä»¶åç§°
+		QString _welcomeFileName{};  //welcomeæ–‡ä»¶åç§°
+		QString _userManual{};       //ç”¨æˆ·æ‰‹å†Œ
 		QString _GeoSuffix;
 
 		QString _importGeoSuffix;	//import geometry suffix
@@ -207,8 +207,8 @@ namespace FastCAEDesigner
 		bool _isFilterMesh{ false };	//fliter mesh
 		bool _isMeshModeling{ false };  //mesh modeling
 
-		QList<ModelBase*> _physicsList;  //ËãÀıÁĞ±í
-		QList<ModelBase*> _materialList; //²ÄÁÏÁĞ±í
+		QList<ModelBase*> _physicsList;  //ç®—ä¾‹åˆ—è¡¨
+		QList<ModelBase*> _materialList; //ææ–™åˆ—è¡¨
 		//2020.1.18
 		QList<ModelBase*> _parameterList;
 		QMap<TreeItemType, QList<ModelBase*>> _parameterListDict;

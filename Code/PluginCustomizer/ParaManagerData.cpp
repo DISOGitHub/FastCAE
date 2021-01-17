@@ -95,7 +95,7 @@ namespace FastCAEDesigner{
 		return destPath;
 	}
 
-	//Ğ´xml
+	//å†™xml
 	void ParaManagerData::writeObserverConfig()
 	{
 		if (!_writeConfig)
@@ -135,7 +135,7 @@ namespace FastCAEDesigner{
 		doc.appendChild(root);
 
 		QTextStream out_stream(&observer);
-		doc.save(out_stream, 4); //Ëõ½ø1¸ñ
+		doc.save(out_stream, 4); //ç¼©è¿›1æ ¼
 		observer.close();
 
 		_paraLinkageDataListDict.clear();
@@ -520,7 +520,7 @@ namespace FastCAEDesigner{
 		root.appendChild(follow);
 	}
 
-	//¶ÁÈ¡xml
+	//è¯»å–xml
 	void ParaManagerData::readObserverConfig()
 	{
 		//clearQMap();

@@ -42,12 +42,12 @@ public:
 	QStringList script_getFileColumnNameList(QString tep_filename);
 	void script_addCurve(QString tep_filename,int tep_column_index);
 	void script_updateCurveData(int tep_file_index, int tep_column_index, double val_x, double val_y);
-	void script_addCurve(QVector<double> data_y, QString tep_filename);//ÓÃÓÚÈıÎ¬Ê°È¡
-	void script_addCurve(QVector<double> data_x, QVector<double> data_y,QString tep_filename);//²»µ÷ÓÃÎÄ¼ş£¬Ö±½ÓÓÃ2×é¸¡µãÊı»­ÇúÏß
+	void script_addCurve(QVector<double> data_y, QString tep_filename);//ç”¨äºä¸‰ç»´æ‹¾å–
+	void script_addCurve(QVector<double> data_x, QVector<double> data_y,QString tep_filename);//ä¸è°ƒç”¨æ–‡ä»¶ï¼Œç›´æ¥ç”¨2ç»„æµ®ç‚¹æ•°ç”»æ›²çº¿
 	void script_updateCurveData(QVector<double> data_x, QVector<double> data_y, QString tep_filename);
 	void script_updateCurveData(QVector<double> data_y, QString tep_filename);
-	void script_refreshCurveForm();//ÓÃÓÚÉèÖÃÇúÏßÊôĞÔºóÊ¹ÊôĞÔÉúĞ§
-	void script_update_replot();//ÓÃÓÚÉ¾³ıËùÓĞÇúÏß½øĞĞÖØ»æ
+	void script_refreshCurveForm();//ç”¨äºè®¾ç½®æ›²çº¿å±æ€§åä½¿å±æ€§ç”Ÿæ•ˆ
+	void script_update_replot();//ç”¨äºåˆ é™¤æ‰€æœ‰æ›²çº¿è¿›è¡Œé‡ç»˜
 	//void script_update_curve_data(QString tep_curve_id, double val_x, double val_y);
 	void script_delCurve(QString tep_filename, int tep_column_index);
 	void script_delAllCurves();
@@ -171,6 +171,6 @@ private slots:
 	void slot_updateZoomBar(bool);
 signals:
     void sig_update_curveTree();
-	void sig_CAE_curve_animate(int);//1¿ªÊ¼0Í£Ö¹
+	void sig_CAE_curve_animate(int);//1å¼€å§‹0åœæ­¢
 };
 #endif // CURVEMAINWINDOW_H

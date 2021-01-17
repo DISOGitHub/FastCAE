@@ -1,5 +1,5 @@
 /*******************************
-Çó½â¿ØÖÆÆ÷»ùÀà
+æ±‚è§£æ§åˆ¶å™¨åŸºç±»
 libaojun
 ********************************/
 
@@ -41,17 +41,17 @@ namespace SolverControl
 	public:
 		SolverControlBase(GUI::MainWindow* mainwindow, ConfigOption::SolverInfo* solver, ModelData::ModelDataBase* model,bool sollveOnly = false);
 		~SolverControlBase();
-		///Æô¶¯Çó½â
+		///å¯åŠ¨æ±‚è§£
 		void startSolver();
-		//ÉèÖÃÇó½âÃû³Æ£¨ÃèÊö£©
+		//è®¾ç½®æ±‚è§£åç§°ï¼ˆæè¿°ï¼‰
 		void setSolverDescription(QString des);
-		//½áÊøÇó½â
+		//ç»“æŸæ±‚è§£
 		void stopSolver();
-		//Æô¶¯MPIÃüÁî
+		//å¯åŠ¨MPIå‘½ä»¤
 		void startMPI(int nprocess);
-		//ÉèÖÃÆô¶¯²ÎÊı
+		//è®¾ç½®å¯åŠ¨å‚æ•°
 		void setSolveArgs(QString arg);
-		//ÇåË¬Æô¶¯
+		//æ¸…çˆ½å¯åŠ¨
 		void startSolverClear();
 
 
@@ -64,15 +64,15 @@ namespace SolverControl
 
 	protected slots:
 		virtual void readSolverOutput();
-		//³ÌĞòÔËĞĞÍê³É
+		//ç¨‹åºè¿è¡Œå®Œæˆ
 		void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
-		//Ç¿ĞĞÖÕÖ¹Çó½â
+		//å¼ºè¡Œç»ˆæ­¢æ±‚è§£
 		void stopSolver(QWidget* w);
 
 	protected:
-		//Ğ´³öÎÄ¼ş
+		//å†™å‡ºæ–‡ä»¶
 		bool preProcess();
-		//½á¹ûÎÄ¼ş×ª»»
+		//ç»“æœæ–‡ä»¶è½¬æ¢
 		bool postPorocess();
 
 	protected:

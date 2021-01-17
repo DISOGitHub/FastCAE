@@ -259,7 +259,7 @@ namespace Geometry
 	{
 		if (_sketchPlan == nullptr)
 			_sketchPlan = new gp_Ax3;
-		_sketchPlan->SetAxis(gp_Ax1(gp_Pnt(loc[0], loc[1], loc[2]), gp_Dir(1.00001,0.00001,0))); //ÏòÁ¿ÐÞ¸ÄÓÐ±ÀÀ£·çÏÕ  OCC bug
+		_sketchPlan->SetAxis(gp_Ax1(gp_Pnt(loc[0], loc[1], loc[2]), gp_Dir(1.00001,0.00001,0))); //å‘é‡ä¿®æ”¹æœ‰å´©æºƒé£Žé™©  OCC bug
  		_sketchPlan->SetDirection(gp_Dir(dir[0], dir[1], dir[2]));
 	}
 

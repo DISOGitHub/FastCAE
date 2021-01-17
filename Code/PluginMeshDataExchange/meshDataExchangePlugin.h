@@ -32,7 +32,7 @@ namespace MeshData
 extern "C"
 {
 	void MESHDATAEXCHANGEPLUGINAPI Register(GUI::MainWindow* m, QList<Plugins::PluginBase*>* plugs);
-	//º¯Êı·µ»ØÖµÊÇÎŞĞ§µÄ,²»ÒªÍ¨¹ı·µ»ØÖµÅĞ¶Ï
+	//å‡½æ•°è¿”å›å€¼æ˜¯æ— æ•ˆçš„,ä¸è¦é€šè¿‡è¿”å›å€¼åˆ¤æ–­
 	bool MESHDATAEXCHANGEPLUGINAPI CGNSimportMesh(QString AbFileName, int modelId);
 	bool MESHDATAEXCHANGEPLUGINAPI MSHimportMesh(QString AbFileName, int modelId);
 	bool MESHDATAEXCHANGEPLUGINAPI NEUimportMesh(QString AbFileName, int modelId);

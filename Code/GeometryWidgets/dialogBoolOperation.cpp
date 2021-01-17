@@ -182,7 +182,7 @@ namespace GeometryWidget
 
 	void BoolOpertionDialog::accept()
 	{
-		//¿É±à¼­×´Ì¬ÏÂ£¬Ã»ÓÐÈÎºÎ¸Ä±ä£¬Ôò±£Áôeditset£¬²»½øÈëcommandÖ´ÐÐ¡£
+		//å¯ç¼–è¾‘çŠ¶æ€ä¸‹ï¼Œæ²¡æœ‰ä»»ä½•æ”¹å˜ï¼Œåˆ™ä¿ç•™editsetï¼Œä¸è¿›å…¥commandæ‰§è¡Œã€‚
 		if (_isEdit)
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();

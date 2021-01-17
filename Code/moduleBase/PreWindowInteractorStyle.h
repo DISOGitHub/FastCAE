@@ -96,7 +96,7 @@ namespace ModuleBase
 		void mouseMiddleUp();
 		void mouseWhellMove();
 		void rightDownMenu();
-		//还原几何颜色
+		//杩樺師鍑犱綍棰滆壊
 		void clearAllHighLight();
 
 	private:

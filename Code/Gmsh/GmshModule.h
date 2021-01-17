@@ -35,13 +35,13 @@ namespace Gmsh
 	public:
 	   static GmshModule* getInstance(GUI::MainWindow* m);
 
-	   //Ö´ĞĞ
+	   //æ‰§è¡Œ
 	   void exec(int commandType, MainWidget::PreWindow* pre);
-	   //½áÊø
+	   //ç»“æŸ
 	   void finalize();
-	   //³õÊ¼»¯Ò»¸öGmshThread
+	   //åˆå§‹åŒ–ä¸€ä¸ªGmshThread
 	   GmshThread* iniGmshThread(GMshPara*);
-	   //»ñÈ¡Ïß³Ì¹ÜÀíÕß
+	   //è·å–çº¿ç¨‹ç®¡ç†è€…
 	   GmshThreadManager* getGmshThreadManager();
 	   
 	signals:

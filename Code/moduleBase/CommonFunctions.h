@@ -6,9 +6,9 @@
 
 extern "C"
 {
-	//清空并移除文件夹
+	//娓呯┖骞剁Щ闄ゆ枃浠跺す
 	bool MODULEBASEAPI RemoveDir(QString fullpath);
-	//将浮点数转化为字符串，acc-小数点后位数
+	//灏嗘诞鐐规暟杞寲涓哄瓧绗︿覆锛宎cc-灏忔暟鐐瑰悗浣嶆暟
 	QString MODULEBASEAPI doubleToString(double v, int acc);
 }
 

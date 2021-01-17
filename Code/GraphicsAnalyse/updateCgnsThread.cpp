@@ -1,4 +1,4 @@
-﻿#include "updateCgnsThread.h"
+#include "updateCgnsThread.h"
 #include <QTime>
 #include <QMessageBox>
 #include <QString>

@@ -13,21 +13,21 @@ namespace DataProperty
 		~ParameterDouble() = default;
 
 		void copy(ParameterBase* ori, bool valueOnly = false) override;
-		//ÉèÖÃÖµ
+		//è®¾ç½®å€¼
 		void setValue(double v);
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		double getValue();
-		//ÉèÖÃÖµµÄÓĞĞ§·¶Î§
+		//è®¾ç½®å€¼çš„æœ‰æ•ˆèŒƒå›´
 		void setRange(double* range);
-		//»ñÈ¡ÖµµÄÓĞĞ§·¶Î§
+		//è·å–å€¼çš„æœ‰æ•ˆèŒƒå›´
 		void getRange(double* range);
-		//ÉèÖÃ¾«¶È£¬Ğ¡ÊıµãºóÎ»Êı
+		//è®¾ç½®ç²¾åº¦ï¼Œå°æ•°ç‚¹åä½æ•°
 		void setAccuracy(int a);
-		//»ñÈ¡¾«¶È
+		//è·å–ç²¾åº¦
 		int getAccuracy();
-		//ÉèÖÃµ¥Î»£¨Á¿¸Ù£©
+		//è®¾ç½®å•ä½ï¼ˆé‡çº²ï¼‰
 		void setUnit(QString u);
-		//»ñÈ¡µ¥Î»£¨Á¿¸Ù£©
+		//è·å–å•ä½ï¼ˆé‡çº²ï¼‰
 		QString getUnit();
 		bool isSameValueWith(ParameterBase* p) override;
 

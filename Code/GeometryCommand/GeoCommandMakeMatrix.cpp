@@ -34,7 +34,7 @@ namespace Command
 				BRep_Builder aBuilder;
 				aBuilder.MakeCompound(aRes);
 
-				//»ñÈ¡vectors
+				//è·å–vectors
 				QList<double*> vectors;
 				if (_selectDir2)
 				{

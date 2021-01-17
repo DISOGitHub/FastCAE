@@ -26,12 +26,12 @@ PipelineObjProp::PipelineObjProp()
 	pipelineObj_base_propData.mSolidColor.b = 195;
 	pipelineObj_base_propData.mScalarBarVisible = false;
 	pipelineObj_base_propData.m_enum_representationtype = ERepresentationType::kkSurface;
-	pipelineObj_base_propData.mColorColumnStyle = "SolidColor";//传递过来选择列名
+	pipelineObj_base_propData.mColorColumnStyle = "SolidColor";//浼犻�掕繃鏉ラ�夋嫨鍒楀悕
 	pipelineObj_base_propData.mPointCount = 0;
 	pipelineObj_base_propData.mCellCount = 0;
 	pipelineObj_base_propData.mPointSize=2;
 	pipelineObj_base_propData.mLineWidth=1;	 
-	//颜色相关
+	//棰滆壊鐩稿叧
 	//edge color
 	pipelineObj_base_propData.mEdgeColor.r = 0;
 	pipelineObj_base_propData.mEdgeColor.g = 0;

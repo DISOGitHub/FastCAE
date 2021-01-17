@@ -65,30 +65,30 @@ namespace MainWidget
 		void slotShowGeometryAll();
 		//
 		//void slotHideGeometry();
-		//»¹Ô­¼¸ºÎÑÕÉ«¡£
+		//è¿˜åŸå‡ ä½•é¢œè‰²ã€‚
 		void RestoreGeoColor();
-// 		//¼¤»î¼¸ºÎÑ¡È¡Ä£Ê½
+// 		//æ¿€æ´»å‡ ä½•é€‰å–æ¨¡å¼
 // 		void activeSelectGeo(bool on);
-// 		//¹Ø±Õ¼¸ºÎÑ¡È¡Ä£Ê½
+// 		//å…³é—­å‡ ä½•é€‰å–æ¨¡å¼
 // 		void closeSelectGeo(int geomodel);
 	signals:
 		void geoShapeSelected(Geometry::GeometrySet*shape, int index);
 	private slots:
-	    //¸ßÁÁÏÔÊ¾º¯Êı
-	    void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//¸ßÁÁÏÔÊ¾Ö÷Ìå
-		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾ÊµÌå
+	    //é«˜äº®æ˜¾ç¤ºå‡½æ•°
+	    void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//é«˜äº®æ˜¾ç¤ºä¸»ä½“
+		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºå®ä½“
 		vtkPolyData* getSolidPolyData(Geometry::GeometrySet* s, int id);
-		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾µã
+		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºç‚¹
 		vtkPolyData* getPointPolyData(Geometry::GeometrySet* s, int id);
-		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾±ß
+		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºè¾¹
 		vtkPolyData* getEdgePolyData(Geometry::GeometrySet* s, int id);
-		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾Ãæ
+		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºé¢
 		vtkPolyData* getFacePolyData(Geometry::GeometrySet* s, int id);
-		void clearGeometryHighLight();//Çå¿Õ¸ßÁÁ¶ÔÏó
-		void clearAllHighLight();//Çå¿ÕËùÓĞ¸ßÁÁ¶ÔÏó
-		void clearSelectActors(Geometry::GeometrySet* s);//Çå¿ÕÖ÷Ìå¸ßÁÁÑ¡ÔñµÄactor
-		void showActor(vtkPolyData* pd, bool state);//Ìí¼Ó»òÉ¾³ıactor
-		bool judgePreShowActor(vtkPolyData* pd);//ÅĞ¶ÏÔ¤ÏÔÊ¾actor
+		void clearGeometryHighLight();//æ¸…ç©ºé«˜äº®å¯¹è±¡
+		void clearAllHighLight();//æ¸…ç©ºæ‰€æœ‰é«˜äº®å¯¹è±¡
+		void clearSelectActors(Geometry::GeometrySet* s);//æ¸…ç©ºä¸»ä½“é«˜äº®é€‰æ‹©çš„actor
+		void showActor(vtkPolyData* pd, bool state);//æ·»åŠ æˆ–åˆ é™¤actor
+		bool judgePreShowActor(vtkPolyData* pd);//åˆ¤æ–­é¢„æ˜¾ç¤ºactor
 		void hideGeometry(Geometry::GeometrySet* set, QList<vtkActor*> actors, int index);
 	private:
 		void init();
@@ -105,7 +105,7 @@ namespace MainWidget
 		PreWindow* _preWindow{};
 		GUI::MainWindow* _mainWindow{};
 		Geometry::GeometryData* _geoData{};
-		//¸ù¾İctrlpress×´Ì¬´æ·Åactor
+		//æ ¹æ®ctrlpressçŠ¶æ€å­˜æ”¾actor
 	//	QList<vtkActor*> _addActors{};
 		//
 		QList<vtkActor*> _vertexActors{};
@@ -116,18 +116,18 @@ namespace MainWidget
 		bool _showface{ true };
 //		bool _activeSeletGeo{ false };
 		bool _hasShowed{ false };
-		//·ÅÊµÌåµÄ
+		//æ”¾å®ä½“çš„
 		QMultiHash<Geometry::GeometrySet*, vtkPolyData*>_solidPolyDatas{};
 		//
 		QMultiHash<Geometry::GeometrySet*, vtkActor*> _setActors{};
 		QHash<vtkActor*, int> _actorShapeHash{};
-		//ĞÂÔö¼¯ºÏ
-		QMultiHash<vtkActor*, vtkPolyData*> _actorPolydataHash{};//ÓÃÓÚ´æ´¢ËùÓĞµã£¬Ïß£¬Ãæactor¶ÔÓ¦µÄËùÓĞµÄµ¥µã£¬Ïß£¬Ãæ¼¯ºÏ
-		QMultiHash<vtkPolyData*, Handle(TopoDS_TShape)> _polydataTShapeSetHash{};//ÓÃÓÚ´æ´¢ÊµÌå¶ÔÓ¦µÄÃæµÄhandleµÄÊı¾İ¼¯ºÏ
-		QHash<vtkPolyData*, int> _polydataShapeIdHash{};//µ¥µãÏßÃæÊµÌå¶ÔÓ¦µÄidºÅ
-		QHash<vtkPolyData*, Handle(TopoDS_TShape)> _polydataTShapeHash{};//µ¥Ãæpolydata¶ÔÓ¦µÄhandleÊı¾İ
-		QHash<vtkPolyData*, vtkActor*> _selectPolydataActorHash{};//Ñ¡ÖĞµÄactordµÄ¼¯ºÏ
-		//Ô¤Ñ¡Ôñ
+		//æ–°å¢é›†åˆ
+		QMultiHash<vtkActor*, vtkPolyData*> _actorPolydataHash{};//ç”¨äºå­˜å‚¨æ‰€æœ‰ç‚¹ï¼Œçº¿ï¼Œé¢actorå¯¹åº”çš„æ‰€æœ‰çš„å•ç‚¹ï¼Œçº¿ï¼Œé¢é›†åˆ
+		QMultiHash<vtkPolyData*, Handle(TopoDS_TShape)> _polydataTShapeSetHash{};//ç”¨äºå­˜å‚¨å®ä½“å¯¹åº”çš„é¢çš„handleçš„æ•°æ®é›†åˆ
+		QHash<vtkPolyData*, int> _polydataShapeIdHash{};//å•ç‚¹çº¿é¢å®ä½“å¯¹åº”çš„idå·
+		QHash<vtkPolyData*, Handle(TopoDS_TShape)> _polydataTShapeHash{};//å•é¢polydataå¯¹åº”çš„handleæ•°æ®
+		QHash<vtkPolyData*, vtkActor*> _selectPolydataActorHash{};//é€‰ä¸­çš„actordçš„é›†åˆ
+		//é¢„é€‰æ‹©
 		QPair<vtkPolyData*, vtkActor*>  _pre{};
 		ModuleBase::SelectModel _selectType{ ModuleBase::None };
 		QMultiHash<Geometry::GeometrySet*, int> _selectItems{};

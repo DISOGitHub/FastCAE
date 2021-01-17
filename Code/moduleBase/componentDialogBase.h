@@ -32,13 +32,13 @@ namespace ModuleBase
 		~ComponentSelectDialogBase();
 
 	protected:
-		///ÎªAvailableÁĞ±íÌí¼ÓItem
+		///ä¸ºAvailableåˆ—è¡¨æ·»åŠ Item
 		void appendItemToAvailableList(QString name, int id, QString icon = "");
-		///ÎªselecteÁĞ±íÌí¼ÓItem
+		///ä¸ºselecteåˆ—è¡¨æ·»åŠ Item
 		void appendItemToSelectedList(QString name, int id, QString icon = "");
-		///»ñÈ¡Ñ¡ÔñÁĞ±íµÄ¶ÔÏóIDºÍÃû³Æ
+		///è·å–é€‰æ‹©åˆ—è¡¨çš„å¯¹è±¡IDå’Œåç§°
 		virtual QMap<int, QString> getSelectedItemIDNames();
-		///Ó¦ÓÃ
+		///åº”ç”¨
 		virtual void accept() override;
 		void setCustomLayout(QBoxLayout* l);
 
@@ -54,7 +54,7 @@ namespace ModuleBase
 		///<MG set text of the remove button
 		void setRemoveButtonText(const QString & text);
 	private:
-		///³õÊ¼»¯ÁĞ±í£¬×ÓÀàµÄ¹¹Ôìº¯ÊıÖĞĞèÒªµ÷ÓÃ
+		///åˆå§‹åŒ–åˆ—è¡¨ï¼Œå­ç±»çš„æ„é€ å‡½æ•°ä¸­éœ€è¦è°ƒç”¨
 		virtual void init() = 0;
 		
 

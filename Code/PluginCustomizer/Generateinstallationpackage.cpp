@@ -85,17 +85,17 @@ namespace FastCAEDesigner{
 		if (!dir.exists())
 			return;
 
-		dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //ÉèÖÃ¹ıÂË
-		QFileInfoList fileList = dir.entryInfoList(); // »ñÈ¡ËùÓĞµÄÎÄ¼şĞÅÏ¢
-		foreach(QFileInfo file, fileList){ //±éÀúÎÄ¼şĞÅÏ¢
-			if (file.isFile()){ // ÊÇÎÄ¼ş£¬É¾³ı
+		dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //è®¾ç½®è¿‡æ»¤
+		QFileInfoList fileList = dir.entryInfoList(); // è·å–æ‰€æœ‰çš„æ–‡ä»¶ä¿¡æ¯
+		foreach(QFileInfo file, fileList){ //éå†æ–‡ä»¶ä¿¡æ¯
+			if (file.isFile()){ // æ˜¯æ–‡ä»¶ï¼Œåˆ é™¤
 				file.dir().remove(file.fileName());
 			}
-			else{ // µİ¹éÉ¾³ı
+			else{ // é€’å½’åˆ é™¤
 				deleteDir(file.absoluteFilePath());
 			}
 		}
-		dir.rmpath(dir.absolutePath()); // É¾³ıÎÄ¼ş¼Ğ
+		dir.rmpath(dir.absolutePath()); // åˆ é™¤æ–‡ä»¶å¤¹
 	}
 
 	void Generateinstallationpackage::run()
@@ -124,35 +124,35 @@ namespace FastCAEDesigner{
 		deleteDir(install);
 		
 
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë:ÕûÌåÅäÖÃĞÅÏ¢ÅäÖÃ£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥:æ•´ä½“é…ç½®ä¿¡æ¯é…ç½®ï¼"));
 		displayInstallInfo(QString("Writing: overall configuration information configuration!"));
 		dir.mkpath(caePath + "/Install/config/");
 		QString configFile = caePath + "/Install/config/config.xml";
 		toConfigXML(configFile);
 
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë£ºÅäÖÃ×é¼şĞÅÏ¢ÅäÖÃ£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥ï¼šé…ç½®ç»„ä»¶ä¿¡æ¯é…ç½®ï¼"));
 		displayInstallInfo(QString("Writing: configuration component information configuration!"));
 		QString configComponentPackage = caePath + "/Install/packages/org.diso.configfiles/meta/package.xml";
 		dir.mkpath(caePath + "/Install/packages/org.diso.configfiles/meta/");
 		toConfigComponent(configComponentPackage);
 
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë£ºÅäÖÃ×é¼şĞÅÏ¢½Å±¾£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥ï¼šé…ç½®ç»„ä»¶ä¿¡æ¯è„šæœ¬ï¼"));
 		displayInstallInfo(QString("Writing: configure component information script!"));
 		QString configComponentQS = caePath + "/Install/packages/org.diso.configfiles/meta/installscript.qs";
 		toConfigQS(configComponentQS);
 
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë£ººËĞÄ×é¼şĞÅÏ¢ÅäÖÃ£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥ï¼šæ ¸å¿ƒç»„ä»¶ä¿¡æ¯é…ç½®ï¼"));
 		displayInstallInfo(QString("Writing: core component information configuration!"));
 		QString coreComponentPackage = caePath + "/Install/packages/org.diso.fastcae/meta/package.xml";
 		dir.mkpath(caePath + "/Install/packages/org.diso.fastcae/meta/");
 		toSoftComponent(coreComponentPackage);
 
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë£ººËĞÄ×é¼şĞÅÏ¢½Å±¾£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥ï¼šæ ¸å¿ƒç»„ä»¶ä¿¡æ¯è„šæœ¬ï¼"));
 		displayInstallInfo(QString("Writing: core component information script!"));
 		QString coreComponentQS = caePath + "/Install/packages/org.diso.fastcae/meta/installscript.qs";
 		toSoftQS(coreComponentQS);
 
-		///<MG ¿½±´ÅäÖÃ
+		///<MG æ‹·è´é…ç½®
 		QString config_dir_from = caePath + "/ConfigFiles";
 		if (!dir.exists(config_dir_from))
 		{
@@ -164,10 +164,10 @@ namespace FastCAEDesigner{
 		if (!result){
 			displayInstallInfo(QString("Copy ConfilgFiles failed!"));
 			qDebug() << "Copy ConfilgFiles failed!";
-			//emit sig_generate_result(false, QString::fromLocal8Bit("¿½±´ConfilgFilesÊ§°Ü£¡"));
+			//emit sig_generate_result(false, QString::fromLocal8Bit("æ‹·è´ConfilgFileså¤±è´¥ï¼"));
 		}
 
-		///<MG ¿½±´Çó½âÆ÷
+		///<MG æ‹·è´æ±‚è§£å™¨
 		QString solver_dir_from = caePath + "/Solver";
 		QString solver_dir_to = caePath + "/Install/packages/org.diso.configfiles/data/Solver";
 		dir.mkpath(solver_dir_to);
@@ -175,10 +175,10 @@ namespace FastCAEDesigner{
 		if (!result){
 			displayInstallInfo(QString("Copy Solvers failed!"));
 			qDebug() << "Copy ConfilgFiles failed!";
-			//emit sig_generate_result(false, QString::fromLocal8Bit("¿½±´SolversÊ§°Ü£¡"));
+			//emit sig_generate_result(false, QString::fromLocal8Bit("æ‹·è´Solverså¤±è´¥ï¼"));
 		}
 
-		///<MG ¿½±´Ó¦ÓÃ
+		///<MG æ‹·è´åº”ç”¨
 		//QString core_dir_from = caePath + "/GUI";
 		QString core_dir_from = path;
 		QString core_dir_to = caePath + "/Install/packages/org.diso.fastcae/data/GUI";
@@ -187,10 +187,10 @@ namespace FastCAEDesigner{
 		if (!result){
 			displayInstallInfo(QString("Copy GUI failed!"));
 			qDebug() << "Copy ConfilgFiles failed!";
-			//emit sig_generate_result(false, QString::fromLocal8Bit("¿½±´GUIÊ§°Ü£¡"));
+			//emit sig_generate_result(false, QString::fromLocal8Bit("æ‹·è´GUIå¤±è´¥ï¼"));
 		}
 
-		///<MG ¿½±´Python»·¾³
+		///<MG æ‹·è´Pythonç¯å¢ƒ
 		QString python_dir_from = caePath + "/python37";
 		QString python_dir_to = caePath + "/Install/packages/org.diso.fastcae/data/python37";
 		dir.mkpath(python_dir_to);
@@ -200,7 +200,7 @@ namespace FastCAEDesigner{
 		}
 			 
 
-		///<MG ¸Ä±äexeÃû×Ö
+		///<MG æ”¹å˜exeåå­—
 		QString filePath = caePath + "/Install/packages/org.diso.fastcae/data/GUI/FastCAE.exe";
 		QFile exe(filePath);
 		if (exe.exists())
@@ -208,7 +208,7 @@ namespace FastCAEDesigner{
 			exe.rename(caePath + "/Install/packages/org.diso.fastcae/data/GUI/" + _softName + ".exe");
 		}
 
-		///<MG ÔËĞĞ½Å±¾
+		///<MG è¿è¡Œè„šæœ¬
  		QDir ctorDir(path);
  		ctorDir.cdUp();
 // 		ctorDir.cdUp();
@@ -225,7 +225,7 @@ namespace FastCAEDesigner{
 		args.append(_installPath + "/" + _softName + ".exe");
 		args.append("-v");
 		displayInstallInfo(QString("Writing to the installation package"));
-		//emit sig_print_info(QString::fromLocal8Bit("ÕıÔÚĞ´Èë°²×°°ü£¡"));
+		//emit sig_print_info(QString::fromLocal8Bit("æ­£åœ¨å†™å…¥å®‰è£…åŒ…ï¼"));
 
 //		_process = new QProcess();
 		qDebug() << args;
@@ -279,7 +279,7 @@ namespace FastCAEDesigner{
 	QString coreComponentQS = caePath + sysPath + "fastcae/meta/installscript.qs";
 	toSoftQS(coreComponentQS);
 
-	///<MG ¿½±´ÅäÖÃ
+	///<MG æ‹·è´é…ç½®
 	QString config_dir_from = caePath + "/ConfigFiles";
 	if (!dir.exists(config_dir_from))
 	{
@@ -292,7 +292,7 @@ namespace FastCAEDesigner{
 		displayInstallInfo(QString("Copy ConfilgFiles failed!"));
 	}
 
-	///<MG ¿½±´Çó½âÆ÷
+	///<MG æ‹·è´æ±‚è§£å™¨
 	QString solver_dir_from = caePath + "/Solver";
 	QString solver_dir_to = caePath + sysPath + "configfiles/data/Solver";
 	dir.mkpath(solver_dir_to);
@@ -301,7 +301,7 @@ namespace FastCAEDesigner{
 		displayInstallInfo(QString("Copy Solvers failed!"));
 	}
 
-	///<MG ¿½±´ÓÃ»§ËµÃ÷ÎÄµµ
+	///<MG æ‹·è´ç”¨æˆ·è¯´æ˜æ–‡æ¡£
 	QString doc_dir_from = caePath + "/Doc";
 	QString doc_dir_to = caePath + sysPath + "configfiles/data/Doc";
 	dir.mkpath(doc_dir_to);
@@ -310,7 +310,7 @@ namespace FastCAEDesigner{
 		displayInstallInfo(QString("Copy Doc failed!"));
 	}
 
-	///<MG ¿½±´Ó¦ÓÃ
+	///<MG æ‹·è´åº”ç”¨
 	//QString core_dir_from = caePath + "/GUI";
 	QString core_dir_from = path;
 	QString core_dir_to = caePath + sysPath + "fastcae/data/GUI";
@@ -320,7 +320,7 @@ namespace FastCAEDesigner{
 		displayInstallInfo(QString("Copy GUI failed!"));
 	}
 
-	///<MG ¿½±´Python»·¾³
+	///<MG æ‹·è´Pythonç¯å¢ƒ
 	QString python_dir_from = caePath + "/python37";
 	QString python_dir_to = caePath + sysPath + "fastcae/data/python37";
 	dir.mkpath(python_dir_to);
@@ -330,7 +330,7 @@ namespace FastCAEDesigner{
 	}
 
 
-	///<MG ¸Ä±äexeÃû×Ö
+	///<MG æ”¹å˜exeåå­—
 	QString filePath = caePath + sysPath + "fastcae/data/GUI/FastCAE.exe";
 	QFile exe(filePath);
 	if (exe.exists())
@@ -338,7 +338,7 @@ namespace FastCAEDesigner{
 		exe.rename(caePath + sysPath + "fastcae/data/GUI/" + _softName + ".exe");
 	}
 
-	///<MG ÔËĞĞ½Å±¾
+	///<MG è¿è¡Œè„šæœ¬
 	//QDir ctorDir(path);
 	//ctorDir.cdUp();
 	// 		ctorDir.cdUp();
@@ -396,7 +396,7 @@ namespace FastCAEDesigner{
 			bGenerated = true;
 			if (_process)
 			{
-			//	emit sig_generate_result(true, QString::fromLocal8Bit("Éú³É³É¹¦"));
+			//	emit sig_generate_result(true, QString::fromLocal8Bit("ç”ŸæˆæˆåŠŸ"));
 				_process->kill();
 				delete _process;
 				_process = nullptr;
@@ -477,7 +477,7 @@ namespace FastCAEDesigner{
 
 		QDomElement desc = doc.createElement("Description");
 		root.appendChild(desc);
-		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	ÅäÖÃÎÄ¼ş°üÊÇÒ»¸ö°üº¬ÏîÄ¿ËùÓĞ±ØĞëÅäÖÃ»·¾³¼°ÒÀÀµÎÄ¼ş,ÓÃ»§Çó½âÆ÷»·¾³µÄ°²×°°üºÍÓÃ»§ËµÃ÷ÎÄµµ£¬¸Ã°²×°°üÄ¬ÈÏ±ØĞë°²×°£¡"));
+		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	é…ç½®æ–‡ä»¶åŒ…æ˜¯ä¸€ä¸ªåŒ…å«é¡¹ç›®æ‰€æœ‰å¿…é¡»é…ç½®ç¯å¢ƒåŠä¾èµ–æ–‡ä»¶,ç”¨æˆ·æ±‚è§£å™¨ç¯å¢ƒçš„å®‰è£…åŒ…å’Œç”¨æˆ·è¯´æ˜æ–‡æ¡£ï¼Œè¯¥å®‰è£…åŒ…é»˜è®¤å¿…é¡»å®‰è£…ï¼"));
 		desc.appendChild(descText);
 
 		QDomElement version = doc.createElement("Version");
@@ -552,7 +552,7 @@ namespace FastCAEDesigner{
 
 		QDomElement desc = doc.createElement("Description");
 		root.appendChild(desc);
-		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	Èí¼şºËĞÄ°²×°°üÖĞ°üº¬Èí¼şµÄºËĞÄÓ¦ÓÃ³ÌĞò¼°ÆäÏàÓ¦µÄdllÎÄ¼ş£¬¸Ã°²×°°üÄ¬ÈÏ±ØĞë½øĞĞ°²×°£¡"));
+		QDomText descText = doc.createTextNode(_softName + QString::fromLocal8Bit("	è½¯ä»¶æ ¸å¿ƒå®‰è£…åŒ…ä¸­åŒ…å«è½¯ä»¶çš„æ ¸å¿ƒåº”ç”¨ç¨‹åºåŠå…¶ç›¸åº”çš„dllæ–‡ä»¶ï¼Œè¯¥å®‰è£…åŒ…é»˜è®¤å¿…é¡»è¿›è¡Œå®‰è£…ï¼"));
 		desc.appendChild(descText);
 
 		QDomElement version = doc.createElement("Version");
@@ -689,7 +689,7 @@ namespace FastCAEDesigner{
 		 
 	void Generateinstallationpackage::slot_console_process_error(QProcess::ProcessError)
 	{
-		//emit sig_generate_result(false, QString::fromLocal8Bit("·¢Éú´íÎó£¡"));
+		//emit sig_generate_result(false, QString::fromLocal8Bit("å‘ç”Ÿé”™è¯¯ï¼"));
 		QProcess * _process = qobject_cast<QProcess *>(sender());
 		if (_process)
 		{

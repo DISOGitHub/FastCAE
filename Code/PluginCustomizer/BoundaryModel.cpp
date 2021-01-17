@@ -25,7 +25,7 @@ namespace FastCAEDesigner
 		return dlg.exec();
 	}
 
-	//获取常用条件
+	//鑾峰彇甯哥敤鏉′欢
 	QString BoundaryModel::GetCommanCondition()
 	{
 		return _commonCondition;

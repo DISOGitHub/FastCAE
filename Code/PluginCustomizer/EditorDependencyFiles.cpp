@@ -143,7 +143,7 @@ namespace FastCAEDesigner{
 		return _fileNames;
 	}
 
-	//Added xvdongming 2020-02014 刷新依赖文件列表
+	//Added xvdongming 2020-02014 鍒锋柊渚濊禆鏂囦欢鍒楄〃
 	void EditorDependencyFiles::UpdateFileNames()
 	{
 		int num = ui->listWidget->count();

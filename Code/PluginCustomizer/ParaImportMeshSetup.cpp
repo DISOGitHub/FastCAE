@@ -19,7 +19,7 @@ namespace FastCAEDesigner{
 		connect(ui->chk_tecplot, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		connect(ui->chk_vtk, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		connect(ui->chk_inp, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
-		//³õÊ¼»¯µ¼ÈëÍø¸ñÀàÐÍ
+		//åˆå§‹åŒ–å¯¼å…¥ç½‘æ ¼ç±»åž‹
 		QString importMeshSuffix = FastCAEDesigner::DataManager::getInstance()->GetImportMeshSuffix();
 		
 		initimportsuffix(importMeshSuffix);

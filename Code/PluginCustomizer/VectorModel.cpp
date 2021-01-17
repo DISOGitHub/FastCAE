@@ -21,12 +21,12 @@ namespace FastCAEDesigner
 	{
 
 	}
-	//´´½¨×Ó½Úµã
+	//åˆ›å»ºå­èŠ‚ç‚¹
 	ModelBase* VectorModel::CreateChildModel(QString fileName, QObject* parent)
 	{
 		return CreateChildModelFactory::Create(TreeItemType::ProjectPost3DGraph, fileName, parent);
 	}
-	//´´½¨×Ó½Úµã
+	//åˆ›å»ºå­èŠ‚ç‚¹
 	ModelBase* VectorModel::CreateChildModel(QTreeWidgetItem* parentTreeItem)
 	{
 	//	qDebug() << "MonitorModel::CreateChildModel(QTreeWidgetItem* parentTreeItem)";
@@ -52,7 +52,7 @@ namespace FastCAEDesigner
 
 		return nullptr;
 	}
-	//»ñÈ¡Ê¹ÓÃ¹ıµÄÃû×Ö
+	//è·å–ä½¿ç”¨è¿‡çš„åå­—
 	QList<QString> VectorModel::getNameUsedList()
 	{
 		QList<QString> nameList;

@@ -165,7 +165,7 @@ namespace FastCAEDesigner
 
 		this->CloseOffice();
 		_officeContent = new QAxWidget("Excel.Application", this->ui->widget);
-		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//²»ÏÔÊ¾´°Ìå
+		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//ä¸æ˜¾ç¤ºçª—ä½“
 		_officeContent->setProperty("DisplayAlerts", false);
 		auto rect = this->ui->widget->geometry();
 		_officeContent->setGeometry(rect);
@@ -182,7 +182,7 @@ namespace FastCAEDesigner
 		//_officeContent = new QAxWidget("Word.Application", this);
 		//_officeContent = new QAxWidget("Word.Application");
 		_officeContent = new QAxWidget("Word.Application",this->ui->widget);
-		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//²»ÏÔÊ¾´°Ìå
+		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//ä¸æ˜¾ç¤ºçª—ä½“
 		_officeContent->setProperty("DisplayAlerts", false);
 		ui->widget->hide();
 		auto rect =  this->ui->widget->geometry();
@@ -196,7 +196,7 @@ namespace FastCAEDesigner
 		/*
 		CloseOffice();
 		_officeContent = new QAxWidget("Word.Application");
-		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//²»ÏÔÊ¾´°Ìå
+		_officeContent->dynamicCall("SetVisible (bool Visible)", "false");//ä¸æ˜¾ç¤ºçª—ä½“
 		_officeContent->setProperty("DisplayAlerts", false);
 		auto rect = ui->widget->geometry();
 		_officeContent->setGeometry(rect);
@@ -218,7 +218,7 @@ namespace FastCAEDesigner
 		_officeContent = new QAxWidget;
 
 		if (!_officeContent->setControl("Adobe PDF Reader"))
-			QMessageBox::critical(this, "Error", "Ã»ÓÐ°²×°pdf£¡");
+			QMessageBox::critical(this, "Error", "æ²¡æœ‰å®‰è£…pdfï¼");
 
 		//ui->widget->hide();
 	    QVariant v = _officeContent->dynamicCall("LoadFile(const QString&)", fileName);

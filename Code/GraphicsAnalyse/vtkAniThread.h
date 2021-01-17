@@ -1,4 +1,4 @@
-﻿#ifndef VTKANITHREAD_H
+#ifndef VTKANITHREAD_H
 #define VTKANITHREAD_H
 
 #include <QThread>

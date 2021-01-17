@@ -30,7 +30,7 @@ namespace FastCAEDesigner
 			ui->txtName->setEnabled(true);
 	}
 
-	//³õÊ¼»¯º¯Êı
+	//åˆå§‹åŒ–å‡½æ•°
 	void EditorBoolValue::Init()
 	{
 		QStringList strList;
@@ -42,14 +42,14 @@ namespace FastCAEDesigner
 		connect(ui->btnCancel, SIGNAL(clicked()), this, SLOT(close()));
 	}
 
-	//³õÊ¼»¯´íÎó´úÂë¶ÔÓ¦µÄ´íÎóĞÅÏ¢ÁĞ±í
+	//åˆå§‹åŒ–é”™è¯¯ä»£ç å¯¹åº”çš„é”™è¯¯ä¿¡æ¯åˆ—è¡¨
 	void  EditorBoolValue::InitErrorList()
 	{
 		_errorList.insert(NameIsEmpty, tr("Name is empty."));
 		_errorList.insert(TheNameInUse, tr("The name is already in use"));
 	}
 	
-	//Ğ£ÑéÊı¾İÉè¶¨ÊÇ·ñÕıÈ·£¬¸ù¾İ´íÎóµÄ×´¿ö·µ»ØÏìÓ¦µÄ´íÎó´úÂë
+	//æ ¡éªŒæ•°æ®è®¾å®šæ˜¯å¦æ­£ç¡®ï¼Œæ ¹æ®é”™è¯¯çš„çŠ¶å†µè¿”å›å“åº”çš„é”™è¯¯ä»£ç 
 	int EditorBoolValue::IsDataOk()
 	{
 		QString name = ui->txtName->text().trimmed();
@@ -62,7 +62,7 @@ namespace FastCAEDesigner
 
 		return 0;
 	}
-	//È·ÈÏÉè¶¨²Ûº¯Êı
+	//ç¡®è®¤è®¾å®šæ§½å‡½æ•°
 	void EditorBoolValue::OnBtnOkClicked()
 	{
 		//int errorCode = IsDataOk();
@@ -84,7 +84,7 @@ namespace FastCAEDesigner
 		this->accept();
 		close();
 	}
-	//Ë¢ĞÂmodelÊı¾İµ½UI
+	//åˆ·æ–°modelæ•°æ®åˆ°UI
 	void EditorBoolValue::UpdateDataToUi()
 	{
 		ui->txtName->setText(_model->getDescribe());
@@ -95,7 +95,7 @@ namespace FastCAEDesigner
 			ui->cbo_value->setCurrentIndex(1);
 	}
 
-	//Ë¢ĞÂUiÊı¾İµ½model
+	//åˆ·æ–°Uiæ•°æ®åˆ°model
 	void EditorBoolValue::UpdateUiToData()
 	{
 		QString name = ui->txtName->text().trimmed();
@@ -107,14 +107,14 @@ namespace FastCAEDesigner
 			_model->setValue(false);
 	}
 
-	//¶¨Ê±Æ÷²Ûº¯Êı
+	//å®šæ—¶å™¨æ§½å‡½æ•°
 	void EditorBoolValue::OnTimeout()
 	{
 		ui->lbl_info->setText("");
 		ui->lbl_info->hide();
 	}
 
-	//ÉèÖÃÒÑ¾­Ê¹ÓÃµÄ±äÁ¿Ãû³ÆÁĞ±í
+	//è®¾ç½®å·²ç»ä½¿ç”¨çš„å˜é‡åç§°åˆ—è¡¨
 	void EditorBoolValue::SetUsedNameList(QList<QString> list)
 	{
 		_usedNameList = list;

@@ -131,8 +131,8 @@ public:
 	void SetScale();
 	void SetTranslate();	
 	void SetLightingSpecular();	
-	void SetLightingSpecularPower();//���ո߹⣨���ߣ����ȣ���ȻӢ����power������ʵ�����������Ӧ����phong����ģ���еĹ��ȣ���Χ0.0~128.0��ע��ֵ�ܵͣ�����С��5.0ʱЧ��������
-	void SetLightingSpecularCorlor();//���ո߹⣨���ߣ���ɫ
+	void SetLightingSpecularPower();//光照高光（亮斑）光洁度，虽然英文是power，但是实际上这个参数应该是phong光照模型中的光洁度，范围0.0~128.0，注意值很低，比如小于5.0时效果会很奇怪
+	void SetLightingSpecularCorlor();//光照高光（亮斑）颜色
 	void SetSolidCorlor();
 	void SetEdgeCorlor();
 	void SetLightingInterpolation();

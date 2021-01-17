@@ -46,7 +46,7 @@ namespace FastCAEDesigner
 		void OnBtnOkClicked();
 		void OnBtnLoadIconClicked();
 
-		//²ÎÊıÁĞ±í²Ù×÷²Ûº¯Êı
+		//å‚æ•°åˆ—è¡¨æ“ä½œæ§½å‡½æ•°
 		void OnBtnAddParaClicked();
 		void OnBtnEditParaClicked();
 		void OnBtnDelParaClicked();
@@ -56,7 +56,7 @@ namespace FastCAEDesigner
 		void TableWidgetParaCurrentCellChanged();
 
 
-		//²ÎÊı×é²Ù×÷²Ûº¯Êı
+		//å‚æ•°ç»„æ“ä½œæ§½å‡½æ•°
 		void OnBtnAddGroupClicked();
 		void OnBtnDelGroupClicked();
 		void OnBtnEditGroupClicked();
@@ -65,7 +65,7 @@ namespace FastCAEDesigner
 		void TableWidgetGroupClicked(QModelIndex modelIndex);
 		void TableWidgetGroupCurrentCellChanged();
 
-		//²ÎÊı×é--²ÎÊıÁĞ±í²Ù×÷²Ûº¯Êı
+		//å‚æ•°ç»„--å‚æ•°åˆ—è¡¨æ“ä½œæ§½å‡½æ•°
 		void OnBtnAddGroupParaClicked();
 		void OnBtnEditGroupParaClicked();
 		void OnBtnDelGroupParaClicked();
@@ -74,7 +74,7 @@ namespace FastCAEDesigner
 		void TableWidgetGroupParaClicked(QModelIndex modelIndex);
 		void TableWidgetGroupParaCurrentCellChanged();
 
-		//½¨Á¢²ÎÊı
+		//å»ºç«‹å‚æ•°
 		void OnCreateIntClicked();
 		void OnCreateBoolClicked();
 		void OnCreateDoubleClicked();
@@ -114,32 +114,32 @@ namespace FastCAEDesigner
 		DataProperty::ParameterGroup* GetCurrentSelecctedGroup();
 		DataProperty::ParameterBase* GetSelectedGroupParameter();
 
-		//20200326 xuxinwei  »ñÈ¡ËãÀıÃû³Æ
+		//20200326 xuxinwei  è·å–ç®—ä¾‹åç§°
 		int getCaseType(ModelBase* model);
 		void deleteGroupAndParameters(DataProperty::ParameterGroup* group);
 		void removeNameFromList(DataProperty::ParameterBase* base);
 
 	private:
-		//µ±Ç°²Ù×÷¶ÔÏóÃ¶¾ÙËµÃ÷
+		//å½“å‰æ“ä½œå¯¹è±¡æšä¸¾è¯´æ˜
 		enum ECurrentOpObject
 		{
-			ParaList =1, //²ÎÊıÁĞ±í
-			ParaGroupList //²ÎÊı×é--²ÎÊıÁĞ±í
+			ParaList =1, //å‚æ•°åˆ—è¡¨
+			ParaGroupList //å‚æ•°ç»„--å‚æ•°åˆ—è¡¨
 		};
 	private:
 		Ui::EditorDescripttionSetup *ui;
-		CustomParameterModel* _model{nullptr};           //µ±Ç°±à¼­µÄmodel
+		CustomParameterModel* _model{nullptr};           //å½“å‰ç¼–è¾‘çš„model
 		QTreeWidgetItem* _treeItem{nullptr};
 		QMenu *topMenu;
-		//DataProperty::ParameterGroup* _currentParameterGroup{ nullptr };                   //µ±Ç°²Ù×÷µÄ²ÎÊı×é
-		//DataProperty::ParameterBase* _currentParameterList_Model{ nullptr };        //µ±Ç°Ñ¡ÖĞ²ÎÊıÁĞ±íÖĞµÄ²ÎÊı
-		//DataProperty::ParameterBase* _currentParameterGroupList_Model{ nullptr };   //µ±Ç°Ñ¡ÖĞ²ÎÊı×éÖĞµÄ²ÎÊı
+		//DataProperty::ParameterGroup* _currentParameterGroup{ nullptr };                   //å½“å‰æ“ä½œçš„å‚æ•°ç»„
+		//DataProperty::ParameterBase* _currentParameterList_Model{ nullptr };        //å½“å‰é€‰ä¸­å‚æ•°åˆ—è¡¨ä¸­çš„å‚æ•°
+		//DataProperty::ParameterBase* _currentParameterGroupList_Model{ nullptr };   //å½“å‰é€‰ä¸­å‚æ•°ç»„ä¸­çš„å‚æ•°
 
-		int _paraListColNum{ 4 };//²ÎÊıÁĞ±íÁĞÊı
-		int _groupListColNum{ 2 };//²ÎÊı×éÁĞ±íÁĞÊı
-		ECurrentOpObject _currentOpObject{ ParaList };//µ±Ç°²Ù×÷µÄÊ±²ÎÊıÁĞ±í»¹ÊÇ²ÎÊı×éµÄ²ÎÊıÁĞ±í
+		int _paraListColNum{ 4 };//å‚æ•°åˆ—è¡¨åˆ—æ•°
+		int _groupListColNum{ 2 };//å‚æ•°ç»„åˆ—è¡¨åˆ—æ•°
+		ECurrentOpObject _currentOpObject{ ParaList };//å½“å‰æ“ä½œçš„æ—¶å‚æ•°åˆ—è¡¨è¿˜æ˜¯å‚æ•°ç»„çš„å‚æ•°åˆ—è¡¨
 
-		//20200326   xuxinwei  ·ÂÕæºÍÇó½âËùÓĞ²ÎÊıÁĞ±í
+		//20200326   xuxinwei  ä»¿çœŸå’Œæ±‚è§£æ‰€æœ‰å‚æ•°åˆ—è¡¨
 		QList<DataProperty::ParameterBase*> _parameterList;
 		QList<DataProperty::ParameterGroup*> _parameterGroupList;
 		int _treeType{};

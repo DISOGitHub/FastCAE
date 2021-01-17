@@ -1,5 +1,5 @@
 /****************************
-写出文件供求解器调用
+鍐欏嚭鏂囦欢渚涙眰瑙ｅ櫒璋冪敤
 *********************** */ 
 
 #ifndef SOLVERINFOWRITER_H
@@ -43,7 +43,7 @@ namespace IO
 		SolverInfoWriter();
 		~SolverInfoWriter() = default;
 
-		///设置名称，不包含路径 eg 123.txt
+		///璁剧疆鍚嶇О锛屼笉鍖呭惈璺緞 eg 123.txt
 //		void setName(const QString filenam);
 		void appendModel(ModelData::ModelDataBase *model);
 		bool write(QString dir = QString()) override;
@@ -63,7 +63,7 @@ namespace IO
 		QList<ModelData::ModelDataBase*> _modelList{};
 		QString _name{};
 		bool  _isTextType{ true };
-		bool isjson{ false };//判断用户选择的是xml文件还是json文件输出类型，默认为false就是xml
+		bool isjson{ false };//鍒ゆ柇鐢ㄦ埛閫夋嫨鐨勬槸xml鏂囦欢杩樻槸json鏂囦欢杈撳嚭绫诲瀷锛岄粯璁や负false灏辨槸xml
 		Setting::SolveOption* _solveOption{};
 	private:
 		Geometry::GeometryData* _geoData{};

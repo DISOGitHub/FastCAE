@@ -22,7 +22,7 @@ namespace Command
 		this->getVec();
 		gp_Vec vec(_vector[0], _vector[1], _vector[2]);
 		
-		if (_isEdit) //±à¼­Ä£Ê½ÏÂ½«Ô­À´µÄÄ£ĞÍÑ¹½øÁĞ±í
+		if (_isEdit) //ç¼–è¾‘æ¨¡å¼ä¸‹å°†åŸæ¥çš„æ¨¡å‹å‹è¿›åˆ—è¡¨
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
 			Geometry::GeometryParaMakeMove* p = dynamic_cast<Geometry::GeometryParaMakeMove*>(pm);
@@ -43,8 +43,8 @@ namespace Command
 		for (Geometry::GeometrySet* set : setlist)
 		{
 			
-			//±£´æÏÂÄ³¸ösetÏÂËùÑ¡ÖĞµÄËùÓĞsolid.
-			//aRes=new shape+ÎŞ¹Øshape.
+			//ä¿å­˜ä¸‹æŸä¸ªsetä¸‹æ‰€é€‰ä¸­çš„æ‰€æœ‰solid.
+			//aRes=new shape+æ— å…³shape.
 			TopoDS_Compound aRes;
 			BRep_Builder aBuilder;
 			aBuilder.MakeCompound(aRes);
@@ -67,7 +67,7 @@ namespace Command
 					aBuilder.Add(aRes, shape);
 				}
 			}
-			//½«ÎŞ¹ØµÄsolid´æÔÚcompoundÖĞ¡£
+			//å°†æ— å…³çš„solidå­˜åœ¨compoundä¸­ã€‚
 			TopoDS_Shape* setShape = set->getShape();
 			TopoDS_Shape* setCopyShape = new TopoDS_Shape;
 			TopoDS_Shape* setOriShape = new TopoDS_Shape;
@@ -116,7 +116,7 @@ namespace Command
 			if (_isEdit)
 			{
 				_geoData->removeTopGeometrySet(_editSet);
-				_releaseEdit = true;     //±ê¼ÇÊÍ·Å×´Ì¬
+				_releaseEdit = true;     //æ ‡è®°é‡Šæ”¾çŠ¶æ€
 				_releasenew = false;
 			}
 
@@ -167,7 +167,7 @@ namespace Command
 			if (_isEdit)
 			{
 				_geoData->removeTopGeometrySet(_editSet);
-				_releaseEdit = true;     //±ê¼ÇÊÍ·Å×´Ì¬
+				_releaseEdit = true;     //æ ‡è®°é‡Šæ”¾çŠ¶æ€
 				_releasenew = false;
 			}
 			

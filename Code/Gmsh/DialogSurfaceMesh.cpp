@@ -198,7 +198,7 @@ namespace Gmsh
 		_pyAgent->submit(QString("gmsher.setElementType(\"%1\")").arg(eleType));
 
 		const int orderindex = _ui->OrderComboBox->currentIndex();
-		_pyAgent->submit(QString("gmsher.setElementOrder(%1)").arg(orderindex + 1)); //�ͽ׸߽׵�Ԫ
+		_pyAgent->submit(QString("gmsher.setElementOrder(%1)").arg(orderindex + 1)); //低阶高阶单元
 
 		const int methodIndex = _ui->MethodComboBox->currentIndex();
 		int method = 2;

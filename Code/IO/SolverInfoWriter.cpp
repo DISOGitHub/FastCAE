@@ -118,7 +118,7 @@ namespace IO
 
 		if (_modelList.size() == 1)
 		{
-			return writeSingleModel(); //writeSingleModel()ﾄﾚﾈﾝﾔﾝﾊｱﾗ｢ﾊﾍｵﾋ
+			return writeSingleModel(); //writeSingleModel()蜀�螳ｹ證よ慮豕ｨ驥頑脂莠�
 		}
 		else
 			return false;
@@ -219,7 +219,7 @@ namespace IO
 		ifstream inf;
 		std::string filename_model_xml, filename_model_temp, filename_model_json;
 		QString temp;
-		//ｴﾓQString ｵｽ std::string
+		//莉参String 蛻ｰ std::string
 		filename_model_xml = string((const char *)fileName.toLocal8Bit());
 		filename_model_temp = string((const char *)fileName.remove("model.xml").toLocal8Bit());
 		filename_model_json = filename_model_temp + "model.json";
@@ -263,7 +263,7 @@ namespace IO
 		ifstream inf;
 		std::string filename_material_xml, filename_material_temp, filename_material_json;
 		QString temp;
-		//ｴﾓQString ｵｽ std::string
+		//莉参String 蛻ｰ std::string
 
 		filename_material_xml = string((const char *)fileName.toLocal8Bit());
 		filename_material_temp = string((const char *)fileName.remove("material.xml").toLocal8Bit());
@@ -295,7 +295,7 @@ namespace IO
 		ifstream inf;
 		std::string filename_geometry_xml, filename_geometry_temp, filename_geometry_json;
 		QString temp;
-		//ｴﾓQString ｵｽ std::string
+		//莉参String 蛻ｰ std::string
 
 		filename_geometry_xml = string((const char *)fileName.toLocal8Bit());
 		filename_geometry_temp = string((const char *)fileName.remove("geometry.xml").toLocal8Bit());
@@ -327,7 +327,7 @@ namespace IO
 		ifstream inf;
 		std::string filename_meshdata_xml, filename_meshdata_temp, filename_meshdata_json;
 		QString temp;
-		//ｴﾓQString ｵｽ std::string
+		//莉参String 蛻ｰ std::string
 
 		filename_meshdata_xml = string((const char *)fileName.toLocal8Bit());
 		filename_meshdata_temp = string((const char *)fileName.remove("meshdata.xml").toLocal8Bit());

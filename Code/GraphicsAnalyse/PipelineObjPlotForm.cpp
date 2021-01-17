@@ -927,7 +927,7 @@ void PipelineObjPlotForm::func_combine_obj_model(PipelineObject* tep_pipelineObj
 
 void PipelineObjPlotForm::slot_saveAnimate()
 {
-	//±£´æ¶¯»­
+	//ä¿å­˜åŠ¨ç”»
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
 	if (aniSetting_data->flag_save)
 	{
@@ -1917,7 +1917,7 @@ void PipelineObjPlotForm::slot_update_scalarBar(PipelineObject *tep_pipelineObj)
 				return;
 			if (it.value())
 			{
-					//¶¯»­ÑÕÉ«Ìõ·¶Î§±ä»¯
+					//åŠ¨ç”»é¢œè‰²æ¡èŒƒå›´å˜åŒ–
 					//QString tep_colorColumn = it.key();
 					//double mRange[2];
 					//tep_pipelineObj->getcolorColumnRange(tep_colorColumn, mRange);
@@ -1926,7 +1926,7 @@ void PipelineObjPlotForm::slot_update_scalarBar(PipelineObject *tep_pipelineObj)
 					//if (tep_lookupTable != NULL)
 					//{
 					//	tep_scalarWidget->GetScalarBarActor()->SetLookupTable(tep_lookupTable);//tep_scalarWidget->GetScalarBarActor()->GetLookupTable()->SetRange(mRange);
-					//	//¶¯»­ÑÕÉ«Ìõ·¶Î§±ä»¯
+					//	//åŠ¨ç”»é¢œè‰²æ¡èŒƒå›´å˜åŒ–
 					//	tep_scalarWidget->On();
 					//}
 				vtkColorTransferFunction* tep_lookupTable = NULL;

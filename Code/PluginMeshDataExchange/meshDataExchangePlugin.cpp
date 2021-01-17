@@ -197,11 +197,11 @@ bool SU2importMesh(QString AbFileName, int modelId)
 	QFileInfo info(AbFileName);
 	QString fileName = info.fileName();
 
-	if (fileName.startsWith("xxx"))//su2µÄÁíÍâÒ»ÖÖ¸ñÊ½
+	if (fileName.startsWith("xxx"))//su2çš„å¦å¤–ä¸€ç§æ ¼å¼
 	{
 		AnotherSU2importMesh(AbFileName);
 	}
-	else//su2µÄÕı³£¸ñÊ½
+	else//su2çš„æ­£å¸¸æ ¼å¼
 	{
 		auto SU2reader = new MeshData::SU2dataExchange(AbFileName, MeshData::MESH_READ, MeshData::MeshDataExchangePlugin::getMWpt());
 		ModuleBase::ThreadControl* tc = new ModuleBase::ThreadControl(SU2reader);

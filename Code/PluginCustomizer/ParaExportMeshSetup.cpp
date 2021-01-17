@@ -21,7 +21,7 @@ namespace FastCAEDesigner{
 		//connect(ui->chk_nastran, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		//connect(ui->chk_tecplot, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
 		connect(ui->chk_vtk, SIGNAL(clicked()), this, SLOT(CancelCheckAll()));
-		//³õÊ¼»¯µ½´¦Íø¸ñÀàÐÍ
+		//åˆå§‹åŒ–åˆ°å¤„ç½‘æ ¼ç±»åž‹
 		_suffix = FastCAEDesigner::DataManager::getInstance()->GetExportMeshSuffix();
 		initExportSuffix(_suffix);
 	}

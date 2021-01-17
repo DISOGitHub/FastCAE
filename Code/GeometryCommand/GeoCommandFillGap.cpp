@@ -41,7 +41,7 @@ namespace Command
 		BRep_Builder aBuilderAdd;
 		aBuilderAdd.MakeCompound(aRes);
 		aBuilderAdd.Add(aRes, aResult);
-		//½«set1ÖĞÊ£ÓàshapeºÍset2Ê£Óàshape×é³Écompound£¬È»ºóÓëĞÂshape×éºÏ¡£
+		//å°†set1ä¸­å‰©ä½™shapeå’Œset2å‰©ä½™shapeç»„æˆcompoundï¼Œç„¶åä¸æ–°shapeç»„åˆã€‚
 		TopoDS_Shape* setShape1 = set1->getShape();
 		TopoDS_Shape* setShape2 = set2->getShape();
 		if (setShape1 == nullptr || setShape2 == nullptr) return false;
@@ -105,7 +105,7 @@ namespace Command
 			_geoData->replaceSet(_editSet, _result);
 			emit removeDisplayActor(_result);//c2
 
-			const int n = _result->getSubSetCount();//Ìí¼Ób2,b3
+			const int n = _result->getSubSetCount();//æ·»åŠ b2,b3
 			for (int i = 0; i < n; ++i)
 			{
 				Geometry::GeometrySet* subset = _result->getSubSetAt(i);
@@ -114,7 +114,7 @@ namespace Command
 			}
 
 
-			const int m = _editSet->getSubSetCount();//É¾³ıb1,b2.
+			const int m = _editSet->getSubSetCount();//åˆ é™¤b1,b2.
 			for (int i = 0; i < m; ++i)
 			{
 				Geometry::GeometrySet* subset = _editSet->getSubSetAt(i);
@@ -209,34 +209,34 @@ namespace Command
 
 	TopoDS_Shape CommandFillGap::getGapShape(TopoDS_Shape shape1, TopoDS_Shape shape2)
 	{
-		TopTools_ListOfShape aLSObjects; //½øĞĞÁ¬½ÓµÄĞÎ×´
+		TopTools_ListOfShape aLSObjects; //è¿›è¡Œè¿æ¥çš„å½¢çŠ¶
 		aLSObjects.Append(shape1);
 		aLSObjects.Append(shape2);
 
 		BOPAlgo_Builder aBuilder;
 		aBuilder.SetArguments(aLSObjects);
-		//ÉèÖÃGFµÄÑ¡Ïî
-		//ÉèÖÃ²¢ĞĞ´¦ÀíÄ£Ê½£¨Ä¬ÈÏÎªfalse£©
+		//è®¾ç½®GFçš„é€‰é¡¹
+		//è®¾ç½®å¹¶è¡Œå¤„ç†æ¨¡å¼ï¼ˆé»˜è®¤ä¸ºfalseï¼‰
 		Standard_Boolean bRunParallel = Standard_True;
 		aBuilder.SetRunParallel(bRunParallel);
-		//ÉèÖÃÄ£ºıÖµ£¨Ä¬ÈÏÎªPrecision :: Confusion£¨£©£©  
+		//è®¾ç½®æ¨¡ç³Šå€¼ï¼ˆé»˜è®¤ä¸ºPrecision :: Confusionï¼ˆï¼‰ï¼‰  
 		Standard_Real aFuzzyValue = 1e-5;
 		aBuilder.SetFuzzyValue(aFuzzyValue);
-		//ÉèÖÃ°²È«´¦ÀíÄ£Ê½£¨Ä¬ÈÏÎªfalse£©
+		//è®¾ç½®å®‰å…¨å¤„ç†æ¨¡å¼ï¼ˆé»˜è®¤ä¸ºfalseï¼‰
 		Standard_Boolean bSafeMode = Standard_True;
 		aBuilder.SetNonDestructive(bSafeMode);
-		//ÎªÖØºÏµÄ²ÎÊıÉèÖÃÕ³ºÏÄ£Ê½£¨Ä¬ÈÏÎª¹Ø±Õ£©
+		//ä¸ºé‡åˆçš„å‚æ•°è®¾ç½®ç²˜åˆæ¨¡å¼ï¼ˆé»˜è®¤ä¸ºå…³é—­ï¼‰
 		BOPAlgo_GlueEnum aGlue = BOPAlgo_GlueShift;
 		aBuilder.SetGlue(aGlue);
-		//½ûÓÃ/ÆôÓÃ¶Ôµ¹ÖÃ¹ÌÌåµÄ¼ì²é£¨Ä¬ÈÏÎªtrue£©
+		//ç¦ç”¨/å¯ç”¨å¯¹å€’ç½®å›ºä½“çš„æ£€æŸ¥ï¼ˆé»˜è®¤ä¸ºtrueï¼‰
 		Standard_Boolean bCheckInverted = Standard_False;
 		aBuilder.SetCheckInverted(bCheckInverted);
-		//ÉèÖÃOBBÓÃ·¨£¨Ä¬ÈÏÎªfalse£©
+		//è®¾ç½®OBBç”¨æ³•ï¼ˆé»˜è®¤ä¸ºfalseï¼‰
 		Standard_Boolean bUseOBB = Standard_True;
 		aBuilder.SetUseOBB(bUseOBB);
-		//Ö´ĞĞ²Ù×÷ 
+		//æ‰§è¡Œæ“ä½œ 
 		aBuilder.Perform();
-		//¼ì²é´íÎó
+		//æ£€æŸ¥é”™è¯¯
 		if (aBuilder.HasErrors()) return TopoDS_Shape();
 		if (aBuilder.HasWarnings()) return TopoDS_Shape();
 		// result of the operation

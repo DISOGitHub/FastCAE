@@ -17,7 +17,7 @@ namespace FastCAEDesigner
 	{
 	}
 
-	//»ñÈ¡ÏµÍ³ÅäÖÃÎÄ¼şÄ¿Â¼
+	//è·å–ç³»ç»Ÿé…ç½®æ–‡ä»¶ç›®å½•
 	QString FileHelper::GetSystemConfigPath()
 	{
 		const QString configDir = QCoreApplication::applicationDirPath() + "//..//ConfigFiles//";
@@ -28,7 +28,7 @@ namespace FastCAEDesigner
 		return dir.absolutePath()+"/";
 	}
 
-	//¿½±´ÎÄ¼ş£º
+	//æ‹·è´æ–‡ä»¶ï¼š
 	bool FileHelper::CopyFileToPath(QString sourceDir, QString destDir, bool coverFileIfExist)
 	{
 	//	qDebug() << sourceDir << destDir;
@@ -68,13 +68,13 @@ namespace FastCAEDesigner
 		return true;
 	}
 
-	//¿½±´ÎÄ¼ş¼Ğ£º
+	//æ‹·è´æ–‡ä»¶å¤¹ï¼š
 	bool FileHelper::CopyDirectoryFiles(const QString &fromDir, const QString &destDir, bool coverFileIfExist)
 	{
 		QDir sourceDir(fromDir);
 		QDir targetDir(destDir);
 
-		if (!targetDir.exists()) /**< Èç¹ûÄ¿±êÄ¿Â¼²»´æÔÚ£¬Ôò½øĞĞ´´½¨ */
+		if (!targetDir.exists()) /**< å¦‚æœç›®æ ‡ç›®å½•ä¸å­˜åœ¨ï¼Œåˆ™è¿›è¡Œåˆ›å»º */
 		{
 			if (!targetDir.mkdir(targetDir.absolutePath()))
 				return false;
@@ -87,7 +87,7 @@ namespace FastCAEDesigner
 			if (fileInfo.fileName() == "." || fileInfo.fileName() == "..")
 				continue;
 
-			if (fileInfo.isDir()) /**< µ±ÎªÄ¿Â¼Ê±£¬µİ¹éµÄ½øĞĞcopy */
+			if (fileInfo.isDir()) /**< å½“ä¸ºç›®å½•æ—¶ï¼Œé€’å½’çš„è¿›è¡Œcopy */
 			{
 				if (!CopyDirectoryFiles(fileInfo.filePath(),
 					targetDir.filePath(fileInfo.fileName()),
@@ -95,13 +95,13 @@ namespace FastCAEDesigner
 					return false;
 			}
 			else
-			{            /**< µ±ÔÊĞí¸²¸Ç²Ù×÷Ê±£¬½«¾ÉÎÄ¼ş½øĞĞÉ¾³ı²Ù×÷ */
+			{            /**< å½“å…è®¸è¦†ç›–æ“ä½œæ—¶ï¼Œå°†æ—§æ–‡ä»¶è¿›è¡Œåˆ é™¤æ“ä½œ */
 				if (coverFileIfExist && targetDir.exists(fileInfo.fileName()))
 				{
 					targetDir.remove(fileInfo.fileName());
 				}
 
-				/// ½øĞĞÎÄ¼şcopy
+				/// è¿›è¡Œæ–‡ä»¶copy
 				if (!QFile::copy(fileInfo.filePath(),
 					targetDir.filePath(fileInfo.fileName())))
 				{

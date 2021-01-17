@@ -46,69 +46,69 @@ namespace DataProperty
 		ParameterBase(ParaType t);
 		ParameterBase() = default;
 		~ParameterBase() = default;
-		//´ÓoriÖĞ¿½±´ÄÚÈİ
+		//ä»oriä¸­æ‹·è´å†…å®¹
 		virtual void copy(ParameterBase* ori, bool valueOnly = false);
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		ParaType getParaType();
-		//ÉèÖÃÀàĞÍ
+		//è®¾ç½®ç±»å‹
 		void setParaType(ParaType type);
-		//»ñÈ¡Ãû³Æ
+		//è·å–åç§°
 		QString getDescribe();
-		//ÉèÖÃÃû³Æ
+		//è®¾ç½®åç§°
 		void setDescribe(QString s);
-		//ÉèÖÃÊÇ·ñ¿É¼û
+		//è®¾ç½®æ˜¯å¦å¯è§
 		void setVisible(bool v);
-		//»ñÈ¡¿É¼û×´Ì¬
+		//è·å–å¯è§çŠ¶æ€
 		bool isVisible();
-		//ÉèÖÃÊÇ·ñ¿É±à¼­
+		//è®¾ç½®æ˜¯å¦å¯ç¼–è¾‘
 		void setEditable(bool e);
-		//»ñÈ¡¿É±à¼­×´Ì¬
+		//è·å–å¯ç¼–è¾‘çŠ¶æ€
 		bool isEditable();
-		//ÉèÖÃÖĞÎÄÃû³Æ£¬ÓësetDescribe()¶ÔÓ¦
+		//è®¾ç½®ä¸­æ–‡åç§°ï¼Œä¸setDescribe()å¯¹åº”
 		void setChinese(QString chinese);
-		//»ñÈ¡ÖĞÎÄÃû³Æ
+		//è·å–ä¸­æ–‡åç§°
 		QString getChinese();
-		//½«Öµ×ª»¯Îª×Ö·û´®
+		//å°†å€¼è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
 		virtual QString valueToString();
-		//´Ó×Ö·û´®¶ÁÈ¡ÉèÖÃÊı¾İ
+		//ä»å­—ç¬¦ä¸²è¯»å–è®¾ç½®æ•°æ®
 		virtual void setValueFromString(QString v);
-		//ÉèÖÃÄ£¿éÀàĞÍ
+		//è®¾ç½®æ¨¡å—ç±»å‹
 		void setModuleType(ModuleType t);
-		//»ñÈ¡Ä£¿éÀàĞÍ
+		//è·å–æ¨¡å—ç±»å‹
 		ModuleType getModuleType();
-		//»ñÈ¡Êı¾İID(DataBase)
+		//è·å–æ•°æ®ID(DataBase)
 		int getDataID();
-		//ÉèÖÃÊı¾İID
+		//è®¾ç½®æ•°æ®ID
 		void setDataID(int id);
-		//»ñÈ¡Êı¾İË÷Òı
+		//è·å–æ•°æ®ç´¢å¼•
 		int getDataIndex();
-		//ÉèÖÃÊı¾İË÷Òı
+		//è®¾ç½®æ•°æ®ç´¢å¼•
 		void setDataIndex(int index);
-		//»ñÈ¡ËùÔÚµÄ×éÃû³Æ
+		//è·å–æ‰€åœ¨çš„ç»„åç§°
 		QString getGroupName();
-		//ÉèÖÃ×éµÄÃû³Æ
+		//è®¾ç½®ç»„çš„åç§°
 		void setGroupName(QString group);
-		//²ÎÊı×éÃû³Æ/²ÎÊıÃû³Æ
+		//å‚æ•°ç»„åç§°/å‚æ•°åç§°
 		QString genAbsoluteName();
-		//¼ÇÂ¼¹Û²ìÕß
+		//è®°å½•è§‚å¯Ÿè€…
 		void appendObserver(ConfigOption::ParameterObserver* obs);
-		//»ñÈ¡¹Û²ìÕßÁĞ±í
+		//è·å–è§‚å¯Ÿè€…åˆ—è¡¨
 		QList<ConfigOption::ParameterObserver*> getObserverList();
-		//ÅĞ¶ÏÊıÖµÊÇ·ñÒ»Ñù
+		//åˆ¤æ–­æ•°å€¼æ˜¯å¦ä¸€æ ·
 		virtual bool isSameValueWith(ParameterBase* p);
-		//×´Ì¬¿½±´
+		//çŠ¶æ€æ‹·è´
 		virtual void copyStatus(ParameterBase* p);
-		///Êı¾İĞ´Èë¹¤³ÌÎÄ¼ş
+		///æ•°æ®å†™å…¥å·¥ç¨‹æ–‡ä»¶
 		virtual void writeParameter(QDomDocument* doc, QDomElement* parent);
-		///´Ó¹¤³ÌÎÄ¼ş¶ÁÈëÊı¾İ
+		///ä»å·¥ç¨‹æ–‡ä»¶è¯»å…¥æ•°æ®
 		virtual void readParameter(QDomElement* e);
-		//ÀàĞÍ×ª»¯Îª×Ö·û´®
+		//ç±»å‹è½¬åŒ–ä¸ºå­—ç¬¦ä¸²
 		static QString ParaTypeToString(ParaType t);
-		//×Ö·û´®×ª»¯Îª²ÎÊıÀàĞÍ
+		//å­—ç¬¦ä¸²è½¬åŒ–ä¸ºå‚æ•°ç±»å‹
 		static ParaType StringToParaType(QString stype);
 
 	signals:
-		//ĞÅºÅ£¬²ÎÊıÖµ·¢Éú±ä»¯
+		//ä¿¡å·ï¼Œå‚æ•°å€¼å‘ç”Ÿå˜åŒ–
 		void dataChanged();
 
 
@@ -120,7 +120,7 @@ namespace DataProperty
 		bool _visible{ true };
 		QList<ConfigOption::ParameterObserver*> _observerList{};
 
-		//****Óë²ÎÊıÁ¥ÊôµÄÄ£¿éÏà¹ØĞÅÏ¢,ÓëDataBaseÏàÍ¬********
+		//****ä¸å‚æ•°éš¶å±çš„æ¨¡å—ç›¸å…³ä¿¡æ¯,ä¸DataBaseç›¸åŒ********
 		ModuleType _moduleType{ Module_None };
 		int _dataID{ -1 };
 		int _dataIndex{ -1 };

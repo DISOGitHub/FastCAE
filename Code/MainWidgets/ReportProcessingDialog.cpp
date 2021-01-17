@@ -24,9 +24,9 @@ ui(new Ui::ReportProcessingDialog)
 	setWindowTitle(_Title);
 	ui->hintMsgLabel->setText(mhintMsg);
 	connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(on_cancelBtn_clicked()));
-	setWindowFlags(Qt::FramelessWindowHint);//ÎŞ±ß¿ò
-	setAttribute(Qt::WA_TranslucentBackground);//±³¾°Í¸Ã÷
-	//   ÉèÖÃ¹ØÓÚ´°ÌåÎªÔ²½Ç
+	setWindowFlags(Qt::FramelessWindowHint);//æ— è¾¹æ¡†
+	setAttribute(Qt::WA_TranslucentBackground);//èƒŒæ™¯é€æ˜
+	//   è®¾ç½®å…³äºçª—ä½“ä¸ºåœ†è§’
 	setFixedSize(this->width(), this->height());
 	setButtonPosition();
 
@@ -69,13 +69,13 @@ void ReportProcessingDialog::changeFormStyle()
 
 	p.drawRoundedRect(bmp.rect(), 20, 20);
 	setMask(bmp);
-	//ÉèÖÃÔ²ĞÎ´°¿Ú¼°±³¾°É«
+	//è®¾ç½®åœ†å½¢çª—å£åŠèƒŒæ™¯è‰²
 	setStyleSheet(backgroundColor);*/
 }
 void ReportProcessingDialog::paintEvent(QPaintEvent *event)
 {
 	QPainter painter(this);
-	painter.setRenderHint(QPainter::Antialiasing);  // ·´¾â³İ;
+	painter.setRenderHint(QPainter::Antialiasing);  // åé”¯é½¿;
 }
 
 void ReportProcessingDialog::setIconPath(QString path)

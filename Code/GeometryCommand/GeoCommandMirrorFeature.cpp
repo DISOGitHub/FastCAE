@@ -30,7 +30,7 @@ namespace Command
 		gp_Dir dir(_planeDirection[0], _planeDirection[1], _planeDirection[2]);
 		gp_Ax2 plane(p, dir);
 		
-		if (_isEdit) //±à¼­Ä£Ê½ÏÂ½«Ô­À´µÄÄ£ÐÍÑ¹½øÁÐ±í
+		if (_isEdit) //ç¼–è¾‘æ¨¡å¼ä¸‹å°†åŽŸæ¥çš„æ¨¡åž‹åŽ‹è¿›åˆ—è¡¨
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
 			Geometry::GeometryParaMirrorFeature* p = dynamic_cast<Geometry::GeometryParaMirrorFeature*>(pm);
@@ -50,7 +50,7 @@ namespace Command
 		QList<Geometry::GeometrySet*> setlist = _solidhash.uniqueKeys();
 		for (Geometry ::GeometrySet* set : setlist)
 		{
-			//aRes=new shape+ÎÞ¹Øshape.
+			//aRes=new shape+æ— å…³shape.
 			TopoDS_Compound aRes;
 			BRep_Builder aBuilder;
 			aBuilder.MakeCompound(aRes);
@@ -72,7 +72,7 @@ namespace Command
 				}
 
 			}
-			//½«ÎÞ¹ØµÄsolid´æÔÚcompoundÖÐ¡£
+			//å°†æ— å…³çš„solidå­˜åœ¨compoundä¸­ã€‚
 
 			TopoDS_Shape* setShape = set->getShape();
 			TopoDS_Shape* setCopyShape = new TopoDS_Shape;

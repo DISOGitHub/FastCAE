@@ -264,7 +264,7 @@ namespace ModelData
     {
         ///<MG for wave resistance
 // 		if (_treeType != TreeType + 1){ return; }
-// 		*stream << "´¬ÐÍ±êÊ¶·û(os±íÊ¾ÓÍ´¬£¬cs±íÊ¾¼¯×°Ïä´¬£¬bs±íÊ¾É¢»õ´¬)£º" << endl;
+// 		*stream << "èˆ¹åž‹æ ‡è¯†ç¬¦(osè¡¨ç¤ºæ²¹èˆ¹ï¼Œcsè¡¨ç¤ºé›†è£…ç®±èˆ¹ï¼Œbsè¡¨ç¤ºæ•£è´§èˆ¹)ï¼š" << endl;
     }
 
     void ModelDataBase::writeToSolverXML(QDomDocument* doc,QDomElement* e)

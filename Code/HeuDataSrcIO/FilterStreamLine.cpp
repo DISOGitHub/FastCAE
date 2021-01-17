@@ -302,7 +302,7 @@ bool FilterStreamLine::MakeGlyphs1()
 	streamTracer->SetSurfaceStreamlines(mPipeLineObjProp.streamLineFilter_propData.surface_streamLines);
 	if (mPipeLineObjProp.streamLineFilter_propData.integration_data.direction == IntegrationDirection::FORWARD)
 	{
-		streamTracer->SetIntegrationDirectionToForward();//积分方向
+		streamTracer->SetIntegrationDirectionToForward();//绉垎鏂瑰悜
 	}
 	else if (mPipeLineObjProp.streamLineFilter_propData.integration_data.direction == IntegrationDirection::BACKWARD)
 	{

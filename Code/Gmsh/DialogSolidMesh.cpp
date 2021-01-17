@@ -335,11 +335,11 @@ namespace Gmsh
 //		_pyAgent->submit("Mesher.initGmsh()");
 
 		QString eleType("Tet");
-		if (_ui->HexRadioButton->isChecked()) eleType = "Hex";     //ÁùÃæÌå 
+		if (_ui->HexRadioButton->isChecked()) eleType = "Hex";     //å…­é¢ä½“ 
 		_pyAgent->submit(QString("gmsher.setElementType(\"%1\")").arg(eleType));
 
 		const int orderindex = _ui->OrderComboBox->currentIndex();
-		_pyAgent->submit(QString("gmsher.setElementOrder(%1)").arg(orderindex + 1)); //µÍ½×¸ß½×µ¥Ôª
+		_pyAgent->submit(QString("gmsher.setElementOrder(%1)").arg(orderindex + 1)); //ä½Žé˜¶é«˜é˜¶å•å…ƒ
 
 		const int methodIndex = _ui->MethodComboBox->currentIndex();
 		int method = 1;

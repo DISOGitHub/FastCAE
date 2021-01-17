@@ -12,7 +12,7 @@ namespace Material
 	};
 }
 
-//声明为c接口，供python脚本调用
+//澹版槑涓篶鎺ュ彛锛屼緵python鑴氭湰璋冪敤
 extern "C"
 {
 	void MATERIALAPI setValue(int ID, char* variable, char* stype, char* svalue);

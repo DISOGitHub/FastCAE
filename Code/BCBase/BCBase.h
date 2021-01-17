@@ -26,21 +26,21 @@ namespace BCBase
 	public:
 		BCBase();
 		~BCBase() = default;
-		//拷贝数据
+		//鎷疯礉鏁版嵁
 		virtual void copy(DataBase* data) override;
-		//绑定组件ID
+		//缁戝畾缁勪欢ID
 		void bingdingComponentID(int id);
-		//获取绑定组件ID
+		//鑾峰彇缁戝畾缁勪欢ID
 		int getComponentID();
-		//获取绑定组件名称
+		//鑾峰彇缁戝畾缁勪欢鍚嶇О
 		QString getComponentName();
-		//获取绑定组件(可能是网格组件，也可能是几何组件，可以函数来获取类型)
+		//鑾峰彇缁戝畾缁勪欢(鍙兘鏄綉鏍肩粍浠讹紝涔熷彲鑳芥槸鍑犱綍缁勪欢锛屽彲浠ュ嚱鏁版潵鑾峰彇绫诲瀷)
 		DataProperty::ComponentBase* getComponent();
-		//设置绑定组件
+		//璁剧疆缁戝畾缁勪欢
 		void setComponent(DataProperty::ComponentBase*);
-		//设置边界条件类型
+		//璁剧疆杈圭晫鏉′欢绫诲瀷
 		void setBCType(BCType t);
-		//获取边界条件
+		//鑾峰彇杈圭晫鏉′欢
 		BCType getBCType();
 
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;

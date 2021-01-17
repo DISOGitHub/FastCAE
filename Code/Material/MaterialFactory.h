@@ -16,13 +16,13 @@ namespace Material
 	public:
 		MaterialFactory() = default;
 		~MaterialFactory() = default;
-		//×¢²á²ÄÁÏ´´½¨·½·¨
+		//æ³¨å†Œææ–™åˆ›å»ºæ–¹æ³•
 		static void registerType(QString type, CREATEMATERIAL);
-		//ÒÆ³ı²ÄÁÏ´´½¨·½·¨
+		//ç§»é™¤ææ–™åˆ›å»ºæ–¹æ³•
 		static void removeType(QString type);
-		//¸ù¾İÀàĞÍ´´½¨²ÄÁÏ
+		//æ ¹æ®ç±»å‹åˆ›å»ºææ–™
 		static Material* createMaterial(QString  type);
-		//»ñÈ¡ËùÓĞÀàĞÍ
+		//è·å–æ‰€æœ‰ç±»å‹
 		static QStringList getRegTypes();
 	
 	private:

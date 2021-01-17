@@ -1,9 +1,9 @@
 /**********************************************************************************
 
-¹¦ÄÜ£ºXmlÎÄ¼ş½ÚµãÉú³ÉÀà£¬¸ù¾İÉè¶¨²ÎÊıÉú³ÉÖÆ¶¨¸ñÊ½µÄ½Úµã²¢·µ»Ø¡£
-½¨Á¢£ºxvdongming
-ÈÕÆÚ£º2019-11
-ĞŞ¸ÄºÍÎ¬»¤£ºxvdongming
+åŠŸèƒ½ï¼šXmlæ–‡ä»¶èŠ‚ç‚¹ç”Ÿæˆç±»ï¼Œæ ¹æ®è®¾å®šå‚æ•°ç”Ÿæˆåˆ¶å®šæ ¼å¼çš„èŠ‚ç‚¹å¹¶è¿”å›ã€‚
+å»ºç«‹ï¼šxvdongming
+æ—¥æœŸï¼š2019-11
+ä¿®æ”¹å’Œç»´æŠ¤ï¼šxvdongming
 
 **********************************************************************************/
 
@@ -33,18 +33,18 @@ namespace FastCAEDesigner
 
 	public:
 		
-		//½¨Á¢xml½Úµã -- ´øÒ»¸öÊôĞÔµÄ½ÚµãÊôĞÔÖµÎªboolÀàĞÍ
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- å¸¦ä¸€ä¸ªå±æ€§çš„èŠ‚ç‚¹å±æ€§å€¼ä¸ºboolç±»å‹
 		QDomElement CreateElementAttribute(QDomDocument &doc, QString name, QString attrKey, bool attrValue);
-		//½¨Á¢xml½Úµã -- ´øÒ»¸öÊôĞÔµÄ½Úµã
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- å¸¦ä¸€ä¸ªå±æ€§çš„èŠ‚ç‚¹
 		QDomElement CreateElementAttribute(QDomDocument &doc, QString name, QString attrKey, QString attrValue);
-		//½¨Á¢xml½Úµã -- ´øÁ½¸öÊôĞÔµÄ½Úµã
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- å¸¦ä¸¤ä¸ªå±æ€§çš„èŠ‚ç‚¹
 		QDomElement CreateElementAttribute(QDomDocument &doc, QString name, QString attr1Key, QString attr1Value, QString attr2Key, QString attr2Value);
-		//½¨Á¢xml½Úµã -- ´ø¶à¸öÊôĞÔµÄ½Úµã
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- å¸¦å¤šä¸ªå±æ€§çš„èŠ‚ç‚¹
 		QDomElement CreateElement(QDomDocument &doc, QString name, QMap<QString, QString> keyAndValueList);
 		
-		//½¨Á¢xml½Úµã -- Ö»ÓĞÒ»¸öÃû³ÆµÄ¿Õ½Úµã
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- åªæœ‰ä¸€ä¸ªåç§°çš„ç©ºèŠ‚ç‚¹
 		QDomElement CreateElement(QDomDocument &doc, QString name);
-		//½¨Á¢xml½Úµã -- ´øÒ»¸öÊıÖµµÄ½Úµã
+		//å»ºç«‹xmlèŠ‚ç‚¹ -- å¸¦ä¸€ä¸ªæ•°å€¼çš„èŠ‚ç‚¹
 		QDomElement CreateElement(QDomDocument &doc, QString name, QString value);
 		
 	};

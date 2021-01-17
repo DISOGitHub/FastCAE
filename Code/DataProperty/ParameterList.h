@@ -26,40 +26,40 @@ namespace DataProperty
 	public:
 		ParameterList() = default;
 		~ParameterList();
-		//´ÓdataÖĞ¿½±´²ÎÊıÁĞ±í
+		//ä»dataä¸­æ‹·è´å‚æ•°åˆ—è¡¨
 		void copy(ParameterList* data);
-		//Ìí¼Ó²ÎÊı
+		//æ·»åŠ å‚æ•°
 		virtual void appendParameter(ParameterBase* para);
-		//¸ù¾İÀàĞÍ´´½¨ĞÂµÄ²ÎÊı£¬²¢·ÅÈëÁĞ±í
+		//æ ¹æ®ç±»å‹åˆ›å»ºæ–°çš„å‚æ•°ï¼Œå¹¶æ”¾å…¥åˆ—è¡¨
 		virtual ParameterBase* appendParameter(ParaType type);
-		//»ñÈ¡µÚi¸ö²ÎÊı
+		//è·å–ç¬¬iä¸ªå‚æ•°
 		ParameterBase* getParameterAt(const int i);
-		//»ñÈ¡²ÎÊı¸öÊı
+		//è·å–å‚æ•°ä¸ªæ•°
 		int getParameterCount();
-		//»ñÈ¡¿É¼ûµÄ²ÎÊı¸öÊı
+		//è·å–å¯è§çš„å‚æ•°ä¸ªæ•°
 		int getVisibleParaCount();
-		//ÒÆ³ı²ÎÊı
+		//ç§»é™¤å‚æ•°
 		virtual void removeParameter(ParameterBase* p);
-		//ÒÆ³ıµÚi¸ö²ÎÊı
+		//ç§»é™¤ç¬¬iä¸ªå‚æ•°
 		void removeParameterAt(int i);
-		//»ñÈ¡µÚiºÍ¿É¼ûµÄ²ÎÊı
+		//è·å–ç¬¬iå’Œå¯è§çš„å‚æ•°
 		ParameterBase* getVisibleParameterAt(const int i);
-		//¸ù¾İÀàĞÍ´´½¨ĞÂµÄ²ÎÊı£¬²»»á·ÅÈë²ÎÊıÁĞ±í
+		//æ ¹æ®ç±»å‹åˆ›å»ºæ–°çš„å‚æ•°ï¼Œä¸ä¼šæ”¾å…¥å‚æ•°åˆ—è¡¨
 		static ParameterBase* createParameterByType(ParaType t);
-		//¸ù¾İÀàĞÍ´´½¨ĞÂµÄ²ÎÊı£¬²»»á·ÅÈë²ÎÊıÁĞ±í
+		//æ ¹æ®ç±»å‹åˆ›å»ºæ–°çš„å‚æ•°ï¼Œä¸ä¼šæ”¾å…¥å‚æ•°åˆ—è¡¨
 		static ParameterBase* createParameterByType(QString stype);
-		//¸ù¾İ´´½¨ĞÂ²ÎÊı£¬²¢¿½±´pµÄÄÚÈİ£¬²»»á·ÅÈë²ÎÊıÁĞ±í
+		//æ ¹æ®åˆ›å»ºæ–°å‚æ•°ï¼Œå¹¶æ‹·è´pçš„å†…å®¹ï¼Œä¸ä¼šæ”¾å…¥å‚æ•°åˆ—è¡¨
 		static ParameterBase* copyParameter(ParameterBase* p);
 
-		///Ğ´³ö²ÎÊıÊı¾İ
+		///å†™å‡ºå‚æ•°æ•°æ®
 		virtual void writeParameters(QDomDocument* doc, QDomElement* parent);
-		//¶ÁÈëÊı¾İ
+		//è¯»å…¥æ•°æ®
 		virtual void readParameters(QDomElement* ele);
-		//¸ù¾İÃû³Æ»ñÈ¡²ÎÊı
+		//æ ¹æ®åç§°è·å–å‚æ•°
 		virtual ParameterBase* getParameterByName(QString name);
-		//»ñÈ¡md5
+		//è·å–md5
 		virtual void dataToStream(QDataStream* datas);
-		//»ñÈ¡È«²¿²ÎÊıÁĞ±í
+		//è·å–å…¨éƒ¨å‚æ•°åˆ—è¡¨
 		QList<ParameterBase*> getParaList();
 
 

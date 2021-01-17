@@ -45,7 +45,7 @@ namespace FastCAEDesigner
 		return usedNameList;
 	}
 
-	//È·ÈÏÉè¶¨²Ûº¯Êý
+	//ç¡®è®¤è®¾å®šæ§½å‡½æ•°
 	void EditorEnumListValue::OnBtnOkClicked()
 	{
 		_valList.clear();

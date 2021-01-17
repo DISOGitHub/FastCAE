@@ -16,20 +16,20 @@ namespace DataProperty
 	public:
 		ParameterGroup() = default;
 		~ParameterGroup() = default;
-		//¿½±´dataÖĞµÄÄÚÈİ
+		//æ‹·è´dataä¸­çš„å†…å®¹
 		void copy(ParameterGroup* data);
 
 		void appendParameter(ParameterBase* p) override;
 		ParameterBase* appendParameter(ParaType type) override;
-		//ÉèÖÃ²ÎÊı×éµÄÃû³Æ
+		//è®¾ç½®å‚æ•°ç»„çš„åç§°
 		void setDescribe(QString des);
-		//»ñÈ¡²ÎÊı×éÃû³Æ
+		//è·å–å‚æ•°ç»„åç§°
 		QString getDescribe();
-		//ÉèÖÃ¿É¼ûĞÔ
+		//è®¾ç½®å¯è§æ€§
 		void setVisible(bool v);
-		//»ñÈ¡¿É¼û×´Ì¬
+		//è·å–å¯è§çŠ¶æ€
 		bool isVisible();
-		//¿½±´gµÄ×´Ì¬
+		//æ‹·è´gçš„çŠ¶æ€
 		void copyStates(ParameterGroup* g);
 
 		void writeParameters(QDomDocument* doc, QDomElement* parent) override;

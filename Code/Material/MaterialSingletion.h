@@ -22,25 +22,25 @@ namespace Material
 	class MATERIALAPI MaterialSingleton :public DataProperty::DataBase
 	{
 	public:
-		//»ñÈ¡µ¥ÀıÖ¸Õë
+		//è·å–å•ä¾‹æŒ‡é’ˆ
 		static MaterialSingleton* getInstance();
-		//Çå¿ÕÊı¾İ
+		//æ¸…ç©ºæ•°æ®
 		void clear();
-		//»ñÈ¡²ÄÁÏÊıÁ¿
+		//è·å–ææ–™æ•°é‡
 		int getMaterialCount();
-		//»ñÈ¡µÚi¸ö²ÄÁÏ
+		//è·å–ç¬¬iä¸ªææ–™
 		Material* getMaterialAt(const int i);
-		//¸ù¾İID»ñÈ¡²ÄÁÏ
+		//æ ¹æ®IDè·å–ææ–™
 		Material* getMaterialByID(const int id);
-		//Ìí¼Ó²ÄÁÏ
+		//æ·»åŠ ææ–™
 		void appendMaterial(Material* m);
-		//¸ù¾İIDÒÆ³ı²ÄÁÏ
+		//æ ¹æ®IDç§»é™¤ææ–™
 		void removeMaterialByID(const int id);
-		//½«IDÎªidµÄ²ÄÁÏÌí¼ÓÖÁ²ÄÁÏ¿â
+		//å°†IDä¸ºidçš„ææ–™æ·»åŠ è‡³ææ–™åº“
 		void appendToMaterialLib(const int id);
-		//´Ó²ÄÁÏ¿âÖĞ¼ÓÔØ
+		//ä»ææ–™åº“ä¸­åŠ è½½
 		void loadFromMaterialLib(GUI::MainWindow* m);
-		//´Ó²ÄÁÏ¿âÉ¾³ı
+		//ä»ææ–™åº“åˆ é™¤
 		void removeFromMAterialLib(GUI::MainWindow* m);
 	
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* e) override;

@@ -33,7 +33,7 @@ namespace Py
 		QFile* _file{};
 		QTextStream *_IO{};
 
-		int _states{ 0 };//-1暂停 0 正常运行 1 停止
+		int _states{ 0 };//-1鏆傚仠 0 姝ｅ父杩愯 1 鍋滄
 	
 	};
 }

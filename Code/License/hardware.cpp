@@ -143,7 +143,7 @@ QString Hardware::getMacAddress()
 	if (ioctl(sockfd, SIOCGIFHWADDR, &fir) == 0)
 	{
 		QString result;
-		result.sprintf("%02x%02x%02x%02x%02x%02x", ifr.ifr_hwaddr.sa_data[0], ifr.ifr_hwaddr.sa_data[1], ifr.ifr_hwaddr.sa_data[2]£¬ifr.ifr_hwaddr.sa_data[3]£¬ifr.ifr_hwaddr.sa_data[4]£¬ifr.ifr_hwaddr.sa_data[5]);
+		result.sprintf("%02x%02x%02x%02x%02x%02x", ifr.ifr_hwaddr.sa_data[0], ifr.ifr_hwaddr.sa_data[1], ifr.ifr_hwaddr.sa_data[2]ï¼Œifr.ifr_hwaddr.sa_data[3]ï¼Œifr.ifr_hwaddr.sa_data[4]ï¼Œifr.ifr_hwaddr.sa_data[5]);
 		result.append(ifr.ifr_hwaddr.sa_data);
 		m_macAddress = result;
 		return result;

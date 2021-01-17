@@ -1,4 +1,4 @@
-﻿#include "DialogFluidMesh.h"
+#include "DialogFluidMesh.h"
 #include "ui_DialogFluidMesh.h"
 #include "GeometryWidgets/geoPointWidget.h"
 #include "python/PyAgent.h"

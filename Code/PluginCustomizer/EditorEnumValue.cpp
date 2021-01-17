@@ -31,7 +31,7 @@ namespace FastCAEDesigner
 		connect(ui->btnEdit, SIGNAL(clicked()), this, SLOT(OnBtnEditClicked()));
 	}
 	
-	//³õÊ¼»¯´íÎó´úÂë¶ÔÓ¦µÄ´íÎóĞÅÏ¢ÁĞ±í
+	//åˆå§‹åŒ–é”™è¯¯ä»£ç å¯¹åº”çš„é”™è¯¯ä¿¡æ¯åˆ—è¡¨
 	void  EditorEnumValue::InitErrorList()
 	{
 		_errorList.insert(NameIsEmpty, tr("Name is empty."));
@@ -40,7 +40,7 @@ namespace FastCAEDesigner
 
 	}
 
-	//Ğ£ÑéÊı¾İÉè¶¨ÊÇ·ñÕıÈ·£¬¸ù¾İ´íÎóµÄ×´¿ö·µ»ØÏìÓ¦µÄ´íÎó´úÂë
+	//æ ¡éªŒæ•°æ®è®¾å®šæ˜¯å¦æ­£ç¡®ï¼Œæ ¹æ®é”™è¯¯çš„çŠ¶å†µè¿”å›å“åº”çš„é”™è¯¯ä»£ç 
 	int EditorEnumValue::IsDataOk()
 	{
 		_name = ui->txtName->text().trimmed();
@@ -57,7 +57,7 @@ namespace FastCAEDesigner
 		return 0;
 	}
 
-	//È·ÈÏÉè¶¨²Ûº¯Êı
+	//ç¡®è®¤è®¾å®šæ§½å‡½æ•°
 	void EditorEnumValue::OnBtnOkClicked()
 	{
 		int errorCode = IsDataOk();
@@ -90,7 +90,7 @@ namespace FastCAEDesigner
 			FillComboBox(_enumValueList);
 		}
 	}
-	//Ë¢ĞÂmodelÊı¾İµ½UI
+	//åˆ·æ–°modelæ•°æ®åˆ°UI
 	void EditorEnumValue::UpdateDataToUi()
 	{
 		ui->txtName->setText(_model->getDescribe());
@@ -100,7 +100,7 @@ namespace FastCAEDesigner
 		ui->cbo_Value->setCurrentIndex(index);
 	}
 
-	//Ë¢ĞÂUiÊı¾İµ½model
+	//åˆ·æ–°Uiæ•°æ®åˆ°model
 	void EditorEnumValue::UpdateUiToData()
 	{
 		_name = ui->txtName->text().trimmed();
@@ -117,14 +117,14 @@ namespace FastCAEDesigner
 		ui->cbo_Value->setCurrentIndex(0);
 	}
 
-	//¶¨Ê±Æ÷²Ûº¯Êı
+	//å®šæ—¶å™¨æ§½å‡½æ•°
 	void EditorEnumValue::OnTimeout()
 	{
 		ui->lbl_info->setText("");
 		ui->lbl_info->hide();
 	}
 
-	//ÉèÖÃÒÑ¾­Ê¹ÓÃµÄ±äÁ¿Ãû³ÆÁĞ±í
+	//è®¾ç½®å·²ç»ä½¿ç”¨çš„å˜é‡åç§°åˆ—è¡¨
 	void EditorEnumValue::SetEnumValueList(QStringList enumValueList)
 	{
 		_enumValueList = enumValueList;

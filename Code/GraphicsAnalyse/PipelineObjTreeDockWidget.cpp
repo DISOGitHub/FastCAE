@@ -261,7 +261,7 @@ void PipelineObjTreeDockWidget::OnDeletePipelineItem()
 	
 }
 
-void PipelineObjTreeDockWidget::RmvActivePipelineObject()//Èç¹ûTreewidgetÖÐÒÑ¾­Ã»ÓÐ½áµã£¬ÔòÇå¿Õµ±Ç°»î¶¯½áµã
+void PipelineObjTreeDockWidget::RmvActivePipelineObject()//å¦‚æžœTreewidgetä¸­å·²ç»æ²¡æœ‰ç»“ç‚¹ï¼Œåˆ™æ¸…ç©ºå½“å‰æ´»åŠ¨ç»“ç‚¹
 {
 	if (mTreeItems.count() == 0)
 	{
@@ -276,13 +276,13 @@ void PipelineObjTreeDockWidget::RmvPipelineObject(PipelineObject* pipeObj)
 	QTreeWidgetItem* treeItem = this->GetTreeItemFromPipelineObj(pipeObj);
 	if (treeItem != 0)
 	{
-		//ÏÔÊ¾¸¸½Úµã
+		//æ˜¾ç¤ºçˆ¶èŠ‚ç‚¹
 		if (pipeObj->GetObjectType() != dNumeric_DataSource)
 		{
 			treeItem->parent()->setCheckState(0,Qt::Checked);
 			pipeObj->GetObjParent()->mPipeLineObjProp.pipelineObj_base_propData.flag_show_actors = true;
 		}
-		//ÏÔÊ¾¸¸½Úµã
+		//æ˜¾ç¤ºçˆ¶èŠ‚ç‚¹
 
 		pipelineObjTree->removeItemWidget(treeItem, 0);
 		mTreeItems.remove(treeItem);

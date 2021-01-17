@@ -14,38 +14,38 @@ class FileDialogDirectory : public QDialog
 {
 	Q_OBJECT
 public:
-	QString mCurrentFilePath;//µ±Ç°Ñ¡ÔñÂ·¾¶
-	//ÓÃÓÚ±£´æÒ»¸ö»ò¶à¸öÎÄ¼ş·ÖÀà£¬ÓÃ;·Ö¸î
+	QString mCurrentFilePath;//å½“å‰é€‰æ‹©è·¯å¾„
+	//ç”¨äºä¿å­˜ä¸€ä¸ªæˆ–å¤šä¸ªæ–‡ä»¶åˆ†ç±»ï¼Œç”¨;åˆ†å‰²
 	QString mSelectionText;
-	QMap<QString, QVector<QString>> mFileGroup; //keyÎª12 ...dat£¬valueÎª·ÖÀàÏÂ¶ÔÓ¦µÄÎÄ¼şÁĞ±í
-	QStringList mSelectedFiles;//»ñÈ¡Ñ¡ÖĞÎÄ¼şÁĞ±í
+	QMap<QString, QVector<QString>> mFileGroup; //keyä¸º12 ...datï¼Œvalueä¸ºåˆ†ç±»ä¸‹å¯¹åº”çš„æ–‡ä»¶åˆ—è¡¨
+	QStringList mSelectedFiles;//è·å–é€‰ä¸­æ–‡ä»¶åˆ—è¡¨
 	FileDialogDirectory(QWidget *parent = 0);
 	~FileDialogDirectory();
 	void initWin(QString dirStr);
 private slots:
 	void onCancelClicked();
 	void on_OK_clicked();
-	//°´Êı×ÖÇ°µÄ×Ö·û´®ĞÎ³ÉÎÄ¼ş·ÖÀàÁĞ±í£¬²¢ÔÚÊ÷ĞÍÖĞÏÔÊ¾
+	//æŒ‰æ•°å­—å‰çš„å­—ç¬¦ä¸²å½¢æˆæ–‡ä»¶åˆ†ç±»åˆ—è¡¨ï¼Œå¹¶åœ¨æ ‘å‹ä¸­æ˜¾ç¤º
 	void on_OKChoice_clicked();
-	//Ñ¡ÔñÒ»¸ö´ò¿ªµÄÂ·¾¶
+	//é€‰æ‹©ä¸€ä¸ªæ‰“å¼€çš„è·¯å¾„
 	void OnFilePath();
-	//·ÖÀàĞÍ±íÔÚÊ÷ĞÍÖĞÏÔÊ¾
+	//åˆ†ç±»å‹è¡¨åœ¨æ ‘å‹ä¸­æ˜¾ç¤º
 	void BuidFilePathTree();
-	//ÎÄ¼şÀ©Õ¹Ãû·¢Éú±ä»¯£¬¸üĞÂ·ÖÀà
+	//æ–‡ä»¶æ‰©å±•åå‘ç”Ÿå˜åŒ–ï¼Œæ›´æ–°åˆ†ç±»
 	void onFilterChange(QString filter);
-	//µ¥»÷Ñ¡ÔñÒ»¸ö·ÖÀàÏÂµÄÎÄ¼şĞÎ³ÉÁĞ±í
+	//å•å‡»é€‰æ‹©ä¸€ä¸ªåˆ†ç±»ä¸‹çš„æ–‡ä»¶å½¢æˆåˆ—è¡¨
 	void OnClickedObject(QTreeWidgetItem* pitem, int column);
-	//Ö´ĞĞÈ·¶¨°´Å¥¹¦ÄÜ
+	//æ‰§è¡Œç¡®å®šæŒ‰é’®åŠŸèƒ½
 	void OnDoubleClickedObject(QTreeWidgetItem* pitem, int column);
-	//ÔİÊ±Ã»ÓÃ
+	//æš‚æ—¶æ²¡ç”¨
 	void onDoubleClickFile(QModelIndex&);
-	//µ÷ÓÃÏµÍ³ÎÄ¼ş¶Ô»°¿ò
+	//è°ƒç”¨ç³»ç»Ÿæ–‡ä»¶å¯¹è¯æ¡†
 	void OnShowDirDialog();
-	//´¦ÀíÂ·¾¶ÖĞµÄÅÌ·û
+	//å¤„ç†è·¯å¾„ä¸­çš„ç›˜ç¬¦
 	void OnlineTreeViewDoubleClick(const QModelIndex&);
 	void func_OnlineTreeViewDoubleClick(const QModelIndex& index);
     void unix_OnlineTreeViewDoubleClick(QString itemName);
-	//Ñ¡ÔñÏî·¢Éú±ä»¯´¥·¢Õâ¸ö²Û£¬ÓÃÓÚÎÄ¼ş·ÖÀà¶àÑ¡±£´æ
+	//é€‰æ‹©é¡¹å‘ç”Ÿå˜åŒ–è§¦å‘è¿™ä¸ªæ§½ï¼Œç”¨äºæ–‡ä»¶åˆ†ç±»å¤šé€‰ä¿å­˜
 	void OnItemSelectionChanged();
 	void OnPipeTreeViewDoubleClick(const QModelIndex&);
 	void on_up_pushButton_clicked();
@@ -54,37 +54,37 @@ private:
 	QDirModel *m_dirModel;
 	QString docPath,deskTopPath,userPath,rootPath,userName,rootName;
 	FileDialogDirectory *dirDlg;
-	QString mFatherNodeText = "FileName";//¸ù½ÚµãÃû³Æ
-	QStringList mFilterList;//ÓÃÓÚ±£´æÎÄ¼şÀàĞÍÁĞ±í
-	QString mFilterType;//ÎÄ¼şÀàĞÍ
+	QString mFatherNodeText = "FileName";//æ ¹èŠ‚ç‚¹åç§°
+	QStringList mFilterList;//ç”¨äºä¿å­˜æ–‡ä»¶ç±»å‹åˆ—è¡¨
+	QString mFilterType;//æ–‡ä»¶ç±»å‹
 	QTreeWidget* mPipeTree;//treeView
-	QTreeWidgetItem* mBuiltinItem; //¸ù½Úµã
+	QTreeWidgetItem* mBuiltinItem; //æ ¹èŠ‚ç‚¹
 
-	QHash<QString, int> mHeadFile; //keyÎª12@data,valueÎªÀ©Õ¹Ãûdat,ÕâÑùÓÃÊÇÒòÎªÏàÍ¬ÎÄ¼şÃû£¬À©Õ¹Ãû¿ÉÄÜ»á²»Í¬£¬ÊôÓÚ²»Í¬µÄ·ÖÀà
+	QHash<QString, int> mHeadFile; //keyä¸º12@data,valueä¸ºæ‰©å±•ådat,è¿™æ ·ç”¨æ˜¯å› ä¸ºç›¸åŒæ–‡ä»¶åï¼Œæ‰©å±•åå¯èƒ½ä¼šä¸åŒï¼Œå±äºä¸åŒçš„åˆ†ç±»
 
-	QVector<QString> mFileList;//±£´æËùÓĞÎÄ¼şÁĞ±í
-	QString mTreeWidgetFilename;  //±£´æQTreeViewË«»÷ºóµÄÎÄ¼şÂ·¾¶
+	QVector<QString> mFileList;//ä¿å­˜æ‰€æœ‰æ–‡ä»¶åˆ—è¡¨
+	QString mTreeWidgetFilename;  //ä¿å­˜QTreeViewåŒå‡»åçš„æ–‡ä»¶è·¯å¾„
 	bool mFlag_fordouble_clicked=false;
-	void GetFileList(QString dirName);//¸ù¾İÄ¿Â¼Ãû»ñÈ¡Ä¿Â¼ÏÂµÄÎÄ¼ş
+	void GetFileList(QString dirName);//æ ¹æ®ç›®å½•åè·å–ç›®å½•ä¸‹çš„æ–‡ä»¶
 	//	QStringList mHeaderList;
 	//	QVector<SHeadData*> mHeaderVectorList;
 	QAction* filePathAct;
-	QStringList GetFilterFromString(const QString& filter);//¸ù¾İÎÄ¼şÀàĞÍÖĞµÄ×Ö·û´®»ñÈ¡Ã¿Ò»¸öÎÄ¼ş¹ıÂËÀàĞÍ
-	//»ñÈ¡ÎÄ¼şÀ©Õ¹Ãû
+	QStringList GetFilterFromString(const QString& filter);//æ ¹æ®æ–‡ä»¶ç±»å‹ä¸­çš„å­—ç¬¦ä¸²è·å–æ¯ä¸€ä¸ªæ–‡ä»¶è¿‡æ»¤ç±»å‹
+	//è·å–æ–‡ä»¶æ‰©å±•å
 	QString  GetFileExt(QString fileName);
 	QString  GetFileHead(QString fileName);
-	QString SplitExt = "@";//ÓÃÓÚÎÄ¼şÍ·ÀàĞÍ·Ö¸î·û£¬Èç12@dat
-	QString FatherGroupFlag = "Group";//¸¸½Úµã±êÖ¾
-	QString ChildGroupFlag = "Child";//×Ó½Úµã±êÖ¾
-	void GetHeadFileExt(QString HeadName, QString& HeadExt, QString& HeadFront);//»ñÈ¡Ä¿Â¼ÃûÖĞ@ºóµÄÀ©Õ¹Ãû
-	QStringList GetAllSelectedFiles();//¸ù¾İÑ¡ÖĞ½Úµã£¬Èç¹ûÊÇÄ¿Â¼½Úµã£¬»ñÈ¡Ä¿Â¼½ÚµãÏÂµÄ¶à¸öÎÄ¼ş£¬ÆÕÍ¨½Úµã»ñÈ¡µ¥¸öÎÄ¼şÃû
+	QString SplitExt = "@";//ç”¨äºæ–‡ä»¶å¤´ç±»å‹åˆ†å‰²ç¬¦ï¼Œå¦‚12@dat
+	QString FatherGroupFlag = "Group";//çˆ¶èŠ‚ç‚¹æ ‡å¿—
+	QString ChildGroupFlag = "Child";//å­èŠ‚ç‚¹æ ‡å¿—
+	void GetHeadFileExt(QString HeadName, QString& HeadExt, QString& HeadFront);//è·å–ç›®å½•åä¸­@åçš„æ‰©å±•å
+	QStringList GetAllSelectedFiles();//æ ¹æ®é€‰ä¸­èŠ‚ç‚¹ï¼Œå¦‚æœæ˜¯ç›®å½•èŠ‚ç‚¹ï¼Œè·å–ç›®å½•èŠ‚ç‚¹ä¸‹çš„å¤šä¸ªæ–‡ä»¶ï¼Œæ™®é€šèŠ‚ç‚¹è·å–å•ä¸ªæ–‡ä»¶å
 	//	QString GetHeadFileFront(QString HeadName);
-	//ÅĞ¶ÏÑ¡ÔñµÄÎÄ¼şÊÇ·ñÎª¿Õ
+	//åˆ¤æ–­é€‰æ‹©çš„æ–‡ä»¶æ˜¯å¦ä¸ºç©º
 	bool AcceptFile(QStringList selectedFiles);
 	
-	void SetLastIndex(QString curPath);//ÉèÖÃÂ·¾¶Ãû×îºóÎª/½áÎ²
-	void SetDirectoryForDrives(/*const QFileInfoList &tepTrives*/);  //ÉèÖÃ´ÅÅÌÁĞ±íÄ¿Â¼
-	//»ñÈ¡ÎÄ¼şÃûµÄÈ«Â·¾¶
+	void SetLastIndex(QString curPath);//è®¾ç½®è·¯å¾„åæœ€åä¸º/ç»“å°¾
+	void SetDirectoryForDrives(/*const QFileInfoList &tepTrives*/);  //è®¾ç½®ç£ç›˜åˆ—è¡¨ç›®å½•
+	//è·å–æ–‡ä»¶åçš„å…¨è·¯å¾„
 	QString FindFullFilename(const QModelIndex& index);
 	int isHasSpace(QString fileName);
 

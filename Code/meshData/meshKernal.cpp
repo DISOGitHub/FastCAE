@@ -134,7 +134,7 @@ namespace MeshData
 		idoffset.setAttributeNode(nodeid);
 		idoffset.setAttributeNode(cellid);
 		kernelele.appendChild(idoffset);
-		//½Úµã
+		//èŠ‚ç‚¹
 		QDomElement nodeListEle = doc->createElement("NodeList");
 		const int nNode = _mesh->GetNumberOfPoints();
 		for (int i = 0; i < nNode; ++i)
@@ -147,7 +147,7 @@ namespace MeshData
 			nodeListEle.appendChild(node);
 		}
 		kernelele.appendChild(nodeListEle);
-		//µ¥Ôª
+		//å•å…ƒ
 		QDomElement elementListEle = doc->createElement("ElementList");
 		const int nele = _mesh->GetNumberOfCells();
 		for (int i = 0; i < nele; ++i)
@@ -204,9 +204,9 @@ namespace MeshData
 		this->setPointIDOFfset(po);
 		this->setCellIDOFfset(co);
 		
-		//¶ÁÈ¡Íø¸ñ
+		//è¯»å–ç½‘æ ¼
 		vtkSmartPointer<vtkUnstructuredGrid> ung = vtkSmartPointer<vtkUnstructuredGrid>::New();
-		//½Úµã
+		//èŠ‚ç‚¹
 		QDomNodeList nodelist = kernelele->elementsByTagName("Node");
 		vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
 		const int nNode = nodelist.size();
@@ -337,7 +337,7 @@ namespace MeshData
 		{
 			*dataStream >> ElementID >> eletype >>eleNodeCount;
 			VTKCellType celltype = VTKCellType(eletype);
-//			int nVertex = GetNodeCountByElementType(celltype);	//²»Í¬ÀàĞÍµÄelementµÄ½Úµã¸öÊı
+//			int nVertex = GetNodeCountByElementType(celltype);	//ä¸åŒç±»å‹çš„elementçš„èŠ‚ç‚¹ä¸ªæ•°
 			vtkSmartPointer<vtkIdList> idlist = vtkSmartPointer<vtkIdList>::New();
 		
 			int id = 0;

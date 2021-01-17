@@ -47,40 +47,40 @@ namespace GUI
 		~SubWindowManager();
 		
 
-		//¸üĞÂÇ°´¦ÀíActor
+		//æ›´æ–°å‰å¤„ç†Actor
 		void updatePreActors();
 
-		//¸üĞÂÇ°´¦ÀíÍø¸ñActor
+		//æ›´æ–°å‰å¤„ç†ç½‘æ ¼Actor
 		void updatePreMeshActor();
 		
-		//¸üĞÂÇ°´¦Àí¼¸ºÎActor
+		//æ›´æ–°å‰å¤„ç†å‡ ä½•Actor
 		void updatePreGeometryActor();
 		
-		//»ñÈ¡Ç°´¦Àí´°¿Ú
+		//è·å–å‰å¤„ç†çª—å£
 		MainWidget::PreWindow* getPreWindow();
 		
-		//Ç°´¦Àí´°¿ÚÊÇ·ñ´ò¿ª
+		//å‰å¤„ç†çª—å£æ˜¯å¦æ‰“å¼€
 		bool isPreWindowOpened();
 		
-		//ºó´¦Àí´°¿ÚÊÇ·ñ´ò¿ª
+		//åå¤„ç†çª—å£æ˜¯å¦æ‰“å¼€
 		bool isPostWindowOpened();
 		
-		//¸üĞÂ·­Òë
+		//æ›´æ–°ç¿»è¯‘
 		void reTranslate();
 
-		/*»ñÈ¡´´½¨¼¸ºÎ´°Ìå*/
+		/*è·å–åˆ›å»ºå‡ ä½•çª—ä½“*/
 		GenerateGeometry::GenerateGeometryWidget* getGeometryWindow();
 
-		//¹Ø±ÕËùÓĞ´°¿Ú
+		//å…³é—­æ‰€æœ‰çª—å£
 		void closeAllSubWindow();
 
-		///»ñÈ¡µ±Ç°¼¤»îµÄMDI×Ó´°¿Ú
+		///è·å–å½“å‰æ¿€æ´»çš„MDIå­çª—å£
 		ModuleBase::GraphWindowBase* getCurrentWindow();
 
 		ModuleBase::GraphWindowBase* getWindowByTypeID(QString type, int id);
-		//´ò¿ª¿ªÊ¼Ò³£¬²¢¼ÓÔØÍøÒ³
+		//æ‰“å¼€å¼€å§‹é¡µï¼Œå¹¶åŠ è½½ç½‘é¡µ
 		void openUrl(QString web);
-		//ÉèÖÃÍ¼±ê
+		//è®¾ç½®å›¾æ ‡
 		void setIcon(QString icon);
 
 	signals:
@@ -91,10 +91,10 @@ namespace GUI
 		void clearSelectModelSig();
 
 	public slots:
-		//´ò¿ªÆğÊ¼Ò³
+		//æ‰“å¼€èµ·å§‹é¡µ
 		void openStartPage();
 
-		/*´ò¿ªÇ°´¦Àí´°¿Ú */
+		/*æ‰“å¼€å‰å¤„ç†çª—å£ */
 		void openPreWindow();
 
 		void saveImage(int w, int h, int id, QString win, QString file);
@@ -103,35 +103,35 @@ namespace GUI
 		//void setViewPreValue(int id, QString win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//liu
 
 	private slots:
-		///¹Ø±Õ¿ªÊ¼Ò³
+		///å…³é—­å¼€å§‹é¡µ
 	    void closeStartPage();
-		///¹Ø±ÕÇ°´¦Àí´°¿Ú
+		///å…³é—­å‰å¤„ç†çª—å£
 		void closePreWindow();
-		///´ò¿ªºó´¦Àí´°¿Ú
+		///æ‰“å¼€åå¤„ç†çª—å£
 		void openPostWindow(Post::PostWindowBase* pw);
-		///´ò¿ªÊµÊ±ÇúÏß´°¿Ú
+		///æ‰“å¼€å®æ—¶æ›²çº¿çª—å£
 		void openRealTimeWindow(Post::RealTimeWindowBase* pw);
-		//´ò¿ª±¨¸æ´°¿Ú
+		//æ‰“å¼€æŠ¥å‘Šçª—å£
 		void openReportWindow(XReport::ReportWindow* w);
-		//¹Ø±Õ±¨¸æ´°¿Ú
+		//å…³é—­æŠ¥å‘Šçª—å£
 		void closeReportWindow(XReport::ReportWindow* w);
-		///ÏÔÊ¾ºó´¦ÀíĞÅÏ¢
+		///æ˜¾ç¤ºåå¤„ç†ä¿¡æ¯
 		void showPostWindowInfo(int id, int type);
-		///¹Ø±Õºó´¦Àí´°¿Ú
+		///å…³é—­åå¤„ç†çª—å£
 		void closePostWindow(Post::PostWindowBase* w);
-		///¹Ø±ÕÊµÊ±ÇúÏß´°¿Ú
+		///å…³é—­å®æ—¶æ›²çº¿çª—å£
 		void closeRealTimeWindow(Post::RealTimeWindowBase* w);
-		///¼¤»î´°¿Ú·¢Éú±ä»¯
+		///æ¿€æ´»çª—å£å‘ç”Ÿå˜åŒ–
 		void subWindowActived(QMdiSubWindow* sw);
-		///ÉèÖÃÊÓ½Ç
+		///è®¾ç½®è§†è§’
 		void setView(QString view);
 		
-		//±£´æÍ¼Æ¬
+		//ä¿å­˜å›¾ç‰‡
 		void saveImage(QString fileName, int winType, Post::PostWindowBase*winhandle, int w, int h);
 		void saveImage(int w, int h, QString f);
 		
 
-		/*¹Ø±Õ´´½¨¼¸ºÎ´°Ìå*/
+		/*å…³é—­åˆ›å»ºå‡ ä½•çª—ä½“*/
 		void closeGeometryWindow();
 
 		
@@ -141,7 +141,7 @@ namespace GUI
 		void removeToolBars();
 		void showPreWindow();
 		void showRealTimeWindow(QMdiSubWindow* w);
-		/*´ò¿ª´´½¨¼¸ºÎ´°Ìå*/
+		/*æ‰“å¼€åˆ›å»ºå‡ ä½•çª—ä½“*/
 		void openGeometryWindow();
 
 		

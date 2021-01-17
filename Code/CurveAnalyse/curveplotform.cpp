@@ -196,7 +196,7 @@ void CurvePlotForm::slot_updateCurvePlot(int tep_file_index, int tep_curve_index
 
 }
 
-void CurvePlotForm::slot_update_curve_axis(int tep_file_index, int tep_curve_index)//ÇÐ»»×ø±êÖá
+void CurvePlotForm::slot_update_curve_axis(int tep_file_index, int tep_curve_index)//åˆ‡æ¢åæ ‡è½´
 {
 	QString tep_curve_id = QString("curve_%1_%2").arg(tep_file_index).arg(curve_data_ptr->curve_file_list.at(tep_file_index).line_data.at(tep_curve_index).yAxis_column);
 	if (curve_data_ptr->curveList.contains(tep_curve_id))

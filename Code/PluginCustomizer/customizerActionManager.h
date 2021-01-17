@@ -38,10 +38,10 @@ namespace Plugins
 		void reTranslate();
 
 	private slots:
-	    void on_startCustom_slot();  //²Ûº¯Êı--¿ªÊ¼¶¨ÖÆ
-		void on_finishCustom_slot(); //²Ûº¯Êı--Íê³É¶¨ÖÆ
-		void on_cancelCustom_slot(); //²Ûº¯Êı--È¡Ïû¶¨ÖÆ
-		void on_share_slot();        //²Ûº¯Êı--·¢²¼
+	    void on_startCustom_slot();  //æ§½å‡½æ•°--å¼€å§‹å®šåˆ¶
+		void on_finishCustom_slot(); //æ§½å‡½æ•°--å®Œæˆå®šåˆ¶
+		void on_cancelCustom_slot(); //æ§½å‡½æ•°--å–æ¶ˆå®šåˆ¶
+		void on_share_slot();        //æ§½å‡½æ•°--å‘å¸ƒ
 
 		//Added xvdongming
 		void OnParaBaseSetup();
@@ -58,9 +58,9 @@ namespace Plugins
 
 		void OnParaSolverManager();
 
-		void UpdateCreateSketchToolBar(int status);		//¸üĞÂ´´½¨²İÍ¼¹¤¾ßÀ¸
-		void UpdateFeatureModingToolBar(int status);	//¸üĞÂÌØÕ÷½¨Ä£¹¤¾ßÀ¸
-		void UpdateFeatureOperationsToolBar(int status);//¸üĞÂÌØÕ÷²Ù×÷¹¤¾ßÀ¸
+		void UpdateCreateSketchToolBar(int status);		//æ›´æ–°åˆ›å»ºè‰å›¾å·¥å…·æ 
+		void UpdateFeatureModingToolBar(int status);	//æ›´æ–°ç‰¹å¾å»ºæ¨¡å·¥å…·æ 
+		void UpdateFeatureOperationsToolBar(int status);//æ›´æ–°ç‰¹å¾æ“ä½œå·¥å…·æ 
 		void updateGeometryEditToolBar(int status);
 		void updateMeasuredDistanceToolBar(int status);
 		void updateCreateGeoSetAction(int status);
@@ -77,50 +77,50 @@ namespace Plugins
 
 	private:
 		
-		QMenu* CreateTopMenu(QString text,bool enable = true);  //½¨Á¢¶¥¼¶²Ëµ¥
-		QToolBar* CreateToolBar(QString text);	//½¨Á¢¹¤¾ßÀ¸
+		QMenu* CreateTopMenu(QString text,bool enable = true);  //å»ºç«‹é¡¶çº§èœå•
+		QToolBar* CreateToolBar(QString text);	//å»ºç«‹å·¥å…·æ 
 
 		QAction* CreateActionSeparator(QMenu *menu);
-		QAction* CreateAction(QString text, QObject* parent, bool enable = false);//½¨Á¢²Ëµ¥ÏîÀïµÄ×ÓÏî
-		QAction* CreateAction(QString text, QMenu* parentMenu, QObject* parent, bool enable = false);//½¨Á¢×Ó²Ëµ¥£¬²¢½«×ÓÏî²åÈëÖµ¶¥²ã²Ëµ¥ÖĞ
-		QAction* CreateAction(QString text, QString icon, QString ShortcutKey, QMenu* parentMenu, QObject* parent, bool enable = false);//½¨Á¢×Ó²Ëµ¥£¬²¢½«×ÓÏî²åÈëÖµ¶¥²ã²Ëµ¥ÖĞ
-		QAction* CreateAction(QString text, QString icon, QToolBar* parentTool, QObject* parent);//½¨Á¢×ÓÏî£¬²¢½«Æä²åÈë¹¤¾ßÀ¸£¬´øÍ¼±ê
+		QAction* CreateAction(QString text, QObject* parent, bool enable = false);//å»ºç«‹èœå•é¡¹é‡Œçš„å­é¡¹
+		QAction* CreateAction(QString text, QMenu* parentMenu, QObject* parent, bool enable = false);//å»ºç«‹å­èœå•ï¼Œå¹¶å°†å­é¡¹æ’å…¥å€¼é¡¶å±‚èœå•ä¸­
+		QAction* CreateAction(QString text, QString icon, QString ShortcutKey, QMenu* parentMenu, QObject* parent, bool enable = false);//å»ºç«‹å­èœå•ï¼Œå¹¶å°†å­é¡¹æ’å…¥å€¼é¡¶å±‚èœå•ä¸­
+		QAction* CreateAction(QString text, QString icon, QToolBar* parentTool, QObject* parent);//å»ºç«‹å­é¡¹ï¼Œå¹¶å°†å…¶æ’å…¥å·¥å…·æ ï¼Œå¸¦å›¾æ ‡
 
-		void FillCustomMenu();   //½¨Á¢¶¨ÖÆ²Ëµ¥
-		void FillHelpMenu();     //½¨Á¢°ïÖú²Ëµ¥
-		void FillFileMenu();     //½¨Á¢ÎÄ¼ş²Ëµ¥
-		void FillGeometryMenu(); //½¨Á¢¼¸ºÎ²Ëµ¥
-		void FillMeshMenu();     //½¨Á¢Íø¸ñ²Ëµ¥
-		void FillSolveMenu();	 //½¨Á¢Çó½â²Ëµ¥	
+		void FillCustomMenu();   //å»ºç«‹å®šåˆ¶èœå•
+		void FillHelpMenu();     //å»ºç«‹å¸®åŠ©èœå•
+		void FillFileMenu();     //å»ºç«‹æ–‡ä»¶èœå•
+		void FillGeometryMenu(); //å»ºç«‹å‡ ä½•èœå•
+		void FillMeshMenu();     //å»ºç«‹ç½‘æ ¼èœå•
+		void FillSolveMenu();	 //å»ºç«‹æ±‚è§£èœå•	
 
-		//void GratherMenuToList();        //ÊÕ¼¯ĞèÒªÔÚ¶¨ÖÆÇĞ»»Ê±¿ØÖÆÊ¹ÄÜµÄ²Ëµ¥ÁĞ±í
-		//void SetMenuListEnable(bool b);  //Éè¶¨²Ëµ¥ÁĞ±íÖĞ²Ëµ¥ÏîµÄÊ¹ÄÜ
-		//void RemoveActionList();         //Ğ¶ÔØ²å¼şÊ±£¬É¾³ı×Ó²Ëµ¥
-		//void RemoveMenuList();           //Ğ¶ÔØ²å¼şÊ±£¬É¾³ı¶¥²ã²Ëµ¥  
+		//void GratherMenuToList();        //æ”¶é›†éœ€è¦åœ¨å®šåˆ¶åˆ‡æ¢æ—¶æ§åˆ¶ä½¿èƒ½çš„èœå•åˆ—è¡¨
+		//void SetMenuListEnable(bool b);  //è®¾å®šèœå•åˆ—è¡¨ä¸­èœå•é¡¹çš„ä½¿èƒ½
+		//void RemoveActionList();         //å¸è½½æ’ä»¶æ—¶ï¼Œåˆ é™¤å­èœå•
+		//void RemoveMenuList();           //å¸è½½æ’ä»¶æ—¶ï¼Œåˆ é™¤é¡¶å±‚èœå•  
 
-		void FillFileToolBar();					//½¨Á¢ÎÄ¼ş¹¤¾ßÀ¸
-		void FillSplitMeshToolBar();			//½¨Á¢Íø¸ñÆÊ·Ö¹¤¾ßÀ¸
-		void FillSelectToolBar();				//½¨Á¢Ñ¡Ôñ¹¤¾ßÀ¸
-		void FillViewToolBar();					//½¨Á¢²é¿´Íø¸ñ¼¸ºÎ¹¤¾ßÀ¸
-		void FillSolveToolBar();				//½¨Á¢Çó½â¹¤¾ßÀ¸
-		void FillViewerToolBar();				//½¨Á¢ÊÓÍ¼¹¤¾ßÀ¸
-		void FillCheckCreatToolBar();			//½¨Á¢Íø¸ñ¼ì²â´´½¨×é¼ş¹¤¾ßÀ¸
-		void FillURDoToolBar();					//½¨Á¢³·Ïú»Ö¸´¹¤¾ßÀ¸
-		void FillCreateSketchToolBar();			//½¨Á¢²İ»æ¹¤¾ßÀ¸
-		void FillFeatureModingToolBar();		//½¨Á¢¼¸ºÎ½¨Ä£¹¤¾ßÀ¸
-		void FillFeatureOperations1ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸1
-		void FillFeatureOperations2ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸2
-		void FillFeatureOperations3ToolBar();	//½¨Á¢¼¸ºÎ´¦Àí¹¤¾ßÀ¸3
+		void FillFileToolBar();					//å»ºç«‹æ–‡ä»¶å·¥å…·æ 
+		void FillSplitMeshToolBar();			//å»ºç«‹ç½‘æ ¼å‰–åˆ†å·¥å…·æ 
+		void FillSelectToolBar();				//å»ºç«‹é€‰æ‹©å·¥å…·æ 
+		void FillViewToolBar();					//å»ºç«‹æŸ¥çœ‹ç½‘æ ¼å‡ ä½•å·¥å…·æ 
+		void FillSolveToolBar();				//å»ºç«‹æ±‚è§£å·¥å…·æ 
+		void FillViewerToolBar();				//å»ºç«‹è§†å›¾å·¥å…·æ 
+		void FillCheckCreatToolBar();			//å»ºç«‹ç½‘æ ¼æ£€æµ‹åˆ›å»ºç»„ä»¶å·¥å…·æ 
+		void FillURDoToolBar();					//å»ºç«‹æ’¤é”€æ¢å¤å·¥å…·æ 
+		void FillCreateSketchToolBar();			//å»ºç«‹è‰ç»˜å·¥å…·æ 
+		void FillFeatureModingToolBar();		//å»ºç«‹å‡ ä½•å»ºæ¨¡å·¥å…·æ 
+		void FillFeatureOperations1ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 1
+		void FillFeatureOperations2ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 2
+		void FillFeatureOperations3ToolBar();	//å»ºç«‹å‡ ä½•å¤„ç†å·¥å…·æ 3
 		void fillGeometryEditToolBar();
 		void fillMeasuredDistanceToolBar();
 		
 		template <typename T>
-		void RemoveList(QList<T> list); //Ğ¶ÔØ²å¼şÊ±£¬É¾³ı×Ó²Ëµ¥ºÍ¶¥²ã²Ëµ¥
+		void RemoveList(QList<T> list); //å¸è½½æ’ä»¶æ—¶ï¼Œåˆ é™¤å­èœå•å’Œé¡¶å±‚èœå•
 
 		//void UpdateActionStatus();
-		//void UpdateToolBarStatusIntime(int status);//¼°Ê±¸üĞÂ¹¤¾ßÀ¸×´Ì¬
+		//void UpdateToolBarStatusIntime(int status);//åŠæ—¶æ›´æ–°å·¥å…·æ çŠ¶æ€
 		void initMenuAndToolBar();
-		void initActionstatus(FastCAEDesigner::QFWidgetAction* action,bool on);	//³õÊ¼»¯²Ëµ¥¹¤¾ßÀ¸
+		void initActionstatus(FastCAEDesigner::QFWidgetAction* action,bool on);	//åˆå§‹åŒ–èœå•å·¥å…·æ 
 
 		void quitCustomizer();
 
@@ -134,53 +134,53 @@ namespace Plugins
 		GUI::MainWindow* _mainWindow{};
 		CustomizerPlugin* _plugin{};
 
-		QMenu* _menu{};           //¶¨ÖÆ²Ëµ¥ 
+		QMenu* _menu{};           //å®šåˆ¶èœå• 
 		QAction* _cusAction{};
-		QAction* _startAction{};  //¶¨ÖÆ²Ëµ¥--¿ªÊ¼¶¨ÖÆ
-		QAction* _finishAction{}; //¶¨ÖÆ²Ëµ¥--Íê³É¶¨ÖÆ
-		QAction* _cancelAction{}; //¶¨ÖÆ²Ëµ¥--È¡Ïû¶¨ÖÆ
-		QAction* _shareAction{};  //¶¨ÖÆ²Ëµ¥--·¢²¼
+		QAction* _startAction{};  //å®šåˆ¶èœå•--å¼€å§‹å®šåˆ¶
+		QAction* _finishAction{}; //å®šåˆ¶èœå•--å®Œæˆå®šåˆ¶
+		QAction* _cancelAction{}; //å®šåˆ¶èœå•--å–æ¶ˆå®šåˆ¶
+		QAction* _shareAction{};  //å®šåˆ¶èœå•--å‘å¸ƒ
 
-		//°ïÖú²Ëµ¥
-		QMenu* _menuHelp{};       //°ïÖú²Ëµ¥
-		QAction* _userInfo{};     //°ïÖú²Ëµ¥--ÓÃ»§ĞÅÏ¢
-		QAction* _userDoc{};      //°ïÖú²Ëµ¥--ÓÃ»§ÊÖ²á
+		//å¸®åŠ©èœå•
+		QMenu* _menuHelp{};       //å¸®åŠ©èœå•
+		QAction* _userInfo{};     //å¸®åŠ©èœå•--ç”¨æˆ·ä¿¡æ¯
+		QAction* _userDoc{};      //å¸®åŠ©èœå•--ç”¨æˆ·æ‰‹å†Œ
 
-		//ÎÄ¼ş²Ëµ¥
-		QMenu* _menuFile{};         //ÎÄ¼ş²Ëµ¥
-		QAction* _importGeometry{}; //ÎÄ¼ş²Ëµ¥--µ¼Èë¼¸ºÎ
-		QAction* _exportGeometry{}; //ÎÄ¼ş²Ëµ¥--µ¼³ö¼¸ºÎ
+		//æ–‡ä»¶èœå•
+		QMenu* _menuFile{};         //æ–‡ä»¶èœå•
+		QAction* _importGeometry{}; //æ–‡ä»¶èœå•--å¯¼å…¥å‡ ä½•
+		QAction* _exportGeometry{}; //æ–‡ä»¶èœå•--å¯¼å‡ºå‡ ä½•
 
-		//¼¸ºÎ²Ëµ¥
-		QMenu* _menuGeometry;            //¼¸ºÎ²Ëµ¥
-		QAction* _geoFeatureModeling{};  //¼¸ºÎ²Ëµ¥--ÌØÕ÷½¨Ä£
-		QAction* _geoFeatureOperation{}; //¼¸ºÎ²Ëµ¥--ÌØÕ÷²Ù×÷
-		QAction* _geoDraft{};            //¼¸ºÎ²Ëµ¥--²İÍ¼
+		//å‡ ä½•èœå•
+		QMenu* _menuGeometry;            //å‡ ä½•èœå•
+		QAction* _geoFeatureModeling{};  //å‡ ä½•èœå•--ç‰¹å¾å»ºæ¨¡
+		QAction* _geoFeatureOperation{}; //å‡ ä½•èœå•--ç‰¹å¾æ“ä½œ
+		QAction* _geoDraft{};            //å‡ ä½•èœå•--è‰å›¾
 		QAction* _geoSetCreate{};
 
-		FastCAEDesigner::QFWidgetAction *_geoFeatureModelingCheckbox{};  //¼¸ºÎ²Ëµ¥--ÌØÕ÷¶¨ÖÆ
-		FastCAEDesigner::QFWidgetAction *_geoFeatureOperationCheckbox{}; //¼¸ºÎ²Ëµ¥--ÌØÕ÷²Ù×÷
-		FastCAEDesigner::QFWidgetAction *_geoDraftCheckbox{};            //¼¸ºÎ²Ëµ¥--²İÍ¼
+		FastCAEDesigner::QFWidgetAction *_geoFeatureModelingCheckbox{};  //å‡ ä½•èœå•--ç‰¹å¾å®šåˆ¶
+		FastCAEDesigner::QFWidgetAction *_geoFeatureOperationCheckbox{}; //å‡ ä½•èœå•--ç‰¹å¾æ“ä½œ
+		FastCAEDesigner::QFWidgetAction *_geoDraftCheckbox{};            //å‡ ä½•èœå•--è‰å›¾
 		FastCAEDesigner::QFWidgetAction *_geometryEditCheckbox{};
 		FastCAEDesigner::QFWidgetAction *_geoSetCreateCheckbox{};
 		FastCAEDesigner::QFWidgetAction *_measuredDistanceCheckbox{};
 
-		//Íø¸ñ²Ëµ¥
-		QMenu* _menuMesh;            //Íø¸ñ²Ëµ¥
-		//FastCAEDesigner::QFWidgetAction *_meshSurfaceCheckbox{}; //Íø¸ñ²Ëµ¥--ÃæÍø¸ñÆÊ·Ö
-		//FastCAEDesigner::QFWidgetAction *_meshSolidCheckbox{};   //Íø¸ñ²Ëµ¥--ÌåÍø¸ñÆÊ·Ö
+		//ç½‘æ ¼èœå•
+		QMenu* _menuMesh;            //ç½‘æ ¼èœå•
+		//FastCAEDesigner::QFWidgetAction *_meshSurfaceCheckbox{}; //ç½‘æ ¼èœå•--é¢ç½‘æ ¼å‰–åˆ†
+		//FastCAEDesigner::QFWidgetAction *_meshSolidCheckbox{};   //ç½‘æ ¼èœå•--ä½“ç½‘æ ¼å‰–åˆ†
 		
-		//QAction* _meshGen{};                                     //Íø¸ñ²Ëµ¥--Éú³ÉÍø¸ñ
-		QAction* _meshCheck{};                                   //Íø¸ñ²Ëµ¥--Íø¸ñ¼ì²é
-		QAction* _meshCreateSet{};                              //Íø¸ñ²Ëµ¥--´´½¨×é¼ş
-		QAction* _surfaceMesh{};                                    //Íø¸ñ²Ëµ¥--surface
-		QAction* _solidMesh{};                                  //Íø¸ñ²Ëµ¥--solid
-		QAction* _fluidMesh{};                                  //Íø¸ñ²Ëµ¥--fluid
-		QAction* _filterMesh{};                                  //Íø¸ñ²Ëµ¥--filter
-		QAction* _meshModeling{};									//Íø¸ñ²Ëµ¥--Íø¸ñ½¨Ä£
+		//QAction* _meshGen{};                                     //ç½‘æ ¼èœå•--ç”Ÿæˆç½‘æ ¼
+		QAction* _meshCheck{};                                   //ç½‘æ ¼èœå•--ç½‘æ ¼æ£€æŸ¥
+		QAction* _meshCreateSet{};                              //ç½‘æ ¼èœå•--åˆ›å»ºç»„ä»¶
+		QAction* _surfaceMesh{};                                    //ç½‘æ ¼èœå•--surface
+		QAction* _solidMesh{};                                  //ç½‘æ ¼èœå•--solid
+		QAction* _fluidMesh{};                                  //ç½‘æ ¼èœå•--fluid
+		QAction* _filterMesh{};                                  //ç½‘æ ¼èœå•--filter
+		QAction* _meshModeling{};									//ç½‘æ ¼èœå•--ç½‘æ ¼å»ºæ¨¡
 
-		QAction* _importMesh{};	//µ¼ÈëÍø¸ñ
-		QAction* _exportMesh{};	//µ¼³öÍø¸ñ
+		QAction* _importMesh{};	//å¯¼å…¥ç½‘æ ¼
+		QAction* _exportMesh{};	//å¯¼å‡ºç½‘æ ¼
 
 		FastCAEDesigner::QFWidgetAction *_meshSurfaceCheckbox;
 		FastCAEDesigner::QFWidgetAction *_meshSolidCheckbox;
@@ -191,21 +191,21 @@ namespace Plugins
 		FastCAEDesigner::QFWidgetAction *_meshModelingCheckbox;
 		
 
-		QToolBar* _fileToolBar;					//ÎÄ¼ş¹¤¾ßÀ¸
-		QToolBar* _splitMeshToolBar;			//Íø¸ñÆÊ·Ö¹¤¾ßÀ¸
-		QToolBar* _selectToolBar;				//Ñ¡Ôñ¹¤¾ßÀ¸
-		QToolBar* _viewToolBar;					//²é¿´Íø¸ñ¼¸ºÎ¹¤¾ßÀ¸
-		QToolBar* _solveToolBar;				//Çó½â¹¤¾ßÀ¸
-		QToolBar* _viewerToolBar;				//ÊÓÍ¼¹¤¾ßÀ¸
-		QToolBar* _checkCreatToolBar;			//Íø¸ñ¼ì²â´´½¨×é¼ş¹¤¾ßÀ¸
-		QToolBar* _URDoToolBar;					//³·Ïú»Ö¸´¹¤¾ßÀ¸
-		QToolBar* _createSketchToolBar;			//²İ»æ¹¤¾ßÀ¸
-		QToolBar* _featureModingToolBar;		//¼¸ºÎ½¨Ä£¹¤¾ßÀ¸
-		QToolBar* _featureOperations1ToolBar;	//¼¸ºÎ´¦Àí¹¤¾ßÀ¸1
-		QToolBar* _featureOperations2ToolBar;	//¼¸ºÎ´¦Àí¹¤¾ßÀ¸2
-		QToolBar* _featureOperations3ToolBar;	//¼¸ºÎ´¦Àí¹¤¾ßÀ¸3
-		QToolBar* _geometryEditToolBar;			//¼¸ºÎ±à¼­
-		QToolBar* _measuredDistanceToolBar;		//²âÁ¿¾àÀë
+		QToolBar* _fileToolBar;					//æ–‡ä»¶å·¥å…·æ 
+		QToolBar* _splitMeshToolBar;			//ç½‘æ ¼å‰–åˆ†å·¥å…·æ 
+		QToolBar* _selectToolBar;				//é€‰æ‹©å·¥å…·æ 
+		QToolBar* _viewToolBar;					//æŸ¥çœ‹ç½‘æ ¼å‡ ä½•å·¥å…·æ 
+		QToolBar* _solveToolBar;				//æ±‚è§£å·¥å…·æ 
+		QToolBar* _viewerToolBar;				//è§†å›¾å·¥å…·æ 
+		QToolBar* _checkCreatToolBar;			//ç½‘æ ¼æ£€æµ‹åˆ›å»ºç»„ä»¶å·¥å…·æ 
+		QToolBar* _URDoToolBar;					//æ’¤é”€æ¢å¤å·¥å…·æ 
+		QToolBar* _createSketchToolBar;			//è‰ç»˜å·¥å…·æ 
+		QToolBar* _featureModingToolBar;		//å‡ ä½•å»ºæ¨¡å·¥å…·æ 
+		QToolBar* _featureOperations1ToolBar;	//å‡ ä½•å¤„ç†å·¥å…·æ 1
+		QToolBar* _featureOperations2ToolBar;	//å‡ ä½•å¤„ç†å·¥å…·æ 2
+		QToolBar* _featureOperations3ToolBar;	//å‡ ä½•å¤„ç†å·¥å…·æ 3
+		QToolBar* _geometryEditToolBar;			//å‡ ä½•ç¼–è¾‘
+		QToolBar* _measuredDistanceToolBar;		//æµ‹é‡è·ç¦»
 
 		QMenu* _menuSolve;
 		QAction* _solverManager{};
@@ -214,15 +214,15 @@ namespace Plugins
 		QAction* _importGeoAction{};
 
 
-		//ĞèÒª¿ØÖÆµÄ²Ëµ¥ÁĞ±í
-		QList<QWidget*> _menuAndtoolbarList;         //¶¥²ã²Ëµ¥ÁĞ±í
-		QList<QAction*> _actionList;     //×Ó²Ëµ¥ÁĞ±í
+		//éœ€è¦æ§åˆ¶çš„èœå•åˆ—è¡¨
+		QList<QWidget*> _menuAndtoolbarList;         //é¡¶å±‚èœå•åˆ—è¡¨
+		QList<QAction*> _actionList;     //å­èœå•åˆ—è¡¨
 		
 		FastCAEDesigner::FunctionTreeSetup *_functionTreeSetup{ nullptr };
 
 		FastCAEDesigner::EditorSolverManager* _editorSolver{ nullptr };
 
-		//¼¸ºÎÍø¸ñÑ¡Ôñ²Ù×÷
+		//å‡ ä½•ç½‘æ ¼é€‰æ‹©æ“ä½œ
 		QAction* _selectOff{};
 		QAction* _meshSelect1{};
 		QAction* _meshSelect2{};
@@ -232,7 +232,7 @@ namespace Plugins
 		QAction* _geoSelect2{};
 		QAction* _geoSelect3{};
 		QAction* _geoSelect4{};
-		//¼¸ºÎÍø¸ñÊÓÍ¼²Ù×÷
+		//å‡ ä½•ç½‘æ ¼è§†å›¾æ“ä½œ
 		QAction* _meshDisplay1{};
 		QAction* _meshDisplay2{};
 		QAction* _meshDisplay3{};

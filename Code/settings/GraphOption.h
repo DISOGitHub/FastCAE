@@ -16,59 +16,59 @@ namespace Setting
 		void writeINI(QSettings* setting);
 		void readINI(QSettings* settings);
 
-		//Ç°´¦Àí¶¥²¿±³¾°ÑÕÉ«
+		//å‰å¤„ç†é¡¶éƒ¨èƒŒæ™¯é¢œè‰²
 		void setBackgroundTopColor(QColor c);
 		QColor getBackgroundTopColor();
-		//Ç°´¦ÀíµÍ²¿±³¾°ÑÕÉ«
+		//å‰å¤„ç†ä½éƒ¨èƒŒæ™¯é¢œè‰²
 		void setBackgroundBottomColor(QColor c);
 		QColor getBackgroundBottomColor();
-		//¸ßÁÁÑÕÉ«
+		//é«˜äº®é¢œè‰²
 		void setHighLightColor(QColor c);
 		QColor getHighLightColor();
-		//Ô¤¸ßÁÁÑÕÉ«
+		//é¢„é«˜äº®é¢œè‰²
 		void sePretHighLightColor(QColor c);
 		QColor getPreHighLightColor();
-		//¼¸ºÎÃæÑÕÉ«
+		//å‡ ä½•é¢é¢œè‰²
 		void setGeometrySurfaceColor(QColor c);
 		QColor getGeometrySurfaceColor();
-		//¼¸ºÎÏßÑÕÉ«
+		//å‡ ä½•çº¿é¢œè‰²
 		void setGeometryCurveColor(QColor c);
 		QColor getGeometryCurveColor();
-		//¼¸ºÎµãÑÕÉ«
+		//å‡ ä½•ç‚¹é¢œè‰²
 		void setGeometryPointColor(QColor c);
 		QColor getGeometryPointColor();
-		//Íø¸ñÃæÑÕÉ«
+		//ç½‘æ ¼é¢é¢œè‰²
 		void setMeshFaceColor(QColor c);
 		QColor getMeshFaceColor();
-		//Íø¸ñ±ßÑÕÉ«
+		//ç½‘æ ¼è¾¹é¢œè‰²
 		void setMeshEdgeColor(QColor c);
 		QColor getMeshEdgeColor();
-		//Íø¸ñ½ÚµãÑÕÉ«
+		//ç½‘æ ¼èŠ‚ç‚¹é¢œè‰²
 		void setMeshNodeColor(QColor c);
 		QColor getMeshNodeColor();
-		//Íø¸ñ½Úµã´óĞ¡
+		//ç½‘æ ¼èŠ‚ç‚¹å¤§å°
 		void setMeshNodeSize(float s);
 		float getMeshNodeSize();
-		//Íø¸ñ±ß¿í¶È
+		//ç½‘æ ¼è¾¹å®½åº¦
 		void setMeshEdgeWidth(float s);
 		float getMeshEdgeWidth();
-		//¼¸ºÎµã´óĞ¡
+		//å‡ ä½•ç‚¹å¤§å°
 		void setGeoPointSize(float s);
 		float getGeoPointSize();
-		//¼¸ºÎ±ß¿í¶È
+		//å‡ ä½•è¾¹å®½åº¦
 		void setGeoCurveWidth(float s);
 		float getGeoCurveWidth();
-		//Í¸Ã÷¶È
+		//é€æ˜åº¦
 		void setTransparency(int t);
 		int getTransparency();
 
-		//¼¸ºÎµãÏÔÊ¾
+		//å‡ ä½•ç‚¹æ˜¾ç¤º
 		void isShowGeoPoint(bool show);
 		bool isShowGeoPoint();
-		//¼¸ºÎ±ßÏÔÊ¾
+		//å‡ ä½•è¾¹æ˜¾ç¤º
 		void isShowGeoEdge(bool show);
 		bool isShowGeoEdge();
-		//¼¸ºÎÃæÏÔÊ¾
+		//å‡ ä½•é¢æ˜¾ç¤º
 		void isShowGeoSurface(bool show);
 		bool isShowGeoSurface();
 

@@ -71,7 +71,7 @@ namespace ProjectTree
 		_root->setFlags(_root->flags() | Qt::ItemIsEditable);
 		_root->setIcon(0, QIcon("://QUI/icon/physics.png"));
 		int id = _data->getID();
-		_root->setText(0, _data->getName());  //根据项目名称确定
+		_root->setText(0, _data->getName());  //鏍规嵁椤圭洰鍚嶇О纭畾
 		_root->setData(0, Qt::UserRole, _data->getID());
 		_root->setExpanded(true);
 		double time = _data->getSolveTime();
@@ -295,7 +295,7 @@ namespace ProjectTree
 				icon = "://QUI/icon/geometry.png";
 			}
 
-			if (_modelDataExtend->isMaterialSetted(id))//是否指定材料
+			if (_modelDataExtend->isMaterialSetted(id))//鏄惁鎸囧畾鏉愭枡
 			{
 				int materialid = _modelDataExtend->getMaterialID(id);
 				Material::Material* m = materialData->getMaterialByID(materialid);

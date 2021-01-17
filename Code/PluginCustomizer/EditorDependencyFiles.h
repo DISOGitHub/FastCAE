@@ -27,7 +27,7 @@ namespace FastCAEDesigner{
 
 	private:
 		void init();
-		void UpdateFileNames();//Added xvdongming 2020-02-14 Ë¢ĞÂÑ¡ÔñµÄÒÀÀµÎÄ¼şÁĞ±í
+		void UpdateFileNames();//Added xvdongming 2020-02-14 åˆ·æ–°é€‰æ‹©çš„ä¾èµ–æ–‡ä»¶åˆ—è¡¨
 
 	private:
 		Ui::EditorDependencyFiles *ui;

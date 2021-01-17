@@ -56,7 +56,7 @@ namespace MeshData{
 
 	bool PDBdataExchange::read()
 	{
-		/*VTKÏÔÊ¾×¢ÊÍ*/
+		/*VTKæ˜¾ç¤ºæ³¨é‡Š*/
 //  		vtkSmartPointer<vtkRenderer> renderer =
 //  			vtkSmartPointer<vtkRenderer>::New();
 //  		renderer->SetBackground(.1, .2, .3);

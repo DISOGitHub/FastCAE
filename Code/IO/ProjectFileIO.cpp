@@ -1,4 +1,4 @@
-﻿#include "ProjectFileIO.h"
+#include "ProjectFileIO.h"
 #include <QDomDocument>
 #include <QTextStream>
 #include "geometry/geometryData.h"
@@ -202,7 +202,7 @@ namespace IO
 		QString errstr{};
 		if (!_doc->setContent(&_file,true,&errstr,&row,&col))
 		{
-			qDebug() << errstr << "line: " << row << "col: " << col;
+			qDebug() << errstr << "line: " << row << "col: " << col;
 			_file.close();
 			return false;
 		}

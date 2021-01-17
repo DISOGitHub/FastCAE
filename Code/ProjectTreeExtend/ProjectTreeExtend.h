@@ -14,15 +14,15 @@ namespace ProjectTree
 		~ProjectTreeExtend();
 
 	protected:
-		//Êó±êÓÒ¼üÊÂ¼ş
+		//é¼ æ ‡å³é”®äº‹ä»¶
 		virtual void contextMenu(QMenu* menu) override;
-		//Êó±ê×ó¼üµ¥»÷ÊÂ¼ş
+		//é¼ æ ‡å·¦é”®å•å‡»äº‹ä»¶
 		virtual void singleClicked() override;
-		//Êó±ê×ó¼üË«»÷ÊÂ¼ş
+		//é¼ æ ‡å·¦é”®åŒå‡»äº‹ä»¶
 		virtual void doubleClicked() override;
-		//´´½¨Ê÷
+		//åˆ›å»ºæ ‘
 		virtual void createTree(QTreeWidgetItem* root, GUI::MainWindow* mainwindow) override;
-		//¸üĞÂÍø¸ñ×ÓÊ÷
+		//æ›´æ–°ç½‘æ ¼å­æ ‘
 		virtual void updateComponentSubTree() override;
 
 	private slots:

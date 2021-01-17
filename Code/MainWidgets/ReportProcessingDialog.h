@@ -27,7 +27,7 @@ public:
 
 	QString getCancelBtnText() const;
 	void setCancelBtnText(const QString &value = tr("Cancel"));
-	//ÉèÖÃ°´Å¥ºÍÌáÊ¾ĞÅÏ¢Î»ÖÃ
+	//è®¾ç½®æŒ‰é’®å’Œæç¤ºä¿¡æ¯ä½ç½®
 	void setButtonPosition();
 signals:
 	void sig_windowClose();
@@ -38,10 +38,10 @@ signals:
 
 private:
 	
-	//¸ü¸ÄÔ²ĞÎ´°¿Ú¼°±³¾°ÑÕÉ«
+	//æ›´æ”¹åœ†å½¢çª—å£åŠèƒŒæ™¯é¢œè‰²
 	void changeFormStyle();
 	void setIconPath(QString path);
-	//ÊÇ·ñÏÔÊ¾½áÊø°´Å¥
+	//æ˜¯å¦æ˜¾ç¤ºç»“æŸæŒ‰é’®
 	bool isVisibleCancle{ true };
 	void changeLayout();
 private:
@@ -54,9 +54,9 @@ private:
 	QVBoxLayout* vertialLayout{};
 
 	QHBoxLayout* topLayout{};
-	//½áÊø°´Å¥±êÌâ
+	//ç»“æŸæŒ‰é’®æ ‡é¢˜
 	QString  cancelBtnText;
-	//´°¿ÚÖĞµÈ´ıÌáÊ¾ĞÅÏ¢
+	//çª—å£ä¸­ç­‰å¾…æç¤ºä¿¡æ¯
 	QString  mhintMsg;
 	QString  backgroundColor;
 	QString  miconPath;

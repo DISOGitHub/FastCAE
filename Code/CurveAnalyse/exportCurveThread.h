@@ -1,4 +1,4 @@
-﻿#ifndef EXPORTCURVETHREAD_H
+#ifndef EXPORTCURVETHREAD_H
 #define EXPORTCURVETHREAD_H
 
 #include <QThread>

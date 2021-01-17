@@ -20,11 +20,11 @@ namespace GeometryWidget
 	private slots:
 	    void on_closeButton_clicked();
 		void on_geoSelectPoint_clicked();
-		/*¼ÆËã³¤¶È£¬Ñ¡È¡Ïß*/
+		/*è®¡ç®—é•¿åº¦ï¼Œé€‰å–çº¿*/
 		void on_geoSelectCurve_clicked();
-		/*¼ÆËãÃæ»ı£¬Ñ¡È¡Ãæ*/
+		/*è®¡ç®—é¢ç§¯ï¼Œé€‰å–é¢*/
 		void on_geoSelectSurface_1_clicked();
-		/*¼ÆËãÌå»ı£¬Ñ¡È¡Ìå*/
+		/*è®¡ç®—ä½“ç§¯ï¼Œé€‰å–ä½“*/
 		void on_geoSelectSurface_clicked();
 		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 		void on_TypeChanged(int index);
@@ -32,22 +32,22 @@ namespace GeometryWidget
 	private:
 
 		void setPointLocation(double* p1, double* p2);
-		/*¼ÆËãÁ½µãÖ®¼äµÄ¾àÀë*/
+		/*è®¡ç®—ä¸¤ç‚¹ä¹‹é—´çš„è·ç¦»*/
 		void DistanceTwoPts(Geometry::GeometrySet* set, int index);
-		/*¼ÆËã»¡³¤µÄ³¤¶È*/
+		/*è®¡ç®—å¼§é•¿çš„é•¿åº¦*/
 		void LengthOfCurve(Geometry::GeometrySet* set, int index);
-		/*¼ÆËãÇúÃæµÄÃæ»ı*/ 
+		/*è®¡ç®—æ›²é¢çš„é¢ç§¯*/ 
 		void AreaOfSurface(Geometry::GeometrySet* set, int index);
-		/*¼ÆËãÊµÌåµÄÌå»ı*/
+		/*è®¡ç®—å®ä½“çš„ä½“ç§¯*/
 		void VolumeOfSolid(Geometry::GeometrySet* set, int index);
 
-		/*µã²»¸ßÁÁ*/
+		/*ç‚¹ä¸é«˜äº®*/
 		void ImHighlightPoints();
-		/*Ïß²»¸ßÁÁ*/
+		/*çº¿ä¸é«˜äº®*/
 		void ImHighlightCurve();
-		/*Ãæ²»¸ßÁÁ*/
+		/*é¢ä¸é«˜äº®*/
 		void ImHighlightSurface();
-		/*Ìå²»¸ßÁÁ*/
+		/*ä½“ä¸é«˜äº®*/
 		void ImHighlightSolid();
 
 	private:

@@ -33,8 +33,8 @@ namespace ConfigOption
 		void enableComponent(bool on);
 		bool isComponentEnabled();
 
-		void setCheckMesh(bool on);		//ÉèÖÃ¼ì²âÍø¸ñÖÊÁ¿
-		bool getCheckMeshEnabled();			//»ñÈ¡¼ì²âÍø¸ñÖÊÁ¿×´Ì¬
+		void setCheckMesh(bool on);		//è®¾ç½®æ£€æµ‹ç½‘æ ¼è´¨é‡
+		bool getCheckMeshEnabled();			//è·å–æ£€æµ‹ç½‘æ ¼è´¨é‡çŠ¶æ€
 
 		void enableFluidMesh(bool on);
 		bool isFluidMeshEnabled();

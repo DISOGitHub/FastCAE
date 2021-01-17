@@ -1056,8 +1056,8 @@ void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int
     Command::GeometryCommandPy::EditMirrorFeature(set,shapeHash, s, typeindex, faceindex, facebodyset, planeindex, random, basept);
 }
 
-void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, /*Ìå & »ù×¼µã */ 
-                                       int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*ÖáÏß */
+void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, /*ä½“ & åŸºå‡†ç‚¹ */ 
+                                       int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*è½´çº¿ */
                                        double angle, int saveOri)
 {
 	QString cedge = QString(body);
@@ -1085,8 +1085,8 @@ void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, 
 	  
 }
 
-void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, /*Ìå & »ù×¼µã */
-	int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*ÖáÏß */
+void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, /*ä½“ & åŸºå‡†ç‚¹ */
+	int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, /*è½´çº¿ */
 	double angle, int saveOri)
 {
 	QString cedge = QString(body);

@@ -27,7 +27,7 @@ namespace Command
 		void setEdges(QList<QPair<Geometry::GeometrySet*, int>> s);
 		void setFaces(QList<QPair<Geometry::GeometrySet*, int>> s);
 		void setSolids(QList<QPair<Geometry::GeometrySet*, int>> s);
-		/*0:œﬂ;1:√Ê;2:ÃÂ;*/
+		/*0:Á∫ø;1:Èù¢;2:‰Ωì;*/
 		void setGapType(int i);
 	private:
 		TopoDS_Shape getGapShape(TopoDS_Shape shape1, TopoDS_Shape shape2);

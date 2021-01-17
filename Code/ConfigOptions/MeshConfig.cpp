@@ -99,12 +99,12 @@ namespace ConfigOption
 		_meshModeling = MESHON;
 	}
 
-	//ÉèÖÃ¼ì²âÍø¸ñÖÊÁ¿
+	//è®¾ç½®æ£€æµ‹ç½‘æ ¼è´¨é‡
 	void MeshConfig::setCheckMesh(bool on)
 	{
 		_checkMesh = on;
 	}
-	//»ñÈ¡¼ì²âÍø¸ñÖÊÁ¿×´Ì¬
+	//è·å–æ£€æµ‹ç½‘æ ¼è´¨é‡çŠ¶æ€
 	bool MeshConfig::getCheckMeshEnabled()
 	{
 		return _checkMesh;

@@ -40,9 +40,9 @@ namespace Command
 	protected:
 
 	private:
-		//´ýÉ¾
+		//å¾…åˆ 
 		QList<Geometry::GeometrySet*> _bodys{};
-		//ÐÂ¼Ó
+		//æ–°åŠ 
 		QMultiHash<Geometry::GeometrySet*, int> _solidhash{};
 		double _vector[3];
 		bool _saveOrigin{ false };

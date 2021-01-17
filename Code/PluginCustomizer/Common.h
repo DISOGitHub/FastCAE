@@ -8,11 +8,11 @@
 #include "QTreeWidget"
 #include <assert.h>
 
-//¼ÆËãÊı×é³¤¶È
+//è®¡ç®—æ•°ç»„é•¿åº¦
 #define CountArray(Array) (sizeof(Array)/sizeof(Array[0]))
-//É¾³ıÖ¸Õë
+//åˆ é™¤æŒ‡é’ˆ
 #define SafeDelete(pData) { try { delete pData; } catch (...) { ASSERT(FALSE); } pData=NULL; } 
-//É¾³ıÊı×é
+//åˆ é™¤æ•°ç»„
 #define SafeDeleteArray(pData) { try { delete [] pData; } catch (...) { ASSERT(FALSE); } pData=NULL; } 
 
 
@@ -27,18 +27,18 @@
 #define _CONFIG_FILES_						"ConfigFiles"
 
 
-#define _BASE_SET_							QString::fromLocal8Bit("»ù±¾ÉèÖÃ")
-#define _GEOMETRY_SET_						QString::fromLocal8Bit("¼¸ºÎÉèÖÃ")
-#define _GRID_SET_							QString::fromLocal8Bit("Íø¸ñÉèÖÃ")
-#define _SOLVE_SET_							QString::fromLocal8Bit("Çó½âÉèÖÃ")
-#define _POST_SET_							QString::fromLocal8Bit("ºó´¦ÀíÉèÖÃ")
-#define _FUNCTION_SET_						QString::fromLocal8Bit("¹¦ÄÜ²ÎÊı")
-#define _PRE_VIEW_							QString::fromLocal8Bit("Ô¤ÀÀ")
+#define _BASE_SET_							QString::fromLocal8Bit("åŸºæœ¬è®¾ç½®")
+#define _GEOMETRY_SET_						QString::fromLocal8Bit("å‡ ä½•è®¾ç½®")
+#define _GRID_SET_							QString::fromLocal8Bit("ç½‘æ ¼è®¾ç½®")
+#define _SOLVE_SET_							QString::fromLocal8Bit("æ±‚è§£è®¾ç½®")
+#define _POST_SET_							QString::fromLocal8Bit("åå¤„ç†è®¾ç½®")
+#define _FUNCTION_SET_						QString::fromLocal8Bit("åŠŸèƒ½å‚æ•°")
+#define _PRE_VIEW_							QString::fromLocal8Bit("é¢„è§ˆ")
 
-#define _PARA_RELEVANT_						QString::fromLocal8Bit("²ÎÊıÁª¶¯")
-#define _MATERIAL_SET_						QString::fromLocal8Bit("²ÄÁÏÉèÖÃ")
+#define _PARA_RELEVANT_						QString::fromLocal8Bit("å‚æ•°è”åŠ¨")
+#define _MATERIAL_SET_						QString::fromLocal8Bit("ææ–™è®¾ç½®")
 
-#define _INTRODUCE_COMMON_					QString::fromLocal8Bit("ĞÅÏ¢")
+#define _INTRODUCE_COMMON_					QString::fromLocal8Bit("ä¿¡æ¯")
 
 #define _USER_MANUAL_PDF_					"UserManual.pdf"
 
@@ -65,7 +65,7 @@
 
 
 
-//±ß½çÌõ¼şµÄÃèÊöÊı¾İ½á¹¹
+//è¾¹ç•Œæ¡ä»¶çš„æè¿°æ•°æ®ç»“æ„
 
 #define _PROJECT_PATH_					"/Designer/"
 #define _LOGO_IMAGE_NAME_				"logo_image"
@@ -83,21 +83,21 @@
 #define _CONFIG_MATERIAL_               "MaterialConfig.config"
 
 
-///<MG ²ÎÊıÁª¶¯ÅäÖÃÎÄ¼ş
+///<MG å‚æ•°è”åŠ¨é…ç½®æ–‡ä»¶
 #define _CONFIG_RELEVANT_				"ObserverConfig.config"
 
-///<MG ²ÄÁÏÅäÖÃÎÄ¼ş
+///<MG ææ–™é…ç½®æ–‡ä»¶
 #define _CONFIG_MATERIAL_				"MaterialConfig.config"
 
-#define _DEFAULT_PROJECT_ROOT_			QString::fromLocal8Bit("ËãÀı")
-#define _DEFAULT_MESH_PART_				QString::fromLocal8Bit("Íø¸ñ×é¼ş")
-#define _DEFAULT_SIM_PARA_				QString::fromLocal8Bit("·ÂÕæ²ÎÊıÉèÖÃ")
-#define _DEFAULT_BOUNDARY_CONDITION_	QString::fromLocal8Bit("±ß½çÌõ¼ş")
-#define _DEFAULT_SOLVER_SETTING_		QString::fromLocal8Bit("Çó½â²ÎÊıÉèÖÃ")
-#define _DEFAULT_MONITOR_				QString::fromLocal8Bit("¼à¿ØÆ÷")
-#define _DEFAULT_POST_					QString::fromLocal8Bit("ºó´¦Àí")
-#define _DEFAULT_2D_PLOT_				QString::fromLocal8Bit("¶şÎ¬ºó´¦Àí")
-#define _DEFAULT_3D_GRAPH_				QString::fromLocal8Bit("ÈıÎ¬ºó´¦Àí")
+#define _DEFAULT_PROJECT_ROOT_			QString::fromLocal8Bit("ç®—ä¾‹")
+#define _DEFAULT_MESH_PART_				QString::fromLocal8Bit("ç½‘æ ¼ç»„ä»¶")
+#define _DEFAULT_SIM_PARA_				QString::fromLocal8Bit("ä»¿çœŸå‚æ•°è®¾ç½®")
+#define _DEFAULT_BOUNDARY_CONDITION_	QString::fromLocal8Bit("è¾¹ç•Œæ¡ä»¶")
+#define _DEFAULT_SOLVER_SETTING_		QString::fromLocal8Bit("æ±‚è§£å‚æ•°è®¾ç½®")
+#define _DEFAULT_MONITOR_				QString::fromLocal8Bit("ç›‘æ§å™¨")
+#define _DEFAULT_POST_					QString::fromLocal8Bit("åå¤„ç†")
+#define _DEFAULT_2D_PLOT_				QString::fromLocal8Bit("äºŒç»´åå¤„ç†")
+#define _DEFAULT_3D_GRAPH_				QString::fromLocal8Bit("ä¸‰ç»´åå¤„ç†")
 
 #define _DEFAULT_PROJECT_ROOT_EN_		"Case"
 #define _DEFAULT_MESH_PART_EN_			"Mesh Set"
@@ -109,16 +109,16 @@
 #define _DEFAULT_2D_PLOT_EN_			"2D Plot"
 #define _DEFAULT_3D_GRAPH_EN_			"3D Graph"
 
-#define _BOOL_PARA_NAME_				QString::fromLocal8Bit("²¼¶û²ÎÊı")
-#define _INT_PARA_NAME_					QString::fromLocal8Bit("ÕûĞÎ²ÎÊı")
-#define _DOUBLE_PARA_NAME_				QString::fromLocal8Bit("¸¡µã²ÎÊı")
-#define _ENUM_PARA_NAME_				QString::fromLocal8Bit("Ã¶¾Ù²ÎÊı")
-#define _STRING_PARA_NAME_				QString::fromLocal8Bit("×Ö·û´®²ÎÊı")
-#define _TABLE_PARA_NAME_				QString::fromLocal8Bit("±íÀàĞÍ²ÎÊı")
-#define _PATH_PARA_NAME_				QString::fromLocal8Bit("Â·¾¶²ÎÊı")
-#define _TIME_PARA_NAME_				QString::fromLocal8Bit("Ê±¼ä²ÎÊı")
-#define _2D_POINT_PARA_					QString::fromLocal8Bit("¶şÎ¬µã²ÎÊı")
-#define _3D_POINT_PARA_					QString::fromLocal8Bit("ÈıÎ¬µã²ÎÊı")
+#define _BOOL_PARA_NAME_				QString::fromLocal8Bit("å¸ƒå°”å‚æ•°")
+#define _INT_PARA_NAME_					QString::fromLocal8Bit("æ•´å½¢å‚æ•°")
+#define _DOUBLE_PARA_NAME_				QString::fromLocal8Bit("æµ®ç‚¹å‚æ•°")
+#define _ENUM_PARA_NAME_				QString::fromLocal8Bit("æšä¸¾å‚æ•°")
+#define _STRING_PARA_NAME_				QString::fromLocal8Bit("å­—ç¬¦ä¸²å‚æ•°")
+#define _TABLE_PARA_NAME_				QString::fromLocal8Bit("è¡¨ç±»å‹å‚æ•°")
+#define _PATH_PARA_NAME_				QString::fromLocal8Bit("è·¯å¾„å‚æ•°")
+#define _TIME_PARA_NAME_				QString::fromLocal8Bit("æ—¶é—´å‚æ•°")
+#define _2D_POINT_PARA_					QString::fromLocal8Bit("äºŒç»´ç‚¹å‚æ•°")
+#define _3D_POINT_PARA_					QString::fromLocal8Bit("ä¸‰ç»´ç‚¹å‚æ•°")
 
 
 #define _TREE_CONFIG_FILE_				"treeConfig.config"
@@ -139,7 +139,7 @@
 #define _CONFIG_SOLVER_SETTING_CHILD_					"SolverChild"
 #define _CONFIG_SOLVER_SETTING_GRNADSON_				"SolverSettingGrandSon"
 
-///<MG ×ÓÏîParent
+///<MG å­é¡¹Parent
 #define _CONFIG_SOLVER_SETTING_SUB_PARENT_				"Solver Setting"
 #define _CONFIG_SIMULATION_SETTING_SUB_PARENT_			"Simulation Setting"
 

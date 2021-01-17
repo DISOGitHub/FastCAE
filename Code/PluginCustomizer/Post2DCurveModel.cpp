@@ -23,17 +23,17 @@ namespace FastCAEDesigner
 	{
 	}
 
-	//»ñÈ¡ÇúÏßÁĞ±í
+	//è·å–æ›²çº¿åˆ—è¡¨
 // 	QList<SPost2DCurve> Post2DCurveModel::GetCurveList()
 // 	{
 // 		return _curveList;
 // 	}
-	//»ñÈ¡ÇúÏßÁĞ±í
+	//è·å–æ›²çº¿åˆ—è¡¨
 	QList<ConfigOption::PostCurve*> Post2DCurveModel::GetCurveList()
 	{
 		return _curveList;
 	}
-	//½çÃæÈë¿Ú
+	//ç•Œé¢å…¥å£
 	int Post2DCurveModel::ShowEditor(QTreeWidgetItem* treeItem, QWidget* parent)
 	{
 		EditorCurveModel dlg(treeItem,this);
@@ -42,17 +42,17 @@ namespace FastCAEDesigner
 		return dlg.exec();
 	}
 
-	//ÉèÖÃÇúÏßÁĞ±í
+	//è®¾ç½®æ›²çº¿åˆ—è¡¨
 	void Post2DCurveModel::setCurveList(QList<ConfigOption::PostCurve*> list)
 	{
 		_curveList = list;
 	}
-	//»ñÈ¡ÎÄ¼şÃû
+	//è·å–æ–‡ä»¶å
 	QString Post2DCurveModel::getFileName()
 	{
 		return _fileName;
 	}
-	//ÉèÖÃÎÄ¼şÃû
+	//è®¾ç½®æ–‡ä»¶å
 	void Post2DCurveModel::setFileName(QString name)
 	{
 		_fileName = name;

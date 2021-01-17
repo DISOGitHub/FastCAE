@@ -24,7 +24,7 @@ namespace Py
 		void initialize(GUI::MainWindow* m);
 		void finalize(); 
 		void submit(QString code, bool save = true);
-		//后台执行，不在界面显示，也不保存
+		//鍚庡彴鎵ц锛屼笉鍦ㄧ晫闈㈡樉绀猴紝涔熶笉淇濆瓨
 		void backstageExec(QString code);
 		void submit(QStringList codes, bool save = true);
 		void saveScript(QString fileName);

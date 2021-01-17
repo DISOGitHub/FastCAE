@@ -37,23 +37,23 @@ namespace Plugins
 	public:
 		PluginBase();
 		~PluginBase();
-		//¼ÓÔØ²å¼ş
+		//åŠ è½½æ’ä»¶
 		virtual bool install() = 0;
-		//Ğ¶ÔØ²å¼ş
+		//å¸è½½æ’ä»¶
 		virtual bool uninstall() = 0;
-		//·­Òë
+		//ç¿»è¯‘
 		virtual void reTranslate(QString lang);
-		//Ö´ĞĞ²å¼ş
+		//æ‰§è¡Œæ’ä»¶
 		virtual void exec(int commandType = 0);
-		//ÉèÖÃÀàĞÍ
+		//è®¾ç½®ç±»å‹
 		void setType(PluginType t);
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		PluginType getType();
-		//Ğ´³ö¹¤³ÌÎÄ¼ş
+		//å†™å‡ºå·¥ç¨‹æ–‡ä»¶
 		virtual void writeToProjectFile(QDomDocument* doc, QDomElement* parent);
-		//´Ó¹¤³§ÎÄ¼ş¶ÁÈë
+		//ä»å·¥å‚æ–‡ä»¶è¯»å…¥
 		virtual void readFromProjectFile(QDomElement* parentEle);
-		//ÊÇ·ñÓĞĞÅÏ¢ĞèÒª±£´æµ½¹¤³ÌÎÄ¼ş
+		//æ˜¯å¦æœ‰ä¿¡æ¯éœ€è¦ä¿å­˜åˆ°å·¥ç¨‹æ–‡ä»¶
 		virtual bool hasInfoToSave();
 
 		void setFileName(QString f);

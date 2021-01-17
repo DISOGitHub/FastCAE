@@ -14,11 +14,11 @@ namespace Gmsh
 	public:
 		FluidMeshPreProcess() = default;
 		~FluidMeshPreProcess() = default;
-		//ÉèÖÃÁ÷ÌåÓò·¶Î§
+		//è®¾ç½®æµä½“åŸŸèŒƒå›´
 		void setFluidField(QList<double*>  c);
-		//Éú³ÉÁ÷ÌåÓòĞÎ×´
+		//ç”Ÿæˆæµä½“åŸŸå½¢çŠ¶
 		void mergeFluidField(TopoDS_Compound* c,  QMultiHash<int, int> solids);
-		//»ñÈ¡ÄÚ²¿±ß»òÕßÃæµÄË÷Òı  type 1-±ß 2-Ãæ
+		//è·å–å†…éƒ¨è¾¹æˆ–è€…é¢çš„ç´¢å¼•  type 1-è¾¹ 2-é¢
 		QList<int> getInerMember(int type);
 
 	private:

@@ -26,94 +26,94 @@ namespace ModelData
 	class MODELDATAAPI ModelDataBase : public DataProperty::DataBase
 	{
 	public:
-		//¹¹Ôìº¯Êı
+		//æ„é€ å‡½æ•°
 		ModelDataBase(ProjectTreeType treeType);
 		virtual ~ModelDataBase();
-		//´ÓÅäÖÃÎÄ¼şÖĞ¿½±´
+		//ä»é…ç½®æ–‡ä»¶ä¸­æ‹·è´
 		virtual void copyFormConfig();
-		//½«IDºÍÀàĞÍĞÅÏ¢´«µİ¸ø»ùÀàµÄ¸÷¸ö²ÎÊı
+		//å°†IDå’Œç±»å‹ä¿¡æ¯ä¼ é€’ç»™åŸºç±»çš„å„ä¸ªå‚æ•°
 		virtual void generateParaInfo() override;
-		//»ñÈ¡×î´óµÄID
+		//è·å–æœ€å¤§çš„ID
 		static int getMaxID();
 		void setID(int id) override;
-		//»ñÈ¡ËãÀıÂ·¾¶
+		//è·å–ç®—ä¾‹è·¯å¾„
 		QString getPath();
 		static void resetMaxID();
-		//ÉèÖÃÀàĞÍ
+		//è®¾ç½®ç±»å‹
 		void setTreeType(ProjectTreeType type);
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		ProjectTreeType getTreeType();
-		//Çó½âÍê³ÉÊ±¼ä
+		//æ±‚è§£å®Œæˆæ—¶é—´
 		void setSolveTime(double t);
-		//»ñÈ¡Çó½âÍê³ÉÊ±¼ä
+		//è·å–æ±‚è§£å®Œæˆæ—¶é—´
 		double getSolveTime();
-		//ÉèÖÃĞ´³ö¸øÇó½âÆ÷µÄÎÄ¼şÃû³Æ
+		//è®¾ç½®å†™å‡ºç»™æ±‚è§£å™¨çš„æ–‡ä»¶åç§°
 		void setOutputFileName(QString name);
 		QString& getOutputFileName();
-		/*»ñÈ¡MD5µÄstream*/
+		/*è·å–MD5çš„stream*/
 		virtual void dataToStream(QDataStream* datas) override;
-		//Êı¾İĞ´³öµ½¹¤³ÌÎÄ¼ş ×ÓÀà±ØĞëÖØĞ´¸Ãº¯Êı
+		//æ•°æ®å†™å‡ºåˆ°å·¥ç¨‹æ–‡ä»¶ å­ç±»å¿…é¡»é‡å†™è¯¥å‡½æ•°
 		virtual QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* ele) override;
-		//Êı¾İĞ´³öµ½¹¤³ÌÎÄ¼ş ×ÓÀà±ØĞëÖØĞ´¸Ãº¯Êı
+		//æ•°æ®å†™å‡ºåˆ°å·¥ç¨‹æ–‡ä»¶ å­ç±»å¿…é¡»é‡å†™è¯¥å‡½æ•°
 		virtual void writeToProjectFile1(QDomDocument* doc, QDomElement* ele);
-		///´Ó¹¤³ÌÎÄ¼ş¿é¶ÁÈëÊı¾İ£¬×ÓÀà±ØĞëÖØĞ´´Ëº¯Êı
+		///ä»å·¥ç¨‹æ–‡ä»¶å—è¯»å…¥æ•°æ®ï¼Œå­ç±»å¿…é¡»é‡å†™æ­¤å‡½æ•°
 		virtual void readDataFromProjectFile(QDomElement* e) override;
-		///½«Êı¾İĞ´³öÎÄ±¾¸øÇó½âÆ÷
+		///å°†æ•°æ®å†™å‡ºæ–‡æœ¬ç»™æ±‚è§£å™¨
 		virtual void writeToSolverText(QTextStream* stream);
-		///½«Êı¾İĞ´³öXML¸øÇó½âÆ÷
+		///å°†æ•°æ®å†™å‡ºXMLç»™æ±‚è§£å™¨
 		virtual void writeToSolverXML(QDomDocument* doc, QDomElement* e);
-		//¼ì²éÊı¾İÊÇ·ñ¿ÉÒÔÇó½â ·µ»ØTrue-¿ÉÒÔÇó½â£»False-²»ÄÜÇó½â
+		//æ£€æŸ¥æ•°æ®æ˜¯å¦å¯ä»¥æ±‚è§£ è¿”å›True-å¯ä»¥æ±‚è§£ï¼›False-ä¸èƒ½æ±‚è§£
 		virtual bool checkSolveableStatus(QVector<ModuleBase::Message> & messages);
 		
-		//»ñÈ¡BCÊıÁ¿
+		//è·å–BCæ•°é‡
 		int getBCCount();
-		//Ìí¼ÓBC
+		//æ·»åŠ BC
 		void appeendBC(BCBase::BCBase* bc); 
-		//¸ù¾İÀàĞÍ»ñÈ¡BC
+		//æ ¹æ®ç±»å‹è·å–BC
 		QList<BCBase::BCBase*> getBCByType(BCBase::BCType type);
 
-		//»ñÈ¡µÚindex¸öBC
+		//è·å–ç¬¬indexä¸ªBC
 		BCBase::BCBase* getBCAt(const int index);
-		//ÒÆ³ı±ß½çÌõ¼ş
+		//ç§»é™¤è¾¹ç•Œæ¡ä»¶
 		void removeBCAt(const int index);
-		//Í¨¹ı×é¼şIDÉ¾³ıBC£¬Ã¿¸öBC¶¼»á°ó¶¨Ò»¸ö×é¼ş
+		//é€šè¿‡ç»„ä»¶IDåˆ é™¤BCï¼Œæ¯ä¸ªBCéƒ½ä¼šç»‘å®šä¸€ä¸ªç»„ä»¶
 		void removeBCByComponentID(int);
-		//ÉèÖÃĞèÒª¹ØÁªµÄ×é¼şID(°üÀ¨Íø¸ñ×é¼şºÍ¼¸ºÎ×é¼ş)
+		//è®¾ç½®éœ€è¦å…³è”çš„ç»„ä»¶ID(åŒ…æ‹¬ç½‘æ ¼ç»„ä»¶å’Œå‡ ä½•ç»„ä»¶)
 		void setComponentIDList(const QList<int>& ids);
-		//Ìí¼ÓÒ»¸ö×é¼şID
+		//æ·»åŠ ä¸€ä¸ªç»„ä»¶ID
 		void addComponentID(int cpId);
-		//»ñÈ¡¹ØÁªµÄ×é¼şID(°üÀ¨Íø¸ñ×é¼şºÍ¼¸ºÎ×é¼ş)
+		//è·å–å…³è”çš„ç»„ä»¶ID(åŒ…æ‹¬ç½‘æ ¼ç»„ä»¶å’Œå‡ ä½•ç»„ä»¶)
 		const QList<int>& getComponentIDList();
-		//Í¨¹ıIDÉ¾³ı×é¼ş
+		//é€šè¿‡IDåˆ é™¤ç»„ä»¶
 		bool removeComponentByID(int);
 
-		//»ñÈ¡¹ØÁªµÄÍø¸ñ×é¼şID
+		//è·å–å…³è”çš„ç½‘æ ¼ç»„ä»¶ID
 		QList<int> getMeshSetList();
-		//»ñÈ¡¹ØÁªµÄ¼¸ºÎ×é¼şID
+		//è·å–å…³è”çš„å‡ ä½•ç»„ä»¶ID
 		QList<int> getGeoComponentIDList();
 
-		//ÉèÖÃĞèÒª¹ØÁªµÄÍø¸ñ×é¼şID
+		//è®¾ç½®éœ€è¦å…³è”çš„ç½‘æ ¼ç»„ä»¶ID
 		//virtual void setMeshSetList(QList<int> ids);
-		//ÉèÖÃĞèÒª¹ØÁªµÄ¼¸ºÎ×é¼şID
+		//è®¾ç½®éœ€è¦å…³è”çš„å‡ ä½•ç»„ä»¶ID
 		//void setGeoComponentIDList(QList<int> ids);
 		
-		//ÒÆ³ıµÚindex¸ö×é¼ş
+		//ç§»é™¤ç¬¬indexä¸ªç»„ä»¶
 		virtual void removeComponentAt(int index);
-		//»ñÈ¡¹ØÁªµÄKernal ID
+		//è·å–å…³è”çš„Kernal ID
 		QList<int>& getMeshKernalList();
-		//ÉèÖÃ¹ØÁªµÄKernal ID
+		//è®¾ç½®å…³è”çš„Kernal ID
 		void setMeshKernelList(const QList<int>& kids);
-		//Ìí¼Ó¹ØÁªµÄKernal ID
+		//æ·»åŠ å…³è”çš„Kernal ID
 		void addMeshKernalId(const int);
-		//»ñÈ¡¹ØÁªµÄ¼¸ºÎĞÎ×´
+		//è·å–å…³è”çš„å‡ ä½•å½¢çŠ¶
 		QList<int>& getGeometryList();
-		//ÉèÖÃ¹ØÁªµÄ¼¸ºÎĞÎ×´
+		//è®¾ç½®å…³è”çš„å‡ ä½•å½¢çŠ¶
 		void setGeometryList(QList<int> geo);
-		//»ñÈ¡·ÂÕæ²ÎÊı
+		//è·å–ä»¿çœŸå‚æ•°
 		SimlutationSettingBase* getSimlutationSetting();
-		//»ñÈ¡Çó½âÆ÷ÉèÖÃ
+		//è·å–æ±‚è§£å™¨è®¾ç½®
 		SolverSettingBase* getSolverSetting();
-		//×é¼şÊÇ·ñÊ¹ÓÃ
+		//ç»„ä»¶æ˜¯å¦ä½¿ç”¨
 		bool isComponentUsed(int index);
 
 		virtual DataProperty::ParameterBase* getParameterByName(QString name) override;

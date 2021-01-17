@@ -49,10 +49,10 @@ enum plotProp_fontType
     } curve_font_prop;
     typedef struct curve_line_data1
     {
-		int axis_index;//xÖáË÷Òı,×ø±êÖá1»¹ÊÇ2
+		int axis_index;//xè½´ç´¢å¼•,åæ ‡è½´1è¿˜æ˜¯2
         QString yAxis_name;
-        QString yAxis_column_name;//Êı¾İÔ´
-        int yAxis_column;//Êı¾İÔ´
+        QString yAxis_column_name;//æ•°æ®æº
+        int yAxis_column;//æ•°æ®æº
         double yAxis_coor_min;
         double yAxis_coor_max;
         QColor curve_color;
@@ -121,7 +121,7 @@ enum plotProp_fontType
 		QVector<aniPointType> aniPoint_TypeList;
 		QVector<QString> aniPoint_IdList;
 		QVector<QString> aniPoint_CurveNameList;
-		QVector<int> axis_indexList;//xÖáË÷Òı,×ø±êÖá1»¹ÊÇ2 
+		QVector<int> axis_indexList;//xè½´ç´¢å¼•,åæ ‡è½´1è¿˜æ˜¯2 
 	} curve_aniPoint_struct;
 	
 #endif // GLOBAL_H

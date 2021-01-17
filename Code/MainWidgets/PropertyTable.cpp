@@ -26,7 +26,7 @@ namespace MainWidget
 		_ui->propTable->setHorizontalHeaderLabels(lables);
 		_ui->propTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 		QHeaderView *header = _ui->propTable->verticalHeader();
-		header->setHidden(true);// Òþ²ØÐÐºÅ
+		header->setHidden(true);// éšè—è¡Œå·
 		_ui->propTable->resizeColumnsToContents();
 		connect(_ui->propTable, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(clickItem(QTableWidgetItem*)));
 		connect(_ui->propTable, SIGNAL(cellClicked(int, int)), this, SLOT(clickCell(int, int)));

@@ -75,7 +75,7 @@ typedef struct tag_MG_CGNS_Cell_LINE_2
 	int pt_index[2];
 }MG_CGNS_Cell_LINE_2;
 
-typedef struct tag_MG_CGNS_Cell_PENTA_6				///<MG ÈýÀâÖù
+typedef struct tag_MG_CGNS_Cell_PENTA_6				///<MG ä¸‰æ£±æŸ±
 {
 	int pt_index[6];
 }MG_CGNS_Cell_PENTA_6;
@@ -144,7 +144,7 @@ bool ReadData_Cgns::Read(QString filePath)
 
 	for (int ibase = 1; ibase <= m_currentBaseIndex; ++ibase)
 	{
-		///<MG »ñÈ¡×åµÄ¸öÊý
+		///<MG èŽ·å–æ—çš„ä¸ªæ•°
 		int nfamililies = 0;
 		if (cg_nfamilies(m_currentFileIndex, m_currentBaseIndex, &nfamililies))
 		{
@@ -155,7 +155,7 @@ bool ReadData_Cgns::Read(QString filePath)
 		{
 			int nBoco = 0, nGeos = 0;
 			char name[64] = { 0 };
-			///<MG »ñÈ¡×åÃû³Æ FamilyBC_t GeometryReference_t ½Úµã¸öÊý
+			///<MG èŽ·å–æ—åç§° FamilyBC_t GeometryReference_t èŠ‚ç‚¹ä¸ªæ•°
 			if (cg_family_read(m_currentFileIndex, m_currentBaseIndex, iFamily, name, &nBoco, &nGeos))
 			{
 				return false;
@@ -212,7 +212,7 @@ QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkFloatArray>>> ReadData_Cgns::
 			{
 				//int iType = uGrid->GetCell(iCell)->GetCellType();
 				if (uGrid->GetCell(iCell)->GetCellType() == VTK_HEXAHEDRON || uGrid->GetCell(iCell)->GetCellType() == VTK_TETRA)
-				{ ///<MG ÌåÍø¸ñ
+				{ ///<MG ä½“ç½‘æ ¼
 					for (int iType = 0; iType < sol.vars.size(); ++iType)
 					{
 						if (iCell == 0)
@@ -228,7 +228,7 @@ QMap<vtkDataSet*, QMap<QString, vtkSmartPointer<vtkFloatArray>>> ReadData_Cgns::
 					dataIndex++;
 				}
 				else
-				{///<MG ÃæÍø¸ñ£¬µ±Ç°Ä¬ÈÏÌåÍø¸ñÖÐÓÐÊý¾Ý£¬ÃæÍø¸ñÖÐÃ»ÓÐÊý¾Ý
+				{///<MG é¢ç½‘æ ¼ï¼Œå½“å‰é»˜è®¤ä½“ç½‘æ ¼ä¸­æœ‰æ•°æ®ï¼Œé¢ç½‘æ ¼ä¸­æ²¡æœ‰æ•°æ®
 					for (int iType = 0; iType < sol.vars.size(); ++iType)
 					{
 						if (iCell == 0)
@@ -346,7 +346,7 @@ bool ReadData_Cgns::ReadStructedZone(int file_index, int base_index, int zone_in
 	baseNeed.insert("Body", idTypeArray);
 	int needPoints = whole_Grid->GetNumberOfPoints();
 	
-	///<MG¡¡ZoneBC_t --- BC_t
+	///<MGã€€ZoneBC_t --- BC_t
 	int nbocos = 0;
 	if (cg_nbocos(file_index, base_index, zone_index, &nbocos)){
 		return false;
@@ -555,7 +555,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 		}
 		///<MG
 		if (CGNS_ENUMT(HEXA_8) == itype)
-		{///<MG  ÁùÃæÌå Ö»°üº¬ ¶¥µã
+		{///<MG  å…­é¢ä½“ åªåŒ…å« é¡¶ç‚¹
 			assert(0 == element_data_size % 8);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -582,7 +582,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMV(NODE) == itype)
-		{	///<MG µãÀàÐÍ
+		{	///<MG ç‚¹ç±»åž‹
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
 			int cell_number = element_data_size;
@@ -601,7 +601,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(QUAD_4) == itype)
-		{///<MG ËÄ±ßÐÎ£¬Ö»°üº¬ ¶¥µã
+		{///<MG å››è¾¹å½¢ï¼ŒåªåŒ…å« é¡¶ç‚¹
 			assert(0 == element_data_size % 4);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -670,7 +670,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(PENTA_6) == itype)
-		{	///<MG ÈýÀâÖù
+		{	///<MG ä¸‰æ£±æŸ±
 			assert(0 == element_data_size % 6);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -695,7 +695,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(PENTA_15) == itype)
-		{	///<MG ÈýÀâÖù
+		{	///<MG ä¸‰æ£±æŸ±
 			assert(0 == element_data_size % 15);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -720,7 +720,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(PENTA_18) == itype)
-		{	///<MG ÈýÀâÖù
+		{	///<MG ä¸‰æ£±æŸ±
 			assert(0 == element_data_size % 18);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -759,7 +759,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 				int itype = elements[index];
 				
 				if (itype == CGNS_ENUMT(PENTA_6))
-				{	///<MG ÈýÀâÖù
+				{	///<MG ä¸‰æ£±æŸ±
 					MG_CGNS_Cell cell;
 					cell.type = CGNS_Cell_Type_PENTA_6;
 					cell.penta_6.pt_index[0] = elements[index + 1] - 1;
@@ -872,7 +872,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(TRI_3) == itype)
-		{	///<MG Èý½ÇÐÎ
+		{	///<MG ä¸‰è§’å½¢
 			assert(0 == element_data_size % 3);
 			MG_CGNS_Section section;
 			MG_CGNS_Cells cells;
@@ -918,7 +918,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(TETRA_4) == itype)
-		{	///<MG ËÄ±ßÐÎ
+		{	///<MG å››è¾¹å½¢
 			assert(0 == element_data_size % 4);
 
 			MG_CGNS_Section section;
@@ -1020,7 +1020,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(BAR_2) == itype)
-		{	///<MG Ö±Ïß
+		{	///<MG ç›´çº¿
 			MG_CGNS_Cells cells;
 			MG_CGNS_Section section;
 			assert(0 == element_data_size % 2);
@@ -1042,7 +1042,7 @@ bool ReadData_Cgns::ReadUnStructedZone(int file_index, int base_index, int zone_
 			sections.push_back(section);
 		}
 		else if (CGNS_ENUMT(BAR_3) == itype)
-		{	///<MG Ö±Ïß  ´øÓÐÖÐ¼äÖµ
+		{	///<MG ç›´çº¿  å¸¦æœ‰ä¸­é—´å€¼
 			MG_CGNS_Cells cells;
 			MG_CGNS_Section section;
 			assert(0 == element_data_size % 3);
@@ -1477,7 +1477,7 @@ bool ReadData_Cgns::ReadFlowSolution(int file_index, int base_index, int zone_in
 			return false;
 		}
 
-		///<MG ÎÞÊý¾ÝÁ÷³¡½â
+		///<MG æ— æ•°æ®æµåœºè§£
 		if (var_num == 0)
 		{
 			sols.push_back(sol);
@@ -1564,8 +1564,8 @@ MG_CGNS_FlowSolutions ReadData_Cgns::GetWithValFlowSolutions(MG_CGNS_FlowSolutio
 
 bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtkSmartPointer<vtkUnstructuredGrid> uGrid)
 {
-	///<MG ²éÕÒÊ¸Á¿·ûºÏÊ¸Á¿Ãû³Æ¹æÔòµÄÁ¿
-	QVector<QString> vecNames;		///<MG Ê¸Á¿·ÖÁ¿Ãû³Æ
+	///<MG æŸ¥æ‰¾çŸ¢é‡ç¬¦åˆçŸ¢é‡åç§°è§„åˆ™çš„é‡
+	QVector<QString> vecNames;		///<MG çŸ¢é‡åˆ†é‡åç§°
 	for (int iCnt = 0; iCnt < flowSolution.vars.keys().size(); ++iCnt)
 	{
 		QString varName = flowSolution.vars.keys().at(iCnt);
@@ -1574,7 +1574,7 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 			vecNames.push_back(varName);
 	}
 
-	///<MG ÅÐ¶ÏÊÇ·ñÎªÊ¸Á¿
+	///<MG åˆ¤æ–­æ˜¯å¦ä¸ºçŸ¢é‡
 	QSet<QString> vec;
 	for (int iCnt = 0; iCnt < vecNames.size(); ++iCnt)
 	{
@@ -1584,12 +1584,12 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 			vec.insert(name);
 		}
 	}
-	///<MG Ìí¼ÓÊ¸Á¿·ÖÁ¿
+	///<MG æ·»åŠ çŸ¢é‡åˆ†é‡
 	for (int iCnt = 0; iCnt < vec.size(); ++iCnt)
 	{
 		QString vecName = vec.toList().at(iCnt);
 		QVector<double> x_values, y_values, z_values;
-		///<MG »ñÈ¡x,y.z·ÖÁ¿µÄÊý¾Ý
+		///<MG èŽ·å–x,y.zåˆ†é‡çš„æ•°æ®
 		for (int iVar = 0; iVar < flowSolution.vars.keys().size(); ++iVar)
 		{
 			QString varName = flowSolution.vars.keys().at(iVar);
@@ -1610,7 +1610,7 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 			gridData->SetNumberOfComponents(3);
 
 			if (flowSolution.loc == MG_CGNS_CellCenter)
-			{	///<MG Ìåµ¥ÔªÖÐÐÄ
+			{	///<MG ä½“å•å…ƒä¸­å¿ƒ
 				int cellNum = uGrid->GetNumberOfCells();
 				int dataIndex = 0;
 				if (cellNum < x_values.size())
@@ -1618,7 +1618,7 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 					continue; 
 				}
 
-				///<MG ÅÐ¶ÏÊý¾ÝÂäÔÚÄÇÖÖÀàÐÍCell ÖÐ
+				///<MG åˆ¤æ–­æ•°æ®è½åœ¨é‚£ç§ç±»åž‹Cell ä¸­
 				VTKCellType type = getWithResultCellType(uGrid, x_values.size());
 				int index = 0;
 				for (int iCell = 0; iCell < cellNum; ++iCell)
@@ -1636,7 +1636,7 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 				uGrid->GetCellData()->AddArray(gridData);
 			}
 			else if (flowSolution.loc == MG_CGNS_Vertex)
-			{	///<MG Êý¾ÝÎ»ÓÚµãÉÏ
+			{	///<MG æ•°æ®ä½äºŽç‚¹ä¸Š
 
 				int ptNum = uGrid->GetNumberOfPoints();
 				if (ptNum != x_values.size()){ continue; }
@@ -1650,7 +1650,7 @@ bool ReadData_Cgns::AddFlowSolutionToGrid(MG_CGNS_FlowSolution flowSolution, vtk
 		}
 	}
 
-	///<MG Ìí¼Ó±êÁ¿
+	///<MG æ·»åŠ æ ‡é‡
 	for (int iCnt = 0; iCnt < flowSolution.vars.size(); ++iCnt)
 	{
 		QString varName = flowSolution.vars.keys().at(iCnt);

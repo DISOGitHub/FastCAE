@@ -22,19 +22,19 @@ namespace ModuleBase
 	public:
 		GraphWindowBase(GUI::MainWindow* mainwindow ,int proID,GraphWindowType type = GraphWindowType::UnDefined, bool connectToMainwindow = false);
 		virtual ~GraphWindowBase() = 0;
-		//»ñÈ¡ÀàĞÍ
+		//è·å–ç±»å‹
 		GraphWindowType getGraphWindowType();
-		//±£´æÍ¼Æ¬
+		//ä¿å­˜å›¾ç‰‡
 		virtual void saveImage(QString fileName, int width, int heigh, bool showDlg);
-		//»ñÈ¡ID
+		//è·å–ID
 		int getID();
-		//ÉèÖÃÊÓ½Ç
+		//è®¾ç½®è§†è§’
 		virtual void setView(QString view);
 		virtual void setViewValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//;liu
 		//virtual void setViewPreValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//;liu
-		//ÉèÖÃ±³¾°ÑÕÉ«
+		//è®¾ç½®èƒŒæ™¯é¢œè‰²
 		virtual void setBackGround(QColor color1, QColor color2);
-		//×Ö·û´®ĞÎÊ½»ñÈ¡´°¿ÚÀàĞÍ
+		//å­—ç¬¦ä¸²å½¢å¼è·å–çª—å£ç±»å‹
 		QString getStringGraphWindowType();
 
 	signals:

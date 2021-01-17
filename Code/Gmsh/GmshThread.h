@@ -88,59 +88,59 @@ namespace Gmsh
 		GmshThread(GUI::MainWindow* mw, MainWidget::PreWindow* pre, GmshModule* mod, int dim);
 		~GmshThread();
 
-		//ÉèÖÃ²ÎÊı
+		//è®¾ç½®å‚æ•°
 		void setPara(GMshPara*  para);
 
-		//×·¼ÓÊµÌå
+		//è¿½åŠ å®ä½“
 		void appendSolid(int id, int index);
 		void setSolid(QMultiHash<int, int> s);
-		//×·¼ÓÇúÃæ
+		//è¿½åŠ æ›²é¢
 		void appendSurface(int geo, int face);
 		void setSurface(QMultiHash<int, int> s);
-		//ÉèÖÃµ¥ÔªÀàĞÍ
+		//è®¾ç½®å•å…ƒç±»å‹
 		void setElementType(QString t);
-		//ÉèÖÃµ¥Ôª½×´Î
+		//è®¾ç½®å•å…ƒé˜¶æ¬¡
 		void setElementOrder(int order);
-		//ÉèÖÃÍø¸ñÆÊ·Ö·½·¨
+		//è®¾ç½®ç½‘æ ¼å‰–åˆ†æ–¹æ³•
 		void setMethod(int m);
-		//ÉèÖÃ³ß´çÒò×Ó
+		//è®¾ç½®å°ºå¯¸å› å­
 		void setSizeFactor(double f);
-		//ÉèÖÃ×îĞ¡³ß´ç
+		//è®¾ç½®æœ€å°å°ºå¯¸
 		void setMinSize(double min);
-		//ÉèÖÃ×î´ó³ß´ç
+		//è®¾ç½®æœ€å¤§å°ºå¯¸
 		void setMaxSize(double max);
-		//ÉèÖÃÊÇ·ñ½øĞĞ¼¸ºÎÇåÀí
+		//è®¾ç½®æ˜¯å¦è¿›è¡Œå‡ ä½•æ¸…ç†
 		void isCleanGeo(bool c);
-		//ÉèÖÃ¹â»¬µü´ú´ÎÊı
+		//è®¾ç½®å…‰æ»‘è¿­ä»£æ¬¡æ•°
 		void setSmoothIteration(int it);
-		//Éè¼ÆÊÇ·ñÍø¸ñ¹¦Ãæ
+		//è®¾è®¡æ˜¯å¦ç½‘æ ¼åŠŸé¢
 		void setGridCoplanar(bool gc);
-		//ÉèÖÃµãÍø¸ñÃÜ¶È
+		//è®¾ç½®ç‚¹ç½‘æ ¼å¯†åº¦
 		void setSizeAtPoint(QString ps);
-		//ÉèÖÃÇøÓòÍø¸ñÃÜ¶È
+		//è®¾ç½®åŒºåŸŸç½‘æ ¼å¯†åº¦
 		void setSizeFields(QString fs);
-		//ÉèÖÃÎïÀí·Ö×é
+		//è®¾ç½®ç‰©ç†åˆ†ç»„
 		//void setPhysicals(QString ps);
-		//ÉèÖÃmeshÃû³Æ
+		//è®¾ç½®meshåç§°
 		void setMeshID(int id);
-		//ÉèÖÃÍø¸ñÈ«Ñ¡
+		//è®¾ç½®ç½‘æ ¼å…¨é€‰
 		void setSelectedAll(bool al);
-		//ÉèÖÃÑ¡ÔñÍø¸ñ¿É¼ûÏî
+		//è®¾ç½®é€‰æ‹©ç½‘æ ¼å¯è§é¡¹
 		void setSelectedVisible(bool sv);
-		//ÉèÖÃÎªÁ÷ÌåÓòÍø¸ñÆÊ·ÖÄ£Ê½
+		//è®¾ç½®ä¸ºæµä½“åŸŸç½‘æ ¼å‰–åˆ†æ¨¡å¼
 		void setFluidMesh(bool fm);
-		//ÉèÖÃÁ÷ÌåÍø¸ñÆÊ·ÖµÄÇøÓò
+		//è®¾ç½®æµä½“ç½‘æ ¼å‰–åˆ†çš„åŒºåŸŸ
 //		void setFluidField(QList<double*> coors);
-		//ÉèÖÃÖ¸¶¨Íø¸ñÀàĞÍ£¨±£´æ£©
+		//è®¾ç½®æŒ‡å®šç½‘æ ¼ç±»å‹ï¼ˆä¿å­˜ï¼‰
 		void setCellTypeList(QString cells);
 
 
 		void run();
 		void stop();
 
-		//ÊÇ·ñ±£´ævtkData
+		//æ˜¯å¦ä¿å­˜vtkData
 		void isSaveDataToKernal(bool save);
-		/*·µ»Ø½Úµã/µ¥ÔªÔÚ¼¸ºÎÉÏµÄid*/
+		/*è¿”å›èŠ‚ç‚¹/å•å…ƒåœ¨å‡ ä½•ä¸Šçš„id*/
 		QList<itemInfo> generateGeoIds(vtkDataSet* dataset);
 
 	signals:
@@ -164,13 +164,13 @@ namespace Gmsh
 		void mergeVisibleGeo();
 		void mergeSelectGeo();
 
-		//ÉèÖÃmeshkernalÍø¸ñÆÊ·Ö²ÎÊı
+		//è®¾ç½®meshkernalç½‘æ ¼å‰–åˆ†å‚æ•°
 		void setGmshSettingData(MeshData::MeshKernal* k);
-		//ÉèÖÃ½Å±¾¶ÁĞ´Êı¾İ
+		//è®¾ç½®è„šæœ¬è¯»å†™æ•°æ®
 		void setGmshScriptData();
-		//É¾³ıÖ¸¶¨µ¥Ôª
+		//åˆ é™¤æŒ‡å®šå•å…ƒ
 		vtkDataSet* deleteSpecifiedCells(vtkDataSet* dataset);
-		//ÅĞ¶ÏÊÇ·ñÎªÖ¸¶¨µ¥Ôª
+		//åˆ¤æ–­æ˜¯å¦ä¸ºæŒ‡å®šå•å…ƒ
 		bool isSpecifiedCell(VTKCellType type);
 
 	private:

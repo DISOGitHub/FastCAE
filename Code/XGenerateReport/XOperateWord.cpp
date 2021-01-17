@@ -136,32 +136,32 @@ namespace XReport{
  
  		bookmark->dynamicCall("Select(void)");
  		QAxObject *selection = m_pWord->querySubObject("Selection");
- 		selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//ÉÏÒÆÒ»ĞĞ£¬ÔÚÊéÇ©Ç°Ğ´Èë±í //Const wdLine = 5  Const wdMove = 0  Const wdExtend = 1
- 		selection->dynamicCall("TypeParagraph(void)");//TypeParagraph ·½·¨Óë Enter£¨»Ø³µ¼ü£©µÄ¹¦ÄÜÏàÍ¬
+ 		selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//ä¸Šç§»ä¸€è¡Œï¼Œåœ¨ä¹¦ç­¾å‰å†™å…¥è¡¨ //Const wdLine = 5  Const wdMove = 0  Const wdExtend = 1
+ 		selection->dynamicCall("TypeParagraph(void)");//TypeParagraph æ–¹æ³•ä¸ Enterï¼ˆå›è½¦é”®ï¼‰çš„åŠŸèƒ½ç›¸åŒ
  		selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//
  		selection->querySubObject("ParagraphFormat")->dynamicCall("Alignment", "wdAlignParagraphCenter");
  		//Selection.Range.HighlightColorIndex = wdYellow
  		selection->querySubObject("Range")->dynamicCall("HighlightColorIndex", "wdYellow");
- 		//ÉèÖÃ±êÌâ
- 		//selection->dynamicCall("TypeText(QString&)", "\r\n" + title);//////±íÉÏ±êÌâ
- 		selection->dynamicCall("TypeText(QString&)", title);//////±íÉÏ±êÌâ
+ 		//è®¾ç½®æ ‡é¢˜
+ 		//selection->dynamicCall("TypeText(QString&)", "\r\n" + title);//////è¡¨ä¸Šæ ‡é¢˜
+ 		selection->dynamicCall("TypeText(QString&)", title);//////è¡¨ä¸Šæ ‡é¢˜
  
  		QAxObject *range = selection->querySubObject("Range");
  		range->dynamicCall("HighlightColorIndex", "wdNoHighlight");
  		QAxObject *tables = m_pDoc->querySubObject("Tables");
  		QAxObject *table = tables->querySubObject("Add(QVariant,int,int)", range->asVariant(), row * 2, column);
- 		//±í¸ñ×Ô¶¯À­ÉìÁĞ 0¹Ì¶¨  1¸ù¾İÄÚÈİµ÷Õû  2 ¸ù¾İ´°¿Úµ÷Õû
+ 		//è¡¨æ ¼è‡ªåŠ¨æ‹‰ä¼¸åˆ— 0å›ºå®š  1æ ¹æ®å†…å®¹è°ƒæ•´  2 æ ¹æ®çª—å£è°ƒæ•´
  		table->dynamicCall("AutoFitBehavior(WdAutoFitBehavior)", 2);
  
- 		//ÉèÖÃ±íÍ·
+ 		//è®¾ç½®è¡¨å¤´
  		for (int i = 1; i < 8; i++)
  		{
  			table->querySubObject("Cell(int,int)", 1, i)->querySubObject("Range")->dynamicCall("SetText(QString)", headList.at(i - 1));
- 			//¼Ó´Ö
+ 			//åŠ ç²—
  			table->querySubObject("Cell(int,int)", 1, i)->querySubObject("Range")->dynamicCall("SetBold(int)", true);
  
  			table->querySubObject("Cell(int,int)", row + 1, i)->querySubObject("Range")->dynamicCall("SetText(QString)", headList.at(i + 7 - 1));
- 			//¼Ó´Ö
+ 			//åŠ ç²—
  			table->querySubObject("Cell(int,int)", row + 1, i)->querySubObject("Range")->dynamicCall("SetBold(int)", true);
  		}
  
@@ -228,8 +228,8 @@ namespace XReport{
  		bookmark->dynamicCall("Select(void)");
  		QAxObject *selection = m_pWord->querySubObject("Selection");
  
- 		selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//ÉÏÒÆÒ»ĞĞ£¬ÔÚÊéÇ©Ç°Ğ´Èë±í //Const wdLine = 5  Const wdMove = 0  Const wdExtend = 1
- 		selection->dynamicCall("TypeParagraph(void)");//TypeParagraph ·½·¨Óë Enter£¨»Ø³µ¼ü£©µÄ¹¦ÄÜÏàÍ¬
+ 		selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//ä¸Šç§»ä¸€è¡Œï¼Œåœ¨ä¹¦ç­¾å‰å†™å…¥è¡¨ //Const wdLine = 5  Const wdMove = 0  Const wdExtend = 1
+ 		selection->dynamicCall("TypeParagraph(void)");//TypeParagraph æ–¹æ³•ä¸ Enterï¼ˆå›è½¦é”®ï¼‰çš„åŠŸèƒ½ç›¸åŒ
  		//selection->dynamicCall("MoveUp(Unit,Count,Extend)", 5, 1, 0);//
  
  		QAxObject *range = selection->querySubObject("Range");
@@ -237,15 +237,15 @@ namespace XReport{
  		QAxObject *table = tables->querySubObject("Add(QVariant,int,int)", range->asVariant(), row + 1, column);
  
  		//ActiveDocument.Tables(1).Cell(3, 1).Select
- 		QAxObject *cell = table->querySubObject("Cell(int,int)", row + 1, 1); //Ñ¡Ôñµ¥Ôª¸ñ
- 		cell->dynamicCall("Select(void)");                                    //Ñ¡ÖĞÑ¡Ôñµ¥Ôª¸ñ
+ 		QAxObject *cell = table->querySubObject("Cell(int,int)", row + 1, 1); //é€‰æ‹©å•å…ƒæ ¼
+ 		cell->dynamicCall("Select(void)");                                    //é€‰ä¸­é€‰æ‹©å•å…ƒæ ¼
  		//Selection.SelectRow
- 		selection->dynamicCall("SelectRow(void)");                            //Ñ¡ÖĞµ¥Ôª¸ñËùÔÚĞĞ
- 		QAxObject *cells = selection->querySubObject("Cells");                //Ñ¡ÖĞÒ»ĞĞµ¥Ôª¸ñ
+ 		selection->dynamicCall("SelectRow(void)");                            //é€‰ä¸­å•å…ƒæ ¼æ‰€åœ¨è¡Œ
+ 		QAxObject *cells = selection->querySubObject("Cells");                //é€‰ä¸­ä¸€è¡Œå•å…ƒæ ¼
  		//Selection.Cells.Merge
- 		cells->dynamicCall("Merge(void)");                                    //Ñ¡ÖĞÒ»ĞĞµ¥Ôª¸ñÖ´ĞĞºÏ²¢
+ 		cells->dynamicCall("Merge(void)");                                    //é€‰ä¸­ä¸€è¡Œå•å…ƒæ ¼æ‰§è¡Œåˆå¹¶
  		//Selection.SelectCell
- 		selection->dynamicCall("SelectCell(void)");                           //Ñ¡ÖĞºÏ²¢ºóµÄµ¥Ôª¸ñ
+ 		selection->dynamicCall("SelectCell(void)");                           //é€‰ä¸­åˆå¹¶åçš„å•å…ƒæ ¼
  		//Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
  		selection->querySubObject("ParagraphFormat")->setProperty("Alignment", "wdAlignParagraphCenter");
  		//Selection.Cells.VerticalAlignment = wdCellAlignVerticalCenter

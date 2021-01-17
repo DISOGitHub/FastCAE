@@ -231,7 +231,7 @@ namespace FastCAEDesigner{
 	{
 		_usedEngNameList = nameList;
 	}
-	//³õÊ¼»¯´íÎó´úÂë¶ÔÓ¦µÄ´íÎóÐÅÏ¢ÁÐ±í
+	//åˆå§‹åŒ–é”™è¯¯ä»£ç å¯¹åº”çš„é”™è¯¯ä¿¡æ¯åˆ—è¡¨
 	void  TreeInformation::InitErrorList()
 	{
 		_errorList.insert(ChnNameIsEmpty, tr("Chinese name is empty."));
@@ -244,7 +244,7 @@ namespace FastCAEDesigner{
 
 	}
 
-	//Ð£ÑéÊý¾ÝÉè¶¨ÊÇ·ñÕýÈ·£¬¸ù¾Ý´íÎóµÄ×´¿ö·µ»ØÏìÓ¦µÄ´íÎó´úÂë
+	//æ ¡éªŒæ•°æ®è®¾å®šæ˜¯å¦æ­£ç¡®ï¼Œæ ¹æ®é”™è¯¯çš„çŠ¶å†µè¿”å›žå“åº”çš„é”™è¯¯ä»£ç 
 	int TreeInformation::IsDataOk()
 	{
 		QString nameChn = ui->txtChineseName->text().trimmed();
@@ -270,7 +270,7 @@ namespace FastCAEDesigner{
 
 		return 0;
 	}
-	//¶¨Ê±Æ÷²Ûº¯Êý
+	//å®šæ—¶å™¨æ§½å‡½æ•°
 	void TreeInformation::OnTimeout()
 	{
 		ui->lbl_info->setText("");

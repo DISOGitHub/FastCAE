@@ -1,4 +1,4 @@
-﻿#include "ModelBase.h"
+#include "ModelBase.h"
 #include <QDebug>
 #include "DataProperty/DataBase.h"
 #include "DataManager.h"

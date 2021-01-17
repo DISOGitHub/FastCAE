@@ -5,37 +5,37 @@
 
 extern "C"
 {
-	//获取set数量
+	//鑾峰彇set鏁伴噺
 	int GEOMETRYAPI getGeometrySetCount();
 
-	//几何是否为空
+	//鍑犱綍鏄惁涓虹┖
 	bool GEOMETRYAPI isEmpty();
 
-	//根据索引获取名称
+	//鏍规嵁绱㈠紩鑾峰彇鍚嶇О
 	GEOMETRYAPI	char* getGeometrySetNameByIndex(int index);
 
-	//根据ID获取名称
+	//鏍规嵁ID鑾峰彇鍚嶇О
 	GEOMETRYAPI	char* getGeometrySetNameByID(int id);
 
-	//获取索引
+	//鑾峰彇绱㈠紩
 	int GEOMETRYAPI getIndexOfGeoometrySet(char* name);
 	
-	//获取ID
+	//鑾峰彇ID
 	int GEOMETRYAPI getIDOfGeoometrySet(char* name);
 
-	//根据Index获取ID
+	//鏍规嵁Index鑾峰彇ID
 	int GEOMETRYAPI getIDByIndex(int index);
 
-	//根据ID获取Index
+	//鏍规嵁ID鑾峰彇Index
 	int GEOMETRYAPI getIndexByID(int id);
 
-	//根据索引移除
+	//鏍规嵁绱㈠紩绉婚櫎
 	void GEOMETRYAPI removeGeometrySetByIndex(int index);
 
-	//根据ID移除
+	//鏍规嵁ID绉婚櫎
 	void GEOMETRYAPI removeGeometrySetByID(int id);
 
-	//清空
+	//娓呯┖
 	void  GEOMETRYAPI clear();
 
 

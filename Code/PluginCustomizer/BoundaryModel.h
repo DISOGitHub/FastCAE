@@ -14,8 +14,8 @@ namespace FastCAEDesigner
 		BoundaryModel(QString nameEng, QString nameChn, QString iconName, QObject *parent);
 		~BoundaryModel();
 		virtual int ShowEditor(QTreeWidgetItem* treeItem, QWidget* parent);
-		QString GetCommanCondition();               //获取常用条件
-		void SetCommonCondition(QString condition); //设置边界
+		QString GetCommanCondition();               //鑾峰彇甯哥敤鏉′欢
+		void SetCommonCondition(QString condition); //璁剧疆杈圭晫
 
 	private:
 		QString _commonCondition;

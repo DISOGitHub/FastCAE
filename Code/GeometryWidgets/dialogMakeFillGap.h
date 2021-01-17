@@ -31,11 +31,11 @@ namespace GeometryWidget
 		void FillGapOfSurface(Geometry::GeometrySet* set, int index);
 		void FillGapOfSolid(Geometry::GeometrySet* set, int index);
 
-		/*Ïß¸ßÁÁ*/
+		/*çº¿é«˜äº®*/
 		void HighlightCurve(bool f);
-		/*Ãæ¸ßÁÁ*/
+		/*é¢é«˜äº®*/
 		void HighlightSurface(bool f);
-		/*Ìå¸ßÁÁ*/
+		/*ä½“é«˜äº®*/
 		void HighlightSolid(bool f);
 
 //		void closeEvent(QCloseEvent *) override;

@@ -34,7 +34,7 @@ namespace FastCAEDesigner
 			ui->txtName->setEnabled(true);
 	}
 
-	//³õÊ¼»¯´íÎó´úÂë¶ÔÓ¦µÄ´íÎóĞÅÏ¢ÁĞ±í
+	//åˆå§‹åŒ–é”™è¯¯ä»£ç å¯¹åº”çš„é”™è¯¯ä¿¡æ¯åˆ—è¡¨
 	void  EditorDoubleValue::InitErrorList()
 	{
 		_errorList.insert(NameIsEmpty, tr("Name is empty."));
@@ -44,7 +44,7 @@ namespace FastCAEDesigner
 		_errorList.insert(TheNameInUse, tr("The name is already in use"));
 	}
 
-	//³õÊ¼»¯º¯Êı
+	//åˆå§‹åŒ–å‡½æ•°
 	void EditorDoubleValue::Init()
 	{
 		UpdateDataToUi();
@@ -54,7 +54,7 @@ namespace FastCAEDesigner
 		//connect(ui->spBox_precision, SIGNAL(valueChanged(int)), this, SLOT(SetInputValidator(int)));
 		connect(ui->spBox_precision, SIGNAL(valueChanged(int)), this, SLOT(precisionChanged()));
 		//connect(ui->spBox_precision, SIGNAL(valueChanged(QString)), this, SLOT(OnSetInputValidator(QString)));
-		SetInputValidator(_decimals);//¿Ø¼şÊı¾İÏŞÖÆÉè¶¨
+		SetInputValidator(_decimals);//æ§ä»¶æ•°æ®é™åˆ¶è®¾å®š
 		InitErrorList();
 	}
 	
@@ -88,7 +88,7 @@ namespace FastCAEDesigner
 		ui->txtMax->setValidator(_validator);
 	}
 
-	//Ğ£ÑéÊı¾İÉè¶¨ÊÇ·ñÕıÈ·£¬¸ù¾İ´íÎóµÄ×´¿ö·µ»ØÏìÓ¦µÄ´íÎó´úÂë
+	//æ ¡éªŒæ•°æ®è®¾å®šæ˜¯å¦æ­£ç¡®ï¼Œæ ¹æ®é”™è¯¯çš„çŠ¶å†µè¿”å›å“åº”çš„é”™è¯¯ä»£ç 
 	int EditorDoubleValue::IsDataOk()
 	{
 		UpdateUiToLocal();
@@ -111,7 +111,7 @@ namespace FastCAEDesigner
 		return 0;
 	}
 
-	//Ë¢ĞÂUiÊı¾İµ½±¾µØ±äÁ¿
+	//åˆ·æ–°Uiæ•°æ®åˆ°æœ¬åœ°å˜é‡
 	void EditorDoubleValue::UpdateUiToLocal()
 	{
 		_name = ui->txtName->text().trimmed();
@@ -124,7 +124,7 @@ namespace FastCAEDesigner
 		_decimals = ui->spBox_precision->text().toInt();
 	}
 
-	//Ë¢ĞÂmodelÊı¾İµ½UI
+	//åˆ·æ–°modelæ•°æ®åˆ°UI
 	void EditorDoubleValue::UpdateDataToUi()
 	{
 		ui->txtName->setText(_model->getDescribe());
@@ -140,7 +140,7 @@ namespace FastCAEDesigner
 		ui->txtValue->setText(s);
 	}
 
-	//Ë¢ĞÂUiÊı¾İµ½model
+	//åˆ·æ–°Uiæ•°æ®åˆ°model
 	void EditorDoubleValue::UpdateUiToData()
 	{
 		UpdateUiToLocal();
@@ -151,7 +151,7 @@ namespace FastCAEDesigner
 		_model->setAccuracy(_decimals);
 	}
 
-	//È·ÈÏÉè¶¨²Ûº¯Êı
+	//ç¡®è®¤è®¾å®šæ§½å‡½æ•°
 	void EditorDoubleValue::OnBtnOkClicked()
 	{
 		int errorCode = IsDataOk();
@@ -170,14 +170,14 @@ namespace FastCAEDesigner
 		close();
 	}
 
-	//¶¨Ê±Æ÷²Ûº¯Êı
+	//å®šæ—¶å™¨æ§½å‡½æ•°
 	void EditorDoubleValue::OnTimeout()
 	{
 		ui->lbl_info->setText("");
 		ui->lbl_info->hide();
 	}
 
-	//ÉèÖÃÒÑ¾­Ê¹ÓÃµÄ±äÁ¿Ãû³ÆÁĞ±í
+	//è®¾ç½®å·²ç»ä½¿ç”¨çš„å˜é‡åç§°åˆ—è¡¨
 	void EditorDoubleValue::SetUsedNameList(QList<QString> list)
 	{
 		_usedNameList = list;

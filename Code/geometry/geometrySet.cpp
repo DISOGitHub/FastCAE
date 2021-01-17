@@ -141,7 +141,7 @@ namespace Geometry
 // 	}
 	QDomElement& GeometrySet::writeToProjectFile(QDomDocument* doc, QDomElement* ele, bool isDiso)
 	{
-		QDomElement element = doc->createElement("GeoSet");  //´´½¨×Ó½Úµã
+		QDomElement element = doc->createElement("GeoSet");  //åˆ›å»ºå­èŠ‚ç‚¹
 		QDomAttr idattr = doc->createAttribute("ID");
 		idattr.setValue(QString::number(_id));
 		element.setAttributeNode(idattr);
@@ -158,7 +158,7 @@ namespace Geometry
 // 		pathele.appendChild(pathtext);
 // 		element.appendChild(pathele);
 		
-		ele->appendChild(element);  //×Ó½Úµã¹ÒÔØ
+		ele->appendChild(element);  //å­èŠ‚ç‚¹æŒ‚è½½
 		if (_parameter != nullptr)
 			_parameter->writeToProjectFile(doc, &element);
 
@@ -305,7 +305,7 @@ namespace Geometry
 
 	void GeometrySet::writeSubSet(QDomDocument* doc, QDomElement* parent, bool isdiso)
 	{
-		QDomElement element = doc->createElement("SubSet");  //´´½¨×Ó½Úµã
+		QDomElement element = doc->createElement("SubSet");  //åˆ›å»ºå­èŠ‚ç‚¹
 		QDomAttr idattr = doc->createAttribute("ID");
 		idattr.setValue(QString::number(_id));
 		element.setAttributeNode(idattr);
@@ -318,7 +318,7 @@ namespace Geometry
 		nameele.appendChild(nameText);
 		element.appendChild(nameele);
 
-		parent->appendChild(element);  //×Ó½Úµã¹ÒÔØ
+		parent->appendChild(element);  //å­èŠ‚ç‚¹æŒ‚è½½
 		if (_parameter != nullptr)
 			_parameter->writeToProjectFile(doc, &element);
 

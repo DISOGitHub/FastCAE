@@ -349,7 +349,7 @@ void PipelineObject::SetRenderMode()
 	}
 }
 
-//²»Í¸Ã÷¶È£¬·¶Î§0.0~1.0£¬0.0Ê±ÍêÈ«Í¸Ã÷£¬1.0Ê±ÍêÈ«²»Í¸Ã÷£¬ĞèÒª×¢ÒâÏÖ´ú3D¼¼Êõ´æÔÚÍ¸Ã÷ÅÅĞòÎÊÌâ£¬vtkÎŞ·¨½â¾ö£¬Òò´ËÓöµ½Ò»Ğ©Ææ¹ÖµÄÍ¸Ã÷ÏÖÏó¿ÉÄÜÎŞ½â
+//ä¸é€æ˜åº¦ï¼ŒèŒƒå›´0.0~1.0ï¼Œ0.0æ—¶å®Œå…¨é€æ˜ï¼Œ1.0æ—¶å®Œå…¨ä¸é€æ˜ï¼Œéœ€è¦æ³¨æ„ç°ä»£3DæŠ€æœ¯å­˜åœ¨é€æ˜æ’åºé—®é¢˜ï¼Œvtkæ— æ³•è§£å†³ï¼Œå› æ­¤é‡åˆ°ä¸€äº›å¥‡æ€ªçš„é€æ˜ç°è±¡å¯èƒ½æ— è§£
 void PipelineObject::SetOpacity()
 {
 	for (int i = 0; i < mVecActors.count(); i++)
@@ -374,7 +374,7 @@ void PipelineObject::SetLightingAmbientColor()
 	}
 }
 
-//¹âÕÕ»·¾³¹âÑÕÉ«
+//å…‰ç…§ç¯å¢ƒå…‰é¢œè‰²
 void PipelineObject::SetLightingAmbient()
 {
 	for (int i = 0; i < mVecActors.count(); i++)
@@ -384,7 +384,7 @@ void PipelineObject::SetLightingAmbient()
 	}
 }
 
-//¹âÕÕÂş·´ÉäÑÕÉ«
+//å…‰ç…§æ¼«åå°„é¢œè‰²
 void PipelineObject::SetLightingDiffuseColor()
 {
 	for (int i = 0; i < mVecActors.count(); i++)
@@ -394,7 +394,7 @@ void PipelineObject::SetLightingDiffuseColor()
 	}
 }
 
-//¹âÕÕ¸ß¹â£¨ÁÁ°ß£©¹â½à¶È£¬ËäÈ»Ó¢ÎÄÊÇpower£¬µ«ÊÇÊµ¼ÊÉÏÕâ¸ö²ÎÊıÓ¦¸ÃÊÇphong¹âÕÕÄ£ĞÍÖĞµÄ¹â½à¶È£¬·¶Î§0.0~128.0£¬×¢ÒâÖµºÜµÍ£¬±ÈÈçĞ¡ÓÚ5.0Ê±Ğ§¹û»áºÜÆæ¹Ö
+//å…‰ç…§é«˜å…‰ï¼ˆäº®æ–‘ï¼‰å…‰æ´åº¦ï¼Œè™½ç„¶è‹±æ–‡æ˜¯powerï¼Œä½†æ˜¯å®é™…ä¸Šè¿™ä¸ªå‚æ•°åº”è¯¥æ˜¯phongå…‰ç…§æ¨¡å‹ä¸­çš„å…‰æ´åº¦ï¼ŒèŒƒå›´0.0~128.0ï¼Œæ³¨æ„å€¼å¾ˆä½ï¼Œæ¯”å¦‚å°äº5.0æ—¶æ•ˆæœä¼šå¾ˆå¥‡æ€ª
 void PipelineObject::SetLightingSpecularPower()
 {
 	for (int i = 0; i < mVecActors.count(); i++)
@@ -510,7 +510,7 @@ void PipelineObject::SetEdgeColor()
 	}
 }
 
-//¹âÕÕ¸ß¹â£¨ÁÁ°ß£©ÑÕÉ«ÏµÊı£¨coefficient£©
+//å…‰ç…§é«˜å…‰ï¼ˆäº®æ–‘ï¼‰é¢œè‰²ç³»æ•°ï¼ˆcoefficientï¼‰
 void PipelineObject::SetLightingSpecular()
 {
 	for (int i = 0; i < mVecActors.count(); i++)
@@ -1255,21 +1255,21 @@ void PipelineObject::generate_axesActor()
 			axesActor->SetXTitle("X");
 			axesActor->SetYTitle("Y");
 			axesActor->SetZTitle("Z");
-			axesActor->GetTitleTextProperty(0)->SetColor(1.0, 1.0, 1.0);//ÉèÖÃxÖáµÄ±êÌâµÄÑÕÉ«Îª
-			axesActor->GetLabelTextProperty(0)->SetColor(1.0, 1.0, 1.0);//ÉèÖÃxÖáµÄ±êÇ©labelÑÕÉ«
+			axesActor->GetTitleTextProperty(0)->SetColor(1.0, 1.0, 1.0);//è®¾ç½®xè½´çš„æ ‡é¢˜çš„é¢œè‰²ä¸º
+			axesActor->GetLabelTextProperty(0)->SetColor(1.0, 1.0, 1.0);//è®¾ç½®xè½´çš„æ ‡ç­¾labelé¢œè‰²
 			axesActor->GetTitleTextProperty(1)->SetColor(1.0, 1.0, 1.0);
 			axesActor->GetLabelTextProperty(1)->SetColor(1.0, 1.0, 1.0);
 			axesActor->GetTitleTextProperty(2)->SetColor(1.0, 1.0, 1.0);
 			axesActor->GetLabelTextProperty(2)->SetColor(1.0, 1.0, 1.0);
-			//axesActor->XAxisMinorTickVisibilityOff();//Ğ¡±ê³ßµÄ´ò¿ªÓë¹Ø±Õ
+			//axesActor->XAxisMinorTickVisibilityOff();//å°æ ‡å°ºçš„æ‰“å¼€ä¸å…³é—­
 			//axesActor->YAxisMinorTickVisibilityOff();
 			//axesActor->ZAxisMinorTickVisibilityOff();
-			//axesActor->SetUseAxisOrigin(1);//ÀïÃæµÄ²ÎÊı¿ÉÒÔÉèÎª0ºÍ1£¬ÉèÖÃÎª1Ôò¿ÉÒÔ¹Ì¶¨ÏÔÊ¾µÄ×ø±êÖáµÄÆğµãÊ¼ÖÕ¹Ì¶¨£¬ÄÇÃ´×ø±êÖá¾Í²»»áËæ×ÅÎïÌåµÄÒÆ¶¯¶øÒÆ¶¯¡£
-			//axesActor->SetFlyModeToStaticEdges();//µ÷Õû×ø±êÖáÏÔÊ¾¹Ì¶¨ÔÚÒ»¸öÖáÉÏ
-			//axesActor->SetScreenSize(25);//Ä¬ÈÏ´óĞ¡ÊÇ10¸öÏñËØ
+			//axesActor->SetUseAxisOrigin(1);//é‡Œé¢çš„å‚æ•°å¯ä»¥è®¾ä¸º0å’Œ1ï¼Œè®¾ç½®ä¸º1åˆ™å¯ä»¥å›ºå®šæ˜¾ç¤ºçš„åæ ‡è½´çš„èµ·ç‚¹å§‹ç»ˆå›ºå®šï¼Œé‚£ä¹ˆåæ ‡è½´å°±ä¸ä¼šéšç€ç‰©ä½“çš„ç§»åŠ¨è€Œç§»åŠ¨ã€‚
+			//axesActor->SetFlyModeToStaticEdges();//è°ƒæ•´åæ ‡è½´æ˜¾ç¤ºå›ºå®šåœ¨ä¸€ä¸ªè½´ä¸Š
+			//axesActor->SetScreenSize(25);//é»˜è®¤å¤§å°æ˜¯10ä¸ªåƒç´ 
 
-			/*»­°üÎ§ºĞ
-			vtkSmartPointer<vtkOutlineFilter> outlineData = vtkSmartPointer<vtkOutlineFilter>::New();//»­³ö°üÎ§ºĞ
+			/*ç”»åŒ…å›´ç›’
+			vtkSmartPointer<vtkOutlineFilter> outlineData = vtkSmartPointer<vtkOutlineFilter>::New();//ç”»å‡ºåŒ…å›´ç›’
 			outlineData->SetInputData(inputImage);
 
 			vtkSmartPointer<vtkPolyDataMapper> mapOutline = vtkSmartPointer<vtkPolyDataMapper>::New();
@@ -1277,7 +1277,7 @@ void PipelineObject::generate_axesActor()
 
 			vtkSmartPointer<vtkActor> outline = vtkSmartPointer<vtkActor>::New();
 			outline->SetMapper(mapOutline);
-			outline->GetProperty()->SetColor(1.0, 1.0, 1.0);//ÉèÖÃ°üÎ§ºĞµÄ±ß½çµÄÑÕÉ«ÎªºÚ
+			outline->GetProperty()->SetColor(1.0, 1.0, 1.0);//è®¾ç½®åŒ…å›´ç›’çš„è¾¹ç•Œçš„é¢œè‰²ä¸ºé»‘
 			aRenderer->AddActor(outline);*/
 		}
 		axesActor->SetBounds(mBaseGrid->GetBounds());

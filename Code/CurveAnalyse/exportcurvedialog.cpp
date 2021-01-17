@@ -9,8 +9,8 @@ ui(new Ui::ExportCurveDialog)
 	movie = NULL;
 	exportThreadPtr = NULL;
 	//setAttribute(Qt::WA_DeleteOnClose);
-	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//ÎŞ±ß¿ò 
-	//setAttribute(Qt::WA_TranslucentBackground);//±³¾°Í¸Ã÷
+	setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);//æ— è¾¹æ¡† 
+	//setAttribute(Qt::WA_TranslucentBackground);//èƒŒæ™¯é€æ˜
 }
 void ExportCurveDialog::DisplayMovie(QString MovieMsg)
 {

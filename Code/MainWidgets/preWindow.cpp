@@ -40,14 +40,14 @@ namespace MainWidget
 		this->setWindowTitle(tr("Pre-Window"));
 		connect(this, SIGNAL(closed()), mw, SIGNAL(closePreWindowSig()));
 		connect(mw, SIGNAL(clearAllHighLight()), this, SIGNAL(clearAllHighLight()));
-		//几何
+		//鍑犱綍
 		connect(mw, SIGNAL(updateGeoDispalyStateSig(int, bool)), this, SLOT(updateGeoDispaly(int, bool)));
 		connect(mw, SIGNAL(removeGeometryActorSig(int)), this, SLOT(removeGemoActor(int)));
 		connect(mw, SIGNAL(clearHighLightSig()), this, SIGNAL(clearGeometryHighLight()));
 		connect(mw, SIGNAL(highLightGeometrySetSig(Geometry::GeometrySet*, bool)), this, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)));
-		//草图
+		//鑽夊浘
 		connect(mw, SIGNAL(startSketchSig(bool, double*, double*)), this, SLOT(startSketch(bool, double*, double*)));
-		//网格
+		//缃戞牸
 		connect(this, SIGNAL(updateMeshActorSig()), this, SLOT(updateMeshActor()));
 		connect(this, SIGNAL(highLighSet(QMultiHash<vtkDataSet*, int>*)), this, SLOT(highLighSet(QMultiHash<vtkDataSet*, int>*)));
 		connect(mw, SIGNAL(updateMeshDispalyStateSig(int, bool)), this, SLOT(updateMeshDispaly(int, bool)));
@@ -58,7 +58,7 @@ namespace MainWidget
 		connect(mw, SIGNAL(selectModelChangedSig(int)), this, SLOT(setSelectModel(int)));
 		connect(mw, SIGNAL(displayModeChangedSig(QString)), this, SLOT(setDisplay(QString)));
 		connect(mw, SIGNAL(updateGraphOptionsSig()), this, SLOT(updateGraphOption()));
-		//网格相关的高亮信号槽连接
+		//缃戞牸鐩稿叧鐨勯珮浜俊鍙锋Ы杩炴帴
 		connect(mw, SIGNAL(highLightSetSig(MeshData::MeshSet*)), this, SIGNAL(highLighMeshSet(MeshData::MeshSet*)));
 		connect(mw, SIGNAL(highLightGeoComponentSig(Geometry::GeoComponent*)), this, SLOT(highLightGeoComponentSlot(Geometry::GeoComponent*)));
 		connect(mw, SIGNAL(highLightKernelSig(MeshData::MeshKernal*)), this, SIGNAL(highLighKernel(MeshData::MeshKernal*)));

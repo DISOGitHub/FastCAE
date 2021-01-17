@@ -191,7 +191,7 @@ namespace ModuleBase
 
 		if (target == _ui->textEdit)
 		{
-			if (event->type() == QEvent::KeyPress)//»Ø³µ¼ü
+			if (event->type() == QEvent::KeyPress)//å›žè½¦é”®
 			{
 			
 				QKeyEvent *k = static_cast<QKeyEvent *>(event);

@@ -8,20 +8,20 @@ bool RemoveDir(QString fullpath)
 	QDir dir(fullpath);
 	if (!dir.exists()) return true;
 
-	dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //ÉèÖÃ¹ıÂË
-	QFileInfoList fileList = dir.entryInfoList(); // »ñÈ¡ËùÓĞµÄÎÄ¼şĞÅÏ¢
+	dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //è®¾ç½®è¿‡æ»¤
+	QFileInfoList fileList = dir.entryInfoList(); // è·å–æ‰€æœ‰çš„æ–‡ä»¶ä¿¡æ¯
 	for(QFileInfo file: fileList)
 	{ 
 		if (file.isFile())
-		{ // ÊÇÎÄ¼ş£¬É¾³ı
+		{ // æ˜¯æ–‡ä»¶ï¼Œåˆ é™¤
 			file.dir().remove(file.fileName());
 		}
 		else
-		{ // µİ¹éÉ¾³ı
+		{ // é€’å½’åˆ é™¤
 			RemoveDir(file.absoluteFilePath());
 		}
 	}
-	return dir.rmpath(dir.absolutePath()); // É¾³ıÎÄ¼ş¼Ğ
+	return dir.rmpath(dir.absolutePath()); // åˆ é™¤æ–‡ä»¶å¤¹
 
 }
 

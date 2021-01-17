@@ -19,12 +19,12 @@ bool ReadData_Tecplot::Read(QString tep_filename)
 //	TecPreProcessing(tep_filename);
 	reader = vtkTecplotReader::New();
 	qDebug() << tep_filename;
-	//中文路径
+	//涓枃璺緞
 	char * fileNamechar;
 	QByteArray ba = QStringToChar(tep_filename);
 	fileNamechar = ba.data();
 	reader->SetFileName(fileNamechar);
-	//中文路径
+	//涓枃璺緞
 	//reader->SetFileName(tep_filename.toLatin1().data());
 	reader->Update();
 	mudataset = reader->GetOutput();

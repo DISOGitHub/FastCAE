@@ -32,9 +32,9 @@ namespace GeometryWidget
 
  	private slots:
 
-		/*Ñ¡Ôñ·Ö¸îÃæ*/
+		/*é€‰æ‹©åˆ†å‰²é¢*/
 		void on_geoSelectSurface_1_clicked();
-		/*Ñ¡Ôñ¼¸ºÎÌå*/
+		/*é€‰æ‹©å‡ ä½•ä½“*/
 		void on_geoSelectSurface_clicked();
 		void shapeSlected(Geometry::GeometrySet* set, int index) override;
 		void on_radioButtonUser();

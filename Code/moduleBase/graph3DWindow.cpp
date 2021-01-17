@@ -103,7 +103,7 @@ namespace ModuleBase
             _interactor->SetPicker(areaPicker);
             _interactionStyle = style;
 
-            //关联信号
+            //鍏宠仈淇″彿
             connect(style, SIGNAL(selectGeometry(vtkActor*, bool)), this, SIGNAL(selectGeometry(vtkActor*, bool)));
             connect(style, SIGNAL(preSelectGeometry(vtkActor*, QVector<double*>)), this, SIGNAL(preSelectGeometry(vtkActor *, QVector<double*>)));
             
@@ -131,7 +131,7 @@ namespace ModuleBase
         _axesWidget->SetInteractor(_interactor);
         _axesWidget->SetViewport(0.0, 0.0, 0.2, 0.2);
         _axesWidget->SetEnabled(1);
-        ///禁止交互操作移动位置2
+        ///绂佹浜や簰鎿嶄綔绉诲姩浣嶇疆2
         _axesWidget->InteractiveOff();
     }
     void Graph3DWindow::initText()

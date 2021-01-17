@@ -22,7 +22,7 @@ namespace FastCAEDesigner
 		Post2DCurveModel(QString fileName, int type, QObject *parent);
 		~Post2DCurveModel();
 
-		//QList<SPost2DCurve> GetCurveList();//»ñÈ¡ÇúÏßÁĞ
+		//QList<SPost2DCurve> GetCurveList();//è·å–æ›²çº¿åˆ—
 		QList<ConfigOption::PostCurve*> GetCurveList();
 		void setCurveList(QList<ConfigOption::PostCurve*> list);
 		virtual	int ShowEditor(QTreeWidgetItem* treeItem, QWidget* parent);
@@ -37,7 +37,7 @@ namespace FastCAEDesigner
 // 		void SetCurveYVariable(QString);
 
 	private:
-		//QList<SPost2DCurve> _curveList;//ÇúÏßÁĞ±í
+		//QList<SPost2DCurve> _curveList;//æ›²çº¿åˆ—è¡¨
 		QList<ConfigOption::PostCurve*> _curveList;
 		QString _fileName;
 	};

@@ -1,4 +1,4 @@
-﻿#include "FunctionTreeSetup.h"
+#include "FunctionTreeSetup.h"
 #include "ui_FunctionTreeSetup.h"
 #include <QString>
 #include <QIcon>

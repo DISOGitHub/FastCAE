@@ -41,7 +41,7 @@ namespace MainWidget
 	{
 		_meshData = MeshData::MeshData::getInstance();
 		connect(_preWindow, SIGNAL(removeSetDataSig(int)), this, SLOT(removeSetData(int)));
-		//Íø¸ñÏà¹ØµÄ¸ßÁÁĞÅºÅ²ÛÁ¬½Ó
+		//ç½‘æ ¼ç›¸å…³çš„é«˜äº®ä¿¡å·æ§½è¿æ¥
 		connect(_preWindow, SIGNAL(highLightActorDispalyPoint(bool)), this, SLOT(highLightActorDispalyPoint(bool)));
 		//
 		connect(_preWindow, SIGNAL(clearMeshSetHighLight()), this, SLOT(clearHighLight()));
@@ -62,7 +62,7 @@ namespace MainWidget
 	{
 		//
 		_selectItems = new QMultiHash<vtkDataSet*, int>;
-		//¸ßÁÁÏÔÊ¾¶ÔÏóµÄ³õÊ¼»¯
+		//é«˜äº®æ˜¾ç¤ºå¯¹è±¡çš„åˆå§‹åŒ–
 		_highLightMapper = vtkSmartPointer<vtkDataSetMapper>::New();
 		_highLightActor = vtkSmartPointer<vtkActor>::New();
 		_emptyDataset = vtkSmartPointer<vtkPolyData>::New();
@@ -74,7 +74,7 @@ namespace MainWidget
 		_highLightActor->GetProperty()->SetOpacity(0.8);
 		_highLightMapper->Update();
 		_preWindow->AppendActor(_highLightActor, ModuleBase::ActorType::D3);
-		//¸ßÁÁÏÔÊ¾¶ÔÏóµÄ³õÊ¼»¯
+		//é«˜äº®æ˜¾ç¤ºå¯¹è±¡çš„åˆå§‹åŒ–
 		_boxMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
 		_boxMapper->ScalarVisibilityOff();
 		_boxMapper->SetInputData(_emptyDataset);
@@ -87,11 +87,11 @@ namespace MainWidget
 		_boxActor->GetProperty()->SetLineWidth(1);
 		_preWindow->AppendActor(_boxActor, ModuleBase::ActorType::D3);
 		//
-		updateGraphOption();//¸ßÁÁ¶ÔÏóµÄÑÕÉ«
+		updateGraphOption();//é«˜äº®å¯¹è±¡çš„é¢œè‰²
 	}
 
 	/*
-	ÉèÖÃÍø¸ñÑ¡ÔñÄ£Ê½
+	è®¾ç½®ç½‘æ ¼é€‰æ‹©æ¨¡å¼
 	*/
 	void MeshViewProvider::setMeshSelectMode(int mode)
 	{
@@ -129,18 +129,18 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂÍø¸ñËùÓĞkernalÊı¾İ¶ÔÏóÒÔactoräÖÈ¾·½Ê½ÏÔÊ¾
+	æ›´æ–°ç½‘æ ¼æ‰€æœ‰kernalæ•°æ®å¯¹è±¡ä»¥actoræ¸²æŸ“æ–¹å¼æ˜¾ç¤º
 	*/
 	void MeshViewProvider::updateMeshActor()
 	{
-		//Çå¿ÕËùÓĞ¼¯ºÏºÍÄ£ĞÍÊı¾İ
+		//æ¸…ç©ºæ‰€æœ‰é›†åˆå’Œæ¨¡å‹æ•°æ®
 		removeMeshActors();
-		//ÖØĞÂ¸üĞÂÏÔÊ¾
+		//é‡æ–°æ›´æ–°æ˜¾ç¤º
 		updateKernalActor();
 	}
 
 	/*
-	¸üĞÂÏÔÊ¾ËùÓĞµÄkernalÄ£ĞÍÊı¾İ
+	æ›´æ–°æ˜¾ç¤ºæ‰€æœ‰çš„kernalæ¨¡å‹æ•°æ®
 	*/
 	void MeshViewProvider::updateKernalActor()
 	{
@@ -174,7 +174,7 @@ namespace MainWidget
 	}
 
 	/*
-	Ìî³äÊµÌåµÄµ¥ÔªĞòºÅ
+	å¡«å……å®ä½“çš„å•å…ƒåºå·
 	*/
 	void MeshViewProvider::fillKernalCellIds(MeshData::MeshKernal* k)
 	{
@@ -188,7 +188,7 @@ namespace MainWidget
 	}
 
 	/*
-	Ìî³äÊµÌåµÄµãĞòºÅ
+	å¡«å……å®ä½“çš„ç‚¹åºå·
 	*/
 	void MeshViewProvider::fillKernalPointIds(MeshData::MeshKernal* k)
 	{
@@ -202,7 +202,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂÉèÖÃkernalÖ¸¶¨ĞòºÅÍø¸ñµÄÏÔÊ¾Òş²Ø×´Ì¬
+	æ›´æ–°è®¾ç½®kernalæŒ‡å®šåºå·ç½‘æ ¼çš„æ˜¾ç¤ºéšè—çŠ¶æ€
 	*/
 	void MeshViewProvider::updateMeshDispaly(int index, bool display)
 	{
@@ -216,7 +216,7 @@ namespace MainWidget
 	}
 
 	/*
-	É¾³ıËùÓĞkernalÍø¸ñactor
+	åˆ é™¤æ‰€æœ‰kernalç½‘æ ¼actor
 	*/
 	void MeshViewProvider::removeMeshActors()
 	{
@@ -234,7 +234,7 @@ namespace MainWidget
 	}
 
 	/*
-	É¾³ıÖ¸¶¨µÄkernalÍø¸ñÄ£ĞÍactor
+	åˆ é™¤æŒ‡å®šçš„kernalç½‘æ ¼æ¨¡å‹actor
 	*/
 	void MeshViewProvider::removeMeshActor(const int index)
 	{
@@ -261,7 +261,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÉèÖÃÏÔÊ¾Ä£Ê½
+	è®¾ç½®æ˜¾ç¤ºæ¨¡å¼
 	*/
 	void MeshViewProvider::setDisplay(QString m)
 	{
@@ -279,7 +279,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂµ±Ç°kernalÍø¸ñÄ£ĞÍÏÔÊ¾·½Ê½
+	æ›´æ–°å½“å‰kernalç½‘æ ¼æ¨¡å‹æ˜¾ç¤ºæ–¹å¼
 	*/
 	void MeshViewProvider::updateDisplayModel()
 	{
@@ -364,7 +364,7 @@ namespace MainWidget
 	}
 
 	/*
-	MeshSetµÄÊı¾İµÄÏÔÊ¾ÓëÒş²Ø
+	MeshSetçš„æ•°æ®çš„æ˜¾ç¤ºä¸éšè—
 	*/
 	void MeshViewProvider::updateMeshSetVisibily(MeshData::MeshSet* set)
 	{
@@ -383,7 +383,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂµ±Ç°ÏÔÊ¾»òÒş²ØmeshSetºóµÄkernalCellIdsµÄÊı¾İ
+	æ›´æ–°å½“å‰æ˜¾ç¤ºæˆ–éšè—meshSetåçš„kernalCellIdsçš„æ•°æ®
 	*/
 	void MeshViewProvider::updateKernalShowIds(MeshData::MeshSet* set, MeshData::MeshKernal* k)
 	{
@@ -486,7 +486,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂÏÔÊ¾Òş²ØsetºóµÄÊµÌåÄ£ĞÍÊı¾İ
+	æ›´æ–°æ˜¾ç¤ºéšè—setåçš„å®ä½“æ¨¡å‹æ•°æ®
 	*/
 	void MeshViewProvider::updateDisplayKernal(MeshData::MeshKernal* k)
 	{
@@ -526,9 +526,9 @@ namespace MainWidget
 		_actorMapperHash.key(mapper)->SetVisibility(k->isVisible());
 	}
 
-	/****************************************¸ßÁÁÏà¹ØµÄ**************************************************/
+	/****************************************é«˜äº®ç›¸å…³çš„**************************************************/
 	/*
-	ÒÔÖÃ¿ÕµÄpolydataÀàĞÍµÄÊı¾İÊµÏÖÇå¿Õ¸ßÁÁÏÔÊ¾
+	ä»¥ç½®ç©ºçš„polydataç±»å‹çš„æ•°æ®å®ç°æ¸…ç©ºé«˜äº®æ˜¾ç¤º
 	*/
 	void MeshViewProvider::clearHighLight()
 	{
@@ -537,7 +537,7 @@ namespace MainWidget
 		_preWindow->reRender();
 	}
 	/*
-	¸ßÁÁÏÔÊ¾MeshSetÀàĞÍµÄÊı¾İ
+	é«˜äº®æ˜¾ç¤ºMeshSetç±»å‹çš„æ•°æ®
 	*/
 	void MeshViewProvider::highLighMeshSet(MeshData::MeshSet* set)
 	{
@@ -561,7 +561,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸ßÁÁÏÔÊ¾kernalÀàĞÍµÄÊı¾İ
+	é«˜äº®æ˜¾ç¤ºkernalç±»å‹çš„æ•°æ®
 	*/
 	void MeshViewProvider::highLighKernel(MeshData::MeshKernal* k)
 	{
@@ -578,7 +578,7 @@ namespace MainWidget
 	}
 
 	/*
-	Èç¹ûÎªtrueÔò¸ßÁÁ¶ÔÏóÎªµãÏÔÊ¾·½Ê½Èç¹ûÎªfalseÔòÎªÃæÏÔÊ¾·½Ê½
+	å¦‚æœä¸ºtrueåˆ™é«˜äº®å¯¹è±¡ä¸ºç‚¹æ˜¾ç¤ºæ–¹å¼å¦‚æœä¸ºfalseåˆ™ä¸ºé¢æ˜¾ç¤ºæ–¹å¼
 	*/
 	void MeshViewProvider::highLightActorDispalyPoint(bool on)
 	{
@@ -593,7 +593,7 @@ namespace MainWidget
 		}
 	}
 	/*
-	¸üĞÂ¸ßÁÁÏÔÊ¾¶ÔÏóµÄÑÕÉ«²ÎÊıµÄÉèÖÃ
+	æ›´æ–°é«˜äº®æ˜¾ç¤ºå¯¹è±¡çš„é¢œè‰²å‚æ•°çš„è®¾ç½®
 	*/
 	void MeshViewProvider::updateGraphOption()
 	{
@@ -604,7 +604,7 @@ namespace MainWidget
 	}
 
 	/*
-	¶ÔÓÚvtkDataSetÀàĞÍµÄÊı¾İµÄ¸ßÁÁÏÔÊ¾
+	å¯¹äºvtkDataSetç±»å‹çš„æ•°æ®çš„é«˜äº®æ˜¾ç¤º
 	*/
 	void MeshViewProvider::highLighDataSet(vtkDataSet* dataset)
 	{
@@ -614,7 +614,7 @@ namespace MainWidget
 	}
 
 	/*
-	¶ÔÓÚÊ°È¡µã£¬µ¥ÔªµÄ¸ßÁÁÏÔÊ¾
+	å¯¹äºæ‹¾å–ç‚¹ï¼Œå•å…ƒçš„é«˜äº®æ˜¾ç¤º
 	*/
 	void MeshViewProvider::highLighSet(QMultiHash<vtkDataSet*, int>* items)
 	{
@@ -623,7 +623,7 @@ namespace MainWidget
 			clearHighLight();
 			return;
 		}
-		//ÕÒµ½Ó³Éä¹ØÏµËù¹¹½¨µÄselectItems
+		//æ‰¾åˆ°æ˜ å°„å…³ç³»æ‰€æ„å»ºçš„selectItems
 		_selectItems->clear();
 		updateMappingItems(items);
 		if (_selectItems->size() == 0)
@@ -663,7 +663,7 @@ namespace MainWidget
 	}
 
 	/*
-	²éÕÒÓ³ÉäºóµÄItems
+	æŸ¥æ‰¾æ˜ å°„åçš„Items
 	*/
 	void MeshViewProvider::updateMappingItems(QMultiHash<vtkDataSet*, int>* oldItems)
 	{
@@ -695,14 +695,14 @@ namespace MainWidget
 
 	void MeshViewProvider::updateMeshNodeMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet)
 	{
-		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//¸ù¾İÊµ¼ÊÊ°È¡µ½µÄdataSetÊı¾İÕÒ¶ÔÓ¦µÄmapper
-		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//¸ù¾İmapperÕÒ¶ÔÓ¦µÄkernal
+		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//æ ¹æ®å®é™…æ‹¾å–åˆ°çš„dataSetæ•°æ®æ‰¾å¯¹åº”çš„mapper
+		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//æ ¹æ®mapperæ‰¾å¯¹åº”çš„kernal
 		if (k == nullptr)
 		{
 			return;
 		}
-		vtkDataSet * kernalDataSet = k->getMeshData();	//»ñÈ¡µ±Ç°kernalµÄdataSetÊı¾İ
-		//¹¹½¨ĞÂµÄItems£¬»»³ÉkernalDatasetÊı¾İ£¬µ¥Ôª»òµãĞòºÅ¸Ä±ä
+		vtkDataSet * kernalDataSet = k->getMeshData();	//è·å–å½“å‰kernalçš„dataSetæ•°æ®
+		//æ„å»ºæ–°çš„Itemsï¼Œæ¢æˆkernalDatasetæ•°æ®ï¼Œå•å…ƒæˆ–ç‚¹åºå·æ”¹å˜
 		QList<int> ids = oldItems->values(dataSet);
 		for (int j = 0; j < ids.size(); j++)
 		{
@@ -720,14 +720,14 @@ namespace MainWidget
 
 	void MeshViewProvider::updateMeshCellMappingItems(QMultiHash<vtkDataSet*, int>* oldItems, vtkDataSet * dataSet)
 	{
-		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//¸ù¾İÊµ¼ÊÊ°È¡µ½µÄdataSetÊı¾İÕÒ¶ÔÓ¦µÄmapper
-		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//¸ù¾İmapperÕÒ¶ÔÓ¦µÄkernal
+		vtkDataSetMapper * mapper = _mapperDataSetHash.key(dataSet);//æ ¹æ®å®é™…æ‹¾å–åˆ°çš„dataSetæ•°æ®æ‰¾å¯¹åº”çš„mapper
+		MeshData::MeshKernal* k = _mapperKernalHash.value(mapper);//æ ¹æ®mapperæ‰¾å¯¹åº”çš„kernal
 		if (k == nullptr)
 		{
 			return;
 		}
-		vtkDataSet * kernalDataSet = k->getMeshData();	//»ñÈ¡µ±Ç°kernalµÄdataSetÊı¾İ
-		//¹¹½¨ĞÂµÄItems£¬»»³ÉkernalDatasetÊı¾İ£¬µ¥Ôª»òµãĞòºÅ¸Ä±ä
+		vtkDataSet * kernalDataSet = k->getMeshData();	//è·å–å½“å‰kernalçš„dataSetæ•°æ®
+		//æ„å»ºæ–°çš„Itemsï¼Œæ¢æˆkernalDatasetæ•°æ®ï¼Œå•å…ƒæˆ–ç‚¹åºå·æ”¹å˜
 		QList<int> ids = oldItems->values(dataSet);
 		for (int j = 0; j < ids.size(); j++)
 		{

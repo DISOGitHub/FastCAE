@@ -31,11 +31,11 @@ namespace FastCAEDesigner{
 		~ParaLinkageManager();
 
 	private:
-		//更新参数预览界面
+		//鏇存柊鍙傛暟棰勮鐣岄潰
 		void init();
 		void initParameterTableWidget();
 		void initTableWidgetTitle();
-		//显示相关参数信息
+		//鏄剧ず鐩稿叧鍙傛暟淇℃伅
 		void refreshParameterLinkage(ParaLinkageData* data);
 		void showActiveList(QList<DataProperty::ParameterBase*> list);
 		void showDrivenList(QList<DataProperty::ParameterBase*> list);

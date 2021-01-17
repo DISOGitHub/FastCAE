@@ -296,7 +296,7 @@ void curve_MainWindow::slot_showHelpPDF()
     QFile bfilePath(helpPath);
     if (!bfilePath.exists())
         return;
-    QString filePath = "file:///" + helpPath;   //打开文件夹用file:///,打开网页用http://
+    QString filePath = "file:///" + helpPath;   //鎵撳紑鏂囦欢澶圭敤file:///,鎵撳紑缃戦〉鐢╤ttp://
     QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
 }
 

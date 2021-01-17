@@ -84,7 +84,7 @@ namespace SelfDefObj
 		QString line;
 
 		
-		//--´ò¿ªÎÄ¼ş³É¹¦ 
+		//--æ‰“å¼€æ–‡ä»¶æˆåŠŸ 
 		if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) return nullptr;
 
 		DataProperty::ParameterTable* tempTab = new DataProperty::ParameterTable;
@@ -152,43 +152,43 @@ namespace SelfDefObj
 
 	void ParaTabViewer::on_out_importButton_clicked()
 	{
-		//---»ñÈ¡ÎÄ¼şÃû
+		//---è·å–æ–‡ä»¶å
 		QString fileName = QFileDialog::getOpenFileName(this, NULL, NULL, "*.csv ");
 		if (fileName.isEmpty()) return;
 
-		//---´ò¿ªÎÄ¼ş²¢¶ÁÈ¡ÎÄ¼şÄÚÈİ
+		//---æ‰“å¼€æ–‡ä»¶å¹¶è¯»å–æ–‡ä»¶å†…å®¹
 		auto data = readCSV(fileName);
 		fillTab(data);
 	}
 
 	void ParaTabViewer::on_out_exportButton_clicked()
 	{
-		QString fileName = QFileDialog::getSaveFileName(this, tr("Excel file"), qApp->applicationDirPath(),tr("Files (*.csv)"));//getSaveFileName£¨£©µÄËÄ¸ö²ÎÊı£¿£¿
+		QString fileName = QFileDialog::getSaveFileName(this, tr("Excel file"), qApp->applicationDirPath(),tr("Files (*.csv)"));//getSaveFileNameï¼ˆï¼‰çš„å››ä¸ªå‚æ•°ï¼Ÿï¼Ÿ
 
 		if (fileName.isEmpty()) return;
 
-		//»ñµÃcsvÎÄ¼şÁ÷
+		//è·å¾—csvæ–‡ä»¶æµ
 
 		QFile file(fileName);
 
 		if (!file.open(QIODevice::WriteOnly | QIODevice::Text))  return;
 
-		QTextStream out(&file);//Êä³öÎÄ¼şÁ÷
-		int row = _tableWidget->rowCount();//Êı¾İ±íĞĞÊı
-		int col = _tableWidget->columnCount();//Êı¾İÁĞÊı
+		QTextStream out(&file);//è¾“å‡ºæ–‡ä»¶æµ
+		int row = _tableWidget->rowCount();//æ•°æ®è¡¨è¡Œæ•°
+		int col = _tableWidget->columnCount();//æ•°æ®åˆ—æ•°
 
-		//µ¼Èë±íÍ·
+		//å¯¼å…¥è¡¨å¤´
 		for (int i = 0; i < col; i++)
 		{
 			QString qs = {" "};
-			auto headItem = _tableWidget->horizontalHeaderItem(i);//»ñµÃË®Æ½±íÍ·->ÄÚÈİ
+			auto headItem = _tableWidget->horizontalHeaderItem(i);//è·å¾—æ°´å¹³è¡¨å¤´->å†…å®¹
 			if (headItem != nullptr) qs = headItem->text();
 			if (i==col-1)
 				out << qs << endl;
 			else
 				out << qs << ",";
 		}
-		//µ¼ÈëÄÚÈİ
+		//å¯¼å…¥å†…å®¹
 		for (int i = 0; i < row; i++)
 		{
 			for (int j = 0; j < col; j++)
@@ -202,7 +202,7 @@ namespace SelfDefObj
 				}
 				else
 				{
-					out << string << ",";// Ğ´ÈëÎÄ¼ş
+					out << string << ",";// å†™å…¥æ–‡ä»¶
 				}
 			}
 		}

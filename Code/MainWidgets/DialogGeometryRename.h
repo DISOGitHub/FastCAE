@@ -35,7 +35,7 @@ namespace MainWidget
 		void accept() override;
 
 	signals:
-		//¸üĞÂÊôĞÔ
+		//æ›´æ–°å±æ€§
 		void disPlayProp(DataProperty::DataBase* pops);
 
 	private:

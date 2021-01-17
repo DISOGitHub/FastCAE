@@ -22,11 +22,11 @@ namespace IO
 	public:
 		SolverIO() = default;
 		~SolverIO() = default;
-		//写出文件
+		//鍐欏嚭鏂囦欢
 		static bool writeInpFile(QString suffix, ModelData::ModelDataBase* data);
-		//求解输入文件模板替换
+		//姹傝В杈撳叆鏂囦欢妯℃澘鏇挎崲
 		static bool replaceTemplate(QString templa, QString path, DataProperty::DataBase* data);
-		//结果文件转换
+		//缁撴灉鏂囦欢杞崲
 		static bool transformFile(QString trans, QString path);
 
 	private:

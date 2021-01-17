@@ -37,22 +37,22 @@ namespace ConfigOption
 	{
 		return _isCreateSketch;
 	}
-	//设置导入几何格式
+	//璁剧疆瀵煎叆鍑犱綍鏍煎紡
 	void GeometryConfig::setImportSuffix(QString s)
 	{
 		_importSuffix = s;
 	}
-	//获取导入几何格式
+	//鑾峰彇瀵煎叆鍑犱綍鏍煎紡
 	QString GeometryConfig::getImportSuffix()
 	{
 		return _importSuffix;
 	}
-	//设置导出几何格式
+	//璁剧疆瀵煎嚭鍑犱綍鏍煎紡
 	void GeometryConfig::setExportSuffix(QString s)
 	{
 		_exportSuffix = s;
 	}
-	//获取导出几何格式
+	//鑾峰彇瀵煎嚭鍑犱綍鏍煎紡
 	QString GeometryConfig::getExportSuffix()
 	{
 		return _exportSuffix;

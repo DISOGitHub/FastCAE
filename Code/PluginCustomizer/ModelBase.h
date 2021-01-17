@@ -1,4 +1,4 @@
-﻿#ifndef MODELBASE_H
+#ifndef MODELBASE_H
 #define MODELBASE_H
 
 #include <QObject>

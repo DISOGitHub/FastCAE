@@ -44,38 +44,38 @@ namespace MainWidget
 		~PreWindow();
 		
 		Geometry::GeometrySet* getSelectedGeoSet();
-		//»ñÈ¡Ñ¡ÔñµÄ¼¸ºÎ
+		//è·å–é€‰æ‹©çš„å‡ ä½•
 		QMultiHash<Geometry::GeometrySet*, int>* getGeoSelectItems();
-		//ÉèÖÃÒÑ¾­Ñ¡ÔñµÄ¼¸ºÎ
+		//è®¾ç½®å·²ç»é€‰æ‹©çš„å‡ ä½•
 		ModuleBase::SelectModel getSelectModel();
 		QMultiHash<vtkDataSet*, int>* getSelectItems();
 
 		MeshViewProvider* getMeshViewProvider();
 	signals:
-		//¹Ø±Õ
+		//å…³é—­
 		void closed();
-		//ÏÔÊ¾¼¸ºÎĞÎ×´
+		//æ˜¾ç¤ºå‡ ä½•å½¢çŠ¶
 		void showGeoSet(Geometry::GeometrySet* set, bool render = true);
-		//ÒÆ³ı¼¸ºÎĞÎ×´µÄÏÔÊ¾
+		//ç§»é™¤å‡ ä½•å½¢çŠ¶çš„æ˜¾ç¤º
 		void removeGemoActors(Geometry::GeometrySet* set);
-		//ÏÔÊ¾»ù×¼
+		//æ˜¾ç¤ºåŸºå‡†
 		void showDatum(Geometry::GeometryDatum*);
-		//ÒÆ³ı¼¸ºÎ»ù×¼ÏÔÊ¾
+		//ç§»é™¤å‡ ä½•åŸºå‡†æ˜¾ç¤º
 		void removeGeoDatumActors(Geometry::GeometryDatum*);
-		//ÉèÖÃÑ¡ÔñÄ£Ê½
+		//è®¾ç½®é€‰æ‹©æ¨¡å¼
 		void setGeoSelectMode(int);
-		//Ñ¡ÔñµÄ¼¸ºÎÔªËØ
+		//é€‰æ‹©çš„å‡ ä½•å…ƒç´ 
 		void selectGeoActorShape(vtkActor* ac, int shape, Geometry::GeometrySet* set);
-		//ĞÂÔö½Ó¿Ú
-		void geoShapeSelected(Geometry::GeometrySet*shape, int index);//±»Ñ¡ÖĞ½Ó¿Ú
-		void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//¸ßÁÁÏÔÊ¾Ö÷Ìå
-		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾µã
-		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾±ß
-		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾Ãæ
-		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//¸ßÁÁÏÔÊ¾ÊµÌå
-		void clearGeometryHighLight();//Çå¿ÕËùÓĞ¸ßÁÁ¶ÔÏó
+		//æ–°å¢æ¥å£
+		void geoShapeSelected(Geometry::GeometrySet*shape, int index);//è¢«é€‰ä¸­æ¥å£
+		void highLightGeometrySet(Geometry::GeometrySet* s, bool on);//é«˜äº®æ˜¾ç¤ºä¸»ä½“
+		void highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºç‚¹
+		void highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºè¾¹
+		void highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºé¢
+		void highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on);//é«˜äº®æ˜¾ç¤ºå®ä½“
+		void clearGeometryHighLight();//æ¸…ç©ºæ‰€æœ‰é«˜äº®å¯¹è±¡
 		void removeSetDataSig(const int index);
-		//¸üĞÂÍø¸ñäÖÈ¾ÔªËØ
+		//æ›´æ–°ç½‘æ ¼æ¸²æŸ“å…ƒç´ 
 		void updateMeshActorSig();
 		void highLighKernel(MeshData::MeshKernal* k);
 		void highLighMeshSet(MeshData::MeshSet* set);
@@ -86,31 +86,31 @@ namespace MainWidget
 		void highLightGeoComponentSig(Geometry::GeoComponent* aGC);
 		
 	public slots:
-	    //ÉèÖÃÑ¡ÔñÄ£Ê½
+	    //è®¾ç½®é€‰æ‹©æ¨¡å¼
 	    void setSelectModel(int mode) override;
 		void setGeoSelectItems(QMultiHash<Geometry::GeometrySet*, int> items);
-		//ÉèÖÃ²İÍ¼ÀàĞÍ
+		//è®¾ç½®è‰å›¾ç±»å‹
 		void setSketchType(ModuleBase::SketchType t);
-		//Ñ¡ÔñÍø¸ñÀàĞÍ
+		//é€‰æ‹©ç½‘æ ¼ç±»å‹
 		void setDisplay(QString m) override;
-		//¸üĞÂÍø¸ñäÖÈ¾
+		//æ›´æ–°ç½‘æ ¼æ¸²æŸ“
 		void updateMeshActor();
 		//
 		void highLighSet(QMultiHash<vtkDataSet*, int>* items);
-		//¸üĞÂ¼¸ºÎäÖÈ¾
+		//æ›´æ–°å‡ ä½•æ¸²æŸ“
 		void updateGeometryActor();
-		//¸ßÁÁÒ»¸ö¼¸ºÎ×é¼ş;
+		//é«˜äº®ä¸€ä¸ªå‡ ä½•ç»„ä»¶;
 		void highLightGeoComponentSlot(Geometry::GeoComponent*);
 		
 	private slots:
 		void updateGraphOption() override;
-		//¼¸ºÎ
+		//å‡ ä½•
 		void updateGeoDispaly(int index, bool display);
 		void removeGemoActor(const int index);
-		//Íø¸ñ
+		//ç½‘æ ¼
 		void updateMeshDispaly(int index, bool display);
 		void removeMeshActor(const int index);
-		//²İÍ¼
+		//è‰å›¾
 		void startSketch(bool start, double* loc, double* dir);
 
 	private:

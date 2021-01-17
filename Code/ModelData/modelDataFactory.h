@@ -26,9 +26,9 @@ namespace ModelData
 		static void removeType(int type);
 		static QHash<int, QString> getRegedType();
 
-		//操作创建
+		//鎿嶄綔鍒涘缓
 		static ModelDataBase* createModel(QString chartype);
-		//文件读取
+		//鏂囦欢璇诲彇
 		static ModelDataBase* createModel(ProjectTreeType type);
 	
 	private:

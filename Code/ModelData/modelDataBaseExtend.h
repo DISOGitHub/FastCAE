@@ -39,21 +39,21 @@ namespace ModelData
 
 		virtual void copyFormConfig() override;
 		virtual void generateParaInfo() override;
-		//Ìí¼Ó±¨¸æ
+		//æ·»åŠ æŠ¥å‘Š
 		void appendReport(QString report);
-		//»ñÈ¡±¨¸æÊıÁ¿
+		//è·å–æŠ¥å‘Šæ•°é‡
 		int getReportCount();
-		//»ñÈ¡µÚindex¸ö±¨¸æ
+		//è·å–ç¬¬indexä¸ªæŠ¥å‘Š
 		QString getReportAt(int index);
-		//ÒÆ³ıµÚindex¸ö±¨¸æ
+		//ç§»é™¤ç¬¬indexä¸ªæŠ¥å‘Š
 		void removeReportAt(int index);
-		//ÉèÖÃ²ÄÁÏ£¬Íø¸ñ×é¼şIDÓë²ÄÁÏID
+		//è®¾ç½®ææ–™ï¼Œç½‘æ ¼ç»„ä»¶IDä¸ææ–™ID
 		void setMaterial(int setID, int materialID);
-		//»ñÈ¡×é¼şµÄ²ÄÁÏID
+		//è·å–ç»„ä»¶çš„ææ–™ID
 		int getMaterialID(int setid);
-		//×é¼şÊÇ·ñ±»ÉèÖÃ²ÄÁÏ
+		//ç»„ä»¶æ˜¯å¦è¢«è®¾ç½®ææ–™
 		bool isMaterialSetted(int setid);
-		//½â³ı²ÄÁÏÓë×é¼şµÄ°ó¶¨
+		//è§£é™¤ææ–™ä¸ç»„ä»¶çš„ç»‘å®š
 		void removeMaterial(int setid);
 		
 		virtual void setComponentIDList(QList<int> ids);
@@ -69,65 +69,65 @@ namespace ModelData
 
 		void appendConfigData(int dataID, DataProperty::DataBase* d);
 		DataProperty::DataBase* getConfigData(int dataid);
-		//»ñÈ¡½ÚµãÊıÁ¿
+		//è·å–èŠ‚ç‚¹æ•°é‡
 		int getConfigDataCount();
-		//»ñÈ¡¼à¿ØÎÄ¼şµÄÃû³Æ
+		//è·å–ç›‘æ§æ–‡ä»¶çš„åç§°
 		QStringList getMonitorFile();
-		//»ñÈ¡¼à¿ØÎÄ¼şµÄ¾ø¶ÔÂ·¾¶
+		//è·å–ç›‘æ§æ–‡ä»¶çš„ç»å¯¹è·¯å¾„
 		QStringList getAbsoluteMonitorFile();
-		//¸ù¾İÎÄ¼ş»ñÈ¡¼à¿ØµÄ±äÁ¿ÁĞ±í
+		//æ ¹æ®æ–‡ä»¶è·å–ç›‘æ§çš„å˜é‡åˆ—è¡¨
 		QStringList getMonitorVariables(QString file);
-		//»ñÈ¡¼à¿ØÇúÏß
+		//è·å–ç›‘æ§æ›²çº¿
 		QList<ConfigOption::PostCurve*> getMonitorCurves();
-		//»ñÈ¡µÚindexµÄ¼à¿ØÇúÏß
+		//è·å–ç¬¬indexçš„ç›‘æ§æ›²çº¿
 		ConfigOption::PostCurve* getMonitorCurveAt(const int index);
-		//»ñÈ¡ºó´¦Àí¶şÎ¬ÇúÏßÎÄ¼ş
+		//è·å–åå¤„ç†äºŒç»´æ›²çº¿æ–‡ä»¶
 		QStringList getPost2DFiles();
-		//»ñÈ¡ºó´¦Àí¶şÎ¬ÇúÏßÎÄ¼şµÄ¾ø¶ÔÂ·¾¶
+		//è·å–åå¤„ç†äºŒç»´æ›²çº¿æ–‡ä»¶çš„ç»å¯¹è·¯å¾„
 		QStringList getAbsolutePost2DFiles();
-		//¸ù¾İÎÄ¼ş»ñÈ¡¶şÎ¬ÇúÏßÎÄ¼şÖĞµÄ±äÁ¿
+		//æ ¹æ®æ–‡ä»¶è·å–äºŒç»´æ›²çº¿æ–‡ä»¶ä¸­çš„å˜é‡
 		QStringList getPost2DVariables(QString f);
-		//»ñÈ¡ÈıÎ¬ºó´¦ÀíÎÄ¼ş
+		//è·å–ä¸‰ç»´åå¤„ç†æ–‡ä»¶
 		QString getPost3DFile();
-		//»ñÈ¡ÈıÎ¬ºó´¦Àí±êÁ¿
+		//è·å–ä¸‰ç»´åå¤„ç†æ ‡é‡
 		void get3DScalars(QStringList &node, QStringList &ele);
-		//»ñÈ¡ÈıÎ¬ºó´¦ÀíÏòÁ¿
+		//è·å–ä¸‰ç»´åå¤„ç†å‘é‡
 		void get3DVector(QStringList &node, QStringList &ele);
-		//Ìí¼Ó¶şÎ¬ºó´¦ÀíÇúÏß
+		//æ·»åŠ äºŒç»´åå¤„ç†æ›²çº¿
 		void apppendPlotCurve(ConfigOption::PostCurve* c);
-		//»ñÈ¡ÒÑ»æÖÆÇúÏß
+		//è·å–å·²ç»˜åˆ¶æ›²çº¿
 		QList<ConfigOption::PostCurve*> getPlotCurves();
-		//ÒÆ³ı¶şÎ¬ÇúÏß
+		//ç§»é™¤äºŒç»´æ›²çº¿
 		void removePlotCurve(int index);
-		//Çå³ıÈ«²¿¶şÎ¬ÇúÏß
+		//æ¸…é™¤å…¨éƒ¨äºŒç»´æ›²çº¿
 		void clearPlotCurve();
-		//ºó´¦ÀíÇúÏßÊÇ·ñ´æÔÚ
+		//åå¤„ç†æ›²çº¿æ˜¯å¦å­˜åœ¨
 		bool isPostCurveExist(QString name);
-		//Ìí¼Ó±êÁ¿±äÁ¿Ãû³Æ
+		//æ·»åŠ æ ‡é‡å˜é‡åç§°
 		void appendScalarVariable(QString v);
-		//»ñÈ¡±êÁ¿±äÁ¿Ãû³Æ
+		//è·å–æ ‡é‡å˜é‡åç§°
 		QStringList getScalarVariable();
-		//ÒÆ³ıµÚindex¸ö±êÁ¿
+		//ç§»é™¤ç¬¬indexä¸ªæ ‡é‡
 		void removeScalarVariable(int index);
-		//Ìí¼ÓÏòÁ¿±äÁ¿Ãû³Æ
+		//æ·»åŠ å‘é‡å˜é‡åç§°
 		void appendVectorVariable(QString v);
-		//»ñÈ¡ÏòÁ¿±äÁ¿Ãû³Æ
+		//è·å–å‘é‡å˜é‡åç§°
 		QStringList getVectorVariable();
-		//ÒÆ³ıµÚindex¸öÏòÁ¿Ãû³Æ
+		//ç§»é™¤ç¬¬indexä¸ªå‘é‡åç§°
 		void removeVectorVariable(int index);
-		//Çé¿öÈıÎ¬±äÁ¿
+		//æƒ…å†µä¸‰ç»´å˜é‡
 		void clear3DVariable();
 		DataProperty::ParameterBase* getParameterByName(QString name) override;
 		DataProperty::ParameterGroup* getParameterGroupByName(QString name) override;
 		virtual void removeParameter(DataProperty::ParameterBase* p) override;
 		virtual void removeParameterGroup(DataProperty::ParameterGroup* g) override;
-		//ÉèÖÃ¶şÎ¬»æÍ¼´°¿Ú
+		//è®¾ç½®äºŒç»´ç»˜å›¾çª—å£
 		void setPost2DWindow(Post::Post2DWindowInterface* p2d);
-		//»ñÈ¡¶şÎ¬´°¿Ú
+		//è·å–äºŒç»´çª—å£
 		Post::Post2DWindowInterface* getPost2DWindow();
-		//ÉèÖÃÈıÎ¬äÖÈ¾´°¿Ú
+		//è®¾ç½®ä¸‰ç»´æ¸²æŸ“çª—å£
 		void setPost3DWindow(Post::Post3DWindowInterface* p3d);
-		//»ñÈ¡ÈıÎ¬äÖÈ¾´°¿Ú
+		//è·å–ä¸‰ç»´æ¸²æŸ“çª—å£
 		Post::Post3DWindowInterface* getPost3DWindow();
 
 		void bindInpMaterialIds(const QList<int>&);

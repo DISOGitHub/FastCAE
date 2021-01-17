@@ -85,7 +85,7 @@ bool CommandPara::exec(GUI::MainWindow* window)
 	if (_showGUI)
 	{
 #ifndef _DEBUG
-		//**************»¶Ó­½çÃæ********************
+		//**************æ¬¢è¿Žç•Œé¢********************
 		QString hello = ConfigOption::ConfigOption::getInstance()->getGlobalConfig()->getWelcome();
 		QString helloPicName = qApp->applicationDirPath() + "/../ConfigFiles/Icon/" + hello;
 		QSplashScreen* splash = new QSplashScreen;

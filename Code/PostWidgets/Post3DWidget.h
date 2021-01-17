@@ -1,5 +1,5 @@
 ///************************
-///ÈıÎ¬ºó´¦Àí´°¿Ú
+///ä¸‰ç»´åå¤„ç†çª—å£
 ///*************************
 #ifndef _POST3DWINDOW_H_
 #define _POST3DWINDOW_H_
@@ -37,51 +37,51 @@ namespace Post
 	 
 		
 	public slots:
-		///´ò¿ªÎÄ¼ş
+		///æ‰“å¼€æ–‡ä»¶
 		void openFile(QString files ,bool apply = true);
-		//Ó¦ÓÃ
+		//åº”ç”¨
 		void applyClick();
-		//¿ªÊ¼¶¯»­
+		//å¼€å§‹åŠ¨ç”»
 		bool startAnimate();
-		//Í£Ö¹¶¯»­
+		//åœæ­¢åŠ¨ç”»
 		bool stopAnimate();
-		//»ñÈ¡Ê÷µÄwidget
+		//è·å–æ ‘çš„widget
 		QWidget* getTreeWidget();
-		//¸üĞÂpipeline Object
+		//æ›´æ–°pipeline Object
 		void updatePipelineObjeDataSet(PipelineObject* obj, QString fileName);
-		//»ñÈ¡µ±Ç°Pipeline object
+		//è·å–å½“å‰Pipeline object
 		PipelineObject* getCurrentPipelineObj();
-		///»ñÈ¡Ê÷ Prop widget
+		///è·å–æ ‘ Prop widget
 		QWidget* getPropWidget();
-		///»ñÈ¡²Ëµ¥À¸
+		///è·å–èœå•æ 
 		QList<QToolBar*> getToolBars();
-		///Çå¿ÕËùÓĞ»æÍ¼
+		///æ¸…ç©ºæ‰€æœ‰ç»˜å›¾
 		void clearAll();
-		///ÉèÖÃ±³¾°É«
+		///è®¾ç½®èƒŒæ™¯è‰²
 		void setBackGround(QColor color1, QColor color2) override;
-		///±£´æÍ¼Æ¬
+		///ä¿å­˜å›¾ç‰‡
 		void saveImage(QString fileName, int width, int heigh, bool showDlg) override;
-		//»ñÈ¡ScalarBar·¶Î§
+		//è·å–ScalarBarèŒƒå›´
 		void getScalarRange(PipelineObject* obj, double value[2]);
-		//ÉèÖÃScalarBar·¶Î§
+		//è®¾ç½®ScalarBarèŒƒå›´
 		void reScaleScalarRange(PipelineObject* obj, double min, double max);
-		//ÏÔÊ¾ÑÕÉ«Ìõ
+		//æ˜¾ç¤ºé¢œè‰²æ¡
 		void displayLegendBar(bool on);
-		//Õ¹Ê¾ÔÆÍ¼
+		//å±•ç¤ºäº‘å›¾
 		void viewCounter(PipelineObject* obj, QString var);
-		//Õ¹Ê¾Ê¸Á¿Í¼
+		//å±•ç¤ºçŸ¢é‡å›¾
 		void viewVector(PipelineObject* obj, QString var);
-		//ÓïÑÔÇĞ»»
+		//è¯­è¨€åˆ‡æ¢
 		void reTranslate() override;
-		//»ñÈ¡½ÚµãÊı¾İ
+		//è·å–èŠ‚ç‚¹æ•°æ®
 		vtkDataSet* getPipelineObjDataSet(PipelineObject* obj);
 
 		void showAnimationToolBar(bool show);
 	
-		///<MG »ñÈ¡½ÚµãÊı¾İ¸öÊı
+		///<MG è·å–èŠ‚ç‚¹æ•°æ®ä¸ªæ•°
 		int getNumOfGeometry();
 
-		///<MG ¸ù¾İindex»ñÈ¡Êı¾İ½Úµã
+		///<MG æ ¹æ®indexè·å–æ•°æ®èŠ‚ç‚¹
 		PipelineObject * getGeometryByIndex(int index);
 		//
 		void Properties_Opacity(int obj_id, double mOpacity);
@@ -258,15 +258,15 @@ namespace Post
 		//
 		void Properties_streamline_reflectionAxes(int, int);
 	signals:
-		//¶¯»­µ±Ç°Ö¡£¬index´Ó0¿ªÊ¼
+		//åŠ¨ç”»å½“å‰å¸§ï¼Œindexä»0å¼€å§‹
 		void animateFrameSig(int index);
-		//·¢ËÍÈıÎ¬Ê°È¡ÇúÏß´°¿Ú
+		//å‘é€ä¸‰ç»´æ‹¾å–æ›²çº¿çª—å£
 		void createPickCurveWidgetSig(QWidget* w); 
-		//AVI¶¯»­±£´æÍê³ÉĞÅºÅ
+		//AVIåŠ¨ç”»ä¿å­˜å®Œæˆä¿¡å·
 		void AVIFileFinishedSig(QString fileName);
-		//Ë¢ĞÂÈıÎ¬äÖÈ¾ÇøÓò
+		//åˆ·æ–°ä¸‰ç»´æ¸²æŸ“åŒºåŸŸ
 		void refreshViewFromMainWindowSig(QList<PipelineObject*>);
-		//´ò¿ªÎÄ¼ş
+		//æ‰“å¼€æ–‡ä»¶
 		void openFileSig(QString f, bool apply);
 		//apply
 		void applyClickSig();
@@ -457,11 +457,11 @@ namespace Post
 		void setViewValue(int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3) override;//liu
 
 	private slots:
-		//´¦ÀíÊ°È¡ÇúÏß´°¿Ú£¬É¾³ıÍ·
+		//å¤„ç†æ‹¾å–æ›²çº¿çª—å£ï¼Œåˆ é™¤å¤´
 		void handlePickCurveWodget(QDockWidget* w);
-		//Ìí¼ÓÑÕÉ«±à¼­¿ò
+		//æ·»åŠ é¢œè‰²ç¼–è¾‘æ¡†
 		void createScalarBarEditWidget(QDockWidget *w);
-		//´¦Àí·¢ËÍµÄ½Å±¾
+		//å¤„ç†å‘é€çš„è„šæœ¬
 		void handleScriptCode(QString code);
 
 	private:

@@ -14,7 +14,7 @@ namespace GUI
 	class SignalHandler;
 	class SubWindowManager;
 
-	//¾²Ì¬Àà£¬·â×°C++¹¦ÄÜ£¬¹©C½Ó¿Úµ÷ÓÃ
+	//é™æ€ç±»ï¼Œå°è£…C++åŠŸèƒ½ï¼Œä¾›Cæ¥å£è°ƒç”¨
 	class MAINWINDOWAPI MainWindowPy
 	{
 	public :
@@ -157,7 +157,7 @@ namespace GUI
 }
 
 
-//ÉùÃ÷ÎªC½Ó¿Ú£¬¹©Python½Å±¾µ÷ÓÃ
+//å£°æ˜ä¸ºCæ¥å£ï¼Œä¾›Pythonè„šæœ¬è°ƒç”¨
 extern "C"
 {
 	//void MAINWINDOWAPI showFastCAE();
@@ -173,13 +173,13 @@ extern "C"
 	void MAINWINDOWAPI updateInterface();
 	void MAINWINDOWAPI quit();
 	void MAINWINDOWAPI saveImage(int w, int h, int id, char*win, char* file);
-	void MAINWINDOWAPI setView( int id, char*win, char* view);//ÉèÖÃÌØ¶¨ÊÓ½Ç
-	void MAINWINDOWAPI setViewRandValue(int id, char*win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//ºó´¦Àí×ÔÓÉÉèÖÃÊÓ½Ç
-	//void MAINWINDOWAPI setViewPreValue(int id, char*win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//Ç°´¦Àí×ÔÓÉÉèÖÃÊÓ½Ç
-	void MAINWINDOWAPI openPost3D();//´ò¿ª3d´°¿Ú
-	void MAINWINDOWAPI openPost2D();//´ò¿ª2d´°¿Ú
-	void MAINWINDOWAPI openPreWindow();//´ò¿ªÇ°´¦Àí´°¿Ú
-	void MAINWINDOWAPI solveProject(int projectIndex, int solverIndex);//Çó½â
+	void MAINWINDOWAPI setView( int id, char*win, char* view);//è®¾ç½®ç‰¹å®šè§†è§’
+	void MAINWINDOWAPI setViewRandValue(int id, char*win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//åå¤„ç†è‡ªç”±è®¾ç½®è§†è§’
+	//void MAINWINDOWAPI setViewPreValue(int id, char*win, int x1, int x2, int x3, int y1, int y2, int y3, int z1, int z2, int z3);//å‰å¤„ç†è‡ªç”±è®¾ç½®è§†è§’
+	void MAINWINDOWAPI openPost3D();//æ‰“å¼€3dçª—å£
+	void MAINWINDOWAPI openPost2D();//æ‰“å¼€2dçª—å£
+	void MAINWINDOWAPI openPreWindow();//æ‰“å¼€å‰å¤„ç†çª—å£
+	void MAINWINDOWAPI solveProject(int projectIndex, int solverIndex);//æ±‚è§£
 	void MAINWINDOWAPI createSet(char* name, char* type, char* idstring);
 	void MAINWINDOWAPI createGeoComponent(char* name, char* type, char* strgIDs, char* striIDs);
 	void MAINWINDOWAPI createVTKTransform(char* componentIds, char* rotate, char* moveLocation, char* scale);	

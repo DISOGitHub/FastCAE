@@ -62,7 +62,7 @@ namespace MainWidget
 		//
 		connect(_mainWindow, SIGNAL(selectModelChangedSig(int)), this, SLOT(setGeoSelectMode(int)));
 		connect(_mainWindow, SIGNAL(selectGeometryDisplay(bool, bool, bool)), this, SLOT(setGeometryDisplay(bool, bool, bool)));
-		//ĞÂÔö
+		//æ–°å¢
 		connect(this, SIGNAL(geoShapeSelected(Geometry::GeometrySet*, int)), _preWindow, SIGNAL(geoShapeSelected(Geometry::GeometrySet*, int )));
 		connect(_preWindow, SIGNAL(highLightGeometrySet(Geometry::GeometrySet*, bool)), this, SLOT(highLightGeometrySet(Geometry::GeometrySet*, bool)));
 		connect(_preWindow, SIGNAL(highLightGeometryPoint(Geometry::GeometrySet*, int, bool)), this, SLOT(highLightGeometryPoint(Geometry::GeometrySet*, int, bool)));
@@ -107,7 +107,7 @@ namespace MainWidget
 	}
 
 	/*
-	Çå¿ÕËùÓĞÊı¾İ¼¯ºÏ
+	æ¸…ç©ºæ‰€æœ‰æ•°æ®é›†åˆ
 	*/
 	void GeometryViewProvider::clearAllSet()
 	{
@@ -122,7 +122,7 @@ namespace MainWidget
 	}
 
 	/*
-	³õÊ¼»¯ËùÓĞÊµÌåºÍ»ù×¼ÃæµÄÏÔÊ¾
+	åˆå§‹åŒ–æ‰€æœ‰å®ä½“å’ŒåŸºå‡†é¢çš„æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::init()
 	{
@@ -145,7 +145,7 @@ namespace MainWidget
 	}  
 
 	/*
-	¸üĞÂsetµÄËùÓĞÊµÌåµÄ×´Ì¬
+	æ›´æ–°setçš„æ‰€æœ‰å®ä½“çš„çŠ¶æ€
 	*/
 	void GeometryViewProvider::updateDiaplayStates(Geometry::GeometrySet* s, bool visibility)
 	{
@@ -167,7 +167,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾ËùÓĞÊµÌå
+	æ˜¾ç¤ºæ‰€æœ‰å®ä½“
 	*/
 	void GeometryViewProvider::showShape(TopoDS_Shape& shape, Geometry::GeometrySet* set, bool render)
 	{
@@ -181,7 +181,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾ËùÓĞµÄµã
+	æ˜¾ç¤ºæ‰€æœ‰çš„ç‚¹
 	*/
 	void GeometryViewProvider::showVertex(Geometry::GeometrySet* set)
 	{
@@ -191,7 +191,7 @@ namespace MainWidget
 		
 		TopExp_Explorer ptExp(*shape, TopAbs_VERTEX);
 		QList<Handle(TopoDS_TShape)> tshapelist;
-		//×éºÏ¹ıÂËÆ÷
+		//ç»„åˆè¿‡æ»¤å™¨
 		vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 		vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
 		//
@@ -204,21 +204,21 @@ namespace MainWidget
 			IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(s);
 			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
 			DS->SetShape(aShapeImpl);
-			//É¾³ıÖØ¸´µã
+			//åˆ é™¤é‡å¤ç‚¹
 			vtkSmartPointer<vtkCleanPolyData> cleanFilter = vtkSmartPointer<vtkCleanPolyData>::New();
 			cleanFilter->SetInputConnection(DS->GetOutputPort());
 			cleanFilter->Update();
-			//µ¥ÃæÊı¾İ»ñÈ¡
+			//å•é¢æ•°æ®è·å–
 			vtkPolyData * polyData = cleanFilter->GetOutput();
-			//µ¥µãÊı¾İµÄ±£´æ
+			//å•ç‚¹æ•°æ®çš„ä¿å­˜
 			_actorPolydataHash.insert(Actor, polyData);
-			//µ¥¶ÔÏóµÄidĞòºÅ±£´æ
+			//å•å¯¹è±¡çš„idåºå·ä¿å­˜
 			_polydataShapeIdHash.insert(polyData, index);
 			//
 			appendFilter->AddInputData(polyData);
 		}
 		appendFilter->Update();
-		//äÖÈ¾Õ¹Ê¾
+		//æ¸²æŸ“å±•ç¤º
 		vtkSmartPointer<vtkPolyDataMapper> Mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
 		Mapper->SetInputConnection(appendFilter->GetOutputPort());
 		Actor->SetMapper(Mapper);
@@ -237,7 +237,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾ËùÓĞµÄ±ß
+	æ˜¾ç¤ºæ‰€æœ‰çš„è¾¹
 	*/
 	void GeometryViewProvider::showEdge(Geometry::GeometrySet* set)
 	{
@@ -247,7 +247,7 @@ namespace MainWidget
 
 		TopExp_Explorer edgeExp(*shape, TopAbs_EDGE);
 		QList<Handle(TopoDS_TShape)> tshapelist;
-		//×éºÏ¹ıÂËÆ÷
+		//ç»„åˆè¿‡æ»¤å™¨
 		vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 		vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
 		//
@@ -260,21 +260,21 @@ namespace MainWidget
 			IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(s);
 			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
 			DS->SetShape(aShapeImpl);
-			//É¾³ıÖØ¸´µã
+			//åˆ é™¤é‡å¤ç‚¹
 			vtkSmartPointer<vtkCleanPolyData> cleanFilter = vtkSmartPointer<vtkCleanPolyData>::New();
 			cleanFilter->SetInputConnection(DS->GetOutputPort());
 			cleanFilter->Update();
-			//µ¥ÃæÊı¾İ»ñÈ¡
+			//å•é¢æ•°æ®è·å–
 			vtkPolyData * polyData = cleanFilter->GetOutput();
-			//µ¥Ïß¶ÎÊı¾İµÄ±£´æ
+			//å•çº¿æ®µæ•°æ®çš„ä¿å­˜
 			_actorPolydataHash.insert(Actor, polyData);
-			//µ¥¶ÔÏóµÄidĞòºÅ±£´æ
+			//å•å¯¹è±¡çš„idåºå·ä¿å­˜
 			_polydataShapeIdHash.insert(polyData, index);
 			//
 			appendFilter->AddInputData(polyData);
 		}
 		appendFilter->Update();
-		//äÖÈ¾Õ¹Ê¾
+		//æ¸²æŸ“å±•ç¤º
 		vtkSmartPointer<vtkPolyDataMapper> Mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
 		Mapper->SetInputConnection(appendFilter->GetOutputPort());
 		Actor->SetMapper(Mapper);
@@ -292,7 +292,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾ËùÓĞµÄÃæ
+	æ˜¾ç¤ºæ‰€æœ‰çš„é¢
 	*/
 	void GeometryViewProvider::showFace(Geometry::GeometrySet* set)
 	{
@@ -302,7 +302,7 @@ namespace MainWidget
 
 		TopExp_Explorer faceExp(*shape, TopAbs_FACE);
 		QList<Handle(TopoDS_TShape)> tshapelist;
-		//×éºÏ¹ıÂËÆ÷
+		//ç»„åˆè¿‡æ»¤å™¨
 		vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 		vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
 		for (int index = 0; faceExp.More(); faceExp.Next(), ++index)
@@ -316,7 +316,7 @@ namespace MainWidget
 			IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(s);
 			vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
 			DS->SetShape(aShapeImpl);
-			//É¾³ıÖØ¸´µã
+			//åˆ é™¤é‡å¤ç‚¹
 			vtkSmartPointer<vtkCleanPolyData> cleanFilter = vtkSmartPointer<vtkCleanPolyData>::New();
 			cleanFilter->SetInputConnection(DS->GetOutputPort());
 			cleanFilter->Update();
@@ -355,11 +355,11 @@ namespace MainWidget
 			normals->Update();
 			polyData->DeepCopy(normals->GetOutput());
 			
-			//ºÏÌåactor¶ÔÓ¦µÄµ¥ÃæÊı¾İ
+			//åˆä½“actorå¯¹åº”çš„å•é¢æ•°æ®
 			_actorPolydataHash.insert(Actor, polyData);
-			//µ¥¶ÔÏóµÄ¶ÔÓ¦µÄidĞòºÅ
+			//å•å¯¹è±¡çš„å¯¹åº”çš„idåºå·
 			_polydataShapeIdHash.insert(polyData, index);
-			//µ«¶ÔÏó¶ÔÓ¦µÄhandle¶ÔÏóÊı¾İ
+			//ä½†å¯¹è±¡å¯¹åº”çš„handleå¯¹è±¡æ•°æ®
 			_polydataTShapeHash.insert(polyData, ts);
 			//
 			appendFilter->AddInputData(polyData);
@@ -383,7 +383,7 @@ namespace MainWidget
 	}
 
 	/*
-	Ìî³äËùÓĞÊµÌå£¨°üº¬ÃæµÄÊı¾İ£©
+	å¡«å……æ‰€æœ‰å®ä½“ï¼ˆåŒ…å«é¢çš„æ•°æ®ï¼‰
 	*/
 	void GeometryViewProvider::fillSolid(Geometry::GeometrySet* set)
 	{
@@ -394,15 +394,15 @@ namespace MainWidget
 		QList<Handle(TopoDS_TShape)> tsshapelist;
 		for (int index = 0; solidExp.More(); solidExp.Next(), ++index)
 		{
-			//ÊµÌåµÄ»ñÈ¡
+			//å®ä½“çš„è·å–
 			const TopoDS_Shape& solid = solidExp.Current();
 			Handle(TopoDS_TShape) ts = solid.TShape();
 			if (tsshapelist.contains(ts)) continue;
 			tsshapelist.append(ts);
-			//×éºÏ¹ıÂËÆ÷
+			//ç»„åˆè¿‡æ»¤å™¨
 			vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 			vtkPolyData* polyDataSet = vtkPolyData::New();
-			//ÊµÌåµÄÃæµÄ»ñÈ¡
+			//å®ä½“çš„é¢çš„è·å–
 			TopExp_Explorer faceExp(solid, TopAbs_FACE);
 			QList<Handle(TopoDS_TShape)> tshapelist;
 			for (; faceExp.More();faceExp.Next())
@@ -412,24 +412,24 @@ namespace MainWidget
 				if (tshapelist.contains(tshape)) continue;
 				tshapelist.append(tshape);
 				//
-				//µ¥ÃæÊı¾İ»ñÈ¡
+				//å•é¢æ•°æ®è·å–
 				_polydataTShapeSetHash.insert(polyDataSet, tshape);
 				//
 				vtkPolyData * polyData = vtkPolyData::New();
 				polyData->DeepCopy(_polydataTShapeHash.key(tshape));
 				appendFilter->AddInputData(polyData);
-				//½¨Á¢Æğhash
+				//å»ºç«‹èµ·hash
 			}
 			appendFilter->Update();
 			polyDataSet->DeepCopy(appendFilter->GetOutput());
-			//µ¥¶ÔÏóµÄidĞòºÅ±£´æ
+			//å•å¯¹è±¡çš„idåºå·ä¿å­˜
 			_polydataShapeIdHash.insert(polyDataSet, index);
 			_solidPolyDatas.insert(set, polyDataSet);
 		}
 	}
 	
 	/*
-	Çå¿ÕËùÓĞÊµÌå¶ÔÏó²¢³õÊ¼»¯¸üĞÂ
+	æ¸…ç©ºæ‰€æœ‰å®ä½“å¯¹è±¡å¹¶åˆå§‹åŒ–æ›´æ–°
 	*/
 	void GeometryViewProvider::updateGeoActors()
 	{
@@ -460,7 +460,7 @@ namespace MainWidget
 	}
 
 	/*
-	¸üĞÂËùÓĞactorµÄ»æÖÆÊôĞÔ
+	æ›´æ–°æ‰€æœ‰actorçš„ç»˜åˆ¶å±æ€§
 	*/
 	void GeometryViewProvider::updateGraphOption()
 	{
@@ -496,11 +496,11 @@ namespace MainWidget
 	}
 
 	/*
-	Çå¿ÕÉ¾³ısetµÄËùÓĞ¶ÔÏó
+	æ¸…ç©ºåˆ é™¤setçš„æ‰€æœ‰å¯¹è±¡
 	*/
 	void GeometryViewProvider::removeActors(Geometry::GeometrySet* set)
 	{
-		//Çå³ıËùÓĞ¸ßÁÁ¶ÔÏó
+		//æ¸…é™¤æ‰€æœ‰é«˜äº®å¯¹è±¡
 		clearSelectActors(set);
 		//
 		QList<vtkActor*> setActors = _setActors.values(set);
@@ -612,7 +612,7 @@ namespace MainWidget
 */
 
 	/*
-	ÉèÖÃÑ¡È¡Ä£Ê½
+	è®¾ç½®é€‰å–æ¨¡å¼
 	*/
 	void GeometryViewProvider::setGeoSelectMode(int m)
 	{
@@ -658,7 +658,7 @@ namespace MainWidget
 	}
 	
 	/*
-	 Ñ¡ÖĞ
+	 é€‰ä¸­
 	*/
 	void GeometryViewProvider::selectGeometry(vtkActor* ac,bool ctrlpress)
 	{
@@ -692,27 +692,27 @@ namespace MainWidget
 		}
 		if (winselect)
 		{
-			//ÅĞ¶ÏÒÑ¾­±»Ñ¡ÖĞÉ¾³ı¸ßÁÁ
-			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄpolydataÊı¾İ
+			//åˆ¤æ–­å·²ç»è¢«é€‰ä¸­åˆ é™¤é«˜äº®
+			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„polydataæ•°æ®
 			if (setSelectPolyData.contains(_pre.first))
 			{
 				showActor(_pre.first, false);
 				int index = _polydataShapeIdHash.value(_pre.first);
 				_selectItems.remove(set, index);
 				emit geoShapeSelected(set, index);
-				//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+				//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 				clearPre_();
 				return;
 			}
 			if (_pre.second != nullptr)
 			{
-				//ÏÔÊ¾Ñ¡ÖĞ¶ÔÏó
+				//æ˜¾ç¤ºé€‰ä¸­å¯¹è±¡
 				if (!ctrlpress)
 				{
 					clearGeometryHighLight();
 				}
 				showActor(_pre.first, true);
-				//·¢ËÍµ±Ç°Ñ¡Ôñ¶ÔÏóĞòºÅ
+				//å‘é€å½“å‰é€‰æ‹©å¯¹è±¡åºå·
 				int index = _polydataShapeIdHash.value(_pre.first);
 				_selectItems.insert(set, index);
 				emit geoShapeSelected(set, index);
@@ -725,23 +725,23 @@ namespace MainWidget
 				emit geoShapeSelected(set, index);
 			}
 		}
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 	}
    
 	/*
-	 ÇåÀíÔ¤Ñ¡È¡¶ÔÏó
+	 æ¸…ç†é¢„é€‰å–å¯¹è±¡
 	*/
 	void GeometryViewProvider::clearPre_()
 	{
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		_preWindow->RemoveActor(_pre.second);
 		_preWindow->reRender();
 		_pre.second = nullptr;
 		_pre.first = nullptr;
 	}
 	/*
-	Ô¤Ñ¡ÖĞ
+	é¢„é€‰ä¸­
 	*/
 	void GeometryViewProvider::preSelectGeometry(vtkActor* ac, QVector<double*> points)
 	{
@@ -749,7 +749,7 @@ namespace MainWidget
 		{
 			if (_pre.second != nullptr)
 			{
-				//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+				//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 				clearPre_();
 			}
 			return;
@@ -760,7 +760,7 @@ namespace MainWidget
 		{
 			if (_pre.second != nullptr)
 			{
-				//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+				//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 				clearPre_();
 			}
 			return;
@@ -796,7 +796,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÅĞ¶Ï²¢ÏÔÊ¾µ±Ç°Ô¤Ñ¡Ôñ¶ÔÏó
+	åˆ¤æ–­å¹¶æ˜¾ç¤ºå½“å‰é¢„é€‰æ‹©å¯¹è±¡
 	*/
 	bool GeometryViewProvider::judgePreShowActor(vtkPolyData* pd)
 	{
@@ -805,19 +805,19 @@ namespace MainWidget
 			return  false;
 		}
 		//
-		//ºÍµ±Ç°µÄÔ¤Ñ¡Ôñ¶ÔÏóÏàÍ¬Ê±
+		//å’Œå½“å‰çš„é¢„é€‰æ‹©å¯¹è±¡ç›¸åŒæ—¶
 		if (pd == _pre.first)
 		{
 			return false;
 		}
 		if (_pre.second!= nullptr)
 		{
-			//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+			//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 			clearPre_();
 		}
-		//ÅĞ¶ÏÊÇ·ñÒÑ¾­±»Ñ¡ÖĞ
+		//åˆ¤æ–­æ˜¯å¦å·²ç»è¢«é€‰ä¸­
 		QColor preHighLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
-		QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄpolydataÊı¾İ
+		QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„polydataæ•°æ®
 		if (setSelectPolyData.contains(pd))
 		{
 		     preHighLight = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
@@ -825,11 +825,11 @@ namespace MainWidget
 		else {
 			 preHighLight = Setting::BusAPI::instance()->getGraphOption()->getPreHighLightColor();
 		}
-		//ÏÔÊ¾
+		//æ˜¾ç¤º
 		float width = Setting::BusAPI::instance()->getGraphOption()->getGeoCurveWidth();
 		float size = Setting::BusAPI::instance()->getGraphOption()->getGeoCurveWidth();
 		int trans = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
-		//äÖÈ¾
+		//æ¸²æŸ“
 		vtkSmartPointer<vtkPolyDataMapper> Mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
 		vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
 		Actor->SetMapper(Mapper);
@@ -838,17 +838,17 @@ namespace MainWidget
 		Mapper->SetInputData(pd);
 		switch (_selectType)
 		{
-		case ModuleBase::GeometryWinPoint://µãÏÔÊ¾
+		case ModuleBase::GeometryWinPoint://ç‚¹æ˜¾ç¤º
 		case ModuleBase::GeometryPoint:
 			Actor->GetProperty()->SetPointSize(size);
 			Actor->GetProperty()->SetRepresentationToPoints();
 			break;
-		case ModuleBase::GeometryWinCurve://±ßÏÔÊ¾
+		case ModuleBase::GeometryWinCurve://è¾¹æ˜¾ç¤º
 		case ModuleBase::GeometryCurve:
 			Actor->GetProperty()->SetLineWidth(width);
 			Actor->GetProperty()->SetRepresentationToWireframe();
 			break;
-		case ModuleBase::GeometryWinSurface://ÃæÏÔÊ¾
+		case ModuleBase::GeometryWinSurface://é¢æ˜¾ç¤º
 		case ModuleBase::GeometrySurface:
 			Actor->GetProperty()->SetOpacity(100);
 			Actor->GetProperty()->SetRepresentationToSurface();
@@ -871,7 +871,7 @@ namespace MainWidget
 
 
 	/*
-	²éÕÒÑ¡ÖĞµÄPolydata
+	æŸ¥æ‰¾é€‰ä¸­çš„Polydata
 	*/
 	bool GeometryViewProvider::findSelectPolydata(vtkActor * ac, QVector<double*> points, vtkPolyData * &findPolydata)
 	{
@@ -916,7 +916,7 @@ namespace MainWidget
 	}
 
 	/*
-	 ÕÒµ½µ±Ç°Ê°È¡µ½µÄµã
+	 æ‰¾åˆ°å½“å‰æ‹¾å–åˆ°çš„ç‚¹
 	*/
 	bool GeometryViewProvider::findCurrentPointPolydata(vtkActor * ac, QVector<double*> points, vtkPolyData*&findPolydata)
 	{
@@ -945,7 +945,7 @@ namespace MainWidget
 	}
 
 	/*
-	   ÕÒµ½µ±Ç°Ê°È¡µ½µÄ±ß
+	   æ‰¾åˆ°å½“å‰æ‹¾å–åˆ°çš„è¾¹
 	*/
 	bool GeometryViewProvider::findCurrentLinePolydata(vtkActor * ac, QVector<double*> points, double &minDis, vtkPolyData* &findPolyData)
 	{
@@ -979,8 +979,8 @@ namespace MainWidget
 					polyData->GetPoint(number1, lineP1);
 					double t;
 					double closest[3];
-					vtkLine::DistanceToLine(pt, lineP0, lineP1, t, closest); //×î½üµã£¬¼´µãµ½ÏßµÄ´¹Ö±Í¶Ó°µã
-					// Êµ¼Ê¾àÀë
+					vtkLine::DistanceToLine(pt, lineP0, lineP1, t, closest); //æœ€è¿‘ç‚¹ï¼Œå³ç‚¹åˆ°çº¿çš„å‚ç›´æŠ•å½±ç‚¹
+					// å®é™…è·ç¦»
 					double squaredDistance = sqrt(vtkMath::Distance2BetweenPoints(pt, closest));
 					if (squaredDistance < minDis)
 					{
@@ -999,7 +999,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÕÒµ½µ±Ç°Ê°È¡µÄÃæ
+	æ‰¾åˆ°å½“å‰æ‹¾å–çš„é¢
 	*/
 	bool GeometryViewProvider::findcurrentFacePolydata(vtkActor *ac, QVector<double*> points, vtkPolyData* &findPolydata)
 	{
@@ -1043,7 +1043,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÕÒµ½µ±Ç°Ãæ¶ÔÓ¦µÄÊµÌå
+	æ‰¾åˆ°å½“å‰é¢å¯¹åº”çš„å®ä½“
 	*/
 	bool GeometryViewProvider::findcurrentSolidPolydata(vtkPolyData* facePolydata, vtkPolyData* &findPolydata)
 	{
@@ -1065,7 +1065,7 @@ namespace MainWidget
 	}
 
 	/*
-	 ¶ÔÓÚÖ÷ÌåµÄ¸ßÁÁÏÔÊ¾
+	 å¯¹äºä¸»ä½“çš„é«˜äº®æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::highLightGeometrySet(Geometry::GeometrySet* s, bool on)
 	{
@@ -1100,7 +1100,7 @@ namespace MainWidget
 		_preWindow->reRender();
 	}
 
-	//ÊµÌåµÄ¸ßÁÁÏÔÊ¾
+	//å®ä½“çš„é«˜äº®æ˜¾ç¤º
 	void GeometryViewProvider::highLightGeometrySolid(Geometry::GeometrySet* s, int id, bool on)
 	{
 		vtkPolyData* pd = getSolidPolyData(s, id);
@@ -1113,19 +1113,19 @@ namespace MainWidget
 			_selectItems.remove(s, id);
 		}
 		showActor(pd, on);
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 	}
 
 	vtkPolyData* GeometryViewProvider::getSolidPolyData(Geometry::GeometrySet* s, int id)
 	{
-		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//¸ù¾İidÕÒpolydataµÄ¼¯ºÏ
-		QList<vtkPolyData*> setPolydatas = _solidPolyDatas.values(s);//¸ù¾İsetÕÒµ½actorµÄ¼¯ºÏ
+		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//æ ¹æ®idæ‰¾polydataçš„é›†åˆ
+		QList<vtkPolyData*> setPolydatas = _solidPolyDatas.values(s);//æ ¹æ®setæ‰¾åˆ°actorçš„é›†åˆ
 		vtkPolyData* pd = nullptr;
 		for (int i = 0; i < setPolydatas.size(); ++i)
 		{
 			vtkPolyData * p = setPolydatas.at(i);
-			bool ok = idPlolydata.contains(p);//ÅĞ¶ÏÊÇ·ñÊôÓÚÊµÌåactor
+			bool ok = idPlolydata.contains(p);//åˆ¤æ–­æ˜¯å¦å±äºå®ä½“actor
 			if (ok)
 			{
 				pd = p;
@@ -1135,7 +1135,7 @@ namespace MainWidget
 		return pd;
 	}
 	/*
-	µãµÄ¸ßÁÁÏÔÊ¾
+	ç‚¹çš„é«˜äº®æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::highLightGeometryPoint(Geometry::GeometrySet* s, int id, bool on)
 	{
@@ -1149,26 +1149,26 @@ namespace MainWidget
 			_selectItems.remove(s, id);
 		}
 		showActor(pd, on);
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 	}
 
 	vtkPolyData* GeometryViewProvider::getPointPolyData(Geometry::GeometrySet* s, int id)
 	{
-		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//¸ù¾İidÕÒpolydataµÄ¼¯ºÏ
-		QList<vtkActor*> setActors = _setActors.values(s);//¸ù¾İsetÕÒµ½actorµÄ¼¯ºÏ
+		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//æ ¹æ®idæ‰¾polydataçš„é›†åˆ
+		QList<vtkActor*> setActors = _setActors.values(s);//æ ¹æ®setæ‰¾åˆ°actorçš„é›†åˆ
 		vtkPolyData* pd = nullptr;
 		for (int i = 0; i < setActors.size(); ++i)
 		{
 			vtkActor* a = setActors.at(i);
-			bool ok = _vertexActors.contains(a);//ÅĞ¶ÏÊÇ·ñÊôÓÚÏßactor
+			bool ok = _vertexActors.contains(a);//åˆ¤æ–­æ˜¯å¦å±äºçº¿actor
 			if (ok)
 			{
 				QList<vtkPolyData*> polyDatas = _actorPolydataHash.values(a);
 				for (int i = 0; i < polyDatas.size(); ++i)
 				{
 					vtkPolyData * polyData = polyDatas.at(i);
-					if (idPlolydata.contains(polyData))//ÅĞ¶Ïµ±Ç°µ¥ÏßÊÇ·ñÊôÓÚid¶ÔÓ¦¼¯ºÏÀïµÄpolydata
+					if (idPlolydata.contains(polyData))//åˆ¤æ–­å½“å‰å•çº¿æ˜¯å¦å±äºidå¯¹åº”é›†åˆé‡Œçš„polydata
 					{
 						pd = polyData;
 						break;
@@ -1179,7 +1179,7 @@ namespace MainWidget
 		return pd;
 	}
 	/*
-	±ßµÄ¸ßÁÁÏÔÊ¾
+	è¾¹çš„é«˜äº®æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::highLightGeometryEdge(Geometry::GeometrySet* s, int id, bool on)
 	{
@@ -1193,26 +1193,26 @@ namespace MainWidget
 			_selectItems.remove(s, id);
 		}
 		showActor(pd, on);
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 	}
 
 	vtkPolyData* GeometryViewProvider::getEdgePolyData(Geometry::GeometrySet* s, int id)
 	{
-		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//¸ù¾İidÕÒpolydataµÄ¼¯ºÏ
-		QList<vtkActor*> setActors = _setActors.values(s);//¸ù¾İsetÕÒµ½actorµÄ¼¯ºÏ
+		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//æ ¹æ®idæ‰¾polydataçš„é›†åˆ
+		QList<vtkActor*> setActors = _setActors.values(s);//æ ¹æ®setæ‰¾åˆ°actorçš„é›†åˆ
 		vtkPolyData* pd = nullptr;
 		for (int i = 0; i < setActors.size(); ++i)
 		{
 			vtkActor* a = setActors.at(i);
-			bool ok = _edgeActors.contains(a);//ÅĞ¶ÏÊÇ·ñÊôÓÚÏßactor
+			bool ok = _edgeActors.contains(a);//åˆ¤æ–­æ˜¯å¦å±äºçº¿actor
 			if (ok)
 			{
 				QList<vtkPolyData*> polyDatas = _actorPolydataHash.values(a);
 				for (int i = 0; i < polyDatas.size(); ++i)
 				{
 					vtkPolyData * polyData = polyDatas.at(i);
-					if (idPlolydata.contains(polyData))//ÅĞ¶Ïµ±Ç°µ¥ÏßÊÇ·ñÊôÓÚid¶ÔÓ¦¼¯ºÏÀïµÄpolydata
+					if (idPlolydata.contains(polyData))//åˆ¤æ–­å½“å‰å•çº¿æ˜¯å¦å±äºidå¯¹åº”é›†åˆé‡Œçš„polydata
 					{
 						pd = polyData;
 						break;
@@ -1224,7 +1224,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÃæµÄ¸ßÁÁÏÔÊ¾
+	é¢çš„é«˜äº®æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::highLightGeometryFace(Geometry::GeometrySet* s, int id, bool on)
 	{
@@ -1238,26 +1238,26 @@ namespace MainWidget
 			_selectItems.remove(s, id);
 		}
 		showActor(pd, on);
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 	}
 
 	vtkPolyData* GeometryViewProvider::getFacePolyData(Geometry::GeometrySet* s, int id)
 	{
-		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//¸ù¾İidÕÒpolydataµÄ¼¯ºÏ
-		QList<vtkActor*> setActors = _setActors.values(s);//¸ù¾İsetÕÒµ½actorµÄ¼¯ºÏ
+		QList<vtkPolyData*> idPlolydata = _polydataShapeIdHash.keys(id);//æ ¹æ®idæ‰¾polydataçš„é›†åˆ
+		QList<vtkActor*> setActors = _setActors.values(s);//æ ¹æ®setæ‰¾åˆ°actorçš„é›†åˆ
 		vtkPolyData* pd = nullptr;
 		for (int i = 0; i < setActors.size(); ++i)
 		{
 			vtkActor* a = setActors.at(i);
-			bool ok = _faceActors.contains(a);//ÅĞ¶ÏÊÇ·ñÊôÓÚÏßactor
+			bool ok = _faceActors.contains(a);//åˆ¤æ–­æ˜¯å¦å±äºçº¿actor
 			if (ok)
 			{
 				QList<vtkPolyData*> polyDatas = _actorPolydataHash.values(a);
 				for (int i = 0; i < polyDatas.size(); ++i)
 				{
 					vtkPolyData * polyData = polyDatas.at(i);
-					if (idPlolydata.contains(polyData))//ÅĞ¶Ïµ±Ç°µ¥ÏßÊÇ·ñÊôÓÚid¶ÔÓ¦¼¯ºÏÀïµÄpolydata
+					if (idPlolydata.contains(polyData))//åˆ¤æ–­å½“å‰å•çº¿æ˜¯å¦å±äºidå¯¹åº”é›†åˆé‡Œçš„polydata
 					{
 						pd = polyData;
 						break;
@@ -1269,24 +1269,24 @@ namespace MainWidget
 	}
 
 	/*
-	Ìí¼Ó»òÉ¾³ıactor
+	æ·»åŠ æˆ–åˆ é™¤actor
 	*/
 	void GeometryViewProvider::showActor(vtkPolyData* pd , bool state)
 	{
 		if (state)
 		{
-			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄpolydataÊı¾İ
+			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„polydataæ•°æ®
 			if (setSelectPolyData.contains(pd))
 			{
 				return;
 			}
-			//ÏÔÊ¾
+			//æ˜¾ç¤º
 			QColor colorhigh = Setting::BusAPI::instance()->getGraphOption()->getHighLightColor();
 			float width = Setting::BusAPI::instance()->getGraphOption()->getGeoCurveWidth();
 			float size = Setting::BusAPI::instance()->getGraphOption()->getGeoCurveWidth();
 			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometrySurfaceColor();
 			int trans = Setting::BusAPI::instance()->getGraphOption()->getTransparency();
-			//äÖÈ¾
+			//æ¸²æŸ“
 			vtkSmartPointer<vtkPolyDataMapper> Mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
 			vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
 			vtkSmartPointer<vtkPolyDataNormals> normals = vtkSmartPointer<vtkPolyDataNormals>::New();
@@ -1298,17 +1298,17 @@ namespace MainWidget
 			//
 			switch (_selectType)
 			{
-			case ModuleBase::GeometryWinPoint://µãÏÔÊ¾
+			case ModuleBase::GeometryWinPoint://ç‚¹æ˜¾ç¤º
 			case ModuleBase::GeometryPoint:
 				Actor->GetProperty()->SetPointSize(size);
 				Actor->GetProperty()->SetRepresentationToPoints();
 				break;
-			case ModuleBase::GeometryWinCurve://±ßÏÔÊ¾
+			case ModuleBase::GeometryWinCurve://è¾¹æ˜¾ç¤º
 			case ModuleBase::GeometryCurve:
 				Actor->GetProperty()->SetLineWidth(width);
 				Actor->GetProperty()->SetRepresentationToWireframe();
 				break;
-			case ModuleBase::GeometryWinSurface://ÃæÏÔÊ¾
+			case ModuleBase::GeometryWinSurface://é¢æ˜¾ç¤º
 			case ModuleBase::GeometrySurface:
 				Actor->GetProperty()->SetOpacity(1.0 - trans / 100);
 				Actor->GetProperty()->SetRepresentationToSurface();
@@ -1325,7 +1325,7 @@ namespace MainWidget
 			_selectPolydataActorHash.insert(pd, Actor);
 			_preWindow->AppendActor(Actor, ModuleBase::D3, false);
 		} else {
-			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄpolydataÊı¾İ
+			QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„polydataæ•°æ®
 			if (!setSelectPolyData.contains(pd))
 			{
 				return;
@@ -1339,18 +1339,18 @@ namespace MainWidget
 
 	void GeometryViewProvider::clearAllHighLight()
 	{
-		//ÇåÀíÔ¤Ñ¡Ôñ¶ÔÏó
+		//æ¸…ç†é¢„é€‰æ‹©å¯¹è±¡
 		clearPre_();
 		clearGeometryHighLight();
 	}
 
 	/*
-	Çå¿ÕËùÓĞµÄÒÑ¾­¸ßÁÁÏÔÊ¾¶ÔÏó
+	æ¸…ç©ºæ‰€æœ‰çš„å·²ç»é«˜äº®æ˜¾ç¤ºå¯¹è±¡
 	*/
 	void GeometryViewProvider::clearGeometryHighLight()
 	{
 		RestoreGeoColor();
-		QList<vtkActor *> setSelectActor = _selectPolydataActorHash.values();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄactorÊı¾İ
+		QList<vtkActor *> setSelectActor = _selectPolydataActorHash.values();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„actoræ•°æ®
 		for (int i = 0; i < setSelectActor.size(); i++)
 		{
 			vtkActor * ac = setSelectActor.at(i);
@@ -1362,13 +1362,13 @@ namespace MainWidget
 	}
 
 	/*
-	Çå¿Õµ±Ç°Ö÷ÌåµÄÒÑ¾­¸ßÁÁ¶ÔÏó
+	æ¸…ç©ºå½“å‰ä¸»ä½“çš„å·²ç»é«˜äº®å¯¹è±¡
 	*/
 	void GeometryViewProvider::clearSelectActors(Geometry::GeometrySet* s)
 	{
 		RestoreGeoColor();
-		QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//ËùÓĞµÄÑ¡ÔñµÄ¶ÔÏóµÄpolydataÊı¾İ
-		QList<vtkActor*> setActors = _setActors.values(s);//¸ù¾İsetÕÒµ½actorµÄ¼¯ºÏ
+		QList<vtkPolyData *> setSelectPolyData = _selectPolydataActorHash.keys();//æ‰€æœ‰çš„é€‰æ‹©çš„å¯¹è±¡çš„polydataæ•°æ®
+		QList<vtkActor*> setActors = _setActors.values(s);//æ ¹æ®setæ‰¾åˆ°actorçš„é›†åˆ
 		for (int i = 0; i < setActors.size(); ++i)
 		{
 			vtkActor* ac = setActors.at(i);
@@ -1416,7 +1416,7 @@ namespace MainWidget
 
 	}
 	/*
-	ÉèÖÃ»ù×¼ÃæÏÔÊ¾Ä£Ê½
+	è®¾ç½®åŸºå‡†é¢æ˜¾ç¤ºæ¨¡å¼
 	*/
 	void GeometryViewProvider::showDatum(Geometry::GeometryDatum* datum)
 	{
@@ -1435,7 +1435,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾»ù×¼Æ½Ãæ
+	æ˜¾ç¤ºåŸºå‡†å¹³é¢
 	*/
 	void GeometryViewProvider::showDatumPlane(Geometry::GeometryDatum* datum)
 	{
@@ -1467,9 +1467,9 @@ namespace MainWidget
 			Actor->GetProperty()->SetOpacity(0.6);
 			//
 			_faceActors.append(Actor);
-			//actor¶ÔÓ¦µÄÃæÊı¾İ
+			//actorå¯¹åº”çš„é¢æ•°æ®
 			_actorPolydataHash.insert(Actor, Mapper->GetInput());
-			//¶ÔÏóµÄ¶ÔÓ¦µÄidĞòºÅ
+			//å¯¹è±¡çš„å¯¹åº”çš„idåºå·
 			_polydataShapeIdHash.insert(Mapper->GetInput(), index);
 			//
 			_setActors.insert(datum, Actor);
@@ -1484,7 +1484,7 @@ namespace MainWidget
 	}
  
 	/*
-	ÉèÖÃµãÏßÌå£¨Ãæ£©µÄÏÔÊ¾ÓëÒş²Ø
+	è®¾ç½®ç‚¹çº¿ä½“ï¼ˆé¢ï¼‰çš„æ˜¾ç¤ºä¸éšè—
 	*/
 	void GeometryViewProvider::setGeometryDisplay( bool v, bool c, bool f)
 	{
@@ -1574,7 +1574,7 @@ namespace MainWidget
 
 	void GeometryViewProvider::hideGeometry(Geometry::GeometrySet* set, QList<vtkActor*> actors,int geoindex)
 	{
-		QList<vtkPolyData*> idPolydata = _polydataShapeIdHash.keys(geoindex);//¸ù¾İidÕÒpolydataµÄ¼¯ºÏ
+		QList<vtkPolyData*> idPolydata = _polydataShapeIdHash.keys(geoindex);//æ ¹æ®idæ‰¾polydataçš„é›†åˆ
 		vtkActor*currentActor = nullptr;
 		vtkPolyData*currentPolydata = nullptr;
 		for (int i = 0; i < idPolydata.size(); i++)
@@ -1597,7 +1597,7 @@ namespace MainWidget
 			return;
 		}
 		QList<vtkPolyData*> polydatas = _actorPolydataHash.values(currentActor);
-		//×éºÏ¹ıÂËÆ÷
+		//ç»„åˆè¿‡æ»¤å™¨
 		vtkSmartPointer<vtkAppendPolyData> appendFilter = vtkSmartPointer<vtkAppendPolyData>::New();
 		for (int i = 0; polydatas.size();i++)
 		{
@@ -1617,11 +1617,11 @@ namespace MainWidget
 	}
 
 	/*
-	»¹Ô­ËùÓĞ¶ÔÏóÑÕÉ«²¢Çå¿Õ¸ßÁÁÏÔÊ¾
+	è¿˜åŸæ‰€æœ‰å¯¹è±¡é¢œè‰²å¹¶æ¸…ç©ºé«˜äº®æ˜¾ç¤º
 	*/
 	void GeometryViewProvider::RestoreGeoColor()
 	{
-		//»¹Ô­ËùÓĞactorµÄÑÕÉ«
+		//è¿˜åŸæ‰€æœ‰actorçš„é¢œè‰²
 		for (auto var : _vertexActors)
 		{
 			QColor color = Setting::BusAPI::instance()->getGraphOption()->getGeometryPointColor();
@@ -1650,7 +1650,7 @@ namespace MainWidget
 	}
 
 	/*
-	ÏÔÊ¾setµÄËùÓĞ¶ÔÏó
+	æ˜¾ç¤ºsetçš„æ‰€æœ‰å¯¹è±¡
 	*/
 	void GeometryViewProvider::showGeoSet(Geometry::GeometrySet* set, bool render)
 	{
@@ -1660,7 +1660,7 @@ namespace MainWidget
 	}
 
 	/*
-	 ÏÔÊ¾selectItemsµÄËùÓĞ¶ÔÏó
+	 æ˜¾ç¤ºselectItemsçš„æ‰€æœ‰å¯¹è±¡
 	*/
 	void GeometryViewProvider::slotShowGeometryAll()
 	{

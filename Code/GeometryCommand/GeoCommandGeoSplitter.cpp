@@ -32,7 +32,7 @@ namespace Command
 
 		if (_solidhash.size() < 1 )
 			return false;
-		if (_isEdit) //±à¼­Ä£Ê½ÏÂ½«Ô­À´µÄÄ£ĞÍÑ¹½øÁĞ±í
+		if (_isEdit) //ç¼–è¾‘æ¨¡å¼ä¸‹å°†åŸæ¥çš„æ¨¡å‹å‹è¿›åˆ—è¡¨
 		{
 			Geometry::GeometryModelParaBase* pm = _editSet->getParameter();
 			Geometry::GeometryParaGeoSplitter* p = dynamic_cast<Geometry::GeometryParaGeoSplitter*>(pm);
@@ -51,9 +51,9 @@ namespace Command
 		for (Geometry::GeometrySet* set : setlist)
 		{
 
-			//±£´æÏÂÄ³¸ösetÏÂËùÑ¡ÖĞµÄËùÓĞsolid.
+			//ä¿å­˜ä¸‹æŸä¸ªsetä¸‹æ‰€é€‰ä¸­çš„æ‰€æœ‰solid.
 			QMultiHash<Geometry::GeometrySet*, int> setToIndex{};
-			//aRes=new shape+ÎŞ¹Øshape.
+			//aRes=new shape+æ— å…³shape.
 			TopoDS_Compound aRes;
 			BRep_Builder aBuilder;
 			aBuilder.MakeCompound(aRes);
@@ -71,7 +71,7 @@ namespace Command
 				const TopoDS_Shape& faceLimiteShape = faceExp.Current();
 				if (faceLimiteShape.IsNull()) return false;
 
-				//ÅĞ¶ÏÊÇ·ñÎªÆ½Ãæ¡£
+				//åˆ¤æ–­æ˜¯å¦ä¸ºå¹³é¢ã€‚
 				const TopoDS_Face &face = TopoDS::Face(faceLimiteShape);
 				if (face.IsNull()) return false;
 				BRepAdaptor_Surface adapt(face);
@@ -96,7 +96,7 @@ namespace Command
 					aBuilder.Add(aRes, anSolid);
 				}
 			}
-			//½«ÎŞ¹ØµÄsolid´æÔÚcompoundÖĞ¡£
+			//å°†æ— å…³çš„solidå­˜åœ¨compoundä¸­ã€‚
 			TopoDS_Shape* setShape = set->getShape();
 			TopoDS_Shape* setCopyShape = new TopoDS_Shape;
 			TopoDS_Shape* setOriShape = new TopoDS_Shape;
@@ -147,7 +147,7 @@ namespace Command
 			if (_isEdit)
 			{
 				_geoData->removeTopGeometrySet(_editSet);
-				_releaseEdit = true;     //±ê¼ÇÊÍ·Å×´Ì¬
+				_releaseEdit = true;     //æ ‡è®°é‡Šæ”¾çŠ¶æ€
 				_releasenew = false;
 			}
 

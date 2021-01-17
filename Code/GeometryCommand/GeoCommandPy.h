@@ -82,7 +82,7 @@ namespace Command
     };
 }
 
-//ÉùÃ÷ÎªC½Ó¿Ú£¬¹©Python½Å±¾µ÷ÓÃ
+//å£°æ˜ä¸ºCæ¥å£ï¼Œä¾›Pythonè„šæœ¬è°ƒç”¨
 extern "C"
 {
 	void GEOMETRYCOMMANDAPI CreateBox(char* name, double x, double y, double z, double l, double w, double h);
@@ -108,11 +108,11 @@ extern "C"
 	void GEOMETRYCOMMANDAPI EditBooLOperation(int id, char* booltype, int set1, int body1, int set2, int body2);
 	void GEOMETRYCOMMANDAPI CreateMirrorFeature(char* bodys, char* method,int faceindex, int facebody,char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2,char* saveori);
 	void GEOMETRYCOMMANDAPI EditMirrorFeature(int id, char* bodys, char* method, int faceindex, int facebody, char* planemethod, double random0, double random1, double random2, double base0, double base1, double base2, char* saveori);
-	void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, //Ìå & »ù×¼µã
-										   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //ÖáÏß 
+	void GEOMETRYCOMMANDAPI RotateFeature(char* body, double basicx, double basicy, double basicz, //ä½“ & åŸºå‡†ç‚¹
+										   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //è½´çº¿ 
 											double angle, int saveOri);
-	void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, //Ìå & »ù×¼µã
-											   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //ÖáÏß 
+	void GEOMETRYCOMMANDAPI EditRotateFeature(int bodyid, char* body, double basicx, double basicy, double basicz, //ä½“ & åŸºå‡†ç‚¹
+											   int method, int edgeBoby, int edgeIndex, double axisx, double axisy, double axisz, int reverse, //è½´çº¿ 
 												double angle, int saveOri);
 	void GEOMETRYCOMMANDAPI CreateMoveFeature(char * bodys, char* method,double startpt0, double startpt1, double startpt2, double endpt0, double endpt1, double endpt2, char* save,  char*reverse,
 												double length, double dir0, double dir1, double dir2);

@@ -1,4 +1,4 @@
-﻿#include "dialogSketchPlane.h"
+#include "dialogSketchPlane.h"
 #include "ui_dialogSketchPlane.h"
 #include "geometry/geometryData.h"
 #include "geometry/geometrySet.h"

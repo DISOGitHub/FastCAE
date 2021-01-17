@@ -87,7 +87,7 @@ namespace ProjectTree
 	void ProjectTreeExtend::createTree(QTreeWidgetItem* root, GUI::MainWindow* mainwindow)
 	{
 		ProjectTreeBase::createTree(root, mainwindow);
-		//**********¶ÔÅäÖÃ½Úµã½øĞĞ²Ù×÷***********
+		//**********å¯¹é…ç½®èŠ‚ç‚¹è¿›è¡Œæ“ä½œ***********
 		
 
 		//***************

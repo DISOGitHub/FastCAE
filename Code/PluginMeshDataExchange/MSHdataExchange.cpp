@@ -182,7 +182,7 @@ namespace MeshData
 
 //			vtkIdTypeArray* idlist = vtkIdTypeArray::New();
 			double coordinate[3] = { 0.0, 0.0, 0.0 };
-			//fluentÎÄ¼ş»á¶à³öÒ»ĞĞ(
+			//fluentæ–‡ä»¶ä¼šå¤šå‡ºä¸€è¡Œ(
 			if (mMeshType == typeFluent)
 			{
 				QString line = this->readLine();
@@ -389,7 +389,7 @@ namespace MeshData
 			_idsetList.remove(setid);
 		}
 		_idsetList[setid] = set;
-		//»ñÈ¡ÃæµÄÊıÁ¿
+		//è·å–é¢çš„æ•°é‡
 		facenumber = endIndex - startIndex + 1;
 //		vtkIdTypeArray* idlist = vtkIdTypeArray::New();
 		double coordinate[3] = { 0.0, 0.0, 0.0 };
@@ -406,19 +406,19 @@ namespace MeshData
 			int firstFaceType = 0;
 			if (mMeshType == typeGambit)
 			{
-				//È¡Ã¿Ò»¸öÃæ¶ÔÓ¦µÄÀàĞÍ£¬²»ÊÇÍ·ÖĞµÄÀàĞÍ
+				//å–æ¯ä¸€ä¸ªé¢å¯¹åº”çš„ç±»å‹ï¼Œä¸æ˜¯å¤´ä¸­çš„ç±»å‹
 				if (selelist.count() > 1)
 				{
 					firstFaceType = strToInt(selelist.at(0));
 				}
 			}
-			else if (mMeshType==typeFluent)//fluentÀàĞÍÎÄ¼ş£¬ÃæÖĞÃ»ÓĞÀàĞÍ£¬ÕâÀïÈ¡µÄÊÇÍ·ÖĞµÄÀàĞÍ
+			else if (mMeshType==typeFluent)//fluentç±»å‹æ–‡ä»¶ï¼Œé¢ä¸­æ²¡æœ‰ç±»å‹ï¼Œè¿™é‡Œå–çš„æ˜¯å¤´ä¸­çš„ç±»å‹
 			{
 				firstFaceType = facetype;
 			}
 			
 			vtkSmartPointer<vtkIdList> pointIdList = vtkSmartPointer<vtkIdList>::New();
-			//µÚÒ»¸ö×Ö·û´®ÊÇµ¥ÔªÀàĞÍ£¬²»ĞèÒª±£´æ,×îºóÁ½¸ö×Ö·û´®²»ĞèÒª±£´æ£¬Ò»¸öÊÇcellid,ÁíÍâÒ»¸öÎª0
+			//ç¬¬ä¸€ä¸ªå­—ç¬¦ä¸²æ˜¯å•å…ƒç±»å‹ï¼Œä¸éœ€è¦ä¿å­˜,æœ€åä¸¤ä¸ªå­—ç¬¦ä¸²ä¸éœ€è¦ä¿å­˜ï¼Œä¸€ä¸ªæ˜¯cellid,å¦å¤–ä¸€ä¸ªä¸º0
 			//4 1  77  32b0  29 0 1
 			int j = 0;
 			if (mMeshType == typeFluent)
@@ -518,7 +518,7 @@ namespace MeshData
 				QStringList slist = line.split(" ");
 
 				int index;
-				//È¡³öÊı×Ö±êÊ¶
+				//å–å‡ºæ•°å­—æ ‡è¯†
 				sscanf(ch, "(%d", &index);
 				if (slist.at(0) == "0")
 				{
@@ -534,17 +534,17 @@ namespace MeshData
 				{
 					readCells120(dataset, line);
 				}
-				//10ÎªGAMBIT to Fluent File
+				//10ä¸ºGAMBIT to Fluent File
 				else if (index == 10)
 				{
-					//¶ÁÈ¡16½øÖÆ
+					//è¯»å–16è¿›åˆ¶
 					readPoints10(dataset, line);
 				}
-				//¶ÁÈ¡Face
+				//è¯»å–Face
 				if (index == 13)
 				{
 					//(13(0 1 1a7c9 0))
-					//13Èç¹ûÎª13±êÖ¾£¬ÔÚ13ºó²åÈë¿Õ¸ñ£¬ºÍÆäËû¸ñÊ½¶ÔÓ¦ÉÏ
+					//13å¦‚æœä¸º13æ ‡å¿—ï¼Œåœ¨13åæ’å…¥ç©ºæ ¼ï¼Œå’Œå…¶ä»–æ ¼å¼å¯¹åº”ä¸Š
 					QString replaceLine;
 					replaceLine = line;
 					replaceLine.insert(2, " ");
@@ -610,27 +610,27 @@ namespace MeshData
 
 			int startIndex = 0;
 			int index;
-			//È¡³öÊı×Ö±êÊ¶
+			//å–å‡ºæ•°å­—æ ‡è¯†
 			sscanf(ch, "(%d", &index);
 			if (slist.at(0) == "0")
 			{
 				_describe = slist.at(1);
 				_describe.remove("\"");
 			}
-			//10ÎªGAMBIT to Fluent File
+			//10ä¸ºGAMBIT to Fluent File
 			else if (index == 10)
 			{
 
 				startIndex = strToInt(slist.at(1), true);
-				//Èç¹ûstartindex<1Ó¦¸ÃÊÇÇøµÄ±êÊ¶£¬²»¶ÁÈ¡
+				//å¦‚æœstartindex<1åº”è¯¥æ˜¯åŒºçš„æ ‡è¯†ï¼Œä¸è¯»å–
 				if (startIndex < 1) continue;
-				//¶ÁÈ¡16½øÖÆ
+				//è¯»å–16è¿›åˆ¶
 				readPoints10(dataset, line);
 			}
-			//¶ÁÈ¡Face
+			//è¯»å–Face
 			else if (index == 13)
 			{
-				//faceÃæ×ÜµÄĞÅÏ¢²»¶ÁÈ¡
+				//faceé¢æ€»çš„ä¿¡æ¯ä¸è¯»å–
 				startIndex = strToInt(slist.at(1), true);
 				if (startIndex < 1)
 				{
@@ -638,7 +638,7 @@ namespace MeshData
 				}
 				readFace13(dataset, line);
 			}
-			//¶ÁÈ¡ÇøÓòÃû³Æ£¬°üº¬±ß½ç
+			//è¯»å–åŒºåŸŸåç§°ï¼ŒåŒ…å«è¾¹ç•Œ
 			if (index == 39)
 			{
 				QStringList slist = line.split(" ");

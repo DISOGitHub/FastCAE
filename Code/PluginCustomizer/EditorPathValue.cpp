@@ -47,7 +47,7 @@ namespace FastCAEDesigner{
 		_ui->label_3->setVisible(l);
 		_ui->FIleSuffixLE->setVisible(l);
 		_ui->label_4->setVisible(l);
-		_ui->ValueLE->setText("");//Added xvdongming 2020-02-13 ÔÚÇĞ»»Â·¾¶ÀàĞÍÊ±£¬Çå³ıÔ­À´µÄÊı¾İ£¬±ÜÃâÊı¾İ´íÎó¡£
+		_ui->ValueLE->setText("");//Added xvdongming 2020-02-13 åœ¨åˆ‡æ¢è·¯å¾„ç±»å‹æ—¶ï¼Œæ¸…é™¤åŸæ¥çš„æ•°æ®ï¼Œé¿å…æ•°æ®é”™è¯¯ã€‚
 	}
 	void EditorPathValue::InitErrorList()
 	{

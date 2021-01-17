@@ -76,7 +76,7 @@ namespace GUI
 {
 	SignalHandler::SignalHandler(MainWindow* mainwindow) : _mainWindow(mainwindow)
 	{
-		///注册工程树鼠标事件传递给signalHandler
+		///娉ㄥ唽宸ョ▼鏍戦紶鏍囦簨浠朵紶閫掔粰signalHandler
 		connect(mainwindow, SIGNAL(treeMouseEvent(int, QTreeWidgetItem*, int)), this, SLOT(handleTreeMouseEvent(int, QTreeWidgetItem*, int)));
 		connect(mainwindow, SIGNAL(solveProjectSig(int, int)), this, SLOT(solveProjectPy(int, int)));//liu
 		connect(mainwindow->getUi()->actionSurfaceMesh, SIGNAL(triggered()), this, SLOT(generateSurfaceMesh()));
@@ -107,7 +107,7 @@ namespace GUI
 
 		connect(mainwindow->getUi()->actionUser_Guidance, SIGNAL(triggered()), this, SLOT(showUserGuidence()));
 
-		//创建几何
+		//鍒涘缓鍑犱綍
 		connect(mainwindow->getUi()->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
 		connect(mainwindow->getUi()->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
 		connect(mainwindow->getUi()->actionCreateBox, SIGNAL(triggered()), this, SLOT(createBox()));
@@ -450,7 +450,7 @@ namespace GUI
 		Geometry::GeometryData* geoData = Geometry::GeometryData::getInstance();
 		ModelData::ModelDataSingleton* modelData = ModelData::ModelDataSingleton::getinstance();
 
-		//全部置灰
+		//鍏ㄩ儴缃伆
 		ui->actionSave->setEnabled(false);
 		ui->actionSaveAs->setEnabled(false);
 		ui->actionSolve->setEnabled(false);
@@ -490,7 +490,7 @@ namespace GUI
 		ui->actionCreateGeoComponent->setEnabled(false);
 		ui->actionVTKTranslation->setEnabled(false);
 
-		//打开可用Action
+		//鎵撳紑鍙敤Action
 		const int nMesh = meshData->getKernalCount();
 		const int ngeo = geoData->getGeometrySetCount();
 		const int nModel = modelData->getModelCount();

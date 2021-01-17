@@ -11,13 +11,13 @@ namespace ModelData
 	class ModelDataBase;
 }
 
-//Ğ´³öµÄÂ·¾¶ÓëÄ£ĞÍ
+//å†™å‡ºçš„è·¯å¾„ä¸æ¨¡å‹
 typedef bool(*WRITEINPFILE)(QString, ModelData::ModelDataBase*);
-//×ª»»Ô­ÎÄ¼şÂ·¾¶
+//è½¬æ¢åŸæ–‡ä»¶è·¯å¾„
 typedef bool(*TRANSFEROUTFILE)(QString);
-//µ¼ÈëÍø¸ñ  ÎÄ¼şÃû³Æ
+//å¯¼å…¥ç½‘æ ¼  æ–‡ä»¶åç§°
 typedef bool(*IMPORTMESHFUN)(QString, int);
-//µ¼³öÍø¸ñ  ÎÄ¼şÃû³Æ  id
+//å¯¼å‡ºç½‘æ ¼  æ–‡ä»¶åç§°  id
 typedef bool(*EXPORTMESHFUN)(QString, int);
 
 namespace IO
@@ -28,44 +28,44 @@ namespace IO
 		IOConfigure() = default;
 		~IOConfigure() = default;
 
-		//×¢²áĞ´³öµÄºó×ºÓë·½·¨
+		//æ³¨å†Œå†™å‡ºçš„åç¼€ä¸æ–¹æ³•
 		static void RegisterInputFile(QString suffix, WRITEINPFILE fun);
-		//×¢²á½á¹ûÎÄ¼ş×ª»»·½·¨
+		//æ³¨å†Œç»“æœæ–‡ä»¶è½¬æ¢æ–¹æ³•
 		static void RegisterOutputTransfer(QString name, TRANSFEROUTFILE fun);
-		//×¢²áÍø¸ñÎÄ¼şµ¼ÈëµÄ·½·¨
+		//æ³¨å†Œç½‘æ ¼æ–‡ä»¶å¯¼å…¥çš„æ–¹æ³•
 		static void RegisterMeshImporter(QString suffix, IMPORTMESHFUN fun);
-		//×¢²áÍø¸ñµ¼³öµÄ·½·¨
+		//æ³¨å†Œç½‘æ ¼å¯¼å‡ºçš„æ–¹æ³•
 		static void RegisterMeshExporter(QString suffix, EXPORTMESHFUN fun);
 
-		//ÒÆ³ıĞ´³öÎÄ¼şµÄºó×º×¢²á
+		//ç§»é™¤å†™å‡ºæ–‡ä»¶çš„åç¼€æ³¨å†Œ
 		static void RemoveInputFile(QString s);
-		//ÒÆ³ı½á¹ûÎÄ¼ş×ª»»
+		//ç§»é™¤ç»“æœæ–‡ä»¶è½¬æ¢
 		static void RemoveOutputTransfer(QString name);
-		//ÒÆ³ıµ¼ÈëÍø¸ñµÄ·½·¨
+		//ç§»é™¤å¯¼å…¥ç½‘æ ¼çš„æ–¹æ³•
 		static void RemoveMeshImporter(QString suffix);
-		//ÒÆ³ıµ¼³öÍø¸ñµÄ·½·¨
+		//ç§»é™¤å¯¼å‡ºç½‘æ ¼çš„æ–¹æ³•
 		static void RemoveMeshExporter(QString suffix);
 
-		//»ñÈ¡ËùÓĞÊäÈëÎÄ¼ş¸ñÊ½
+		//è·å–æ‰€æœ‰è¾“å…¥æ–‡ä»¶æ ¼å¼
 		static QStringList getInputFileFormat();
-		//»ñÈ¡ËùÓĞÊä³öÎÄ¼ş×ª»»Æ÷
+		//è·å–æ‰€æœ‰è¾“å‡ºæ–‡ä»¶è½¬æ¢å™¨
 		static QStringList getOutputFileTransfers();
-		//»ñÈ¡ËùÓĞ×¢²áµÄÍø¸ñ¶ÁÈë·½·¨
+		//è·å–æ‰€æœ‰æ³¨å†Œçš„ç½‘æ ¼è¯»å…¥æ–¹æ³•
 		static QStringList getMeshImporters();
-		//»ñÈ¡ËùÓĞ×¢²áµÄÍø¸ñ¶ÁÈë·½·¨
+		//è·å–æ‰€æœ‰æ³¨å†Œçš„ç½‘æ ¼è¯»å…¥æ–¹æ³•
 		static QStringList getMeshExporters();
 
-		//»ñÈ¡ÎÄ¼şĞ´³ö·½·¨
+		//è·å–æ–‡ä»¶å†™å‡ºæ–¹æ³•
 		static WRITEINPFILE getInputFileWriter(QString format);
-		//»ñÈ¡ÎÄ¼ş×ª»»·½·¨
+		//è·å–æ–‡ä»¶è½¬æ¢æ–¹æ³•
 		static TRANSFEROUTFILE getOutputTransfer(QString tras);
-		//»ñÈ¡Íø¸ñ¶ÁÈëµÄ·½·¨
+		//è·å–ç½‘æ ¼è¯»å…¥çš„æ–¹æ³•
 		static IMPORTMESHFUN getMeshImporter(QString suffix);
-		//»ñÈ¡Íø¸ñµ¼³öµÄ·½·¨
+		//è·å–ç½‘æ ¼å¯¼å‡ºçš„æ–¹æ³•
 		static EXPORTMESHFUN getMeshExporter(QString suffix);
 
 	private:
-		//ºó×º - ·½·¨
+		//åç¼€ - æ–¹æ³•
 		static QHash<QString, WRITEINPFILE> _inpWriteFun;  
 		static QHash<QString, TRANSFEROUTFILE> _outFileTransfer;
 		static QHash<QString, IMPORTMESHFUN> _inputmeshFuns;

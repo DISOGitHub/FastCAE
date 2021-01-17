@@ -12,24 +12,24 @@ namespace DataProperty
 		~ParameterInt() = default;
 
 		void copy(ParameterBase* ori, bool valueOnly = false) override;
-	    //ÉèÖÃÖµ
+	    //è®¾ç½®å€¼
 		void setValue(int v);
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		int getValue();
-		//ÉèÖÃ·¶Î§
+		//è®¾ç½®èŒƒå›´
 		void setRange(int* range);
-		//»ñÈ¡·¶Î§
+		//è·å–èŒƒå›´
 		void getRange(int* range);
-		//ÉèÖÃµ¥Î»(Á¿¸Ù)
+		//è®¾ç½®å•ä½(é‡çº²)
 		void setUnit(QString unit);
-		//»ñÈ¡µ¥Î»(Á¿¸Ù)
+		//è·å–å•ä½(é‡çº²)
 		QString getUnit();
 		bool isSameValueWith(ParameterBase* p) override;
 
 		void writeParameter(QDomDocument* doc, QDomElement* parent) override;
 		void readParameter(QDomElement* e) override;
 		QString valueToString() override;
-		//Í¨¹ı×Ö·û´®ÉèÖÃÖµ
+		//é€šè¿‡å­—ç¬¦ä¸²è®¾ç½®å€¼
 		void setValueFromString(QString v);
 
 	private:

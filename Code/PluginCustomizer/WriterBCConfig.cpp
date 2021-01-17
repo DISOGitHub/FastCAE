@@ -20,7 +20,7 @@ namespace FastCAEDesigner
 	{
 	}
 
-	//bcModelLlist:边界参数列表
+	//bcModelLlist:杈圭晫鍙傛暟鍒楄〃
 	bool WriteBCConfig::Write(QList<ModelBase*> bcModelList)
 	{
 		QDomDocument doc;

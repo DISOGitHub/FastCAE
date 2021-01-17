@@ -90,10 +90,10 @@ public:
 	//script
 	virtual void reTranslate();
 
-	///<MG »ñÈ¡ÈýÎ¬ºó´¦ÀíÊ÷ÉÏÎÄ¼þ/ÎÄ¼þ×éµã¸öÊý
+	///<MG èŽ·å–ä¸‰ç»´åŽå¤„ç†æ ‘ä¸Šæ–‡ä»¶/æ–‡ä»¶ç»„ç‚¹ä¸ªæ•°
 	int getNodeNum() const;
 
-	///<MG ¸ù¾Ýindex »ñÈ¡½Úµã
+	///<MG æ ¹æ®index èŽ·å–èŠ‚ç‚¹
 	PipelineObject * getNodeByIndex(int index);
 
 signals:
@@ -144,7 +144,7 @@ private:
 	QTreeWidgetItem* cur_Item;
 	bool flag_pipelineObj_selected;
 	QTreeWidget *pipelineObjTree;
-	void SetPipelineIconByPipelineType(PipelineObject* pipeObj, QTreeWidgetItem* pitem);//¸ù¾ÝpipelineÀàÐÍÉèÖÃÍ¼±ê
+	void SetPipelineIconByPipelineType(PipelineObject* pipeObj, QTreeWidgetItem* pitem);//æ ¹æ®pipelineç±»åž‹è®¾ç½®å›¾æ ‡
 	//script
 	bool flag_script_ani;
 	renderview_global_prop script_renderViewPara;

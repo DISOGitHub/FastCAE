@@ -65,7 +65,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Ïà¹ØµÄĞÅºÅ²ÛÁ¬½Ó
+	ç›¸å…³çš„ä¿¡å·æ§½è¿æ¥
 	*/
 	void PropPickerInteractionStyle::connectToMainWindow(GUI::MainWindow* mw, QWidget* p)
 	{
@@ -77,7 +77,7 @@ namespace ModuleBase
 	}
 
 	/*
-	ÉèÖÃµ±Ç°Ê°È¡Ä£ĞÍÑ¡ÔñÄ£Ê½
+	è®¾ç½®å½“å‰æ‹¾å–æ¨¡å‹é€‰æ‹©æ¨¡å¼
 	*/
 	void PropPickerInteractionStyle::setSelectModel(int m)
 	{
@@ -118,7 +118,7 @@ namespace ModuleBase
 	}
 
 	/*
-	°´¼ü´¥·¢
+	æŒ‰é”®è§¦å‘
 	*/
 	void PropPickerInteractionStyle::keyEvent(int type, QKeyEvent* e)
 	{
@@ -148,7 +148,7 @@ namespace ModuleBase
 	}
 	
 	/*
-	Êó±ê×ó¼ü°´ÏÂ´¥·¢ÊÂ¼ş
+	é¼ æ ‡å·¦é”®æŒ‰ä¸‹è§¦å‘äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnLeftButtonDown()
 	{
@@ -193,7 +193,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±ê×ó¼üÌ§Æğ´¥·¢ÊÂ¼ş
+	é¼ æ ‡å·¦é”®æŠ¬èµ·è§¦å‘äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnLeftButtonUp()
 	{
@@ -235,7 +235,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÒÆ¶¯
+	é¼ æ ‡ç§»åŠ¨
 	*/
 	void PropPickerInteractionStyle::OnMouseMove()
 	{
@@ -260,19 +260,19 @@ namespace ModuleBase
 		{
 			int* endPos = this->GetInteractor()->GetEventPosition();
 
-			//»ñÈ¡µ½Êó±êÊ°È¡µ½µÄÈıÎ¬×ø±êµãÖµ
+			//è·å–åˆ°é¼ æ ‡æ‹¾å–åˆ°çš„ä¸‰ç»´åæ ‡ç‚¹å€¼
 			QVector<double*> points;
 			vtkActor* ac = nullptr;
 			vtkSmartPointer<vtkPropPicker> actorPicker = vtkSmartPointer<vtkPropPicker>::New();
 			int p = actorPicker->Pick(endPos[0], endPos[1], 0, this->GetDefaultRenderer());
-			//Î´Ê°È¡µ½Ö±½Ó·¢ËÍÒ»¸ö¿ÕacºÍ¿ÕµÄpointsµã¼¯ºÏ
+			//æœªæ‹¾å–åˆ°ç›´æ¥å‘é€ä¸€ä¸ªç©ºacå’Œç©ºçš„pointsç‚¹é›†åˆ
 			if (p == 0)
 			{
 				emit preSelectGeometry(ac, points);
 				_renderWindow->Render();
 				return;
 			}
-			//ÃæÄ£Ê½ÏÂ²ÉÈ¡cellpickerÊ°È¡·½Ê½Ê°È¡·¢ËÍÊ°È¡µ½µÄcellµÄµã¼¯ºÏ
+			//é¢æ¨¡å¼ä¸‹é‡‡å–cellpickeræ‹¾å–æ–¹å¼æ‹¾å–å‘é€æ‹¾å–åˆ°çš„cellçš„ç‚¹é›†åˆ
 			if (_selectModel == GeometrySurface || _selectModel == GeometryWinSurface)
 			{
 				vtkSmartPointer<vtkCellPicker> picker = vtkSmartPointer<vtkCellPicker>::New();
@@ -315,7 +315,7 @@ namespace ModuleBase
 				_renderWindow->Render();
 
 			}
-			//µãÄ£Ê½ÏÂÊ°È¡²ÉÓÃvtkPointPickerµÄÊ°È¡·½Ê½½øĞĞÊ°È¡·¢ËÍÊ°È¡µ½µÄµãÖµ
+			//ç‚¹æ¨¡å¼ä¸‹æ‹¾å–é‡‡ç”¨vtkPointPickerçš„æ‹¾å–æ–¹å¼è¿›è¡Œæ‹¾å–å‘é€æ‹¾å–åˆ°çš„ç‚¹å€¼
 			else if (_selectModel == GeometryPoint || _selectModel == GeometryWinPoint){
 				vtkSmartPointer<vtkPointPicker> picker = vtkSmartPointer<vtkPointPicker>::New();
 				int p = picker->Pick(endPos[0], endPos[1], 0, this->GetDefaultRenderer());
@@ -347,7 +347,7 @@ namespace ModuleBase
 
 				//std::cout << "point mouse picked point: " << pos[0] << " _ " << pos[1] << " _ " << pos[2] << endl;
 			}
-			//ÏßÄ£Ê½ÏÂÊ°È¡²ÉÓÃvtkpropPickerÊ°È¡·½Ê½Ê°È¡·¢ËÍµ±Ç°Ê°È¡Æ÷ËùÔÚµÄÎ»ÖÃ×ø±êµã·¢ËÍ¸Ã×ø±êÖµ
+			//çº¿æ¨¡å¼ä¸‹æ‹¾å–é‡‡ç”¨vtkpropPickeræ‹¾å–æ–¹å¼æ‹¾å–å‘é€å½“å‰æ‹¾å–å™¨æ‰€åœ¨çš„ä½ç½®åæ ‡ç‚¹å‘é€è¯¥åæ ‡å€¼
 			else if (_selectModel == GeometryCurve || _selectModel == GeometryWinCurve) {
 				vtkSmartPointer<vtkPropPicker> picker = vtkSmartPointer<vtkPropPicker>::New();
 				int p = picker->Pick(endPos[0], endPos[1], 0, this->GetDefaultRenderer());
@@ -368,7 +368,7 @@ namespace ModuleBase
 
 				//std::cout << "line mouse picked point: " << pos[0] << " _ " << pos[1] << " _ " << pos[2] << endl;
 			}
-			//ÊµÌåÄ£Ê½²ÉÈ¡cellpickerÊ°È¡·½Ê½Ê°È¡·¢ËÍÊ°È¡µ½µÄcellµÄµã¼¯ºÏ
+			//å®ä½“æ¨¡å¼é‡‡å–cellpickeræ‹¾å–æ–¹å¼æ‹¾å–å‘é€æ‹¾å–åˆ°çš„cellçš„ç‚¹é›†åˆ
 			else if (_selectModel == GeometryBody || _selectModel == GeometryWinBody){
 				vtkSmartPointer<vtkCellPicker> picker = vtkSmartPointer<vtkCellPicker>::New();
 				int p = picker->Pick(endPos[0], endPos[1], 0, this->GetDefaultRenderer());
@@ -415,7 +415,7 @@ namespace ModuleBase
 	}
 
 	/*
-	¼¸ºÎÏà¹ØµÄÊó±êÑ¡È¡¸ßÁÁ´¥·¢º¯Êı
+	å‡ ä½•ç›¸å…³çš„é¼ æ ‡é€‰å–é«˜äº®è§¦å‘å‡½æ•°
 	*/
 	void PropPickerInteractionStyle::clickSelectGeometry()
  	{
@@ -432,7 +432,7 @@ namespace ModuleBase
 			emit clearAllHighLight();
 			return;
 		}
-		//»ñÈ¡µ½Êó±êÊ°È¡µ½µÄÈıÎ¬×ø±êµãÖµ
+		//è·å–åˆ°é¼ æ ‡æ‹¾å–åˆ°çš„ä¸‰ç»´åæ ‡ç‚¹å€¼
 		double picked[3];
 		picker->GetPickPosition(picked);
 		vtkActor* actor = picker->GetActor();
@@ -441,7 +441,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñÄ£ĞÍÑ¡È¡¸ßÁÁµã´¥·¢º¯Êı
+	ç½‘æ ¼æ¨¡å‹é€‰å–é«˜äº®ç‚¹è§¦å‘å‡½æ•°
 	*/
 	void PropPickerInteractionStyle::clickSelectMeshNode()
 	{
@@ -461,7 +461,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñÏà¹ØµÄÊ°È¡¸ßÁÁµ¥ÔªµÄ´¥·¢º¯Êı
+	ç½‘æ ¼ç›¸å…³çš„æ‹¾å–é«˜äº®å•å…ƒçš„è§¦å‘å‡½æ•°
 	*/
 	void PropPickerInteractionStyle::clickSelectMeshCell()
 	{
@@ -482,7 +482,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñÏÔÊ¾µãµÄÏà¹ØĞÅÏ¢
+	ç½‘æ ¼æ˜¾ç¤ºç‚¹çš„ç›¸å…³ä¿¡æ¯
 	*/
 	void PropPickerInteractionStyle::displayNodeInfo(vtkDataSet* dataset, int id)
 	{
@@ -504,7 +504,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñÏà¹ØµÄ¿òÑ¡µãµÄÑ¡È¡¸ßÁÁ´¥·¢º¯Êı
+	ç½‘æ ¼ç›¸å…³çš„æ¡†é€‰ç‚¹çš„é€‰å–é«˜äº®è§¦å‘å‡½æ•°
 	*/
 	void PropPickerInteractionStyle::boxSelectMeshNode()
 	{
@@ -526,7 +526,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñÄ£ĞÍÏà¹ØµÄµ¥Ôª¿òÑ¡È¡¸ßÁÁ´¥·¢º¯Êı
+	ç½‘æ ¼æ¨¡å‹ç›¸å…³çš„å•å…ƒæ¡†é€‰å–é«˜äº®è§¦å‘å‡½æ•°
 	*/
 	void PropPickerInteractionStyle::boxSelectMeshCell()
 	{
@@ -547,7 +547,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Íø¸ñ¿òÑ¡»ñÈ¡µ±Ç°¿òÑ¡µÄ·¶Î§ÇøÓòÖµ
+	ç½‘æ ¼æ¡†é€‰è·å–å½“å‰æ¡†é€‰çš„èŒƒå›´åŒºåŸŸå€¼
 	*/
 	void PropPickerInteractionStyle::getBoxRange(int* range)
 	{
@@ -573,7 +573,7 @@ namespace ModuleBase
 	}
 
 	/*
-	¸ù¾İ¿òÑ¡µÄ·¶Î§ÇøÓòÖµ¼ÆËã³öµ±Ç°ÊµÌåÏÂµÄÑ¡È¡µ½µÄËùÓĞµ¥Ôª»òµãµÄ¼¯ºÏ
+	æ ¹æ®æ¡†é€‰çš„èŒƒå›´åŒºåŸŸå€¼è®¡ç®—å‡ºå½“å‰å®ä½“ä¸‹çš„é€‰å–åˆ°çš„æ‰€æœ‰å•å…ƒæˆ–ç‚¹çš„é›†åˆ
 	*/
 	void PropPickerInteractionStyle::selectMeshKernal(MeshData::MeshKernal* k, int *range)
 	{
@@ -629,7 +629,7 @@ namespace ModuleBase
 	}
 
 	/*
-	ÅĞ¶Ïµ±Ç°µãÊÇ·ñÔÚ¿òÑ¡µÄ·¶Î§ÇøÓòÖµÄÚ
+	åˆ¤æ–­å½“å‰ç‚¹æ˜¯å¦åœ¨æ¡†é€‰çš„èŒƒå›´åŒºåŸŸå€¼å†…
 	*/
 	bool PropPickerInteractionStyle::isPointInRange(int* p, int* range)
 	{
@@ -641,7 +641,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÖĞ¼ä¹öÂÖ°´ÏÂÊÂ¼ş
+	é¼ æ ‡ä¸­é—´æ»šè½®æŒ‰ä¸‹äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnMiddleButtonDown()
 	{
@@ -657,7 +657,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÖĞ¼ä¹öÂÖÌ§ÆğÊÂ¼ş
+	é¼ æ ‡ä¸­é—´æ»šè½®æŠ¬èµ·äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnMiddleButtonUp()
 	{
@@ -675,7 +675,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÖĞ¼ä¹öÂÖÏòÇ°ÊÂ¼ş
+	é¼ æ ‡ä¸­é—´æ»šè½®å‘å‰äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnMouseWheelForward()
 	{
@@ -685,7 +685,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÖĞ¼ä¹öÂÖÏòºóÊÂ¼ş
+	é¼ æ ‡ä¸­é—´æ»šè½®å‘åäº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnMouseWheelBackward()
 	{
@@ -694,11 +694,11 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÓÒ¼ü°´ÏÂ´¥·¢ÊÂ¼ş
+	é¼ æ ‡å³é”®æŒ‰ä¸‹è§¦å‘äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnRightButtonDown()
 	{
-		//ÅĞ¶ÏÊÇ·ñÑ¡ÖĞ¼¸ºÎ£¬bool
+		//åˆ¤æ–­æ˜¯å¦é€‰ä¸­å‡ ä½•ï¼Œbool
 		//bool isSelectBody = false;
 		//if (_preGeoSeltctActor != nullptr) return;
 		Geometry::GeometryData* data = Geometry::GeometryData::getInstance();
@@ -711,7 +711,7 @@ namespace ModuleBase
 	}
 
 	/*
-	Êó±êÓÒ¼üÌ§Æğ´¥·¢ÊÂ¼ş
+	é¼ æ ‡å³é”®æŠ¬èµ·è§¦å‘äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnRightButtonUp()
 	{
@@ -722,7 +722,7 @@ namespace ModuleBase
 	}
 
 	/*
-	¼üÅÌÉÏµÄÏòÉÏ¼ıÍ·°´¼ü´¥·¢ÊÂ¼ş
+	é”®ç›˜ä¸Šçš„å‘ä¸Šç®­å¤´æŒ‰é”®è§¦å‘äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnKeyBoardUp()
 	{
@@ -752,7 +752,7 @@ namespace ModuleBase
 	}
     
 	/*
-	¼üÅÌÉÏµÄÏòÏÂ¼ıÍ·°´¼üÊÂ¼ş
+	é”®ç›˜ä¸Šçš„å‘ä¸‹ç®­å¤´æŒ‰é”®äº‹ä»¶
 	*/
 	void PropPickerInteractionStyle::OnKeyBoardDown()
 	{
@@ -782,7 +782,7 @@ namespace ModuleBase
 	}
 
 	/*
-	ÉèÖÃäÖÈ¾´°¿Ú
+	è®¾ç½®æ¸²æŸ“çª—å£
 	*/
 	void PropPickerInteractionStyle::setRenderWindow(vtkRenderWindow* w)
 	{
@@ -790,7 +790,7 @@ namespace ModuleBase
 	}
 
 	/*
-	ÉèÖÃäÖÈ¾Æ÷
+	è®¾ç½®æ¸²æŸ“å™¨
 	*/
 	void PropPickerInteractionStyle::setRender(vtkRenderer* r)
 	{
@@ -798,7 +798,7 @@ namespace ModuleBase
 	}
 
 	/*
-	¸ù¾İÑÕÉ«ÖµµÄ±È½ÏÀ´ÅĞ¶Ïµ±Ç°actorÊÇ·ñÒÑ¾­¸ßÁÁ£¨Î´Ê¹ÓÃ£©
+	æ ¹æ®é¢œè‰²å€¼çš„æ¯”è¾ƒæ¥åˆ¤æ–­å½“å‰actoræ˜¯å¦å·²ç»é«˜äº®ï¼ˆæœªä½¿ç”¨ï¼‰
 	*/
 	bool PropPickerInteractionStyle::isActorHightLighted(vtkActor* ac)
 	{

@@ -33,68 +33,68 @@ namespace MainWidget
 	public:
 		MeshWidget(GUI::MainWindow* mw, QWidget* parent = nullptr);
 		~MeshWidget();
-		//×¢²á¿ª·Å¿ÉÓÃ½Ó¿Ú
+		//æ³¨å†Œå¼€æ”¾å¯ç”¨æ¥å£
 		void registerEnabledModule();
 
 	signals:
-		//¸üĞÂÏÔÊ¾×´Ì¬
+		//æ›´æ–°æ˜¾ç¤ºçŠ¶æ€
 		void updateDisplay(int index,bool visable);
 		void updateMeshSetVisible(MeshData::MeshSet*);
-		//ÒÆ³ıµÚindex¸öKernal
+		//ç§»é™¤ç¬¬indexä¸ªKernal
 		void removeMeshData(int index);
 		void removeSetData(int index);
-		//¸ßÁÁ×é¼ş
+		//é«˜äº®ç»„ä»¶
 		void higtLightSet(MeshData::MeshSet* set);
-		//¸ßÁÁKernal
+		//é«˜äº®Kernal
 		void higtLightKernal(MeshData::MeshKernal* k);
-		//¸üĞÂÊôĞÔ
+		//æ›´æ–°å±æ€§
 		void disPlayProp(DataProperty::DataBase* pops);
-		//¸üĞÂ×´Ì¬
+		//æ›´æ–°çŠ¶æ€
 		void updateActionStates();
-		//ÏÔÊ¾²ÎÊı´°Ìå
+		//æ˜¾ç¤ºå‚æ•°çª—ä½“
 		void dispalyParaWidget(QWidget*);
 		void updatePreMeshActor();
 		void startMesherPySig(QString mesher);
-		//Çå³ı¸ßÁÁ
+		//æ¸…é™¤é«˜äº®
 		void clearHighLight();
-		//»Ø¹ö±à¼­
+		//å›æ»šç¼–è¾‘
 		void editMesh(int, int);
-		//µ±É¾³ıÒ»¸ö×é¼şÊ±£¬¶ÔÓ¦µÄËãÀıÖĞµÄ×é¼şÒ²Ó¦¸ÃÉ¾³ı
+		//å½“åˆ é™¤ä¸€ä¸ªç»„ä»¶æ—¶ï¼Œå¯¹åº”çš„ç®—ä¾‹ä¸­çš„ç»„ä»¶ä¹Ÿåº”è¯¥åˆ é™¤
 		void removeCaseComponentSig(int componentID);
-		//ÖØÃüÃûËãÀıÖĞµÄÏî(×é¼şitemºÍ±ß½çitem)
+		//é‡å‘½åç®—ä¾‹ä¸­çš„é¡¹(ç»„ä»¶itemå’Œè¾¹ç•Œitem)
 		void renameCaseComponentSig(int componentID);
 
 	//	void showDialog(QDialog*);
 
 	public slots :
-		//¸üĞÂÊ÷
+		//æ›´æ–°æ ‘
 		void updateTree();
-		//¸üĞÂÍø¸ñkernal×ÓÊ÷
+		//æ›´æ–°ç½‘æ ¼kernalå­æ ‘
 		void updateMeshTree();
-		//¸üĞÂ×é¼ş×ÓÊ÷
+		//æ›´æ–°ç»„ä»¶å­æ ‘
 		void updateMeshSetTree();
-		//Êó±êµ¥»÷ÊÂ¼ş
+		//é¼ æ ‡å•å‡»äº‹ä»¶
 		void singleClicked(QTreeWidgetItem*, int);
-		//ÒÆ³ıµ±Ç°Kernal
+		//ç§»é™¤å½“å‰Kernal
 		void removeMeshData();
-		///ÒÆ³ıµ±Ç°×é¼ş
+		///ç§»é™¤å½“å‰ç»„ä»¶
 		void removeCurrSetData();
-		//±à¼­µ±Ç°kernal
+		//ç¼–è¾‘å½“å‰kernal
 		void editMeshData();
 		//
 		void preWindowOpened(MainWidget::PreWindow* p);
 
 	private slots:
 		void startMesher(QString mesher);
-		//Òş²ØÈ«²¿
+		//éšè—å…¨éƒ¨
 		void hideAll();
-		//ÏÔÊ¾È«²¿
+		//æ˜¾ç¤ºå…¨éƒ¨
 		void showAll();
-		//ºÏ²¢ÓëÇĞ³ı
+		//åˆå¹¶ä¸åˆ‡é™¤
 		void mergeSet();
-		//ÖØÃüÃû
+		//é‡å‘½å
 		void rename();
-		//½Úµã×´Ì¬¸Ä±ä
+		//èŠ‚ç‚¹çŠ¶æ€æ”¹å˜
 		void itemStatesChanged(QTreeWidgetItem*, int);
 
 	private:

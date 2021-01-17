@@ -15,24 +15,24 @@ namespace ModelData
 	class MODELDATAAPI ModelDataSingleton : public DataProperty::DataBase
 	{
 	public:
-		//»ñÈ¡µ¥Àı
+		//è·å–å•ä¾‹
 		static ModelDataSingleton* getinstance();
-		//Ìí¼ÓÄ£ĞÍ
+		//æ·»åŠ æ¨¡å‹
 		void appendModel(ModelDataBase* model);
-		//»ñÈ¡µÚindex¸öÄ£ĞÍ
+		//è·å–ç¬¬indexä¸ªæ¨¡å‹
 		ModelDataBase* getModelAt(const int index);
-		//»ñÈ¡Ä£ĞÍ¸öÊı
+		//è·å–æ¨¡å‹ä¸ªæ•°
 		int getModelCount();
-		//Í¨¹ıID»ñÈ¡Ä£ĞÍ
+		//é€šè¿‡IDè·å–æ¨¡å‹
 		ModelDataBase* getModelByID(const int id);
-		//Í¨¹ıÃû³Æ»ñÈ¡Ä£ĞÍ
+		//é€šè¿‡åç§°è·å–æ¨¡å‹
 		ModelDataBase* getModelByName(QString name);
 		QString getMD5();
-		//Çå¿ÕÊı¾İ
+		//æ¸…ç©ºæ•°æ®
 		void clear();
-		//ÒÆ³ıIDÎªidµÄÄ£ĞÍ
+		//ç§»é™¤IDä¸ºidçš„æ¨¡å‹
 		void removeModelByID(const int id);
-		//»ñÈ¡µÚindex¸öÄ£ĞÍµÄID
+		//è·å–ç¬¬indexä¸ªæ¨¡å‹çš„ID
 		int getModelIDByIndex(const int index);
 		QDomElement& writeToProjectFile(QDomDocument* doc, QDomElement* parent) override;
 	

@@ -17,19 +17,19 @@ namespace DataProperty
 	public:
 		ComponentBase(ComponentType type);
 		virtual ~ComponentBase();
-		//»ñÈ¡×é¼şÀàĞÍ
+		//è·å–ç»„ä»¶ç±»å‹
 		ComponentType getComponentType();
-		//ÉèÖÃ×é¼şID
+		//è®¾ç½®ç»„ä»¶ID
 		void setID(int);
-		//»ñÈ¡×î´óID
+		//è·å–æœ€å¤§ID
 		static int getMaxID();
-		//ÖØÖÃ×î´óID
+		//é‡ç½®æœ€å¤§ID
 		static void resetMaxID();
- 		//¸ù¾İID»ñÈ¡×é¼şÀàĞÍ£¬Ö»ÓĞÒ»¸öIDµÄÇé¿öÏÂ£¬¶øÃ»ÓĞ¶ÔÏó
+ 		//æ ¹æ®IDè·å–ç»„ä»¶ç±»å‹ï¼Œåªæœ‰ä¸€ä¸ªIDçš„æƒ…å†µä¸‹ï¼Œè€Œæ²¡æœ‰å¯¹è±¡
  		static ComponentType getComponentTypeByID(int ID);
-		//Ã¶¾Ù×ª×Ö·û´®
+		//æšä¸¾è½¬å­—ç¬¦ä¸²
 		static QString componentTypeToString(ComponentType cpType);
-		//×Ö·û´®×ªÃ¶¾Ù
+		//å­—ç¬¦ä¸²è½¬æšä¸¾
 		static ComponentType stringToComponentType(QString sType);
 
 	private:

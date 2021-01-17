@@ -12,9 +12,9 @@ namespace DataProperty
 		~ParameterBool() = default;
 
 		void copy(ParameterBase* ori, bool valueOnly = false) override;
-		//ÉèÖÃÖµ
+		//è®¾ç½®å€¼
 		void setValue(bool ok);
-		//»ñÈ¡Öµ
+		//è·å–å€¼
 		bool getValue();
 		bool isSameValueWith(ParameterBase* p) override;
 		void writeParameter(QDomDocument* doc, QDomElement* parent) override;
