@@ -127,7 +127,6 @@ qmake CONFIG+=X64 -tp vc XGenerateReport.pro
 cd ..\
 qmake -tp vc FastCAE.pro
 
-cd ..\
 copy /y ".\python\py\*.py" "..\output\bin_d"
 copy /y ".\python\py\*.py" "..\output\bin"
   
