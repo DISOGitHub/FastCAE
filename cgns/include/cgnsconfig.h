@@ -35,12 +35,12 @@
 #ifndef CGNSCONFIG_H
 #define CGNSCONFIG_H
 
-#define CG_BUILD_DEBUG     0
+#define CG_BUILD_DEBUG     1
 #define CG_BUILD_FORTRAN   0
 #define CG_BUILD_BASESCOPE 0
 
 #define HDF5_INCLUDE_PATH ""
-#define HDF5_LIBRARY      ""
+#define HDF5_LIBRARY      "hdf5-shared"
 
 #define HDF5_NEED_MPI     0
 #define HDF5_NEED_SZIP    0

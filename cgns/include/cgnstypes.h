@@ -29,18 +29,19 @@
 #ifndef CGNSTYPES_H
 #define CGNSTYPES_H
 
-#define CG_BUILD_HDF5   0
+#define CG_BUILD_HDF5   1
 #define CG_BUILD_LEGACY 0
-#define CG_BUILD_64BIT  0
+#define CG_BUILD_64BIT  1
 #define CG_BUILD_SCOPE  0
 #define CG_BUILD_BASESCOPE 0
 #define CG_BUILD_PARALLEL  0
+#define CG_BUILD_COMPLEX_C99_EXT 0
 
 #define CG_MAX_INT32 0x7FFFFFFF
 #ifdef _WIN32
 # define CG_LONG_T __int64
 #ifdef _MSC_VER
-# ifdef CG_BUILD_64BIT
+# if CG_BUILD_64BIT
 #  define stat _stat32i64
 # endif
 #endif
@@ -67,7 +68,7 @@
 
 /* Determine if hdf5 H5Pset_file_space_strategy */
 
-#define HDF5_HAVE_FILE_SPACE_STRATEGY 0
+#define HDF5_HAVE_FILE_SPACE_STRATEGY 1
 
 #endif
 

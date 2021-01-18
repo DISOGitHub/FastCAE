@@ -15,10 +15,10 @@
 # CGNS_BASESCOPE = Base scope for family and zone reference-to
 #-----------------------------------------------------------------------
 
-CGNS_DEBUG     = 0
+CGNS_DEBUG     = 1
 CGNS_LEGACY    = 0
 CGNS_SCOPING   = 0
-CGNS_64BIT     = 0
+CGNS_64BIT     = 1
 CGNS_FORTRAN   = 0
 CGNS_PARALLEL  = 0
 CGNS_BASESCOPE = 0
@@ -28,8 +28,8 @@ CGNS_BASESCOPE = 0
 # CGNS_INCLUDEDIR - installation directory for CGNS headers
 #-----------------------------------------------------------------------
 
-CGNS_LIBDIR     = E:\CGNS4.1.0\CGNS410\lib
-CGNS_INCLUDEDIR = E:\CGNS4.1.0\CGNS410\include
+CGNS_LIBDIR     = F:\cgns_hdf5\debug\lib
+CGNS_INCLUDEDIR = F:\cgns_hdf5\debug\include
 
 #-----------------------------------------------------------------------
 # CGNS_CC      - C compiler used to build library
@@ -38,8 +38,8 @@ CGNS_INCLUDEDIR = E:\CGNS4.1.0\CGNS410\include
 #-----------------------------------------------------------------------
 
 CGNS_CC      = C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\Hostx86\x64\cl.exe
-CGNS_CFLAGS  = /DWIN32 /D_WINDOWS /W3;/MD /O2 /Ob2 /DNDEBUG  
-CGNS_LDFLAGS = /machine:x64;/INCREMENTAL:NO
+CGNS_CFLAGS  = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1  
+CGNS_LDFLAGS = /machine:x64 /debug /INCREMENTAL
 
 #-----------------------------------------------------------------------
 # LIBCGNS - CGNS library name
@@ -55,7 +55,7 @@ CGNS_LIB = $(CGNS_LIBDIR)/cgns.lib
 #-----------------------------------------------------------------------
 
 CGNS_HDF5INC = 
-CGNS_HDF5LIB = 
+CGNS_HDF5LIB = hdf5-shared
 CGNS_SZIPLIB = 
 CGNS_ZLIBLIB = 
 

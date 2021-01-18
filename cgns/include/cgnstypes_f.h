@@ -30,7 +30,7 @@
 #define CGNSTYPES_F_H
 
 #define CG_BUILD_PARALLEL_F 0
-#define CG_BUILD_64BIT_F 0
+#define CG_BUILD_64BIT_F 1
 !#define HAVE_FORTRAN_2003 0
 #define HAVE_FORTRAN_2003 0
 
