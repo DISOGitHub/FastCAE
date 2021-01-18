@@ -1,0 +1,340 @@
+
+/* Nice Windows-XP-style password character. */
+QLineEdit[echoMode="2"] {
+    lineedit-password-character: 9679;
+}
+
+/*inside button*/
+QPushButton{
+    background-color: #eaeef2;
+	color: #1d8de0;
+    border-width: 1px;
+    border-color: #1d8de0;
+    border-style: outset;
+    border-radius: 2;
+    min-width: 80px;
+    min-height: 24px;
+}
+
+QPushButton:hover{
+  background-color: #f0f5ff;
+    border-width: 1px;
+    border-color: 106da0;
+    border-style: outset;
+    border-radius: 2;
+}
+
+QPushButton:pressed{
+    background-color: #9cc1e4;
+	color: blue;
+    border-width: 1px;
+    border-color: #1d8de0;
+    border-style: outset;
+    border-radius: 2;
+    min-width: 80px;
+    min-height: 24px;
+}
+
+QPushButton:!enabled{
+	background-color: #eaeef2;
+	color: #gray;
+    border-width: 1px;
+    border-color: #1d8de0;
+    border-style: outset;
+    border-radius: 2;
+    min-width: 80px;
+    min-height: 24px;
+}
+
+
+/*outside button*//*save_pushButton close_pushButton saveAni_Btn cancle_Btn solveButton cancleButton addPushButton deletePushButton ok_btn From Solver Manger Of Settings*/
+QPushButton#out_OkButton,QPushButton#out_ApplyButton,QPushButton#out_CancelButton,QDialogButtonBox QPushButton,QPushButton#out_AddButton,QPushButton#out_DeleteButton{
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:0.5, x3:0, y3:1, stop:0 #2bc7b7, stop:1 #1d8de0, stop:2 #1556d7);
+	color: white;
+    border-width: 1px;
+    border-color: #1d8de0;
+    border-style: outset;
+    border-radius: 2;
+    min-width: 80px;
+    min-height: 24px;
+}
+
+QPushButton#out_OkButton:hover,QPushButton#out_ApplyButton:hover,QPushButton#out_CancelButton:hover,QDialogButtonBox:hover,QDialogButtonBox QPushButton:hover{
+	background-color: rgb(28,181,255);
+    border-width: 1px;
+    border-color: #1d8de0;
+    border-style: outset;
+    border-radius: 2;
+	color: white;
+}
+
+QPushButton#out_OkButton:pressed,QPushButton#out_ApplyButton:pressed,QPushButton#out_CancelButton:pressed,QDialogButtonBox:pressed,QDialogButtonBox QPushButton:pressed{
+    padding-left: 3px;
+    padding-top: 3px;
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #72c5bd, stop:1 #6c87d2);
+	color: green;
+}
+
+QPushButton#addButton,QPushButton#removeButton,QPushButton#btn_add,QPushButton#btn_del,QPushButton#moreButton{
+	min-width:24px;
+	min-height:24px;
+	max-width:24px;
+	max-height:24px;
+}
+
+QPushButton#geoSelectPoint,QPushButton#geoSelectCurve,QPushButton#geoSelectSurface,QPushButton#geoSelectPoint_1,QPushButton#geoSelectCurve_1,QPushButton#geoSelectSurface_1,QPushButton#geoSelectCurve_2,QPushButton#geoSelect{
+	min-width:31px;
+	min-height:28px;
+	max-width:31px;
+	max-height:28px;
+}
+
+QPushButton#fileSelect,QPushButton#fileSelect_1,QPushButton#fileSelect_2,QPushButton#dirSelect,QPushButton#dirSelect_1,QPushButton#dirSelect_2{
+	min-width:28px;
+	min-height:22px;
+	max-width:28px;
+	max-height:22px;
+}
+
+/*MessageBox 's button*/
+QMessageBox QPushButton {
+	min-width: 18ex;
+    min-height: 6ex;
+}
+
+/* Mark mandatory fields with a brownish color. */
+.mandatory {
+    color: brown;
+}
+
+/* Bold text on status bar looks awful. */
+QStatusBar QLabel {
+   font: normal;
+}
+
+QStatusBar::item {
+    border-width: 1;
+    border-color: #c9c9c9;
+    border-style: solid;
+    border-radius: 2;
+}
+
+QComboBox, QLineEdit, QSpinBox, QTextEdit {
+    background-color: #eaeef1;               		/*背景颜色*/
+    selection-color: #0a214c; 				/*被选中时候的颜色*/
+    selection-background-color: #C19A6B;			/*被选中时候背景的颜色*/
+}
+
+QTextEdit#textEdit {
+	selection-color: #0a214c; 						/*被选中时候的颜色*/
+    selection-background-color: #C19A6B;			/*被选中时候背景的颜色*/
+}
+
+/* We reserve 1 pixel space in padding. When we get the focus,
+   we kill the padding and enlarge the border. This makes the items
+   glow. */
+QLineEdit{
+    border-width: 1px;								/*边的宽度*/
+    padding: 1px;
+    border-style: solid;
+    border-color: #a9a9a9;							/*边的颜色*/
+    border-radius: 1px;
+}
+
+QLineEdit,QComboBox,QLabel{
+	min-height:20px;
+}
+
+/* A QLabel is a QFrame ... */
+QLabel {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+QLabel#DialogBaseTitleLabel{
+	color :white;
+}
+
+QLabel#title_lable{
+	color:white;
+}
+
+/* A QToolTip is a QLabel ... */
+QToolTip {
+    border: 2px solid #c9c9c9;
+    padding: 5px;
+    border-radius: 3px;
+    opacity: 200;
+}
+
+QToolBar, QMenuBar{ 
+	background: rgb(234,238,241); 
+	spacing: 3px; 
+/*	border: 1px solid #c9c9c9; */
+} 
+
+QMenuBar {
+	border-top: 1px solid #ffffff;
+}
+
+
+QToolBar {
+	/*border: 1px solid #c5c5c5;*/
+}
+
+/*
+QMenu::item {
+	padding: 6px 50px 6px 40px;
+}
+
+QMenu::icon{
+	padding: 6px 0px 6px 40px;
+}*/
+
+
+/*QMenuBar {
+		color:gray;
+        border: none;
+}
+
+QMenuBar::item {
+        padding: 10px 10px 10px 30px;
+        background: transparent;
+}
+QMenuBar::item:enabled {
+        color: gray;
+}
+QMenuBar::item:!enabled {
+        color: gray;
+}
+QMenuBar::item:enabled:selected {
+        background: rgba(255, 255, 255, 40);
+}*/
+
+QToolBar{
+	background-image: url(:/Beauty/QUI/beauty/toolbar_bk.png);
+}
+
+
+/* Nice to have the background color change when hovered. */
+QRadioButton:hover /*, QCheckBox:hover*/ {
+	background-color: #eaeef2;
+}
+
+QRadioButton::indicator::unchecked{
+	image: url(:/Beauty/QUI/beauty/radio_unselected.png);
+}
+
+QRadioButton::indicator::checked{
+	image: url(:/Beauty/QUI/beauty/radio_selected.png);
+}
+
+/* Force the dialog's buttons to follow the Windows guidelines. */
+QDialogButtonBox {
+    button-layout: 2;
+}
+
+QTableView, QListView{
+	color: #000000;
+	alternate-background-color: #eaeef2;
+	selection-background-color: #dbebff;
+}
+
+QTableView, QListView {
+    show-decoration-selected: 1;
+}
+
+QListWidget::Item {
+	margin :6px;
+}
+
+QTableView::item:hover, QListView::item:hover {
+    padding-top:2px; 
+	padding-bottom:2px;
+	color: #C19A6B;
+}
+
+QTableView::item:selected{
+	color : black;
+}
+
+QTabBar::tab {
+	min-width: 20px;
+}
+/*QTabBar::tab {
+	min-width: 20px;
+	background-color: rgb(137,179,223);
+	color: white;
+	border: 3px;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	padding:5px;
+}*/
+
+QTreeView {
+	background-color :qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #eaeef1); 
+/*	background-color :#eaeef1;*/
+	border: 20px green;
+	show-decoration-selected:1;
+}
+
+QTreeView::item{
+	margin:6px;
+}
+
+
+QTreeView::branch:has-children:!has-siblings:closed,
+QTreeView::branch:closed:has-children:has-siblings {
+    border-image: none;
+    image: url(:/Beauty/QUI/beauty/tree_normal.png);
+}
+
+QTreeView::branch:open:has-children:!has-siblings,
+QTreeView::branch:open:has-children:has-siblings  {
+    border-image: none;
+    image: url(:/Beauty/QUI/beauty/tree_expand.png);
+}
+
+QTreeView::indicator:enabled:unchecked {  /** 指示器 - 未选中 **/
+        image: url(:/Beauty/QUI/beauty/tree_item_unchecked.png);
+}
+QTreeView::indicator:enabled:unchecked:hover {
+        image: url(:/Beauty/QUI/beauty/tree_item_unchecked.png);
+}
+QTreeView::indicator:enabled:unchecked:pressed {
+        image: url(:/Beauty/QUI/beauty/tree_item_unchecked.png);
+}
+QTreeView::indicator:enabled:checked {  /** 指示器 - 选中 **/
+        image: url(:/Beauty/QUI/beauty/tree_item_checked.png);
+}
+QTreeView::indicator:enabled:checked:hover {
+        image: url(:/Beauty/QUI/beauty/tree_item_checked.png);
+}
+QTreeView::indicator:enabled:checked:pressed {
+        image: url(:/Beauty/QUI/beauty/tree_item_checked.png);
+}
+QTableView::indicator:enabled:indeterminate {  /** 指示器 - 半选 **/
+        background-color: transparent;
+}
+QTreeView::indicator:enabled:indeterminate:hover {
+        background-color: transparent;
+}
+QTreeView::indicator:enabled:indeterminate:pressed {
+        background-color: transparent;
+}
+
+QProgressBar{
+	border:2px solid grey;
+	border-radius:5px;
+	text-align: center;
+}
+
+QProgressBar::chunk {
+	background-color:#05B8CC;
+	width:20px;
+}
+
+/*QTabBar::tab:selected{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:0.5, x3:0, y3:1, stop:0 #2bc7b7, stop:1 #1d8de0, stop:2 #1556d7);
+}*/
