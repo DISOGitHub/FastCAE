@@ -10,7 +10,7 @@ if os.path.exists(desC): shutil.rmtree(desC)
 if os.path.exists(dess): shutil.rmtree(dess)
 
 shutil.copytree(examplePath + "/ConfigFiles/", dirPath + "ConfigFiles/")
-shutil.copytree(examplePath + "/solver/", dirPath + "solver/")
+shutil.copytree(examplePath + "/solver/", dirPath + "Solver/")
 
 MainWindow.updateInterface()
 
