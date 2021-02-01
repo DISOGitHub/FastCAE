@@ -27,7 +27,8 @@ INCLUDEPATH +=  ./ \
 Debug::LIBS +=  -L../../output/bin_d
 Release::LIBS +=  -L../../output/bin
 
-LIBS += -lSelfDefObject -lquazipd -lModelData -lModuleBase -lDataProperty -lIO -lMainWidgets -lPluginManager -lBCBase -lMainWindow -lsqlite3_x64
+Debug::LIBS += -lSelfDefObject -lquazipd -lModelData -lModuleBase -lDataProperty -lIO -lMainWidgets -lPluginManager -lBCBase -lMainWindow -lsqlite3_x64
+Release::LIBS += -lSelfDefObject -lquazip -lModelData -lModuleBase -lDataProperty -lIO -lMainWidgets -lPluginManager -lBCBase -lMainWindow -lsqlite3_x64
 
   Debug:CONFIG	    	+=  console
   Debug:DESTDIR         = ../../output/bin_d/plugins
@@ -37,7 +38,7 @@ LIBS += -lSelfDefObject -lquazipd -lModelData -lModuleBase -lDataProperty -lIO -
   Debug:OBJECTS_DIR     = ./debug/obj
 
   Release:CONFIG	    	+=  console
-  Release:DESTDIR         = ../../output/bin_d/plugins
+  Release:DESTDIR         = ../../output/bin/plugins
   Release:MOC_DIR         = ./debug/moc
   Release:RCC_DIR         = ./debug/rcc
   Release:UI_DIR          = ./debug/qui
