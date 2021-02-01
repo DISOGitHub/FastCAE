@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MeshCheckingDialog</class>
+ <widget class="QDialog" name="MeshCheckingDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>593</width>
+    <height>645</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mesh Quality</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Method：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Area</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect Beta</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect Frobenius</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect Gamma</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect Ratio</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Collapse Ratio</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Condition</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Diagonal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Dimension</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Distortion</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Edge Ratio</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Jacobin</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Max Angle</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Max Aspect Frobenius</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Max Edge Ratio</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Mad Aspect Frobenius</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Min angle</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Normal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Oddy</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Radius Ratio</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Relative Size Squared</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Scalaed Jacobin</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Shape</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Shape and size</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Shear</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Shear and size</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Skew</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Strech</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Taper</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Volume</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Warpage</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>waitting</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="2" column="0">
+          <widget class="QLabel" name="statusLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 87 20pt &quot;Arial Black&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Checking...</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="gifLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Basic</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Input</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="inputTab">
+            <column>
+             <property name="text">
+              <string>Type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Count</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Checked</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="0" column="0">
+           <widget class="QTableWidget" name="checkedTab">
+            <column>
+             <property name="text">
+              <string>Type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Count</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Show out of range elements while close</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="minlabel">
+           <property name="text">
+            <string>Min</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="minBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
+           <property name="minimum">
+            <double>-1000000000000000000000.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>1000000000000000044885712678075916785549312.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="maxlabel">
+           <property name="text">
+            <string>Max:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="maxBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="decimals">
+            <number>6</number>
+           </property>
+           <property name="minimum">
+            <double>-1000000000000000000000.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>1000000000000000044885712678075916785549312.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="checkButton">
+       <property name="text">
+        <string>Check</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

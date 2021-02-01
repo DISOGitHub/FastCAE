@@ -34,7 +34,7 @@ echo (There are VC, common7 and other folders in this directory)
 echo.
 set /p VSDir=Waitting for input: 
 echo.
-echo Please input Version of Windows SDK, For example: 10.0.17763
+echo Please input Version of Windows SDK, For example: 10.0.17763.0
 echo.
 set /p WSDK=Waitting for input: 
 echo.
