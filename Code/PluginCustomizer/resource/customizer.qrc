@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>translation/transtrations_zh_CN.qm</file>
-        <file>delete.png</file>
-        <file>editor.png</file>
-    </qresource>
-</RCC>
