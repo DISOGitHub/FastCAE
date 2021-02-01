@@ -6,8 +6,19 @@ mkdir -p ../output/bin/gmsh
 cp -a ../output/python37/lib/libpython3.7m.so.1.0  		../output/bin/
 
 #cgns
-cp -a ../cgns/cgns_linux/libcgns.so        ../output/bin/        
-#cp -a ../cgns/cgns_linux/libcgns.a        ../output/bin/
+cp -a ../cgns/cgns_linux/libcgns.so        		../output/bin/        
+#cp -a ../cgns/cgns_linux/libcgns.a        		../output/bin/
+cp -a ../cgns/cgns_linux/libcgns.so.4.2        		../output/bin/ 
+cp -a ../cgns/cgns_linux/libhdf5.so.200			../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_cpp.so.200		../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_hl.so.200		../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_hl_cpp.so.200		../output/bin/	
+cp -a ../cgns/cgns_linux/libhdf5_tools.so.200		../output/bin/	
+cp -a ../cgns/cgns_linux/libhdf5.so.200.0.0		../output/bin/	
+cp -a ../cgns/cgns_linux/libhdf5_cpp.so.200.0.0		../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_hl.so.200.0.0		../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_hl_cpp.so.200.0.0	../output/bin/
+cp -a ../cgns/cgns_linux/libhdf5_tools.so.200.0.0	../output/bin/	
 
 #quazip
 cp -a ../quazip/lib/libquazip.so.1       	../output/bin/

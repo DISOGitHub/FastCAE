@@ -28,5 +28,10 @@ INCLUDEPATH	+=  ../../cgns/cgns_linux/  \
 
 LIBS +=  -L../../cgns/cgns_linux/ \
 -lcgns   \  
+-lhdf5	\
+-lhdf5_cpp	\
+-lhdf5_hl	\
+-lhdf5_hl_cpp	\
+-lhdf5_tools	\
 
 }
