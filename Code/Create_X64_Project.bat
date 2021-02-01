@@ -66,34 +66,16 @@ qmake CONFIG+=X64 -tp vc moduleBase.pro
   
 cd ..\ParaClassFactory 
 qmake CONFIG+=X64 -tp vc ParaClassFactory.pro 
-  
-cd ..\Plugin2DMeshTools 
-qmake CONFIG+=X64 -tp vc 2DMeshTools.pro 
-  
-cd ..\PluginComplex 
-qmake CONFIG+=X64 -tp vc ComplexPlugin.pro 
-  
+
 cd ..\PluginCustomizer 
 qmake CONFIG+=X64 -tp vc pluginCustomizer.pro 
-  
-cd ..\PluginHull 
-qmake CONFIG+=X64 -tp vc HullCutPlugin.pro 
-  
-cd ..\PluginMachinery 
-qmake CONFIG+=X64 -tp vc MachineryPlugin.pro 
-  
+
 cd ..\PluginManager 
 qmake CONFIG+=X64 -tp vc PluginManager.pro 
   
 cd ..\PluginMeshDataExchange 
 qmake CONFIG+=X64 -tp vc meshDataExchangePlugin.pro 
-  
-cd ..\PluginModel 
-qmake CONFIG+=X64 -tp vc pluginModel.pro 
-  
-cd ..\PluginThermalFluid 
-qmake CONFIG+=X64 -tp vc ThermalFluid.pro 
-  
+
 cd ..\PostWidgets 
 qmake CONFIG+=X64 -tp vc PostWidgets.pro 
   
